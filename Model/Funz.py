@@ -56,7 +56,7 @@ def F_DieOff_PHS_HS(Time,Time_Agg,Break_Point ,Dieoff1, Dieoff2 ):
 
 
 def F_Simple_DieOff (Time): 
-    Reduction = (Time/2.45/24)**0.3
+    Reduction = -((Time/2.45/24)**0.3)
     return Reduction
 
 #%% Growth  or Reduction Models
@@ -132,13 +132,14 @@ def F_Sampling(df,Test_Unit, NSamp_Unit, Samp_Size, Clust_Weight, Limit, NoGrab 
                     Detected_YN = 1
                 elif sum(Detected) ==0:
                     Detected_YN =0
-        Reject_Lis.append(Detected_YN)
-        print(Reject_Lis)
+            Reject_Lis.append(Detected_YN)
+            print("Hey",Reject_Lis)
         a=sum(Reject_Lis)
         if a > Limit:
             AR= False
         else:
             AR= True
+        print("Yo",AR)
         Results.append(AR)
         print("Results",Results)
     data1 =  {Test_Unit: Unique_TestUnit,

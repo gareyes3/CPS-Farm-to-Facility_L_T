@@ -10,7 +10,9 @@ Created on Fri May 28 09:42:31 2021
 import sys
 sys.path
 sys.path.append('C:\\Users\Gustavo Reyes\Box\CPS Project- Farm to Facility\Python Model Files')
+sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
 #sys.path.append("C:\\Users\\reyes\\Box Sync\\CPS Project- Farm to Facility\\Python Model Files")
+
 ########################################Paths#################################################
 #os.chdir('C:\\Users\Gustavo Reyes\Box\CPS Project- Farm to Facility\Python Model Files')
 #os.chdir("C:\\Users\\reyes\\Box Sync\\CPS Project- Farm to Facility\\Python Model Files")
@@ -55,9 +57,15 @@ Harvester_C = 0
 
 #Sampling Options
 
-PHS_4d= 0
-PHS_4h = 0
-PHS_Int = 1
+#Pre-Harvest
+PHS_4d= 1 #Scenario 1
+PHS_4h = 0#Scenario 2
+PHS_Int = 0 #Scenario 3
+
+#Harvest: 
+HS_Trad = 0 
+HS_Agg = 0 
+
 
 
 #%%
@@ -109,8 +117,6 @@ LCont_PercRej_FP=[]
 
 #%%
 
-
-
 for i in range(100):
        
                                                                     #Inputs for the Model, Initial Inputs
@@ -160,8 +166,8 @@ for i in range(100):
     
     # 0 Die-off
     Break_Point=Funz.Func_NormalTrunc(0.11,3.71,0.68,0.98) #Breaking point for Die Off
-    Dieoff1 = 0.2 #Funz.F_DieOff1()
-    Dieoff2 = 0.2 #Funz.F_DieOff2()
+    Dieoff1 = -0.5 #Funz.F_DieOff1()
+    Dieoff2 = -0.5 #Funz.F_DieOff2()
     Time_Agg = 0
     
     
@@ -263,16 +269,12 @@ for i in range(100):
         x_random_consecutive_rows = list(x_random_consecutive_rows['ClusterID'])
         df.loc[ x_random_consecutive_rows,'CFU']= df['CFU'] + Ci
 
-         
-    
-
-        
                                                                       #Step 1: PREHARVEST
     #Die-off From Contamination Event to Pre-Havrvest
    
     Die_Off_CE_PHS =Funz.F_Simple_DieOff(Time_CE_PHS) #Funz.F_DieOff_IR_PH(Time_CE_PHS,Break_Point, Dieoff1, Dieoff2) #Die off rate from Irrigation to pre harvest sampling
     print(Die_Off_CE_PHS)
-    df["CFU"] =  df["CFU"]*(10**-Die_Off_CE_PHS)
+    df["CFU"] =  df["CFU"]*(10**Die_Off_CE_PHS)
     Time_Agg = Time_Agg + Time_CE_PHS #Cummulative time so far in the process.
         
     
@@ -297,7 +299,10 @@ for i in range(100):
     LBPH_Total_CFU.append(BPH_Tot_CFU) #List of contamination before sampling
     
     #Filtering out the Rejected lots, Pre-Harvest
-    df = df[~df['Sublot'].isin(Rej_Lots_PH)]
+    if PHS_Int ==1:
+        df = df[~df['Lot'].isin(Rej_Lots_PH)]   
+    else: 
+        df = df[~df['Sublot'].isin(Rej_Lots_PH)]
                        
     
     #Summary of Pre-Harvest Sampling
@@ -326,7 +331,7 @@ for i in range(100):
     Die_off_B = Funz.F_Simple_DieOff(Time_Agg)
     Die_Off_PHS_HS= Die_off_B-Die_Off_CE_PHS#Funz.F_DieOff_PHS_HS(Time_PHS_H, Time_Agg, Break_Point, Dieoff1, Dieoff2)
     print(Die_Off_PHS_HS)
-    df['CFU'] = df['CFU']*(10**-Die_Off_PHS_HS) #Updating Contmination to Show Total DieOff
+    df['CFU'] = df['CFU']*(10**Die_Off_PHS_HS) #Updating Contmination to Show Total DieOff
     
     
     #Adding Contamination depending on challenge Systematic Sampling
@@ -363,11 +368,18 @@ for i in range(100):
     
     #Harvest Sampling
     if H_Sampling == 1:
-        Rej_Lots_H = Funz.F_Sampling(df =df,Test_Unit ="Sublot", 
-                                       NSamp_Unit = n_samples_slot_H, 
-                                       Samp_Size =sample_size_H, 
-                                       Clust_Weight =Cluster_Unit_weight, 
-                                       Limit =0, NoGrab =60 )
+        if HS_Trad==1:
+            Rej_Lots_H = Funz.F_Sampling(df =df,Test_Unit ="Sublot", 
+                                           NSamp_Unit = n_samples_slot_H, 
+                                           Samp_Size =sample_size_H, 
+                                           Clust_Weight =Cluster_Unit_weight, 
+                                           Limit =0, NoGrab =60 )
+        elif HS_Agg==1:
+            Rej_Lots_H = Funz.F_Sampling(df =df,Test_Unit ="Sublot", 
+                                           NSamp_Unit = 5, 
+                                           Samp_Size =sample_size_H, 
+                                           Clust_Weight =Cluster_Unit_weight, 
+                                           Limit =0, NoGrab =60 )
     else:
         Rej_Lots_H=[]
         
