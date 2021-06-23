@@ -186,8 +186,15 @@ def F_Partitioning(DF,NPartitions):
     newdf = newdf.reset_index(drop=True)  
     newdf.Weight=newdf.Weight/NPartitions
     newdf.CFU = b_flat
-    newdf = newdf[['PalletNo','PackNo','CFU','Weight', 'Lot']]
+    newdf["Sublot"] = 1
+    newdf = newdf[['PalletNo','PackNo','CFU','Weight', 'Sublot','Lot']]
     return newdf
+
+def F_Lots_FP(df, Nolots):
+    l = len(df.index) // Nolots 
+    df.loc[:l - 1, "Sublot"] = Nolots-1
+    df.loc[l:, "Sublot"] = Nolots
+    return df
 
 def F_Mixing(DF):
     CFU_Summation = sum(DF.CFU)
@@ -203,10 +210,39 @@ def F_Mixing(DF):
     df1 = pd.DataFrame(data1)  
     return df1
 
+x=1000
+y=10
+divmod(x,y)
+
+def parts(a, b):
+    q, r = divmod(a, b)
+    return [q + 1] * r + [q] * (b - r)
 
 
+def F_Partitioning2(DF, Partition_Weight):
+    LWeights = []
+    LXX_2 = []
+    for i,row in DF.iterrows():
+        Weight= int(DF.at[i,'Weight'])
+        xx_2=int(Weight//Partition_Weight)
+        LXX_2.append(xx_2)
+        Weight2 = parts(Weight,xx_2)
+        LWeights.append(Weight2)  
+    LWeightsFlat = [item for sublist in  LWeights for item in sublist]
+    newDF= DF.loc[DF.index.repeat(LXX_2)]
+    newDF["Weight"] = LWeightsFlat
+    AllParts_Cont = []
+    b_flat=[]
+    DF['Parts'] =LXX_2
+    for i, row in DF.iterrows():
+            Cont = DF.at[i,'CFU']
+            Parts = int(DF.at[i,'Parts'])
+            PartCont=np.random.multinomial(Cont,[1/Parts]*Parts, size =1)
+            PartCont = PartCont[0]
+            AllParts_Cont.append(PartCont)
+    b_flat = [j for i in AllParts_Cont for j in i]
+    newDF.CFU = b_flat
+    return newDF
 
-
-
-
+df5 = F_Partitioning2(DF=df2,Partition_Weight =10)
 

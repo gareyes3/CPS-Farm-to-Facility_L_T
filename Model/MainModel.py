@@ -34,7 +34,7 @@ import Funz
                                                                 #Scenarios and Conditions
 #Sampling Conditions, Baseline all conditions are off
 Baseline_Sampling= 0#all others must be 0
-PH_Sampling = 1
+PH_Sampling = 0
 H_Sampling = 0
 R_Sampling = 0
 FP_Sampling =0
@@ -66,6 +66,9 @@ PHS_Int = 0 #Scenario 3
 HS_Trad = 0 
 HS_Agg = 0 
 
+#Final Product Sampling
+FPS_Trad =0
+FPS_Agg = 0 
 
 
 #%%
@@ -225,7 +228,8 @@ for i in range(100):
     
         
     # 7 Final Product
-    Boxes_Pallet = 40 #packages per pallet
+    Partition_Weight = 10
+    N_Lots_FP = 2
     sample_size_FP = 300 #g #Sample Size in grams
     n_samples_FP = 1
     
@@ -376,7 +380,7 @@ for i in range(100):
                                            Limit =0, NoGrab =60 )
         elif HS_Agg==1:
             Rej_Lots_H = Funz.F_Sampling(df =df,Test_Unit ="Sublot", 
-                                           NSamp_Unit = 5, 
+                                           NSamp_Unit = 10, 
                                            Samp_Size =sample_size_H, 
                                            Clust_Weight =Cluster_Unit_weight, 
                                            Limit =0, NoGrab =60 )
@@ -495,10 +499,12 @@ for i in range(100):
                                                
                                                           #STEP 6: Finished Product Mixing and Sampling
     #Mixing products into one batch
-    Partition_Weight = 10
-    N_Partitions = int(Pallet_Weight/Partition_Weight)
-    df2 = Funz.F_Partitioning(DF=df2, NPartitions= N_Partitions)
     
+    N_Partitions = int(Pallet_Weight/Partition_Weight)
+    
+    df2 = Funz.F_Partitioning(DF=df2, NPartitions= N_Partitions)
+    if N_Lots_FP==2:
+        df2 =Funz.F_Lots_FP(df=df2, Nolots = 2)
     
     
     
@@ -508,8 +514,14 @@ for i in range(100):
     
     #Sampling Step
     if FP_Sampling == 1:
-        Rej_Lots_FP=Funz.F_SamplingFProd(df=df2, Test_Unit = 'PackNo', N_SampPacks = 60, Grab_Weight = 5 )
-        print( Rej_Lots_FP)
+        if FPS_Trad ==1:
+            Rej_Lots_FP=Funz.F_SamplingFProd(df=df2, Test_Unit = 'PackNo', N_SampPacks = 60, Grab_Weight = 5 )
+        elif FPS_Agg ==1:
+            Rej_Lots_H = Funz.F_Sampling(df =df,Test_Unit ="Sublot", 
+                                           NSamp_Unit = 10, 
+                                           Samp_Size =sample_size_FP, 
+                                           Clust_Weight =Partition_Weight, 
+                                           Limit =0, NoGrab =60 )
     else :
         Rej_Lots_FP = []
     
