@@ -244,5 +244,4 @@ def F_Partitioning2(DF, Partition_Weight):
     newDF.CFU = b_flat
     return newDF
 
-df5 = F_Partitioning2(DF=df2,Partition_Weight =10)
 

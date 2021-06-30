@@ -9,8 +9,8 @@ Created on Fri May 28 09:42:31 2021
 
 import sys
 sys.path
-sys.path.append('C:\\Users\Gustavo Reyes\Box\CPS Project- Farm to Facility\Python Model Files')
-sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
+#sys.path.append('C:\\Users\Gustavo Reyes\Box\CPS Project- Farm to Facility\Python Model Files')
+sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
 #sys.path.append("C:\\Users\\reyes\\Box Sync\\CPS Project- Farm to Facility\\Python Model Files")
 
 ########################################Paths#################################################
@@ -33,11 +33,13 @@ import Funz
 #%%
                                                                 #Scenarios and Conditions
 #Sampling Conditions, Baseline all conditions are off
-Baseline_Sampling= 0#all others must be 0
+Baseline_Sampling= 0 #all others must be 0if this one is 1
 PH_Sampling = 0
 H_Sampling = 0
 R_Sampling = 0
-FP_Sampling =0
+FP_Sampling =1
+
+#Additional Sampling Conditions. Env and 
 Water_SamplingProc = 0
 Env_SamplingProc =0
 Env_SamplingCust = 0
@@ -53,22 +55,28 @@ Systematic_C=1
 Crew_C = 0
 Harvester_C = 0 
 
+#Processing equipment
+PE_C = 0
+
 
 
 #Sampling Options
 
 #Pre-Harvest
-PHS_4d= 1 #Scenario 1
+    #Pre-Harvest sampling must be on
+PHS_4d= 0 #Scenario 1
 PHS_4h = 0#Scenario 2
 PHS_Int = 0 #Scenario 3
 
 #Harvest: 
-HS_Trad = 0 
-HS_Agg = 0 
+    #HArvest Sampling must be one
+HS_Trad = 0
+HS_Agg = 0
 
 #Final Product Sampling
+    #Final Product sampling must be on.
 FPS_Trad =0
-FPS_Agg = 0 
+FPS_Agg = 1 
 
 
 #%%
@@ -179,12 +187,12 @@ for i in range(100):
     sample_size_PH = 300 #g #Sample Size in grams
     n_samples_slot_PH = 1 # Samples per sublot of product
     if PHS_Int ==1:
-        n_samples_lot_PH = 25 #Samples per lot of product
+        n_samples_lot_PH = 15 #Samples per lot of product
     
     # 2 Harvest Inputs
         #Options for the Sampling Scenarios 1,2,3
     if PHS_Int == 1:
-        Time_PHS_H = 4 #Days #time from pre harvest sampling to harvest Sampling
+        Time_PHS_H = 0 #Days #time from pre harvest sampling to harvest Sampling
     elif PHS_4h ==1:
         Time_PHS_H: 0.166
     elif PHS_4d ==1:
@@ -209,6 +217,7 @@ for i in range(100):
     # 4 Processing -Cross Contamination Inputs
     # A Pre-Cooling
     Time_R_PC = 0.1 #Days
+    Processing_Lines = 4
     
     # B Cold Storage
     Time_ColdStorage = 1 #Days
@@ -340,6 +349,7 @@ for i in range(100):
     
     #Adding Contamination depending on challenge Systematic Sampling
     if Crew_C == 1:
+        No_Cont_ClustersUnits = len(df.index)
         Hazard_lvl_C= Hazard_lvl/(No_Cont_ClustersUnits*No_Cont_Clusters)
         Ci = Hazard_lvl_C
         x_2 =[]
@@ -355,6 +365,7 @@ for i in range(100):
         df.loc[ x_2,'CFU']= df['CFU'] + Ci
 
     if Harvester_C == 1:
+        No_Cont_ClustersUnits = len(df.index)
         Hazard_lvl_C= Hazard_lvl/(No_Cont_ClustersUnits*No_Cont_Clusters)
         Ci = Hazard_lvl_C
         x_2 =[]
@@ -480,6 +491,12 @@ for i in range(100):
     
     df2=df.groupby(['PalletNo'], as_index =False)[["CFU", "Weight"]].sum()
     
+    #Splitting Pallets into processing lines. 
+    N_Pallets = len(df2.index)
+    num, div = N_Pallets, Processing_Lines #Getting list of pallets per line
+    N_Divs =  ([num // div + (1 if x < num % div else 0)  for x in range (div)])
+    
+    
     #Value Addition Steps
     #Cross-Contamination Processing by batch, Assuming Every Pallet is a 1000k lb bath
     for i, row in df2.iterrows():
@@ -516,8 +533,9 @@ for i in range(100):
     if FP_Sampling == 1:
         if FPS_Trad ==1:
             Rej_Lots_FP=Funz.F_SamplingFProd(df=df2, Test_Unit = 'PackNo', N_SampPacks = 60, Grab_Weight = 5 )
+            print(Rej_Lots_FP)
         elif FPS_Agg ==1:
-            Rej_Lots_H = Funz.F_Sampling(df =df,Test_Unit ="Sublot", 
+            Rej_Lots_H = Funz.F_Sampling(df =df2,Test_Unit ="Sublot", 
                                            NSamp_Unit = 10, 
                                            Samp_Size =sample_size_FP, 
                                            Clust_Weight =Partition_Weight, 
@@ -527,7 +545,10 @@ for i in range(100):
     
 
     #Filtering out the Rejected lots, Pre-Harvest
-    df = df[~df['Lot'].isin(Rej_Lots_H)]
+    if FP_Sampling == 1:
+        df2 = df2[~df2['Lot'].isin(Rej_Lots_H)]
+    elif FPS_Agg ==1:
+        df2 = df2[~df2['Sublot'].isin(Rej_Lots_H)]
     
     Total_Accepted_FP = sum(df2.Weight) #Total Product Accepted
     Total_Rejected_FP = Field_Weight-Total_Accepted_FP #Total Product Rejected
@@ -610,11 +631,13 @@ if FP_Sampling==1:
     
     Out_FPSampProd = Total_PA_FP
 
-
+ 
 
 
 #Sampling Scenarios
+                                                                        #Pre-Harvest
 
+#Pre-Harvest 4 days
 if (PH_Sampling ==1) and (PHS_4d==1):
         #Sampling only in Pre-Harvers
     Out_PH4dSamp = Total_CA_FP
@@ -623,6 +646,7 @@ if (PH_Sampling ==1) and (PHS_4d==1):
     Out_PH4dSamp_PercRej = LCont_PercRej_PH #Percentage of CFU Rejected from total
     Out_PH4dSampProd = Total_PA_FP
 
+#Pre-Harvest 4 hrous
 if (PH_Sampling ==1) and (PHS_4h==1):
         #Sampling only in Pre-Harvers
     Out_PH4hSamp = Total_CA_FP
@@ -631,6 +655,7 @@ if (PH_Sampling ==1) and (PHS_4h==1):
     Out_PH4hSamp_PercRej = LCont_PercRej_PH #Percentage of CFU Rejected from total
     Out_PH4hSampProd = Total_PA_FP
 
+#Pre Harvest Intense Sampling
 if (PH_Sampling ==1) and (PHS_Int ==1):
         #Sampling only in Pre-Harvers
     Out_PHINSamp = Total_CA_FP
@@ -639,21 +664,83 @@ if (PH_Sampling ==1) and (PHS_Int ==1):
     Out_PHINSamp_PercRej = LCont_PercRej_PH #Percentage of CFU Rejected from total
     Out_PHINSampProd = Total_PA_FP
 
+                                                                            #Harvest
+
+if (H_Sampling ==1) and (HS_Trad==1):
+        #Sampling only in Pre-Harvers
+    Out_HTrSamp = Total_CA_FP
+    Out_HTrSampCR = Total_CR_FP #Totqal CFU Rejected
+    Out_HTrSampCont =  LTotal_CFU_g_FP
+    Out_HTrSamp_PercRej = LCont_PercRej_PH #Percentage of CFU Rejected from total
+    Out_HTrSampProd = Total_PA_FP
+    
+if (H_Sampling ==1) and (HS_Agg==1):
+        #Sampling only in Pre-Harvers
+    Out_HAggSamp = Total_CA_FP
+    Out_HAggSampCR = Total_CR_FP #Totqal CFU Rejected
+    Out_HAggSampCont =  LTotal_CFU_g_FP
+    Out_HAggSamp_PercRej = LCont_PercRej_PH #Percentage of CFU Rejected from total
+    Out_HAggSampProd = Total_PA_FP
+
+                                                                            #Finished Product
+
+if (FP_Sampling ==1) and (FPS_Trad==1):
+        #Sampling only in Pre-Harvers
+    Out_FPTrSamp = Total_CA_FP
+    Out_FPTrSampCR = Total_CR_FP #Totqal CFU Rejected
+    Out_FPTrSampCont =  LTotal_CFU_g_FP
+    Out_FPTrSamp_PercRej = LCont_PercRej_PH #Percentage of CFU Rejected from total
+    Out_FPTrSampProd = Total_PA_FP
+    
+if (FP_Sampling ==1) and (FPS_Agg==1):
+        #Sampling only in Pre-Harvers
+    Out_FPAggSamp = Total_CA_FP
+    Out_FPAggSampCR = Total_CR_FP #Totqal CFU Rejected
+    Out_FPAggSampCont =  LTotal_CFU_g_FP
+    Out_FPAggSamp_PercRej = LCont_PercRej_PH #Percentage of CFU Rejected from total
+    Out_FPAggSampProd = Total_PA_FP
+
 #%% 
+Samplingtypes = ['Baseline', 'PH4d','PH4h','PHIntense','HTrad','HAgg',"Receiving",'FPTrad',"FPAgg"]
+MatchingAreas = ["Baseline","PreHarvest","PreHarvest","PreHarvest","Harvest", "Harvest","Receiving", 'FinalProduct', 'FinalProduct']
+
+DataNames = {"variable" :Samplingtypes,
+             "Areas" : MatchingAreas,
+    }
+
+DfDataNames = pd.DataFrame(DataNames)
+
+
 #Boxplot Contamination Accepted CFU
-datasampling = {'4d': Out_PH4dSamp,
-        '4h': Out_PH4hSamp, 
-          'Intense':Out_PHINSamp,
+datasampling = {'Baseline':  Out_NoSampCA,
+                'PH4d': Out_PH4dSamp,
+                'PH4h': Out_PH4hSamp, 
+                'PHIntense':Out_PHINSamp,
+                'HTrad':Out_HTrSamp,
+                'HAgg':Out_HAggSamp,
+                "Receiving":Out_RSamp,
+                'FPTrad': Out_FPTrSamp,
+                "FPAgg": Out_FPAggSamp
           }
 dfTotCont = pd.DataFrame(datasampling)
 
-dfTotCont.boxplot()
-plt.xlabel("PH Sampling Type")
+data8 = data=pd.melt(dfTotCont)
+data8 =data8.merge(DfDataNames, how = 'right')
+sns.boxplot(x= 'variable' , y="value", data=data8 , hue = "Areas", dodge =False)
+
+sns.set(rc={'figure.figsize':(10,8.27)})
+#dfTotCont.boxplot()
+plt.xlabel("Sampling Strategy")
 plt.ylabel("Final Total Contamination Accepted CFU")
 
 
 
 
+
+df10 = pd.DataFrame({'Group':['A','A','A','B','C','B','B','C','A','C'],\
+                  'Apple':np.random.rand(10),'Orange':np.random.rand(10)})
+df10 = df[['Group','Apple','Orange']]
+df11=pd.melt(df10,id_vars=['Group'],value_vars=['Apple','Orange'],var_name='fruits', dodge =False)
 
 
 
