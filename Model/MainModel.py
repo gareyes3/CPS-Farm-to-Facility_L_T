@@ -9,9 +9,9 @@ Created on Fri May 28 09:42:31 2021
 
 import sys
 sys.path
-#sys.path.append('C:\\Users\Gustavo Reyes\Box\CPS Project- Farm to Facility\Python Model Files')
-sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
-#sys.path.append("C:\\Users\\reyes\\Box Sync\\CPS Project- Farm to Facility\\Python Model Files")
+#sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
+sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
+
 
 ########################################Paths#################################################
 #os.chdir('C:\\Users\Gustavo Reyes\Box\CPS Project- Farm to Facility\Python Model Files')
@@ -22,6 +22,7 @@ sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facil
 #Libraries, Modules
 import pandas as pd 
 import numpy as np
+import itertools
 import scipy.stats as stats
 import math
 import os
@@ -29,6 +30,7 @@ import random
 import seaborn as sns
 from matplotlib import pyplot as plt
 import Funz
+import ContScen
 #from itertools import cycle
 #%%
                                                                 #Scenarios and Conditions
@@ -136,11 +138,11 @@ for i in range(100):
     
     Field_Weight= 100000 #total lb in field
     slot_weight = 10000
-    Cluster_Weight = 1000
+    Partition_Weight = 1000
     
     slot_number = int(Field_Weight/slot_weight)
-    Cluster_Units = int(Field_Weight/Cluster_Weight)
-    Cluster_Unit_weight = Field_Weight/Cluster_Units
+    Partition_Units = int(Field_Weight/Partition_Weight)
+    Cluster_Unit_weight = Field_Weight/Partition_Units
     
     #Challenge Related Information
     if Background_C ==1:
@@ -153,27 +155,33 @@ for i in range(100):
         Hazard_lvl = 50000  #CFU # background contamination
         Cluster_Size = 1000 #lb
         No_Cont_Clusters = 4
-        No_Cont_ClustersUnits = int(Cluster_Size/Cluster_Weight) #Cluster Units per Contaminatrion Cluster
+
     
         
     if Systematic_C ==1: 
         Hazard_lvl = 50000  #CFU # background contamination
         Cluster_Size = 10000 #lb
         No_Cont_Clusters = 1
-        No_Cont_ClustersUnits = int(Cluster_Size/Cluster_Weight)
+
      
 
     if Crew_C == 1: 
         Hazard_lvl = 50000  #CFU # background contamination
         Cluster_Size = 5000 #lb
         No_Cont_Clusters = 4
-        No_Cont_ClustersUnits = int(Cluster_Size/Cluster_Weight) #Cluster Units per Contaminatrion Cluster
+        No_Cont_PartitionUnits = int(Cluster_Size/Partition_Weight) #Cluster Units per Contaminatrion Cluster
     
     if Harvester_C==1:
         Hazard_lvl = 50000  #CFU # background contamination
         Cluster_Size = 50000 #lb
         No_Cont_Clusters = 1
-        No_Cont_ClustersUnits = int(Cluster_Size/Cluster_Weight) #Cluster Units per Contaminatrion Cluster
+        No_Cont_PartitionUnits = int(Cluster_Size/Partition_Weight) #Cluster Units per Contaminatrion Cluster
+        
+    if PE_C == 1:
+        Hazard_lvl = 50000  #CFU # background contamination
+        Lines_Cont = 1
+        
+        
     
     # 0 Die-off
     Break_Point=Funz.Func_NormalTrunc(0.11,3.71,0.68,0.98) #Breaking point for Die Off
@@ -194,8 +202,10 @@ for i in range(100):
     if PHS_Int == 1:
         Time_PHS_H = 0 #Days #time from pre harvest sampling to harvest Sampling
     elif PHS_4h ==1:
-        Time_PHS_H: 0.166
+        Time_PHS_H = 0.166
     elif PHS_4d ==1:
+        Time_PHS_H = 4
+    else:
         Time_PHS_H = 4
     
     #Time between Contamination Event and HArvest Sampling
@@ -248,39 +258,37 @@ for i in range(100):
     #Creation of the Data Frame to Track: 
     data = {'Lot': 1,
             'Sublot':0,
-            'ClusterID': list(range(1,Cluster_Units+1)),
+            'PartitionID': list(range(1,Partition_Units+1)),
             'CFU':0,
             'Accept': True,
-            'Weight': Field_Weight/Cluster_Units}
+            'Weight': Field_Weight/Partition_Units}
     
     Sublot_Pattern = [i for i in range(1, slot_number+1) for _ in range(int(slot_number))]
     
     df = pd.DataFrame(data)
     df.Sublot = Sublot_Pattern
-    df.index = range(1,Cluster_Units+1)
+    df.index = range(1,Partition_Units+1)
     
     #Adding Contamination depending on challenge Background
     if Background_C == 1:
-        Ci= Hazard_lvl/Cluster_Units
-        df.CFU =Ci
+        df = ContScen.F_Background_C(df=df, Hazard_lvl = Hazard_lvl, 
+                                     Partition_Units= Partition_Units)
         
     #Adding Contamination depending on challenge Point_Source
     if Point_Source_C == 1:
-        Hazard_lvl_C= Hazard_lvl/No_Cont_Clusters
-        Ci = Hazard_lvl_C
-        X_1= df.sample(No_Cont_Clusters)
-        X_1 = list(X_1.ClusterID)
-        df.loc[X_1,'CFU']= df['CFU'] + Ci
+        df=ContScen.F_Point_Source_C(df=df, Hazard_lvl=Hazard_lvl,
+                                     No_Cont_Clusters =No_Cont_Clusters, 
+                                     Cluster_Size = Cluster_Size, 
+                                     Partition_Weight = Partition_Weight)
 
         
     #Adding Contamination depending on challenge Systematic Sampling
     if Systematic_C == 1:
-        Hazard_lvl_C= Hazard_lvl/(No_Cont_ClustersUnits*No_Cont_Clusters)
-        Ci = Hazard_lvl_C
-        n = random.randint(0,len(df.index)- No_Cont_ClustersUnits)
-        x_random_consecutive_rows = df[n:n + No_Cont_ClustersUnits]
-        x_random_consecutive_rows = list(x_random_consecutive_rows['ClusterID'])
-        df.loc[ x_random_consecutive_rows,'CFU']= df['CFU'] + Ci
+        df = ContScen.F_systematic_C(df=df, Hazard_lvl= Hazard_lvl,
+                                     No_Cont_PartitionUnits = No_Cont_PartitionUnits, 
+                                     No_Cont_Clusters = No_Cont_Clusters,
+                                     Cluster_Size= Cluster_Size,
+                                     Partition_Weight = Partition_Weight)
 
                                                                       #Step 1: PREHARVEST
     #Die-off From Contamination Event to Pre-Havrvest
@@ -349,34 +357,34 @@ for i in range(100):
     
     #Adding Contamination depending on challenge Systematic Sampling
     if Crew_C == 1:
-        No_Cont_ClustersUnits = len(df.index)
-        Hazard_lvl_C= Hazard_lvl/(No_Cont_ClustersUnits*No_Cont_Clusters)
+        No_Cont_PartitionUnits = len(df.index)
+        Hazard_lvl_C= Hazard_lvl/(No_Cont_PartitionUnits*No_Cont_Clusters)
         Ci = Hazard_lvl_C
         x_2 =[]
-        ClusterIDs = list(df['ClusterID'])
+        PartitionIDs = list(df['PartitionID'])
         for i in range(No_Cont_Clusters):
-            TrimClusterIDS = ClusterIDs[:len(ClusterIDs)-No_Cont_ClustersUnits]
-            n = random.sample(TrimClusterIDS,1)
+            TrimPartitionIDS = PartitionIDs[:len(PartitionIDs)-No_Cont_PartitionUnits]
+            n = random.sample(TrimPartitionIDS,1)
             n  = n[0]
-            x_random_consecutive_rows = ClusterIDs[n:n + No_Cont_ClustersUnits]
+            x_random_consecutive_rows = PartitionIDs[n:n + No_Cont_PartitionUnits]
             x_2.append(x_random_consecutive_rows)
-            ClusterIDs = [x for x in ClusterIDs if x not in x_random_consecutive_rows]
+            PartitionIDs = [x for x in PartitionIDs if x not in x_random_consecutive_rows]
         x_2 =[j for i in x_2 for j in i]
         df.loc[ x_2,'CFU']= df['CFU'] + Ci
 
     if Harvester_C == 1:
-        No_Cont_ClustersUnits = len(df.index)
-        Hazard_lvl_C= Hazard_lvl/(No_Cont_ClustersUnits*No_Cont_Clusters)
+        No_Cont_PartitionUnits = len(df.index)
+        Hazard_lvl_C= Hazard_lvl/(No_Cont_PartitionUnits*No_Cont_Clusters)
         Ci = Hazard_lvl_C
         x_2 =[]
-        ClusterIDs = list(df['ClusterID'])
+        PartitionIDs = list(df['PartitionID'])
         for i in range(No_Cont_Clusters):
-            TrimClusterIDS = ClusterIDs[:len(ClusterIDs)-No_Cont_ClustersUnits]
-            n = random.sample(TrimClusterIDS,1)
+            TrimPartitionIDS = PartitionIDs[:len(PartitionIDs)-No_Cont_PartitionUnits]
+            n = random.sample(TrimPartitionIDS,1)
             n  = n[0]
-            x_random_consecutive_rows = ClusterIDs[n:n + No_Cont_ClustersUnits]
+            x_random_consecutive_rows = PartitionIDs[n:n + No_Cont_PartitionUnits]
             x_2.append(x_random_consecutive_rows)
-            ClusterIDs = [x for x in ClusterIDs if x not in x_random_consecutive_rows]
+            PartitionIDs = [x for x in PartitionIDs if x not in x_random_consecutive_rows]
         x_2 =[j for i in x_2 for j in i]
         df.loc[ x_2,'CFU']= df['CFU'] + Ci
     
@@ -426,13 +434,13 @@ for i in range(100):
                                                                #STEP 3: RECEIVING
     #Paletization
     
-    Cluster_Pallet =  int(Pallet_Weight/Cluster_Weight)
+    Cluster_Pallet =  int(Pallet_Weight/Partition_Weight)
     Pallet_Field = int(Field_Weight/Pallet_Weight)
     Pallet_Pattern = [i for i in range(1, Pallet_Field+1) for _ in range(int(Cluster_Pallet))]
     Crop_No = len(df.index)
     Pallet_Pattern=Pallet_Pattern[:Crop_No]
     df['PalletNo'] = Pallet_Pattern
-    df = df[['Lot', 'Sublot','PalletNo','ClusterID','CFU','Accept', 'Weight']]
+    df = df[['Lot', 'Sublot','PalletNo','PartitionID','CFU','Accept', 'Weight']]
     No_Pallets = df.PalletNo.nunique()
     
     
@@ -495,17 +503,41 @@ for i in range(100):
     N_Pallets = len(df2.index)
     num, div = N_Pallets, Processing_Lines #Getting list of pallets per line
     N_Divs =  ([num // div + (1 if x < num % div else 0)  for x in range (div)])
+    N_Lines = list(range(1,Processing_Lines+1))
+    L_ProLine =list(itertools.chain(*(itertools.repeat(elem, n) for elem, n in zip(N_Lines, N_Divs))))
+    df2["ProLine"] = L_ProLine
     
-    
+    #Dividing the pallets dataframe into different processing lines.  
+    gb = df2.groupby('ProLine')#Creating Listby procesing line
+    gb2 =[gb.get_group(x) for x in gb.groups] #Creating list of separate dataframe by processing lines
+
     #Value Addition Steps
     #Cross-Contamination Processing by batch, Assuming Every Pallet is a 1000k lb bath
-    for i, row in df2.iterrows():
-        ContP = df2.CFU[i] #Contamination product
-        TotTr_P_S= ContP*(Tr_P_S/100) #Transfer from Product to Surfaces
-        TotTr_S_P = ContS*(Tr_S_P/100) #Trasnfer from Surfaves to product
-        ContPNew = ContP-TotTr_P_S+TotTr_S_P #New Contmination on Product
-        ContS=ContS+TotTr_P_S-TotTr_S_P #Remiining Contamination in Surface for upcoming batches
-        df2.CFU[i]=ContPNew #Updating the Contamination in the Data Frame
+    for j in gb2:
+        ContS=0
+        for i, row in j.iterrows():
+            ContP = j.CFU[i] #Contamination product
+            TotTr_P_S= ContP*(Tr_P_S/100) #Transfer from Product to Surfaces
+            TotTr_S_P = ContS*(Tr_S_P/100) #Trasnfer from Surfaves to product
+            ContPNew = ContP-TotTr_P_S+TotTr_S_P #New Contmination on Product
+            ContS=ContS+TotTr_P_S-TotTr_S_P #Remiining Contamination in Surface for upcoming batches
+            j.CFU[i]=ContPNew #Updating the Contamination in the Data Frame
+            
+    #Adding Contamination from Scenario to each lot
+    if PE_C ==1:
+        L_Lines_Cont= random.sample(range(Processing_Lines),Lines_Cont)
+        print(L_Lines_Cont)
+        Hazard_PLine = Hazard_lvl/Lines_Cont
+        Hazard_Pall=0
+        for i in L_Lines_Cont:
+            DfPick = gb2[i]
+            Hazard_Pall=Hazard_PLine/ len(DfPick.index)
+            DfPick['CFU'] =DfPick['CFU']+Hazard_Pall
+        
+    
+    #Joining Data Frames into one again, with contamination from lines. 
+    df2=(pd.concat(gb2))
+    
         
     df2['Lot'] =1#Updating the CFU/g column
         

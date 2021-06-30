@@ -180,3 +180,69 @@ five_random_consecutive_rows = df[n:n+5]
 thold = 1
 Reduction = (thold/2.45/24)**0.3
 print(Reduction)
+
+
+
+
+
+
+#Functions to add contamination to scenarios. 
+
+
+    #Adding Contamination depending on challenge Background
+    if Background_C == 1:
+        Ci= Hazard_lvl/Cluster_Units
+        df.CFU =Ci
+        
+        
+        
+def F_Background_C(df, Hazard_lvl, Cluster_Units):
+    Ci = Hazard_lvl/Cluster_Units
+    df.CFU =Ci
+    return df
+
+def F_Point_Source_C (df, Hazard_lvl, No_Cont_Clusters, Cluster_Size, Cluster_Weight):
+    No_Cont_ClustersUnits = int(Cluster_Size/Cluster_Weight) #Cluster Units per Contaminatrion Cluster
+    Hazard_lvl_C= Hazard_lvl/No_Cont_Clusters
+    Ci = Hazard_lvl_C
+    X_1= df.sample(No_Cont_Clusters)
+    X_1 = list(X_1.ClusterID)
+    df.loc[X_1,'CFU']= df['CFU'] + Ci
+    return df
+    
+def F_systematic_C(df, Hazard_lvl,No_Cont_ClustersUnits,No_Cont_Clusters,Cluster_Size, Cluster_Weight ):
+    No_Cont_ClustersUnits = int(Cluster_Size/Cluster_Weight)
+    Hazard_lvl_C= Hazard_lvl/(No_Cont_ClustersUnits*No_Cont_Clusters)
+    Ci = Hazard_lvl_C
+    n = random.randint(0,len(df.index)- No_Cont_ClustersUnits)
+    x_random_consecutive_rows = df[n:n + No_Cont_ClustersUnits]
+    x_random_consecutive_rows = list(x_random_consecutive_rows['ClusterID'])
+    df.loc[ x_random_consecutive_rows,'CFU']= df['CFU'] + Ci
+    return df
+        
+
+    
+    
+    #Adding Contamination depending on challenge Point_Source
+    if Point_Source_C == 1:
+        Hazard_lvl_C= Hazard_lvl/No_Cont_Clusters
+        Ci = Hazard_lvl_C
+        X_1= df.sample(No_Cont_Clusters)
+        X_1 = list(X_1.ClusterID)
+        df.loc[X_1,'CFU']= df['CFU'] + Ci
+
+        
+    #Adding Contamination depending on challenge Systematic Sampling
+    if Systematic_C == 1:
+        Hazard_lvl_C= Hazard_lvl/(No_Cont_ClustersUnits*No_Cont_Clusters)
+        Ci = Hazard_lvl_C
+        n = random.randint(0,len(df.index)- No_Cont_ClustersUnits)
+        x_random_consecutive_rows = df[n:n + No_Cont_ClustersUnits]
+        x_random_consecutive_rows = list(x_random_consecutive_rows['ClusterID'])
+        df.loc[ x_random_consecutive_rows,'CFU']= df['CFU'] + Ci
+
+
+
+
+
+
