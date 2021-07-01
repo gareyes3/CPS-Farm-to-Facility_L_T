@@ -649,7 +649,7 @@ data_contprog = {"Initial":List_Initial_CFU,
 
 df_contprog = pd.DataFrame(data_contprog)
 
-sns.boxplot(x="variable", y="value", data=pd.melt(df_contprog))
+sns.catplot(x="variable", y="value", data=pd.melt(df_contprog),kind="point",capsize=.2)
                                                 
                                                                     #Model Outputs per scenario. 
                                                                     
