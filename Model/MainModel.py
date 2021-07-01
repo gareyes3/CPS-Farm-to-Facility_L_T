@@ -9,9 +9,8 @@ Created on Fri May 28 09:42:31 2021
 
 import sys
 sys.path
-#sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
-sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
-
+sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
+#sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
 
 ########################################Paths#################################################
 #os.chdir('C:\\Users\Gustavo Reyes\Box\CPS Project- Farm to Facility\Python Model Files')
@@ -31,15 +30,19 @@ import seaborn as sns
 from matplotlib import pyplot as plt
 import Funz
 import ContScen
+import Listz 
 #from itertools import cycle
+
+
 #%%
+
                                                                 #Scenarios and Conditions
 #Sampling Conditions, Baseline all conditions are off
 Baseline_Sampling= 0 #all others must be 0if this one is 1
 PH_Sampling = 0
 H_Sampling = 0
 R_Sampling = 0
-FP_Sampling =1
+FP_Sampling = 0
 
 #Additional Sampling Conditions. Env and 
 Water_SamplingProc = 0
@@ -47,18 +50,21 @@ Env_SamplingProc =0
 Env_SamplingCust = 0
 Water_SamplingCust = 0
 
+
 #Contamination Challenges
 #In Field
-Background_C=0
+Background_C=1
 Point_Source_C=0
-Systematic_C=1
+Systematic_C=0
 
 #Harvester Contamination
 Crew_C = 0
-Harvester_C = 0 
+Harvester_C = 0
 
 #Processing equipment
 PE_C = 0
+
+Pack_C= 0
 
 
 
@@ -72,29 +78,29 @@ PHS_Int = 0 #Scenario 3
 
 #Harvest: 
     #HArvest Sampling must be one
-HS_Trad = 0
-HS_Agg = 0
+HS_Trad = 0 #Scenario 5
+HS_Agg = 0 #Scenario 6
 
 #Final Product Sampling
     #Final Product sampling must be on.
-FPS_Trad =0
-FPS_Agg = 1 
-
+FPS_Trad =0 #Scenario 7
+FPS_Agg = 0  #Scenario 8
 
 #%%
+
+List_Initial_CFU = []
                                                                     #List to collect outputs
-#Before_PH sampling 
-LBPH_Total_CFU=[]
+#Total CFU Before_PH sampling 
+List_BPHS_CFU=[]
 
 #After_PH_sampling
-Total_PA_PH = []
-Total_PR_PH = []
-Total_CR_PH = []
-Total_CA_PH = []
-LTotal_CFU_g_PH = []
+Total_PA_PH = [] #Product Accepted
+Total_PR_PH = [] #Product Rejected
+Total_CR_PH = [] #Contamination Rejected
+Total_CA_PH = [] #Contamination Accepted
 
 #Before_H sampling
-LBH_Total_CFU=[]
+List_BHS_CFU=[]
 
 #After H Sampling
 Total_PR_H = []
@@ -102,8 +108,11 @@ Total_PA_H = []
 Total_CR_H = []
 Total_CA_H = []
 
+#Transport between Harvest to Receiving
+List_BTR_CFU = []  #ADD
+
 #Before R Sampling
-LBR_Total_CFU=[]
+List_BRS_CFU=[]
 
 #After R Sampling
 Total_PR_R = []
@@ -111,8 +120,13 @@ Total_PA_R = []
 Total_CR_R = []
 Total_CA_R = []
 
+#Between Washing and Value Addition
+List_BtWVA_CFU =[]
+
+List_AVA_CFU=[]
+
 #Before FP Sampling
-LBFP_Total_CFU=[]
+List_BFPS_CFU=[]
 
 #After FP Sampling
 Total_PR_FP = []
@@ -120,12 +134,12 @@ Total_PA_FP = []
 Total_CR_FP = []
 Total_CA_FP = []
 
-LTotal_CFU_g_FP = []
+List_TotalCFUg_FP = [] #Total
 
-LCont_PercRej_PH = []
-LCont_PercRej_H = []
-LCont_PercRej_R = [] 
-LCont_PercRej_FP=[]
+List_Cont_PercRej_PH = []
+List_Cont_PercRej_H = []
+List_Cont_PercRej_R = [] 
+List_Cont_PercRej_FP=[]
 
 
 #%%
@@ -155,8 +169,6 @@ for i in range(100):
         Hazard_lvl = 50000  #CFU # background contamination
         Cluster_Size = 1000 #lb
         No_Cont_Clusters = 4
-
-    
         
     if Systematic_C ==1: 
         Hazard_lvl = 50000  #CFU # background contamination
@@ -169,17 +181,20 @@ for i in range(100):
         Hazard_lvl = 50000  #CFU # background contamination
         Cluster_Size = 5000 #lb
         No_Cont_Clusters = 4
-        No_Cont_PartitionUnits = int(Cluster_Size/Partition_Weight) #Cluster Units per Contaminatrion Cluster
+
     
     if Harvester_C==1:
         Hazard_lvl = 50000  #CFU # background contamination
         Cluster_Size = 50000 #lb
         No_Cont_Clusters = 1
-        No_Cont_PartitionUnits = int(Cluster_Size/Partition_Weight) #Cluster Units per Contaminatrion Cluster
         
     if PE_C == 1:
         Hazard_lvl = 50000  #CFU # background contamination
         Lines_Cont = 1
+        
+    if Pack_C == 1:
+        Hazard_lvl = 50000  #CFU # background contamination
+        Lines_ContPack = 1        
         
         
     
@@ -247,11 +262,11 @@ for i in range(100):
     
         
     # 7 Final Product
-    Partition_Weight = 10
+    Partition_Weight_FP = 10
     N_Lots_FP = 2
     sample_size_FP = 300 #g #Sample Size in grams
     n_samples_FP = 1
-    
+
     
 
                                                             #Step 0: DF Creation and Setup based on scenarios. 
@@ -285,10 +300,14 @@ for i in range(100):
     #Adding Contamination depending on challenge Systematic Sampling
     if Systematic_C == 1:
         df = ContScen.F_systematic_C(df=df, Hazard_lvl= Hazard_lvl,
-                                     No_Cont_PartitionUnits = No_Cont_PartitionUnits, 
                                      No_Cont_Clusters = No_Cont_Clusters,
                                      Cluster_Size= Cluster_Size,
                                      Partition_Weight = Partition_Weight)
+        
+    #Initial Contamination     
+    Initial_CFU= sum(df.CFU)
+    List_Initial_CFU.append(Initial_CFU)
+    
 
                                                                       #Step 1: PREHARVEST
     #Die-off From Contamination Event to Pre-Havrvest
@@ -316,8 +335,8 @@ for i in range(100):
     else: #If no pre harvest sampling, none rejected
         Rej_Lots_PH= [] 
         
-    BPH_Tot_CFU = sum(df.CFU) #Contamination before sampling
-    LBPH_Total_CFU.append(BPH_Tot_CFU) #List of contamination before sampling
+    BPHS_CFU = sum(df.CFU) #Contamination before sampling
+    List_BPHS_CFU.append(BPHS_CFU) #List of contamination before sampling
     
     #Filtering out the Rejected lots, Pre-Harvest
     if PHS_Int ==1:
@@ -330,7 +349,7 @@ for i in range(100):
     Total_Accepted_PH = sum(df.Weight) #Lb
     Total_Rejected_PH = Field_Weight-Total_Accepted_PH #Lb
     Cont_Accepted_PH = sum(df.CFU) # Total CFU
-    Cont_Rejected_PH = BPH_Tot_CFU-Cont_Accepted_PH #Total CFU
+    Cont_Rejected_PH = BPHS_CFU-Cont_Accepted_PH #Total CFU
     if Cont_Accepted_PH == 0:
         Cont_PercRej_PH = 1
     else:
@@ -342,7 +361,7 @@ for i in range(100):
     Total_PR_PH.append(Total_Rejected_PH)
     Total_CA_PH.append(Cont_Accepted_PH)
     Total_CR_PH.append(Cont_Rejected_PH)
-    LCont_PercRej_PH.append(Cont_PercRej_PH)
+    List_Cont_PercRej_PH.append(Cont_PercRej_PH)
     
 
                                                                  #STEP 2: HARVEST
@@ -354,39 +373,18 @@ for i in range(100):
     print(Die_Off_PHS_HS)
     df['CFU'] = df['CFU']*(10**Die_Off_PHS_HS) #Updating Contmination to Show Total DieOff
     
-    
     #Adding Contamination depending on challenge Systematic Sampling
     if Crew_C == 1:
-        No_Cont_PartitionUnits = len(df.index)
-        Hazard_lvl_C= Hazard_lvl/(No_Cont_PartitionUnits*No_Cont_Clusters)
-        Ci = Hazard_lvl_C
-        x_2 =[]
-        PartitionIDs = list(df['PartitionID'])
-        for i in range(No_Cont_Clusters):
-            TrimPartitionIDS = PartitionIDs[:len(PartitionIDs)-No_Cont_PartitionUnits]
-            n = random.sample(TrimPartitionIDS,1)
-            n  = n[0]
-            x_random_consecutive_rows = PartitionIDs[n:n + No_Cont_PartitionUnits]
-            x_2.append(x_random_consecutive_rows)
-            PartitionIDs = [x for x in PartitionIDs if x not in x_random_consecutive_rows]
-        x_2 =[j for i in x_2 for j in i]
-        df.loc[ x_2,'CFU']= df['CFU'] + Ci
+        df = ContScen.F_Crew_C(df =df, Hazard_lvl =Hazard_lvl, 
+                               No_Cont_Clusters = No_Cont_Clusters,
+                               Cluster_Size =Cluster_Size, 
+                               Partition_Weight = Partition_Weight)
 
     if Harvester_C == 1:
-        No_Cont_PartitionUnits = len(df.index)
-        Hazard_lvl_C= Hazard_lvl/(No_Cont_PartitionUnits*No_Cont_Clusters)
-        Ci = Hazard_lvl_C
-        x_2 =[]
-        PartitionIDs = list(df['PartitionID'])
-        for i in range(No_Cont_Clusters):
-            TrimPartitionIDS = PartitionIDs[:len(PartitionIDs)-No_Cont_PartitionUnits]
-            n = random.sample(TrimPartitionIDS,1)
-            n  = n[0]
-            x_random_consecutive_rows = PartitionIDs[n:n + No_Cont_PartitionUnits]
-            x_2.append(x_random_consecutive_rows)
-            PartitionIDs = [x for x in PartitionIDs if x not in x_random_consecutive_rows]
-        x_2 =[j for i in x_2 for j in i]
-        df.loc[ x_2,'CFU']= df['CFU'] + Ci
+        df = ContScen.F_Harvester_C(df =df, Hazard_lvl =Hazard_lvl, 
+                                    No_Cont_Clusters = No_Cont_Clusters, 
+                                    Cluster_Size =Cluster_Size, 
+                                    Partition_Weight = Partition_Weight)
     
     
     #Harvest Sampling
@@ -406,8 +404,9 @@ for i in range(100):
     else:
         Rej_Lots_H=[]
         
-    BH_Tot_CFU = sum(df.CFU) #Contamination before sampling
-    LBH_Total_CFU.append(BH_Tot_CFU) #List of contaminations before sampling
+    #Before pre harvest sampling
+    BHS_CFU = sum(df.CFU) #Contamination before sampling
+    List_BHS_CFU.append(BHS_CFU) #List of contaminations before sampling
     
     #Filtering out the Rejected lots, Pre-Harvest
     df = df[~df['Sublot'].isin(Rej_Lots_H)]
@@ -417,7 +416,7 @@ for i in range(100):
     Total_Accepted_H = sum(df.Weight) #Total Accepted at HArvest
     Total_Rejected_H = Field_Weight-Total_Accepted_H
     Cont_Accepted_H = sum(df.CFU) #CFU
-    Cont_Rejected_H =  BH_Tot_CFU-Cont_Accepted_H #CFU
+    Cont_Rejected_H =  BHS_CFU-Cont_Accepted_H #CFU
     if Cont_Accepted_PH == 0:
         Cont_PercRej_H = "NA"
     else:
@@ -428,15 +427,23 @@ for i in range(100):
     Total_PR_H.append(Total_Rejected_H)
     Total_CA_H.append(Cont_Accepted_H)
     Total_CR_H.append(Cont_Rejected_H)
-    LCont_PercRej_H.append(Cont_PercRej_H)
+    List_Cont_PercRej_H.append(Cont_PercRej_H)
     
     
                                                                #STEP 3: RECEIVING
+                                                               
+    #Harvest Sampling - Receiving Harvest Sampling Die off
+    Die_Off_HS_RS= Die_Off_HS_RS*Time_H_RS
+    df['CFU'] = df['CFU']*(10**Die_Off_HS_RS) #Updating Contmination to Show Total DieOff
+        
+    BTR_CFU = sum(df.CFU)  
+    List_BTR_CFU.append( BTR_CFU) #To track growth between Harvest to Receiving                                                  
+                                                               
     #Paletization
     
-    Cluster_Pallet =  int(Pallet_Weight/Partition_Weight)
+    Partitions_Per_Pallet =  int(Pallet_Weight/Partition_Weight)
     Pallet_Field = int(Field_Weight/Pallet_Weight)
-    Pallet_Pattern = [i for i in range(1, Pallet_Field+1) for _ in range(int(Cluster_Pallet))]
+    Pallet_Pattern = [i for i in range(1, Pallet_Field+1) for _ in range(int(Partitions_Per_Pallet))]
     Crop_No = len(df.index)
     Pallet_Pattern=Pallet_Pattern[:Crop_No]
     df['PalletNo'] = Pallet_Pattern
@@ -444,14 +451,13 @@ for i in range(100):
     No_Pallets = df.PalletNo.nunique()
     
     
-    #Harvest Sampling - Receiving Harvest Sampling Die off
-    Die_Off_HS_RS= Die_Off_HS_RS*Time_H_RS
-    df['CFU'] = df['CFU']*(10**Die_Off_HS_RS) #Updating Contmination to Show Total DieOff
+
 
     Time_Agg = Time_Agg + Time_H_RS #Cummulative time so far in the process. 
     
-    BR_Tot_CFU = sum(df.CFU)
-    LBR_Total_CFU.append(BR_Tot_CFU)
+    BRS_CFU = sum(df.CFU)
+    List_BRS_CFU.append(BRS_CFU) #Contamination before receiving sampling
+    
     if R_Sampling == 1:
         #Sampling at Reception
         Rej_Pallets_R = Funz.F_Sampling(df =df,Test_Unit ="PalletNo", 
@@ -464,11 +470,12 @@ for i in range(100):
     #Rejecting Inidividual pallets if 1 positive
     df = df[~df['PalletNo'].isin(Rej_Pallets_R)]
     
-    #Summary of Receiving Sampling
+    
+    #Outputs for of Receiving Sampling
     Total_Accepted_R = sum(df.Weight)
     Total_Rejected_R = Field_Weight-Total_Accepted_R
     Cont_Accepted_R = sum(df.CFU) #CFU
-    Cont_Rejected_R = BR_Tot_CFU-Cont_Accepted_R #CFU
+    Cont_Rejected_R = BRS_CFU-Cont_Accepted_R #CFU
     if Cont_Accepted_H == 0:
         Cont_PercRej_R = "NA"
     else:
@@ -478,13 +485,17 @@ for i in range(100):
     Total_PR_R.append(Total_Rejected_R)
     Total_CA_R.append(Cont_Accepted_R)
     Total_CR_R.append(Cont_Rejected_R)
-    LCont_PercRej_R.append(Cont_PercRej_R)
+    List_Cont_PercRej_R.append(Cont_PercRej_R)
     
      
                                                                     #STEP 4: WASHING Reduction
     
     #Wash process reduction
     df=Funz.F_Washing(df, LogRedWash)
+    
+    #gathering contamination between washing and Value Addition
+    BtWVA_CFU = sum(df.CFU)
+    List_BtWVA_CFU.append (BtWVA_CFU)
     
         
                                                              #STEP 4: VALUE ADDITION/ PROCESSING Includes Washing
@@ -512,7 +523,7 @@ for i in range(100):
     gb2 =[gb.get_group(x) for x in gb.groups] #Creating list of separate dataframe by processing lines
 
     #Value Addition Steps
-    #Cross-Contamination Processing by batch, Assuming Every Pallet is a 1000k lb bath
+    #Cross-Contamination Processing by batch, Assuming Every Pallet is a 4000k lb bath
     for j in gb2:
         ContS=0
         for i, row in j.iterrows():
@@ -525,19 +536,17 @@ for i in range(100):
             
     #Adding Contamination from Scenario to each lot
     if PE_C ==1:
-        L_Lines_Cont= random.sample(range(Processing_Lines),Lines_Cont)
-        print(L_Lines_Cont)
-        Hazard_PLine = Hazard_lvl/Lines_Cont
-        Hazard_Pall=0
-        for i in L_Lines_Cont:
-            DfPick = gb2[i]
-            Hazard_Pall=Hazard_PLine/ len(DfPick.index)
-            DfPick['CFU'] =DfPick['CFU']+Hazard_Pall
+        gb2 = ContScen.F_PEC_C(gb2=gb2,
+                               Hazard_lvl = Hazard_lvl, 
+                               Processing_Lines = Processing_Lines, 
+                               Lines_Cont = Lines_Cont)
         
     
     #Joining Data Frames into one again, with contamination from lines. 
     df2=(pd.concat(gb2))
     
+    AVA_CFU= sum(df2.CFU)
+    List_AVA_CFU.append(AVA_CFU)
         
     df2['Lot'] =1#Updating the CFU/g column
         
@@ -549,7 +558,7 @@ for i in range(100):
                                                           #STEP 6: Finished Product Mixing and Sampling
     #Mixing products into one batch
     
-    N_Partitions = int(Pallet_Weight/Partition_Weight)
+    N_Partitions = int(Pallet_Weight/Partition_Weight_FP)
     
     df2 = Funz.F_Partitioning(DF=df2, NPartitions= N_Partitions)
     if N_Lots_FP==2:
@@ -557,9 +566,21 @@ for i in range(100):
     
     
     
-    BFP_Tot_CFU = sum(df2.CFU) #Total CFU before FP Sampling
-    LBFP_Total_CFU.append(BFP_Tot_CFU) #Adding it to a List
+    BFPS_CFU = sum(df2.CFU) #Total CFU before FP Sampling
+    List_BFPS_CFU.append(BFPS_CFU) #Adding it to a List
     #df= Funz.F_Packaging(DF=df, Boxes_Pallet=Boxes_Pallet)
+    
+    #Dividing the pallets dataframe into different processing lines.  
+    gbFP = df2.groupby('ProLine')#Creating Listby procesing line
+    gbFP2 =[gbFP.get_group(x) for x in gbFP.groups] #Creating list of separate dataframe by processing lines
+    
+    if Pack_C ==1:
+        gbFP2 = ContScen.F_PEC_C(gb2=gbFP2,
+                        Hazard_lvl = Hazard_lvl, 
+                        Processing_Lines = Processing_Lines, 
+                        Lines_Cont = Lines_ContPack)
+    
+    df2=(pd.concat(gbFP2))
     
     #Sampling Step
     if FP_Sampling == 1:
@@ -570,22 +591,23 @@ for i in range(100):
             Rej_Lots_H = Funz.F_Sampling(df =df2,Test_Unit ="Sublot", 
                                            NSamp_Unit = 10, 
                                            Samp_Size =sample_size_FP, 
-                                           Clust_Weight =Partition_Weight, 
+                                           Clust_Weight =Partition_Weight_FP, 
                                            Limit =0, NoGrab =60 )
     else :
         Rej_Lots_FP = []
     
 
-    #Filtering out the Rejected lots, Pre-Harvest
+    #Filtering out the Rejected lots, Final product
     if FP_Sampling == 1:
-        df2 = df2[~df2['Lot'].isin(Rej_Lots_H)]
-    elif FPS_Agg ==1:
-        df2 = df2[~df2['Sublot'].isin(Rej_Lots_H)]
+        if FPS_Trad==1:
+            df2 = df2[~df2['Lot'].isin(Rej_Lots_H)]
+        elif FPS_Agg ==1:
+            df2 = df2[~df2['Sublot'].isin(Rej_Lots_H)]
     
     Total_Accepted_FP = sum(df2.Weight) #Total Product Accepted
     Total_Rejected_FP = Field_Weight-Total_Accepted_FP #Total Product Rejected
     Cont_Accepted_FP = sum(df2.CFU) #CFU Accepted
-    Cont_Rejected_FP =  BFP_Tot_CFU-Cont_Accepted_FP #CFU Rejected from PH Sampling
+    Cont_Rejected_FP =  BFPS_CFU-Cont_Accepted_FP #CFU Rejected from PH Sampling
     if Cont_Accepted_R == 0:
         Cont_PercRej_FP = "NA"
     else:
@@ -598,41 +620,59 @@ for i in range(100):
     
                                                             #STEP 7 Collection of outputs
     #Collection of Outputs 
-    Total_PA_FP.append( Total_Accepted_FP)
-    Total_PR_FP.append( Total_Rejected_FP)
-    Total_CA_FP.append( Cont_Accepted_FP)
-    Total_CR_FP.append( Cont_Rejected_FP)
-    LCont_PercRej_FP.append(Cont_PercRej_FP)
-    LTotal_CFU_g_FP.append(Total_CFU_G_FP)
+    Total_PA_FP.append(Total_Accepted_FP)
+    Total_PR_FP.append(Total_Rejected_FP)
+    Total_CA_FP.append(Cont_Accepted_FP)
+    Total_CR_FP.append(Cont_Rejected_FP)
+    List_Cont_PercRej_FP.append(Cont_PercRej_FP)
+    List_TotalCFUg_FP.append(Total_CFU_G_FP)
     
     #Total_Accepted = sum(df.Weight)
     #Total_Rejected = Field_Weight-Total_Accepted
     
-#%%                                                      #STEP 7: Finished Product Packing
+#%%     
 
-    
+#Creation of Ouputs DF
 
+data_contprog = {"Initial":List_Initial_CFU,
+                 "BPHS": List_BPHS_CFU,
+                 "APHS": Total_CA_PH,
+                 "BHS":List_BHS_CFU,
+                 "AHS": Total_CA_H,
+                 "TransR": List_BTR_CFU,
+                 "BRS": List_BRS_CFU,
+                 "BetWVA": List_BtWVA_CFU,
+                 "AfterVA": List_AVA_CFU,
+                 "BFPS": List_BFPS_CFU,
+                 "FinalCont": Total_CA_FP
+                 }
 
+df_contprog = pd.DataFrame(data_contprog)
+
+sns.boxplot(x="variable", y="value", data=pd.melt(df_contprog))
+                                                
                                                                     #Model Outputs per scenario. 
                                                                     
-#Number and % of CFUs rejected due to actions taken on testing results, the primary benefit                                                                  
-                                                                                                                                                                                            
-                                                                    
+#Number and % of CFUs rejected due to actions taken on testing results, the primary benefit
+                                                              
 #Baseline No Sampling
 if Baseline_Sampling==1:
-    Out_NoSampCA = Total_CA_FP #Total CFU Accepted
-    Out_NoSampCR = Total_CR_FP #Totqal CFU Rejected
-    Out_NoSamp_PercRej = LCont_PercRej_FP #Percentage of CFU Rejected from total
+    Out_BLSampCA = Total_CA_FP #Total CFU Accepted
+    Out_BLSampCR = Total_CR_FP #Totqal CFU Rejected
     
-    Out_NoSampCont = LTotal_CFU_g_FP #Total CFU/g Accepted
-    Out_NoSampProd = Total_PA_FP #Total Weight of product accepted
+    Out_BLSamp_PercRej = List_Cont_PercRej_FP #Percentage of CFU Rejected from total
+    Out_BLSampCont = List_TotalCFUg_FP #Total CFU/g Accepted
+    Out_BLSampProd = Total_PA_FP #Total Weight of product accepted
+    
+    BL_df_contprog = df_contprog
 
 if PH_Sampling==1:
     #Sampling only in Pre-Harvers
     Out_PHSamp = Total_CA_FP
     Out_PHSampCR = Total_CR_FP #Totqal CFU Rejected
-    Out_PHSampCont =  LTotal_CFU_g_FP
-    Out_PHSamp_PercRej = LCont_PercRej_PH #Percentage of CFU Rejected from total
+    
+    Out_PHSampCont =  List_TotalCFUg_FP
+    Out_PHSamp_PercRej = List_Cont_PercRej_PH #Percentage of CFU Rejected from total
     
     Out_PHSampProd = Total_PA_FP
 
@@ -640,8 +680,8 @@ if PH_Sampling==1:
 if H_Sampling ==1:
     Out_HSamp = Total_CA_FP
     Out_HSampCR = Total_CR_FP #Totqal CFU Rejected
-    Out_HSampCont =  LTotal_CFU_g_FP
-    Out_HSamp_PercRej = LCont_PercRej_H #Percentage of CFU Rejected from total
+    Out_HSampCont =  List_TotalCFUg_FP
+    Out_HSamp_PercRej = List_Cont_PercRej_H #Percentage of CFU Rejected from total
     
     Out_HSampProd = Total_PA_FP
 
@@ -649,8 +689,8 @@ if H_Sampling ==1:
 if R_Sampling ==1:
     Out_RSamp = Total_CA_FP
     Out_RSampCR = Total_CR_FP #Totqal CFU Rejected
-    Out_RSampCont =  LTotal_CFU_g_FP
-    Out_RSamp_PercRej = LCont_PercRej_R #Percentage of CFU Rejected from total
+    Out_RSampCont =  List_TotalCFUg_FP
+    Out_RSamp_PercRej = List_Cont_PercRej_R #Percentage of CFU Rejected from total
     
     Out_RSampProd = Total_PA_FP
 
@@ -658,12 +698,11 @@ if R_Sampling ==1:
 if FP_Sampling==1:
     Out_FPSamp = Total_CA_FP
     Out_FPSampCR = Total_CR_FP #Totqal CFU Rejected
-    Out_FPSampCont =  LTotal_CFU_g_FP
-    Out_FPSamp_PercRej = LCont_PercRej_FP #Percentage of CFU Rejected from total
+    Out_FPSampCont =  List_TotalCFUg_FP
+    Out_FPSamp_PercRej = List_Cont_PercRej_FP #Percentage of CFU Rejected from total
     
     Out_FPSampProd = Total_PA_FP
 
- 
 
 
 #Sampling Scenarios
@@ -672,65 +711,65 @@ if FP_Sampling==1:
 #Pre-Harvest 4 days
 if (PH_Sampling ==1) and (PHS_4d==1):
         #Sampling only in Pre-Harvers
-    Out_PH4dSamp = Total_CA_FP
-    Out_PH4dSampCR = Total_CR_FP #Totqal CFU Rejected
-    Out_PH4dSampCont =  LTotal_CFU_g_FP
-    Out_PH4dSamp_PercRej = LCont_PercRej_PH #Percentage of CFU Rejected from total
-    Out_PH4dSampProd = Total_PA_FP
+    Out_PH4d = Total_CA_FP
+    Out_PH4dCR = Total_CR_FP #Totqal CFU Rejected
+    Out_PH4dCont =  List_TotalCFUg_FP
+    Out_PH4d_PercRej = List_Cont_PercRej_PH #Percentage of CFU Rejected from total
+    Out_PH4dProd = Total_PA_FP
 
 #Pre-Harvest 4 hrous
 if (PH_Sampling ==1) and (PHS_4h==1):
         #Sampling only in Pre-Harvers
-    Out_PH4hSamp = Total_CA_FP
-    Out_PH4hSampCR = Total_CR_FP #Totqal CFU Rejected
-    Out_PH4hSampCont =  LTotal_CFU_g_FP
-    Out_PH4hSamp_PercRej = LCont_PercRej_PH #Percentage of CFU Rejected from total
-    Out_PH4hSampProd = Total_PA_FP
+    Out_PH4h = Total_CA_FP
+    Out_PH4hCR = Total_CR_FP #Totqal CFU Rejected
+    Out_PH4hCont =  List_TotalCFUg_FP
+    Out_PH4h_PercRej = List_Cont_PercRej_PH #Percentage of CFU Rejected from total
+    Out_PH4hProd = Total_PA_FP
 
 #Pre Harvest Intense Sampling
 if (PH_Sampling ==1) and (PHS_Int ==1):
         #Sampling only in Pre-Harvers
-    Out_PHINSamp = Total_CA_FP
-    Out_PHINSampCR = Total_CR_FP #Totqal CFU Rejected
-    Out_PHINSampCont =  LTotal_CFU_g_FP
-    Out_PHINSamp_PercRej = LCont_PercRej_PH #Percentage of CFU Rejected from total
-    Out_PHINSampProd = Total_PA_FP
+    Out_PHIN = Total_CA_FP
+    Out_PHINCR = Total_CR_FP #Totqal CFU Rejected
+    Out_PHINCont =  List_TotalCFUg_FP
+    Out_PHIN_PercRej = List_Cont_PercRej_PH #Percentage of CFU Rejected from total
+    Out_PHINProd = Total_PA_FP
 
                                                                             #Harvest
 
 if (H_Sampling ==1) and (HS_Trad==1):
         #Sampling only in Pre-Harvers
-    Out_HTrSamp = Total_CA_FP
-    Out_HTrSampCR = Total_CR_FP #Totqal CFU Rejected
-    Out_HTrSampCont =  LTotal_CFU_g_FP
-    Out_HTrSamp_PercRej = LCont_PercRej_PH #Percentage of CFU Rejected from total
-    Out_HTrSampProd = Total_PA_FP
+    Out_HTr = Total_CA_FP
+    Out_HTrCR = Total_CR_FP #Totqal CFU Rejected
+    Out_HTrCont =  List_TotalCFUg_FP
+    Out_HTr_PercRej = List_Cont_PercRej_PH #Percentage of CFU Rejected from total
+    Out_HTrProd = Total_PA_FP
     
 if (H_Sampling ==1) and (HS_Agg==1):
         #Sampling only in Pre-Harvers
-    Out_HAggSamp = Total_CA_FP
-    Out_HAggSampCR = Total_CR_FP #Totqal CFU Rejected
-    Out_HAggSampCont =  LTotal_CFU_g_FP
-    Out_HAggSamp_PercRej = LCont_PercRej_PH #Percentage of CFU Rejected from total
-    Out_HAggSampProd = Total_PA_FP
+    Out_HAgg = Total_CA_FP
+    Out_HAggCR = Total_CR_FP #Totqal CFU Rejected
+    Out_HAggCont =  List_TotalCFUg_FP
+    Out_HAgg_PercRej = List_Cont_PercRej_PH #Percentage of CFU Rejected from total
+    Out_HAggProd = Total_PA_FP
 
                                                                             #Finished Product
 
 if (FP_Sampling ==1) and (FPS_Trad==1):
         #Sampling only in Pre-Harvers
-    Out_FPTrSamp = Total_CA_FP
-    Out_FPTrSampCR = Total_CR_FP #Totqal CFU Rejected
-    Out_FPTrSampCont =  LTotal_CFU_g_FP
-    Out_FPTrSamp_PercRej = LCont_PercRej_PH #Percentage of CFU Rejected from total
-    Out_FPTrSampProd = Total_PA_FP
+    Out_FPTr = Total_CA_FP
+    Out_FPTrCR = Total_CR_FP #Totqal CFU Rejected
+    Out_FPTrCont =  List_TotalCFUg_FP
+    Out_FPTr_PercRej = List_Cont_PercRej_PH #Percentage of CFU Rejected from total
+    Out_FPTrProd = Total_PA_FP
     
 if (FP_Sampling ==1) and (FPS_Agg==1):
         #Sampling only in Pre-Harvers
-    Out_FPAggSamp = Total_CA_FP
-    Out_FPAggSampCR = Total_CR_FP #Totqal CFU Rejected
-    Out_FPAggSampCont =  LTotal_CFU_g_FP
-    Out_FPAggSamp_PercRej = LCont_PercRej_PH #Percentage of CFU Rejected from total
-    Out_FPAggSampProd = Total_PA_FP
+    Out_FPAgg = Total_CA_FP
+    Out_FPAggCR = Total_CR_FP #Totqal CFU Rejected
+    Out_FPAggCont =  List_TotalCFUg_FP
+    Out_FPAgg_PercRej = List_Cont_PercRej_PH #Percentage of CFU Rejected from total
+    Out_FPAggProd = Total_PA_FP
 
 #%% 
 Samplingtypes = ['Baseline', 'PH4d','PH4h','PHIntense','HTrad','HAgg',"Receiving",'FPTrad',"FPAgg"]
@@ -744,15 +783,15 @@ DfDataNames = pd.DataFrame(DataNames)
 
 
 #Boxplot Contamination Accepted CFU
-datasampling = {'Baseline':  Out_NoSampCA,
-                'PH4d': Out_PH4dSamp,
-                'PH4h': Out_PH4hSamp, 
-                'PHIntense':Out_PHINSamp,
-                'HTrad':Out_HTrSamp,
-                'HAgg':Out_HAggSamp,
+datasampling = {'Baseline':  Out_BLSampCA,
+                'PH4d': Out_PH4d,
+                'PH4h': Out_PH4h, 
+                'PHIntense':Out_PHIN,
+                'HTrad':Out_HTr,
+                'HAgg':Out_HAgg,
                 "Receiving":Out_RSamp,
-                'FPTrad': Out_FPTrSamp,
-                "FPAgg": Out_FPAggSamp
+                'FPTrad': Out_FPTr,
+                "FPAgg": Out_FPAgg
           }
 dfTotCont = pd.DataFrame(datasampling)
 
@@ -779,7 +818,7 @@ df11=pd.melt(df10,id_vars=['Group'],value_vars=['Apple','Orange'],var_name='frui
 
 
 #Boxplot Contamination Accepted CFU/g
-dataCont = {'Baseline No Samp': Out_NoSampCont,
+dataCont = {'Baseline No Samp': Out_BLSampCont,
         'PreHarvest': Out_PHSampCont, 
           'Harvest':Out_HSampCont,
           'Receiving':Out_RSampCont, 
@@ -793,7 +832,7 @@ plt.ylabel("Final Contamination in Product CFU/g")
 
 
 #Boxplot Contamination Accepted CFU
-dataTotCont = {'Baseline': Out_NoSampCA,
+dataTotCont = {'Baseline': Out_BLSampCA,
         'PreHarvest': Out_PHSamp, 
           'Harvest':Out_HSamp,
           'Receiving':Out_RSamp, 
@@ -805,7 +844,7 @@ plt.xlabel("Sampling at Stage")
 plt.ylabel("Final Total Contamination Accepted CFU")
 
 #Boxplot Contamination Rehjected CFU
-dataTotContR = {'Baseline': Out_NoSampCR,
+dataTotContR = {'Baseline': Out_BLSampCR,
         'PreHarvest': Out_PHSampCR, 
           'Harvest':Out_HSampCR,
           'Receiving':Out_RSampCR, 
@@ -818,7 +857,7 @@ plt.ylabel("Final Total Contamination Rejected CFU")
 
 
 #Boxplot Total Product Accepted
-dataProd = {'Baseline': Out_NoSampProd,
+dataProd = {'Baseline': Out_BLSampProd,
         'PreHarvest': Out_PHSampProd, 
           'Harvest':Out_HSampProd,
           'Receiving':Out_RSampProd, 

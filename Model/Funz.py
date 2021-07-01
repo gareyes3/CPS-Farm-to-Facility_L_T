@@ -187,7 +187,7 @@ def F_Partitioning(DF,NPartitions):
     newdf.Weight=newdf.Weight/NPartitions
     newdf.CFU = b_flat
     newdf["Sublot"] = 1
-    newdf = newdf[['PalletNo','PackNo','CFU','Weight', 'Sublot','Lot']]
+    newdf = newdf[['PalletNo','PackNo','CFU','Weight', 'Sublot','ProLine','Lot']]
     return newdf
 
 def F_Lots_FP(df, Nolots):
