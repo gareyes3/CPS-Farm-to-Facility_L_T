@@ -31,18 +31,24 @@ from matplotlib import pyplot as plt
 import Funz
 import ContScen
 import Listz 
+import OutFunz
 #from itertools import cycle
 
 
+#%% 
+Progression_DFS=[]
+
 #%%
+
+
 
                                                                 #Scenarios and Conditions
 #Sampling Conditions, Baseline all conditions are off
 Baseline_Sampling= 0 #all others must be 0if this one is 1
 PH_Sampling = 0
-H_Sampling = 0
+H_Sampling = 0 
 R_Sampling = 0
-FP_Sampling = 0
+FP_Sampling =1
 
 #Additional Sampling Conditions. Env and 
 Water_SamplingProc = 0
@@ -72,18 +78,18 @@ Pack_C= 0
 
 #Pre-Harvest
     #Pre-Harvest sampling must be on
-PHS_4d= 0 #Scenario 1
+PHS_4d= 1 #Scenario 1
 PHS_4h = 0#Scenario 2
 PHS_Int = 0 #Scenario 3
 
 #Harvest: 
     #HArvest Sampling must be one
-HS_Trad = 0 #Scenario 5
+HS_Trad = 1 #Scenario 5
 HS_Agg = 0 #Scenario 6
 
 #Final Product Sampling
     #Final Product sampling must be on.
-FPS_Trad =0 #Scenario 7
+FPS_Trad =1 #Scenario 7
 FPS_Agg = 0  #Scenario 8
 
 #%%
@@ -108,8 +114,6 @@ Total_PA_H = []
 Total_CR_H = []
 Total_CA_H = []
 
-#Transport between Harvest to Receiving
-List_BTR_CFU = []  #ADD
 
 #Before R Sampling
 List_BRS_CFU=[]
@@ -140,6 +144,8 @@ List_Cont_PercRej_PH = []
 List_Cont_PercRej_H = []
 List_Cont_PercRej_R = [] 
 List_Cont_PercRej_FP=[]
+
+
 
 
 #%%
@@ -436,8 +442,7 @@ for i in range(100):
     Die_Off_HS_RS= Die_Off_HS_RS*Time_H_RS
     df['CFU'] = df['CFU']*(10**Die_Off_HS_RS) #Updating Contmination to Show Total DieOff
         
-    BTR_CFU = sum(df.CFU)  
-    List_BTR_CFU.append( BTR_CFU) #To track growth between Harvest to Receiving                                                  
+                                             
                                                                
     #Paletization
     
@@ -634,22 +639,33 @@ for i in range(100):
 
 #Creation of Ouputs DF
 
+#Progression Data
 data_contprog = {"Initial":List_Initial_CFU,
-                 "BPHS": List_BPHS_CFU,
-                 "APHS": Total_CA_PH,
-                 "BHS":List_BHS_CFU,
-                 "AHS": Total_CA_H,
-                 "TransR": List_BTR_CFU,
-                 "BRS": List_BRS_CFU,
-                 "BetWVA": List_BtWVA_CFU,
-                 "AfterVA": List_AVA_CFU,
-                 "BFPS": List_BFPS_CFU,
+                 "Before PHS": List_BPHS_CFU,
+                 "After PHS": Total_CA_PH,
+                 "Before HS":List_BHS_CFU,
+                 "After HS": Total_CA_H,
+                 "Before RS": List_BRS_CFU,
+                 "After RS": Total_CA_R,
+                 "Between W-VA": List_BtWVA_CFU,
+                 "After VA": List_AVA_CFU,
+                 "Before FPS": List_BFPS_CFU,
                  "FinalCont": Total_CA_FP
                  }
 
 df_contprog = pd.DataFrame(data_contprog)
 
-sns.catplot(x="variable", y="value", data=pd.melt(df_contprog),kind="point",capsize=.2)
+
+#Main Output Data
+data_outputs={"Total_CFU_A":Total_CA_FP,
+               "Total_CFU_Rej": Total_CR_FP,
+               "Total_CFUg_A": List_TotalCFUg_FP,
+              "Total_Weight_A":Total_PA_FP 
+    }
+
+df_outputs = pd.DataFrame(data_outputs)
+
+
                                                 
                                                                     #Model Outputs per scenario. 
                                                                     
@@ -657,51 +673,73 @@ sns.catplot(x="variable", y="value", data=pd.melt(df_contprog),kind="point",caps
                                                               
 #Baseline No Sampling
 if Baseline_Sampling==1:
-    Out_BLSampCA = Total_CA_FP #Total CFU Accepted
-    Out_BLSampCR = Total_CR_FP #Totqal CFU Rejected
     
     Out_BLSamp_PercRej = List_Cont_PercRej_FP #Percentage of CFU Rejected from total
-    Out_BLSampCont = List_TotalCFUg_FP #Total CFU/g Accepted
-    Out_BLSampProd = Total_PA_FP #Total Weight of product accepted
     
+    #Main Outputs, contamination and weight.
+    BL_df_outputs = df_outputs
+    BL_df_outputs2= OutFunz.F_Melting(df= BL_df_outputs, Scenario="Baseline")
+
+    #Contamination Progression
     BL_df_contprog = df_contprog
+    BL_df_contprog2= OutFunz.F_Melting(df= BL_df_contprog, Scenario="Baseline")
+    Progression_DFS.append(BL_df_contprog2)
 
 if PH_Sampling==1:
     #Sampling only in Pre-Harvers
-    Out_PHSamp = Total_CA_FP
-    Out_PHSampCR = Total_CR_FP #Totqal CFU Rejected
-    
-    Out_PHSampCont =  List_TotalCFUg_FP
     Out_PHSamp_PercRej = List_Cont_PercRej_PH #Percentage of CFU Rejected from total
+
+    #Main Outputs, contamination and weight.
+    PHS_df_outputs = df_outputs
+    PHS_df_outputs2= OutFunz.F_Melting(df= PHS_df_outputs, Scenario="PHS")
     
-    Out_PHSampProd = Total_PA_FP
+    #Contamination Progression
+    PHS_df_contprog = df_contprog
+    PHS_df_contprog2= OutFunz.F_Melting(df= PHS_df_contprog, Scenario="PHS")
+    Progression_DFS.append(PHS_df_contprog2)
 
 #Sampling only in Harvest
 if H_Sampling ==1:
-    Out_HSamp = Total_CA_FP
-    Out_HSampCR = Total_CR_FP #Totqal CFU Rejected
-    Out_HSampCont =  List_TotalCFUg_FP
+
     Out_HSamp_PercRej = List_Cont_PercRej_H #Percentage of CFU Rejected from total
     
-    Out_HSampProd = Total_PA_FP
+    #Main Outputs, contamination and weight.
+    HS_df_outputs = df_outputs
+    HS_df_outputs2= OutFunz.F_Melting(df= HS_df_outputs, Scenario="HS")
+
+    #Contamination Progression
+    HS_df_contprog = df_contprog
+    HS_df_contprog2= OutFunz.F_Melting(df= HS_df_contprog, Scenario="HS")
+    Progression_DFS.append(HS_df_contprog2)
 
 #Sampling in Receiving
 if R_Sampling ==1:
-    Out_RSamp = Total_CA_FP
-    Out_RSampCR = Total_CR_FP #Totqal CFU Rejected
-    Out_RSampCont =  List_TotalCFUg_FP
     Out_RSamp_PercRej = List_Cont_PercRej_R #Percentage of CFU Rejected from total
     
-    Out_RSampProd = Total_PA_FP
+    #Main Outputs, contamination and weight.
+    RS_df_outputs = df_outputs
+    RS_df_outputs2= OutFunz.F_Melting(df= RS_df_outputs, Scenario="RS")
+    
+    
+    #Contamination Progression
+    RS_df_contprog = df_contprog
+    RS_df_contprog2= OutFunz.F_Melting(df= RS_df_contprog, Scenario="RS")
+    Progression_DFS.append(RS_df_contprog2)
 
 #Sampling at Final product
 if FP_Sampling==1:
-    Out_FPSamp = Total_CA_FP
-    Out_FPSampCR = Total_CR_FP #Totqal CFU Rejected
-    Out_FPSampCont =  List_TotalCFUg_FP
+    
     Out_FPSamp_PercRej = List_Cont_PercRej_FP #Percentage of CFU Rejected from total
     
-    Out_FPSampProd = Total_PA_FP
+    #Main Outputs, contamination and weight.
+    FP_df_outputs = df_outputs
+    FP_df_outputs2= OutFunz.F_Melting(df= RS_df_outputs, Scenario="FP")
+      
+    
+    #Contamination Progression
+    FPS_df_contprog = df_contprog
+    FPS_df_contprog2= OutFunz.F_Melting(df= FPS_df_contprog, Scenario="FPS")
+    Progression_DFS.append(FPS_df_contprog2)
 
 
 
@@ -710,68 +748,116 @@ if FP_Sampling==1:
 
 #Pre-Harvest 4 days
 if (PH_Sampling ==1) and (PHS_4d==1):
-        #Sampling only in Pre-Harvers
-    Out_PH4d = Total_CA_FP
-    Out_PH4dCR = Total_CR_FP #Totqal CFU Rejected
-    Out_PH4dCont =  List_TotalCFUg_FP
+    
+    #Sampling only in Pre-Harvers
     Out_PH4d_PercRej = List_Cont_PercRej_PH #Percentage of CFU Rejected from total
-    Out_PH4dProd = Total_PA_FP
+    
+    #Main Outputs, contamination and weight.
+    PH4d_df_outputs = df_outputs
+    PH4d_df_outputs2= OutFunz.F_Melting(df= PH4d_df_outputs, Scenario="PH4d")
+
 
 #Pre-Harvest 4 hrous
 if (PH_Sampling ==1) and (PHS_4h==1):
-        #Sampling only in Pre-Harvers
-    Out_PH4h = Total_CA_FP
-    Out_PH4hCR = Total_CR_FP #Totqal CFU Rejected
-    Out_PH4hCont =  List_TotalCFUg_FP
+    #Sampling only in Pre-Harvers
     Out_PH4h_PercRej = List_Cont_PercRej_PH #Percentage of CFU Rejected from total
-    Out_PH4hProd = Total_PA_FP
+    
+    #Main Outputs, contamination and weight.
+    PH4h_df_outputs = df_outputs
+    PH4h_df_outputs2= OutFunz.F_Melting(df= PH4h_df_outputs, Scenario="PH4h")
 
 #Pre Harvest Intense Sampling
 if (PH_Sampling ==1) and (PHS_Int ==1):
-        #Sampling only in Pre-Harvers
-    Out_PHIN = Total_CA_FP
-    Out_PHINCR = Total_CR_FP #Totqal CFU Rejected
-    Out_PHINCont =  List_TotalCFUg_FP
+    
+    #Sampling only in Pre-Harvers
     Out_PHIN_PercRej = List_Cont_PercRej_PH #Percentage of CFU Rejected from total
-    Out_PHINProd = Total_PA_FP
+    
+    #Main Outputs, contamination and weight.
+    PHIN_df_outputs = df_outputs
+    PHIN_df_outputs2= OutFunz.F_Melting(df= PHIN_df_outputs, Scenario="PHIN")
 
                                                                             #Harvest
 
 if (H_Sampling ==1) and (HS_Trad==1):
         #Sampling only in Pre-Harvers
-    Out_HTr = Total_CA_FP
-    Out_HTrCR = Total_CR_FP #Totqal CFU Rejected
-    Out_HTrCont =  List_TotalCFUg_FP
     Out_HTr_PercRej = List_Cont_PercRej_PH #Percentage of CFU Rejected from total
-    Out_HTrProd = Total_PA_FP
+    
+    #Main Outputs, contamination and weight.
+    HTr_df_outputs = df_outputs
+    HTr_df_outputs2= OutFunz.F_Melting(df= HTr_df_outputs, Scenario="HTr")
+
     
 if (H_Sampling ==1) and (HS_Agg==1):
-        #Sampling only in Pre-Harvers
-    Out_HAgg = Total_CA_FP
-    Out_HAggCR = Total_CR_FP #Totqal CFU Rejected
-    Out_HAggCont =  List_TotalCFUg_FP
+    #Sampling only in Pre-Harvers
     Out_HAgg_PercRej = List_Cont_PercRej_PH #Percentage of CFU Rejected from total
-    Out_HAggProd = Total_PA_FP
+  
+    #Main Outputs, contamination and weight.
+    HAgg_df_outputs = df_outputs
+    HAgg_df_outputs2= OutFunz.F_Melting(df= HAgg_df_outputs, Scenario="HAgg")
 
                                                                             #Finished Product
 
 if (FP_Sampling ==1) and (FPS_Trad==1):
-        #Sampling only in Pre-Harvers
-    Out_FPTr = Total_CA_FP
-    Out_FPTrCR = Total_CR_FP #Totqal CFU Rejected
-    Out_FPTrCont =  List_TotalCFUg_FP
+    
+    #Sampling only in Pre-Harvers
     Out_FPTr_PercRej = List_Cont_PercRej_PH #Percentage of CFU Rejected from total
-    Out_FPTrProd = Total_PA_FP
+    
+    #Main Outputs, contamination and weight.
+    FPTr_df_outputs = df_outputs
+    FPTr_df_outputs2= OutFunz.F_Melting(df= FPTr_df_outputs, Scenario="FPTr")
+
     
 if (FP_Sampling ==1) and (FPS_Agg==1):
-        #Sampling only in Pre-Harvers
-    Out_FPAgg = Total_CA_FP
-    Out_FPAggCR = Total_CR_FP #Totqal CFU Rejected
-    Out_FPAggCont =  List_TotalCFUg_FP
+    #Sampling only in Pre-Harvers
     Out_FPAgg_PercRej = List_Cont_PercRej_PH #Percentage of CFU Rejected from total
-    Out_FPAggProd = Total_PA_FP
+
+    #Main Outputs, contamination and weight.
+    FPAgg_df_outputs = df_outputs
+    FPAgg_df_outputs2= OutFunz.F_Melting(df= FPAgg_df_outputs, Scenario="FPAgg")
+
 
 #%% 
+#Contamination Progression
+ProgMelted = pd.concat(Progression_DFS)
+
+Progplot =sns.catplot(x="variable", y="value", data=ProgMelted ,kind="bar",capsize=.2, hue = "Scenario", height=4, aspect=3 )
+plt.xlabel("Process Step")
+plt.ylabel("CFU in System")
+
+
+#Boxplot Contamination Accepted CFU
+data_scenarios = {'Baseline':  BL_df_outputs["Total_CFU_A"],
+                'PHS':  PHS_df_outputs["Total_CFU_A"],
+                'HS':  HS_df_outputs["Total_CFU_A"],
+                'RS':  RS_df_outputs["Total_CFU_A"],
+                'FP':  FP_df_outputs["Total_CFU_A"],
+          }
+df_data_scenarios = pd.DataFrame(data_scenarios)
+
+df_data_scenarios_melted = pd.melt(df_data_scenarios)
+
+
+Scenariosplot =sns.catplot(x="variable", y="value", data=df_data_scenarios_melted ,kind="bar",capsize=.2,  height=4, aspect=2 )
+plt.xlabel("Process Step")
+plt.ylabel("CFU in System")
+
+
+
+#Boxplot Contamination Accepted CFU
+datasampling = {'Baseline':  BL_df_outputs["Total_CFU_A"],
+                'PH4d': Out_PH4d,
+                'PH4h': Out_PH4h, 
+                'PHIntense':Out_PHIN,
+                'HTrad':Out_HTr,
+                'HAgg':Out_HAgg,
+                "Receiving":Out_RSamp,
+                'FPTrad': Out_FPTr,
+                "FPAgg": Out_FPAgg
+          }
+
+
+
+
 Samplingtypes = ['Baseline', 'PH4d','PH4h','PHIntense','HTrad','HAgg',"Receiving",'FPTrad',"FPAgg"]
 MatchingAreas = ["Baseline","PreHarvest","PreHarvest","PreHarvest","Harvest", "Harvest","Receiving", 'FinalProduct', 'FinalProduct']
 
@@ -782,17 +868,7 @@ DataNames = {"variable" :Samplingtypes,
 DfDataNames = pd.DataFrame(DataNames)
 
 
-#Boxplot Contamination Accepted CFU
-datasampling = {'Baseline':  Out_BLSampCA,
-                'PH4d': Out_PH4d,
-                'PH4h': Out_PH4h, 
-                'PHIntense':Out_PHIN,
-                'HTrad':Out_HTr,
-                'HAgg':Out_HAgg,
-                "Receiving":Out_RSamp,
-                'FPTrad': Out_FPTr,
-                "FPAgg": Out_FPAgg
-          }
+
 dfTotCont = pd.DataFrame(datasampling)
 
 data8 = data=pd.melt(dfTotCont)
