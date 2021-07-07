@@ -4,6 +4,8 @@ import scipy.stats as stats
 import math
 import random
 import itertools
+import tensorflow_probability as tfp
+tfd = tfp.distributions
 
 
 #Function Source File

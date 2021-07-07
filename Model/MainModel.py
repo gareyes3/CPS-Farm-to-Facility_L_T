@@ -9,8 +9,8 @@ Created on Fri May 28 09:42:31 2021
 
 import sys
 sys.path
-sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
-#sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
+#sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
+sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
 
 ########################################Paths#################################################
 #os.chdir('C:\\Users\Gustavo Reyes\Box\CPS Project- Farm to Facility\Python Model Files')
@@ -34,6 +34,7 @@ import Listz
 import OutFunz
 import InFunz
 #from itertools import cycle
+
 
 
 #%% 
@@ -276,18 +277,17 @@ for i in range(100):
         #Conveyor Belt
     Tr_Cv_P =np.random.triangular(0.15,0.18,0.22)
     Tr_P_Cv =np.random.triangular(0,0.0062,0.0139)
+    
+    #Flume tank washing step
+    LogRedWash= np.random.normal(1.2, 0.3) #log Reduction achieved through washing
+    
         #Shaker Table
     Tr_St_P =np.random.triangular(0.06,0.28,0.30)
     Tr_P_St =np.random.triangular(0,0.0006,0.0038)
         #Centrifuge
     Tr_C_P =np.random.triangular(0.23,0.27,0.31)
     Tr_P_C =np.random.triangular(0,0.0035,0.0159)
-    
-    
-    
-    
-    # 5 Washing input
-    LogRedWash= np.random.normal(1.2, 0.3) #log Reduction achieved through washing
+
     
         
     # 7 Final Product
@@ -500,8 +500,6 @@ for i in range(100):
      
                                                                     #STEP 4 A: WASHING Reduction
     
-    #Wash process reduction
-    df=Funz.F_Washing(df, LogRedWash)
     
     #gathering contamination between washing and Value Addition
     BtWVA_CFU = sum(df.CFU)
@@ -518,7 +516,10 @@ for i in range(100):
     gb2 = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Tr_P_Sh, Tr_S_P= Tr_Sh_P)
     #2 Conveyor Belt
     gb2 = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Tr_P_Cv, Tr_S_P= Tr_Cv_P)
-    #3 Conveyor Belt
+    
+    
+    
+    #3 Shaker Table
     gb2 = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Tr_P_St, Tr_S_P= Tr_St_P)
     #4 Centrifuge
     gb2 = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Tr_P_C, Tr_S_P= Tr_C_P)
