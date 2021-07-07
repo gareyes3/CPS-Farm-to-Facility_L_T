@@ -3,6 +3,7 @@ import numpy as np
 import scipy.stats as stats
 import math
 import random
+import itertools
 
 
 #Function Source File
@@ -169,6 +170,44 @@ def F_SamplingFProd (df, Test_Unit, N_SampPacks, Grab_Weight):
     return Detected_YN
 
 #%% Partitioning and Mixing Functions
+def F_Palletization (df, Field_Weight,Pallet_Weight, Partition_Weight):
+    Partitions_Per_Pallet =  int(Pallet_Weight/Partition_Weight)
+    Pallet_Field = int(Field_Weight/Pallet_Weight)
+    Pallet_Pattern = [i for i in range(1, Pallet_Field+1) for _ in range(int(Partitions_Per_Pallet))]
+    Crop_No = len(df.index)
+    Pallet_Pattern=Pallet_Pattern[:Crop_No]
+    df['PalletNo'] = Pallet_Pattern
+    df = df[['Lot', 'Sublot','PalletNo','PartitionID','CFU','Accept', 'Weight']]
+    return df
+
+
+
+def F_ProLineSplitting(df, Processing_Lines,):
+    df2=df.groupby(['PalletNo'], as_index =False)[["CFU", "Weight"]].sum()
+    #Splitting Pallets into processing lines. 
+    N_Pallets = len(df2.index)
+    num, div = N_Pallets, Processing_Lines #Getting list of pallets per line
+    N_Divs =  ([num // div + (1 if x < num % div else 0)  for x in range (div)])
+    N_Lines = list(range(1,Processing_Lines+1))
+    L_ProLine =list(itertools.chain(*(itertools.repeat(elem, n) for elem, n in zip(N_Lines, N_Divs))))
+    df2["ProLine"] = L_ProLine
+    #Dividing the pallets dataframe into different processing lines.  
+    gb = df2.groupby('ProLine')#Creating Listby procesing line
+    gb2 =[gb.get_group(x) for x in gb.groups] #Creating list of separate dataframe by processing lines
+    return gb2
+
+def F_CrossContProLine (gb2, Tr_P_S, Tr_S_P):
+    for j in gb2:
+        ContS=0
+        for i, row in j.iterrows():
+            ContP = j.CFU[i] #Contamination product
+            TotTr_P_S= np.random.binomial(ContP,Tr_P_S) #Transfer from Product to Surfaces
+            TotTr_S_P = np.random.binomial(ContS,Tr_S_P) #Trasnfer from Surfaves to product
+            ContPNew = ContP-TotTr_P_S+TotTr_S_P #New Contmination on Product
+            ContS=ContS+TotTr_P_S-TotTr_S_P #Remiining Contamination in Surface for upcoming batches
+            j.CFU[i]=ContPNew #Updating the Contamination in the Data Frame
+    return gb2
+
 
 #Paritioning Function
 def F_Partitioning(DF,NPartitions):
@@ -210,9 +249,6 @@ def F_Mixing(DF):
     df1 = pd.DataFrame(data1)  
     return df1
 
-x=1000
-y=10
-divmod(x,y)
 
 def parts(a, b):
     q, r = divmod(a, b)

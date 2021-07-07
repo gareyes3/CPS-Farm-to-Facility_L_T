@@ -32,6 +32,7 @@ import Funz
 import ContScen
 import Listz 
 import OutFunz
+import InFunz
 #from itertools import cycle
 
 
@@ -45,10 +46,10 @@ Progression_DFS=[]
                                                                 #Scenarios and Conditions
 #Sampling Conditions, Baseline all conditions are off
 Baseline_Sampling= 0 #all others must be 0if this one is 1
-PH_Sampling = 0
-H_Sampling = 0 
+PH_Sampling = 1
+H_Sampling = 0
 R_Sampling = 0
-FP_Sampling =1
+FP_Sampling =0
 
 #Additional Sampling Conditions. Env and 
 Water_SamplingProc = 0
@@ -78,9 +79,9 @@ Pack_C= 0
 
 #Pre-Harvest
     #Pre-Harvest sampling must be on
-PHS_4d= 1 #Scenario 1
+PHS_4d= 0 #Scenario 1
 PHS_4h = 0#Scenario 2
-PHS_Int = 0 #Scenario 3
+PHS_Int = 1 #Scenario 3
 
 #Harvest: 
     #HArvest Sampling must be one
@@ -157,42 +158,43 @@ for i in range(100):
     # 0 Initial Inputs for Field Setup and Challenges
     
     Field_Weight= 100000 #total lb in field
-    slot_weight = 10000
-    Partition_Weight = 1000
+    slot_weight = 10000 #weight of the sublot (inital)
+    Partition_Weight = 1000 #Partition weight for contamination Events
     
-    slot_number = int(Field_Weight/slot_weight)
-    Partition_Units = int(Field_Weight/Partition_Weight)
-    Cluster_Unit_weight = Field_Weight/Partition_Units
+    slot_number = int(Field_Weight/slot_weight) #Number of sublots per field
+    Partition_Units = int(Field_Weight/Partition_Weight) #Number of partition units per field
+
     
-    #Challenge Related Information
+    # Contamination Challenge Related Information
     if Background_C ==1:
         Hazard_lvl = 50000  #CFU # background contamination
         Cluster_Size = 100000 #lb
-        No_Cont_Clusters = 1
+        No_Cont_Clusters = 1 #Number of contamination clusters here one uniform cluster, field size.
     
         
     if Point_Source_C ==1:
         Hazard_lvl = 50000  #CFU # background contamination
         Cluster_Size = 1000 #lb
-        No_Cont_Clusters = 4
+        No_Cont_Clusters = 4 #4 1000k lb clusters. 
         
     if Systematic_C ==1: 
         Hazard_lvl = 50000  #CFU # background contamination
         Cluster_Size = 10000 #lb
-        No_Cont_Clusters = 1
+        No_Cont_Clusters = 1 #Number of contaminated clusters
 
      
 
     if Crew_C == 1: 
         Hazard_lvl = 50000  #CFU # background contamination
         Cluster_Size = 5000 #lb
-        No_Cont_Clusters = 4
+        No_Cont_Clusters = 4 #Number of contaminated clusters
+
 
     
     if Harvester_C==1:
         Hazard_lvl = 50000  #CFU # background contamination
         Cluster_Size = 50000 #lb
-        No_Cont_Clusters = 1
+        No_Cont_Clusters = 1 #Number of contaminated clusters
         
     if PE_C == 1:
         Hazard_lvl = 50000  #CFU # background contamination
@@ -204,91 +206,103 @@ for i in range(100):
         
         
     
-    # 0 Die-off
-    Break_Point=Funz.Func_NormalTrunc(0.11,3.71,0.68,0.98) #Breaking point for Die Off
-    Dieoff1 = -0.5 #Funz.F_DieOff1()
-    Dieoff2 = -0.5 #Funz.F_DieOff2()
-    Time_Agg = 0
+    # 0 Die-off in Field for first 3 contamination Events
+    Break_Point=Funz.Func_NormalTrunc(0.11,3.71,0.68,0.98) #Breaking point for Die Off from Belias et al. 
+    Dieoff1 = Funz.F_DieOff1() #from Belias et al. 
+    Dieoff2 = Funz.F_DieOff2() #from Belias et al. 
+    Time_Agg = 0 #Initial time in Days
     
     
     # 1 Pre-Harvest Inputs
 
-    sample_size_PH = 300 #g #Sample Size in grams
-    n_samples_slot_PH = 1 # Samples per sublot of product
+    sample_size_PH = 300 # (Input) g #Sample Size in grams for Pre Harvest
+    n_samples_slot_PH = 1 # (Input) Samples per sublot of product 
     if PHS_Int ==1:
-        n_samples_lot_PH = 15 #Samples per lot of product
+        n_samples_lot_PH = 5 # (Input) Samples per lot of product
     
     # 2 Harvest Inputs
-        #Options for the Sampling Scenarios 1,2,3
+    
+    #Options for the Sampling Scenarios 1,2,3
     if PHS_Int == 1:
         Time_PHS_H = 0 #Days #time from pre harvest sampling to harvest Sampling
     elif PHS_4h ==1:
-        Time_PHS_H = 0.166
+        Time_PHS_H = 0.166 # 4Hours before harvest
     elif PHS_4d ==1:
-        Time_PHS_H = 4
+        Time_PHS_H = 4 #4 days before harvest
     else:
-        Time_PHS_H = 4
+        Time_PHS_H = 4 #if not, baseline is always 4 hours
     
-    #Time between Contamination Event and HArvest Sampling
+    #Time between Contamination Event and Harvest Sampling
     Time_CE_H = 6 #days
     #Here because of math
-    Time_CE_PHS= int(Time_CE_H-Time_PHS_H) #Days Time from Contamination Event (Irrigation) to Pre-Harvest 
+    Time_CE_PHS= int(Time_CE_H-Time_PHS_H) #Days Time from Contamination Event (Irrigation) to Pre-Harvest Sampling
     sample_size_H = 300 #g #Sample Size in grams
     n_samples_slot_H = 1 # Samples per lot of product
     
+    
     # 3 Receiving
-    Time_H_RS = 0.25 # Days,Time from Harvest Sampling to Receiving Sampling 
-    Pallet_Weight = 4000   
+    #Growth rate or die off from harvest to receiving
+    Die_Off_HS_RS= 0 #Growth Rate , Die_off/growth from Harvest-Receiving CFU/g
+    Time_H_RS = 0.042 # 1 hr. Days,Time from Harvest Sampling to Receiving Sampling,  
+    Pallet_Weight = 4000  #weight of pallet in lb.  
     n_samples_pallet = 1 #samples taken per pallet
     sample_size_R = 300 #g #Sample Size in grams Receiving
     
-    #Growth rate or die off from harvest to receiving
-    Die_Off_HS_RS= 0 #Growth Rate , Die_off/growth from Harvest-Receiving CFU/g
     
     # 4 Processing -Cross Contamination Inputs
     # A Pre-Cooling
-    Time_R_PC = 0.1 #Days
-    Processing_Lines = 4
+    Time_R_PC = 0.1  #Days around 2hr
+    Processing_Lines = 4 #Number of processing lines of product
     
     # B Cold Storage
+    #Infor for cold storage die-off. 
     Time_ColdStorage = 1 #Days
-    Temperature_ColdStorage = 4 #C
+    Temperature_ColdStorage = 4 #C 
     
-    TR1 = np.random.triangular(0,0.01,0.02) #Transfer (%) from contaminated lettuce to flume
-    TR2 = np.random.triangular(0,0.02,0.02) #Transfer (%) from contaminated lettuce to shredder
-    TR3 = np.random.triangular(0,0.01,0.02) #Transfer (%) from contaminated lettuce to shaker
-    TR4 = np.random.triangular(0.01,0.04,0.08) #Transfer (%) from contaminated lettuce to centrifuge
-    TR5 = np.random.triangular(0,0.01,0.024) #Transfer (%) from contaminated lettuce to conveyor
-    Tr_P_S = TR1+TR2+TR3+TR4+TR5
-    Tr_S_P = np.random.triangular(9.9,15.33,18.83)
-    ContS=0
+    #Food Processing Events, Transfer Rates from 
+    #TR1 = np.random.triangular(0,0.01,0.02) #Transfer (%) from contaminated lettuce to flume
+    #TR2 = np.random.triangular(0,0.02,0.02) #Transfer (%) from contaminated lettuce to shredder
+    #TR3 = np.random.triangular(0,0.01,0.02) #Transfer (%) from contaminated lettuce to shaker
+    #TR4 = np.random.triangular(0.01,0.04,0.08) #Transfer (%) from contaminated lettuce to centrifuge
+    #TR5 = np.random.triangular(0,0.01,0.024) #Transfer (%) from contaminated lettuce to conveyor
+    #Tr_P_S = TR1+TR2+TR3+TR4+TR5 #Total transfer from Contminated Lettuce to Surfaces. 
+    #Tr_S_P = np.random.triangular(9.9,15.33,18.83) #Total Transfer from Surfaces to new product. 
+    #ContS=0 #Initial Contamination in Surfaces. 
+    
+    #Processing Transfer Rates in %/100:
+        #Shredder
+    Tr_Sh_P =np.random.triangular(0.16,0.20,0.28)
+    Tr_P_Sh =np.random.triangular(0,0.0025,0.0053)
+        #Conveyor Belt
+    Tr_Cv_P =np.random.triangular(0.15,0.18,0.22)
+    Tr_P_Cv =np.random.triangular(0,0.0062,0.0139)
+        #Shaker Table
+    Tr_St_P =np.random.triangular(0.06,0.28,0.30)
+    Tr_P_St =np.random.triangular(0,0.0006,0.0038)
+        #Centrifuge
+    Tr_C_P =np.random.triangular(0.23,0.27,0.31)
+    Tr_P_C =np.random.triangular(0,0.0035,0.0159)
+    
+    
+    
     
     # 5 Washing input
-    LogRedWash= np.random.normal(1.2, 0.3)
+    LogRedWash= np.random.normal(1.2, 0.3) #log Reduction achieved through washing
     
         
     # 7 Final Product
-    Partition_Weight_FP = 10
-    N_Lots_FP = 2
+    Pack_Weight_FP = 10 #Weight of each pack. 
+    N_Lots_FP = 2 #Lost of final product
     sample_size_FP = 300 #g #Sample Size in grams
-    n_samples_FP = 1
+    n_samples_FP = 1 #number of samples final product
 
     
 
                                                             #Step 0: DF Creation and Setup based on scenarios. 
     #Creation of the Data Frame to Track: 
-    data = {'Lot': 1,
-            'Sublot':0,
-            'PartitionID': list(range(1,Partition_Units+1)),
-            'CFU':0,
-            'Accept': True,
-            'Weight': Field_Weight/Partition_Units}
-    
-    Sublot_Pattern = [i for i in range(1, slot_number+1) for _ in range(int(slot_number))]
-    
-    df = pd.DataFrame(data)
-    df.Sublot = Sublot_Pattern
-    df.index = range(1,Partition_Units+1)
+    df= InFunz.F_InDF(Partition_Units = Partition_Units,
+                      Field_Weight = Field_Weight, 
+                      slot_number = slot_number)
     
     #Adding Contamination depending on challenge Background
     if Background_C == 1:
@@ -310,33 +324,31 @@ for i in range(100):
                                      Cluster_Size= Cluster_Size,
                                      Partition_Weight = Partition_Weight)
         
-    #Initial Contamination     
+    # Outputs: Initial Contamination     
     Initial_CFU= sum(df.CFU)
     List_Initial_CFU.append(Initial_CFU)
     
 
                                                                       #Step 1: PREHARVEST
     #Die-off From Contamination Event to Pre-Havrvest
-   
     Die_Off_CE_PHS =Funz.F_Simple_DieOff(Time_CE_PHS) #Funz.F_DieOff_IR_PH(Time_CE_PHS,Break_Point, Dieoff1, Dieoff2) #Die off rate from Irrigation to pre harvest sampling
-    print(Die_Off_CE_PHS)
-    df["CFU"] =  df["CFU"]*(10**Die_Off_CE_PHS)
+    df["CFU"] =  df["CFU"]*(10**Die_Off_CE_PHS) #Applying Die off through DFs
     Time_Agg = Time_Agg + Time_CE_PHS #Cummulative time so far in the process.
         
-    
+    #Sampling at Pre-Harvest
     if PH_Sampling ==1: #If function to turn off Pre-Harvest Sampling
         if PHS_Int ==1:
             Rej_Lots_PH = Funz.F_Sampling(df =df,Test_Unit ="Lot", 
-                                          NSamp_Unit = 15, 
+                                          NSamp_Unit = 5, 
                                           Samp_Size =sample_size_PH, 
-                                          Clust_Weight =Cluster_Unit_weight, 
+                                          Clust_Weight =Partition_Weight, 
                                           Limit =0, NoGrab =60 )
         else:
         #Pre-Harvest Sampling, 
              Rej_Lots_PH = Funz.F_Sampling(df =df,Test_Unit ="Sublot", 
                                        NSamp_Unit = n_samples_slot_PH, 
                                        Samp_Size =sample_size_PH, 
-                                       Clust_Weight =Cluster_Unit_weight, 
+                                       Clust_Weight =Partition_Weight, 
                                        Limit =0, NoGrab =60 )
     else: #If no pre harvest sampling, none rejected
         Rej_Lots_PH= [] 
@@ -361,7 +373,6 @@ for i in range(100):
     else:
         Cont_PercRej_PH = Cont_Rejected_PH/(Cont_Accepted_PH+Cont_Rejected_PH) #Percentage Rejected by H sampling
     
-    
     #Outputs for Iterations
     Total_PA_PH.append(Total_Accepted_PH)
     Total_PR_PH.append(Total_Rejected_PH)
@@ -376,10 +387,9 @@ for i in range(100):
     Time_Agg = Time_Agg + Time_PHS_H #Cummulative time so far in the process.
     Die_off_B = Funz.F_Simple_DieOff(Time_Agg)
     Die_Off_PHS_HS= Die_off_B-Die_Off_CE_PHS#Funz.F_DieOff_PHS_HS(Time_PHS_H, Time_Agg, Break_Point, Dieoff1, Dieoff2)
-    print(Die_Off_PHS_HS)
     df['CFU'] = df['CFU']*(10**Die_Off_PHS_HS) #Updating Contmination to Show Total DieOff
     
-    #Adding Contamination depending on challenge Systematic Sampling
+    #Adding Contamination depending on challenge at harvest
     if Crew_C == 1:
         df = ContScen.F_Crew_C(df =df, Hazard_lvl =Hazard_lvl, 
                                No_Cont_Clusters = No_Cont_Clusters,
@@ -399,13 +409,13 @@ for i in range(100):
             Rej_Lots_H = Funz.F_Sampling(df =df,Test_Unit ="Sublot", 
                                            NSamp_Unit = n_samples_slot_H, 
                                            Samp_Size =sample_size_H, 
-                                           Clust_Weight =Cluster_Unit_weight, 
+                                           Clust_Weight =Partition_Weight, 
                                            Limit =0, NoGrab =60 )
         elif HS_Agg==1:
             Rej_Lots_H = Funz.F_Sampling(df =df,Test_Unit ="Sublot", 
                                            NSamp_Unit = 10, 
                                            Samp_Size =sample_size_H, 
-                                           Clust_Weight =Cluster_Unit_weight, 
+                                           Clust_Weight =Partition_Weight, 
                                            Limit =0, NoGrab =60 )
     else:
         Rej_Lots_H=[]
@@ -446,17 +456,12 @@ for i in range(100):
                                                                
     #Paletization
     
-    Partitions_Per_Pallet =  int(Pallet_Weight/Partition_Weight)
-    Pallet_Field = int(Field_Weight/Pallet_Weight)
-    Pallet_Pattern = [i for i in range(1, Pallet_Field+1) for _ in range(int(Partitions_Per_Pallet))]
-    Crop_No = len(df.index)
-    Pallet_Pattern=Pallet_Pattern[:Crop_No]
-    df['PalletNo'] = Pallet_Pattern
-    df = df[['Lot', 'Sublot','PalletNo','PartitionID','CFU','Accept', 'Weight']]
-    No_Pallets = df.PalletNo.nunique()
+    df = Funz.F_Palletization(df=df,
+                              Field_Weight=Field_Weight,
+                              Pallet_Weight=Pallet_Weight,
+                              Partition_Weight = Partition_Weight,
+                              )
     
-    
-
 
     Time_Agg = Time_Agg + Time_H_RS #Cummulative time so far in the process. 
     
@@ -468,7 +473,7 @@ for i in range(100):
         Rej_Pallets_R = Funz.F_Sampling(df =df,Test_Unit ="PalletNo", 
                                        NSamp_Unit = n_samples_pallet, 
                                        Samp_Size =sample_size_R, 
-                                       Clust_Weight =Cluster_Unit_weight, 
+                                       Clust_Weight =Partition_Weight, 
                                        Limit =0, NoGrab =3 )
     else:
         Rej_Pallets_R = []
@@ -493,7 +498,7 @@ for i in range(100):
     List_Cont_PercRej_R.append(Cont_PercRej_R)
     
      
-                                                                    #STEP 4: WASHING Reduction
+                                                                    #STEP 4 A: WASHING Reduction
     
     #Wash process reduction
     df=Funz.F_Washing(df, LogRedWash)
@@ -503,41 +508,21 @@ for i in range(100):
     List_BtWVA_CFU.append (BtWVA_CFU)
     
         
-                                                             #STEP 4: VALUE ADDITION/ PROCESSING Includes Washing
-    #Pre-Cooling of Lettuce
-    Time_Agg = Time_Agg + Time_R_PC #Time from Receiving to Pre-Cooling
-    # Process Pending, Reduction? 
-    
-    #Cold Storage:
-    df = Funz.F_Growth(DF=df, Temperature=Temperature_ColdStorage, TimeD= Time_ColdStorage)#Growth during cold storage
-    Time_Agg = Time_Agg + Time_ColdStorage #Time between Pre-Cooling and Cold Storage. 
+                                                             #STEP 4 B: VALUE ADDITION/ PROCESSING 
 
-    
-    df2=df.groupby(['PalletNo'], as_index =False)[["CFU", "Weight"]].sum()
-    
-    #Splitting Pallets into processing lines. 
-    N_Pallets = len(df2.index)
-    num, div = N_Pallets, Processing_Lines #Getting list of pallets per line
-    N_Divs =  ([num // div + (1 if x < num % div else 0)  for x in range (div)])
-    N_Lines = list(range(1,Processing_Lines+1))
-    L_ProLine =list(itertools.chain(*(itertools.repeat(elem, n) for elem, n in zip(N_Lines, N_Divs))))
-    df2["ProLine"] = L_ProLine
-    
-    #Dividing the pallets dataframe into different processing lines.  
-    gb = df2.groupby('ProLine')#Creating Listby procesing line
-    gb2 =[gb.get_group(x) for x in gb.groups] #Creating list of separate dataframe by processing lines
-
+    #Splitting pallets into processing lines. 
+    gb2 = Funz.F_ProLineSplitting(df =df, Processing_Lines = Processing_Lines)
     #Value Addition Steps
-    #Cross-Contamination Processing by batch, Assuming Every Pallet is a 4000k lb bath
-    for j in gb2:
-        ContS=0
-        for i, row in j.iterrows():
-            ContP = j.CFU[i] #Contamination product
-            TotTr_P_S= ContP*(Tr_P_S/100) #Transfer from Product to Surfaces
-            TotTr_S_P = ContS*(Tr_S_P/100) #Trasnfer from Surfaves to product
-            ContPNew = ContP-TotTr_P_S+TotTr_S_P #New Contmination on Product
-            ContS=ContS+TotTr_P_S-TotTr_S_P #Remiining Contamination in Surface for upcoming batches
-            j.CFU[i]=ContPNew #Updating the Contamination in the Data Frame
+    #Cross-Contamination Processing by processing line between batches 4k lb batches. 
+    #1 Shredder
+    gb2 = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Tr_P_Sh, Tr_S_P= Tr_Sh_P)
+    #2 Conveyor Belt
+    gb2 = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Tr_P_Cv, Tr_S_P= Tr_Cv_P)
+    #3 Conveyor Belt
+    gb2 = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Tr_P_St, Tr_S_P= Tr_St_P)
+    #4 Centrifuge
+    gb2 = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Tr_P_C, Tr_S_P= Tr_C_P)
+    
             
     #Adding Contamination from Scenario to each lot
     if PE_C ==1:
@@ -550,8 +535,19 @@ for i in range(100):
     #Joining Data Frames into one again, with contamination from lines. 
     df2=(pd.concat(gb2))
     
+    #Outputs after value addition.
     AVA_CFU= sum(df2.CFU)
     List_AVA_CFU.append(AVA_CFU)
+    
+    #Pre-Cooling of Lettuce
+    Time_Agg = Time_Agg + Time_R_PC #Time from Receiving to Pre-Cooling
+    # Process Pending, Reduction? 
+    
+    #Cold Storage:
+    df = Funz.F_Growth(DF=df, Temperature=Temperature_ColdStorage, TimeD= Time_ColdStorage)#Growth during cold storage
+    Time_Agg = Time_Agg + Time_ColdStorage #Time between Pre-Cooling and Cold Storage. 
+    
+
         
     df2['Lot'] =1#Updating the CFU/g column
         
@@ -563,7 +559,7 @@ for i in range(100):
                                                           #STEP 6: Finished Product Mixing and Sampling
     #Mixing products into one batch
     
-    N_Partitions = int(Pallet_Weight/Partition_Weight_FP)
+    N_Partitions = int(Pallet_Weight/Pack_Weight_FP)
     
     df2 = Funz.F_Partitioning(DF=df2, NPartitions= N_Partitions)
     if N_Lots_FP==2:
@@ -596,7 +592,7 @@ for i in range(100):
             Rej_Lots_H = Funz.F_Sampling(df =df2,Test_Unit ="Sublot", 
                                            NSamp_Unit = 10, 
                                            Samp_Size =sample_size_FP, 
-                                           Clust_Weight =Partition_Weight_FP, 
+                                           Clust_Weight =Pack_Weight_FP, 
                                            Limit =0, NoGrab =60 )
     else :
         Rej_Lots_FP = []
@@ -733,7 +729,7 @@ if FP_Sampling==1:
     
     #Main Outputs, contamination and weight.
     FP_df_outputs = df_outputs
-    FP_df_outputs2= OutFunz.F_Melting(df= RS_df_outputs, Scenario="FP")
+    FP_df_outputs2= OutFunz.F_Melting(df= FP_df_outputs, Scenario="FP")
       
     
     #Contamination Progression
@@ -833,20 +829,20 @@ data_scenarios = {'Baseline':  BL_df_outputs["Total_CFU_A"],
                 'FP':  FP_df_outputs["Total_CFU_A"],
           }
 df_data_scenarios = pd.DataFrame(data_scenarios)
-
 df_data_scenarios_melted = pd.melt(df_data_scenarios)
-
-
 Scenariosplot =sns.catplot(x="variable", y="value", data=df_data_scenarios_melted ,kind="bar",capsize=.2,  height=4, aspect=2 )
 plt.xlabel("Process Step")
 plt.ylabel("CFU in System")
+
+sum(df_data_scenarios.FP)
+sum(df_data_scenarios.Baseline)
 
 
 
 #Boxplot Contamination Accepted CFU
 datasampling = {'Baseline':  BL_df_outputs["Total_CFU_A"],
-                'PH4d': Out_PH4d,
-                'PH4h': Out_PH4h, 
+                'PH4d': BL_df_outputs["Total_CFU_A"],
+                'PH4h': BL_df_outputs["Total_CFU_A"], 
                 'PHIntense':Out_PHIN,
                 'HTrad':Out_HTr,
                 'HAgg':Out_HAgg,
@@ -959,6 +955,14 @@ dataContPercRej = pd.DataFrame(dataContPercRej)
 sns.boxplot(x="variable", y="value", data=pd.melt(dataContPercRej))
 plt.xlabel("Sampling at Stage Only")
 plt.ylabel("Percentage of Contamination Rejected CFU")
+
+
+dataContPercRej = {'PreHarvest': Out_PHSamp_PercRej, 
+          'Harvest':Out_HSamp_PercRej,
+          'Receiving':Out_RSamp_PercRej, 
+          'Final':Out_FPSamp_PercRej}
+    
+dataContPercRej = pd.DataFrame(dataContPercRej)
 
 
 
