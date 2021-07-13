@@ -9,10 +9,10 @@ Created on Fri May 28 09:42:31 2021
 
 import sys
 sys.path
-#sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
-sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
+sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
+#sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
 
-########################################Paths#################################################
+########################################Paths#################################################|
 #os.chdir('C:\\Users\Gustavo Reyes\Box\CPS Project- Farm to Facility\Python Model Files')
 #os.chdir("C:\\Users\\reyes\\Box Sync\\CPS Project- Farm to Facility\\Python Model Files")
 #os.chdir('C:\\Users\Gustavo Reyes')
