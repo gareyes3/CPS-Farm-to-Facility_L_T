@@ -40,7 +40,7 @@ r1= 12.75 #(mg/(ml/min**2))
 r2 = 7.47 #(mg/(ml/min**2))
 r3 = 5.56 #(mg/(ml/min**2))
 
-'''
+
 #Inputs
 
 V = 3200 *1000 #L #From Luo et al 2012. 
@@ -48,7 +48,7 @@ Rate = 45 #kg/min #From Luo et al 2012.
 Wash_Time = 2.3 #min 
 c1 = 1/Wash_Time #Reciprocal of average time. 
 L = (Rate*1000)/(c1) #g of lettuce in the tak at the same time
-
+'''
 
 def F_Chloride_lvl (Time_Wash):
     #Function Inputs. 
@@ -104,63 +104,134 @@ def F_Chloride_lvl (Time_Wash):
         List_C.append(C)
     return C
 
+gb3 = gb2
 
-
-
-WashT_Per_Pallet = 40
-No_Pallets =  TrialDF.PalletNo.nunique()
-
-Times_W = np.arange(0, (WashT_Per_Pallet+1)*4, 1).tolist()
-Times_W = [round(num, 1) for num in Times_W]
-
-
-Trials_2 = F_Partitioning_W( DF= TrialDF,NPartitions= 40 )
-
-Blw = 0.38 #ml/g min: is the pathogen binding rate to pieces of shredded lettuce heads
-alpha = 0.75 #Inactivation rate of pathogen via FC L/mgmin
-V = (3200 *1000) #L #From Luo et al 2012. 
-Rate = 45.45 #kg/min #From Luo et al 2012. 
-Wash_Time = 2.3 #min 
-c1 = 1/Wash_Time #Reciprocal of average time. 
-L = (Rate*1000)/(c1) #g of lettuce in the tak at the same time
-Xl = 0
-Xw =0  #pathogen in process water MPN/ml
-
-L_Xw = []
-L_Xl = []
-for i in Times_W:
-    #Defining Initial Contamination
-    Time = i
-    AvCont = Trials_2.at[i,"CFU"] /(Trials_2.at[i,"Weight"]*454)
-    print(AvCont)
-    AvContAfter = AvCont*10**-0.8
-    print(AvContAfter)
-    C= F_Chloride_lvl(Time_Wash= Time)
-    print(C)
-    Bws = ((AvCont- AvContAfter)*Rate)/V
-    print(Bws)
-    CXw = Bws - (Blw*Xw*(L/V)) - (alpha*Xw*C)
-    print(CXw)
-    Xw = Xw+CXw
-    print(CXw)
-    L_Xw.append(Xw)
+def Washing_ProcLines (gb3):
+    List_GB3=[]
+    for j in gb3:
+        j = F_Partitioning_W(DF= j,NPartitions= 40) 
+        List_GB3.append(j)
+        
     
-    Xl = AvCont
-    print(Xl)
-    CXl = (Blw*Xw) -( alpha*Xl*C) - (c1*Xl)
-    print(CXl)
-    Xl =Xl +CXl
-    if Xl<0:
+    for j in List_GB3:
+        WashT = len(j.index)
+        Times_W = np.arange(0, WashT, 1).tolist()
+        Times_W = [round(num, 1) for num in Times_W]
+        
+        Blw = 0.47 #ml/g min: is the pathogen binding rate to pieces of shredded lettuce heads
+        alpha = 0.52#Inactivation rate of pathogen via FC L/mgmin
+        V = (3200 *1000) #L #From Luo et al 2012. 
+        Rate = 45.45 #kg/min #From Luo et al 2012. 
+        Wash_Time = 2.3 #min 
+        c1 = 1/Wash_Time #Reciprocal of average time. 
+        L = (Rate*1000)/(c1) #g of lettuce in the tak at the same time
         Xl = 0
-    print(Xl)
-    L_Xl.append(Xl)
-    AvCont = Xl
-    CFU_2 = AvCont*((Trials_2.at[i,"Weight"]*454))
-    Trials_2.at[i,"CFU"] =  CFU_2 
+        Xw =0  #pathogen in process water MPN/ml
+        
+        L_Xw = []
+        L_Xl = []
+        for i in Times_W:
+            #Defining Initial Contamination
+            Time = i
+            AvCont = j.at[i,"CFU"] /(j.at[i,"Weight"]*454)
+            print(AvCont)
+            AvContAfter = AvCont*10**-0.8
+            print(AvContAfter)
+            C= F_Chloride_lvl(Time_Wash= Time)
+            print(C)
+            Bws = ((AvCont- AvContAfter)*Rate)/V
+            print(Bws)
+            CXw = Bws - (Blw*Xw*(L/V)) - (alpha*Xw*C)
+            print(CXw)
+            Xw = Xw+CXw
+            if Xw<0:
+                Xw = 0
+            print(CXw)
+            L_Xw.append(Xw)
+            
+            Xl = AvCont
+            print(Xl)
+            CXl = (Blw*Xw) - (alpha*Xl*C) - (c1*Xl)
+            print(CXl)
+            Xl =Xl +CXl
+            if Xl < 0:
+                Xl = 0
+            print(Xl)
+            L_Xl.append(Xl)
+            AvCont = Xl
+            CFU_2 = AvCont*((j.at[i,"Weight"]*454))
+            j.at[i,"CFU"] =  CFU_2
+            
+    return (List_GB3)
     
     
 
+    
 
+
+
+
+
+
+
+
+
+
+
+
+
+    WashT_Per_Pallet = 41
+    Times_W = np.arange(0, (WashT_Per_Pallet+1)*No_Pallets, 1).tolist()
+    Times_W = [round(num, 1) for num in Times_W]
+    
+    Blw = 0.47 #ml/g min: is the pathogen binding rate to pieces of shredded lettuce heads
+    alpha = 0.52#Inactivation rate of pathogen via FC L/mgmin
+    V = (3200 *1000) #L #From Luo et al 2012. 
+    Rate = 45.45 #kg/min #From Luo et al 2012. 
+    Wash_Time = 2.3 #min 
+    c1 = 1/Wash_Time #Reciprocal of average time. 
+    L = (Rate*1000)/(c1) #g of lettuce in the tak at the same time
+    Xl = 0
+    Xw =0  #pathogen in process water MPN/ml
+    
+    L_Xw = []
+    L_Xl = []
+    for i in Times_W:
+        #Defining Initial Contamination
+        Time = i
+        AvCont = Trials_2.at[i,"CFU"] /(Trials_2.at[i,"Weight"]*454)
+        print(AvCont)
+        AvContAfter = AvCont*10**-0.8
+        print(AvContAfter)
+        C= F_Chloride_lvl(Time_Wash= Time)
+        print(C)
+        Bws = ((AvCont- AvContAfter)*Rate)/V
+        print(Bws)
+        CXw = Bws - (Blw*Xw*(L/V)) - (alpha*Xw*C)
+        print(CXw)
+        Xw = Xw+CXw
+        if Xw<0:
+            Xw = 0
+        print(CXw)
+        L_Xw.append(Xw)
+        
+        Xl = AvCont
+        print(Xl)
+        CXl = (Blw*Xw) - (alpha*Xl*C) - (c1*Xl)
+        print(CXl)
+        Xl =Xl +CXl
+        if Xl < 0:
+            Xl = 0
+        print(Xl)
+        L_Xl.append(Xl)
+        AvCont = Xl
+        CFU_2 = AvCont*((Trials_2.at[i,"Weight"]*454))
+        Trials_2.at[i,"CFU"] =  CFU_2 
+    
+    
+sum(TrialDF.CFU)  
+sum(Trials_2.CFU)
+plt.plot(L_Xl)
 
 
 def F_Partitioning_W(DF,NPartitions):

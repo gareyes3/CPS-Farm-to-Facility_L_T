@@ -9,8 +9,8 @@ Created on Fri May 28 09:42:31 2021
 
 import sys
 sys.path
-sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
-#sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
+#sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
+sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
 
 ########################################Paths#################################################|
 #os.chdir('C:\\Users\Gustavo Reyes\Box\CPS Project- Farm to Facility\Python Model Files')
@@ -80,9 +80,9 @@ Pack_C= 0
 
 #Pre-Harvest
     #Pre-Harvest sampling must be on
-PHS_4d= 0 #Scenario 1
+PHS_4d= 1#Scenario 1
 PHS_4h = 0#Scenario 2
-PHS_Int = 1 #Scenario 3
+PHS_Int = 0 #Scenario 3
 
 #Harvest: 
     #HArvest Sampling must be one
@@ -295,6 +295,10 @@ for i in range(100):
     N_Lots_FP = 2 #Lost of final product
     sample_size_FP = 300 #g #Sample Size in grams
     n_samples_FP = 1 #number of samples final product
+    
+    #Post Processing Storage
+    Time_PostPStorage = 1 #Days
+    Temperature_ColdStorage = 4 #C 
 
     
 
@@ -331,7 +335,9 @@ for i in range(100):
 
                                                                       #Step 1: PREHARVEST
     #Die-off From Contamination Event to Pre-Havrvest
-    Die_Off_CE_PHS =Funz.F_Simple_DieOff(Time_CE_PHS) #Funz.F_DieOff_IR_PH(Time_CE_PHS,Break_Point, Dieoff1, Dieoff2) #Die off rate from Irrigation to pre harvest sampling
+    #Die_Off_CE_PHS =Funz.F_DieOff_IR_PH(Time_CE_PHS,Break_Point, Dieoff1, Dieoff2) #Die off rate from Irrigation to pre harvest sampling
+    #print(Die_Off_CE_PHS)
+    Die_Off_CE_PHS = Funz.F_Simple_DieOff(Time_CE_PHS) #
     df["CFU"] =  df["CFU"]*(10**Die_Off_CE_PHS) #Applying Die off through DFs
     Time_Agg = Time_Agg + Time_CE_PHS #Cummulative time so far in the process.
         
@@ -516,7 +522,8 @@ for i in range(100):
     gb2 = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Tr_P_Sh, Tr_S_P= Tr_Sh_P)
     #2 Conveyor Belt
     gb2 = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Tr_P_Cv, Tr_S_P= Tr_Cv_P)
-    
+    #Washing:
+    gb2 = Funz.F_Washing_ProcLines(gb3 =gb2)
     
     
     
@@ -564,6 +571,7 @@ for i in range(100):
     N_Partitions = int(Pallet_Weight/Pack_Weight_FP)
     
     df2 = Funz.F_Partitioning(DF=df2, NPartitions= N_Partitions)
+    
     if N_Lots_FP==2:
         df2 =Funz.F_Lots_FP(df=df2, Nolots = 2)
     
@@ -632,6 +640,24 @@ for i in range(100):
     
     #Total_Accepted = sum(df.Weight)
     #Total_Rejected = Field_Weight-Total_Accepted
+
+
+                                                            #STEP 8 PostPRocessing Steps
+    #Post Processing Storage.
+    df2 = Funz.F_Growth(DF=df2, Temperature=Temperature_ColdStorage, TimeD= Time_PostPStorage) #Growth during cold storage
+
+    #Transportation 
+    Trasnportation_Time = 8 #h
+    Transportation_Temp = 4 #C
+    
+    df2 = Funz.F_Growth(DF=df2, Temperature= Transportation_Temp, TimeD= Trasnportation_Time/24)
+    
+                                                                            #Step #9
+    Restaurant_S = 1
+    if Restaurant_S ==1:
+        print ("Yes")
+        
+    
     
 #%%     
 
