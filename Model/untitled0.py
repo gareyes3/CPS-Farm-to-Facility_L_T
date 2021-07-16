@@ -1,30 +1,40 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Jun 30 09:03:40 2021
+Created on Fri Jul 16 11:21:44 2021
 
-@author: Gustavo Reyes
+@author: gareyes3
 """
+import random 
+import numpy as np
 
-num, div = 25000, 6.5
-print ([num // div + (1 if x < num % div else 0)  for x in range (div)])
+Vector_of_lettuce = [20,25,15,30]
 
 
-    #Contamination Event
-    Hazard_lvl = 50000  #CFU # background contamination
-    No_Cont_Clusters = 4
-    Hazard_lvl_clust = Hazard_lvl/No_Cont_Clusters
-    TotalweightAv = sum(df2.Weight)
-    ClusterSize = TotalweightAv/No_Cont_Clusters
-    No_Cont_ClustersUnits = len(df2.index)
-    Hazard_lvl_C= Hazard_lvl/(No_Cont_ClustersUnits*No_Cont_Clusters)
-    x_2 =[]
-    ClusterIDs = list(df['ClusterID'])
-    for i in range(No_Cont_Clusters):
-        TrimClusterIDS = ClusterIDs[:len(ClusterIDs)-No_Cont_ClustersUnits]
-        n = random.sample(TrimClusterIDS,1)
-        n  = n[0]
-        x_random_consecutive_rows = ClusterIDs[n:n + No_Cont_ClustersUnits]
-        x_2.append(x_random_consecutive_rows)
-        ClusterIDs = [x for x in ClusterIDs if x not in x_random_consecutive_rows]
-    x_2 =[j for i in x_2 for j in i]
-    df.loc[ x_2,'CFU']= df['CFU'] + Ci
+Cont = 10
+Weight = 454 #g #1lb 
+
+
+#Sredding
+Shreder_Contamination = 20 #CFU
+TE_S_L = 0.30
+TE_L_S = 0.20
+
+Vec_of_n_cont =[]
+for i in Vector_of_lettuce:
+    Cont_L = i
+    Total_TR_S_L = Shreder_Contamination*TE_S_L
+    Total_TR_L_S = Cont_L*TE_L_S
+    
+    Shreder_Contamination = Shreder_Contamination-Total_TR_S_L + Total_TR_L_S
+    Cont_L = Cont_L +  Total_TR_S_L- Total_TR_L_S
+    Vec_of_n_cont.append(Cont_L)
+    
+    
+
+
+
+
+
+
+
+Cont
