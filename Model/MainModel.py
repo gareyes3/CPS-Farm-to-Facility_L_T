@@ -9,8 +9,8 @@ Created on Fri May 28 09:42:31 2021
 
 import sys
 sys.path
-#sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
-sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
+sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
+#sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
 
 ########################################Paths#################################################|
 #os.chdir('C:\\Users\Gustavo Reyes\Box\CPS Project- Farm to Facility\Python Model Files')
@@ -33,16 +33,12 @@ import ContScen
 import Listz 
 import OutFunz
 import InFunz
-#from itertools import cycle
+#from" itertools import cycle
 
 
 
-#%% 
-Progression_DFS=[]
 
 #%%
-
-
 
                                                                 #Scenarios and Conditions
 #Sampling Conditions, Baseline all conditions are off
@@ -61,9 +57,9 @@ Water_SamplingCust = 0
 
 #Contamination Challenges
 #In Field
-Background_C=1
+Background_C=0
 Point_Source_C=0
-Systematic_C=0
+Systematic_C=1
 
 #Harvester Contamination
 Crew_C = 0
@@ -73,6 +69,9 @@ Harvester_C = 0
 PE_C = 0
 
 Pack_C= 0
+
+#Customer
+Customer_Added_Steps = 0 
 
 
 
@@ -152,7 +151,7 @@ List_Cont_PercRej_FP=[]
 
 #%%
 
-for i in range(100):
+for i in range(10):
        
                                                                     #Inputs for the Model, Initial Inputs
                                                                   
@@ -347,17 +346,18 @@ for i in range(100):
             Rej_Lots_PH = Funz.F_Sampling(df =df,Test_Unit ="Lot", 
                                           NSamp_Unit = 5, 
                                           Samp_Size =sample_size_PH, 
-                                          Clust_Weight =Partition_Weight, 
+                                          Partition_Weight =Partition_Weight, 
                                           Limit =0, NoGrab =60 )
         else:
         #Pre-Harvest Sampling, 
              Rej_Lots_PH = Funz.F_Sampling(df =df,Test_Unit ="Sublot", 
                                        NSamp_Unit = n_samples_slot_PH, 
                                        Samp_Size =sample_size_PH, 
-                                       Clust_Weight =Partition_Weight, 
+                                       Partition_Weight =Partition_Weight, 
                                        Limit =0, NoGrab =60 )
-    else: #If no pre harvest sampling, none rejected
+    elif PH_Sampling == 0: #If no pre harvest sampling, none rejected
         Rej_Lots_PH= [] 
+        
         
     BPHS_CFU = sum(df.CFU) #Contamination before sampling
     List_BPHS_CFU.append(BPHS_CFU) #List of contamination before sampling
@@ -415,13 +415,13 @@ for i in range(100):
             Rej_Lots_H = Funz.F_Sampling(df =df,Test_Unit ="Sublot", 
                                            NSamp_Unit = n_samples_slot_H, 
                                            Samp_Size =sample_size_H, 
-                                           Clust_Weight =Partition_Weight, 
+                                           Partition_Weight =Partition_Weight, 
                                            Limit =0, NoGrab =60 )
         elif HS_Agg==1:
             Rej_Lots_H = Funz.F_Sampling(df =df,Test_Unit ="Sublot", 
                                            NSamp_Unit = 10, 
                                            Samp_Size =sample_size_H, 
-                                           Clust_Weight =Partition_Weight, 
+                                           Partition_Weight =Partition_Weight, 
                                            Limit =0, NoGrab =60 )
     else:
         Rej_Lots_H=[]
@@ -479,7 +479,7 @@ for i in range(100):
         Rej_Pallets_R = Funz.F_Sampling(df =df,Test_Unit ="PalletNo", 
                                        NSamp_Unit = n_samples_pallet, 
                                        Samp_Size =sample_size_R, 
-                                       Clust_Weight =Partition_Weight, 
+                                       Partition_Weight =Partition_Weight, 
                                        Limit =0, NoGrab =3 )
     else:
         Rej_Pallets_R = []
@@ -516,23 +516,25 @@ for i in range(100):
 
     #Splitting pallets into processing lines. 
     gb2 = Funz.F_ProLineSplitting(df =df, Processing_Lines = Processing_Lines)
+    
+    #Splitting Processing Lines into Mini Batches
+    gb2 = Funz.F_Partitioning_ProcLines(gb3 = gb2 , NPartitions = 40)
+    
     #Value Addition Steps
-    #Cross-Contamination Processing by processing line between batches 4k lb batches. 
+    
+    #Cross-Contamination Processing by processing line between 100 lb. batches 
     #1 Shredder
     gb2 = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Tr_P_Sh, Tr_S_P= Tr_Sh_P)
     #2 Conveyor Belt
     gb2 = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Tr_P_Cv, Tr_S_P= Tr_Cv_P)
     #Washing:
-    gb2 = Funz.F_Washing_ProcLines(gb3 =gb2)
-    
-    
-    
+    gb2 = Funz.F_Washing_ProcLines(List_GB3 =gb2)
     #3 Shaker Table
     gb2 = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Tr_P_St, Tr_S_P= Tr_St_P)
     #4 Centrifuge
     gb2 = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Tr_P_C, Tr_S_P= Tr_C_P)
-    
-            
+        
+        
     #Adding Contamination from Scenario to each lot
     if PE_C ==1:
         gb2 = ContScen.F_PEC_C(gb2=gb2,
@@ -567,9 +569,9 @@ for i in range(100):
                                                
                                                           #STEP 6: Finished Product Mixing and Sampling
     #Mixing products into one batch
-    
-    N_Partitions = int(Pallet_Weight/Pack_Weight_FP)
-    
+    df2 = df2.reset_index(drop=True) 
+    Part_Weight  = df2.at[1,"Weight"]
+    N_Partitions = int(Part_Weight/Pack_Weight_FP) 
     df2 = Funz.F_Partitioning(DF=df2, NPartitions= N_Partitions)
     
     if N_Lots_FP==2:
@@ -602,7 +604,7 @@ for i in range(100):
             Rej_Lots_H = Funz.F_Sampling(df =df2,Test_Unit ="Sublot", 
                                            NSamp_Unit = 10, 
                                            Samp_Size =sample_size_FP, 
-                                           Clust_Weight =Pack_Weight_FP, 
+                                           Partition_Weight =Pack_Weight_FP, 
                                            Limit =0, NoGrab =60 )
     else :
         Rej_Lots_FP = []
@@ -641,22 +643,23 @@ for i in range(100):
     #Total_Accepted = sum(df.Weight)
     #Total_Rejected = Field_Weight-Total_Accepted
 
+    if(Customer_Added_Steps ==1):
 
-                                                            #STEP 8 PostPRocessing Steps
-    #Post Processing Storage.
-    df2 = Funz.F_Growth(DF=df2, Temperature=Temperature_ColdStorage, TimeD= Time_PostPStorage) #Growth during cold storage
-
-    #Transportation 
-    Trasnportation_Time = 8 #h
-    Transportation_Temp = 4 #C
+                                                                #STEP 8 PostPRocessing Steps
+        #Post Processing Storage.
+        df2 = Funz.F_Growth(DF=df2, Temperature=Temperature_ColdStorage, TimeD= Time_PostPStorage) #Growth during cold storage
     
-    df2 = Funz.F_Growth(DF=df2, Temperature= Transportation_Temp, TimeD= Trasnportation_Time/24)
-    
-                                                                            #Step #9
-    Restaurant_S = 1
-    if Restaurant_S ==1:
-        print ("Yes")
+        #Transportation 
+        Trasnportation_Time = 8 #h
+        Transportation_Temp = 4 #C
         
+        df2 = Funz.F_Growth(DF=df2, Temperature= Transportation_Temp, TimeD= Trasnportation_Time/24)
+        
+                                                                                #Step #9
+        Restaurant_S = 1
+        if Restaurant_S ==1:
+            print ("Yes")
+            
     
     
 #%%     
@@ -856,6 +859,8 @@ data_scenarios = {'Baseline':  BL_df_outputs["Total_CFU_A"],
                 'RS':  RS_df_outputs["Total_CFU_A"],
                 'FP':  FP_df_outputs["Total_CFU_A"],
           }
+
+
 df_data_scenarios = pd.DataFrame(data_scenarios)
 df_data_scenarios_melted = pd.melt(df_data_scenarios)
 Scenariosplot =sns.catplot(x="variable", y="value", data=df_data_scenarios_melted ,kind="bar",capsize=.2,  height=4, aspect=2 )
@@ -992,5 +997,10 @@ dataContPercRej = {'PreHarvest': Out_PHSamp_PercRej,
     
 dataContPercRej = pd.DataFrame(dataContPercRej)
 
+
+#%%
+
+List_Cont_PercRej_PH
+sns.boxplot(List_Cont_PercRej_PH)
 
 

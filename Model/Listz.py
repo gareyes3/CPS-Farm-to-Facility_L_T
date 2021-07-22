@@ -4,9 +4,11 @@ Created on Thu Jul  1 13:06:54 2021
 
 @author: Gustavo Reyes
 """
-
                                                                     #List to collect outputs
-#Before_PH sampling 
+
+List_Initial_CFU = []
+
+#Total CFU Before_PH sampling 
 List_BPHS_CFU=[]
 
 #After_PH_sampling
@@ -24,6 +26,7 @@ Total_PA_H = []
 Total_CR_H = []
 Total_CA_H = []
 
+
 #Before R Sampling
 List_BRS_CFU=[]
 
@@ -32,6 +35,11 @@ Total_PR_R = []
 Total_PA_R = []
 Total_CR_R = []
 Total_CA_R = []
+
+#Between Washing and Value Addition
+List_BtWVA_CFU =[]
+
+List_AVA_CFU=[]
 
 #Before FP Sampling
 List_BFPS_CFU=[]
@@ -48,3 +56,5 @@ List_Cont_PercRej_PH = []
 List_Cont_PercRej_H = []
 List_Cont_PercRej_R = [] 
 List_Cont_PercRej_FP=[]
+
+

@@ -18,7 +18,7 @@ def F_InDF (Partition_Units,Field_Weight,slot_number ):
             'Accept': True, #Accepted of Rejected
             'Weight': Field_Weight/Partition_Units} #Weight per Partition
     
-    Sublot_Pattern = [i for i in range(1, slot_number+1) for _ in range(int(slot_number))] #Pattern of Sublots
+    Sublot_Pattern = [i for i in range(1, slot_number+1) for _ in range(int(Partition_Units/slot_number))] #Pattern of Sublots
     df = pd.DataFrame(data)
     df.Sublot = Sublot_Pattern
     df.index = range(1,Partition_Units+1)

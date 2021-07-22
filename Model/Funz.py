@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import scipy.stats as stats
+from scipy.stats import lognorm
 import math
 import random
 import itertools
@@ -64,16 +65,21 @@ def F_Simple_DieOff (Time):
 #%% Growth  or Reduction Models
 #Cold Storage growth Model
 def F_Growth(DF,Temperature, TimeD ):
-    b=0.0616
-    T0= 2.628
-    if (Temperature-T0) <0:
-        TDif = 0
+    b = 0.023
+    Tmin  = 1.335-5.766 *b
+    DieoffRate = np.random.triangular(0.0035, 0.013,0.040)
+    TotalGrowthRate = (b*(Temperature - Tmin))**(2/2.303)
+    if Temperature >5:
+        Growth  = 1
     else:
-        TDif = Temperature-T0
-    Growth1D = (b*TDif)**2
-    TotalGrowth = Growth1D*TimeD #Change Log CFU
+        Growth = 0
+    if Growth == 1:
+        TotalGrowth = TotalGrowthRate*TimeD
+    else:
+        TotalGrowth  = -DieoffRate * TimeD
     DF['CFU']=DF['CFU']*10**TotalGrowth #Final Growth change CFU/g
     return DF
+
 
 
 #Washing
@@ -112,7 +118,14 @@ def F_HarvestingCont ():
 #Cluster_Unit_weight 
 #Limit= Limit CFU
 #Grabs = Total grabs per sublot
-def F_Sampling(df,Test_Unit, NSamp_Unit, Samp_Size, Clust_Weight, Limit, NoGrab ):
+def F_Sampling(df,Test_Unit, NSamp_Unit, Samp_Size, Partition_Weight, Limit, NoGrab ):
+    #Df where contaminations are located
+    #Test_Unit: Testing lot, as a whole, or sublots
+    #N Samples/ Units: How many samples are taken per Test_Unit
+    #Samp_Size: Sample Size Composite sample size
+    #Partition_Weight: Weight of the partition
+    #Limit : m maximum level of positive samples
+    #No Grab: N60, grabs. 
     Results=[]
     Unique_TestUnit=list(df[Test_Unit].unique())
     for i in (Unique_TestUnit):
@@ -123,7 +136,7 @@ def F_Sampling(df,Test_Unit, NSamp_Unit, Samp_Size, Clust_Weight, Limit, NoGrab 
             Grab_Weight = Samp_Size/NoGrab
             Detected = []
             for j in Sampled_Grabs: 
-                CFU_grab = j*(Grab_Weight/(Clust_Weight*454))
+                CFU_grab = j*(Grab_Weight/(Partition_Weight*454))
                 P_Detection=1-math.exp(-CFU_grab)
                 if random.uniform(0,1)<P_Detection:
                     Reject_YN=1
@@ -135,15 +148,12 @@ def F_Sampling(df,Test_Unit, NSamp_Unit, Samp_Size, Clust_Weight, Limit, NoGrab 
                 elif sum(Detected) ==0:
                     Detected_YN =0
             Reject_Lis.append(Detected_YN)
-            print("Hey",Reject_Lis)
         a=sum(Reject_Lis)
         if a > Limit:
             AR= False
         else:
             AR= True
-        print("Yo",AR)
         Results.append(AR)
-        print("Results",Results)
     data1 =  {Test_Unit: Unique_TestUnit,
            'Accept_Reject': Results}
     dT = pd.DataFrame(data1)
@@ -164,11 +174,7 @@ def F_SamplingFProd (df, Test_Unit, N_SampPacks, Grab_Weight):
         else:
             Reject_YN=0
         Results.append(Reject_YN)
-        if sum(Results) == 1:
-            Detected_YN = 1
-        elif sum(Results) ==0:
-            Detected_YN =0
-    return Detected_YN
+    return Results
 
 #%% Partitioning and Mixing Functions
 def F_Palletization (df, Field_Weight,Pallet_Weight, Partition_Weight):
@@ -355,26 +361,51 @@ def F_Chloride_lvl (Time_Wash):
             C = 0 
         Pre_runningT = i #Running Time.
         List_C.append(C)
-    return C
+    Cdf = pd.DataFrame(
+    {'Time': Times,
+     'C': List_C,
+    })
+    return Cdf
+
 
 #Washing
 
-def F_Washing_ProcLines (gb3):
-    List_GB3=[]
+def F_Partitioning_ProcLines(gb3 , NPartitions):
+    List_GB3 = []
     for j in gb3:
-        j = F_Partitioning_W(DF= j,NPartitions= 40) 
+        j = F_Partitioning_W(DF= j,NPartitions= NPartitions) 
         List_GB3.append(j)
-        
+    return List_GB3
+
+def F_DF_Clvl(Time):
+    List_Wash = []
+    Times = list(range(0,Time+1))
+    for i in Times:
+     C = F_Chloride_lvl (i)
+     List_Wash.append(C)
+     
+    dataTime = {
+        "Time": Times,
+        "Clvl":List_Wash }
+    df_Clvl = pd.DataFrame(dataTime)
+    return (df_Clvl)
+
+F_Chloride_lvl(200)
+
+
+def F_Washing_ProcLines (List_GB3, Wash_Rate, Cdf):
     
     for j in List_GB3:
         WashT = len(j.index)
+        #DF_Clvl = F_DF_Clvl(WashT)
+        
         Times_W = np.arange(0, WashT, 1).tolist()
         Times_W = [round(num, 1) for num in Times_W]
         
         Blw = 0.47 #ml/g min: is the pathogen binding rate to pieces of shredded lettuce heads
         alpha = 0.52#Inactivation rate of pathogen via FC L/mgmin
         V = (3200 *1000) #L #From Luo et al 2012. 
-        Rate = 45.45 #kg/min #From Luo et al 2012. 
+        Rate = Wash_Rate/2.2  #45.45 #kg/min #From Luo et al 2012. 
         Wash_Time = 2.3 #min 
         c1 = 1/Wash_Time #Reciprocal of average time. 
         L = (Rate*1000)/(c1) #g of lettuce in the tak at the same time
@@ -387,34 +418,26 @@ def F_Washing_ProcLines (gb3):
             #Defining Initial Contamination
             Time = i
             AvCont = j.at[i,"CFU"] /(j.at[i,"Weight"]*454)
-            print(AvCont)
             AvContAfter = AvCont*10**-0.8
-            print(AvContAfter)
-            C= F_Chloride_lvl(Time_Wash= Time)
-            print(C)
+            C =   float(Cdf.loc[Cdf['Time'] == Time, 'C'])
+            #C= F_Chloride_lvl(Time_Wash= Time)
             Bws = ((AvCont- AvContAfter)*Rate)/V
-            print(Bws)
             CXw = Bws - (Blw*Xw*(L/V)) - (alpha*Xw*C)
-            print(CXw)
             Xw = Xw+CXw
             if Xw<0:
                 Xw = 0
-            print(CXw)
             L_Xw.append(Xw)
             
             Xl = AvCont
-            print(Xl)
             CXl = (Blw*Xw) - (alpha*Xl*C) - (c1*Xl)
-            print(CXl)
             Xl =Xl +CXl
             if Xl < 0:
                 Xl = 0
-            print(Xl)
             L_Xl.append(Xl)
             AvCont = Xl
             CFU_2 = AvCont*((j.at[i,"Weight"]*454))
             j.at[i,"CFU"] =  CFU_2
             
-    return (List_GB3)    
+    return (List_GB3) 
 
 

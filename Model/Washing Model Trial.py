@@ -106,7 +106,17 @@ def F_Chloride_lvl (Time_Wash):
 
 gb3 = gb2
 
-def Washing_ProcLines (gb3):
+def F_Partitioning_ProcLines(gb3 , NPartitions):
+    for j in gb3:
+        j = F_Partitioning_W(DF= j,NPartitions= NPartitions) 
+        List_GB3.append(j)
+    return List_GB3
+
+
+
+
+
+def Washing_ProcLines (List_GB):
     List_GB3=[]
     for j in gb3:
         j = F_Partitioning_W(DF= j,NPartitions= 40) 
