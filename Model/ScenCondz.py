@@ -27,9 +27,10 @@ Crew_C = 0
 Harvester_C = 0
 
 #Processing equipment
-PE_C = 0
-
-Pack_C= 1
+PE_C = 1
+PE_Cont_Loc = 1,#2,3,4,5
+#1 = Shredder, #2 = Belt, #3 = Washing, #4 Shaker, #5Centrifuge
+Pack_C= 0
 
 #Customer
 Customer_Added_Steps = 0 

@@ -288,17 +288,48 @@ for  i in range(10):
     
     #Cross-Contamination Processing by processing line between 100 lb. batches 
     #1 Shredder
-
+    if ScenCondz.PE_C ==1 and ScenCondz.PE_Cont_Loc ==1:
+        gb2 = ContScen.F_PEC_C(gb2= gb2,
+                               Hazard_lvl = Inputz.Hazard_lvl, 
+                               Processing_Lines = Inputz.Processing_Lines, 
+                               Lines_Cont = Inputz.Lines_Cont)
+        
     gb2 = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Inputz.Tr_P_Sh, Tr_S_P= Inputz.Tr_Sh_P)
+    
+    
     #2 Conveyor Belt
+    if ScenCondz.PE_C ==1 and ScenCondz.PE_Cont_Loc ==2:
+        gb2 = ContScen.F_PEC_C(gb2= gb2,
+                               Hazard_lvl = Inputz.Hazard_lvl, 
+                               Processing_Lines = Inputz.Processing_Lines, 
+                               Lines_Cont = Inputz.Lines_Cont)
+        
     gb2 = Funz.F_CrossContProLine(gb2 = gb2, Tr_P_S = Inputz.Tr_P_Cv, Tr_S_P = Inputz.Tr_Cv_P)
-    #Washing:
-    DF_Chlevels = Funz.F_Chloride_lvl(300)
+    #3Washing:
+    if ScenCondz.PE_C ==1 and ScenCondz.PE_Cont_Loc ==3:
+        gb2 = ContScen.F_PEC_C(gb2= gb2,
+                               Hazard_lvl = Inputz.Hazard_lvl, 
+                               Processing_Lines = Inputz.Processing_Lines, 
+                               Lines_Cont = Inputz.Lines_Cont)
+        
+    DF_Chlevels = Funz.F_Chloride_lvl(300) #Simlating Chlorine levels after time.
     plt.plot(DF_Chlevels.C)
     gb2 = Funz.F_Washing_ProcLines(List_GB3 =gb2, Wash_Rate = Inputz.Wash_Rate, Cdf =  DF_Chlevels)
-    #3 Shaker Table
+    
+    #4 Shaker Table
+    if ScenCondz.PE_C ==1 and ScenCondz.PE_Cont_Loc ==4:
+        gb2 = ContScen.F_PEC_C(gb2= gb2,
+                               Hazard_lvl = Inputz.Hazard_lvl, 
+                               Processing_Lines = Inputz.Processing_Lines, 
+                               Lines_Cont = Inputz.Lines_Cont)
     gb2 = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Inputz.Tr_P_St, Tr_S_P= Inputz.Tr_St_P)
-    #4 Centrifuge
+    
+    #5 Centrifuge
+    if ScenCondz.PE_C ==1 and ScenCondz.PE_Cont_Loc ==5:
+        gb2 = ContScen.F_PEC_C(gb2= gb2,
+                               Hazard_lvl = Inputz.Hazard_lvl, 
+                               Processing_Lines = Inputz.Processing_Lines, 
+                               Lines_Cont = Inputz.Lines_Cont)
     gb2 = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Inputz.Tr_P_C, Tr_S_P= Inputz.Tr_C_P)
        
         
@@ -321,6 +352,7 @@ for  i in range(10):
     df['Lot'] =1#Updating the CFU/g column
         
     #Environmental Monitoring Program
+    
     
     #STEP 5 PACKING AND MIXING ---------------------------------------------------------------------------------------------------------------------
     

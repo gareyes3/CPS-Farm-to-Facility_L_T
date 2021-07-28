@@ -204,6 +204,7 @@ def F_ProLineSplitting(df, Processing_Lines,):
     return gb2
 
 def F_CrossContProLine (gb2, Tr_P_S, Tr_S_P):
+    ContS_L=[]
     for j in gb2:
         ContS=0
         for i, row in j.iterrows():
@@ -213,7 +214,9 @@ def F_CrossContProLine (gb2, Tr_P_S, Tr_S_P):
             ContPNew = ContP-TotTr_P_S+TotTr_S_P #New Contmination on Product
             ContS=ContS+TotTr_P_S-TotTr_S_P #Remiining Contamination in Surface for upcoming batches
             j.CFU[i]=ContPNew #Updating the Contamination in the Data Frame
-    return gb2
+        ContS_L.append(ContS)
+    Outputs = [gb2,ContS_L]
+    return Outputs
 
 
 #Paritioning Function
