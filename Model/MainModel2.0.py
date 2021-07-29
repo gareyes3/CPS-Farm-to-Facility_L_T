@@ -294,8 +294,9 @@ for  i in range(10):
                                Processing_Lines = Inputz.Processing_Lines, 
                                Lines_Cont = Inputz.Lines_Cont)
         
-    gb2 = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Inputz.Tr_P_Sh, Tr_S_P= Inputz.Tr_Sh_P)
-    
+    ShredderOuts = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Inputz.Tr_P_Sh, Tr_S_P= Inputz.Tr_Sh_P)
+    gb2 = ShredderOuts[0]
+    ShredCont = ShredderOuts[1]
     
     #2 Conveyor Belt
     if ScenCondz.PE_C ==1 and ScenCondz.PE_Cont_Loc ==2:
@@ -304,7 +305,11 @@ for  i in range(10):
                                Processing_Lines = Inputz.Processing_Lines, 
                                Lines_Cont = Inputz.Lines_Cont)
         
-    gb2 = Funz.F_CrossContProLine(gb2 = gb2, Tr_P_S = Inputz.Tr_P_Cv, Tr_S_P = Inputz.Tr_Cv_P)
+    CVOuts = Funz.F_CrossContProLine(gb2 = gb2, Tr_P_S = Inputz.Tr_P_Cv, Tr_S_P = Inputz.Tr_Cv_P)
+    gb2 = CVOuts[0]
+    CvCont = CVOuts[1]
+    
+    
     #3Washing:
     if ScenCondz.PE_C ==1 and ScenCondz.PE_Cont_Loc ==3:
         gb2 = ContScen.F_PEC_C(gb2= gb2,
@@ -314,6 +319,7 @@ for  i in range(10):
         
     DF_Chlevels = Funz.F_Chloride_lvl(300) #Simlating Chlorine levels after time.
     plt.plot(DF_Chlevels.C)
+    
     gb2 = Funz.F_Washing_ProcLines(List_GB3 =gb2, Wash_Rate = Inputz.Wash_Rate, Cdf =  DF_Chlevels)
     
     #4 Shaker Table
@@ -322,7 +328,10 @@ for  i in range(10):
                                Hazard_lvl = Inputz.Hazard_lvl, 
                                Processing_Lines = Inputz.Processing_Lines, 
                                Lines_Cont = Inputz.Lines_Cont)
-    gb2 = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Inputz.Tr_P_St, Tr_S_P= Inputz.Tr_St_P)
+        
+    StOuts = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Inputz.Tr_P_St, Tr_S_P= Inputz.Tr_St_P)
+    gb2 = StOuts[0]
+    StCont = StOuts[1]
     
     #5 Centrifuge
     if ScenCondz.PE_C ==1 and ScenCondz.PE_Cont_Loc ==5:
@@ -330,8 +339,10 @@ for  i in range(10):
                                Hazard_lvl = Inputz.Hazard_lvl, 
                                Processing_Lines = Inputz.Processing_Lines, 
                                Lines_Cont = Inputz.Lines_Cont)
-    gb2 = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Inputz.Tr_P_C, Tr_S_P= Inputz.Tr_C_P)
-       
+        
+    CentrifugeOuts = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Inputz.Tr_P_C, Tr_S_P= Inputz.Tr_C_P)
+    gb2 = CentrifugeOuts[0]
+    CentrifugeCont = CentrifugeOuts[1]
         
     #Adding Contamination from Scenario to each lot
     if ScenCondz.PE_C ==1:
@@ -435,13 +446,24 @@ for  i in range(10):
     Listz.List_TotalCFUg_FP.append(Total_CFU_G_FP)
 
     #STEP 6 POST PROCESS STEPS ---------------------------------------------------------------------------------------------------------------------
-    
+    #Steps after Final Product
     if(ScenCondz.Customer_Added_Steps ==1):
         #Growth or Die-off during storage post processing
         df = Funz.F_Growth(DF=df, 
                            Temperature=Inputz.Temperature_ColdStorage, 
                            TimeD= Inputz.Time_PostPStorage) #Growth during cold storage
-    
+        '''
+        Case_Weight= 20 
+        #Adding Shipping Pallets and Cases. 
+        Packages_Case = Case_Weight/Inputz.Pack_Weight_FP
+        Total_Packages = len(df.index)
+        Total_Cases = Total_Packages/Case_Weight
+        print(Total_Cases)
+        Case_Pattern = [i for i in range(1, int(Total_Cases)+1) for _ in range(int(Packages_Case))]
+        Crop_No = len(df.index)
+        Pallet_Pattern=Pallet_Pattern[:Crop_No]
+        Sequence Pallets
+        '''
         #Transportation through trucks.
         df = Funz.F_Growth(DF=df,
                            Temperature= Inputz.Transportation_Temp, 
@@ -451,6 +473,8 @@ for  i in range(10):
         df = Funz.F_Growth(DF=df,
                    Temperature= Inputz.Transportation_Temp, 
                    TimeD= Inputz.Trasnportation_Time)
+        
+        
         
                                                                     
     

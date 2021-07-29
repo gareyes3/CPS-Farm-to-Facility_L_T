@@ -3,11 +3,11 @@
 #Scenario and Conditions
                                                                 #Scenarios and Conditions
 #Sampling Conditions, Baseline all conditions are off
-Baseline_Sampling= 0 #all others must be 0if this one is 1
+Baseline_Sampling= 1 #all others must be 0if this one is 1
 PH_Sampling = 0
 H_Sampling = 0
 R_Sampling = 0
-FP_Sampling =1
+FP_Sampling =0
 
 #Additional Sampling Conditions. Env and 
 Water_SamplingProc = 0
@@ -27,8 +27,8 @@ Crew_C = 0
 Harvester_C = 0
 
 #Processing equipment
-PE_C = 1
-PE_Cont_Loc = 1,#2,3,4,5
+PE_C = 0
+PE_Cont_Loc = 0,#2,3,4,5
 #1 = Shredder, #2 = Belt, #3 = Washing, #4 Shaker, #5Centrifuge
 Pack_C= 0
 

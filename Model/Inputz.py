@@ -151,7 +151,7 @@ Tr_P_C =np.random.triangular(0,0.0035,0.0159)
 
     
 # 7 Final Product
-Pack_Weight_FP = 10 #Weight of each pack. 
+Pack_Weight_FP = 5 #Weight of each pack. 
 N_Lots_FP = 2 #Lost of final product
 sample_size_FP = 300 #g #Sample Size in grams
 n_samples_FP = 1 #number of samples final product
