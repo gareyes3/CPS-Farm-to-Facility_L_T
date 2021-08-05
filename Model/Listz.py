@@ -39,7 +39,14 @@ Total_CA_R = []
 #Between Washing and Value Addition
 List_BtWVA_CFU =[]
 
+Cont_B_Shredder =[]
+Cont_B_Belt =[]
+Cont_B_Washing = []
+Cont_B_Shaker =[]
+Cont_B_Centrifuge =[]
+
 List_AVA_CFU=[]
+
 
 #Before FP Sampling
 List_BFPS_CFU=[]

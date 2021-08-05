@@ -68,13 +68,13 @@ def F_Growth(DF,Temperature, TimeD ):
     b = 0.023
     Tmin  = 1.335-5.766 *b
     DieoffRate = np.random.triangular(0.0035, 0.013,0.040)
-    TotalGrowthRate = (b*(Temperature - Tmin))**(2/2.303)
+    TotalGrowthRate = (b*(Temperature - Tmin))**(2)
     if Temperature >5:
         Growth  = 1
     else:
         Growth = 0
     if Growth == 1:
-        TotalGrowth = TotalGrowthRate*TimeD
+        TotalGrowth = (TotalGrowthRate*TimeD)/2.303
     else:
         TotalGrowth  = -DieoffRate * TimeD
     DF['CFU']=DF['CFU']*10**TotalGrowth #Final Growth change CFU/g
@@ -213,10 +213,11 @@ def F_CrossContProLine (gb2, Tr_P_S, Tr_S_P):
             TotTr_S_P = np.random.binomial(ContS,Tr_S_P) #Trasnfer from Surfaves to product
             ContPNew = ContP-TotTr_P_S+TotTr_S_P #New Contmination on Product
             ContS=ContS+TotTr_P_S-TotTr_S_P #Remiining Contamination in Surface for upcoming batches
-            j.CFU[i]=ContPNew #Updating the Contamination in the Data Frame
+            j.loc[i,("CFU")]=ContPNew #Updating the Contamination in the Data Frame
         ContS_L.append(ContS)
     Outputs = [gb2,ContS_L]
     return Outputs
+
 
 
 #Paritioning Function
@@ -442,5 +443,16 @@ def F_Washing_ProcLines (List_GB3, Wash_Rate, Cdf):
             j.at[i,"CFU"] =  CFU_2
             
     return (List_GB3) 
+
+
+#OTher Functions
+
+def F_SummingGB2Cont(gb2):
+    List_x_Sum=[]  
+    for i in gb2:
+        x_Sum=i.CFU.sum()
+        List_x_Sum.append(x_Sum)
+    Out =sum(List_x_Sum)
+    return Out
 
 
