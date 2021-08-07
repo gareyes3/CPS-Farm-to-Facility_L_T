@@ -36,8 +36,6 @@ reload(Listz)
 def F_MainLoop():
 
     for  i in range(10):
-        print(i)
-        reload(Inputz) #Reload Inputs, randomize those inputs that are random
         
         #Adding Background Contamination
         

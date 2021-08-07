@@ -41,8 +41,8 @@ Customer_Added_Steps = 0
 
 #Pre-Harvest
     #Pre-Harvest sampling must be on
-PHS_4d= 0#Scenario 1
-PHS_4h = 1#Scenario 2
+PHS_4d= 1#Scenario 1
+PHS_4h = 0#Scenario 2
 PHS_Int = 0 #Scenario 3
 
 #Harvest: 
