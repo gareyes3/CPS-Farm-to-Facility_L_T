@@ -27,6 +27,7 @@ import OutFunz
 import InFunz
 import ScenCondz
 import Inputz
+
 from importlib import reload  
 reload(Listz)
 
@@ -35,7 +36,9 @@ reload(Listz)
 
 def F_MainLoop():
 
-    for  i in range(Inputz.N_Iterations):
+    for  i in range(10):
+        print(i)
+        reload(Inputz) #Reload Inputs, randomize those inputs that are random
         
         #Adding Background Contamination
         
@@ -101,8 +104,7 @@ def F_MainLoop():
                                            Limit =Inputz.Limit_PH, 
                                            NoGrab =Inputz.No_Grabs_PH )
         elif ScenCondz.PH_Sampling == 0: #If no pre harvest sampling, none rejected
-            LL_Rej_Lots_PH= []
-        print(LL_Rej_Lots_PH)
+            LL_Rej_Lots_PH= [] 
             
             
         LO_Cont_B_PH = sum(df.CFU) #Contamination before sampling
@@ -298,7 +300,8 @@ def F_MainLoop():
             
         ShredderOuts = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Inputz.Tr_P_Sh, Tr_S_P= Inputz.Tr_Sh_P)
         gb2 = ShredderOuts[0]
-        ShredCont = ShredderOuts[1]   
+        ShredCont = ShredderOuts[1]
+        print(ShredCont)    
         #2 Conveyor Belt
         LO_Cont_B_Belt = Funz.F_SummingGB2Cont(gb2 =gb2) #Contamination before BElt
         Listz.Cont_B_Belt.append( LO_Cont_B_Belt)
@@ -484,12 +487,21 @@ def F_MainLoop():
                        Temperature= Inputz.Transportation_Temp, 
                        TimeD= Inputz.Trasnportation_Time)
             
+            
+            
+                                                                        
+        
+        
     #Simplest Output
     Final_ContPlot =sns.boxplot(y=Listz.Total_CA_FP)
     plt.ylabel("Total CFU Remaining in System")
     
-    #Progression Data
-    data_contprog = {"Initial":Listz.List_Initial_CFU,
+#%%     
+
+#Creation of Ouputs DF
+
+#Progression Data
+data_contprog = {"Initial":Listz.List_Initial_CFU,
                  "Bef Pre-Harvest Samp": Listz.List_BPHS_CFU,
                  "Aft Pre-Harvest Samp": Listz.Total_CA_PH,
                  "Bef Harvest Samp":Listz.List_BHS_CFU,
@@ -506,30 +518,18 @@ def F_MainLoop():
                  "Final Product": Listz.Total_CA_FP
                  }
 
-    df_contprog = pd.DataFrame(data_contprog)
+df_contprog = pd.DataFrame(data_contprog)
 
 
-    #Main Output Data
-    data_outputs={"Total_CFU_A":Listz.Total_CA_FP,
-                   "Total_CFU_Rej": Listz.Total_CR_FP,
-                   "Total_CFUg_A": Listz.List_TotalCFUg_FP,
-                  "Total_Weight_A":Listz.Total_PA_FP,
-                  "PerRejected at PH":Listz.List_Cont_PercRej_PH,
-                  "PerRejected at H":Listz.List_Cont_PercRej_H,
-                  "PerRejected at R":Listz.List_Cont_PercRej_R,
-                  "PerRejected at FP":Listz.List_Cont_PercRej_FP,
-        }
+#Main Output Data
+data_outputs={"Total_CFU_A":Listz.Total_CA_FP,
+               "Total_CFU_Rej": Listz.Total_CR_FP,
+               "Total_CFUg_A": Listz.List_TotalCFUg_FP,
+              "Total_Weight_A":Listz.Total_PA_FP 
+    }
 
-    df_outputs = pd.DataFrame(data_outputs)
-    
-    outputs = [df_contprog, df_outputs]
-    return outputs
-    
-#%%     
-#Creation of Ouputs DF
+df_outputs = pd.DataFrame(data_outputs)
 
-
-'''
 
                                                                     #Model Outputs per scenario. 
                                                                     
@@ -680,7 +680,7 @@ if (ScenCondz.FP_Sampling ==1) and (ScenCondz.FPS_Agg==1):
     FPAgg_df_outputs2= OutFunz.F_Melting(df= FPAgg_df_outputs, Scenario="FPAgg")
 
 
-'''
+
 
 
 

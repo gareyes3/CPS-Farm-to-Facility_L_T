@@ -8,8 +8,8 @@ Created on Thu Aug  5 09:41:52 2021
 #%%
 import sys
 sys.path
-sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
-#sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
+#sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
+sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
 
 #%% Libraries
 import pandas as pd 
@@ -37,6 +37,7 @@ import MainModel3z
 #Progression DataFrame. 
 Progression_DFS = []
 #%% Contamination Level Analysis PH 4d
+reload(ScenCondz)
 #50,000 CFU Initial
 reload(Inputz) #Reload Inputz
 reload(Listz) #ReUPdate Lists

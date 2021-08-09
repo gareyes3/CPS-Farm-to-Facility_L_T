@@ -14,7 +14,7 @@ import numpy as np
 # 0 Initial Inputs for Field Setup and Challenges
 
 
-N_Iterations: 10
+N_Iterations= 20
 
 Field_Weight= 100000 #total lb in field
 slot_weight = 10000 #weight of the sublot in field.
@@ -77,7 +77,7 @@ n_samples_slot_PH = 1 # (Input) Samples per sublot of product
 No_Grabs_PH = 60 
 Limit_PH = 0
 if ScenCondz.PHS_Int ==1:
-    n_samples_lot_PH = 5 # (Input) Samples per lot of product'
+    n_samples_lot_PH = 10 # (Input) Samples per lot of product'
 
 
 # 2 Harvest Inputs
@@ -93,7 +93,7 @@ else:
     Time_PHS_H = 4 #if not, baseline is always 4 hours
 
 #Time between Contamination Event and Harvest Sampling
-Time_CE_H = 6 #days
+Time_CE_H = np.random.triangular(2,4,8) #days
 #Here because of math
 Time_CE_PHS= int(Time_CE_H-Time_PHS_H) #Days Time from Contamination Event (Irrigation) to Pre-Harvest Sampling
 sample_size_H = 300 #g #Sample Size in grams
@@ -167,7 +167,7 @@ Time_PostPStorage = 24 #hr
 Temperature_ColdStorage = 4 #C 
 
 #9 Transportartion post processing
-Trasnportation_Time = 63.57 #h from Ryzer et al
-Transportation_Temp = 4 #C
+Trasnportation_Time = 63.57 #h from Ryser et al
+Transportation_Temp = np.random.triangular(0,4,6) #C
 
 
