@@ -110,15 +110,9 @@ def F_MainLoop():
         
         #Filtering out the Rejected lots, Pre-Harvest
         if ScenCondz.PHS_Int ==1:
-            if sum(LL_Rej_Lots_PH)>0:
-                df_MeanT = df.iloc[[0]]
-                df_MeanT['CFU'] = 0
-            df = df[~df['Lot'].isin(LL_Rej_Lots_PH)] 
-            if sum(LL_Rej_Lots_PH)>0:
-                df= df_MeanT
-            
+            Funz.F_Rejection_Rule (df =df, LL_Rej_Lots =LL_Rej_Lots_PH, Test_Unit = "Lot")  
         else: 
-            df = df[~df['Sublot'].isin(LL_Rej_Lots_PH)]
+            Funz.F_Rejection_Rule (df =df, LL_Rej_Lots =LL_Rej_Lots_PH, Test_Unit = "Sublot") 
                            
         
         #Outputs from Pre-Harvest Sampling

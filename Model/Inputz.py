@@ -104,7 +104,7 @@ No_Grabs_H = 60
 # 3 Receiving
 #Growth rate or die off from harvest to receiving
 Time_H_RS = 1 # 1 hr. Days,Time from Harvest Sampling to Receiving Sampling,
-Temperature_H_RS = 25 #C  
+Temperature_H_RS = np.random.triangular(20,23,25) #C  
 Pallet_Weight = 4000  #weight of pallet in lb.  
 n_samples_pallet = 1 #samples taken per pallet
 sample_size_R = 300 #g #Sample Size in grams Receiving

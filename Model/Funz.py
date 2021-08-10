@@ -64,6 +64,8 @@ def F_Simple_DieOff (Time):
 
 #%% Growth  or Reduction Models
 #Cold Storage growth Model
+
+
 def F_Growth(DF,Temperature, TimeD ):
     b = 0.023
     Tmin  = 1.335-5.766 *b
@@ -175,6 +177,19 @@ def F_SamplingFProd (df, Test_Unit, N_SampPacks, Grab_Weight):
             Reject_YN=0
         Results.append(Reject_YN)
     return Results
+
+
+def F_Rejection_Rule (df, LL_Rej_Lots, Test_Unit):
+    #Test_Unit = "Lot" or "Sublot"
+    Unique_TestUnit=list(df[Test_Unit].unique())
+    if set(Unique_TestUnit)<= set(LL_Rej_Lots):
+        df_Blank = df.iloc[[0]]
+        df_Blank.loc[:, ['CFU']] = 0
+        df_Blank.loc[:, ['Weight']] = 0
+        df = df_Blank
+    else:
+        df = df[~df[Test_Unit].isin(LL_Rej_Lots)]
+    return df
 
 #%% Partitioning and Mixing Functions
 def F_Palletization (df, Field_Weight,Pallet_Weight, Partition_Weight):
