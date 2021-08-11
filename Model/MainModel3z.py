@@ -180,8 +180,8 @@ def F_MainLoop():
         LO_Cont_B_H = sum(df.CFU) #Contamination before sampling
         Listz.List_BHS_CFU.append(LO_Cont_B_H) #List of contaminations before sampling
         
-        #Filtering out the Rejected lots, Pre-Harvest
-        df = df[~df['Sublot'].isin(LL_Rej_Lots_H)]
+        #Filtering out the Rejected lots, Harvest Sampling
+        df = Funz.F_Rejection_Rule (df =df, LL_Rej_Lots =LL_Rej_Lots_H, Test_Unit = "Sublot") 
             
         
         #Outputs from Pre-Harvest Sampling
