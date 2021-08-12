@@ -190,7 +190,7 @@ for i in (Unique_TestUnit):
 
 Rejection_Unit = "Sublot"
 
-
+#New Rejection Function
 def F_Rejection_Rule (df, Test_Unit):
     #Test_Unit = "Lot" or "Sublot"
     Positives = df[df["Accept"]==False]
@@ -207,5 +207,71 @@ def F_Rejection_Rule (df, Test_Unit):
 
 
 df_Trial2 = F_Rejection_Rule(df=df, Test_Unit ="Sublot")
+
+
+
+
+
+
+
+def F_Growth(DF,Temperature, TimeD ):
+    b = 0.023
+    Tmin  = 1.335-5.766 *b
+    DieoffRate = np.random.triangular(0.0035, 0.013,0.040)
+    TotalGrowthRate = (b*(Temperature - Tmin))**(2)
+    if Temperature >5:
+        Growth  = 1
+    else:
+        Growth = 0
+    if Growth == 1:
+        TotalGrowth = (TotalGrowthRate*TimeD)/2.303
+    else:
+        TotalGrowth  = -DieoffRate * TimeD
+    DF['CFU']=DF['CFU']*10**TotalGrowth #Final Growth change CFU/g
+    return DF
+
+
+
+Time = 5 #hr
+Temperature = 10 #C
+Lag_Consumed_Prev = 0
+
+
+#Calculate Lag time at given temperature
+def Growth_Function_Lag(DF, Temperature,Time,Lag_Consumed_Prev):
+    if Temperature > 5:
+        Lag_Time = 7544*(Temperature**-3.11)
+        print(Lag_Time)
+        Proportion_Lag_Consumed = Time/Lag_Time
+        print(Proportion_Lag_Consumed)
+        Cummulative_Lag_Consumed = Lag_Consumed_Prev + Proportion_Lag_Consumed
+        print(Cummulative_Lag_Consumed)
+        if Cummulative_Lag_Consumed < 1: 
+            df2 = df
+        if Cummulative_Lag_Consumed >1:
+            #time not in lag phase
+            if Lag_Consumed_Prev < 1:
+                PropNotLag =(((Cummulative_Lag_Consumed - 1))/Cummulative_Lag_Consumed)
+                print(PropNotLag)
+                Growth_Time = Time*PropNotLag
+                df2 = F_Growth(DF =df,Temperature = Temperature,TimeD = Growth_Time)
+            elif Lag_Consumed_Prev >1:
+                Growth_Time = Time
+                df2=F_Growth(DF =df,Temperature = Temperature,TimeD = Growth_Time)
+            print(Growth_Time)
+        Lag_Consumed_Prev = Cummulative_Lag_Consumed
+    elif Temperature <5:
+        df2=F_Growth(DF =df, Temperature = Temperature, TimeD = Time)
+    outputs = [df2,Lag_Consumed_Prev]
+    return outputs
+
+     
+GrowthOuts = Growth_Function_Lag(DF =df, Temperature = 12, Time = 13, Lag_Consumed_Prev  = Lag_Consumed_Prev)
+
+
+
+
+
+
 
 
