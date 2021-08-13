@@ -84,6 +84,37 @@ def F_Growth(DF,Temperature, TimeD ):
 
 
 
+#Calculate Lag time at given temperature
+def Growth_Function_Lag(DF, Temperature,Time,Lag_Consumed_Prev):
+    if Temperature > 5:
+        Lag_Time = 7544*(Temperature**-3.11)
+        print(Lag_Time)
+        Proportion_Lag_Consumed = Time/Lag_Time
+        print(Proportion_Lag_Consumed)
+        Cummulative_Lag_Consumed = Lag_Consumed_Prev + Proportion_Lag_Consumed
+        print(Cummulative_Lag_Consumed)
+        if Cummulative_Lag_Consumed < 1: 
+            df2 = DF
+        if Cummulative_Lag_Consumed >1:
+            #time not in lag phase
+            if Lag_Consumed_Prev < 1:
+                PropNotLag =(((Cummulative_Lag_Consumed - 1))/Cummulative_Lag_Consumed)
+                print(PropNotLag)
+                Growth_Time = Time*PropNotLag
+                df2 = F_Growth(DF =DF,Temperature = Temperature,TimeD = Growth_Time)
+            elif Lag_Consumed_Prev >1:
+                Growth_Time = Time
+                df2=F_Growth(DF =DF,Temperature = Temperature,TimeD = Growth_Time)
+            print(Growth_Time)
+        Lag_Consumed_Prev = Cummulative_Lag_Consumed
+    elif Temperature <5:
+        df2=F_Growth(DF =DF, Temperature = Temperature, TimeD = Time)
+    outputs = [df2,Lag_Consumed_Prev]
+    return outputs
+
+
+
+
 #Washing
 def F_Washing (DF, LogRedWash):
     DF.CFU=DF.CFU*10**-LogRedWash 
@@ -112,6 +143,38 @@ def F_HarvestingCont ():
     return Nh1
 
 #%% Sampling Functions
+
+#New Sampling Function
+def F_Sampling_2 (df, Test_Unit, N_Samp_Unit, Samp_Size, Partition_Weight, NoGrab):
+    Unique_TestUnit = list(df[Test_Unit].unique())
+    Grab_Weight = Samp_Size/NoGrab
+    for i in (Unique_TestUnit):
+            for l in range (N_Samp_Unit):
+                for j in range(NoGrab):
+                    Sampled_Grab =df[df[Test_Unit] == i].sample(1, replace= True)
+                    Index = Sampled_Grab.index
+                    CFU = Sampled_Grab["CFU"]
+                    CFU_grab = CFU*(Grab_Weight/(Partition_Weight*454))
+                    P_Detection=1-math.exp(-CFU_grab)
+                    if random.uniform(0,1)<P_Detection:
+                        df.at[Index,"Accept"] = False
+    return (df)
+
+#New Rejection Function
+def F_Rejection_Rule2 (df, Test_Unit):
+    #Test_Unit = "Lot" or "Sublot"
+    Positives = df[df["Accept"]==False]
+    Unique_TestUnit=list(df[Test_Unit].unique())
+    Unique_Positives = list(Positives[Test_Unit].unique())
+    if set(Unique_TestUnit)<= set(Unique_Positives):
+        df_Blank = df.iloc[[0]]
+        df_Blank.loc[:, ['CFU']] = 0
+        df_Blank.loc[:, ['Weight']] = 0
+        df = df_Blank
+    else:
+        df = df[~df[Test_Unit].isin(Unique_Positives)]
+    return df
+
 
 #Sampling Sublots
 #df =dateframe,

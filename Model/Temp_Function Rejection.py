@@ -170,28 +170,35 @@ for i in (Unique_TestUnit):
 
 
 #New Sampling Function
-Unique_TestUnit = list(df[Test_Unit].unique())
-for i in (Unique_TestUnit):
-        for l in range (N_Samp_Unit):
-            for j in range(NoGrab):
-                Sampled_Grab =df[df[Test_Unit] == i].sample(1, replace= True)
-                Index = Sampled_Grab.index
-                CFU = Sampled_Grab["CFU"]
-                CFU_grab = CFU*(Grab_Weight/(Partition_Weight*454))
-                P_Detection=1-math.exp(-CFU_grab)
-                if random.uniform(0,1)<P_Detection:
-                    Reject_YN=1
-                    df.at[Index,"Accept"] = False
-                    print(Index)
+def F_Sampling_2 (df, Test_Unit, N_Samp_Unit, Samp_Size, Partition_Weight, NoGrab):
+    Unique_TestUnit = list(df[Test_Unit].unique())
+    Grab_Weight = Samp_Size/NoGrab
+    for i in (Unique_TestUnit):
+            for l in range (N_Samp_Unit):
+                for j in range(NoGrab):
+                    Sampled_Grab =df[df[Test_Unit] == i].sample(1, replace= True)
+                    Index = Sampled_Grab.index
+                    CFU = Sampled_Grab["CFU"]
+                    CFU_grab = CFU*(Grab_Weight/(Partition_Weight*454))
+                    P_Detection=1-math.exp(-CFU_grab)
+                    if random.uniform(0,1)<P_Detection:
+                        df.at[Index,"Accept"] = False
+    return (df)
                 
+      
+df2 = F_Sampling_2(df =df, 
+                   Test_Unit = "Sublot",
+                   N_Samp_Unit = 1, 
+                   Samp_Size = 300,
+                   Partition_Weight = 1000,
+                   NoGrab = 60)
                 
-                
-                
+df2=F_Rejection_Rule(df = df, Test_Unit = "Lot")                
 
 Rejection_Unit = "Sublot"
 
 #New Rejection Function
-def F_Rejection_Rule (df, Test_Unit):
+def F_Rejection_Rule2 (df, Test_Unit):
     #Test_Unit = "Lot" or "Sublot"
     Positives = df[df["Accept"]==False]
     Unique_TestUnit=list(df[Test_Unit].unique())
@@ -206,7 +213,7 @@ def F_Rejection_Rule (df, Test_Unit):
     return df
 
 
-df_Trial2 = F_Rejection_Rule(df=df, Test_Unit ="Sublot")
+df_Trial2 = F_Rejection_Rule(df=df, Test_Unit ="Lot")
 
 
 
@@ -266,8 +273,10 @@ def Growth_Function_Lag(DF, Temperature,Time,Lag_Consumed_Prev):
     return outputs
 
      
-GrowthOuts = Growth_Function_Lag(DF =df, Temperature = 12, Time = 13, Lag_Consumed_Prev  = Lag_Consumed_Prev)
+GrowthOuts = Growth_Function_Lag(DF =df, Temperature = 7, Time = 13, Lag_Consumed_Prev  = Lag_Consumed_Prev)
 
+df2 = GrowthOuts[0]
+Lag_Consumed_Prev = GrowthOuts[1]
 
 
 

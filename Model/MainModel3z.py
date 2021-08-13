@@ -86,33 +86,28 @@ def F_MainLoop():
         #Sampling at Pre-Harvest
         if ScenCondz.PH_Sampling ==1: #If function to turn off Pre-Harvest Sampling
             if ScenCondz.PHS_Int ==1:
-                LL_Rej_Lots_PH = Funz.F_Sampling(df =df,Test_Unit ="Lot", 
+                df = Funz.F_Sampling_2(df =df,Test_Unit ="Lot", 
                                               NSamp_Unit = Inputz.n_samples_lot_PH, 
                                               Samp_Size =Inputz.sample_size_PH, 
                                               Partition_Weight =Inputz.Partition_Weight, 
-                                              Limit =Inputz.Limit_PH, 
                                               NoGrab =Inputz.No_Grabs_PH )
             else:
             #Pre-Harvest Sampling, 
-                 LL_Rej_Lots_PH = Funz.F_Sampling(df =df,Test_Unit ="Sublot", 
+                 df = Funz.F_Sampling_2(df =df,Test_Unit ="Sublot", 
                                            NSamp_Unit = Inputz.n_samples_slot_PH, 
                                            Samp_Size =Inputz.sample_size_PH, 
                                            Partition_Weight =Inputz.Partition_Weight, 
-                                           Limit =Inputz.Limit_PH, 
                                            NoGrab =Inputz.No_Grabs_PH )
-        elif ScenCondz.PH_Sampling == 0: #If no pre harvest sampling, none rejected
-            LL_Rej_Lots_PH= []
-        print(LL_Rej_Lots_PH)
             
             
-        LO_Cont_B_PH = sum(df.CFU) #Contamination before sampling
+        LO_Cont_B_PH = sum(df.CFU) #Contamination before rejection sampling
         Listz.List_BPHS_CFU.append( LO_Cont_B_PH) #List of contamination before sampling
         
         #Filtering out the Rejected lots, Pre-Harvest
         if ScenCondz.PHS_Int ==1:
-            Funz.F_Rejection_Rule (df =df, LL_Rej_Lots =LL_Rej_Lots_PH, Test_Unit = "Lot")  
+           df= Funz.F_Rejection_Rule2(df =df, Test_Unit = "Lot")  
         else: 
-            Funz.F_Rejection_Rule (df =df, LL_Rej_Lots =LL_Rej_Lots_PH, Test_Unit = "Sublot") 
+            df=Funz.F_Rejection_Rule2(df =df, Test_Unit = "Sublot") 
                            
         
         #Outputs from Pre-Harvest Sampling
