@@ -170,6 +170,7 @@ def F_Rejection_Rule2 (df, Test_Unit):
         df_Blank = df.iloc[[0]]
         df_Blank.loc[:, ['CFU']] = 0
         df_Blank.loc[:, ['Weight']] = 1000
+        df_Blank.loc[:, ['Accept']] = "All Rej"
         df = df_Blank
     else:
         df = df[~df[Test_Unit].isin(Unique_Positives)]
@@ -269,7 +270,7 @@ def F_Palletization (df, Field_Weight,Pallet_Weight, Partition_Weight):
 
 def F_ProLineSplitting(df, Processing_Lines,):
     df2=df.groupby(['PalletNo'], as_index =False)[["CFU", "Weight"]].sum()
-    #Splitting Pallets into processing lines. 
+    #Splitting Pallets into processing lines. Faccept
     N_Pallets = len(df2.index)
     num, div = N_Pallets, Processing_Lines #Getting list of pallets per line
     N_Divs =  ([num // div + (1 if x < num % div else 0)  for x in range (div)])

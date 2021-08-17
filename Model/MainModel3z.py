@@ -3,8 +3,8 @@
 #%%
 import sys
 sys.path
-sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
-#sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
+#sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
+sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
 
 #%%
 Progression_DFS = []
@@ -29,7 +29,7 @@ import ScenCondz
 import Inputz
 from importlib import reload  
 reload(Listz)
-
+#reload(Inputz)
 
 #%%
 

@@ -248,11 +248,8 @@ Lag_Consumed_Prev = 0
 def Growth_Function_Lag(DF, Temperature,Time,Lag_Consumed_Prev):
     if Temperature > 5:
         Lag_Time = 7544*(Temperature**-3.11)
-        print(Lag_Time)
         Proportion_Lag_Consumed = Time/Lag_Time
-        print(Proportion_Lag_Consumed)
         Cummulative_Lag_Consumed = Lag_Consumed_Prev + Proportion_Lag_Consumed
-        print(Cummulative_Lag_Consumed)
         if Cummulative_Lag_Consumed < 1: 
             df2 = df
         if Cummulative_Lag_Consumed >1:
