@@ -145,11 +145,11 @@ def F_HarvestingCont ():
 #%% Sampling Functions
 
 #New Sampling Function
-def F_Sampling_2 (df, Test_Unit, N_Samp_Unit, Samp_Size, Partition_Weight, NoGrab):
+def F_Sampling_2 (df, Test_Unit, NSamp_Unit, Samp_Size, Partition_Weight, NoGrab):
     Unique_TestUnit = list(df[Test_Unit].unique())
     Grab_Weight = Samp_Size/NoGrab
     for i in (Unique_TestUnit):
-            for l in range (N_Samp_Unit):
+            for l in range (NSamp_Unit):
                 for j in range(NoGrab):
                     Sampled_Grab =df[df[Test_Unit] == i].sample(1, replace= True)
                     Index = Sampled_Grab.index
@@ -169,7 +169,7 @@ def F_Rejection_Rule2 (df, Test_Unit):
     if set(Unique_TestUnit)<= set(Unique_Positives):
         df_Blank = df.iloc[[0]]
         df_Blank.loc[:, ['CFU']] = 0
-        df_Blank.loc[:, ['Weight']] = 0
+        df_Blank.loc[:, ['Weight']] = 1000
         df = df_Blank
     else:
         df = df[~df[Test_Unit].isin(Unique_Positives)]
@@ -476,7 +476,6 @@ F_Chloride_lvl(200)
 
 
 def F_Washing_ProcLines (List_GB3, Wash_Rate, Cdf):
-    
     for j in List_GB3:
         WashT = len(j.index)
         #DF_Clvl = F_DF_Clvl(WashT)
@@ -509,7 +508,6 @@ def F_Washing_ProcLines (List_GB3, Wash_Rate, Cdf):
             if Xw<0:
                 Xw = 0
             L_Xw.append(Xw)
-            
             Xl = AvCont
             CXl = (Blw*Xw) - (alpha*Xl*C) - (c1*Xl)
             Xl =Xl +CXl
@@ -518,8 +516,7 @@ def F_Washing_ProcLines (List_GB3, Wash_Rate, Cdf):
             L_Xl.append(Xl)
             AvCont = Xl
             CFU_2 = AvCont*((j.at[i,"Weight"]*454))
-            j.at[i,"CFU"] =  CFU_2
-            
+            #j.at[i,"CFU"] =  CFU_2 
     return (List_GB3) 
 
 

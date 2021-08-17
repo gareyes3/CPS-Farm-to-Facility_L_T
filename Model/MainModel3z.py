@@ -3,8 +3,8 @@
 #%%
 import sys
 sys.path
-#sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
-sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
+sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
+#sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
 
 #%%
 Progression_DFS = []
@@ -36,6 +36,7 @@ reload(Listz)
 def F_MainLoop():
 
     for  i in range(Inputz.N_Iterations):
+        print(i)
         
         #Adding Background Contamination
         
@@ -154,29 +155,26 @@ def F_MainLoop():
         #Harvest Sampling
         if ScenCondz.H_Sampling == 1:
             if ScenCondz.HS_Trad==1:
-                LL_Rej_Lots_H = Funz.F_Sampling(df =df,
+                df = Funz.F_Sampling_2(df =df,
                                              Test_Unit ="Sublot", 
                                              NSamp_Unit = Inputz.n_samples_slot_H, 
                                              Samp_Size =Inputz.sample_size_H, 
                                              Partition_Weight =Inputz.Partition_Weight, 
-                                             Limit =0, 
                                              NoGrab =Inputz.No_Grabs_H )
             elif ScenCondz.HS_Agg==1:
-                LL_Rej_Lots_H = Funz.F_Sampling(df =df,Test_Unit ="Sublot", 
+               df = Funz.F_Sampling_2(df =df,Test_Unit ="Sublot", 
                                                NSamp_Unit = 10, 
                                                Samp_Size =Inputz.sample_size_H, 
                                                Partition_Weight =Inputz.Partition_Weight, 
-                                               Limit =0, 
                                                NoGrab =Inputz.No_Grabs_H )
-        else:
-           LL_Rej_Lots_H=[]
+
             
         #Before pre harvest sampling
         LO_Cont_B_H = sum(df.CFU) #Contamination before sampling
         Listz.List_BHS_CFU.append(LO_Cont_B_H) #List of contaminations before sampling
         
         #Filtering out the Rejected lots, Harvest Sampling
-        df = Funz.F_Rejection_Rule (df =df, LL_Rej_Lots =LL_Rej_Lots_H, Test_Unit = "Sublot") 
+        df = Funz.F_Rejection_Rule2 (df =df, Test_Unit = "Sublot") 
             
         
         #Outputs from Pre-Harvest Sampling
@@ -232,17 +230,14 @@ def F_MainLoop():
         
         if ScenCondz.R_Sampling == 1:
             #Sampling at Reception
-            LL_Rej_Pallets_R = Funz.F_Sampling(df =df,Test_Unit ="PalletNo", 
+            df = Funz.F_Sampling_2(df =df,Test_Unit ="PalletNo", 
                                            NSamp_Unit = Inputz.n_samples_pallet, 
                                            Samp_Size =Inputz.sample_size_R, 
                                            Partition_Weight =Inputz.Partition_Weight, 
-                                           Limit =0, 
                                            NoGrab =Inputz.No_Grabs_R )
-        else:
-            LL_Rej_Pallets_R = []
         
         #Rejecting Inidividual pallets if 1 positive
-        df = df[~df['PalletNo'].isin(LL_Rej_Pallets_R)]
+        df = Funz.F_Rejection_Rule2 (df =df, Test_Unit = "PalletNo") 
         
         
         #Outputs from Pre-Harvest Sampling
@@ -312,8 +307,6 @@ def F_MainLoop():
                                    Lines_Cont = Inputz.Lines_Cont)
             
         DF_Chlevels = Funz.F_Chloride_lvl(300) #Simlating Chlorine levels after time.
-        plt.plot(DF_Chlevels.C)
-        
         gb2 = Funz.F_Washing_ProcLines(List_GB3 =gb2, Wash_Rate = Inputz.Wash_Rate, Cdf =  DF_Chlevels)
         
         #4 Shaker Table
@@ -388,6 +381,7 @@ def F_MainLoop():
                             Lines_Cont = Inputz.Lines_ContPack)
         
         df=(pd.concat(gb2))
+        df["Accept"] = True
         
         
         LO_Cont_B_FP = sum(df.CFU) #Total CFU before FP Sampling
@@ -399,28 +393,23 @@ def F_MainLoop():
         #Sampling Step
         if ScenCondz.FP_Sampling == 1:
             if ScenCondz.FPS_Trad ==1:
-                LL_Rej_Lots_FP=Funz.F_SamplingFProd(df=df, 
-                                                 Test_Unit = 'PackNo', 
-                                                 N_SampPacks = Inputz.N_Packages_Samples, 
-                                                 Grab_Weight = Inputz.Grab_Weight )
+                df =Funz.F_Sampling_2(df =df,Test_Unit ="Lot", 
+                                           NSamp_Unit = Inputz.n_samples_FP, 
+                                           Samp_Size =Inputz.sample_size_FP, 
+                                           Partition_Weight =Inputz.Pack_Weight_FP, 
+                                           NoGrab = Inputz.N_Packages_Samples)
+                
             elif ScenCondz.FPS_Agg ==1:
-                LL_Rej_Lots_FP = Funz.F_Sampling(df =df,
-                                             Test_Unit ="Sublot", 
-                                               NSamp_Unit = 10, 
-                                               Samp_Size =Inputz.sample_size_FP, 
-                                               Partition_Weight =Inputz.Pack_Weight_FP, 
-                                               Limit =0, 
-                                               NoGrab =60 )
-        else :
-            LL_Rej_Lots_FP = []
+                df =Funz.F_Sampling_2(df =df,Test_Unit ="Lot", 
+                                           NSamp_Unit = Inputz.n_samples_FP, 
+                                           Samp_Size =Inputz.sample_size_FP, 
+                                           Partition_Weight =Inputz.Pack_Weight_FP, 
+                                           NoGrab = Inputz.N_Packages_Samples)
         
     
         #Filtering out the Rejected lots, Final product
-        if ScenCondz.FP_Sampling == 1:
-            if ScenCondz.FPS_Trad==1:
-                df = df[~df['Lot'].isin(LL_Rej_Lots_FP)]
-            elif ScenCondz.FPS_Agg ==1:
-                df = df[~df['Sublot'].isin(LL_Rej_Lots_FP)]
+        #Rejecting Inidividual pallets if 1 positive
+        df = Funz.F_Rejection_Rule2 (df =df, Test_Unit = "Lot") 
         
         LO_WeightAcc_FP = sum(df.Weight) #Lb
         LO_WeightRej_FP = Inputz.Field_Weight-LO_WeightAcc_FP #Lb

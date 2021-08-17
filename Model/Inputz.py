@@ -14,7 +14,7 @@ import numpy as np
 # 0 Initial Inputs for Field Setup and Challenges
 
 
-N_Iterations= 20
+N_Iterations= 3
 
 Field_Weight= 100000 #total lb in field
 slot_weight = 10000 #weight of the sublot in field.
@@ -153,12 +153,13 @@ Tr_P_C =np.random.triangular(0,0.0035,0.0159)
     
 # 7 Final Product
 Pack_Weight_FP = 5 #Weight of each pack. 
-N_Lots_FP = 2 #Lost of final product
+N_Lots_FP = 1 #Lost of final product
 sample_size_FP = 300 #g #Sample Size in grams
-n_samples_FP = 1 #number of samples final product
-if ScenCondz.FPS_Trad ==1:
-    N_Packages_Samples = 60
-    Grab_Weight = 5 #g
+n_samples_FP = 1 #number of samples per lot final product
+N_Packages_Samples = 60
+if ScenCondz.FPS_Agg ==1:
+    n_samples_FP = 10
+
     
 
 
