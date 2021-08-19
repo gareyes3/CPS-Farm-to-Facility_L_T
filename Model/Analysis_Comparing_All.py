@@ -14,12 +14,6 @@ sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model'
 
 #%% Libraries
 import pandas as pd 
-import numpy as np
-import itertools
-import scipy.stats as stats
-import math
-import os
-import random
 import seaborn as sns
 from matplotlib import pyplot as plt
 import Funz
@@ -28,6 +22,7 @@ import Listz
 import OutFunz
 import InFunz
 import ScenCondz
+import ContCondz
 import Inputz
 from importlib import reload 
 
@@ -39,19 +34,19 @@ import MainModel3z
 Progression_DFS = []
 #%% BAseline Sampling: 
 #Contamination Challenges
-ScenCondz.Background_C=1
-ScenCondz.Point_Source_C=0
-ScenCondz.Systematic_C=0
+ContCondz.Background_C=0
+ContCondz.Point_Source_C=1
+ContCondz.Systematic_C=0
 
 #Harvester Contamination
-ScenCondz.Crew_C = 0
-ScenCondz.Harvester_C = 0
+ContCondz.Crew_C = 0
+ContCondz.Harvester_C = 0
 
 #Processing equipment
-ScenCondz.PE_C = 0
-ScenCondz.PE_Cont_Loc = 0,#2,3,4,5
+ContCondz.PE_C = 0
+ContCondz.PE_Cont_Loc = 0,#2,3,4,5
 #1 = Shredder, #2 = Belt, #3 = Washing, #4 Shaker, #5Centrifuge
-ScenCondz.Pack_C= 0
+ContCondz.Pack_C= 0
 
 #%% Baseline Sampling
 reload(ScenCondz)
@@ -68,7 +63,6 @@ Main_Mod_Outs=MainModel3z.F_MainLoop()
 D_Baseline = Main_Mod_Outs[1]
 DProg_Baseline=Main_Mod_Outs[0]
 
-#%%
 
 #%% Pre-Harvest
 #Sampling Conditions, Baseline all conditions are off
@@ -251,3 +245,53 @@ df_L_Final_Per_melted = pd.melt(df_L_Final_Per)
 Scenariosplot =sns.boxplot(x="variable", y="value", data=df_L_Final_Per_melted )
 plt.xlabel("Sampling Type")
 plt.ylabel("Percentage CFU Rejected at Sampling Step")
+
+
+#Weight Rejected, Weight Accepted. 
+L_Final_PerRejWeight = {
+                'PH4d':D_PH4d["PerRejectedWeight"],
+                'PH4h':D_PH4h["PerRejectedWeight"],
+                'PHInt':D_PHInt["PerRejectedWeight"],
+                'HTrad':D_HTrad["PerRejectedWeight"],
+                'HAgg':D_HAgg["PerRejectedWeight"],
+                'R':D_R["PerRejectedWeight"],
+                'FPTrad':D_FPSTrad["PerRejectedWeight"],
+                'FPAgg':D_FPSAgg["PerRejectedWeight"],
+          }
+
+df_L_Final_PerRejWeight = pd.DataFrame(L_Final_PerRejWeight)
+df_L_Final_PerRejWeight_melted = pd.melt(df_L_Final_PerRejWeight)
+
+
+#Scenariosplot =sns.catplot(x="variable", y="value", data=df_L_Final_Per_melted ,kind="bar",  height=4, aspect=2 )
+Scenariosplot =sns.boxplot(x="variable", y="value", data=df_L_Final_PerRejWeight_melted )
+plt.xlabel("Sampling Type")
+plt.ylabel("Percentage total lb. Rejected at Sampling Step")
+
+
+
+#Weight Rejected, Weight Accepted. 
+L_Final_PerRatio = {
+                'PH4d':D_PH4d["PerRejectedWeight"] /D_PH4d["PerRejected at PH"] ,
+                'PH4h':D_PH4h["PerRejectedWeight"] /D_PH4h["PerRejected at PH"] ,
+                'PHInt':D_PHInt["PerRejectedWeight"] /D_PHInt["PerRejected at PH"] ,
+                'HTrad':D_HTrad["PerRejectedWeight"] /D_HTrad["PerRejected at H"] ,
+                'HAgg':D_HAgg["PerRejectedWeight"] /D_HAgg["PerRejected at H"] ,
+                'R':D_R["PerRejectedWeight"] /D_R["PerRejected at R"] ,
+                'FPTrad':D_FPSTrad["PerRejectedWeight"] /D_FPSTrad["PerRejected at FP"] ,
+                'FPAgg':D_FPSAgg["PerRejectedWeight"] / D_FPSAgg["PerRejected at FP"],
+          }
+
+df_L_Final_PerRatio = pd.DataFrame(L_Final_PerRatio)
+df_L_Final_PerRatio_melted = pd.melt(df_L_Final_PerRatio)
+
+
+#Scenariosplot =sns.catplot(x="variable", y="value", data=df_L_Final_Per_melted ,kind="bar",  height=4, aspect=2 )
+Scenariosplot =sns.boxplot(x="variable", y="value", data=df_L_Final_PerRatio_melted )
+plt.xlabel("Sampling Type")
+plt.ylabel("Percentage lb Rejected/  Percentage CFU Rejected")
+
+
+
+
+

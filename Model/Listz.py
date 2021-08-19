@@ -53,6 +53,8 @@ List_BFPS_CFU=[]
 
 #After FP Sampling
 Total_PR_FP = []
+Total_PR_Final = []
+Total_PerRej_Weight = []
 Total_PA_FP = []
 Total_CR_FP = []
 Total_CA_FP = []

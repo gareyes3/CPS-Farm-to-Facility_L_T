@@ -8,13 +8,14 @@ Created on Tue Jul 20 09:31:30 2021
 
                                                        #Inputs for the Model, Initial Inputs
 import ScenCondz
+import ContCondz
 import Funz
 import numpy as np                                                    
                                                               
 # 0 Initial Inputs for Field Setup and Challenges
 
 
-N_Iterations= 10
+N_Iterations= 25
 
 Field_Weight= 100000 #total lb in field
 slot_weight = 10000 #weight of the sublot in field.
@@ -25,40 +26,40 @@ Partition_Units = int(Field_Weight/Partition_Weight) #Number of partition units 
 
 
 # Contamination Challenge Related Information
-if ScenCondz.Background_C ==1:
+if ContCondz.Background_C ==1:
     Hazard_lvl = 50000  #CFU # background contamination
     Cluster_Size = 100000 #lb
     No_Cont_Clusters = 1 #Number of contamination clusters here one uniform cluster, field size.
     #BackGround Contamination. 
 
-if ScenCondz.Point_Source_C ==1:
+if ContCondz.Point_Source_C ==1:
     Hazard_lvl = 50000  #CFU # background contamination
     Cluster_Size = 1000 #lb
     No_Cont_Clusters = 4 #4 1000k lb clusters. 
     
-if ScenCondz.Systematic_C ==1: 
+if ContCondz.Systematic_C ==1: 
     Hazard_lvl = 50000  #CFU # background contamination
     Cluster_Size = 10000 #lb
     No_Cont_Clusters = 1 #Number of contaminated clusters
 
  
 
-if ScenCondz.Crew_C == 1: 
+if ContCondz.Crew_C == 1: 
     Hazard_lvl = 50000  #CFU # background contamination
     Cluster_Size = 5000 #lb
     No_Cont_Clusters = 4 #Number of contaminated clusters
 
 
-if ScenCondz.Harvester_C==1:
+if ContCondz.Harvester_C==1:
     Hazard_lvl = 50000  #CFU # background contamination
     Cluster_Size = 50000 #lb
     No_Cont_Clusters = 1 #Number of contaminated clusters
     
-if ScenCondz.PE_C == 1:
+if ContCondz.PE_C == 1:
     Hazard_lvl = 50000  #CFU # background contamination
     Lines_Cont = 1
     
-if ScenCondz.Pack_C == 1:
+if ContCondz.Pack_C == 1:
     Hazard_lvl = 50000  #CFU # background contamination
     Lines_ContPack = 1        
     
@@ -68,6 +69,8 @@ if ScenCondz.Pack_C == 1:
 Break_Point=Funz.Func_NormalTrunc(0.11,3.71,0.68,0.98) #Breaking point for Die Off from Belias et al. 
 Dieoff1 = Funz.F_DieOff1() #from Belias et al. 
 Dieoff2 = Funz.F_DieOff2() #from Belias et al. 
+
+Lag_Consumed_Prev = 0
 
 
 # 1 Pre-Harvest Inputs
@@ -99,6 +102,9 @@ Time_CE_PHS= int(Time_CE_H-Time_PHS_H) #Days Time from Contamination Event (Irri
 sample_size_H = 300 #g #Sample Size in grams
 n_samples_slot_H = 1 # Samples per lot of product
 No_Grabs_H = 60 
+
+#Hydrocooling time. 
+
 
 
 # 3 Receiving

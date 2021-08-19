@@ -277,6 +277,159 @@ Lag_Consumed_Prev = GrowthOuts[1]
 
 
 
+#%%
+'''
+
+                                                                    #Model Outputs per scenario. 
+                                                                    
+#Number and % of CFUs rejected due to actions taken on testing results, the primary benefit
+                                                              
+#Baseline No Sampling
+if ScenCondz.Baseline_Sampling==1:
+    
+    Out_BLSamp_PercRej = Listz.List_Cont_PercRej_FP #Percentage of CFU Rejected from total
+    
+    #Main Outputs, contamination and weight.
+    BL_df_outputs = df_outputs
+    BL_df_outputs2= OutFunz.F_Melting(df= BL_df_outputs, Scenario="Baseline")
+
+    #Contamination Progression
+    BL_df_contprog = df_contprog
+    BL_df_contprog2= OutFunz.F_Melting(df= BL_df_contprog, Scenario="Baseline")
+    Progression_DFS.append(BL_df_contprog2)
+
+if ScenCondz.PH_Sampling==1:
+    #Sampling only in Pre-Harvers
+    Out_PHSamp_PercRej = Listz.List_Cont_PercRej_PH #Percentage of CFU Rejected from total
+
+    #Main Outputs, contamination and weight.
+    PHS_df_outputs = df_outputs
+    PHS_df_outputs2= OutFunz.F_Melting(df= PHS_df_outputs, Scenario="PHS")
+    
+    #Contamination Progression
+    PHS_df_contprog = df_contprog
+    PHS_df_contprog2= OutFunz.F_Melting(df= PHS_df_contprog, Scenario="PHS")
+    Progression_DFS.append(PHS_df_contprog2)
+
+#Sampling only in Harvest
+if ScenCondz.H_Sampling ==1:
+
+    Out_HSamp_PercRej = Listz.List_Cont_PercRej_H #Percentage of CFU Rejected from total
+    
+    #Main Outputs, contamination and weight.
+    HS_df_outputs = df_outputs
+    HS_df_outputs2= OutFunz.F_Melting(df= HS_df_outputs, Scenario="HS")
+
+    #Contamination Progression
+    HS_df_contprog = df_contprog
+    HS_df_contprog2= OutFunz.F_Melting(df= HS_df_contprog, Scenario="HS")
+    Progression_DFS.append(HS_df_contprog2)
+
+#Sampling in Receiving
+if ScenCondz.R_Sampling ==1:
+    Out_RSamp_PercRej = Listz.List_Cont_PercRej_R #Percentage of CFU Rejected from total
+    
+    #Main Outputs, contamination and weight.
+    RS_df_outputs = df_outputs
+    RS_df_outputs2= OutFunz.F_Melting(df= RS_df_outputs, Scenario="RS")
+    
+    
+    #Contamination Progression
+    RS_df_contprog = df_contprog
+    RS_df_contprog2= OutFunz.F_Melting(df= RS_df_contprog, Scenario="RS")
+    Progression_DFS.append(RS_df_contprog2)
+
+#Sampling at Final product
+if ScenCondz.FP_Sampling==1:
+    
+    Out_FPSamp_PercRej = Listz.List_Cont_PercRej_FP #Percentage of CFU Rejected from total
+    
+    #Main Outputs, contamination and weight.
+    FP_df_outputs = df_outputs
+    FP_df_outputs2= OutFunz.F_Melting(df= FP_df_outputs, Scenario="FP")
+      
+    
+    #Contamination Progression
+    FPS_df_contprog = df_contprog
+    FPS_df_contprog2= OutFunz.F_Melting(df= FPS_df_contprog, Scenario="FPS")
+    Progression_DFS.append(FPS_df_contprog2)
+
+
+
+#Sampling Scenarios
+                                                                        #Pre-Harvest
+
+#Pre-Harvest 4 days
+if (ScenCondz.PH_Sampling ==1) and (ScenCondz.PHS_4d==1):
+    
+    #Sampling only in Pre-Harvers
+    Out_PH4d_PercRej = Listz.List_Cont_PercRej_PH #Percentage of CFU Rejected from total
+    
+    #Main Outputs, contamination and weight.
+    PH4d_df_outputs = df_outputs
+    PH4d_df_outputs2= OutFunz.F_Melting(df= PH4d_df_outputs, Scenario="PH4d")
+
+
+#Pre-Harvest 4 hrous
+if (ScenCondz.PH_Sampling ==1) and (ScenCondz.PHS_4h==1):
+    #Sampling only in Pre-Harvers
+    Out_PH4h_PercRej = Listz.List_Cont_PercRej_PH #Percentage of CFU Rejected from total
+    
+    #Main Outputs, contamination and weight.
+    PH4h_df_outputs = df_outputs
+    PH4h_df_outputs2= OutFunz.F_Melting(df= PH4h_df_outputs, Scenario="PH4h")
+
+#Pre Harvest Intense Sampling
+if (ScenCondz.PH_Sampling ==1) and (ScenCondz.PHS_Int ==1):
+    
+    #Sampling only in Pre-Harvers
+    Out_PHIN_PercRej = Listz.List_Cont_PercRej_PH #Percentage of CFU Rejected from total
+    
+    #Main Outputs, contamination and weight.
+    PHIN_df_outputs = df_outputs
+    PHIN_df_outputs2= OutFunz.F_Melting(df= PHIN_df_outputs, Scenario="PHIN")
+
+                                                                            #Harvest
+
+if (ScenCondz.H_Sampling ==1) and (ScenCondz.HS_Trad==1):
+        #Sampling only in Pre-Harvers
+    Out_HTr_PercRej = Listz.List_Cont_PercRej_H #Percentage of CFU Rejected from total
+    
+    #Main Outputs, contamination and weight.
+    HTr_df_outputs = df_outputs
+    HTr_df_outputs2= OutFunz.F_Melting(df= HTr_df_outputs, Scenario="HTr")
+
+    
+if (ScenCondz.H_Sampling ==1) and (ScenCondz.HS_Agg==1):
+    #Sampling only in Pre-Harvers
+    Out_HAgg_PercRej = Listz.List_Cont_PercRej_H #Percentage of CFU Rejected from total
+  
+    #Main Outputs, contamination and weight.
+    HAgg_df_outputs = df_outputs
+    HAgg_df_outputs2= OutFunz.F_Melting(df= HAgg_df_outputs, Scenario="HAgg")
+
+                                                                            #Finished Product
+
+if (ScenCondz.FP_Sampling ==1) and (ScenCondz.FPS_Trad==1):
+    
+    #Sampling only in Pre-Harvers
+    Out_FPTr_PercRej = Listz.List_Cont_PercRej_FP #Percentage of CFU Rejected from total
+    
+    #Main Outputs, contamination and weight.
+    FPTr_df_outputs = df_outputs
+    FPTr_df_outputs2= OutFunz.F_Melting(df= FPTr_df_outputs, Scenario="FPTr")
+
+    
+if (ScenCondz.FP_Sampling ==1) and (ScenCondz.FPS_Agg==1):
+    #Sampling only in Pre-Harvers
+    Out_FPAgg_PercRej = Listz.List_Cont_PercRej_FP #Percentage of CFU Rejected from total
+
+    #Main Outputs, contamination and weight.
+    FPAgg_df_outputs = df_outputs
+    FPAgg_df_outputs2= OutFunz.F_Melting(df= FPAgg_df_outputs, Scenario="FPAgg")
+
+
+'''
 
 
 

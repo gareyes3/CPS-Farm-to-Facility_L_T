@@ -88,30 +88,24 @@ def F_Growth(DF,Temperature, TimeD ):
 def Growth_Function_Lag(DF, Temperature,Time,Lag_Consumed_Prev):
     if Temperature > 5:
         Lag_Time = 7544*(Temperature**-3.11)
-        print(Lag_Time)
         Proportion_Lag_Consumed = Time/Lag_Time
-        print(Proportion_Lag_Consumed)
         Cummulative_Lag_Consumed = Lag_Consumed_Prev + Proportion_Lag_Consumed
-        print(Cummulative_Lag_Consumed)
         if Cummulative_Lag_Consumed < 1: 
             df2 = DF
         if Cummulative_Lag_Consumed >1:
             #time not in lag phase
             if Lag_Consumed_Prev < 1:
                 PropNotLag =(((Cummulative_Lag_Consumed - 1))/Cummulative_Lag_Consumed)
-                print(PropNotLag)
                 Growth_Time = Time*PropNotLag
                 df2 = F_Growth(DF =DF,Temperature = Temperature,TimeD = Growth_Time)
             elif Lag_Consumed_Prev >1:
                 Growth_Time = Time
                 df2=F_Growth(DF =DF,Temperature = Temperature,TimeD = Growth_Time)
-            print(Growth_Time)
         Lag_Consumed_Prev = Cummulative_Lag_Consumed
     elif Temperature <5:
         df2=F_Growth(DF =DF, Temperature = Temperature, TimeD = Time)
     outputs = [df2,Lag_Consumed_Prev]
     return outputs
-
 
 
 
