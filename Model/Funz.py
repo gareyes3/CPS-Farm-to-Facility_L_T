@@ -139,23 +139,25 @@ def F_HarvestingCont ():
 #%% Sampling Functions
 
 #New Sampling Function
-def F_Sampling_2 (df, Test_Unit, NSamp_Unit, Samp_Size, Partition_Weight, NoGrab):
+def F_Sampling_2 (df, Test_Unit, NSamp_Unit, Samp_Size, Partition_Weight, NoGrab, Limit):
     Unique_TestUnit = list(df[Test_Unit].unique())
     Grab_Weight = Samp_Size/NoGrab
     for i in (Unique_TestUnit):
-            for l in range (NSamp_Unit):
-                for j in range(NoGrab):
-                    Sampled_Grab =df[df[Test_Unit] == i].sample(1, replace= True)
-                    Index = Sampled_Grab.index
-                    CFU = Sampled_Grab["CFU"]
-                    CFU_grab = CFU*(Grab_Weight/(Partition_Weight*454))
-                    P_Detection=1-math.exp(-CFU_grab)
-                    if random.uniform(0,1)<P_Detection:
-                        df.at[Index,"Accept"] = False
+        for l in range (NSamp_Unit):
+            for j in range(NoGrab):
+                Sampled_Grab =df[df[Test_Unit] == i].sample(1, replace= True)
+                Index = Sampled_Grab.index
+                CFU = Sampled_Grab["CFU"]
+                CFU_grab = CFU*(Grab_Weight/(Partition_Weight*454))
+                P_Detection=1-math.exp(-CFU_grab)
+                RandomUnif = random.uniform(0,1)
+                if RandomUnif <P_Detection:
+                    df.at[Index,"Accept"] = False
     return (df)
 
+
 #New Rejection Function
-def F_Rejection_Rule2 (df, Test_Unit):
+def F_Rejection_Rule2 (df, Test_Unit, limit):
     #Test_Unit = "Lot" or "Sublot"
     Positives = df[df["Accept"]==False]
     Unique_TestUnit=list(df[Test_Unit].unique())
@@ -169,6 +171,7 @@ def F_Rejection_Rule2 (df, Test_Unit):
     else:
         df = df[~df[Test_Unit].isin(Unique_Positives)]
     return df
+        
 
 
 #Sampling Sublots
