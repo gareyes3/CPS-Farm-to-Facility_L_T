@@ -74,7 +74,6 @@ def F_Harvester_C(df, Hazard_lvl,No_Cont_Clusters, Cluster_Size, Partition_Weigh
     
 def F_PEC_C(gb2,Hazard_lvl,Processing_Lines, Lines_Cont):     
         L_Lines_Cont= random.sample(range(Processing_Lines),Lines_Cont)
-        print(L_Lines_Cont)
         Hazard_PLine = Hazard_lvl/Lines_Cont
         Hazard_Pall=0
         for i in L_Lines_Cont:

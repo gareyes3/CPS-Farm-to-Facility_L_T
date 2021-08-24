@@ -139,7 +139,7 @@ def F_HarvestingCont ():
 #%% Sampling Functions
 
 #New Sampling Function
-def F_Sampling_2 (df, Test_Unit, NSamp_Unit, Samp_Size, Partition_Weight, NoGrab, Limit):
+def F_Sampling_2 (df, Test_Unit, NSamp_Unit, Samp_Size, Partition_Weight, NoGrab):
     Unique_TestUnit = list(df[Test_Unit].unique())
     Grab_Weight = Samp_Size/NoGrab
     for i in (Unique_TestUnit):
@@ -147,21 +147,29 @@ def F_Sampling_2 (df, Test_Unit, NSamp_Unit, Samp_Size, Partition_Weight, NoGrab
             for j in range(NoGrab):
                 Sampled_Grab =df[df[Test_Unit] == i].sample(1, replace= True)
                 Index = Sampled_Grab.index
+                Index = Index[0]
                 CFU = Sampled_Grab["CFU"]
                 CFU_grab = CFU*(Grab_Weight/(Partition_Weight*454))
                 P_Detection=1-math.exp(-CFU_grab)
                 RandomUnif = random.uniform(0,1)
-                if RandomUnif <P_Detection:
-                    df.at[Index,"Accept"] = False
+                if RandomUnif < P_Detection:
+                    df.at[Index, 'Grabs']. append(NSamp_Unit)
     return (df)
 
 
 #New Rejection Function
 def F_Rejection_Rule2 (df, Test_Unit, limit):
     #Test_Unit = "Lot" or "Sublot"
-    Positives = df[df["Accept"]==False]
+    Listpositive = []
+    for i, row in df.iterrows():
+        Positives = len(set(df.at[i, "Grabs"]))
+        Listpositive.append(Positives)
+    df.Positives =Listpositive
+    Positives = df[df["Positives"]> limit]
     Unique_TestUnit=list(df[Test_Unit].unique())
     Unique_Positives = list(Positives[Test_Unit].unique())
+    df.Positives = ""
+    df.Grabs = [list() for x in range(len(df.index))]
     if set(Unique_TestUnit)<= set(Unique_Positives):
         df_Blank = df.iloc[[0]]
         df_Blank.loc[:, ['CFU']] = 0
@@ -260,7 +268,7 @@ def F_Palletization (df, Field_Weight,Pallet_Weight, Partition_Weight):
     Crop_No = len(df.index)
     Pallet_Pattern=Pallet_Pattern[:Crop_No]
     df['PalletNo'] = Pallet_Pattern
-    df = df[['Lot', 'Sublot','PalletNo','PartitionID','CFU','Accept', 'Weight']]
+    df = df[['Lot', 'Sublot','PalletNo','PartitionID','CFU','Grabs','Positives','Accept', 'Weight']]
     return df
 
 
@@ -313,7 +321,7 @@ def F_Partitioning(DF,NPartitions):
     newdf.Weight=newdf.Weight/NPartitions
     newdf.CFU = b_flat
     newdf["Sublot"] = 1
-    newdf = newdf[['PalletNo','PackNo','CFU','Weight', 'Sublot','ProLine','Lot']]
+    newdf = newdf[['PalletNo','PackNo','CFU', 'Weight', 'Sublot','ProLine','Lot']]
     return newdf
 
 def F_Lots_FP(df, Nolots):

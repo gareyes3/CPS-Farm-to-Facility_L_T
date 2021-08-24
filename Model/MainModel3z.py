@@ -100,9 +100,9 @@ def F_MainLoop():
         
         #Filtering out the Rejected lots, Pre-Harvest
         if ScenCondz.PHS_Int ==1:
-           df= Funz.F_Rejection_Rule2(df =df, Test_Unit = "Lot")  
+           df= Funz.F_Rejection_Rule2(df =df, Test_Unit = "Lot", limit = 0)  
         else: 
-            df=Funz.F_Rejection_Rule2(df =df, Test_Unit = "Sublot") 
+            df=Funz.F_Rejection_Rule2(df =df, Test_Unit = "Sublot", limit = 0) 
                            
         
         #Outputs from Pre-Harvest Sampling
@@ -168,7 +168,7 @@ def F_MainLoop():
         Listz.List_BHS_CFU.append(LO_Cont_B_H) #List of contaminations before sampling
         
         #Filtering out the Rejected lots, Harvest Sampling
-        df = Funz.F_Rejection_Rule2 (df =df, Test_Unit = "Sublot") 
+        df = Funz.F_Rejection_Rule2 (df =df, Test_Unit = "Sublot",limit = 0) 
             
         
         #Outputs from Pre-Harvest Sampling
@@ -242,7 +242,7 @@ def F_MainLoop():
                                            NoGrab =Inputz.No_Grabs_R )
         
         #Rejecting Inidividual pallets if 1 positive
-        df = Funz.F_Rejection_Rule2 (df =df, Test_Unit = "PalletNo") 
+        df = Funz.F_Rejection_Rule2 (df =df, Test_Unit = "PalletNo", limit = 0) 
         
         
         #Outputs from Pre-Harvest Sampling
@@ -358,6 +358,7 @@ def F_MainLoop():
     
             
         df['Lot'] =1#Updating the CFU/g column
+ 
             
         #Environmental Monitoring Program
         
@@ -387,6 +388,8 @@ def F_MainLoop():
         
         df=(pd.concat(gb2))
         df["Accept"] = True
+        df['Grabs'] = [list() for x in range(len(df.index))]
+        df["Positives"] = ""
         
         
         LO_Cont_B_FP = sum(df.CFU) #Total CFU before FP Sampling
@@ -414,7 +417,7 @@ def F_MainLoop():
     
         #Filtering out the Rejected lots, Final product
         #Rejecting Inidividual pallets if 1 positive
-        df = Funz.F_Rejection_Rule2 (df =df, Test_Unit = "Lot") 
+        df = Funz.F_Rejection_Rule2 (df =df, Test_Unit = "Lot",limit = 0) 
         
         LO_WeightAcc_FP = sum(df.Weight) #Lb
         LO_WeightRej_Total = Inputz.Field_Weight - LO_WeightAcc_FP #Lb

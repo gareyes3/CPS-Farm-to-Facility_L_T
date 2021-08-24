@@ -35,7 +35,7 @@ Progression_DFS = []
 #%% BAseline Sampling: 
 #Contamination Challenges
 ContCondz.Background_C=0
-ContCondz.Point_Source_C=1
+ContCondz.Point_Source_C=0
 ContCondz.Systematic_C=0
 
 #Harvester Contamination
@@ -44,9 +44,9 @@ ContCondz.Harvester_C = 0
 
 #Processing equipment
 ContCondz.PE_C = 0
-ContCondz.PE_Cont_Loc = 0,#2,3,4,5
+ContCondz.PE_Cont_Loc = 0,#1,2,3,4,5
 #1 = Shredder, #2 = Belt, #3 = Washing, #4 Shaker, #5Centrifuge
-ContCondz.Pack_C= 0
+ContCondz.Pack_C= 1
 
 #%% Baseline Sampling
 reload(ScenCondz)
