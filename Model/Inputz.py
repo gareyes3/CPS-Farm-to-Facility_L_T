@@ -177,4 +177,10 @@ Temperature_ColdStorage = 4 #C
 Trasnportation_Time = 63.57 #h from Ryser et al
 Transportation_Temp = np.random.triangular(0,4,6) #C
 
+#10 Customer Storage
+
+Time_PostPCS = 24 #hr
+Temperature_PostPCS = 4 #C 
+
+
 

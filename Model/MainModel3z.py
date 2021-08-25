@@ -446,10 +446,15 @@ def F_MainLoop():
         #STEP 6 POST PROCESS STEPS ---------------------------------------------------------------------------------------------------------------------
         #Steps after Final Product
         if(ScenCondz.Customer_Added_Steps ==1):
-            #Growth or Die-off during storage post processing
-            df = Funz.F_Growth(DF=df, 
-                               Temperature=Inputz.Temperature_ColdStorage, 
-                               TimeD= Inputz.Time_PostPStorage) #Growth during cold storage
+            #Growth or Die-off during storage post processing storage:
+            GrowthOutsPPS = Funz.Growth_Function_Lag(DF =df, 
+                                        Temperature = Inputz.Temperature_ColdStorage, 
+                                        Time = Inputz.Time_PostPStorage, 
+                                        Lag_Consumed_Prev  = Inputz.Lag_Consumed_Prev)
+        
+            df = GrowthOutsPPS[0]
+            Inputz.Lag_Consumed_Prev = GrowthOutsPPS[1]
+            
             '''
             Case_Weight= 20 
             #Adding Shipping Pallets and Cases. 
@@ -462,15 +467,24 @@ def F_MainLoop():
             Pallet_Pattern=Pallet_Pattern[:Crop_No]
             Sequence Pallets
             '''
-            #Transportation through trucks.
-            df = Funz.F_Growth(DF=df,
-                               Temperature= Inputz.Transportation_Temp, 
-                               TimeD= Inputz.Trasnportation_Time)
+            #Transportation of final product through trucks.            
+            
+            GrowthOutsPPT = Funz.Growth_Function_Lag(DF =df, 
+                            Temperature = Inputz.Transportation_Temp, 
+                            Time = Inputz.Trasnportation_Time, 
+                            Lag_Consumed_Prev  = Inputz.Lag_Consumed_Prev)
+        
+            df = GrowthOutsPPT[0]
+            Inputz.Lag_Consumed_Prev = GrowthOutsPPT[1]
             
             #Storage at customer: 
-            df = Funz.F_Growth(DF=df,
-                       Temperature= Inputz.Transportation_Temp, 
-                       TimeD= Inputz.Trasnportation_Time)
+            GrowthOutsPPCS = Funz.Growth_Function_Lag(DF =df, 
+                            Temperature = Inputz.Temperature_PostPCS, 
+                            Time = Inputz.Time_PostPCS, 
+                            Lag_Consumed_Prev  = Inputz.Lag_Consumed_Prev)
+        
+            df = GrowthOutsPPCS[0]
+            Inputz.Lag_Consumed_Prev = GrowthOutsPPCS[1]
             
     #Simplest Output
     Final_ContPlot =sns.boxplot(y=Listz.Total_CA_FP)
