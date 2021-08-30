@@ -9,13 +9,15 @@ Created on Tue Aug 17 09:26:18 2021
 #%%
 import sys
 sys.path
-#sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
-sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
+sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
+#sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
 
 #%% Libraries
 import pandas as pd 
 import seaborn as sns
 from matplotlib import pyplot as plt
+
+#Own Libraries
 import Funz
 import ContScen
 import Listz 
@@ -35,7 +37,7 @@ Progression_DFS = []
 #%% BAseline Sampling: 
 #Contamination Challenges
 ContCondz.Background_C=0
-ContCondz.Point_Source_C=0
+ContCondz.Point_Source_C=1
 ContCondz.Systematic_C=0
 
 #Harvester Contamination
@@ -46,7 +48,7 @@ ContCondz.Harvester_C = 0
 ContCondz.PE_C = 0
 ContCondz.PE_Cont_Loc = 0,#1,2,3,4,5
 #1 = Shredder, #2 = Belt, #3 = Washing, #4 Shaker, #5Centrifuge
-ContCondz.Pack_C= 1
+ContCondz.Pack_C= 0
 
 #%% Baseline Sampling
 reload(ScenCondz)
@@ -74,7 +76,6 @@ ScenCondz.FP_Sampling = 0
 
     #Pre_Harvest 4 Days
 #Pre-Harvest
-
 
 ScenCondz.PHS_4d= 1#Scenario 1
 ScenCondz.PHS_4h = 0#Scenario 2
@@ -292,6 +293,23 @@ plt.xlabel("Sampling Type")
 plt.ylabel("Percentage lb Rejected/  Percentage CFU Rejected")
 
 
+#Combined Data
+Percentage_Rejected = df_L_Final_Per_melted
+Percentage_Rejected['Type'] = "Percentage CFU Rejected"
 
+Percentage_lb_Rejected = df_L_Final_PerRejWeight_melted
+Percentage_lb_Rejected['Type'] = "Percentage lb Rejected"
 
+Combined_Percentages =  pd.concat([Percentage_Rejected,
+                          Percentage_lb_Rejected])
+
+Scenariosplot =sns.lineplot(x="variable", y="value", hue = "Type", data=Combined_Percentages)
+plt.xlabel("Sampling Scenario")
+plt.ylabel("Proportion Rejection")
+Scenariosplot.legend_.set_title('Type')
+
+Scenariosplot =sns.boxplot(x="variable", y="value", hue = "Type", data=Combined_Percentages)
+plt.xlabel("Sampling Scenario")
+plt.ylabel("Proportion Rejection")
+Scenariosplot.legend_.set_title('Type')
 

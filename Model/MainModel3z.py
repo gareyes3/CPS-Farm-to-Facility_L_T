@@ -114,7 +114,7 @@ def F_MainLoop():
             LO_ContRej_P_PH = 1
         else:
             LO_ContRej_P_PH = LO_ContRej_PH/(LO_ContAcc_PH+LO_ContRej_PH) #Percentage Rejected by H sampling
-        
+        print(LO_ContRej_P_PH)
         #Outputs for Iterations
         Listz.Total_PA_PH.append(LO_WeightAcc_PH)
         Listz.Total_PR_PH.append(LO_WeightRej_PH)
@@ -486,9 +486,6 @@ def F_MainLoop():
             df = GrowthOutsPPCS[0]
             Inputz.Lag_Consumed_Prev = GrowthOutsPPCS[1]
             
-    #Simplest Output
-    Final_ContPlot =sns.boxplot(y=Listz.Total_CA_FP)
-    plt.ylabel("Total CFU Remaining in System")
     
     #Progression Data
     data_contprog = {"Initial":Listz.List_Initial_CFU,
