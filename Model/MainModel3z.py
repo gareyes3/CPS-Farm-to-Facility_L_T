@@ -427,7 +427,7 @@ def F_MainLoop():
         if LO_ContAcc_FP == 0:
             LO_ContRej_P_FP = 1
         else:
-            LO_ContRej_P_FP = LO_ContAcc_FP/(LO_ContAcc_FP+LO_ContRej_FP) #Percentage Rejected by H sampling
+            LO_ContRej_P_FP = LO_ContRej_FP/(LO_ContAcc_FP+LO_ContRej_FP) #Percentage Rejected by Finished product sampling
             
         if LO_WeightAcc_FP == 0:
             Total_CFU_G_FP = 0 #Total CFU per gram of final product
