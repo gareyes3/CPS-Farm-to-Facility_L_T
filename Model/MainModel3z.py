@@ -23,7 +23,7 @@ import ContCondz
 import Inputz
 from importlib import reload  
 reload(Listz)
-#reload(Inputz)
+reload(Inputz)
 
 #%%
 

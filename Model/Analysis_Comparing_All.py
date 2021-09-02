@@ -9,8 +9,8 @@ Created on Tue Aug 17 09:26:18 2021
 #%%
 import sys
 sys.path
-sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
-#sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
+#sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
+sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
 
 #%% Libraries
 import pandas as pd 
@@ -37,8 +37,8 @@ Progression_DFS = []
 #%% BAseline Sampling: 
 #Contamination Challenges
 ContCondz.Background_C=0
-ContCondz.Point_Source_C=1
-ContCondz.Systematic_C=0
+ContCondz.Point_Source_C=0
+ContCondz.Systematic_C=1
 
 #Harvester Contamination
 ContCondz.Crew_C = 0
@@ -269,9 +269,30 @@ Scenariosplot =sns.boxplot(x="variable", y="value", data=df_L_Final_PerRejWeight
 plt.xlabel("Sampling Type")
 plt.ylabel("Percentage total lb. Rejected at Sampling Step")
 
-
-
+#TotalWeightRejected
 #Weight Rejected, Weight Accepted. 
+L_Final_RejWeight = {
+                'PH4d':D_PH4d["Total_Weight_R"],
+                'PH4h':D_PH4h["Total_Weight_R"],
+                'PHInt':D_PHInt["Total_Weight_R"],
+                'HTrad':D_HTrad["Total_Weight_R"],
+                'HAgg':D_HAgg["Total_Weight_R"],
+                'R':D_R["Total_Weight_R"],
+                'FPTrad':D_FPSTrad["Total_Weight_R"],
+                'FPAgg':D_FPSAgg["Total_Weight_R"],
+          }
+
+df_L_Final_RejWeight = pd.DataFrame(L_Final_RejWeight)
+df_L_Final_RejWeight_melted = pd.melt(df_L_Final_RejWeight)
+
+
+#Scenariosplot =sns.catplot(x="variable", y="value", data=df_L_Final_Per_melted ,kind="bar",  height=4, aspect=2 )
+Scenariosplot =sns.boxplot(x="variable", y="value", data=df_L_Final_RejWeight_melted )
+plt.xlabel("Sampling Type")
+plt.ylabel("Total lb. Rejected due to sampling")
+
+
+#Weight Rejected, Weight Accepted Compariason 
 L_Final_PerRatio = {
                 'PH4d':D_PH4d["PerRejectedWeight"] /D_PH4d["PerRejected at PH"] ,
                 'PH4h':D_PH4h["PerRejectedWeight"] /D_PH4h["PerRejected at PH"] ,
@@ -293,23 +314,56 @@ plt.xlabel("Sampling Type")
 plt.ylabel("Percentage lb Rejected/  Percentage CFU Rejected")
 
 
-#Combined Data
+#Combined Data PEr Rejected and per Lb Rejected. 
 Percentage_Rejected = df_L_Final_Per_melted
-Percentage_Rejected['Type'] = "Percentage CFU Rejected"
+Percentage_Rejected['Type'] = "Proportion of CFU Rejected"
 
 Percentage_lb_Rejected = df_L_Final_PerRejWeight_melted
-Percentage_lb_Rejected['Type'] = "Percentage lb Rejected"
+Percentage_lb_Rejected['Type'] = "Proportion of lb Rejected"
 
 Combined_Percentages =  pd.concat([Percentage_Rejected,
                           Percentage_lb_Rejected])
-
+sns.set(style="darkgrid")
 Scenariosplot =sns.lineplot(x="variable", y="value", hue = "Type", data=Combined_Percentages)
 plt.xlabel("Sampling Scenario")
 plt.ylabel("Proportion Rejection")
 Scenariosplot.legend_.set_title('Type')
+# Put the legend out of the figure
+plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+
+
+
+
+Combined_Percentages_Dif = Percentage_Rejected["value"] - Percentage_lb_Rejected["value"]
+Combined_Percentages_Dif=pd.DataFrame(Combined_Percentages_Dif)
+Combined_Percentages_Dif["Type"] = Percentage_Rejected['variable']
+
+sns.set(style="darkgrid")
+Scenariosplot =sns.lineplot(x="Type", y="value",  data=Combined_Percentages_Dif)
+plt.xlabel("Sampling Scenario")
+plt.ylabel("Change Prop CFU Rej & Prop Lb Rejc ")
+
+
 
 Scenariosplot =sns.boxplot(x="variable", y="value", hue = "Type", data=Combined_Percentages)
 plt.xlabel("Sampling Scenario")
 plt.ylabel("Proportion Rejection")
 Scenariosplot.legend_.set_title('Type')
+
+
+#Conbined Per Rejected CFU and lb Rejectet
+
+Percentage_Rejected = df_L_Final_Per_melted
+Percentage_Rejected['Type'] = "Percentage CFU Rejected"
+
+Total_lb_Rejected = df_L_Final_RejWeight_melted
+Total_lb_Rejected['Type'] = "Total lb Rejected"
+
+Combined_PerCFUTotalWeight =  Percentage_Rejected
+Combined_PerCFUTotalWeight['value2'] = Total_lb_Rejected['value']
+
+
+
+
+
 
