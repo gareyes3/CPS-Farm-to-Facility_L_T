@@ -36,6 +36,8 @@ def F_MainLoop():
         
     
         #STEP 0 CONTAMINATION SCENARIOS  ----------------------------------------------------------------------------------------------------
+        
+        #Creation of Outputs DataFrame = 
     
         #Creation of the Data Frame to Track: 
         df= InFunz.F_InDF(Partition_Units = Inputz.Partition_Units,
@@ -64,9 +66,9 @@ def F_MainLoop():
                                          Cluster_Size= Inputz.Cluster_Size,
                                          Partition_Weight = Inputz.Partition_Weight)
             
-        # Outputs: Initial Contamination     
-        LV_Initial_CFU= sum(df.CFU)
-        Listz.List_Initial_CFU.append(LV_Initial_CFU)
+        # Local Outputs: Initial Contamination     
+        LV_Initial_CFU= sum(df.CFU) #Initial Contamination
+        Listz.List_Initial_CFU.append(LV_Initial_CFU) #Adding Initial Contamintion to List
         
     
         #STEP 1 PREHARVEST ------------------------------------------------------------------------------------------------------------------
