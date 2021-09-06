@@ -103,14 +103,18 @@ sample_size_H = 300 #g #Sample Size in grams
 n_samples_slot_H = 1 # Samples per lot of product
 No_Grabs_H = 60 
 
-#Hydrocooling time. 
-
+#PreCooling. 
+Time_H_PreCooling = np.random.uniform(2,4)
+Temperature_H_PreCooling = np.random.uniform(15,17)
 
 
 # 3 Receiving
-#Growth rate or die off from harvest to receiving
-Time_H_RS = 1 # 1 hr. Days,Time from Harvest Sampling to Receiving Sampling,
-Temperature_H_RS = np.random.triangular(20,23,25) #C  
+#PreCooling
+
+#Storage at Receiving
+Time_Storage_R = 5
+Temperature_Storage_R = 5
+
 Pallet_Weight = 4000  #weight of pallet in lb.  
 n_samples_pallet = 1 #samples taken per pallet
 sample_size_R = 300 #g #Sample Size in grams Receiving
@@ -165,8 +169,12 @@ n_samples_FP = 1 #number of samples per lot final product
 N_Packages_Samples = 60
 if ScenCondz.FPS_Agg ==1:
     n_samples_FP = 10
-
     
+
+#Packaging into Cases
+Case_Weight = 20 #lb
+
+
 
 
 # 8 Post Processing Storage

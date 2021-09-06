@@ -62,6 +62,10 @@ def F_Simple_DieOff (Time):
     Reduction = -((Time/2.45/24)**0.3)
     return Reduction
 
+def Applying_dieoff (df,Dieoff):
+    df["CFU"] =  df["CFU"]*(10**Dieoff) #Applying Die off through DFs
+    return df
+
 #%% Growth  or Reduction Models
 #Cold Storage growth Model
 
@@ -86,7 +90,7 @@ def F_Growth(DF,Temperature, TimeD ):
 
 #Calculate Lag time at given temperature
 def Growth_Function_Lag(DF, Temperature,Time,Lag_Consumed_Prev):
-    if Temperature > 5:
+    if Temperature >= 5:
         Lag_Time = 7544*(Temperature**-3.11)
         Proportion_Lag_Consumed = Time/Lag_Time
         Cummulative_Lag_Consumed = Lag_Consumed_Prev + Proportion_Lag_Consumed
@@ -97,13 +101,13 @@ def Growth_Function_Lag(DF, Temperature,Time,Lag_Consumed_Prev):
             if Lag_Consumed_Prev < 1:
                 PropNotLag =(((Cummulative_Lag_Consumed - 1))/Cummulative_Lag_Consumed)
                 Growth_Time = Time*PropNotLag
-                df2 = F_Growth(DF =DF,Temperature = Temperature,TimeD = Growth_Time)
+                df2 = F_Growth(DF = DF,Temperature = Temperature,TimeD = Growth_Time)
             elif Lag_Consumed_Prev >1:
                 Growth_Time = Time
                 df2=F_Growth(DF =DF,Temperature = Temperature,TimeD = Growth_Time)
         Lag_Consumed_Prev = Cummulative_Lag_Consumed
     elif Temperature <5:
-        df2=F_Growth(DF =DF, Temperature = Temperature, TimeD = Time)
+        df2= F_Growth(DF =DF, Temperature = Temperature, TimeD = Time)
     outputs = [df2,Lag_Consumed_Prev]
     return outputs
 
@@ -524,6 +528,20 @@ def F_Washing_ProcLines (List_GB3, Wash_Rate, Cdf):
             CFU_2 = AvCont*((j.at[i,"Weight"]*454))
             #j.at[i,"CFU"] =  CFU_2 
     return (List_GB3) 
+
+
+#Final Product Case
+
+def Case_Packaging(df,Case_Weight, Pack_Weight):
+
+    Packages_Case = Case_Weight/Pack_Weight
+    Total_Packages = len(df.index)
+    Total_Cases = Total_Packages/Packages_Case
+    Case_Pattern = [i for i in range(1, int(Total_Cases)+1) for _ in range(int(Packages_Case))]
+    Crop_No = len(df.index)
+    Case_Pattern=Case_Pattern[:Crop_No]
+    df.insert(1,"Case",Case_Pattern)
+    return df
 
 
 #OTher Functions

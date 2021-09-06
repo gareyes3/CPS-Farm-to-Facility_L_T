@@ -3,8 +3,8 @@
 #%%
 import sys
 sys.path
-#sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
-sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
+sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
+#sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
 
 #%%
 Progression_DFS = []
@@ -32,9 +32,8 @@ def F_MainLoop():
     for  i in range(Inputz.N_Iterations):
         print(i)
         
-        #Adding Background Contamination
+        #Adding Contmination to the Field
         
-    
         #STEP 0 CONTAMINATION SCENARIOS  ----------------------------------------------------------------------------------------------------
         
         #Creation of Outputs DataFrame = 
@@ -76,20 +75,20 @@ def F_MainLoop():
         #Die-off From Contamination Event to Pre-Havrvest
         #Die_Off_CE_PHS =Funz.F_DieOff_IR_PH(Time_CE_PHS,Break_Point, Dieoff1, Dieoff2) #Die off rate from Irrigation to pre harvest sampling
         
-        LV_Die_Off_CE_PHS = Funz.F_Simple_DieOff(Inputz.Time_CE_PHS) #
-        df["CFU"] =  df["CFU"]*(10**LV_Die_Off_CE_PHS) #Applying Die off through DFs
+        LV_Die_Off_CE_PHS = Funz.F_Simple_DieOff(Inputz.Time_CE_PHS) #Total Die off Contamination Event to PHS. 
+        df = Funz.Applying_dieoff(df=df, Dieoff=LV_Die_Off_CE_PHS ) #Applying Die off to CFU Column in the DF
         LV_Time_Agg = 0 + Inputz.Time_CE_PHS #Cummulative time so far in the process.
             
         #Sampling at Pre-Harvest
         if ScenCondz.PH_Sampling ==1: #If function to turn off Pre-Harvest Sampling
-            if ScenCondz.PHS_Int ==1:
+            if ScenCondz.PHS_Int ==1: #Intense pre harvest sampling
                 df = Funz.F_Sampling_2(df =df,Test_Unit ="Lot", 
                                               NSamp_Unit = Inputz.n_samples_lot_PH, 
                                               Samp_Size =Inputz.sample_size_PH, 
                                               Partition_Weight =Inputz.Partition_Weight, 
                                               NoGrab =Inputz.No_Grabs_PH )
             else:
-            #Pre-Harvest Sampling, 
+            #Pre-Harvest Sampling, Traditional
                  df = Funz.F_Sampling_2(df =df,Test_Unit ="Sublot", 
                                            NSamp_Unit = Inputz.n_samples_slot_PH, 
                                            Samp_Size =Inputz.sample_size_PH, 
@@ -101,9 +100,9 @@ def F_MainLoop():
         Listz.List_BPHS_CFU.append( LO_Cont_B_PH) #List of contamination before sampling
         
         #Filtering out the Rejected lots, Pre-Harvest
-        if ScenCondz.PHS_Int ==1:
+        if ScenCondz.PHS_Int ==1: #Rejection intense
            df= Funz.F_Rejection_Rule2(df =df, Test_Unit = "Lot", limit = 0)  
-        else: 
+        else:  #Rejection normal
             df=Funz.F_Rejection_Rule2(df =df, Test_Unit = "Sublot", limit = 0) 
                            
         
@@ -130,7 +129,7 @@ def F_MainLoop():
         LV_Time_Agg = LV_Time_Agg + Inputz.Time_PHS_H #Cummulative time so far in the process.
         LV_Die_off_B = Funz.F_Simple_DieOff(LV_Time_Agg)
         LV_Die_Off_PHS_HS= LV_Die_off_B-LV_Die_Off_CE_PHS#Funz.F_DieOff_PHS_HS(Time_PHS_H, Time_Agg, Break_Point, Dieoff1, Dieoff2)
-        df['CFU'] = df['CFU']*(10**LV_Die_Off_PHS_HS) #Updating Contmination to Show Total DieOff
+        df = Funz.Applying_dieoff(df=df, Dieoff =LV_Die_Off_PHS_HS ) #Updating Contmination to Show Total DieOff
         
         #Adding Contamination depending on challenge at harvest
         if ContCondz.Crew_C == 1:
@@ -191,38 +190,35 @@ def F_MainLoop():
         Listz.List_Cont_PercRej_H.append(LO_ContRej_P_H)
         
         #STEP 3 RECEIVING ---------------------------------------------------------------------------------------------------------------------
-        '''  
-        #Pre-Cooling of Lettuce
-        LV_Time_Agg = LV_Time_Agg + Inputz.Time_R_PC #Time from Receiving to Pre-Cooling
-        # Process Pending, Reduction? 
         
-        #Cold Storage:
-        df = Funz.F_Growth(DF=df, 
-                           Temperature=Inputz.Temperature_ColdStorage, 
-                           TimeD= Inputz.Time_ColdStorage)#Growth during cold storage
-        
-        LV_Time_Agg = LV_Time_Agg + Inputz.Time_ColdStorage #Time between Pre-Cooling and Cold Storage. 
-        '''
-                                                             
-        #Harvest Sampling - Receiving Harvest Sampling Die off
-        #Transportation from havest to faility
-        GrowthOutsHF = Funz.Growth_Function_Lag(DF =df, 
-                                                Temperature = Inputz.Temperature_H_RS, 
-                                                Time = Inputz.Time_H_RS, 
+        #Time Between Harvest and Pre-Cooling KoseKi. 
+        GrowthOutsH_PC = Funz.Growth_Function_Lag(DF =df, 
+                                                Temperature = Inputz.Temperature_H_PreCooling, 
+                                                Time = Inputz.Time_H_PreCooling, 
                                                 Lag_Consumed_Prev  = Inputz.Lag_Consumed_Prev)
         
-        df = GrowthOutsHF[0]
-        Inputz.Lag_Consumed_Prev = GrowthOutsHF[1]
+        df = GrowthOutsH_PC[0]
+        Inputz.Lag_Consumed_Prev = GrowthOutsH_PC[1]
+        LV_Time_Agg =  LV_Time_Agg+Inputz.Time_H_PreCooling
         
-        #Hydrocooling
-        GrowthOutsHF = Funz.Growth_Function_Lag(DF =df, 
-                                        Temperature = Inputz.Temperature_H_RS, 
-                                        Time = Inputz.Time_H_RS, 
+        
+        #Pre_Cooling
+        #Aggresive Temperature Change. Reset Lag Time
+        Inputz.Lag_Consumed_Prev = 0 #Reseting Lag Consumed.
+        #New Lettuce Temperature aPproximately 5C
+        
+        #Storage at Receiving
+        GrowthOutsSto_R = Funz.Growth_Function_Lag(DF =df, 
+                                        Temperature = Inputz.Temperature_Storage_R, 
+                                        Time = Inputz.Time_Storage_R, 
                                         Lag_Consumed_Prev  = Inputz.Lag_Consumed_Prev)
+        
+        df = GrowthOutsSto_R[0]
+        Inputz.Lag_Consumed_Prev = GrowthOutsSto_R[1]
+        LV_Time_Agg = LV_Time_Agg+Inputz.Time_H_PreCooling
         
         
         #Paletization
-        
         df = Funz.F_Palletization(df=df,
                                   Field_Weight=Inputz.Field_Weight,
                                   Pallet_Weight=Inputz.Pallet_Weight,
@@ -230,7 +226,7 @@ def F_MainLoop():
                                   )
         
     
-        LV_Time_Agg = LV_Time_Agg + Inputz.Time_H_RS #Cummulative time so far in the process. 
+        #LV_Time_Agg = LV_Time_Agg + Inputz.Time_H_RS #Cummulative time so far in the process. 
         
         LO_Cont_B_R = sum(df.CFU)
         Listz.List_BRS_CFU.append(LO_Cont_B_R) #Contamination before receiving sampling
@@ -448,6 +444,11 @@ def F_MainLoop():
         #STEP 6 POST PROCESS STEPS ---------------------------------------------------------------------------------------------------------------------
         #Steps after Final Product
         if(ScenCondz.Customer_Added_Steps ==1):
+            
+            #Putting Packages into Cases
+            df = Funz.Case_Packaging(df =df,Case_Weight = Inputz.Case_Weight, Pack_Weight = Inputz.Pack_Weight_FP)
+            
+            
             #Growth or Die-off during storage post processing storage:
             GrowthOutsPPS = Funz.Growth_Function_Lag(DF =df, 
                                         Temperature = Inputz.Temperature_ColdStorage, 
@@ -457,18 +458,6 @@ def F_MainLoop():
             df = GrowthOutsPPS[0]
             Inputz.Lag_Consumed_Prev = GrowthOutsPPS[1]
             
-            '''
-            Case_Weight= 20 
-            #Adding Shipping Pallets and Cases. 
-            Packages_Case = Case_Weight/Inputz.Pack_Weight_FP
-            Total_Packages = len(df.index)
-            Total_Cases = Total_Packages/Case_Weight
-            print(Total_Cases)
-            Case_Pattern = [i for i in range(1, int(Total_Cases)+1) for _ in range(int(Packages_Case))]
-            Crop_No = len(df.index)
-            Pallet_Pattern=Pallet_Pattern[:Crop_No]
-            Sequence Pallets
-            '''
             #Transportation of final product through trucks.            
             
             GrowthOutsPPT = Funz.Growth_Function_Lag(DF =df, 
