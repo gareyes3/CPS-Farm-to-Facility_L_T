@@ -44,13 +44,13 @@ def F_MainLoop():
                           slot_number = Inputz.slot_number)
         
         #Adding Contamination depending on challenge Background
-        if ContCondz.Background_C == 1:
+        if ContCondz.Background_C == True:
             df = ContScen.F_Background_C(df=df, 
                                          Hazard_lvl = Inputz.Hazard_lvl, 
                                          Partition_Units= Inputz.Partition_Units)
             
         #Adding Contamination depending on challenge Point_Source
-        if ContCondz.Point_Source_C == 1:
+        if ContCondz.Point_Source_C ==True:
             df=ContScen.F_Point_Source_C(df=df, 
                                          Hazard_lvl=Inputz.Hazard_lvl,
                                          No_Cont_Clusters =Inputz.No_Cont_Clusters, 
@@ -59,7 +59,7 @@ def F_MainLoop():
     
             
         #Adding Contamination depending on challenge Systematic Sampling
-        if ContCondz.Systematic_C == 1:
+        if ContCondz.Systematic_C == True:
             df = ContScen.F_systematic_C(df=df, Hazard_lvl= Inputz.Hazard_lvl,
                                          No_Cont_Clusters =Inputz.No_Cont_Clusters,
                                          Cluster_Size= Inputz.Cluster_Size,
@@ -132,14 +132,14 @@ def F_MainLoop():
         df = Funz.Applying_dieoff(df=df, Dieoff =LV_Die_Off_PHS_HS ) #Updating Contmination to Show Total DieOff
         
         #Adding Contamination depending on challenge at harvest
-        if ContCondz.Crew_C == 1:
+        if ContCondz.Crew_C == True:
             df = ContScen.F_Crew_C(df =df, 
                                    Hazard_lvl =Inputz.Hazard_lvl, 
                                    No_Cont_Clusters = Inputz.No_Cont_Clusters,
                                    Cluster_Size =Inputz.Cluster_Size, 
                                    Partition_Weight = Inputz.Partition_Weight)
     
-        if ContCondz.Harvester_C == 1:
+        if ContCondz.Harvester_C == True:
             df = ContScen.F_Harvester_C(df =df, 
                                         Hazard_lvl =Inputz.Hazard_lvl, 
                                         No_Cont_Clusters = Inputz.No_Cont_Clusters, 
@@ -277,7 +277,7 @@ def F_MainLoop():
         #1 Shredder
         LO_Cont_B_Shredder = Funz.F_SummingGB2Cont(gb2 =gb2) #Contamination before Shrdder
         Listz.Cont_B_Shredder.append( LO_Cont_B_Shredder)
-        if ContCondz.PE_C ==1 and ContCondz.PE_Cont_Loc ==1:
+        if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==True:
             gb2 = ContScen.F_PEC_C(gb2= gb2,
                                    Hazard_lvl = Inputz.Hazard_lvl, 
                                    Processing_Lines = Inputz.Processing_Lines, 
@@ -289,7 +289,7 @@ def F_MainLoop():
         #2 Conveyor Belt
         LO_Cont_B_Belt = Funz.F_SummingGB2Cont(gb2 =gb2) #Contamination before BElt
         Listz.Cont_B_Belt.append( LO_Cont_B_Belt)
-        if ContCondz.PE_C ==1 and ContCondz.PE_Cont_Loc ==2:
+        if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==2:
             gb2 = ContScen.F_PEC_C(gb2= gb2,
                                    Hazard_lvl = Inputz.Hazard_lvl, 
                                    Processing_Lines = Inputz.Processing_Lines, 
@@ -303,7 +303,7 @@ def F_MainLoop():
         #3Washing:
         LO_Cont_B_Washing = Funz.F_SummingGB2Cont(gb2 =gb2) #Contamination before Washing
         Listz.Cont_B_Washing.append( LO_Cont_B_Washing)
-        if ContCondz.PE_C ==1 and ContCondz.PE_Cont_Loc ==3:
+        if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==3:
             gb2 = ContScen.F_PEC_C(gb2= gb2,
                                    Hazard_lvl = Inputz.Hazard_lvl, 
                                    Processing_Lines = Inputz.Processing_Lines, 
@@ -315,7 +315,7 @@ def F_MainLoop():
         #4 Shaker Table
         LO_Cont_B_Shaker = Funz.F_SummingGB2Cont(gb2 =gb2) #Contamination before Shaker Table
         Listz.Cont_B_Shaker.append( LO_Cont_B_Shaker)
-        if ContCondz.PE_C ==1 and ContCondz.PE_Cont_Loc ==4:
+        if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==4:
             gb2 = ContScen.F_PEC_C(gb2= gb2,
                                    Hazard_lvl = Inputz.Hazard_lvl, 
                                    Processing_Lines = Inputz.Processing_Lines, 
@@ -329,7 +329,7 @@ def F_MainLoop():
         LO_Cont_B_Centrifuge = Funz.F_SummingGB2Cont(gb2 =gb2) #Contamination before Centrigure
         Listz.Cont_B_Centrifuge.append( LO_Cont_B_Centrifuge)
     
-        if ContCondz.PE_C ==1 and ContCondz.PE_Cont_Loc ==5:
+        if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==5:
             gb2 = ContScen.F_PEC_C(gb2= gb2,
                                    Hazard_lvl = Inputz.Hazard_lvl, 
                                    Processing_Lines = Inputz.Processing_Lines, 
@@ -340,7 +340,7 @@ def F_MainLoop():
         CentrifugeCont = CentrifugeOuts[1]
             
         #Adding Contamination from Scenario to each lot
-        if ContCondz.PE_C ==1:
+        if ContCondz.PE_C ==True:
             gb2 = ContScen.F_PEC_C(gb2= gb2,
                                    Hazard_lvl = Inputz.Hazard_lvl, 
                                    Processing_Lines = Inputz.Processing_Lines, 
@@ -378,7 +378,7 @@ def F_MainLoop():
         gb2 = df.groupby('ProLine')#Creating Listby procesing line
         gb2 =[gb2.get_group(x) for x in gb2.groups] #Creating list of separate dataframe by processing lines
         
-        if ContCondz.Pack_C ==1:
+        if ContCondz.Pack_C ==True:
             gb2 = ContScen.F_PEC_C(gb2=gb2,
                             Hazard_lvl = Inputz.Hazard_lvl, 
                             Processing_Lines = Inputz.Processing_Lines, 

@@ -15,7 +15,7 @@ import numpy as np
 # 0 Initial Inputs for Field Setup and Challenges
 
 
-N_Iterations= 20
+N_Iterations= 5
 
 Field_Weight= 100000 #total lb in field
 slot_weight = 10000 #weight of the sublot in field.
@@ -26,40 +26,40 @@ Partition_Units = int(Field_Weight/Partition_Weight) #Number of partition units 
 
 
 # Contamination Challenge Related Information
-if ContCondz.Background_C ==1:
+if ContCondz.Background_C ==True:
     Hazard_lvl = 50000  #CFU # background contamination
     Cluster_Size = 100000 #lb
     No_Cont_Clusters = 1 #Number of contamination clusters here one uniform cluster, field size.
     #BackGround Contamination. 
 
-if ContCondz.Point_Source_C ==1:
+if ContCondz.Point_Source_C ==True:
     Hazard_lvl = 50000  #CFU # background contamination
     Cluster_Size = 1000 #lb
     No_Cont_Clusters = 4 #4 1000k lb clusters. 
     
-if ContCondz.Systematic_C ==1: 
+if ContCondz.Systematic_C ==True: 
     Hazard_lvl = 50000  #CFU # background contamination
     Cluster_Size = 10000 #lb
     No_Cont_Clusters = 1 #Number of contaminated clusters
 
  
 
-if ContCondz.Crew_C == 1: 
+if ContCondz.Crew_C == True: 
     Hazard_lvl = 50000  #CFU # background contamination
     Cluster_Size = 5000 #lb
     No_Cont_Clusters = 4 #Number of contaminated clusters
 
 
-if ContCondz.Harvester_C==1:
+if ContCondz.Harvester_C==True:
     Hazard_lvl = 50000  #CFU # background contamination
     Cluster_Size = 50000 #lb
     No_Cont_Clusters = 1 #Number of contaminated clusters
     
-if ContCondz.PE_C == 1:
+if ContCondz.PE_C == True:
     Hazard_lvl = 50000  #CFU # background contamination
     Lines_Cont = 1
     
-if ContCondz.Pack_C == 1:
+if ContCondz.Pack_C == True:
     Hazard_lvl = 50000  #CFU # background contamination
     Lines_ContPack = 1        
     
