@@ -46,23 +46,23 @@ def F_MainLoop():
         #Adding Contamination depending on challenge Background
         if ContCondz.Background_C == True:
             df = ContScen.F_Background_C(df=df, 
-                                         Hazard_lvl = Inputz.Hazard_lvl, 
+                                         Hazard_lvl = Inputz.BGHazard_lvl, 
                                          Partition_Units= Inputz.Partition_Units)
             
         #Adding Contamination depending on challenge Point_Source
         if ContCondz.Point_Source_C ==True:
             df=ContScen.F_Point_Source_C(df=df, 
-                                         Hazard_lvl=Inputz.Hazard_lvl,
-                                         No_Cont_Clusters =Inputz.No_Cont_Clusters, 
-                                         Cluster_Size = Inputz.Cluster_Size, 
+                                         Hazard_lvl=Inputz.PSHazard_lvl,
+                                         No_Cont_Clusters =Inputz.PSNo_Cont_Clusters, 
+                                         Cluster_Size = Inputz.PSCluster_Size, 
                                          Partition_Weight = Inputz.Partition_Weight)
     
             
         #Adding Contamination depending on challenge Systematic Sampling
         if ContCondz.Systematic_C == True:
-            df = ContScen.F_systematic_C(df=df, Hazard_lvl= Inputz.Hazard_lvl,
-                                         No_Cont_Clusters =Inputz.No_Cont_Clusters,
-                                         Cluster_Size= Inputz.Cluster_Size,
+            df = ContScen.F_systematic_C(df=df, Hazard_lvl= Inputz.SysHazard_lvl,
+                                         No_Cont_Clusters =Inputz.SysNo_Cont_Clusters,
+                                         Cluster_Size= Inputz.SysCluster_Size,
                                          Partition_Weight = Inputz.Partition_Weight)
             
         # Local Outputs: Initial Contamination     
@@ -80,8 +80,8 @@ def F_MainLoop():
         LV_Time_Agg = 0 + Inputz.Time_CE_PHS #Cummulative time so far in the process.
             
         #Sampling at Pre-Harvest
-        if ScenCondz.PH_Sampling ==1: #If function to turn off Pre-Harvest Sampling
-            if ScenCondz.PHS_Int ==1: #Intense pre harvest sampling
+        if ScenCondz.PH_Sampling ==True: #If function to turn off Pre-Harvest Sampling
+            if ScenCondz.PHS_Int ==True: #Intense pre harvest sampling
                 df = Funz.F_Sampling_2(df =df,Test_Unit ="Lot", 
                                               NSamp_Unit = Inputz.n_samples_lot_PH, 
                                               Samp_Size =Inputz.sample_size_PH, 
@@ -100,7 +100,7 @@ def F_MainLoop():
         Listz.List_BPHS_CFU.append( LO_Cont_B_PH) #List of contamination before sampling
         
         #Filtering out the Rejected lots, Pre-Harvest
-        if ScenCondz.PHS_Int ==1: #Rejection intense
+        if ScenCondz.PHS_Int ==True: #Rejection intense
            df= Funz.F_Rejection_Rule2(df =df, Test_Unit = "Lot", limit = 0)  
         else:  #Rejection normal
             df=Funz.F_Rejection_Rule2(df =df, Test_Unit = "Sublot", limit = 0) 
@@ -134,29 +134,29 @@ def F_MainLoop():
         #Adding Contamination depending on challenge at harvest
         if ContCondz.Crew_C == True:
             df = ContScen.F_Crew_C(df =df, 
-                                   Hazard_lvl =Inputz.Hazard_lvl, 
-                                   No_Cont_Clusters = Inputz.No_Cont_Clusters,
-                                   Cluster_Size =Inputz.Cluster_Size, 
+                                   Hazard_lvl =Inputz.CrewHazard_lvl, 
+                                   No_Cont_Clusters = Inputz.CrewNo_Cont_Clusters,
+                                   Cluster_Size =Inputz.CrewCluster_Size, 
                                    Partition_Weight = Inputz.Partition_Weight)
     
         if ContCondz.Harvester_C == True:
             df = ContScen.F_Harvester_C(df =df, 
-                                        Hazard_lvl =Inputz.Hazard_lvl, 
-                                        No_Cont_Clusters = Inputz.No_Cont_Clusters, 
-                                        Cluster_Size =Inputz.Cluster_Size, 
+                                        Hazard_lvl =Inputz.HCHazard_lvl, 
+                                        No_Cont_Clusters = Inputz.HCNo_Cont_Clusters, 
+                                        Cluster_Size =Inputz.HCCluster_Size, 
                                         Partition_Weight = Inputz.Partition_Weight)
         
         
         #Harvest Sampling
-        if ScenCondz.H_Sampling == 1:
-            if ScenCondz.HS_Trad==1:
+        if ScenCondz.H_Sampling == True:
+            if ScenCondz.HS_Trad==True:
                 df = Funz.F_Sampling_2(df =df,
                                              Test_Unit ="Sublot", 
                                              NSamp_Unit = Inputz.n_samples_slot_H, 
                                              Samp_Size =Inputz.sample_size_H, 
                                              Partition_Weight =Inputz.Partition_Weight, 
                                              NoGrab =Inputz.No_Grabs_H )
-            elif ScenCondz.HS_Agg==1:
+            elif ScenCondz.HS_Agg==True:
                df = Funz.F_Sampling_2(df =df,Test_Unit ="Sublot", 
                                                NSamp_Unit = 10, 
                                                Samp_Size =Inputz.sample_size_H, 
@@ -231,7 +231,7 @@ def F_MainLoop():
         LO_Cont_B_R = sum(df.CFU)
         Listz.List_BRS_CFU.append(LO_Cont_B_R) #Contamination before receiving sampling
         
-        if ScenCondz.R_Sampling == 1:
+        if ScenCondz.R_Sampling == True:
             #Sampling at Reception
             df = Funz.F_Sampling_2(df =df,Test_Unit ="PalletNo", 
                                            NSamp_Unit = Inputz.n_samples_pallet, 
@@ -279,7 +279,7 @@ def F_MainLoop():
         Listz.Cont_B_Shredder.append( LO_Cont_B_Shredder)
         if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==True:
             gb2 = ContScen.F_PEC_C(gb2= gb2,
-                                   Hazard_lvl = Inputz.Hazard_lvl, 
+                                   Hazard_lvl = Inputz.PECHazard_lvl, 
                                    Processing_Lines = Inputz.Processing_Lines, 
                                    Lines_Cont = Inputz.Lines_Cont)
             
@@ -291,7 +291,7 @@ def F_MainLoop():
         Listz.Cont_B_Belt.append( LO_Cont_B_Belt)
         if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==2:
             gb2 = ContScen.F_PEC_C(gb2= gb2,
-                                   Hazard_lvl = Inputz.Hazard_lvl, 
+                                   Hazard_lvl = Inputz.PECHazard_lvl, 
                                    Processing_Lines = Inputz.Processing_Lines, 
                                    Lines_Cont = Inputz.Lines_Cont)
             
@@ -305,7 +305,7 @@ def F_MainLoop():
         Listz.Cont_B_Washing.append( LO_Cont_B_Washing)
         if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==3:
             gb2 = ContScen.F_PEC_C(gb2= gb2,
-                                   Hazard_lvl = Inputz.Hazard_lvl, 
+                                   Hazard_lvl = Inputz.PECHazard_lvl, 
                                    Processing_Lines = Inputz.Processing_Lines, 
                                    Lines_Cont = Inputz.Lines_Cont)
             
@@ -317,7 +317,7 @@ def F_MainLoop():
         Listz.Cont_B_Shaker.append( LO_Cont_B_Shaker)
         if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==4:
             gb2 = ContScen.F_PEC_C(gb2= gb2,
-                                   Hazard_lvl = Inputz.Hazard_lvl, 
+                                   Hazard_lvl = Inputz.PECHazard_lvl, 
                                    Processing_Lines = Inputz.Processing_Lines, 
                                    Lines_Cont = Inputz.Lines_Cont)
             
@@ -331,7 +331,7 @@ def F_MainLoop():
     
         if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==5:
             gb2 = ContScen.F_PEC_C(gb2= gb2,
-                                   Hazard_lvl = Inputz.Hazard_lvl, 
+                                   Hazard_lvl = Inputz.PECHazard_lvl, 
                                    Processing_Lines = Inputz.Processing_Lines, 
                                    Lines_Cont = Inputz.Lines_Cont)
             
@@ -342,7 +342,7 @@ def F_MainLoop():
         #Adding Contamination from Scenario to each lot
         if ContCondz.PE_C ==True:
             gb2 = ContScen.F_PEC_C(gb2= gb2,
-                                   Hazard_lvl = Inputz.Hazard_lvl, 
+                                   Hazard_lvl = Inputz.PECHazard_lvl, 
                                    Processing_Lines = Inputz.Processing_Lines, 
                                    Lines_Cont = Inputz.Lines_Cont)
             
@@ -380,7 +380,7 @@ def F_MainLoop():
         
         if ContCondz.Pack_C ==True:
             gb2 = ContScen.F_PEC_C(gb2=gb2,
-                            Hazard_lvl = Inputz.Hazard_lvl, 
+                            Hazard_lvl = Inputz.PackHazard_lvl, 
                             Processing_Lines = Inputz.Processing_Lines, 
                             Lines_Cont = Inputz.Lines_ContPack)
         
@@ -397,15 +397,15 @@ def F_MainLoop():
     
         
         #Sampling Step
-        if ScenCondz.FP_Sampling == 1:
-            if ScenCondz.FPS_Trad ==1:
+        if ScenCondz.FP_Sampling == True:
+            if ScenCondz.FPS_Trad ==True:
                 df =Funz.F_Sampling_2(df =df,Test_Unit ="Lot", 
                                            NSamp_Unit = Inputz.n_samples_FP, 
                                            Samp_Size =Inputz.sample_size_FP, 
                                            Partition_Weight =Inputz.Pack_Weight_FP, 
                                            NoGrab = Inputz.N_Packages_Samples)
                 
-            elif ScenCondz.FPS_Agg ==1:
+            elif ScenCondz.FPS_Agg ==True:
                 df =Funz.F_Sampling_2(df =df,Test_Unit ="Lot", 
                                            NSamp_Unit = Inputz.n_samples_FP, 
                                            Samp_Size =Inputz.sample_size_FP, 
@@ -443,7 +443,7 @@ def F_MainLoop():
     
         #STEP 6 POST PROCESS STEPS ---------------------------------------------------------------------------------------------------------------------
         #Steps after Final Product
-        if(ScenCondz.Customer_Added_Steps ==1):
+        if(ScenCondz.Customer_Added_Steps ==True):
             
             #Putting Packages into Cases
             df = Funz.Case_Packaging(df =df,Case_Weight = Inputz.Case_Weight, Pack_Weight = Inputz.Pack_Weight_FP)

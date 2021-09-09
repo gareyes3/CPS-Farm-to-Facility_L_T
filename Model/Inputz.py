@@ -27,40 +27,39 @@ Partition_Units = int(Field_Weight/Partition_Weight) #Number of partition units 
 
 # Contamination Challenge Related Information
 if ContCondz.Background_C ==True:
-    Hazard_lvl = 50000  #CFU # background contamination
-    Cluster_Size = 100000 #lb
-    No_Cont_Clusters = 1 #Number of contamination clusters here one uniform cluster, field size.
+    BGHazard_lvl = 50000  #CFU # background contamination
+    BGCluster_Size = 100000 #lb
+    BGNo_Cont_Clusters = 1 #Number of contamination clusters here one uniform cluster, field size.
     #BackGround Contamination. 
 
 if ContCondz.Point_Source_C ==True:
-    Hazard_lvl = 50000  #CFU # background contamination
-    Cluster_Size = 1000 #lb
-    No_Cont_Clusters = 4 #4 1000k lb clusters. 
+    PSHazard_lvl = 50000  #CFU # background contamination
+    PSCluster_Size = 1000 #lb
+    PSNo_Cont_Clusters = 4 #4 1000k lb clusters. 
     
 if ContCondz.Systematic_C ==True: 
-    Hazard_lvl = 50000  #CFU # background contamination
-    Cluster_Size = 10000 #lb
-    No_Cont_Clusters = 1 #Number of contaminated clusters
+    SysHazard_lvl = 50000  #CFU # background contamination
+    SysCluster_Size = 10000 #lb
+    PSNo_Cont_Clusters = 1 #Number of contaminated clusters
 
  
-
 if ContCondz.Crew_C == True: 
-    Hazard_lvl = 50000  #CFU # background contamination
-    Cluster_Size = 5000 #lb
-    No_Cont_Clusters = 4 #Number of contaminated clusters
+    CrewHazard_lvl = 50000  #CFU # background contamination
+    CrewCluster_Size = 5000 #lb
+    CrewNo_Cont_Clusters = 4 #Number of contaminated clusters
 
 
 if ContCondz.Harvester_C==True:
-    Hazard_lvl = 50000  #CFU # background contamination
-    Cluster_Size = 50000 #lb
-    No_Cont_Clusters = 1 #Number of contaminated clusters
+    HCHazard_lvl = 50000  #CFU # background contamination
+    HCCluster_Size = 50000 #lb
+    HCNo_Cont_Clusters = 1 #Number of contaminated clusters
     
 if ContCondz.PE_C == True:
-    Hazard_lvl = 50000  #CFU # background contamination
+    PECHazard_lvl = 50000  #CFU # background contamination
     Lines_Cont = 1
     
 if ContCondz.Pack_C == True:
-    Hazard_lvl = 50000  #CFU # background contamination
+    PackHazard_lvl = 50000  #CFU # background contamination
     Lines_ContPack = 1        
     
     
@@ -79,18 +78,18 @@ sample_size_PH = 300 # (Input) g #Sample Size in grams for Pre Harvest
 n_samples_slot_PH = 1 # (Input) Samples per sublot of product
 No_Grabs_PH = 60 
 Limit_PH = 0
-if ScenCondz.PHS_Int ==1:
+if ScenCondz.PHS_Int ==True:
     n_samples_lot_PH = 10 # (Input) Samples per lot of product'
 
 
 # 2 Harvest Inputs
 
 #Options for the Sampling Scenarios 1,2,3
-if ScenCondz.PHS_Int == 1:
+if ScenCondz.PHS_Int ==True :
     Time_PHS_H = 0 #Days #time from pre harvest sampling to harvest Sampling
-elif ScenCondz.PHS_4h ==1:
+elif ScenCondz.PHS_4h ==True:
     Time_PHS_H = 0.166 # 4Hours before harvest
-elif ScenCondz.PHS_4d ==1:
+elif ScenCondz.PHS_4d ==True:
     Time_PHS_H = 4 #4 days before harvest
 else:
     Time_PHS_H = 4 #if not, baseline is always 4 hours
@@ -167,7 +166,7 @@ N_Lots_FP = 1 #Lost of final product
 sample_size_FP = 300 #g #Sample Size in grams
 n_samples_FP = 1 #number of samples per lot final product
 N_Packages_Samples = 60
-if ScenCondz.FPS_Agg ==1:
+if ScenCondz.FPS_Agg ==True:
     n_samples_FP = 10
     
 
