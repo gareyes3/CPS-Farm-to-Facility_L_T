@@ -460,6 +460,34 @@ def F_Chloride_lvl (Time_Wash):
     return Cdf
 
 
+#CFU_Non = (TR(decimal)*(CFU non inoculatred + CFU wash Water))
+def Washing_Batch(df, New_water_every_xpacks):
+    Contamination_Vector = df['CFU']
+    Rangeofiterations = list(range(0,len(Contamination_Vector)))
+    if New_water_every_xpacks == 0:
+         every_so = []
+    else:
+        every_so = Rangeofiterations[::New_water_every_xpacks]
+    Log_Red_WashW = np.random.uniform(1.87,2.23)
+    TrRatetoNI = (1*10**np.random.normal(0.0,0.3))/100 #check this fit
+    Cont_Water =0
+    for i in range(len(Contamination_Vector)):
+        if i in every_so:
+            Cont_Water = 0
+        print(i)
+        Cont =  Contamination_Vector[i]
+        if Cont>0:
+            New_Cont = Cont*10**-Log_Red_WashW
+            Cont_Water = Cont - New_Cont
+            Contamination_Vector[i] = New_Cont
+        elif Cont ==0:
+            Transfer_W_NI = Cont_Water*TrRatetoNI
+            New_Cont = Transfer_W_NI
+            Cont_Water = Cont_Water -Transfer_W_NI 
+            Contamination_Vector[i] = New_Cont
+    df["CFU"] = Contamination_Vector
+    return df
+
 #Washing
 
 def F_Partitioning_ProcLines(gb3 , NPartitions):
