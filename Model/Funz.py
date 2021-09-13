@@ -114,10 +114,11 @@ def Growth_Function_Lag(DF, Temperature,Time,Lag_Consumed_Prev):
 
 
 #Washing
+'''
 def F_Washing (DF, LogRedWash):
     DF.CFU=DF.CFU*10**-LogRedWash 
     return DF
-
+'''
 #%% Contamination Functions
 
 #Calculation of E.coli in Water
@@ -295,13 +296,14 @@ def F_CrossContProLine (gb2, Tr_P_S, Tr_S_P):
     ContS_L=[]
     for j in gb2:
         ContS=0
-        for i, row in j.iterrows():
+        for row in j.itertuples():
+            i  = row[0]
             ContP = j.CFU[i] #Contamination product
             TotTr_P_S= np.random.binomial(ContP,Tr_P_S) #Transfer from Product to Surfaces
             TotTr_S_P = np.random.binomial(ContS,Tr_S_P) #Trasnfer from Surfaves to product
             ContPNew = ContP-TotTr_P_S+TotTr_S_P #New Contmination on Product
             ContS=ContS+TotTr_P_S-TotTr_S_P #Remiining Contamination in Surface for upcoming batches
-            j.loc[i,("CFU")]=ContPNew #Updating the Contamination in the Data Frame
+            j.at[i,("CFU")]=ContPNew #Updating the Contamination in the Data Frame
         ContS_L.append(ContS)
     Outputs = [gb2,ContS_L]
     return Outputs
@@ -554,7 +556,7 @@ def F_Washing_ProcLines (List_GB3, Wash_Rate, Cdf):
             L_Xl.append(Xl)
             AvCont = Xl
             CFU_2 = AvCont*((j.at[i,"Weight"]*454))
-            #j.at[i,"CFU"] =  CFU_2 
+            j.at[i,"CFU"] =  CFU_2 
     return (List_GB3) 
 
 

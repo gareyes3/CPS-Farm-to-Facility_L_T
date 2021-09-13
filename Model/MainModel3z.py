@@ -479,7 +479,7 @@ def F_MainLoop():
             df = GrowthOutsPPCS[0]
             Inputz.Lag_Consumed_Prev = GrowthOutsPPCS[1]
             
-            #Washing at consumer: 
+            #Washing at consumer: #wash every 2 packs  
             df = Funz.Washing_Batch(df = df, New_water_every_xpacks = 2)
             
             

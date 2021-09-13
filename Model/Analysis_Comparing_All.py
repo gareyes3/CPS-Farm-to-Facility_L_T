@@ -36,28 +36,28 @@ import MainModel3z
 Progression_DFS = []
 #%% BAseline Sampling: 
 #Contamination Challenges
-ContCondz.Background_C=0
-ContCondz.Point_Source_C=0
-ContCondz.Systematic_C=1
+ContCondz.Background_C=False
+ContCondz.Point_Source_C=False
+ContCondz.Systematic_C=True
 
 #Harvester Contamination
-ContCondz.Crew_C = 0
-ContCondz.Harvester_C = 0
+ContCondz.Crew_C = False
+ContCondz.Harvester_C = False
 
 #Processing equipment
-ContCondz.PE_C = 0
-ContCondz.PE_Cont_Loc = 0,#1,2,3,4,5
+ContCondz.PE_C = False
+ContCondz.PE_Cont_Loc = False,#1,2,3,4,5
 #1 = Shredder, #2 = Belt, #3 = Washing, #4 Shaker, #5Centrifuge
-ContCondz.Pack_C= 0
+ContCondz.Pack_C= False
 
 #%% Baseline Sampling
 reload(ScenCondz)
 #Sampling Conditions, Baseline all conditions are off
-ScenCondz.Baseline_Sampling= 1 #all others must be 0if this one is 1
-ScenCondz.PH_Sampling = 0
-ScenCondz.H_Sampling = 0
-ScenCondz.R_Sampling = 0
-ScenCondz.FP_Sampling = 0
+ScenCondz.Baseline_Sampling= True #all others must be 0if this one is 1
+ScenCondz.PH_Sampling = False
+ScenCondz.H_Sampling = False
+ScenCondz.R_Sampling = False
+ScenCondz.FP_Sampling = False
 
 reload(Inputz) #Reload Inputz
 reload(Listz) #ReUPdate Lists
