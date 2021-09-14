@@ -3,8 +3,8 @@
 #%%
 import sys
 sys.path
-sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
-#sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
+#sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
+sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
 
 #%%
 Progression_DFS = []
@@ -468,6 +468,8 @@ def F_MainLoop():
             df = GrowthOutsPPT[0]
             Inputz.Lag_Consumed_Prev = GrowthOutsPPT[1]
             
+            #Here a step where the lot might get split into different Customers AKA restuarants
+            
             #Storage at customer: 
             GrowthOutsPPCS = Funz.Growth_Function_Lag(DF =df, 
                             Temperature = Inputz.Temperature_PostPCS, 
@@ -477,6 +479,12 @@ def F_MainLoop():
             df = GrowthOutsPPCS[0]
             Inputz.Lag_Consumed_Prev = GrowthOutsPPCS[1]
             
+            #Washing at consumer: #wash every 2 packs  
+            df = Funz.Washing_Batch(df = df, New_water_every_xpacks = 2)
+            
+            
+            
+    #STEP 7: Outputs 
     
     #Progression Data
     data_contprog = {"Initial":Listz.List_Initial_CFU,
@@ -493,7 +501,7 @@ def F_MainLoop():
                  "Bef Centrifuge":Listz.Cont_B_Centrifuge,
                  "Aft Value Addition": Listz.List_AVA_CFU,
                  "Bef Final Prod S": Listz.List_BFPS_CFU,
-                 "Final Product": Listz.Total_CA_FP
+                 "Final Product Facility": Listz.Total_CA_FP
                  }
 
     df_contprog = pd.DataFrame(data_contprog)

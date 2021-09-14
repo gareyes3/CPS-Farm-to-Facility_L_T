@@ -40,7 +40,7 @@ if ContCondz.Point_Source_C ==True:
 if ContCondz.Systematic_C ==True: 
     SysHazard_lvl = 50000  #CFU # background contamination
     SysCluster_Size = 10000 #lb
-    PSNo_Cont_Clusters = 1 #Number of contaminated clusters
+    SysNo_Cont_Clusters = 1 #Number of contaminated clusters
 
  
 if ContCondz.Crew_C == True: 

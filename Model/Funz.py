@@ -114,10 +114,11 @@ def Growth_Function_Lag(DF, Temperature,Time,Lag_Consumed_Prev):
 
 
 #Washing
+'''
 def F_Washing (DF, LogRedWash):
     DF.CFU=DF.CFU*10**-LogRedWash 
     return DF
-
+'''
 #%% Contamination Functions
 
 #Calculation of E.coli in Water
@@ -295,13 +296,14 @@ def F_CrossContProLine (gb2, Tr_P_S, Tr_S_P):
     ContS_L=[]
     for j in gb2:
         ContS=0
-        for i, row in j.iterrows():
+        for row in j.itertuples():
+            i  = row[0]
             ContP = j.CFU[i] #Contamination product
             TotTr_P_S= np.random.binomial(ContP,Tr_P_S) #Transfer from Product to Surfaces
             TotTr_S_P = np.random.binomial(ContS,Tr_S_P) #Trasnfer from Surfaves to product
             ContPNew = ContP-TotTr_P_S+TotTr_S_P #New Contmination on Product
             ContS=ContS+TotTr_P_S-TotTr_S_P #Remiining Contamination in Surface for upcoming batches
-            j.loc[i,("CFU")]=ContPNew #Updating the Contamination in the Data Frame
+            j.at[i,("CFU")]=ContPNew #Updating the Contamination in the Data Frame
         ContS_L.append(ContS)
     Outputs = [gb2,ContS_L]
     return Outputs
@@ -460,6 +462,34 @@ def F_Chloride_lvl (Time_Wash):
     return Cdf
 
 
+#CFU_Non = (TR(decimal)*(CFU non inoculatred + CFU wash Water))
+def Washing_Batch(df, New_water_every_xpacks):
+    Contamination_Vector = df['CFU']
+    Rangeofiterations = list(range(0,len(Contamination_Vector)))
+    if New_water_every_xpacks == 0:
+         every_so = []
+    else:
+        every_so = Rangeofiterations[::New_water_every_xpacks]
+    Log_Red_WashW = np.random.uniform(1.87,2.23)
+    TrRatetoNI = (1*10**np.random.normal(0.0,0.3))/100 #check this fit
+    Cont_Water =0
+    for i in range(len(Contamination_Vector)):
+        if i in every_so:
+            Cont_Water = 0
+        print(i)
+        Cont =  Contamination_Vector[i]
+        if Cont>0:
+            New_Cont = Cont*10**-Log_Red_WashW
+            Cont_Water = Cont - New_Cont
+            Contamination_Vector[i] = New_Cont
+        elif Cont ==0:
+            Transfer_W_NI = Cont_Water*TrRatetoNI
+            New_Cont = Transfer_W_NI
+            Cont_Water = Cont_Water -Transfer_W_NI 
+            Contamination_Vector[i] = New_Cont
+    df["CFU"] = Contamination_Vector
+    return df
+
 #Washing
 
 def F_Partitioning_ProcLines(gb3 , NPartitions):
@@ -526,7 +556,7 @@ def F_Washing_ProcLines (List_GB3, Wash_Rate, Cdf):
             L_Xl.append(Xl)
             AvCont = Xl
             CFU_2 = AvCont*((j.at[i,"Weight"]*454))
-            #j.at[i,"CFU"] =  CFU_2 
+            j.at[i,"CFU"] =  CFU_2 
     return (List_GB3) 
 
 
