@@ -19,7 +19,7 @@ N_Iterations= 5
 
 Field_Weight= 100000 #total lb in field
 slot_weight = 10000 #weight of the sublot in field.
-Partition_Weight = 1000 #Partition weight for contamination Events, Partition to have better definition of field. 
+Partition_Weight = 50 #Partition weight for contamination Events, Partition to have better definition of field. 
 
 slot_number = int(Field_Weight/slot_weight) #Number of sublots per field
 Partition_Units = int(Field_Weight/Partition_Weight) #Number of partition units per field
@@ -106,6 +106,9 @@ No_Grabs_H = 60
 Time_H_PreCooling = np.random.uniform(2,4)
 Temperature_H_PreCooling = np.random.uniform(15,17)
 
+#Field Packed Lettuce:
+Case_Weight_FieldPack = 25
+
 
 # 3 Receiving
 #PreCooling
@@ -150,6 +153,7 @@ Tr_P_Cv =np.random.triangular(0,0.0062,0.0139)
 
 #Flume tank washing step
 Wash_Rate = 100 #lb/min
+DF_Chlevels = Funz.F_Chloride_lvl(300) #Simlating Chlorine levels after time.
 
     #Shaker Table
 Tr_St_P =np.random.triangular(0.06,0.28,0.30)

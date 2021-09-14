@@ -5,6 +5,7 @@ from scipy.stats import lognorm
 import math
 import random
 import itertools
+import ScenCondz
 
 
 
@@ -312,6 +313,43 @@ def F_CrossContProLine (gb2, Tr_P_S, Tr_S_P):
 
 #Paritioning Function
 def F_Partitioning(DF,NPartitions):
+    if ScenCondz.Field_Pack==False:
+        AllParts_Cont = []
+        for i, row in DF.iterrows():
+            Cont = DF.at[i,'CFU']
+            PartCont=np.random.multinomial(Cont,[1/NPartitions]*NPartitions,size=1)
+            PartCont = PartCont[0]
+            AllParts_Cont.append(PartCont)
+        b_flat = [j for i in AllParts_Cont for j in i]
+        newdf = pd.concat([DF]*NPartitions,axis=0)
+        newdf=newdf.sort_values(by=['PalletNo'])
+        #Pallet_List=(list(range(1,NPartitions+1)))
+        newdf["PackNo"] =list(range(1,len(newdf.index)+1))#np.tile(Pallet_List, len(newdf)//NPartitions)
+        newdf = newdf.reset_index(drop=True)  
+        newdf.Weight=newdf.Weight/NPartitions
+        newdf.CFU = b_flat
+        newdf["Sublot"] = 1
+        newdf = newdf[['PalletNo','PackNo','CFU', 'Weight', 'Sublot','ProLine','Lot']]
+    elif ScenCondz.Field_Pack == True:
+        AllParts_Cont = []
+        for i, row in DF.iterrows():
+            Cont = DF.at[i,'CFU']
+            PartCont=np.random.multinomial(Cont,[1/NPartitions]*NPartitions,size=1)
+            PartCont = PartCont[0]
+            AllParts_Cont.append(PartCont)
+        b_flat = [j for i in AllParts_Cont for j in i]
+        newdf = pd.concat([DF]*NPartitions,axis=0)
+        #Pallet_List=(list(range(1,NPartitions+1)))
+        newdf["CaseNo"] =list(range(1,len(newdf.index)+1))#np.tile(Pallet_List, len(newdf)//NPartitions)
+        newdf = newdf.reset_index(drop=True)  
+        newdf.Weight=newdf.Weight/NPartitions
+        newdf.CFU = b_flat
+        newdf["Sublot"] = 1
+        newdf = newdf[['CaseNo','CFU', 'Weight', 'Sublot','Lot']]
+    return newdf
+
+def F_Field_Packing(DF, Case_Weight, PartWeight):
+    NPartitions = int(PartWeight/Case_Weight) 
     AllParts_Cont = []
     for i, row in DF.iterrows():
         Cont = DF.at[i,'CFU']
@@ -320,15 +358,15 @@ def F_Partitioning(DF,NPartitions):
         AllParts_Cont.append(PartCont)
     b_flat = [j for i in AllParts_Cont for j in i]
     newdf = pd.concat([DF]*NPartitions,axis=0)
-    newdf=newdf.sort_values(by=['PalletNo'])
+    newdf=newdf.sort_values(by=['Sublot'])
     #Pallet_List=(list(range(1,NPartitions+1)))
-    newdf["PackNo"] =list(range(1,len(newdf.index)+1))#np.tile(Pallet_List, len(newdf)//NPartitions)
+    newdf["CaseNo"] =list(range(1,len(newdf.index)+1))#np.tile(Pallet_List, len(newdf)//NPartitions)
     newdf = newdf.reset_index(drop=True)  
     newdf.Weight=newdf.Weight/NPartitions
     newdf.CFU = b_flat
-    newdf["Sublot"] = 1
-    newdf = newdf[['PalletNo','PackNo','CFU', 'Weight', 'Sublot','ProLine','Lot']]
+    newdf = newdf[['CaseNo','CFU', 'Weight', 'Sublot','Lot']]
     return newdf
+    
 
 def F_Lots_FP(df, Nolots):
     l = len(df.index) // Nolots 

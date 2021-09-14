@@ -19,5 +19,6 @@ math.sqrt(400)
 d = pd.DataFrame(np.zeros((20, 100)))
 
 d.at[13,40] = 50
-ax =sns.heatmap(d,cmap="YlGnBu")
+ax =sns.heatmap(d,cmap="crest", cbar_kws={"shrink": 0.4}, yticklabels = 10, xticklabels=10)
 ax.set_aspect("equal")
+

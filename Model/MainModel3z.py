@@ -189,258 +189,299 @@ def F_MainLoop():
         Listz.Total_CR_H.append(LO_ContRej_H)
         Listz.List_Cont_PercRej_H.append(LO_ContRej_P_H)
         
-        #STEP 3 RECEIVING ---------------------------------------------------------------------------------------------------------------------
-        
-        #Time Between Harvest and Pre-Cooling KoseKi. 
-        GrowthOutsH_PC = Funz.Growth_Function_Lag(DF =df, 
-                                                Temperature = Inputz.Temperature_H_PreCooling, 
-                                                Time = Inputz.Time_H_PreCooling, 
-                                                Lag_Consumed_Prev  = Inputz.Lag_Consumed_Prev)
-        
-        df = GrowthOutsH_PC[0]
-        Inputz.Lag_Consumed_Prev = GrowthOutsH_PC[1]
-        LV_Time_Agg =  LV_Time_Agg+Inputz.Time_H_PreCooling
-        
-        
-        #Pre_Cooling
-        #Aggresive Temperature Change. Reset Lag Time
-        Inputz.Lag_Consumed_Prev = 0 #Reseting Lag Consumed.
-        #New Lettuce Temperature aPproximately 5C
-        
-        #Storage at Receiving
-        GrowthOutsSto_R = Funz.Growth_Function_Lag(DF =df, 
-                                        Temperature = Inputz.Temperature_Storage_R, 
-                                        Time = Inputz.Time_Storage_R, 
-                                        Lag_Consumed_Prev  = Inputz.Lag_Consumed_Prev)
-        
-        df = GrowthOutsSto_R[0]
-        Inputz.Lag_Consumed_Prev = GrowthOutsSto_R[1]
-        LV_Time_Agg = LV_Time_Agg+Inputz.Time_H_PreCooling
-        
-        
-        #Paletization
-        df = Funz.F_Palletization(df=df,
-                                  Field_Weight=Inputz.Field_Weight,
-                                  Pallet_Weight=Inputz.Pallet_Weight,
-                                  Partition_Weight = Inputz.Partition_Weight,
-                                  )
-        
-    
-        #LV_Time_Agg = LV_Time_Agg + Inputz.Time_H_RS #Cummulative time so far in the process. 
-        
-        LO_Cont_B_R = sum(df.CFU)
-        Listz.List_BRS_CFU.append(LO_Cont_B_R) #Contamination before receiving sampling
-        
-        if ScenCondz.R_Sampling == True:
-            #Sampling at Reception
-            df = Funz.F_Sampling_2(df =df,Test_Unit ="PalletNo", 
-                                           NSamp_Unit = Inputz.n_samples_pallet, 
-                                           Samp_Size =Inputz.sample_size_R, 
-                                           Partition_Weight =Inputz.Partition_Weight, 
-                                           NoGrab =Inputz.No_Grabs_R )
-        
-        #Rejecting Inidividual pallets if 1 positive
-        df = Funz.F_Rejection_Rule2 (df =df, Test_Unit = "PalletNo", limit = 0) 
-        
-        
-        #Outputs from Pre-Harvest Sampling
-        LO_WeightAcc_R = sum(df.Weight) #Lb
-        LO_WeightRej_R = Inputz.Field_Weight-LO_WeightAcc_R #Lb
-        LO_ContAcc_R = sum(df.CFU) # Total CFU
-        LO_ContRej_R =  LO_Cont_B_R-LO_ContAcc_R #Total CFU
-        if LO_ContAcc_R == 0:
-            LO_ContRej_P_R = 1
-        else:
-            LO_ContRej_P_R = LO_ContRej_R/(LO_ContAcc_R+LO_ContRej_R) #Percentage Rejected by H sampling
-        
-        #Outputs for Iterations
-        Listz.Total_PA_R.append(LO_WeightAcc_R)
-        Listz.Total_PR_R.append(LO_WeightRej_R)
-        Listz.Total_CA_R.append(LO_ContAcc_R)
-        Listz.Total_CR_R.append(LO_ContRej_R)
-        Listz.List_Cont_PercRej_R.append(LO_ContRej_P_R)
-        
-    
+        if(ScenCondz.Field_Pack == False):
+            #STEP 3 RECEIVING ---------------------------------------------------------------------------------------------------------------------
             
-        #STEP 4 Value Addition ---------------------------------------------------------------------------------------------------------------------
-    
-        #Splitting pallets into processing lines. 
-        gb2 = Funz.F_ProLineSplitting(df =df, Processing_Lines = Inputz.Processing_Lines)
-        
-        #Splitting Processing Lines into Mini Batches
-        gb2 = Funz.F_Partitioning_ProcLines(gb3 = gb2 , NPartitions = int(Inputz.Pallet_Weight/Inputz.Wash_Rate))
-        
-        #Value Addition Steps
-    
-        
-        #Cross-Contamination Processing by processing line between 100 lb. batches 
-        #1 Shredder
-        LO_Cont_B_Shredder = Funz.F_SummingGB2Cont(gb2 =gb2) #Contamination before Shrdder
-        Listz.Cont_B_Shredder.append( LO_Cont_B_Shredder)
-        if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==True:
-            gb2 = ContScen.F_PEC_C(gb2= gb2,
-                                   Hazard_lvl = Inputz.PECHazard_lvl, 
-                                   Processing_Lines = Inputz.Processing_Lines, 
-                                   Lines_Cont = Inputz.Lines_Cont)
+            #Time Between Harvest and Pre-Cooling KoseKi. 
+            GrowthOutsH_PC = Funz.Growth_Function_Lag(DF =df, 
+                                                    Temperature = Inputz.Temperature_H_PreCooling, 
+                                                    Time = Inputz.Time_H_PreCooling, 
+                                                    Lag_Consumed_Prev  = Inputz.Lag_Consumed_Prev)
             
-        ShredderOuts = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Inputz.Tr_P_Sh, Tr_S_P= Inputz.Tr_Sh_P)
-        gb2 = ShredderOuts[0]
-        ShredCont = ShredderOuts[1]   
-        #2 Conveyor Belt
-        LO_Cont_B_Belt = Funz.F_SummingGB2Cont(gb2 =gb2) #Contamination before BElt
-        Listz.Cont_B_Belt.append( LO_Cont_B_Belt)
-        if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==2:
-            gb2 = ContScen.F_PEC_C(gb2= gb2,
-                                   Hazard_lvl = Inputz.PECHazard_lvl, 
-                                   Processing_Lines = Inputz.Processing_Lines, 
-                                   Lines_Cont = Inputz.Lines_Cont)
+            df = GrowthOutsH_PC[0]
+            Inputz.Lag_Consumed_Prev = GrowthOutsH_PC[1]
+            LV_Time_Agg =  LV_Time_Agg+Inputz.Time_H_PreCooling
             
-        CVOuts = Funz.F_CrossContProLine(gb2 = gb2, Tr_P_S = Inputz.Tr_P_Cv, Tr_S_P = Inputz.Tr_Cv_P)
-        gb2 = CVOuts[0]
-        CvCont = CVOuts[1]
-        
-        
-        #3Washing:
-        LO_Cont_B_Washing = Funz.F_SummingGB2Cont(gb2 =gb2) #Contamination before Washing
-        Listz.Cont_B_Washing.append( LO_Cont_B_Washing)
-        if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==3:
-            gb2 = ContScen.F_PEC_C(gb2= gb2,
-                                   Hazard_lvl = Inputz.PECHazard_lvl, 
-                                   Processing_Lines = Inputz.Processing_Lines, 
-                                   Lines_Cont = Inputz.Lines_Cont)
             
-        DF_Chlevels = Funz.F_Chloride_lvl(300) #Simlating Chlorine levels after time.
-        gb2 = Funz.F_Washing_ProcLines(List_GB3 =gb2, Wash_Rate = Inputz.Wash_Rate, Cdf =  DF_Chlevels)
-        
-        #4 Shaker Table
-        LO_Cont_B_Shaker = Funz.F_SummingGB2Cont(gb2 =gb2) #Contamination before Shaker Table
-        Listz.Cont_B_Shaker.append( LO_Cont_B_Shaker)
-        if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==4:
-            gb2 = ContScen.F_PEC_C(gb2= gb2,
-                                   Hazard_lvl = Inputz.PECHazard_lvl, 
-                                   Processing_Lines = Inputz.Processing_Lines, 
-                                   Lines_Cont = Inputz.Lines_Cont)
+            #Pre_Cooling
+            #Aggresive Temperature Change. Reset Lag Time
+            Inputz.Lag_Consumed_Prev = 0 #Reseting Lag Consumed.
+            #New Lettuce Temperature aPproximately 5C
             
-        StOuts = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Inputz.Tr_P_St, Tr_S_P= Inputz.Tr_St_P)
-        gb2 = StOuts[0]
-        StCont = StOuts[1]
-        
-        #5 Centrifuge
-        LO_Cont_B_Centrifuge = Funz.F_SummingGB2Cont(gb2 =gb2) #Contamination before Centrigure
-        Listz.Cont_B_Centrifuge.append( LO_Cont_B_Centrifuge)
-    
-        if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==5:
-            gb2 = ContScen.F_PEC_C(gb2= gb2,
-                                   Hazard_lvl = Inputz.PECHazard_lvl, 
-                                   Processing_Lines = Inputz.Processing_Lines, 
-                                   Lines_Cont = Inputz.Lines_Cont)
+            #Storage at Receiving
+            GrowthOutsSto_R = Funz.Growth_Function_Lag(DF =df, 
+                                            Temperature = Inputz.Temperature_Storage_R, 
+                                            Time = Inputz.Time_Storage_R, 
+                                            Lag_Consumed_Prev  = Inputz.Lag_Consumed_Prev)
             
-        CentrifugeOuts = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Inputz.Tr_P_C, Tr_S_P= Inputz.Tr_C_P)
-        gb2 = CentrifugeOuts[0]
-        CentrifugeCont = CentrifugeOuts[1]
+            df = GrowthOutsSto_R[0]
+            Inputz.Lag_Consumed_Prev = GrowthOutsSto_R[1]
+            LV_Time_Agg = LV_Time_Agg+Inputz.Time_H_PreCooling
             
-        #Adding Contamination from Scenario to each lot
-        if ContCondz.PE_C ==True:
-            gb2 = ContScen.F_PEC_C(gb2= gb2,
-                                   Hazard_lvl = Inputz.PECHazard_lvl, 
-                                   Processing_Lines = Inputz.Processing_Lines, 
-                                   Lines_Cont = Inputz.Lines_Cont)
+            
+            #Paletization
+            df = Funz.F_Palletization(df=df,
+                                      Field_Weight=Inputz.Field_Weight,
+                                      Pallet_Weight=Inputz.Pallet_Weight,
+                                      Partition_Weight = Inputz.Partition_Weight,
+                                      )
             
         
-        #Joining Data Frames into one again, with contamination from lines. 
-        df=(pd.concat(gb2))
-        #Outputs after value addition.
-        LO_Cont_A_VA= sum(df.CFU)
-        Listz.List_AVA_CFU.append(LO_Cont_A_VA)
-        
-    
+            #LV_Time_Agg = LV_Time_Agg + Inputz.Time_H_RS #Cummulative time so far in the process. 
             
-        df['Lot'] =1#Updating the CFU/g column
- 
+            LO_Cont_B_R = sum(df.CFU)
+            Listz.List_BRS_CFU.append(LO_Cont_B_R) #Contamination before receiving sampling
             
-        #Environmental Monitoring Program
-        
-        
-        #STEP 5 PACKING AND MIXING ---------------------------------------------------------------------------------------------------------------------
-        
-        #Mixing products into one batch
-        df = df.reset_index(drop=True) 
-        LV_NewPart_Weight  = df.at[1,"Weight"]
-        LV_N_Partitions = int(LV_NewPart_Weight/Inputz.Pack_Weight_FP) 
-        df = Funz.F_Partitioning(DF=df,
-                                 NPartitions= LV_N_Partitions)
-        
-        if Inputz.N_Lots_FP==2:
-            df =Funz.F_Lots_FP(df=df, 
-                               Nolots = 2)
+            if ScenCondz.R_Sampling == True:
+                #Sampling at Reception
+                df = Funz.F_Sampling_2(df =df,Test_Unit ="PalletNo", 
+                                               NSamp_Unit = Inputz.n_samples_pallet, 
+                                               Samp_Size =Inputz.sample_size_R, 
+                                               Partition_Weight =Inputz.Partition_Weight, 
+                                               NoGrab =Inputz.No_Grabs_R )
             
-            #Dividing the pallets dataframe into different processing lines.  
-        gb2 = df.groupby('ProLine')#Creating Listby procesing line
-        gb2 =[gb2.get_group(x) for x in gb2.groups] #Creating list of separate dataframe by processing lines
-        
-        if ContCondz.Pack_C ==True:
-            gb2 = ContScen.F_PEC_C(gb2=gb2,
-                            Hazard_lvl = Inputz.PackHazard_lvl, 
-                            Processing_Lines = Inputz.Processing_Lines, 
-                            Lines_Cont = Inputz.Lines_ContPack)
-        
-        df=(pd.concat(gb2))
-        df["Accept"] = True
-        df['Grabs'] = [list() for x in range(len(df.index))]
-        df["Positives"] = ""
-        
-        
-        LO_Cont_B_FP = sum(df.CFU) #Total CFU before FP Sampling
-        Listz.List_BFPS_CFU.append(LO_Cont_B_FP) #Adding it to a List
-        #df= Funz.F_Packaging(DF=df, Boxes_Pallet=Boxes_Pallet)
-        
-    
-        
-        #Sampling Step
-        if ScenCondz.FP_Sampling == True:
-            if ScenCondz.FPS_Trad ==True:
-                df =Funz.F_Sampling_2(df =df,Test_Unit ="Lot", 
-                                           NSamp_Unit = Inputz.n_samples_FP, 
-                                           Samp_Size =Inputz.sample_size_FP, 
-                                           Partition_Weight =Inputz.Pack_Weight_FP, 
-                                           NoGrab = Inputz.N_Packages_Samples)
-                
-            elif ScenCondz.FPS_Agg ==True:
-                df =Funz.F_Sampling_2(df =df,Test_Unit ="Lot", 
-                                           NSamp_Unit = Inputz.n_samples_FP, 
-                                           Samp_Size =Inputz.sample_size_FP, 
-                                           Partition_Weight =Inputz.Pack_Weight_FP, 
-                                           NoGrab = Inputz.N_Packages_Samples)
-        
-    
-        #Filtering out the Rejected lots, Final product
-        #Rejecting Inidividual pallets if 1 positive
-        df = Funz.F_Rejection_Rule2 (df =df, Test_Unit = "Lot",limit = 0) 
-        
-        LO_WeightAcc_FP = sum(df.Weight) #Lb
-        LO_WeightRej_Total = Inputz.Field_Weight - LO_WeightAcc_FP #Lb
-        LO_PerRej_Total =  LO_WeightRej_Total/Inputz.Field_Weight
-        LO_ContAcc_FP = sum(df.CFU) # Total CFU
-        LO_ContRej_FP =  LO_Cont_B_FP-LO_ContAcc_FP #Total CFU
-        if LO_ContAcc_FP == 0:
-            LO_ContRej_P_FP = 1
-        else:
-            LO_ContRej_P_FP = LO_ContRej_FP/(LO_ContAcc_FP+LO_ContRej_FP) #Percentage Rejected by Finished product sampling
+            #Rejecting Inidividual pallets if 1 positive
+            df = Funz.F_Rejection_Rule2 (df =df, Test_Unit = "PalletNo", limit = 0) 
             
-        if LO_WeightAcc_FP == 0:
-            Total_CFU_G_FP = 0 #Total CFU per gram of final product
-        else:
-            Total_CFU_G_FP = LO_ContAcc_FP/( LO_WeightAcc_FP*454) #Total CFU per gram of final product
+            
+            #Outputs from Pre-Harvest Sampling
+            LO_WeightAcc_R = sum(df.Weight) #Lb
+            LO_WeightRej_R = Inputz.Field_Weight-LO_WeightAcc_R #Lb
+            LO_ContAcc_R = sum(df.CFU) # Total CFU
+            LO_ContRej_R =  LO_Cont_B_R-LO_ContAcc_R #Total CFU
+            if LO_ContAcc_R == 0:
+                LO_ContRej_P_R = 1
+            else:
+                LO_ContRej_P_R = LO_ContRej_R/(LO_ContAcc_R+LO_ContRej_R) #Percentage Rejected by H sampling
             
             #Outputs for Iterations
-        Listz.Total_PA_FP.append(LO_WeightAcc_FP)
-        Listz.Total_PR_Final.append(LO_WeightRej_Total)
-        Listz.Total_PerRej_Weight.append(LO_PerRej_Total)
-        Listz.Total_CA_FP.append(LO_ContAcc_FP)
-        Listz.Total_CR_FP.append(LO_ContRej_FP)
-        Listz.List_Cont_PercRej_FP.append(LO_ContRej_P_FP)
-        Listz.List_TotalCFUg_FP.append(Total_CFU_G_FP)
+            Listz.Total_PA_R.append(LO_WeightAcc_R)
+            Listz.Total_PR_R.append(LO_WeightRej_R)
+            Listz.Total_CA_R.append(LO_ContAcc_R)
+            Listz.Total_CR_R.append(LO_ContRej_R)
+            Listz.List_Cont_PercRej_R.append(LO_ContRej_P_R)
+            
+        
+            #STEP 4 Value Addition ---------------------------------------------------------------------------------------------------------------------
+        
+            #Splitting pallets into processing lines. 
+            gb2 = Funz.F_ProLineSplitting(df =df, Processing_Lines = Inputz.Processing_Lines)
+            
+            #Splitting Processing Lines into Mini Batches
+            gb2 = Funz.F_Partitioning_ProcLines(gb3 = gb2 , NPartitions = int(Inputz.Pallet_Weight/Inputz.Wash_Rate))
+            
+            #Value Addition Steps
+        
+            
+            #Cross-Contamination Processing by processing line between 100 lb. batches 
+            #1 Shredder
+            LO_Cont_B_Shredder = Funz.F_SummingGB2Cont(gb2 =gb2) #Contamination before Shrdder
+            Listz.Cont_B_Shredder.append( LO_Cont_B_Shredder)
+            if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==True:
+                gb2 = ContScen.F_PEC_C(gb2= gb2,
+                                       Hazard_lvl = Inputz.PECHazard_lvl, 
+                                       Processing_Lines = Inputz.Processing_Lines, 
+                                       Lines_Cont = Inputz.Lines_Cont)
+                
+            ShredderOuts = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Inputz.Tr_P_Sh, Tr_S_P= Inputz.Tr_Sh_P)
+            gb2 = ShredderOuts[0]
+            ShredCont = ShredderOuts[1]   
+            #2 Conveyor Belt
+            LO_Cont_B_Belt = Funz.F_SummingGB2Cont(gb2 =gb2) #Contamination before BElt
+            Listz.Cont_B_Belt.append( LO_Cont_B_Belt)
+            if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==2:
+                gb2 = ContScen.F_PEC_C(gb2= gb2,
+                                       Hazard_lvl = Inputz.PECHazard_lvl, 
+                                       Processing_Lines = Inputz.Processing_Lines, 
+                                       Lines_Cont = Inputz.Lines_Cont)
+                
+            CVOuts = Funz.F_CrossContProLine(gb2 = gb2, Tr_P_S = Inputz.Tr_P_Cv, Tr_S_P = Inputz.Tr_Cv_P)
+            gb2 = CVOuts[0]
+            CvCont = CVOuts[1]
+            
+            
+            #3Washing:
+            LO_Cont_B_Washing = Funz.F_SummingGB2Cont(gb2 =gb2) #Contamination before Washing
+            Listz.Cont_B_Washing.append( LO_Cont_B_Washing)
+            if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==3:
+                gb2 = ContScen.F_PEC_C(gb2= gb2,
+                                       Hazard_lvl = Inputz.PECHazard_lvl, 
+                                       Processing_Lines = Inputz.Processing_Lines, 
+                                       Lines_Cont = Inputz.Lines_Cont)
+                
+
+            gb2 = Funz.F_Washing_ProcLines(List_GB3 =gb2, Wash_Rate = Inputz.Wash_Rate, Cdf =  Inputz.DF_Chlevels)
+            
+            #4 Shaker Table
+            LO_Cont_B_Shaker = Funz.F_SummingGB2Cont(gb2 =gb2) #Contamination before Shaker Table
+            Listz.Cont_B_Shaker.append( LO_Cont_B_Shaker)
+            if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==4:
+                gb2 = ContScen.F_PEC_C(gb2= gb2,
+                                       Hazard_lvl = Inputz.PECHazard_lvl, 
+                                       Processing_Lines = Inputz.Processing_Lines, 
+                                       Lines_Cont = Inputz.Lines_Cont)
+                
+            StOuts = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Inputz.Tr_P_St, Tr_S_P= Inputz.Tr_St_P)
+            gb2 = StOuts[0]
+            StCont = StOuts[1]
+            
+            #5 Centrifuge
+            LO_Cont_B_Centrifuge = Funz.F_SummingGB2Cont(gb2 =gb2) #Contamination before Centrigure
+            Listz.Cont_B_Centrifuge.append( LO_Cont_B_Centrifuge)
+        
+            if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==5:
+                gb2 = ContScen.F_PEC_C(gb2= gb2,
+                                       Hazard_lvl = Inputz.PECHazard_lvl, 
+                                       Processing_Lines = Inputz.Processing_Lines, 
+                                       Lines_Cont = Inputz.Lines_Cont)
+                
+            CentrifugeOuts = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Inputz.Tr_P_C, Tr_S_P= Inputz.Tr_C_P)
+            gb2 = CentrifugeOuts[0]
+            CentrifugeCont = CentrifugeOuts[1]
+                
+            #Adding Contamination from Scenario to each lot
+            if ContCondz.PE_C ==True:
+                gb2 = ContScen.F_PEC_C(gb2= gb2,
+                                       Hazard_lvl = Inputz.PECHazard_lvl, 
+                                       Processing_Lines = Inputz.Processing_Lines, 
+                                       Lines_Cont = Inputz.Lines_Cont)
+                
+            
+            #Joining Data Frames into one again, with contamination from lines. 
+            df=(pd.concat(gb2))
+            #Outputs after value addition.
+            LO_Cont_A_VA= sum(df.CFU)
+            Listz.List_AVA_CFU.append(LO_Cont_A_VA)
+            
+        
+                
+            df['Lot'] =1#Updating the CFU/g column
+     
+                
+            #Environmental Monitoring Program
+            
+            
+            #STEP 5 PACKING AND MIXING ---------------------------------------------------------------------------------------------------------------------
+            
+            #Mixing products into one batch
+            df = df.reset_index(drop=True) 
+            LV_NewPart_Weight  = df.at[1,"Weight"]
+            LV_N_Partitions = int(LV_NewPart_Weight/Inputz.Pack_Weight_FP) 
+            df = Funz.F_Partitioning(DF=df,
+                                     NPartitions= LV_N_Partitions)
+            
+            if Inputz.N_Lots_FP==2:
+                df =Funz.F_Lots_FP(df=df, 
+                                   Nolots = 2)
+                
+                #Dividing the pallets dataframe into different processing lines.  
+            gb2 = df.groupby('ProLine')#Creating Listby procesing line
+            gb2 =[gb2.get_group(x) for x in gb2.groups] #Creating list of separate dataframe by processing lines
+            
+            if ContCondz.Pack_C ==True:
+                gb2 = ContScen.F_PEC_C(gb2=gb2,
+                                Hazard_lvl = Inputz.PackHazard_lvl, 
+                                Processing_Lines = Inputz.Processing_Lines, 
+                                Lines_Cont = Inputz.Lines_ContPack)
+            
+            df=(pd.concat(gb2))
+            df["Accept"] = True
+            df['Grabs'] = [list() for x in range(len(df.index))]
+            df["Positives"] = ""
+            
+            
+            LO_Cont_B_FP = sum(df.CFU) #Total CFU before FP Sampling
+            Listz.List_BFPS_CFU.append(LO_Cont_B_FP) #Adding it to a List
+            #df= Funz.F_Packaging(DF=df, Boxes_Pallet=Boxes_Pallet)
+            
+        
+            
+            #Sampling Step
+            if ScenCondz.FP_Sampling == True:
+                if ScenCondz.FPS_Trad ==True:
+                    df =Funz.F_Sampling_2(df =df,Test_Unit ="Lot", 
+                                               NSamp_Unit = Inputz.n_samples_FP, 
+                                               Samp_Size =Inputz.sample_size_FP, 
+                                               Partition_Weight =Inputz.Pack_Weight_FP, 
+                                               NoGrab = Inputz.N_Packages_Samples)
+                    
+                elif ScenCondz.FPS_Agg ==True:
+                    df =Funz.F_Sampling_2(df =df,Test_Unit ="Lot", 
+                                               NSamp_Unit = Inputz.n_samples_FP, 
+                                               Samp_Size =Inputz.sample_size_FP, 
+                                               Partition_Weight =Inputz.Pack_Weight_FP, 
+                                               NoGrab = Inputz.N_Packages_Samples)
+            
+        
+            #Filtering out the Rejected lots, Final product
+            #Rejecting Inidividual pallets if 1 positive
+            df = Funz.F_Rejection_Rule2 (df =df, Test_Unit = "Lot",limit = 0) 
+            
+            LO_WeightAcc_FP = sum(df.Weight) #Lb
+            LO_WeightRej_Total = Inputz.Field_Weight - LO_WeightAcc_FP #Lb
+            LO_PerRej_Total =  LO_WeightRej_Total/Inputz.Field_Weight
+            LO_ContAcc_FP = sum(df.CFU) # Total CFU
+            LO_ContRej_FP =  LO_Cont_B_FP-LO_ContAcc_FP #Total CFU
+            if LO_ContAcc_FP == 0:
+                LO_ContRej_P_FP = 1
+            else:
+                LO_ContRej_P_FP = LO_ContRej_FP/(LO_ContAcc_FP+LO_ContRej_FP) #Percentage Rejected by Finished product sampling
+                
+            if LO_WeightAcc_FP == 0:
+                Total_CFU_G_FP = 0 #Total CFU per gram of final product
+            else:
+                Total_CFU_G_FP = LO_ContAcc_FP/( LO_WeightAcc_FP*454) #Total CFU per gram of final product
+                
+                #Outputs for Iterations
+            Listz.Total_PA_FP.append(LO_WeightAcc_FP)
+            Listz.Total_PR_Final.append(LO_WeightRej_Total)
+            Listz.Total_PerRej_Weight.append(LO_PerRej_Total)
+            Listz.Total_CA_FP.append(LO_ContAcc_FP)
+            Listz.Total_CR_FP.append(LO_ContRej_FP)
+            Listz.List_Cont_PercRej_FP.append(LO_ContRej_P_FP)
+            Listz.List_TotalCFUg_FP.append(Total_CFU_G_FP)
     
+        #......End of Field Pack Indentation
+        
+ 
+    #STEP 3 Field Pack Lettuce Packing   
+        elif (Inputz.Field_Pack == True):
+            
+            #Partitioning into Cases
+            df = Funz.F_Field_Packing(DF =df, Case_Weight = 25, PartWeight = 50)
+            
+            
+            #Receiving:
+            #Post Harvest, Same growth function as other process. 
+            GrowthOutsH_PC = Funz.Growth_Function_Lag(DF =df, 
+                                                    Temperature = Inputz.Temperature_H_PreCooling, 
+                                                    Time = Inputz.Time_H_PreCooling, 
+                                                    Lag_Consumed_Prev  = Inputz.Lag_Consumed_Prev)
+            
+            df = GrowthOutsH_PC[0]
+            Inputz.Lag_Consumed_Prev = GrowthOutsH_PC[1]
+            LV_Time_Agg =  LV_Time_Agg+Inputz.Time_H_PreCooling
+            
+            #Pre_Cooling
+            #Aggresive Temperature Change. Reset Lag Time
+            Inputz.Lag_Consumed_Prev = 0 #Reseting Lag Consumed.
+            #New Lettuce Temperature aPproximately 5C
+            
+            #Storage at Receiving
+            GrowthOutsSto_R = Funz.Growth_Function_Lag(DF =df, 
+                                            Temperature = Inputz.Temperature_Storage_R, 
+                                            Time = Inputz.Time_Storage_R, 
+                                            Lag_Consumed_Prev  = Inputz.Lag_Consumed_Prev)
+            
+            df = GrowthOutsSto_R[0]
+            Inputz.Lag_Consumed_Prev = GrowthOutsSto_R[1]
+            LV_Time_Agg = LV_Time_Agg+Inputz.Time_H_PreCooling
+            
+            
+            
+            
+
+        
         #STEP 6 POST PROCESS STEPS ---------------------------------------------------------------------------------------------------------------------
         #Steps after Final Product
         if(ScenCondz.Customer_Added_Steps ==True):
