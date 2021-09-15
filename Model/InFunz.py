@@ -15,8 +15,8 @@ def F_InDF (Partition_Units,Field_Weight,slot_number ):
             'Sublot':0, #Sublots
             'PartitionID': list(range(1,Partition_Units+1)), #Paritition
             'CFU':0, #CFU Pathogen
-            'Grabs':"",
-            "Positives":"",
+            'PositiveSamples':"",
+            #'Positives': "",
             'Accept': True, #Accepted of Rejected
             'Weight': Field_Weight/Partition_Units} #Weight per Partition
     
@@ -24,7 +24,7 @@ def F_InDF (Partition_Units,Field_Weight,slot_number ):
     df = pd.DataFrame(data)
     df.Sublot = Sublot_Pattern
     df.index = range(1,Partition_Units+1)
-    df.Grabs = [list() for x in range(len(df.index))]
+    df.PositiveSamples = [list() for x in range(len(df.index))]
     return df
 
 

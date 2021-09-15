@@ -12,8 +12,8 @@ Progression_DFS = []
 #%% 
 #Libraries, Modules
 import pandas as pd 
-import seaborn as sns
-from matplotlib import pyplot as plt
+#import seaborn as sns
+#from matplotlib import pyplot as plt
 import Funz
 import ContScen
 import Listz 
@@ -66,18 +66,18 @@ def F_MainLoop():
                                          Partition_Weight = Inputz.Partition_Weight)
             
         # Local Outputs: Initial Contamination     
-        LV_Initial_CFU= sum(df.CFU) #Initial Contamination
+        LV_Initial_CFU= sum(df.CFU) #Initial Contamination 
         Listz.List_Initial_CFU.append(LV_Initial_CFU) #Adding Initial Contamintion to List
         
     
         #STEP 1 PREHARVEST ------------------------------------------------------------------------------------------------------------------
         
         #Die-off From Contamination Event to Pre-Havrvest
-        #Die_Off_CE_PHS =Funz.F_DieOff_IR_PH(Time_CE_PHS,Break_Point, Dieoff1, Dieoff2) #Die off rate from Irrigation to pre harvest sampling
+        #Die_Off_CE_PHS =Funz.F_DieOff_IR_PH(Time_CE_PHS,Break_Point, Dieoff1, Dieoff2) #Die off rate from Irrigation to pre harvest sampling, Belias et al. 
         
         LV_Die_Off_CE_PHS = Funz.F_Simple_DieOff(Inputz.Time_CE_PHS) #Total Die off Contamination Event to PHS. 
         df = Funz.Applying_dieoff(df=df, Dieoff=LV_Die_Off_CE_PHS ) #Applying Die off to CFU Column in the DF
-        LV_Time_Agg = 0 + Inputz.Time_CE_PHS #Cummulative time so far in the process.
+        LV_Time_Agg = 0 + Inputz.Time_CE_PHS #Cummulative time so far in the process. Time #1.
             
         #Sampling at Pre-Harvest
         if ScenCondz.PH_Sampling ==True: #If function to turn off Pre-Harvest Sampling
@@ -101,9 +101,9 @@ def F_MainLoop():
         
         #Filtering out the Rejected lots, Pre-Harvest
         if ScenCondz.PHS_Int ==True: #Rejection intense
-           df= Funz.F_Rejection_Rule2(df =df, Test_Unit = "Lot", limit = 0)  
+           df= Funz.F_Rejection_Rule3(df =df, Test_Unit = "Lot", limit = 0)  
         else:  #Rejection normal
-            df=Funz.F_Rejection_Rule2(df =df, Test_Unit = "Sublot", limit = 0) 
+            df=Funz.F_Rejection_Rule3(df =df, Test_Unit = "Sublot", limit = 0) 
                            
         
         #Outputs from Pre-Harvest Sampling
@@ -169,7 +169,7 @@ def F_MainLoop():
         Listz.List_BHS_CFU.append(LO_Cont_B_H) #List of contaminations before sampling
         
         #Filtering out the Rejected lots, Harvest Sampling
-        df = Funz.F_Rejection_Rule2 (df =df, Test_Unit = "Sublot",limit = 0) 
+        df = Funz.F_Rejection_Rule3 (df =df, Test_Unit = "Sublot",limit = 0) 
             
         
         #Outputs from Pre-Harvest Sampling
@@ -241,7 +241,7 @@ def F_MainLoop():
                                                NoGrab =Inputz.No_Grabs_R )
             
             #Rejecting Inidividual pallets if 1 positive
-            df = Funz.F_Rejection_Rule2 (df =df, Test_Unit = "PalletNo", limit = 0) 
+            df = Funz.F_Rejection_Rule3 (df =df, Test_Unit = "PalletNo", limit = 0) 
             
             
             #Outputs from Pre-Harvest Sampling
@@ -415,7 +415,7 @@ def F_MainLoop():
         
             #Filtering out the Rejected lots, Final product
             #Rejecting Inidividual pallets if 1 positive
-            df = Funz.F_Rejection_Rule2 (df =df, Test_Unit = "Lot",limit = 0) 
+            df = Funz.F_Rejection_Rule3 (df =df, Test_Unit = "Lot",limit = 0) 
             
             LO_WeightAcc_FP = sum(df.Weight) #Lb
             LO_WeightRej_Total = Inputz.Field_Weight - LO_WeightAcc_FP #Lb

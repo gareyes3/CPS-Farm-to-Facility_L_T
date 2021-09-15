@@ -148,8 +148,8 @@ def F_HarvestingCont ():
 def F_Sampling_2 (df, Test_Unit, NSamp_Unit, Samp_Size, Partition_Weight, NoGrab):
     Unique_TestUnit = list(df[Test_Unit].unique())
     Grab_Weight = Samp_Size/NoGrab
-    for i in (Unique_TestUnit):
-        for l in range (NSamp_Unit):
+    for i in (Unique_TestUnit): #From sublot 1 to sublot n (same for pallet,lot,case etc)
+        for l in range (1, NSamp_Unit+1): #Number of samples per sublot or lot or pallet.
             for j in range(NoGrab):
                 Sampled_Grab =df[df[Test_Unit] == i].sample(1, replace= True)
                 Index = Sampled_Grab.index
@@ -159,7 +159,7 @@ def F_Sampling_2 (df, Test_Unit, NSamp_Unit, Samp_Size, Partition_Weight, NoGrab
                 P_Detection=1-math.exp(-CFU_grab)
                 RandomUnif = random.uniform(0,1)
                 if RandomUnif < P_Detection:
-                    df.at[Index, 'Grabs']. append(NSamp_Unit)
+                    df.at[Index, 'PositiveSamples']. append(l)
     return (df)
 
 
@@ -168,14 +168,14 @@ def F_Rejection_Rule2 (df, Test_Unit, limit):
     #Test_Unit = "Lot" or "Sublot"
     Listpositive = []
     for i, row in df.iterrows():
-        Positives = len(set(df.at[i, "Grabs"]))
+        Positives = len(set(df.at[i, "PositiveSamples"]))
         Listpositive.append(Positives)
     df.Positives =Listpositive
     Positives = df[df["Positives"]> limit]
     Unique_TestUnit=list(df[Test_Unit].unique())
     Unique_Positives = list(Positives[Test_Unit].unique())
     df.Positives = ""
-    df.Grabs = [list() for x in range(len(df.index))]
+    df.PositiveSamples = [list() for x in range(len(df.index))]
     if set(Unique_TestUnit)<= set(Unique_Positives):
         df_Blank = df.iloc[[0]]
         df_Blank.loc[:, ['CFU']] = 0
@@ -184,6 +184,28 @@ def F_Rejection_Rule2 (df, Test_Unit, limit):
         df = df_Blank
     else:
         df = df[~df[Test_Unit].isin(Unique_Positives)]
+    return df
+
+
+def F_Rejection_Rule3 (df, Test_Unit, limit):
+    Unique_Test_Unit =list(df[Test_Unit].unique())
+    Reject = []
+    for  i in Unique_Test_Unit:
+        df_Subset = df[df[Test_Unit] == i]
+        List_of_grabs = df_Subset['PositiveSamples'].tolist()
+        flat_list = [item for sublist in  List_of_grabs for item in sublist]
+        Unique_Positives =list(np.unique(flat_list))
+        if len(Unique_Positives)>limit:
+            Reject.append(i)
+    df.PositiveSamples = [list() for x in range(len(df.index))]
+    if set(Unique_Test_Unit)<= set(Reject):
+        df_Blank = df.iloc[[0]]
+        df_Blank.loc[:, ['CFU']] = 0
+        df_Blank.loc[:, ['Weight']] = 1000
+        df_Blank.loc[:, ['Accept']] = "All Rej"
+        df = df_Blank
+    else:
+        df = df[~df[Test_Unit].isin(Reject)]
     return df
         
 
@@ -274,7 +296,7 @@ def F_Palletization (df, Field_Weight,Pallet_Weight, Partition_Weight):
     Crop_No = len(df.index)
     Pallet_Pattern=Pallet_Pattern[:Crop_No]
     df['PalletNo'] = Pallet_Pattern
-    df = df[['Lot', 'Sublot','PalletNo','PartitionID','CFU','Grabs','Positives','Accept', 'Weight']]
+    df = df[['Lot', 'Sublot','PalletNo','PartitionID','CFU','PositiveSamples','Accept', 'Weight']]
     return df
 
 
@@ -315,7 +337,8 @@ def F_CrossContProLine (gb2, Tr_P_S, Tr_S_P):
 def F_Partitioning(DF,NPartitions):
     if ScenCondz.Field_Pack==False:
         AllParts_Cont = []
-        for i, row in DF.iterrows():
+        for row in DF.itertuples():
+            i = row[0]
             Cont = DF.at[i,'CFU']
             PartCont=np.random.multinomial(Cont,[1/NPartitions]*NPartitions,size=1)
             PartCont = PartCont[0]
@@ -332,8 +355,8 @@ def F_Partitioning(DF,NPartitions):
         newdf = newdf[['PalletNo','PackNo','CFU', 'Weight', 'Sublot','ProLine','Lot']]
     elif ScenCondz.Field_Pack == True:
         AllParts_Cont = []
-        for i, row in DF.iterrows():
-            Cont = DF.at[i,'CFU']
+        for row in DF.itertuples():
+            i = row[0]
             PartCont=np.random.multinomial(Cont,[1/NPartitions]*NPartitions,size=1)
             PartCont = PartCont[0]
             AllParts_Cont.append(PartCont)
@@ -351,7 +374,8 @@ def F_Partitioning(DF,NPartitions):
 def F_Field_Packing(DF, Case_Weight, PartWeight):
     NPartitions = int(PartWeight/Case_Weight) 
     AllParts_Cont = []
-    for i, row in DF.iterrows():
+    for row in DF.itertuples():
+        i = row[0]
         Cont = DF.at[i,'CFU']
         PartCont=np.random.multinomial(Cont,[1/NPartitions]*NPartitions,size=1)
         PartCont = PartCont[0]
@@ -397,7 +421,8 @@ def parts(a, b):
 def F_Partitioning2(DF, Partition_Weight):
     LWeights = []
     LXX_2 = []
-    for i,row in DF.iterrows():
+    for row in DF.itertuples():
+        i = row[0]
         Weight= int(DF.at[i,'Weight'])
         xx_2=int(Weight//Partition_Weight)
         LXX_2.append(xx_2)
@@ -409,12 +434,13 @@ def F_Partitioning2(DF, Partition_Weight):
     AllParts_Cont = []
     b_flat=[]
     DF['Parts'] =LXX_2
-    for i, row in DF.iterrows():
-            Cont = DF.at[i,'CFU']
-            Parts = int(DF.at[i,'Parts'])
-            PartCont=np.random.multinomial(Cont,[1/Parts]*Parts, size =1)
-            PartCont = PartCont[0]
-            AllParts_Cont.append(PartCont)
+    for row in DF.itertuples():
+        i = row[0]
+        Cont = DF.at[i,'CFU']
+        Parts = int(DF.at[i,'Parts'])
+        PartCont=np.random.multinomial(Cont,[1/Parts]*Parts, size =1)
+        PartCont = PartCont[0]
+        AllParts_Cont.append(PartCont)
     b_flat = [j for i in AllParts_Cont for j in i]
     newDF.CFU = b_flat
     return newDF
@@ -423,7 +449,8 @@ def F_Partitioning2(DF, Partition_Weight):
 #%%
 def F_Partitioning_W(DF,NPartitions):
     AllParts_Cont = []
-    for i, row in DF.iterrows():
+    for row in DF.itertuples():
+        i = row[0]
         Cont = DF.at[i,'CFU']
         PartCont=np.random.multinomial(Cont,[1/NPartitions]*NPartitions,size=1)
         PartCont = PartCont[0]

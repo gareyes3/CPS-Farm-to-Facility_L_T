@@ -15,7 +15,7 @@ Env_SamplingProc =0
 Env_SamplingCust = 0
 Water_SamplingCust = 0
 
-Field_Pack = True
+Field_Pack = False
 
 #Customer
 Customer_Added_Steps = 0 
