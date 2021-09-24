@@ -37,6 +37,10 @@ import MainModel3z
 #Input SideBar=======================================================================================================================================
 
 st.sidebar.header('Scenario Input Parameters')
+#FieldPackLettuce
+ScenCondz.Field_Pack = st.sidebar.checkbox("Field Pack Lettuce?")
+
+
 #Field Size
 Inputz.Field_Weight = st.sidebar.select_slider('Field Size [Lb]',options=[1000,10000,50000,100000,200000],value = 100000)
 Inputz.slot_weight = st.sidebar.select_slider('Sublot Size [Lb]',options=[1000,10000,50000,100000,200000],value = 10000)

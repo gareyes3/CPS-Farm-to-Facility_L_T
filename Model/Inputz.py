@@ -27,7 +27,7 @@ Partition_Units = int(Field_Weight/Partition_Weight) #Number of partition units 
 
 # Contamination Challenge Related Information
 if ContCondz.Background_C ==True:
-    BGHazard_lvl = 50000  #CFU # background contamination
+    BGHazard_lvl = 100000  #CFU # background contamination
     BGCluster_Size = 100000 #lb
     BGNo_Cont_Clusters = 1 #Number of contamination clusters here one uniform cluster, field size.
     #BackGround Contamination. 
@@ -74,7 +74,7 @@ Lag_Consumed_Prev = 0
 
 # 1 Pre-Harvest Inputs
 
-sample_size_PH = 300 # (Input) g #Sample Size in grams for Pre Harvest
+sample_size_PH = 375 # (Input) g #Sample Size in grams for Pre Harvest
 n_samples_slot_PH = 1 # (Input) Samples per sublot of product
 No_Grabs_PH = 60 
 Limit_PH = 0
@@ -98,7 +98,8 @@ else:
 Time_CE_H = np.random.triangular(2,4,8) #days
 #Here because of math
 Time_CE_PHS= int(Time_CE_H-Time_PHS_H) #Days Time from Contamination Event (Irrigation) to Pre-Harvest Sampling
-sample_size_H = 300 #g #Sample Size in grams
+#Sampling parameters: 
+sample_size_H = 375 #g #Sample Size in grams
 n_samples_slot_H = 1 # Samples per lot of product
 No_Grabs_H = 60 
 
@@ -119,8 +120,9 @@ Temperature_Storage_R = 5
 
 Pallet_Weight = 4000  #weight of pallet in lb.  
 n_samples_pallet = 1 #samples taken per pallet
-sample_size_R = 300 #g #Sample Size in grams Receiving
-No_Grabs_R = 3
+#Sampling
+sample_size_R = 125 #375 #g #Sample Size in grams Receiving
+No_Grabs_R = 20
 
 
 # 4 Processing -Cross Contamination Inputs
@@ -167,7 +169,7 @@ Tr_P_C =np.random.triangular(0,0.0035,0.0159)
 # 7 Final Product
 Pack_Weight_FP = 5 #Weight of each pack. 
 N_Lots_FP = 1 #Lost of final product
-sample_size_FP = 300 #g #Sample Size in grams
+sample_size_FP = 375 #g #Sample Size in grams
 n_samples_FP = 1 #number of samples per lot final product
 N_Packages_Samples = 60
 if ScenCondz.FPS_Agg ==True:

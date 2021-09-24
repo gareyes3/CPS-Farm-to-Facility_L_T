@@ -31,6 +31,7 @@ def F_MainLoop():
 
     for  i in range(Inputz.N_Iterations):
         print(i)
+        reload(Inputz)
         
         #Adding Contmination to the Field
         
@@ -87,13 +88,13 @@ def F_MainLoop():
                                               Samp_Size =Inputz.sample_size_PH, 
                                               Partition_Weight =Inputz.Partition_Weight, 
                                               NoGrab =Inputz.No_Grabs_PH )
-            else:
+            elif ScenCondz.PHS_4d==True or ScenCondz.PHS_4h == True :
             #Pre-Harvest Sampling, Traditional
                  df = Funz.F_Sampling_2(df =df,Test_Unit ="Sublot", 
                                            NSamp_Unit = Inputz.n_samples_slot_PH, 
                                            Samp_Size =Inputz.sample_size_PH, 
                                            Partition_Weight =Inputz.Partition_Weight, 
-                                           NoGrab =Inputz.No_Grabs_PH )
+                                           NoGrab =Inputz.No_Grabs_PH)
             
             
         LO_Cont_B_PH = sum(df.CFU) #Contamination before rejection sampling
@@ -386,8 +387,8 @@ def F_MainLoop():
             
             df=(pd.concat(gb2))
             df["Accept"] = True
-            df['Grabs'] = [list() for x in range(len(df.index))]
-            df["Positives"] = ""
+            df['PositiveSamples'] = [list() for x in range(len(df.index))]
+
             
             
             LO_Cont_B_FP = sum(df.CFU) #Total CFU before FP Sampling
@@ -445,7 +446,7 @@ def F_MainLoop():
         
  
     #STEP 3 Field Pack Lettuce Packing   
-        elif (Inputz.Field_Pack == True):
+        elif (ScenCondz.Field_Pack == True):
             
             #Partitioning into Cases
             df = Funz.F_Field_Packing(DF =df, Case_Weight = 25, PartWeight = 50)

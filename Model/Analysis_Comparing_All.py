@@ -36,7 +36,7 @@ import MainModel3z
 Progression_DFS = []
 #%% BAseline Sampling: 
 #Contamination Challenges
-ContCondz.Background_C=False
+ContCondz.Background_C=True
 ContCondz.Point_Source_C=False
 ContCondz.Systematic_C=True
 
@@ -50,6 +50,7 @@ ContCondz.PE_Cont_Loc = False,#1,2,3,4,5
 #1 = Shredder, #2 = Belt, #3 = Washing, #4 Shaker, #5Centrifuge
 ContCondz.Pack_C= False
 
+
 #%% Baseline Sampling
 reload(ScenCondz)
 #Sampling Conditions, Baseline all conditions are off
@@ -58,6 +59,7 @@ ScenCondz.PH_Sampling = False
 ScenCondz.H_Sampling = False
 ScenCondz.R_Sampling = False
 ScenCondz.FP_Sampling = False
+ScenCondz.Field_Pack= False
 
 reload(Inputz) #Reload Inputz
 reload(Listz) #ReUPdate Lists
@@ -323,13 +325,24 @@ Percentage_lb_Rejected['Type'] = "Proportion of lb Rejected"
 
 Combined_Percentages =  pd.concat([Percentage_Rejected,
                           Percentage_lb_Rejected])
+#Proportion of CFU rejected Paired Proportion of LB Rejected
+sns.set(rc={'figure.figsize':(8,6)})
 sns.set(style="darkgrid")
 Scenariosplot =sns.lineplot(x="variable", y="value", hue = "Type", data=Combined_Percentages)
 plt.xlabel("Sampling Scenario")
-plt.ylabel("Proportion Rejection")
+plt.ylabel("Proportion Rejected")
+plt.title("Testing Plan Efficacy")
 Scenariosplot.legend_.set_title('Type')
 # Put the legend out of the figure
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+
+#Boxplot
+Scenariosplot =sns.boxplot(x="variable", y="value", hue = "Type", data=Combined_Percentages)
+plt.xlabel("Sampling Scenario")
+plt.ylabel("Proportion Rejection")
+Scenariosplot.legend_.set_title('Type')
+plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+
 
 
 
@@ -363,6 +376,33 @@ Combined_PerCFUTotalWeight =  Percentage_Rejected
 Combined_PerCFUTotalWeight['value2'] = Total_lb_Rejected['value']
 
 
+
+
+##Contamination Progression
+
+def melting_type (df, typename):
+    df_melt =pd.melt(df)
+    df_melt["type"] = typename
+    return df_melt
+
+DProg_Baseline_melt = melting_type(DProg_Baseline, "Baseline")
+DProg_PH4d_melt = melting_type(DProg_PH4d, "PH 4d")
+DProg_PH4h_melt = melting_type(DProg_PH4h, "PH 4h")
+DProg_PHInt_melt = melting_type(DProg_PHInt, "PH Int")
+DProg_HTrad_melt = melting_type(DProg_HTrad, "H Trad")
+DProg_HAgg_melt = melting_type(DProg_HAgg, "H Agg")
+DProg_R_melt = melting_type(DProg_R, "Receiving")
+DProg_FPSTrad_melt = melting_type(DProg_FPSTrad, "FPSTrad")
+DProg_FPSAgg_melt = melting_type(DProg_FPSAgg, "FPS Agg")
+
+all_list = [DProg_Baseline_melt,DProg_PH4d_melt,DProg_PH4h_melt,DProg_PHInt_melt,DProg_HTrad_melt,DProg_HAgg_melt,DProg_R_melt,DProg_FPSTrad_melt ,DProg_FPSAgg_melt]
+Frame_all = pd.concat(all_list)
+
+sns.catplot(x="variable", y="value", hue = "type", kind = "bar" ,data=Frame_all, height=4, aspect=12/4)
+plt.xlabel("Sampling Scenario")
+plt.ylabel("CFU in System")
+plt.title("Contamination Progression")
+plt.xticks(rotation=70)
 
 
 
