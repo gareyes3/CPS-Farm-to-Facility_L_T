@@ -445,11 +445,13 @@ def F_MainLoop():
         #......End of Field Pack Indentation
         
  
-    #STEP 3 Field Pack Lettuce Packing   
+    #STEP 3..Cont Field Pack Lettuce Packing   
         elif (ScenCondz.Field_Pack == True):
             
             #Partitioning into Cases
             df = Funz.F_Field_Packing(DF =df, Case_Weight = 25, PartWeight = 50)
+            
+            #Palletizing those cases. 
             
             
             #Receiving:
@@ -479,7 +481,30 @@ def F_MainLoop():
             LV_Time_Agg = LV_Time_Agg+Inputz.Time_H_PreCooling
             
             
-            
+            #Final outputs
+            LO_WeightAcc_FP = sum(df.Weight) #Lb
+            LO_WeightRej_Total = Inputz.Field_Weight - LO_WeightAcc_FP #Lb
+            LO_PerRej_Total =  LO_WeightRej_Total/Inputz.Field_Weight
+            LO_ContAcc_FP = sum(df.CFU) # Total CFU
+            LO_ContRej_FP =  LO_Cont_B_FP-LO_ContAcc_FP #Total CFU
+            if LO_ContAcc_FP == 0:
+                LO_ContRej_P_FP = 1
+            else:
+                LO_ContRej_P_FP = LO_ContRej_FP/(LO_ContAcc_FP+LO_ContRej_FP) #Percentage Rejected by Finished product sampling
+                
+            if LO_WeightAcc_FP == 0:
+                Total_CFU_G_FP = 0 #Total CFU per gram of final product
+            else:
+                Total_CFU_G_FP = LO_ContAcc_FP/( LO_WeightAcc_FP*454) #Total CFU per gram of final product
+                
+                #Outputs for Iterations
+            Listz.Total_PA_FP.append(LO_WeightAcc_FP)
+            Listz.Total_PR_Final.append(LO_WeightRej_Total)
+            Listz.Total_PerRej_Weight.append(LO_PerRej_Total)
+            Listz.Total_CA_FP.append(LO_ContAcc_FP)
+            Listz.Total_CR_FP.append(LO_ContRej_FP)
+            Listz.List_Cont_PercRej_FP.append(LO_ContRej_P_FP)
+            Listz.List_TotalCFUg_FP.append(Total_CFU_G_FP)
             
 
         
@@ -527,44 +552,55 @@ def F_MainLoop():
             
             
     #STEP 7: Outputs 
-    if ScenCondz.Field_Pack == False:
-        #Progression Data
-        data_contprog = {"Initial":Listz.List_Initial_CFU,
-                     "Bef Pre-Harvest Samp": Listz.List_BPHS_CFU,
-                     "Aft Pre-Harvest Samp": Listz.Total_CA_PH,
-                     "Bef Harvest Samp":Listz.List_BHS_CFU,
-                     "Aft Harvest Samp": Listz.Total_CA_H,
-                     "Bef Receiving Samp": Listz.List_BRS_CFU,
-                     "After Receiving Samp": Listz.Total_CA_R,
-                     "Bef Shredding":Listz.Cont_B_Shredder,
-                     "Bef Conveyor Belt":Listz.Cont_B_Belt,
-                     "Bef Washing":Listz.Cont_B_Washing,
-                     "Bef Shaker Table":Listz.Cont_B_Shaker,
-                     "Bef Centrifuge":Listz.Cont_B_Centrifuge,
-                     "Aft Value Addition": Listz.List_AVA_CFU,
-                     "Bef Final Prod S": Listz.List_BFPS_CFU,
-                     "Final Product Facility": Listz.Total_CA_FP
-                     }
-    
-        df_contprog = pd.DataFrame(data_contprog)
-    
-        #Main Output Data
-        data_outputs={"Total_CFU_A":Listz.Total_CA_FP,
-                       "Total_CFU_Rej": Listz.Total_CR_FP,
-                       "Total_CFUg_A": Listz.List_TotalCFUg_FP,
-                      "Total_Weight_A":Listz.Total_PA_FP,
-                      "Total_Weight_R": Listz.Total_PR_Final,
-                      "PerRejectedWeight": Listz.Total_PerRej_Weight,
-                      "PerRejected at PH":Listz.List_Cont_PercRej_PH,
-                      "PerRejected at H":Listz.List_Cont_PercRej_H,
-                      "PerRejected at R":Listz.List_Cont_PercRej_R,
-                      "PerRejected at FP":Listz.List_Cont_PercRej_FP,
-                      }
-    
-        df_outputs = pd.DataFrame(data_outputs)
+
+    #Progression Data
+    data_contprog = {"Initial":Listz.List_Initial_CFU,
+                 "Bef Pre-Harvest Samp": Listz.List_BPHS_CFU,
+                 "Aft Pre-Harvest Samp": Listz.Total_CA_PH,
+                 "Bef Harvest Samp":Listz.List_BHS_CFU,
+                 "Aft Harvest Samp": Listz.Total_CA_H,
+                 "Bef Receiving Samp": Listz.List_BRS_CFU, #Key Differing. 
+                 "After Receiving Samp": Listz.Total_CA_R,
+                 "Bef Shredding":Listz.Cont_B_Shredder,
+                 "Bef Conveyor Belt":Listz.Cont_B_Belt,
+                 "Bef Washing":Listz.Cont_B_Washing,
+                 "Bef Shaker Table":Listz.Cont_B_Shaker,
+                 "Bef Centrifuge":Listz.Cont_B_Centrifuge,
+                 "Aft Value Addition": Listz.List_AVA_CFU,
+                 "Bef Final Prod S": Listz.List_BFPS_CFU,
+                 "Final Product Facility": Listz.Total_CA_FP
+                 }
         
-        outputs = [df_contprog, df_outputs]
-    elif ScenCondz.Field_Pack == True:  
+    if ScenCondz.Field_Pack == True:
+        del data_contprog["Bef Receiving Samp","After Receiving Samp", "Bef Shredding",
+                          "Bef Conveyor Belt","Bef Washing","Bef Shaker Table","Bef Centrifuge",
+                          "Aft Value Addition","Bef Final Prod S","Final Product Facility"]
+        
+    
+    df_contprog = pd.DataFrame(data_contprog)
+    
+    #Main Output Data
+    data_outputs={"Total_CFU_A":Listz.Total_CA_FP,
+                   "Total_CFU_Rej": Listz.Total_CR_FP,
+                   "Total_CFUg_A": Listz.List_TotalCFUg_FP,
+                  "Total_Weight_A":Listz.Total_PA_FP,
+                  "Total_Weight_R": Listz.Total_PR_Final,
+                  "PerRejectedWeight": Listz.Total_PerRej_Weight,
+                  "PerRejected at PH":Listz.List_Cont_PercRej_PH,
+                  "PerRejected at H":Listz.List_Cont_PercRej_H,
+                  "PerRejected at R":Listz.List_Cont_PercRej_R,
+                  "PerRejected at FP":Listz.List_Cont_PercRej_FP,
+                  }
+    
+    if ScenCondz.Field_Pack == True:
+        del data_contprog["PerRejected at R"]
+
+    df_outputs = pd.DataFrame(data_outputs)
+    
+    outputs = [df_contprog, df_outputs]
+
+        
+        
         
         
         
