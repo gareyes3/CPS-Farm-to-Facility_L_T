@@ -527,44 +527,49 @@ def F_MainLoop():
             
             
     #STEP 7: Outputs 
+    if ScenCondz.Field_Pack == False:
+        #Progression Data
+        data_contprog = {"Initial":Listz.List_Initial_CFU,
+                     "Bef Pre-Harvest Samp": Listz.List_BPHS_CFU,
+                     "Aft Pre-Harvest Samp": Listz.Total_CA_PH,
+                     "Bef Harvest Samp":Listz.List_BHS_CFU,
+                     "Aft Harvest Samp": Listz.Total_CA_H,
+                     "Bef Receiving Samp": Listz.List_BRS_CFU,
+                     "After Receiving Samp": Listz.Total_CA_R,
+                     "Bef Shredding":Listz.Cont_B_Shredder,
+                     "Bef Conveyor Belt":Listz.Cont_B_Belt,
+                     "Bef Washing":Listz.Cont_B_Washing,
+                     "Bef Shaker Table":Listz.Cont_B_Shaker,
+                     "Bef Centrifuge":Listz.Cont_B_Centrifuge,
+                     "Aft Value Addition": Listz.List_AVA_CFU,
+                     "Bef Final Prod S": Listz.List_BFPS_CFU,
+                     "Final Product Facility": Listz.Total_CA_FP
+                     }
     
-    #Progression Data
-    data_contprog = {"Initial":Listz.List_Initial_CFU,
-                 "Bef Pre-Harvest Samp": Listz.List_BPHS_CFU,
-                 "Aft Pre-Harvest Samp": Listz.Total_CA_PH,
-                 "Bef Harvest Samp":Listz.List_BHS_CFU,
-                 "Aft Harvest Samp": Listz.Total_CA_H,
-                 "Bef Receiving Samp": Listz.List_BRS_CFU,
-                 "After Receiving Samp": Listz.Total_CA_R,
-                 "Bef Shredding":Listz.Cont_B_Shredder,
-                 "Bef Conveyor Belt":Listz.Cont_B_Belt,
-                 "Bef Washing":Listz.Cont_B_Washing,
-                 "Bef Shaker Table":Listz.Cont_B_Shaker,
-                 "Bef Centrifuge":Listz.Cont_B_Centrifuge,
-                 "Aft Value Addition": Listz.List_AVA_CFU,
-                 "Bef Final Prod S": Listz.List_BFPS_CFU,
-                 "Final Product Facility": Listz.Total_CA_FP
-                 }
-
-    df_contprog = pd.DataFrame(data_contprog)
-
-    #Main Output Data
-    data_outputs={"Total_CFU_A":Listz.Total_CA_FP,
-                   "Total_CFU_Rej": Listz.Total_CR_FP,
-                   "Total_CFUg_A": Listz.List_TotalCFUg_FP,
-                  "Total_Weight_A":Listz.Total_PA_FP,
-                  "Total_Weight_R": Listz.Total_PR_Final,
-                  "PerRejectedWeight": Listz.Total_PerRej_Weight,
-                  "PerRejected at PH":Listz.List_Cont_PercRej_PH,
-                  "PerRejected at H":Listz.List_Cont_PercRej_H,
-                  "PerRejected at R":Listz.List_Cont_PercRej_R,
-                  "PerRejected at FP":Listz.List_Cont_PercRej_FP,
-        }
-
-    df_outputs = pd.DataFrame(data_outputs)
+        df_contprog = pd.DataFrame(data_contprog)
     
-    outputs = [df_contprog, df_outputs]
-    return outputs
+        #Main Output Data
+        data_outputs={"Total_CFU_A":Listz.Total_CA_FP,
+                       "Total_CFU_Rej": Listz.Total_CR_FP,
+                       "Total_CFUg_A": Listz.List_TotalCFUg_FP,
+                      "Total_Weight_A":Listz.Total_PA_FP,
+                      "Total_Weight_R": Listz.Total_PR_Final,
+                      "PerRejectedWeight": Listz.Total_PerRej_Weight,
+                      "PerRejected at PH":Listz.List_Cont_PercRej_PH,
+                      "PerRejected at H":Listz.List_Cont_PercRej_H,
+                      "PerRejected at R":Listz.List_Cont_PercRej_R,
+                      "PerRejected at FP":Listz.List_Cont_PercRej_FP,
+                      }
+    
+        df_outputs = pd.DataFrame(data_outputs)
+        
+        outputs = [df_contprog, df_outputs]
+    elif ScenCondz.Field_Pack == True:  
+        
+        
+        
+        
+    return outputs #Final 
     
 
 
