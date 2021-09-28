@@ -13,8 +13,8 @@ Created on Thu Sep 23 08:47:14 2021
 #%%
 import sys
 sys.path
-#sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
-sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
+sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
+#sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
 
 #%% Libraries
 import pandas as pd 
@@ -41,8 +41,8 @@ import MainModel3z
 Progression_DFS = []
 #%% BAseline Sampling: 
 #Contamination Challenges
-ContCondz.Background_C=True
-ContCondz.Point_Source_C=False
+ContCondz.Background_C=False
+ContCondz.Point_Source_C=True
 ContCondz.Systematic_C=False
 
 #Harvester Contamination
@@ -68,8 +68,8 @@ def Variable_Choosing_DF(df, Hazard_lvl, Background_C, Point_Source_C, Systemati
     if Point_Source_C ==True:
         df=ContScen.F_Point_Source_C(df=df, 
                                      Hazard_lvl=Hazard_lvl,
-                                     No_Cont_Clusters =Inputz.PSNo_Cont_Clusters, 
-                                     Cluster_Size = Inputz.PSCluster_Size, 
+                                     No_Cont_Clusters =1, 
+                                     Cluster_Size = 3000, 
                                      Partition_Weight = Inputz.Partition_Weight)
     
         

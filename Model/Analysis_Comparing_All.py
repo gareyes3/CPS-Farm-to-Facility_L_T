@@ -405,5 +405,39 @@ plt.title("Contamination Progression")
 plt.xticks(rotation=70)
 
 
+#%%
+
+#Additional Analysis
+
+Weight_Rejected = {
+                'PH4d':D_PH4d["PerRejectedWeight"],
+                'PH4h':D_PH4h["PerRejectedWeight"],
+                'PHInt':D_PHInt["PerRejectedWeight"],
+          }
+
+df_Weight_Rejected = pd.DataFrame(Weight_Rejected)
+df_Weight_Rejected_melted = pd.melt(df_Weight_Rejected)
+
+Weight_Rejected_CFU = {
+                'PH4d':D_PH4d["PerRejected at PH"],
+                'PH4h':D_PH4h["PerRejected at PH"],
+                'PHInt':D_PHInt["PerRejected at PH"],
+          }
+
+df_CFU_Rejected = pd.DataFrame(Weight_Rejected_CFU)
+df_CFU_Rejected_melted = pd.melt(df_CFU_Rejected)
+CFU_Per = df_CFU_Rejected_melted.value
 
 
+
+df_Weight_Rejected_melted["CFU"] = CFU_Per
+
+sns.set(style="darkgrid")
+Scenariosplot =sns.regplot(x="value", y="CFU", hue = "variable", data=df_Weight_Rejected_melted)
+plt.xlabel("Weight Rejected %")
+plt.ylabel("CFU Rejected %")
+plt.title("Testing Plan Efficacy")
+
+
+g = sns.FacetGrid(df_Weight_Rejected_melted, col="variable", margin_titles=True, height=4)
+g.map(sns.regplot, "value", "CFU")
