@@ -76,10 +76,14 @@ def F_MainLoop():
         #Die-off From Contamination Event to Pre-Havrvest
         #Die_Off_CE_PHS =Funz.F_DieOff_IR_PH(Time_CE_PHS,Break_Point, Dieoff1, Dieoff2) #Die off rate from Irrigation to pre harvest sampling, Belias et al. 
         
+        
+        
         LV_Die_Off_CE_PHS = Funz.F_Simple_DieOff(Inputz.Time_CE_PHS) #Total Die off Contamination Event to PHS. 
         df = Funz.Applying_dieoff(df=df, Dieoff=LV_Die_Off_CE_PHS ) #Applying Die off to CFU Column in the DF
         LV_Time_Agg = 0 + Inputz.Time_CE_PHS #Cummulative time so far in the process. Time #1.
             
+        LO_Cont_B_PH = sum(df.CFU) #Contamination before rejection sampling
+        
         #Sampling at Pre-Harvest
         if ScenCondz.PH_Sampling ==True: #If function to turn off Pre-Harvest Sampling
             if ScenCondz.PHS_Int ==True: #Intense pre harvest sampling
@@ -97,7 +101,7 @@ def F_MainLoop():
                                            NoGrab =Inputz.No_Grabs_PH)
             
             
-        LO_Cont_B_PH = sum(df.CFU) #Contamination before rejection sampling
+        
         Listz.List_BPHS_CFU.append( LO_Cont_B_PH) #List of contamination before sampling
         
         #Filtering out the Rejected lots, Pre-Harvest

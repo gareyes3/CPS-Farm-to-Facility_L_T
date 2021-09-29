@@ -35,6 +35,6 @@ HS_Agg = False#Scenario 6
 
 #Final Product Sampling
     #Final Product sampling must be on.
-FPS_Trad =True #Scenario 7
+FPS_Trad =False #Scenario 7
 FPS_Agg = False #Scenario 8
 

@@ -122,7 +122,7 @@ DProg_PHInt = Main_Mod_Outs[0]
 
 
 # %% Harvest
-
+reload(ScenCondz)
 # Sampling Conditions, Baseline all conditions are off
 ScenCondz.Baseline_Sampling = 0  # all others must be 0if this one is 1
 ScenCondz.PH_Sampling = 0
@@ -409,6 +409,38 @@ plt.xlabel("Sampling Scenario")
 plt.ylabel("CFU in System")
 plt.title("Contamination Progression")
 plt.xticks(rotation=70)
+
+
+def melting_type(df, typename):
+    df_melt = pd.melt(df)
+    df_melt["type"] = typename
+    return df_melt
+
+
+DProg_Baseline_melt = melting_type(DProg_Baseline, "Baseline")
+DProg_PH4d_melt = melting_type(DProg_PH4d, "PH 4d")
+DProg_PH4h_melt = melting_type(DProg_PH4h, "PH 4h")
+DProg_PHInt_melt = melting_type(DProg_PHInt, "PH Int")
+
+DProg_HTrad_melt = melting_type(DProg_HTrad, "H Trad")
+DProg_HAgg_melt = melting_type(DProg_HAgg, "H Agg")
+
+
+DProg_R_melt = melting_type(DProg_R, "Receiving")
+DProg_FPSTrad_melt = melting_type(DProg_FPSTrad, "FPSTrad")
+DProg_FPSAgg_melt = melting_type(DProg_FPSAgg, "FPS Agg")
+
+all_list = [DProg_Baseline_melt, DProg_PH4d_melt, DProg_PH4h_melt, DProg_PHInt_melt,DProg_HTrad_melt,
+            DProg_HAgg_melt,DProg_R_melt,DProg_FPSTrad_melt,DProg_FPSAgg_melt]
+Frame_all = pd.concat(all_list)
+
+sns.catplot(x="variable", y="value", hue="type", kind="bar",
+            data=Frame_all, height=4, aspect=12/4)
+plt.xlabel("Sampling Scenario")
+plt.ylabel("CFU in System")
+plt.title("Contamination Progression")
+plt.xticks(rotation=70)
+
 
 
 # %%
