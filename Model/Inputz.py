@@ -12,79 +12,20 @@ import ContCondz
 import Funz
 import numpy as np                                                    
                                                               
-# 0 Initial Inputs for Field Setup and Challenges
-
-
-N_Iterations= 50
-
-Field_Weight= 100000 #total lb in field
-slot_weight = 10000 #weight of the sublot in field.
-Partition_Weight = 50 #Partition weight for contamination Events, Partition to have better definition of field. 
-
-slot_number = int(Field_Weight/slot_weight) #Number of sublots per field
-Partition_Units = int(Field_Weight/Partition_Weight) #Number of partition units per field
-
-
-# Contamination Challenge Related Information
-if ContCondz.Background_C ==True:
-    BGHazard_lvl = 100000  #CFU # background contamination
-    BGCluster_Size = 100000 #lb
-    BGNo_Cont_Clusters = 1 #Number of contamination clusters here one uniform cluster, field size.
-    #BackGround Contamination. 
-
-if ContCondz.Point_Source_C ==True:
-    PSHazard_lvl = 50000  #CFU # background contamination
-    PSCluster_Size = 1000 #lb
-    PSNo_Cont_Clusters = 4 #4 1000k lb clusters. 
-    
-if ContCondz.Systematic_C ==True: 
-    SysHazard_lvl = 50000  #CFU # background contamination
-    SysCluster_Size = 10000 #lb
-    SysNo_Cont_Clusters = 1 #Number of contaminated clusters
-
- 
-if ContCondz.Crew_C == True: 
-    CrewHazard_lvl = 50000  #CFU # background contamination
-    CrewCluster_Size = 5000 #lb
-    CrewNo_Cont_Clusters = 4 #Number of contaminated clusters
-
-
-if ContCondz.Harvester_C==True:
-    HCHazard_lvl = 50000  #CFU # background contamination
-    HCCluster_Size = 50000 #lb
-    HCNo_Cont_Clusters = 1 #Number of contaminated clusters
-    
-if ContCondz.PE_C == True:
-    PECHazard_lvl = 50000  #CFU # background contamination
-    Lines_Cont = 1
-    
-if ContCondz.Pack_C == True:
-    PackHazard_lvl = 50000  #CFU # background contamination
-    Lines_ContPack = 1        
-    
-    
+#%% Die off
 
 # 0 Die-off in Field for first 3 contamination Events
 Break_Point=Funz.Func_NormalTrunc(0.11,3.71,0.68,0.98) #Breaking point for Die Off from Belias et al. 
 Dieoff1 = Funz.F_DieOff1() #from Belias et al. 
 Dieoff2 = Funz.F_DieOff2() #from Belias et al. 
 
+#Lag Consumed for Growth models, always starts at 0, updated in model.
 Lag_Consumed_Prev = 0
 
 
-# 1 Pre-Harvest Inputs
+#%% Time Pre-Harvest HArvest
 
-sample_size_PH = 375 # (Input) g #Sample Size in grams for Pre Harvest
-n_samples_slot_PH = 1 # (Input) Samples per sublot of product
-No_Grabs_PH = 60 
-Limit_PH = 0
-if ScenCondz.PHS_Int ==True:
-    n_samples_lot_PH = 10 # (Input) Samples per lot of product'
-
-
-# 2 Harvest Inputs
-
-#Options for the Sampling Scenarios 1,2,3
+#Time Options for the Sampling Scenarios 1,2,3
 if ScenCondz.PHS_Int ==True :
     Time_PHS_H = 0 #Days #time from pre harvest sampling to harvest Sampling
 elif ScenCondz.PHS_4h ==True:
@@ -97,37 +38,32 @@ else:
 #Time between Contamination Event and Harvest Sampling
 Time_CE_H = np.random.triangular(2,4,8) #days
 #Here because of math
-Time_CE_PHS= int(Time_CE_H-Time_PHS_H) #Days Time from Contamination Event (Irrigation) to Pre-Harvest Sampling
-#Sampling parameters: 
-sample_size_H = 375 #g #Sample Size in grams
-n_samples_slot_H = 1 # Samples per lot of product
-No_Grabs_H = 60 
+if Time_PHS_H>Time_CE_H:
+    Time_CE_PHS = 0
+else:
+    Time_CE_PHS= int(Time_CE_H-Time_PHS_H) #Days Time from Contamination Event (Irrigation) to Pre-Harvest Sampling
 
+#%% Pre-Cooling- HArvest
 #PreCooling. 
 Time_H_PreCooling = np.random.uniform(2,4)
 Temperature_H_PreCooling = np.random.uniform(15,17)
 
+#%% Field Pack
 #Field Packed Lettuce:
 Case_Weight_FieldPack = 25
 
 
-# 3 Receiving
-#PreCooling
+#%% Receiving
 
 #Storage at Receiving
 Time_Storage_R = 5
 Temperature_Storage_R = 5
+#PAllet size
+Pallet_Weight = 4000  #weight of pallet in lb. 
+ 
 
-Pallet_Weight = 4000  #weight of pallet in lb.  
-n_samples_pallet = 1 #samples taken per pallet
-#Sampling
-sample_size_R = 125 #375 #g #Sample Size in grams Receiving
-No_Grabs_R = 20
-
-
-# 4 Processing -Cross Contamination Inputs
-# A Pre-Cooling
-Time_R_PC = 2  #Days around 2hr
+#%% Processing
+Time_R_PC = 2  #Days around 2hr, Time between 
 Processing_Lines = 4 #Number of processing lines of product
 
 # B Cold Storage
@@ -164,36 +100,29 @@ Tr_P_St =np.random.triangular(0,0.0006,0.0038)
 Tr_C_P =np.random.triangular(0.23,0.27,0.31)
 Tr_P_C =np.random.triangular(0,0.0035,0.0159)
 
-
-    
-# 7 Final Product
+  
+#%% Final Product
 Pack_Weight_FP = 5 #Weight of each pack. 
 N_Lots_FP = 1 #Lost of final product
-sample_size_FP = 375 #g #Sample Size in grams
-n_samples_FP = 1 #number of samples per lot final product
-N_Packages_Samples = 60
-if ScenCondz.FPS_Agg ==True:
-    n_samples_FP = 10
-    
-
 #Packaging into Cases
-Case_Weight = 20 #lb
+Case_Weight = 20 #lb #Only if not field packed
 
 
-
-
-# 8 Post Processing Storage
+#%% Post Processing Storage
 Time_PostPStorage = 24 #hr
 Temperature_ColdStorage = 4 #C 
 
-#9 Transportartion post processing
+#%%Transportartion post processing
 Trasnportation_Time = 63.57 #h from Ryser et al
 Transportation_Temp = np.random.triangular(0,4,6) #C
 
-#10 Customer Storage
+#%%Customer Storage
 
 Time_PostPCS = 24 #hr
 Temperature_PostPCS = 4 #C 
 
+
+
+    
 
 

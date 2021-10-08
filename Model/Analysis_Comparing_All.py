@@ -5,6 +5,11 @@ Created on Tue Aug 17 09:26:18 2021
 @author: gareyes3
 """
 
+#%%
+import sys, os
+sys.path
+#sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
+sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
 
 # %%
 from importlib import reload
@@ -12,6 +17,7 @@ import Listz
 import pandas as pd
 import MainModel3z
 import Inputz
+import SCInputz
 import ContCondz
 import ScenCondz
 import InFunz
@@ -34,7 +40,7 @@ sys.path.append(
 
 # %%
 # Progression DataFrame.
-Progression_DFS = []
+#Progression_DFS = []
 # %% BAseline Sampling:
 # Contamination Challenges
 ContCondz.Background_C = True
@@ -51,7 +57,6 @@ ContCondz.PE_Cont_Loc = False,  # 1,2,3,4,5
 # 1 = Shredder, #2 = Belt, #3 = Washing, #4 Shaker, #5Centrifuge
 ContCondz.Pack_C = False
 
-
 # %% Baseline Sampling
 reload(ScenCondz)
 # Sampling Conditions, Baseline all conditions are off
@@ -62,7 +67,7 @@ ScenCondz.R_Sampling = False
 ScenCondz.FP_Sampling = False
 ScenCondz.Field_Pack = False
 
-reload(Inputz)  # Reload Inputz
+reload(SCInputz)  # Reload Inputz
 reload(Listz)  # ReUPdate Lists
 Main_Mod_Outs = MainModel3z.F_MainLoop()
 D_Baseline = Main_Mod_Outs[1]
