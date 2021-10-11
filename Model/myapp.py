@@ -84,7 +84,24 @@ if ContCondz.Systematic_C == True:
     SL_maxVALSys =  int(SCInputz.Field_Weight/SCInputz.SysNo_Cont_Clusters)
     SCInputz.SysCluster_Size = st.sidebar.slider('Cluster Size [Lb]',min_value=10000, max_value=SL_maxVALSys, step=10000)
 
+if ContCondz.Crew_C == True:
+    SCInputz.CrewHazard_lvl = st.sidebar.number_input("Crew Hazard Level [CFU]", value = 50000)
+    SCInputz.CrewNo_Cont_Clusters  = st.sidebar.number_input("Crew: Number contamination clusters", value = 4, max_value = 10 )
+    SL_maxVALSys =  int(SCInputz.Field_Weight/SCInputz.CrewNo_Cont_Clusters)
+    SCInputz.CrewCluster_Size = st.sidebar.slider('Cluster Size [Lb]',min_value=1000, max_value=SL_maxVALSys, step=1000)
 
+if ContCondz.Harvester_C  == True:
+    SCInputz.HCHazard_lvl  = st.sidebar.number_input("Harvester Hazard Level [CFU]", value = 50000)
+    SCInputz.HCNo_Cont_Clusters = st.sidebar.number_input("Harvester: Number contamination clusters", value =1, max_value = 10 )
+    SL_maxVALSys =  int(SCInputz.Field_Weight/SCInputz.CrewNo_Cont_Clusters)
+    SCInputz.HCCluster_Size = st.sidebar.slider('Harvester: Cluster Size [Lb]',min_value=1000, max_value=SL_maxVALSys, step=1000,value =50000)
+
+
+if ContCondz.PE_C  == True:
+    SCInputz.HCHazard_lvl  = st.sidebar.number_input("Harvester Hazard Level [CFU]", value = 50000)
+    SCInputz.HCNo_Cont_Clusters = st.sidebar.number_input("Harvester: Number contamination clusters", value =1, max_value = 10 )
+    SL_maxVALSys =  int(SCInputz.Field_Weight/SCInputz.CrewNo_Cont_Clusters)
+    SCInputz.HCCluster_Size = st.sidebar.slider('Harvester: Cluster Size [Lb]',min_value=1000, max_value=SL_maxVALSys, step=1000,value =50000)
 
 
 #Sampling Strategies --------------------------------------------------------
