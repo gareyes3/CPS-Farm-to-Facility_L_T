@@ -7,7 +7,7 @@ Created on Thu Aug 19 09:02:50 2021
 
 #Contamination Challenges
 #In Field
-Background_C=True
+Background_C=False
 Point_Source_C=False
 Systematic_C=False
 

@@ -26,6 +26,7 @@ import InFunz
 import ScenCondz
 import ContCondz
 import Inputz
+import SCInputz
 from importlib import reload 
 
 reload(Listz)
@@ -42,8 +43,8 @@ ScenCondz.Field_Pack = st.sidebar.checkbox("Field Pack Lettuce?")
 
 
 #Field Size
-Inputz.Field_Weight = st.sidebar.select_slider('Field Size [Lb]',options=[1000,10000,50000,100000,200000],value = 100000)
-Inputz.slot_weight = st.sidebar.select_slider('Sublot Size [Lb]',options=[1000,10000,50000,100000,200000],value = 10000)
+SCInputz.Field_Weight = st.sidebar.select_slider('Field Size [Lb]',options=[1000,10000,50000,100000,200000],value = 100000)
+SCInputz.slot_weight = st.sidebar.select_slider('Sublot Size [Lb]',options=[1000,10000,50000,100000,200000],value = 10000)
 
 #Contamination Scenarios ----------------------------------------------------
 st.sidebar.write("""
@@ -68,20 +69,22 @@ Contamination Tunning Parameters:
 """)
 
 if ContCondz.Background_C == True:
-    Inputz.BGHazard_lvl = st.sidebar.number_input("Background Hazard Level [CFU]", value = 50000)
+    SCInputz.BGHazard_lvl = st.sidebar.number_input("Background Hazard Level [CFU]", value = 50000)
     
   
 if ContCondz.Point_Source_C == True:
-    Inputz.PSHazard_lvl = st.sidebar.number_input("Point Source Hazard Level [CFU]", value = 50000)
-    Inputz.PSNo_Cont_Clusters = st.sidebar.number_input("Point Source: Number contamination clusters", value = 4, max_value = 100 )
-    SL_maxVALPS =  int(Inputz.Field_Weight/Inputz.PSNo_Cont_Clusters)
-    Inputz.PSCluster_Size = st.sidebar.slider('Cluster Size [Lb]',min_value=1000, max_value=SL_maxVALPS, step=1000)#st.sidebar.number_input("Cluster Size [lb]. (1K lb. increments)", value = 1000, step = 1000 )
+    SCInputz.PSHazard_lvl = st.sidebar.number_input("Point Source Hazard Level [CFU]", value = 50000)
+    SCInputz.PSNo_Cont_Clusters = st.sidebar.number_input("Point Source: Number contamination clusters", value = 4, max_value = 100 )
+    SL_maxVALPS =  int(SCInputz.Field_Weight/SCInputz.PSNo_Cont_Clusters)
+    SCInputz.PSCluster_Size = st.sidebar.slider('Cluster Size [Lb]',min_value=1000, max_value=SL_maxVALPS, step=1000)#st.sidebar.number_input("Cluster Size [lb]. (1K lb. increments)", value = 1000, step = 1000 )
 
 if ContCondz.Systematic_C == True:
-    Inputz.SysHazard_lvl = st.sidebar.number_input("Systematic Hazard Level [CFU]", value = 50000)
-    Inputz.SysNo_Cont_Clusters = st.sidebar.number_input("Systematic: Number contamination clusters", value = 1, max_value = 10 )
-    SL_maxVALSys =  int(Inputz.Field_Weight/Inputz.SysNo_Cont_Clusters)
-    Inputz.SysCluster_Size = st.sidebar.slider('Cluster Size [Lb]',min_value=10000, max_value=SL_maxVALSys, step=10000)
+    SCInputz.SysHazard_lvl = st.sidebar.number_input("Systematic Hazard Level [CFU]", value = 50000)
+    SCInputz.SysNo_Cont_Clusters = st.sidebar.number_input("Systematic: Number contamination clusters", value = 1, max_value = 10 )
+    SL_maxVALSys =  int(SCInputz.Field_Weight/SCInputz.SysNo_Cont_Clusters)
+    SCInputz.SysCluster_Size = st.sidebar.slider('Cluster Size [Lb]',min_value=10000, max_value=SL_maxVALSys, step=10000)
+
+
 
 
 #Sampling Strategies --------------------------------------------------------
@@ -128,10 +131,37 @@ Pre-Harvest sampling tuning parameters
         
     Inputz.sample_size_PH = st.sidebar.number_input("Enter Sample Size [g]", value = 300)
     if PH_S_Stratgy == "4 day" or PH_S_Stratgy == "4 Hour":
-        Inputz.n_samples_slot_PH =st.sidebar.number_input("Samples per Sublot", value = 1)
+        SCInputz.n_samples_slot_PH =st.sidebar.number_input("Samples per Sublot", value = 1)
     elif PH_S_Stratgy == "Intense":
-         Inputz.n_samples_slot_PH =st.sidebar.number_input("Samples per Lot", value = 10)
+         SCInputz.n_samples_slot_PH =st.sidebar.number_input("Samples per Lot", value = 10)
 #In-Harvest
+
+if ScenCondz.H_Sampling ==True:
+    st.sidebar.write("""
+In-Harvest sampling tuning parameters
+""")
+    H_S_Stratgy = st.sidebar.selectbox(label = "Select Type of In-Harvest Sampling", options = ["Traditional", "Aggregative"])
+    if  PH_S_Stratgy == "Traditional":
+        ScenCondz.HS_Trad = True
+    elif PH_S_Stratgy == "Aggregative":
+        ScenCondz.HS_Agg = True
+
+        
+    Inputz.sample_size_PH = st.sidebar.number_input("Enter Sample Size [g]", value = 300)
+    if PH_S_Stratgy == "Traditional" :
+        SCInputz.n_samples_slot_H =st.sidebar.number_input("Samples per Sublot", value = 1)
+    elif PH_S_Stratgy == "Aggregative":
+         SCInputz.n_samples_slot_H =st.sidebar.number_input("Samples per Sublot", value = 10)
+
+#Receiving
+if ScenCondz.R_Sampling ==True:
+    st.sidebar.write("""
+Receiving sampling tuning parameters
+""")
+
+    SCInputz.n_samples_pallet =st.sidebar.number_input("Number of Samples per Paller", value = 1)
+    SCInputz.sample_size_R =st.sidebar.number_input("Sample Size [g]", value = 125)
+    SCInputz.No_Grabs_R =st.sidebar.number_input("Number of grabs per pallet", value = 20)
 
 
 
@@ -156,7 +186,7 @@ This App Predicts the Following:
 """)
 
 st.subheader('Tune Run:')
-Inputz.N_Iterations = st.number_input("Enter Number of Iterations",value = 10, min_value = 0, max_value =1000)
+SCInputz.N_Iterations = st.number_input("Enter Number of Iterations",value = 10, min_value = 0, max_value =1000)
 
 #Looks
 if st.button('Click Here to Iterate'):
@@ -174,7 +204,7 @@ if st.button('Click Here to Iterate'):
     
     st.subheader('Boxplot')
     fig = plt.figure(figsize=(8,4)) # try different values
-    sns.boxplot(y=D_PH4d["PerRejected at PH"])
+    sns.boxplot(y=D_PH4d["PH_CFU_PerR"])
     plt.ylabel("Percent CFU Rejected by Sampling Plan")
 
     st.pyplot(fig)
