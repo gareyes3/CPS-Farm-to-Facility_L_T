@@ -71,7 +71,6 @@ Contamination Tunning Parameters:
 if ContCondz.Background_C == True:
     SCInputz.BGHazard_lvl = st.sidebar.number_input("Background Hazard Level [CFU]", value = 50000)
     
-  
 if ContCondz.Point_Source_C == True:
     SCInputz.PSHazard_lvl = st.sidebar.number_input("Point Source Hazard Level [CFU]", value = 50000)
     SCInputz.PSNo_Cont_Clusters = st.sidebar.number_input("Point Source: Number contamination clusters", value = 4, max_value = 100 )
@@ -96,12 +95,14 @@ if ContCondz.Harvester_C  == True:
     SL_maxVALSys =  int(SCInputz.Field_Weight/SCInputz.CrewNo_Cont_Clusters)
     SCInputz.HCCluster_Size = st.sidebar.slider('Harvester: Cluster Size [Lb]',min_value=1000, max_value=SL_maxVALSys, step=1000,value =50000)
 
-
 if ContCondz.PE_C  == True:
-    SCInputz.HCHazard_lvl  = st.sidebar.number_input("Harvester Hazard Level [CFU]", value = 50000)
-    SCInputz.HCNo_Cont_Clusters = st.sidebar.number_input("Harvester: Number contamination clusters", value =1, max_value = 10 )
-    SL_maxVALSys =  int(SCInputz.Field_Weight/SCInputz.CrewNo_Cont_Clusters)
-    SCInputz.HCCluster_Size = st.sidebar.slider('Harvester: Cluster Size [Lb]',min_value=1000, max_value=SL_maxVALSys, step=1000,value =50000)
+    SCInputz.PECHazard_lvl  = st.sidebar.number_input("PE Hazard Level [CFU]", value = 50000)
+    SCInputz.Lines_Cont = st.sidebar.number_input("Number of Contaminated processing lines", value =1, max_value = 4 )
+
+if ContCondz.Pack_C  == True:
+    SCInputz.PackHazard_lvl  = st.sidebar.number_input("Packing Line Hazard Level [CFU]", value = 50000)
+    SCInputz.Lines_ContPack = st.sidebar.number_input("Processing: Cotaminated Lines", value =1, max_value = 4 )
+
 
 
 #Sampling Strategies --------------------------------------------------------
