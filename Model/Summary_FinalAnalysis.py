@@ -35,9 +35,7 @@ sys.path.append(
     'C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
 
 
-# %%
-# Progression DataFrame.
-#Progression_DFS = []
+
 # %% BAseline Sampling:
 # Contamination Challenges
 ContCondz.Background_C = True
@@ -56,9 +54,8 @@ ContCondz.Pack_C = False
 
 
 # %% Pre-Harvest- Comparing Hazard Level and Sample Size
-
+#%%
 #Tuning Parameter SampleSize and Hazard Level
-
 
 Tuning_SampleSize = [60,120,300,600,1200] #list(range(100,1200,200))
 Tuning_HazardLevel = list(range(10000,200000+1,10000))#[4536,45360,453600,4536000]#list(range(10000,130000,10000))
@@ -131,8 +128,8 @@ plt.xticks(rotation=70)
 
 
 
-# %% Pre-Harvest -Comparing Number of Grabs and Sample Size, Identify Major Driver. Unform Contamination
-
+#%% Pre-Harvest -Comparing Number of Grabs and Sample Size, Identify Major Driver. Unform Contamination
+#%%
 #Tuning Parameter SampleSize and Hazard Level
 
 Tuning_SampleSize = [60,120,300,600,1200] #list(range(100,1200,200))
@@ -189,13 +186,13 @@ sns.catplot(x="GrabNo", y="value", hue="SampSize",kind= "bar", data= Main_Combin
 #sns.lineplot(x="GrabNo", y="value", hue="SampSize", data= Main_Combined_GS_PRej)
 plt.xlabel("Number of grabs")
 plt.ylabel("Per CFU Rejected by Sampling Plan")
-plt.title("Effect of Sample Size at different contamination levels on Probablity of rejection")
+plt.title("Effect of Sample Size and number of grabs Probablity of rejection",fontsize=10)
+plt.suptitle("Pre-Harvest Sampling 4D -Uniform Contamination",y=1.07, fontsize=18)
 
 plt.xticks(rotation=70)
 plt.ticklabel_format(style='plain', axis='x')
 
-
-
+#%% POINT SOURCE- COMPARING NUMBER OF GRABS AND SAMPLE SIZE
 # %% Changing to Point Source Contamination
 # Contamination Challenges
 ContCondz.Background_C = False
@@ -268,10 +265,27 @@ sns.catplot(x="GrabNo", y="value", hue="SampSize",kind= "bar", data= Main_Combin
 #sns.lineplot(x="GrabNo", y="value", hue="SampSize", data= Main_Combined_GS_PRej)
 plt.xlabel("Number of grabs")
 plt.ylabel("Per CFU Rejected by Sampling Plan")
-plt.title("Effect of Sample Size at different contamination levels on Probablity of rejection")
+plt.title("Effect of Sample Size and number of grabs Probablity of rejection",fontsize=10)
+plt.suptitle("Pre-Harvest Sampling 4D -Point Source Contamination",y=1.07, fontsize=18)
 
 plt.xticks(rotation=70)
 plt.ticklabel_format(style='plain', axis='x')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #%%
