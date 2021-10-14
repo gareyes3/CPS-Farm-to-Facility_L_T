@@ -5,6 +5,13 @@ Created on Tue Oct 12 14:10:19 2021
 @author: gareyes3
 """
 
+
+#%%
+import sys, os
+sys.path
+#sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
+sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
+
 # %%
 from importlib import reload
 import Listz
@@ -31,21 +38,6 @@ sys.path.append(
 # %%
 # Progression DataFrame.
 #Progression_DFS = []
-# %% BAseline Sampling:
-# Contamination Challenges
-ContCondz.Background_C = True
-ContCondz.Point_Source_C = False
-ContCondz.Systematic_C = False
-
-# Harvester Contamination
-ContCondz.Crew_C = False
-ContCondz.Harvester_C = False
-
-# Processing equipment
-ContCondz.PE_C = False
-ContCondz.PE_Cont_Loc = False,  # 1,2,3,4,5
-# 1 = Shredder, #2 = Belt, #3 = Washing, #4 Shaker, #5Centrifuge
-ContCondz.Pack_C = False
 
 
 # %% Pre-Harvest- Comparing Hazard Level and Sample Size
@@ -143,6 +135,21 @@ for  i in Output_Collection_List  :
 Main_Combined = pd.concat(Main_list)
 #Main_Combined_PRej = Main_Combined.loc[Main_Combined['variable'] == "PH_CFU_PerR"]
 
+
+#Facet Line Plot
+g= sns.lmplot(y="PH_CFU_PerR", x="PH_Wei_PerR", hue="HLev",col = "SampSize", data=Main_Combined,scatter=True).set_titles('{col_name}')
+g= (g.set_axis_labels(x_var ="Percent Weight Rejected at Sampling Step",y_var = "Percent of CFU Rejected at Sampling Step" ,))
+g= (g._legend.set_title("Sampling Type"))
+
+
+
+plt.xlabel("Percent Weight Rejected at Sampling Step")
+plt.ylabel("Percent of CFU Rejected at Sampling Step")
+plt.title("Effect of Sampling plan & Rejection Rules on sampling efficacy",fontsize=10)
+plt.suptitle("Sampling Efficacy by Sampling Type",y=1.07, fontsize=18)
+
+
+'''
 sns.set_style("darkgrid")
 sns.lmplot(x="PH_CFU_PerR", y="PH_Wei_PerR", hue="HLev", data=Main_Combined,scatter=True)
 #sns.lineplot(x="HLev", y="value", hue="SampSize", data= Main_Combined_PRej)
@@ -153,8 +160,7 @@ plt.suptitle("Pre-Harvest Sampling types",y=1.07, fontsize=18)
 plt.xticks(rotation=70)
 #plt.xscale('log')
 
-g=sns.FacetGrid(Main_Combined, col = "SampSize" )
-g.map(sns.regplot, x="PH_CFU_PerR", y="PH_Wei_PerR")
+
 
 sns.set_style("darkgrid")
 sns.catplot(x="HLev", y="value", hue="SampSize", kind= "bar", data= Main_Combined_PRej)
@@ -165,7 +171,7 @@ plt.title("Effect of Sample Size at different contamination levels on Probablity
 plt.suptitle("Pre-Harvest Sampling 4D -Uniform Contamination",y=1.07, fontsize=18)
 plt.xticks(rotation=70)
 #plt.xscale('log')
-
+'''
 
 
 
