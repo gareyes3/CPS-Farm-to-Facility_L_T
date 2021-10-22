@@ -6,31 +6,30 @@ sys.path
 #sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
 sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
 
-#%%
-Progression_DFS = []
-
 #%% 
 #Libraries, Modules
-import pandas as pd 
+import pandas as pd  #for working
 #import seaborn as sns
 #from matplotlib import pyplot as plt
-import Funz
-import ContScen
-import Listz 
-import InFunz
-import ScenCondz
-import ContCondz
-import Inputz
-import SCInputz
-import Dictionariez
+import Funz #Functions that we might need
+import ContScen #Contamination Scenarios
+import Listz #Empty lists that I need to things thoughut process, #Update
+import InFunz #Input functions
+import ScenCondz #Scenario Conditions
+import ContCondz #contamination conditions
+import Inputz #Random Inputz. 
+import SCInputz #Inputz that can be changed later on through analysis
+import Dictionariez #for dataframe creation
 from importlib import reload  
 reload(Listz)
 reload(Inputz)
 
+
+
 #%%
 
 def F_MainLoop():
-
+    
     #DataCollection DataFrame for outputs.  
     df_Output_Contprog = Dictionariez.Output_DF_Creation(Dictionariez.Column_Names_Progression, SCInputz.N_Iterations) #Progression Dataframe
     df_Output_PH =  Dictionariez.Output_DF_Creation(Dictionariez.Column_Names_Outs, SCInputz.N_Iterations)#Main outputs Dataframe pre harvest
@@ -54,7 +53,7 @@ def F_MainLoop():
                           Field_Weight = SCInputz.Field_Weight, 
                           slot_number = SCInputz.slot_number)
         
-        #Adding Contamination depending on challenge Background
+        #Adding Contamination depending on challenge Pre-harvest challenges
         if ContCondz.Background_C == True:
             df = ContScen.F_Background_C(df=df, 
                                          Hazard_lvl = SCInputz.BGHazard_lvl, 
@@ -93,6 +92,7 @@ def F_MainLoop():
         
         #print("Initial", sum(df["CFU"]))
         
+        #DIE-OFF
         LV_Die_Off_CE_PHS = Funz.F_Simple_DieOff(Inputz.Time_CE_PHS) #Total Die off Contamination Event to PHS. 
         df = Funz.Applying_dieoff(df=df, Dieoff=LV_Die_Off_CE_PHS ) #Applying Die off to CFU Column in the DF
         LV_Time_Agg = 0 + Inputz.Time_CE_PHS #Cummulative time so far in the process. Time #1.
@@ -131,9 +131,9 @@ def F_MainLoop():
         
         #Filtering out the Rejected lots, Pre-Harvest
         if ScenCondz.PHS_Int ==True: #Rejection intense
-           df= Funz.F_Rejection_Rule3(df =df, Test_Unit = "Lot", limit = SCInputz.Limit_PH)  
+           df= Funz.F_Rejection_Rule3(df =df, Test_Unit = SCInputz.RR_PH_Int, limit = SCInputz.Limit_PH)  
         else:  #Rejection normal
-            df=Funz.F_Rejection_Rule3(df =df, Test_Unit = "Sublot", limit = SCInputz.Limit_PH) 
+            df=Funz.F_Rejection_Rule3(df =df, Test_Unit = SCInputz.RR_PH_Trad, limit = SCInputz.Limit_PH) 
            
         #print("PH", sum(df["CFU"]))
         #Contprog After Pre-Harvest
@@ -142,25 +142,7 @@ def F_MainLoop():
                                                      Step_Column = "Aft Pre-Harvest Samp", 
                                                      i =Iteration_In )
                            
-        
-        '''
-        #Outputs from Pre-Harvest Sampling
-        LO_WeightAcc_PH = sum(df.Weight) #Lb
-        LO_WeightRej_PH = Inputz.Field_Weight-LO_WeightAcc_PH #Lb
-        LO_ContAcc_PH = sum(df.CFU) # Total CFU
-        LO_ContRej_PH =  LO_Cont_B_PH-LO_ContAcc_PH #Total CFU
-        if LO_ContAcc_PH == 0:
-            LO_ContRej_P_PH = 1
-        else:
-            LO_ContRej_P_PH = LO_ContRej_PH/(LO_ContAcc_PH+LO_ContRej_PH) #Percentage Rejected by H sampling
-        print(LO_ContRej_P_PH)
-        #Outputs for Iterations
-        Listz.Total_PA_PH.append(LO_WeightAcc_PH)
-        Listz.Total_PR_PH.append(LO_WeightRej_PH)
-        Listz.Total_CA_PH.append(LO_ContAcc_PH)
-        Listz.Total_CR_PH.append(LO_ContRej_PH)
-        Listz.List_Cont_PercRej_PH.append(LO_ContRej_P_PH)
-        '''
+    
         
         #Outputs Function, Instead of collecting outputs. 
         df_Output_PH = Dictionariez.Output_Collection_Final(df = df, 
@@ -229,7 +211,10 @@ def F_MainLoop():
         
         
         #Filtering out the Rejected lots, Harvest Sampling
-        df = Funz.F_Rejection_Rule3 (df =df, Test_Unit = "Sublot",limit = SCInputz.Limit_H) 
+        if ScenCondz.HS_Trad == True:
+            df = Funz.F_Rejection_Rule3 (df =df, Test_Unit = SCInputz.RR_H_Trad ,limit = SCInputz.Limit_H) 
+        elif ScenCondz.HS_Agg == True:
+            df = Funz.F_Rejection_Rule3 (df =df, Test_Unit = SCInputz.RR_H_Agg ,limit = SCInputz.Limit_H) 
         
         
         #Contprog Before Harvest
@@ -237,24 +222,7 @@ def F_MainLoop():
                                                      outputDF = df_Output_Contprog,
                                                      Step_Column = "Aft Harvest Samp", 
                                                      i =Iteration_In )   
-        '''
-        #Outputs from Pre-Harvest Sampling
-        LO_WeightAcc_H = sum(df.Weight) #Lb
-        LO_WeightRej_H = Inputz.Field_Weight-LO_WeightAcc_H #Lb
-        LO_ContAcc_H = sum(df.CFU) # Total CFU
-        LO_ContRej_H =  LO_Cont_B_H-LO_ContAcc_H #Total CFU
-        if LO_ContAcc_H == 0:
-            LO_ContRej_P_H = 1
-        else:
-            LO_ContRej_P_H = LO_ContRej_H/(LO_ContAcc_H+LO_ContRej_H) #Percentage Rejected by H sampling
-        
-        #Outputs for Iterations
-        Listz.Total_PA_H.append(LO_WeightAcc_H)
-        Listz.Total_PR_H.append(LO_WeightRej_H)
-        Listz.Total_CA_H.append(LO_ContAcc_H)
-        Listz.Total_CR_H.append(LO_ContRej_H)
-        Listz.List_Cont_PercRej_H.append(LO_ContRej_P_H)
-        '''
+
         
         df_Output_H = Dictionariez.Output_Collection_Final(df = df, 
                                                     outputDF = df_Output_H, 
@@ -266,7 +234,7 @@ def F_MainLoop():
         
         
         
-        if(ScenCondz.Field_Pack == False):
+        if (ScenCondz.Field_Pack == False):
             #STEP 3 RECEIVING ---------------------------------------------------------------------------------------------------------------------
             
             #Time Between Harvest and Pre-Cooling KoseKi. 
@@ -326,7 +294,7 @@ def F_MainLoop():
                                                NoGrab =SCInputz.No_Grabs_R )
             
             #Rejecting Inidividual pallets if 1 positive
-            df = Funz.F_Rejection_Rule3 (df =df, Test_Unit = "PalletNo", limit = SCInputz.Limit_R ) 
+            df = Funz.F_Rejection_Rule3 (df =df, Test_Unit = SCInputz.RR_R_Trad, limit = SCInputz.Limit_R ) 
             
             
             #Contrprog after receiving
@@ -335,24 +303,6 @@ def F_MainLoop():
                                            Step_Column =  "After Receiving Samp", 
                                            i =Iteration_In )
             
-            '''
-            #Outputs from Pre-Harvest Sampling
-            LO_WeightAcc_R = sum(df.Weight) #Lb
-            LO_WeightRej_R = Inputz.Field_Weight-LO_WeightAcc_R #Lb
-            LO_ContAcc_R = sum(df.CFU) # Total CFU
-            LO_ContRej_R =  LO_Cont_B_R-LO_ContAcc_R #Total CFU
-            if LO_ContAcc_R == 0:
-                LO_ContRej_P_R = 1
-            else:
-                LO_ContRej_P_R = LO_ContRej_R/(LO_ContAcc_R+LO_ContRej_R) #Percentage Rejected by H sampling
-            
-            #Outputs for Iterations
-            Listz.Total_PA_R.append(LO_WeightAcc_R)
-            Listz.Total_PR_R.append(LO_WeightRej_R)
-            Listz.Total_CA_R.append(LO_ContAcc_R)
-            Listz.Total_CR_R.append(LO_ContRej_R)
-            Listz.List_Cont_PercRej_R.append(LO_ContRej_P_R)
-            '''
             
             df_Output_R = Dictionariez.Output_Collection_Final(df = df, 
                                             outputDF = df_Output_R, 
@@ -393,7 +343,6 @@ def F_MainLoop():
             ShredderOuts = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Inputz.Tr_P_Sh, Tr_S_P= Inputz.Tr_Sh_P)
             gb2 = ShredderOuts[0]
             ShredCont = ShredderOuts[1]  
-            
             
             #2 Conveyor Belt
             #Contamination before conveyor belt
@@ -558,38 +507,17 @@ def F_MainLoop():
         
             #Filtering out the Rejected lots, Final product
             #Rejecting Inidividual pallets if 1 positive
-            df = Funz.F_Rejection_Rule3 (df =df, Test_Unit = "Lot", limit = SCInputz.Limit_FP) 
+            if ScenCondz.FPS_Trad ==True:
+                df = Funz.F_Rejection_Rule3 (df =df, Test_Unit = SCInputz.RR_FP_Trad, limit = SCInputz.Limit_FP) 
+            elif ScenCondz.FPS_Agg ==True:
+                df = Funz.F_Rejection_Rule3 (df =df, Test_Unit = SCInputz.RR_FP_Agg, limit = SCInputz.Limit_FP) 
             
-            #Final  product sampling
+            #collecting outputs
             df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df,
                    outputDF = df_Output_Contprog,
                    Step_Column =  "Final Product Facility", 
                    i =Iteration_In )
-            '''
-            LO_WeightAcc_FP = sum(df.Weight) #Lb
-            LO_WeightRej_Total = Inputz.Field_Weight - LO_WeightAcc_FP #Lb
-            LO_PerRej_Total =  LO_WeightRej_Total/Inputz.Field_Weight
-            LO_ContAcc_FP = sum(df.CFU) # Total CFU
-            LO_ContRej_FP =  LO_Cont_B_FP-LO_ContAcc_FP #Total CFU
-            if LO_ContAcc_FP == 0:
-                LO_ContRej_P_FP = 1
-            else:
-                LO_ContRej_P_FP = LO_ContRej_FP/(LO_ContAcc_FP+LO_ContRej_FP) #Percentage Rejected by Finished product sampling
-                
-            if LO_WeightAcc_FP == 0:
-                Total_CFU_G_FP = 0 #Total CFU per gram of final product
-            else:
-                Total_CFU_G_FP = LO_ContAcc_FP/( LO_WeightAcc_FP*454) #Total CFU per gram of final product
-                
-                #Outputs for Iterations
-            Listz.Total_PA_FP.append(LO_WeightAcc_FP)
-            Listz.Total_PR_Final.append(LO_WeightRej_Total)
-            Listz.Total_PerRej_Weight.append(LO_PerRej_Total)
-            Listz.Total_CA_FP.append(LO_ContAcc_FP)
-            Listz.Total_CR_FP.append(LO_ContRej_FP)
-            Listz.List_Cont_PercRej_FP.append(LO_ContRej_P_FP)
-            Listz.List_TotalCFUg_FP.append(Total_CFU_G_FP)
-            '''
+
             df_Output_FP = Dictionariez.Output_Collection_Final(df = df, 
                                 outputDF = df_Output_FP, 
                                 Step = "FP", 
@@ -656,7 +584,7 @@ def F_MainLoop():
                                                NoGrab =SCInputz.No_GRabs_R_FP )
             
             #Rejecting Inidividual pallets if 1 positive
-            df = Funz.F_Rejection_Rule3 (df =df, Test_Unit = "Lot", limit = SCInputz.Limit_R_FP) 
+            df = Funz.F_Rejection_Rule3 (df =df, Test_Unit = SCInputz.RR_R_FP_Trad, limit = SCInputz.Limit_R_FP) 
             
             
             #Contrprog after receiving
@@ -665,32 +593,7 @@ def F_MainLoop():
                                            Step_Column =  "After Receiving Samp", 
                                            i =Iteration_In )
             
-            '''
-            #Final outputs
-            LO_WeightAcc_FP = sum(df.Weight) #Lb
-            LO_WeightRej_Total = Inputz.Field_Weight - LO_WeightAcc_FP #Lb
-            LO_PerRej_Total =  LO_WeightRej_Total/Inputz.Field_Weight
-            LO_ContAcc_FP = sum(df.CFU) # Total CFU
-            LO_ContRej_FP =  LO_Cont_B_FP-LO_ContAcc_FP #Total CFU
-            if LO_ContAcc_FP == 0:
-                LO_ContRej_P_FP = 1
-            else:
-                LO_ContRej_P_FP = LO_ContRej_FP/(LO_ContAcc_FP+LO_ContRej_FP) #Percentage Rejected by Finished product sampling
-                
-            if LO_WeightAcc_FP == 0:
-                Total_CFU_G_FP = 0 #Total CFU per gram of final product
-            else:
-                Total_CFU_G_FP = LO_ContAcc_FP/( LO_WeightAcc_FP*454) #Total CFU per gram of final product
-                
-                #Outputs for Iterations
-            Listz.Total_PA_FP.append(LO_WeightAcc_FP)
-            Listz.Total_PR_Final.append(LO_WeightRej_Total)
-            Listz.Total_PerRej_Weight.append(LO_PerRej_Total)
-            Listz.Total_CA_FP.append(LO_ContAcc_FP)
-            Listz.Total_CR_FP.append(LO_ContRej_FP)
-            Listz.List_Cont_PercRej_FP.append(LO_ContRej_P_FP)
-            Listz.List_TotalCFUg_FP.append(Total_CFU_G_FP)
-            '''
+
             df_Output_FP = Dictionariez.Output_Collection_Final(df = df, 
                     outputDF = df_Output_FP, 
                     Step = "FP", 
@@ -740,6 +643,7 @@ def F_MainLoop():
             
             #Washing at consumer: #wash every 2 packs  
             df = Funz.Washing_Batch(df = df, New_water_every_xpacks = 2)
+
             
             
             

@@ -50,7 +50,7 @@ Temperature_H_PreCooling = np.random.uniform(15,17)
 
 #%% Field Pack
 #Field Packed Lettuce:
-Case_Weight_FieldPack = 25
+Case_Weight_FieldPack = 25 #lb
 
 
 #%% Receiving

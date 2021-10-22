@@ -301,7 +301,7 @@ def F_Palletization (df, Field_Weight,Pallet_Weight, Partition_Weight):
 
 
 
-def F_ProLineSplitting(df, Processing_Lines,):
+def F_ProLineSplitting(df, Processing_Lines,): #
     df2=df.groupby(['PalletNo'], as_index =False)[["CFU", "Weight"]].sum()
     #Splitting Pallets into processing lines. Faccept
     N_Pallets = len(df2.index)

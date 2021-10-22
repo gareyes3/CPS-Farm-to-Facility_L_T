@@ -13,7 +13,7 @@ import numpy as np
 
 #Initial Inputs for Field Setup and Challenges
 
-N_Iterations= 25
+N_Iterations= 50
 
 Field_Weight= 100000 #total lb in field
 slot_weight = 10000 #weight of the sublot in field.
@@ -25,7 +25,7 @@ Partition_Units = int(Field_Weight/Partition_Weight) #Number of partition units 
 
 # Contamination Challenge Related Information
 if ContCondz.Background_C ==True:
-    BGHazard_lvl = 100000  #CFU # background contamination
+    BGHazard_lvl = 50000  #CFU # background contamination
     BGCluster_Size = 100000 #lb
     BGNo_Cont_Clusters = 1 #Number of contamination clusters here one uniform cluster, field size.
     #BackGround Contamination. 
@@ -69,34 +69,47 @@ sample_size_PH = 375 # (Input) g #Sample Size in grams for Pre Harvest
 n_samples_slot_PH = 1 # (Input) Samples per sublot of product
 No_Grabs_PH = 60 
 Limit_PH = 0
+RR_PH_Trad = "Sublot" #Reject by Sublot
+#Intesne pre-harvest sampling
 if ScenCondz.PHS_Int ==True:
     n_samples_lot_PH = 10 # (Input) Samples per lot of product'
+    RR_PH_Int = "Lot"
 
 #Harvest Inputs: 
 sample_size_H = 375 #g #Sample Size in grams
 n_samples_slot_H = 1 # Samples per lot of product
 No_Grabs_H = 60 
 Limit_H = 0
+RR_H_Trad  = "Sublot"
+#aggregative_prehavest sampling
 if ScenCondz.HS_Agg ==True:
     n_samples_slot_H = 10 # (Input) Samples per lot of product'
+    RR_H_Agg  = "Sublot"
 
-#Receiving Sampling Field Pack/ Also Final Product
-n_samples_R_FP = 1
-sample_size_R_FP = 375
-No_GRabs_R_FP = 60
-Limit_R_FP = 0
 
 #Receiving sampling:
 n_samples_pallet = 1 #samples taken per pallet
 sample_size_R = 125 #375 #g #Sample Size in grams Receiving
 No_Grabs_R = 20
 Limit_R =0
+RR_R_Trad= "PalletNo"
+
 
 #Finished Product Sampling: 
 sample_size_FP = 375 #g #Sample Size in grams
 n_samples_FP = 1 #number of samples per lot final product
 N_Packages_Samples = 60
+RR_FP_Trad = "Lot"
 if ScenCondz.FPS_Agg ==True:
     n_samples_FP = 10
 Limit_FP =0
+RR_FP_Agg= "Lot"
+
+#Receiving Sampling Field Pack/Also Final Product Sampling. 
+n_samples_R_FP = 1
+sample_size_R_FP = 375
+No_GRabs_R_FP = 60
+Limit_R_FP = 0
+RR_R_FP_Trad  = "Lot"
+
 
