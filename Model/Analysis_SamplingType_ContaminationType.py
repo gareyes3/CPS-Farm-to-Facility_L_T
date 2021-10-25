@@ -124,13 +124,13 @@ for  i in Output_Collection_List  :
     Main_list.append(Combined_df)
 
 
-Main_Combined = pd.concat(Main_list)
+Main_Combined_SS = pd.concat(Main_list)
 #Main_Combined_PRej = Main_Combined.loc[Main_Combined['variable'] == "PH_CFU_PerR"]
 
-Main_Combined["Efficacy"] = Main_Combined["PH_CFU_PerR"] -  Main_Combined["PH_Wei_PerR"]
+Main_Combined_SS["Efficacy"] = Main_Combined_SS["PH_CFU_PerR"] -  Main_Combined_SS["PH_Wei_PerR"]
 
 
-means = Main_Combined.groupby(by=['HLev', "SampSize"])['Efficacy'].mean()
+means_efficacy_ss = Main_Combined_SS.groupby(by=["HLev", "SampSize"])['Efficacy','PH_CFU_PerR','PH_Wei_PerR'].mean()
 
 #Facet Line Plot
 '''
@@ -143,7 +143,7 @@ g= (g.set_axis_labels(x_var ="Percent Weight Rejected at Sampling Step",y_var = 
 g= (g._legend.set_title("Sampling Type"))
 '''
 #Lineplot
-myPlot = sns.FacetGrid(col="SampSize", hue="HLev", data=Main_Combined,size=5)
+myPlot = sns.FacetGrid(col="SampSize", hue="HLev", data=Main_Combined_SS,size=5)
 myPlot = myPlot.map(sns.regplot, "PH_Wei_PerR", "PH_CFU_PerR" ,line_kws=dict(alpha=1), scatter_kws=dict(alpha = 0.3))
 myPlot = myPlot.map_dataframe(plt.plot, [1,0], [1,0], 'r-',color = "black",linestyle='dashed',linewidth=1, alpha = 0.3).add_legend().set_axis_labels("PH_Wei_PerR", "PH_CFU_PerR")
 myPlot= (myPlot.set_axis_labels(x_var ="Percent Weight Rejected at Sampling Step",y_var = "Percent of CFU Rejected at Sampling Step" ,))
@@ -151,16 +151,18 @@ myPlot= (myPlot._legend.set_title("Sampling Type"))
 
 plt.show()
 
+
 #Efficacy Violin Plot
 H = sns.catplot(x="HLev", y="Efficacy",
-                col="SampSize", data=Main_Combined, kind = "violin")
+                col="SampSize", data=Main_Combined_SS, kind = "bar")
 H= (H.set_axis_labels(x_var ="Sampling Type",y_var = "Efficacy" )
     .set_xticklabels(["4 Day", "4 Hour", "Intense"]))
-H.map(plt.axhline, y=1, ls='--', c='red',)
-
+#H.map(plt.axhline, y=1, ls='--', c='red',)
+H.fig.subplots_adjust(top=0.8) # adjust the Figure in rp
+H.fig.suptitle('Contamination | Weight Rejected Efficacy: Sublot Rejection Rule ')
 
 #Histogrm of percentage rejected
-myPlot2 = sns.FacetGrid(col="SampSize", hue="HLev", data=Main_Combined,size=5)
+myPlot2 = sns.FacetGrid(col="SampSize", hue="HLev", data=Main_Combined_SS,size=5)
 myPlot2 = myPlot2.map(sns.histplot, "PH_CFU_PerR", binwidth=.1, alpha=0.4)
 
 
@@ -247,7 +249,9 @@ for i in Tuning_Contamination_Type:
         Hazard_Level_list.append(DF)
     Output_Collection_List.append(Hazard_Level_list)
     
+means_efficacy_ss = Main_Combined_SS.groupby(by=["HLev", "SampSize"])['Efficacy','PH_CFU_PerR','PH_Wei_PerR'].mean()
 
+means_CFU_R_ss = Combined_all.groupby(by=['Sample Mass', "GrabNo","SampType"])['PH_CFU_PerR'].mean()
 
 
 
