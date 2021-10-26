@@ -9,8 +9,8 @@ Created on Wed Oct 20 10:21:20 2021
 #%%
 import sys, os
 sys.path
-sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
-#sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
+#sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
+sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
 
 # %%
 from importlib import reload
@@ -255,7 +255,7 @@ H.fig.suptitle('Point Source-Contamination, Efficacy Comparison Different Sampli
 
 
 
-means_efficacy_all = Combined_all.groupby(by=['Sample Mass', "GrabNo","SampType"])['Efficacy'].mean()
+means_efficacy_all = Combined_all.groupby(by=['Sample Mass', "GrabNo","SampType"])['Efficacy','PH_CFU_PerR', 'PH_Wei_PerR'].mean()
 
 means_CFU_R_all = Combined_all.groupby(by=['Sample Mass', "GrabNo","SampType"])['PH_CFU_PerR'].mean()
 
