@@ -332,6 +332,26 @@ def F_CrossContProLine (gb2, Tr_P_S, Tr_S_P):
     return Outputs
 
 
+def F_CrossContProLine2 (gb2, Tr_P_S, Tr_S_P):
+    ContS_L=[]
+    for j in gb2:
+        ContS=0
+        vectorCFU = j.CFU
+        newvector=[]
+        for i in vectorCFU:
+            ContP = i #Contamination product
+            TotTr_P_S= np.random.binomial(ContP,Tr_P_S) #Transfer from Product to Surfaces
+            TotTr_S_P = np.random.binomial(ContS,Tr_S_P) #Trasnfer from Surfaves to product
+            ContPNew = ContP-TotTr_P_S+TotTr_S_P #New Contmination on Product
+            ContS=ContS+TotTr_P_S-TotTr_S_P #Remiining Contamination in Surface for upcoming batches
+            i=ContPNew #Updating the Contamination in the Data Frame
+            newvector.append(i)
+        j["CFU"] = newvector
+        ContS_L.append(ContS)
+    Outputs = [gb2,ContS_L]
+    return Outputs
+
+
 
 #Paritioning Function
 def F_Partitioning(DF,NPartitions):

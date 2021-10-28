@@ -141,7 +141,7 @@ g= sns.lmplot(y="PH_CFU_PerR", x="PH_Wei_PerR", hue="HLev",
               scatter_kws=dict(alpha = 0.3)).set_titles('{col_name}')
 g= (g.set_axis_labels(x_var ="Percent Weight Rejected at Sampling Step",y_var = "Percent of CFU Rejected at Sampling Step" ,))
 g= (g._legend.set_title("Sampling Type"))
-'''
+
 #Lineplot
 myPlot = sns.FacetGrid(col="SampSize", hue="HLev", data=Main_Combined_SS,size=5)
 myPlot = myPlot.map(sns.regplot, "PH_Wei_PerR", "PH_CFU_PerR" ,line_kws=dict(alpha=1), scatter_kws=dict(alpha = 0.3))
@@ -150,7 +150,7 @@ myPlot= (myPlot.set_axis_labels(x_var ="Percent Weight Rejected at Sampling Step
 myPlot= (myPlot._legend.set_title("Sampling Type"))
 
 plt.show()
-
+'''
 
 #Efficacy Violin Plot
 H = sns.catplot(x="HLev", y="Efficacy",
@@ -160,6 +160,17 @@ H= (H.set_axis_labels(x_var ="Sampling Type",y_var = "Efficacy" )
 #H.map(plt.axhline, y=1, ls='--', c='red',)
 H.fig.subplots_adjust(top=0.8) # adjust the Figure in rp
 H.fig.suptitle('Contamination | Weight Rejected Efficacy: Sublot Rejection Rule ')
+
+#Percentage Rejected Plot
+H = sns.catplot(x="HLev", y="PH_CFU_PerR",
+                col="SampSize", data=Main_Combined_SS, kind = "bar")
+H= (H.set_axis_labels(x_var ="Sampling Type",y_var = "Proportion Rejected" )
+    .set_xticklabels(["4 Day", "4 Hour", "Intense"]))
+#H.map(plt.axhline, y=1, ls='--', c='red',)
+H.fig.subplots_adjust(top=0.8) # adjust the Figure in rp
+H.fig.suptitle('Proportion Rejected by Sampling Type')
+
+
 
 #Histogrm of percentage rejected
 myPlot2 = sns.FacetGrid(col="SampSize", hue="HLev", data=Main_Combined_SS,size=5)

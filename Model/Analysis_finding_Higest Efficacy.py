@@ -236,6 +236,12 @@ H= (H.set_axis_labels(x_var ="Number  of Grabs",y_var = "Efficacy" ))
 #H.fig.subplots_adjust(top=0.8) # adjust the Figure in rp
 #H.fig.suptitle('Point Source-Contamination, Efficacy Comparison Different Sampling Methods')
 
+sns.set(font_scale = 1.4)
+Combined_all = Combined_all.rename(columns={"SampSize":"Sample Mass"})
+H = sns.catplot(x="GrabNo", y="PH_CFU_PerR" ,
+                col="Sample Mass", col_wrap=3,hue="SampType",data=Combined_all, kind = "bar")
+H= (H.set_axis_labels(x_var ="Number  of Grabs",y_var = "Prportion Rejected" ))
+
 
 
 sns.set(font_scale = 1.4)
