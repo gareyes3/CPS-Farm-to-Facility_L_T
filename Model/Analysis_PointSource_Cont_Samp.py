@@ -90,3 +90,13 @@ for k in Tuning_Contamination_levels:
             DF["GrabNo"] = j
             DF["SampSize"] = i
             Output_Collection_List.append(DF)
+             
+
+Combined_df = pd.concat(Output_Collection_List)
+
+
+H = sns.catplot(x="GrabNo", y="PH_CFU_PerR" ,
+                col="SampSize", col_wrap=3,hue="ContLevel",data=Combined_df, kind = "point")
+H= (H.set_axis_labels(x_var ="Number  of Grabs",y_var = "Efficacy" ))
+
+
