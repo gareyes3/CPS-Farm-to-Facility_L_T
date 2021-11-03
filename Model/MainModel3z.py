@@ -24,7 +24,6 @@ from importlib import reload
 reload(Listz)
 reload(Inputz)
 
-i=1
 
 #%%
 
