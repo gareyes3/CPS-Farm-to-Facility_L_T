@@ -13,7 +13,7 @@ import numpy as np
 
 #Initial Inputs for Field Setup and Challenges
 
-N_Iterations= 50
+N_Iterations= 10
 
 Field_Weight= 100000 #total lb in field
 slot_weight = 10000 #weight of the sublot in field.

@@ -30,6 +30,7 @@ import InFunz
 import ScenCondz
 import ContCondz
 import Inputz
+import SCInputz
 from importlib import reload 
 import statistics
 
@@ -41,8 +42,8 @@ import MainModel3z
 Progression_DFS = []
 #%% BAseline Sampling: 
 #Contamination Challenges
-ContCondz.Background_C=False
-ContCondz.Point_Source_C=True
+ContCondz.Background_C=True
+ContCondz.Point_Source_C=False
 ContCondz.Systematic_C=False
 
 #Harvester Contamination
@@ -62,7 +63,7 @@ def Variable_Choosing_DF(df, Hazard_lvl, Background_C, Point_Source_C, Systemati
     if Background_C == True:
         df = ContScen.F_Background_C(df=df, 
                                      Hazard_lvl = Hazard_lvl, 
-                                     Partition_Units= Inputz.Partition_Units)
+                                     Partition_Units= SCInputz.Partition_Units)
         
     #Adding Contamination depending on challenge Point_Source
     if Point_Source_C ==True:
@@ -70,7 +71,7 @@ def Variable_Choosing_DF(df, Hazard_lvl, Background_C, Point_Source_C, Systemati
                                      Hazard_lvl=Hazard_lvl,
                                      No_Cont_Clusters =1, 
                                      Cluster_Size = 3000, 
-                                     Partition_Weight = Inputz.Partition_Weight)
+                                     Partition_Weight = SCInputz.Partition_Weight)
     
         
     #Adding Contamination depending on challenge Systematic Sampling
@@ -78,7 +79,7 @@ def Variable_Choosing_DF(df, Hazard_lvl, Background_C, Point_Source_C, Systemati
         df = ContScen.F_systematic_C(df=df, Hazard_lvl=Hazard_lvl,
                                      No_Cont_Clusters =Inputz.SysNo_Cont_Clusters,
                                      Cluster_Size= Inputz.SysCluster_Size,
-                                     Partition_Weight = Inputz.Partition_Weight)
+                                     Partition_Weight = SCInputz.Partition_Weight)
     
     return df
 
@@ -93,9 +94,9 @@ def Sampling_By_Mass (Sample_Size, Sampling_Unit, Rejection_Unit, Hazard_level):
     for i in list(range(IterationsSampling)):
         print(i)
         #Creation of the Data Frame to Track: 
-        df= InFunz.F_InDF(Partition_Units = Inputz.Partition_Units,
-                          Field_Weight = Inputz.Field_Weight, 
-                          slot_number = Inputz.slot_number) 
+        df= InFunz.F_InDF(Partition_Units = SCInputz.Partition_Units,
+                          Field_Weight = SCInputz.Field_Weight, 
+                          slot_number = SCInputz.slot_number) 
          
         #Creating dataframe based on selection   
         df = Variable_Choosing_DF(df = df, Hazard_lvl = Hazard_level, Background_C= True, Point_Source_C= False, Systematic_C= False)
@@ -103,10 +104,10 @@ def Sampling_By_Mass (Sample_Size, Sampling_Unit, Rejection_Unit, Hazard_level):
         #Sampling Function
         #Composite mass to be 10
         df = Funz.F_Sampling_2(df =df,Test_Unit =Sampling_Unit, 
-                                  NSamp_Unit = Inputz.n_samples_slot_PH, 
+                                  NSamp_Unit = SCInputz.n_samples_slot_PH, 
                                   Samp_Size =Sample_Size, 
-                                  Partition_Weight =Inputz.Partition_Weight, 
-                                  NoGrab =Inputz.No_Grabs_PH)
+                                  Partition_Weight =SCInputz.Partition_Weight, 
+                                  NoGrab =SCInputz.No_Grabs_PH)
         
         Cont_Before = sum(df.CFU) #Contamination before rejection sampling
         print(Cont_Before)
@@ -119,14 +120,20 @@ def Sampling_By_Mass (Sample_Size, Sampling_Unit, Rejection_Unit, Hazard_level):
         OutputList100g.append(ContAcc_P)
     
     return OutputList100g
+#%%
+Total_grams= SCInputz.Field_Weight*454
 
-
+CFU_10000g = Total_grams/10000 #-4 log
+CFU_1000g = Total_grams/1000  #-3 log
+CFU_100g = Total_grams/100 #-2 log
+CFU_10g = Total_grams/10  #-1 log
+#%%
 #1 CFU per Kilogram. 
-Out_60g = Sampling_By_Mass(Sample_Size= 60, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= 220000)
-Out_120g = Sampling_By_Mass(Sample_Size= 120, Sampling_Unit="Lot", Rejection_Unit= "Lot", Hazard_level= 220000)
-Out_300g = Sampling_By_Mass(Sample_Size= 300, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= 220000)
-Out_600g = Sampling_By_Mass(Sample_Size= 600, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= 220000)
-Out_1200g = Sampling_By_Mass(Sample_Size= 1200, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= 220000)
+Out_60g = Sampling_By_Mass(Sample_Size= 60, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= CFU_10000g)
+Out_120g = Sampling_By_Mass(Sample_Size= 120, Sampling_Unit="Lot", Rejection_Unit= "Lot", Hazard_level= CFU_10000g)
+Out_300g = Sampling_By_Mass(Sample_Size= 300, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= CFU_10000g)
+Out_600g = Sampling_By_Mass(Sample_Size= 600, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= CFU_10000g)
+Out_1200g = Sampling_By_Mass(Sample_Size= 1200, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= CFU_10000g)
 
 
 statistics.mean(Out_60g)
@@ -150,11 +157,11 @@ plt.ylabel("% CFU Accepted by Sampling Plan")
 
 
 #1 CFU per 10Kilogram. 
-Out_60g = Sampling_By_Mass(Sample_Size= 60, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= 22000)
-Out_120g = Sampling_By_Mass(Sample_Size= 120, Sampling_Unit="Lot", Rejection_Unit= "Lot", Hazard_level= 22000)
-Out_300g = Sampling_By_Mass(Sample_Size= 300, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= 22000)
-Out_600g = Sampling_By_Mass(Sample_Size= 600, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= 22000)
-Out_1200g = Sampling_By_Mass(Sample_Size= 1200, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= 22000)
+Out_60g = Sampling_By_Mass(Sample_Size= 60, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= CFU_1000g)
+Out_120g = Sampling_By_Mass(Sample_Size= 120, Sampling_Unit="Lot", Rejection_Unit= "Lot", Hazard_level= CFU_1000g)
+Out_300g = Sampling_By_Mass(Sample_Size= 300, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= CFU_1000g)
+Out_600g = Sampling_By_Mass(Sample_Size= 600, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= CFU_1000g)
+Out_1200g = Sampling_By_Mass(Sample_Size= 1200, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= CFU_1000g)
 
 
 
@@ -176,11 +183,11 @@ plt.ylabel("% CFU Accepted by Sampling Plan")
 
 
 #1 CFU per 100 grams. 
-Out_60g = Sampling_By_Mass(Sample_Size= 60, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= 2200000)
-Out_120g = Sampling_By_Mass(Sample_Size= 120, Sampling_Unit="Lot", Rejection_Unit= "Lot", Hazard_level= 2200000)
-Out_300g = Sampling_By_Mass(Sample_Size= 300, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= 2200000)
-Out_600g = Sampling_By_Mass(Sample_Size= 600, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= 2200000)
-Out_1200g = Sampling_By_Mass(Sample_Size= 1200, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= 2200000)
+Out_60g = Sampling_By_Mass(Sample_Size= 60, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= CFU_100g)
+Out_120g = Sampling_By_Mass(Sample_Size= 120, Sampling_Unit="Lot", Rejection_Unit= "Lot", Hazard_level= CFU_100g)
+Out_300g = Sampling_By_Mass(Sample_Size= 300, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= CFU_100g)
+Out_600g = Sampling_By_Mass(Sample_Size= 600, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= CFU_100g)
+Out_1200g = Sampling_By_Mass(Sample_Size= 1200, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= CFU_100g)
 
 
 
@@ -202,11 +209,11 @@ plt.ylabel("% CFU Accepted by Sampling Plan")
 
 
 #1 CFU per 10 grams. 
-Out_60g = Sampling_By_Mass(Sample_Size= 60, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= 22000000)
-Out_120g = Sampling_By_Mass(Sample_Size= 120, Sampling_Unit="Lot", Rejection_Unit= "Lot", Hazard_level= 22000000)
-Out_300g = Sampling_By_Mass(Sample_Size= 300, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= 22000000)
-Out_600g = Sampling_By_Mass(Sample_Size= 600, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= 22000000)
-Out_1200g = Sampling_By_Mass(Sample_Size= 1200, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= 22000000)
+Out_60g = Sampling_By_Mass(Sample_Size= 60, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= CFU_10g)
+Out_120g = Sampling_By_Mass(Sample_Size= 120, Sampling_Unit="Lot", Rejection_Unit= "Lot", Hazard_level= CFU_10g)
+Out_300g = Sampling_By_Mass(Sample_Size= 300, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= CFU_10g)
+Out_600g = Sampling_By_Mass(Sample_Size= 600, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= CFU_10g)
+Out_1200g = Sampling_By_Mass(Sample_Size= 1200, Sampling_Unit="Lot", Rejection_Unit= "Lot",Hazard_level= CFU_10g)
 
 
 
