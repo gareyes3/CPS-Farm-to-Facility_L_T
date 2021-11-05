@@ -111,11 +111,10 @@ Combined_df_PS = pd.concat(Output_Collection_List)
 sns.set_style("whitegrid")
 sns.set(font_scale = 1.4)
 
-Combined_df_PS["ContLevel"].replace({CFU_10g: "1 CFU/10g",
-                                     CFU_100g: "1 CFU/100g",
-                                     CFU_g: "1 CFU/g", 
-                                     CFU_0_1g: "1 CFU/0.1g",
-                                     CFU_0_01g: "1 CFU/0.01g"}, inplace=True)
+Combined_df_PS["ContLevel"].replace({CFU_10000g: "1 CFU/10kg",
+                                     CFU_1000g: "1 CFU/kg",
+                                     CFU_100g: "1 CFU/100g", 
+                                     CFU_10g: "1 CFU/10"}, inplace=True)
 
 
 
