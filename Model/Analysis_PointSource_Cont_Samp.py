@@ -67,7 +67,7 @@ ContCondz.Pack_C = False
 Tuning_SampleSize = [60,120,300,600,1200] #list(range(100,1200,200))
 #Tuning_HazardLevel = [4536,45360,450360,4503600]#list(range(10000,130000,10000)) #1 CFU/10kg, 1CFU kg, 1CFU/100g, 1CFU/10g. 
 Tuning_Grab_number = [1,30,60,120,320]
-Tuning_Contamination_levels = [CFU_10000g,CFU_1000g,CFU_100g,CFU_10g]
+Tuning_Contamination_levels = [CFU_10000g,CFU_1000g,CFU_100g,CFU_10g,CFU_g,CFU_0_1g]
 
 Desired_Outputs = ["PH_CFU_PerR", "PH_Wei_PerR"""]
 Output_Collection_List = [] #First Index
@@ -107,9 +107,16 @@ for k in Tuning_Contamination_levels:
              
 
 Combined_df_PS = pd.concat(Output_Collection_List)
+#%%
+g = sns.FacetGrid(Combined_df_Probs, col="SampleMass", hue = "Grabs",col_wrap=3, height = 6)
+g.map(sns.lineplot, "ContLevel","PH_CFU_PerA")
+g.add_legend()
+
+
 
 sns.set_style("whitegrid")
 sns.set(font_scale = 1.4)
+
 
 Combined_df_PS["ContLevel"].replace({CFU_10000g: "1 CFU/10kg",
                                      CFU_1000g: "1 CFU/kg",
