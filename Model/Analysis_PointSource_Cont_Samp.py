@@ -108,9 +108,18 @@ for k in Tuning_Contamination_levels:
 
 Combined_df_PS = pd.concat(Output_Collection_List)
 #%%
-g = sns.FacetGrid(Combined_df_Probs, col="SampleMass", hue = "Grabs",col_wrap=3, height = 6)
+
+Combined_df_PS["PH_CFU_PerA"] = 1-Combined_df_PS["PH_CFU_PerR"]
+Combined_df_PS["ContLevel"]=np.log10(Combined_df_PS["ContLevel"])
+
+
+g = sns.FacetGrid(Combined_df_PS, col="SampSize", hue = "GrabNo",col_wrap=3, height = 6)
 g.map(sns.lineplot, "ContLevel","PH_CFU_PerA")
 g.add_legend()
+g= (g.set_axis_labels(x_var ="Initial Cont Level Log CFU",y_var = "% of CFU Acc (1-POWER)" ))
+g.fig.subplots_adjust(top=0.9) # adjust the Figure in rp
+g.fig.suptitle('Point Source Contamination -Effect of  #Grabs | Sample Mass | Initial Contamination Levels')
+
 
 
 

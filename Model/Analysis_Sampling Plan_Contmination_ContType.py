@@ -156,9 +156,14 @@ Combined_df_Probs["ContLevel"].replace({CFU_10000g: "1 CFU/10kg",
                                      CFU_g:"1 CFU/g"}, inplace=True)
 '''
 #%%
-g = sns.FacetGrid(Combined_df_Probs, col="SampleMass", hue = "Grabs",col_wrap=3, height = 6)
+sns.set(font_scale=2)
+
+g = sns.FacetGrid(Combined_df_Probs, col="Cluster", hue = "Grabs",col_wrap=3, height = 6)
 g.map(sns.lineplot, "ContLevel","PH_CFU_PerA")
 g.add_legend()
+g= (g.set_axis_labels(x_var ="Initial Cont Level Log CFU",y_var = "% of CFU Acc (1-POWER)" ))
+g.fig.subplots_adjust(top=0.9) # adjust the Figure in rp
+g.fig.suptitle('Clustered Contamination -Effect of  #Grabs by size of cluster')
 
 
 
