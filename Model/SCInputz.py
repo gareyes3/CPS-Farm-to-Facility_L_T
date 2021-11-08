@@ -13,7 +13,7 @@ import numpy as np
 
 #Initial Inputs for Field Setup and Challenges
 
-N_Iterations= 20
+N_Iterations= 100
 
 Field_Weight= 100000 #total lb in field
 slot_weight = 10000 #weight of the sublot in field.
@@ -73,7 +73,7 @@ RR_PH_Trad = "Sublot" #Reject by Sublot
 #Intesne pre-harvest sampling
 if ScenCondz.PHS_Int ==True:
     n_samples_lot_PH = 10 # (Input) Samples per lot of product'
-    RR_PH_Int = "Lot"
+    RR_PH_Int = "Sublot"
 
 #Harvest Inputs: 
 sample_size_H = 375 #g #Sample Size in grams
