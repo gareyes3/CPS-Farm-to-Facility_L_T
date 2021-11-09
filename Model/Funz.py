@@ -145,6 +145,8 @@ def F_HarvestingCont ():
 #%% Sampling Functions
 
 #New Sampling Function
+'''
+#Outdates, Replaced with more efficient way to do the grabs iteration.
 def F_Sampling_2 (df, Test_Unit, NSamp_Unit, Samp_Size, Partition_Weight, NoGrab):
     Unique_TestUnit = list(df[Test_Unit].unique())
     Grab_Weight = Samp_Size/NoGrab
@@ -161,6 +163,25 @@ def F_Sampling_2 (df, Test_Unit, NSamp_Unit, Samp_Size, Partition_Weight, NoGrab
                 if RandomUnif < P_Detection:
                     df.at[Index, 'PositiveSamples']. append(l)
     return (df)
+'''
+
+def F_Sampling_2 (df, Test_Unit, NSamp_Unit, Samp_Size, Partition_Weight, NoGrab):
+    Unique_TestUnit = list(df[Test_Unit].unique())
+    Grab_Weight = Samp_Size/NoGrab
+    for i in (Unique_TestUnit): #From sublot 1 to sublot n (same for pallet,lot,case etc)
+        for l in range (1, NSamp_Unit+1): #Number of samples per sublot or lot or pallet.
+            for j in range(NoGrab):
+                CFU_hh=np.array(df["CFU"])
+                List_Random=random.choice(list(enumerate(CFU_hh)))
+                CFU = List_Random[1]
+                Index = List_Random[0]
+                CFU_grab = CFU*(Grab_Weight/(Partition_Weight*454))
+                P_Detection=1-math.exp(-CFU_grab)
+                RandomUnif = random.uniform(0,1)
+                if RandomUnif < P_Detection:
+                    df.at[Index, 'PositiveSamples'].append(l)
+    return (df)
+
 
 
 #New Rejection Function

@@ -23,7 +23,6 @@ def F_InDF (Partition_Units,Field_Weight,slot_number ):
     Sublot_Pattern = [i for i in range(1, slot_number+1) for _ in range(int(Partition_Units/slot_number))] #Pattern of Sublots
     df = pd.DataFrame(data)
     df.Sublot = Sublot_Pattern
-    df.index = range(1,Partition_Units+1)
     df.PositiveSamples = [list() for x in range(len(df.index))]
     return df
 

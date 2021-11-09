@@ -39,7 +39,7 @@ def F_MainLoop():
 
     for  i in range(SCInputz.N_Iterations):
         Iteration_In = i
-        print(Iteration_In,"iteration")
+        #print(Iteration_In,"iteration")
         reload(Inputz)
         
     
@@ -60,7 +60,7 @@ def F_MainLoop():
             
         #Adding Contamination depending on challenge Point_Source
         if ContCondz.Point_Source_C ==True:
-            df=ContScen.F_Point_Source_C(df=df, 
+            df=ContScen.F_systematic_C(df=df, 
                                          Hazard_lvl=SCInputz.PSHazard_lvl,
                                          No_Cont_Clusters =SCInputz.PSNo_Cont_Clusters, 
                                          Cluster_Size = SCInputz.PSCluster_Size, 

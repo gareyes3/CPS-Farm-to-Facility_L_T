@@ -99,7 +99,10 @@ def Sampling_By_Mass (Sample_Size, Sampling_Unit, Rejection_Unit, Hazard_level):
                           slot_number = SCInputz.slot_number) 
          
         #Creating dataframe based on selection   
-        df = Variable_Choosing_DF(df = df, Hazard_lvl = Hazard_level, Background_C= True, Point_Source_C= False, Systematic_C= False)
+        df = Variable_Choosing_DF(df = df, Hazard_lvl = Hazard_level, 
+                                  Background_C= True, 
+                                  Point_Source_C= False, 
+                                  Systematic_C= False)
         
         #Sampling Function
         #Composite mass to be 10
