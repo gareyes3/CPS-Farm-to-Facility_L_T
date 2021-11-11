@@ -35,6 +35,7 @@ from matplotlib import pyplot as plt
 from matplotlib.ticker import ScalarFormatter
 import seaborn as sns
 import sys
+import Trial_MainLoop_PH
 sys.path
 #sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
 sys.path.append(
@@ -130,7 +131,7 @@ for k in Tuning_Contamination_levels:
             #SCInputz.BGHazard_lvl = j
             SCInputz.No_Grabs_PH = j
             
-            Main_Mod_Outs = MainModel3z.F_MainLoop()
+            Main_Mod_Outs = Trial_MainLoop_PH.F_MainLoop_PH()
             OutputDF = Main_Mod_Outs[1]
             ProgDF = Main_Mod_Outs[0]
             

@@ -13,7 +13,7 @@ import numpy as np
 
 #Initial Inputs for Field Setup and Challenges
 
-N_Iterations= 100
+N_Iterations= 200
 
 Field_Weight= 100000 #total lb in field
 slot_weight = 10000 #weight of the sublot in field.
@@ -33,7 +33,7 @@ if ContCondz.Background_C ==True:
 if ContCondz.Point_Source_C ==True:
     PSHazard_lvl = 50000  #CFU # background contamination
     PSCluster_Size = 1000 #lb
-    PSNo_Cont_Clusters = 4 #4 1000k lb clusters. 
+    PSNo_Cont_Clusters = 1 #4 1000k lb clusters. 
     
 if ContCondz.Systematic_C ==True: 
     SysHazard_lvl = 50000  #CFU # background contamination

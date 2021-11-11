@@ -78,12 +78,12 @@ ContCondz.Pack_C = False
 #%%
 #Conditions
 
-Tuning_SampleSize =[300]#[60,120,300,600,1200] #[60,120,300,600,1200] #list(range(100,1200,200))
-Tuning_Grabs =[60]# [1,30,60,120,300]
+Tuning_SampleSize =[60,120,300,600,1200] #[60,120,300,600,1200] #list(range(100,1200,200))
+Tuning_Grabs =[1,30,60,120,300]
 #Tuning_HazardLevel = [4536,45360,450360,4503600]#list(range(10000,130000,10000)) #1 CFU/10kg, 1CFU kg, 1CFU/100g, 1CFU/10g. 
 #Tuning_SampType =["4d"]# ["4d","4h","Int"]
-Tuning_Cluster_Size =[10000]#[100,1000,10000,25000,50000,100000]#,10000,50000]
-Tuning_Contamination_levels =[CFU_100g] #[CFU_10000g,CFU_1000g,CFU_100g,CFU_10g,CFU_g,CFU_0_1g]
+Tuning_Cluster_Size =[100,1000,10000,25000,50000,100000]#,10000,50000]
+Tuning_Contamination_levels =[CFU_10000g,CFU_1000g,CFU_100g,CFU_10g,CFU_g,CFU_0_1g]
 
 #%%
 import time

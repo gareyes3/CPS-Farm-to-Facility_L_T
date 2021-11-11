@@ -32,11 +32,10 @@ def F_systematic_C(df, Hazard_lvl,No_Cont_Clusters,Cluster_Size, Partition_Weigh
     #Determining haard level per partitions
     Hazard_lvl_C= Hazard_lvl/(No_Cont_PartitionUnits*No_Cont_Clusters)
     for i in range(0,No_Cont_Clusters):
-        print(i)
         Ci = Hazard_lvl_C
         n = random.randint(0,len(df.index)- No_Cont_PartitionUnits)
         x_random_consecutive_rows = df[n:n + No_Cont_PartitionUnits]
-        x_random_consecutive_rows = list(x_random_consecutive_rows['PartitionID'])
+        x_random_consecutive_rows = list(x_random_consecutive_rows.index)
         df.loc[ x_random_consecutive_rows,'CFU']= df['CFU'] + Ci
     return df
         
