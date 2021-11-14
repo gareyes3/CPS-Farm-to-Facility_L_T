@@ -1,0 +1,120 @@
+---
+title: "Untitled"
+author: "Gustavo Reyes"
+date: "11/12/2021"
+output: html_document
+---
+
+
+```{r}
+data<-read.csv("3d-df-10-12.csv")
+```
+
+```{r}
+library("plotly")
+library("tidyverse")
+library("ggplot2")
+```
+
+```{r}
+
+fig <- plot_ly(data = data, x = ~Grabs, y = ~SampleMass, z = ~Clusters, color = ~PH_CFU_PerA)
+fig <- fig %>% add_markers()
+fig <- fig %>% layout(scene = list(xaxis = list(title = 'Grabs'),
+                     yaxis = list(title = 'Sample Mass'),
+                     zaxis = list(title = 'Clustering Level')))
+
+
+
+fig
+```
+
+```{r}
+Summarizeddata<-data %>% 
+  group_by(Clusters,ContLevel,Grabs,SampleMass) %>% 
+  summarise(meanpa = mean(PH_CFU_PerA))
+
+```
+
+
+
+```{r}
+ggplotdata<-Summarizeddata %>% 
+  filter(meanpa>=0.95)
+```
+
+```{r}
+ggplot(ggplotdata, aes(x= Grabs, y=SampleMass, color= factor(Clusters) ))+
+  geom_line()
+```
+
+
+
+
+First PLot
+```{r}
+P1 <-Summarizeddata[1:25,]
+
+library(reshape2)
+Matrix<-acast(P1, Grabs~SampleMass, value.var="meanpa")
+
+fig <- plot_ly(
+  x = c(60,120,300,600,1200), 
+  y = c(1,30,60,120,300), 
+  z = Matrix,
+  type = "contour" 
+)
+
+fig
+
+```
+
+```{r}
+P2 <-Summarizeddata[26:50,]
+
+library(reshape2)
+Matrix<-acast(P2, Grabs~SampleMass, value.var="meanpa")
+
+fig <- plot_ly(
+  x = c(60,120,300,600,1200), 
+  y = c(1,30,60,120,300), 
+  z = Matrix,
+  type = "contour" 
+)
+
+fig
+```
+
+```{r}
+P3 <-Summarizeddata[51:75,]
+
+library(reshape2)
+Matrix<-acast(P3, Grabs~SampleMass, value.var="meanpa")
+
+fig <- plot_ly(
+  x = c(60,120,300,600,1200), 
+  y = c(1,30,60,120,300), 
+  z = Matrix,
+  type = "contour" 
+)
+
+fig
+```
+
+
+```{r}
+P4 <-Summarizeddata[76:100,]
+
+library(reshape2)
+Matrix<-acast(P4, Grabs~SampleMass, value.var="meanpa")
+
+fig <- plot_ly(
+  x = c(60,120,300,600,1200), 
+  y = c(1,30,60,120,300), 
+  z = Matrix,
+  type = "contour" 
+)
+
+fig
+```
+

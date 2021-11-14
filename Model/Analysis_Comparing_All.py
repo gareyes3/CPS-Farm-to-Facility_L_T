@@ -120,7 +120,7 @@ ScenCondz.PHS_Int = 1  # Scenario 3
 
 reload(Inputz)  # Reload Inputz
 reload(Listz)  # ReUPdate Lists
-
+reload(SCInputz)  # ReUPdate Lists
 Main_Mod_Outs = MainModel3z.F_MainLoop()
 D_PHInt = Main_Mod_Outs[1]
 DProg_PHInt = Main_Mod_Outs[0]
@@ -154,6 +154,7 @@ ScenCondz.HS_Agg = 1  # Scenario 6
 
 reload(Inputz)  # Reload Inputz
 reload(Listz)  # ReUPdate Lists
+reload(SCInputz)  # ReUPdate Lists
 
 Main_Mod_Outs = MainModel3z.F_MainLoop()
 D_HAgg = Main_Mod_Outs[1]
@@ -208,6 +209,81 @@ reload(Listz)  # ReUPdate Lists
 Main_Mod_Outs = MainModel3z.F_MainLoop()
 D_FPSAgg = Main_Mod_Outs[1]
 DProg_FPSAgg = Main_Mod_Outs[0]
+
+#%%
+
+##CFU that leak through the system
+L_Final_Conts = {
+    'Baseline': D_Baseline["FP_CFU_Acc"],
+    'PH4d': D_PH4d["FP_CFU_Acc"],
+    'PH4h': D_PH4h["FP_CFU_Acc"],
+    'PHInt': D_PHInt["FP_CFU_Acc"],
+    'HTrad': D_HTrad["FP_CFU_Acc"],
+    #HAgg': D_HAgg["FP_CFU_Acc"],
+    'R': D_R["FP_CFU_Acc"],
+    'FPTrad': D_FPSTrad["FP_CFU_Acc"],
+    #'FPAgg': D_FPSAgg["FP_CFU_Acc"],
+}
+
+df_L_Final_Conts = pd.DataFrame(L_Final_Conts)
+df_L_Final_Conts_melted = pd.melt(df_L_Final_Conts)
+
+Scenariosplot = sns.boxplot(x="variable", y="value",
+                            data=df_L_Final_Conts_melted)
+plt.xlabel("Sampling Type")
+plt.ylabel("Total CFU in Final Product")
+plt.title("Total CFU that leak through system")
+
+#Sampling POWER
+L_Final_Conts = {
+    'Baseline': D_Baseline["PH_CFU_PerR"],
+    'PH4d': D_PH4d["PH_CFU_PerR"],
+    'PH4h': D_PH4h["PH_CFU_PerR"],
+    'PHInt': D_PHInt["PH_CFU_PerR"],
+    'HTrad': D_HTrad["H_CFU_PerR"],
+    #HAgg': D_HAgg["FP_CFU_Acc"],
+    'R': D_R["R_CFU_PerR"],
+    'FPTrad': D_FPSTrad["FP_CFU_PerR"],
+    #'FPAgg': D_FPSAgg["FP_CFU_Acc"],
+}
+
+df_L_Final_Conts = pd.DataFrame(L_Final_Conts)
+df_L_Final_Conts_melted = pd.melt(df_L_Final_Conts)
+
+Scenariosplot = sns.boxplot(x="variable", y="value",
+                            data=df_L_Final_Conts_melted)
+plt.xlabel("Sampling Type")
+plt.ylabel("% of CFU Rejected by Sampling Plan")
+plt.title("Power of Sampling Plans")
+
+
+def melting_type(df, typename):
+    df_melt = pd.melt(df)
+    df_melt["type"] = typename
+    return df_melt
+
+#PRogression
+DProg_Baseline_melt = melting_type(DProg_Baseline, "Baseline")
+DProg_PH4d_melt = melting_type(DProg_PH4d, "PH 4d")
+DProg_PH4h_melt = melting_type(DProg_PH4h, "PH 4h")
+DProg_PHInt_melt = melting_type(DProg_PHInt, "PH Int")
+DProg_HTrad_melt = melting_type(DProg_HTrad, "H Trad")
+DProg_R_melt = melting_type(DProg_R, "Receiving")
+DProg_FPSTrad_melt = melting_type(DProg_FPSTrad, "FPSTrad")
+
+all_list = [DProg_Baseline_melt, DProg_PH4d_melt, DProg_PH4h_melt, DProg_PHInt_melt,
+            DProg_HTrad_melt, DProg_R_melt, DProg_FPSTrad_melt]
+Frame_all = pd.concat(all_list)
+
+sns.catplot(x="variable", y="value", hue="type", kind="bar",
+            data=Frame_all, height=4, aspect=12/4)
+plt.xlabel("Sampling Scenario")
+plt.ylabel("CFU in System")
+plt.title("Contamination Progression Through System")
+plt.xticks(rotation=70)
+
+
+
 
 # %%Final graphs
 

@@ -39,7 +39,7 @@ def F_MainLoop():
 
     for  i in range(SCInputz.N_Iterations):
         Iteration_In = i
-        #print(Iteration_In,"iteration")
+        print(Iteration_In,"iteration")
         reload(Inputz)
         
     
@@ -493,14 +493,14 @@ def F_MainLoop():
                     df =Funz.F_Sampling_2(df =df,Test_Unit ="Lot", 
                                                NSamp_Unit = SCInputz.n_samples_FP, 
                                                Samp_Size =SCInputz.sample_size_FP, 
-                                               Partition_Weight =SCInputz.Pack_Weight_FP, 
+                                               Partition_Weight =Inputz.Pack_Weight_FP, 
                                                NoGrab = SCInputz.N_Packages_Samples)
                     
                 elif ScenCondz.FPS_Agg ==True:
                     df =Funz.F_Sampling_2(df =df,Test_Unit ="Lot", 
                                                NSamp_Unit = SCInputz.n_samples_FP, 
                                                Samp_Size =SCInputz.sample_size_FP, 
-                                               Partition_Weight =SCInputz.Pack_Weight_FP, 
+                                               Partition_Weight =Inputz.Pack_Weight_FP, 
                                                NoGrab = SCInputz.N_Packages_Samples)
             
         

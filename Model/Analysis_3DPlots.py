@@ -14,8 +14,8 @@ Created on Fri Nov  5 14:09:08 2021
 #%%
 import sys, os
 sys.path
-#sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
-sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
+sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
+#sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
 
 # %%
 from importlib import reload
@@ -185,3 +185,5 @@ H.fig.suptitle('Point Source-Contamination: Composite Mass vs. No Grabs vs. Cont
 
 sns.regplot(x="GrabNo", y="PH_CFU_PerR" ,)
 
+#%%
+Combined_df_Probs.to_csv('3d-df-11-12.csv')
