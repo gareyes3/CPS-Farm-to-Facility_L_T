@@ -43,7 +43,7 @@ import MainModel3z
 
 #Input SideBar=======================================================================================================================================
 
-st.sidebar.header('Scenario Input Parameters')
+st.sidebar.header('Start Here: Select your Inputs')
 #FieldPackLettuce
 ScenCondz.Field_Pack = st.sidebar.checkbox("Field Pack Lettuce?")
 
@@ -155,8 +155,10 @@ Pre-Harvest sampling tuning parameters
         
     Inputz.sample_size_PH = st.sidebar.number_input("Enter Sample Size [g]", value = 300)
     if PH_S_Stratgy == "4 day" or PH_S_Stratgy == "4 Hour":
+        SCInputz.No_Grabs_PH = st.sidebar.number_input("Number of individual grabs", value = 60)
         SCInputz.n_samples_slot_PH =st.sidebar.number_input("Samples per Sublot", value = 1)
         SCInputz.RR_PH_Trad  =st.sidebar.selectbox(label = "Select Rejection Rule", options = ["Lot", "Sublot"])
+        
     elif PH_S_Stratgy == "Intense":
          SCInputz.n_samples_slot_PH =st.sidebar.number_input("Samples per Lot", value = 10)
          SCInputz.RR_PH_Int=st.sidebar.selectbox(label = "Select Rejection Rule", options = ["Lot", "Sublot"])
