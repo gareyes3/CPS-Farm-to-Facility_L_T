@@ -4,17 +4,22 @@ Created on Tue Sep  7 09:16:17 2021
 
 @author: gareyes3
 """
+
 #import sys
 #sys.path
-#sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
+#sys.path.append('C:\\Users\reyes\Documents\GitHub\CPS-Farm-to-Facility\Model')
+#sys
 
+
+#Importing python modules. 
 import streamlit as st
 import pandas as pd
-
 import pandas as pd 
 import seaborn as sns
 from matplotlib import pyplot as plt
 import base64
+import plotly
+import plotly.express as px
 
 
 #Own Libraries ----------------------------------------------------------------
@@ -27,6 +32,7 @@ import ScenCondz
 import ContCondz
 import Inputz
 import SCInputz
+import AppFunz
 from importlib import reload 
 
 reload(Listz)
@@ -150,8 +156,10 @@ Pre-Harvest sampling tuning parameters
     Inputz.sample_size_PH = st.sidebar.number_input("Enter Sample Size [g]", value = 300)
     if PH_S_Stratgy == "4 day" or PH_S_Stratgy == "4 Hour":
         SCInputz.n_samples_slot_PH =st.sidebar.number_input("Samples per Sublot", value = 1)
+        SCInputz.RR_PH_Trad  =st.sidebar.selectbox(label = "Select Rejection Rule", options = ["Lot", "Sublot"])
     elif PH_S_Stratgy == "Intense":
          SCInputz.n_samples_slot_PH =st.sidebar.number_input("Samples per Lot", value = 10)
+         SCInputz.RR_PH_Int=st.sidebar.selectbox(label = "Select Rejection Rule", options = ["Lot", "Sublot"])
 #In-Harvest
 
 if ScenCondz.H_Sampling ==True:
@@ -159,17 +167,19 @@ if ScenCondz.H_Sampling ==True:
 In-Harvest sampling tuning parameters
 """)
     H_S_Stratgy = st.sidebar.selectbox(label = "Select Type of In-Harvest Sampling", options = ["Traditional", "Aggregative"])
-    if  PH_S_Stratgy == "Traditional":
+    if  H_S_Stratgy == "Traditional":
         ScenCondz.HS_Trad = True
-    elif PH_S_Stratgy == "Aggregative":
+    elif H_S_Stratgy == "Aggregative":
         ScenCondz.HS_Agg = True
 
         
     Inputz.sample_size_PH = st.sidebar.number_input("Enter Sample Size [g]", value = 300)
     if PH_S_Stratgy == "Traditional" :
         SCInputz.n_samples_slot_H =st.sidebar.number_input("Samples per Sublot", value = 1)
+        SCInputz.RR_H_Trad  =st.sidebar.selectbox(label = "Select Rejection Rule", options = ["Lot", "Sublot"])
     elif PH_S_Stratgy == "Aggregative":
          SCInputz.n_samples_slot_H =st.sidebar.number_input("Samples per Sublot", value = 10)
+         SCInputz.RR_PH_Agg  =st.sidebar.selectbox(label = "Select Rejection Rule", options = ["Lot", "Sublot"])
 
 #Receiving
 if ScenCondz.R_Sampling ==True:
@@ -180,6 +190,29 @@ Receiving sampling tuning parameters
     SCInputz.n_samples_pallet =st.sidebar.number_input("Number of Samples per Paller", value = 1)
     SCInputz.sample_size_R =st.sidebar.number_input("Sample Size [g]", value = 125)
     SCInputz.No_Grabs_R =st.sidebar.number_input("Number of grabs per pallet", value = 20)
+    SCInputz.RR_R_Trad  =st.sidebar.selectbox(label = "Select Rejection Rule", options = ["Lot", "Sublot", "PalletNo"])
+
+
+#Finished Product
+if ScenCondz.FP_Sampling ==True:
+    st.sidebar.write("""
+Finished product sampling tuning parameters
+""")
+    FP_S_Stratgy = st.sidebar.selectbox(label = "Select Type of Finished Product Sampling", options = ["Traditional", "Aggregative"])
+    if  FP_S_Stratgy == "Traditional":
+        ScenCondz.FPS_Trad = True
+    elif FP_S_Stratgy == "Aggregative":
+        ScenCondz.FPS_Agg = True
+
+    Inputz.sample_size_FP= st.sidebar.number_input("Enter Sample Size [g]", value = 300)
+    if FP_S_Stratgy == "Traditional" :
+        SCInputz.n_samples_FP =st.sidebar.number_input("Samples per Lot of Finished Product", value = 1)
+        SCInputz.RR_FP_Trad  =st.sidebar.selectbox(label = "Select Rejection Rule", options = ["Lot", "Sublot"])
+    elif FP_S_Stratgy == "Aggregative":
+         SCInputz.n_samples_FP =st.sidebar.number_input("Samples per Lot of Finished Product", value = 10)
+         SCInputz.RR_FP_Agg  =st.sidebar.selectbox(label = "Select Rejection Rule", options = ["Lot", "Sublot"])
+
+
 
 
 
@@ -188,7 +221,7 @@ def get_table_download_link_csv(df):
     csv = df.to_csv().encode()
     #b64 = base64.b64encode(csv.encode()).decode() 
     b64 = base64.b64encode(csv).decode()
-    href = f'<a href="data:file/csv;base64,{b64}" download="Results.csv" target="_blank">Download csv file</a>'
+    href = f'<a href="data:file/csv;base64,{b64}" download="Results.csv" target="_blank">Download Output CSV File Here</a>'
     return href
 
 
@@ -197,35 +230,61 @@ def get_table_download_link_csv(df):
 
 #Main Header and Title for the model
 st.write("""
-# CPS Farm to Facility Web App
-This App Predicts the Following:
-- Percent of CFU Rejected
-- Percent of Lb. Rejected
+## Welcome
+This is an interactive web app designed to run sampling simulation in a food safety context. The simulation model is maintained by researchers of the Stasiewicz Food Safety Lab under the department of Food Science and Human Nutrition at the University of Illinois at Urbana-Champaign .
+### Goal:
+We aim to provide a tool to simulatesampling in a Farm to Facility Process. The results evaluate the performance of any specific sampling plan.
 """)
 
-st.subheader('Tune Run:')
+st.subheader('Run your sampling plan here:')
 SCInputz.N_Iterations = st.number_input("Enter Number of Iterations",value = 10, min_value = 0, max_value =1000)
 
 #Looks
 if st.button('Click Here to Iterate'):
     #Side Bar Inputs
     Main_Mod_Outs=MainModel3z.F_MainLoop()
-    D_PH4d = Main_Mod_Outs[1]
+    Main_Data= Main_Mod_Outs[1]
     DProg_PH4d=Main_Mod_Outs[0]
     
     
     #Results
-    st.subheader('Results')
+    st.subheader('Your Results:')
     st.subheader('Outputs DataFrame')
-    st.write(D_PH4d)
-    st.markdown(get_table_download_link_csv(D_PH4d), unsafe_allow_html=True)
+    st.write(Main_Data.head())
+    st.markdown(get_table_download_link_csv(Main_Data), unsafe_allow_html=True)
     
-    st.subheader('Boxplot')
-    fig = plt.figure(figsize=(8,4)) # try different values
-    sns.boxplot(y=D_PH4d["PH_CFU_PerR"])
-    plt.ylabel("Percent CFU Rejected by Sampling Plan")
+    st.subheader('Evaluate Sampling Performance')
+    
+    
+    if ScenCondz.PH_Sampling ==True:
+        #sns.set_theme(style="whitegrid")
+        #fig, ax = plt.subplots()
+        #ax = sns.boxplot(y="PH_CFU_PerR", data=Main_Data)
+        #ax = sns.swarmplot(y="PH_CFU_PerR", data=Main_Data, color=".25")
+        #ax.set( ylabel='% CFU Rejected (Power)')
+        #st.pyplot(fig)
+        
+        
+        fig = px.box(Main_Data,y="PH_CFU_PerR",points="all",labels={
+                     "PH_CFU_PerR": "% CFU Rejected (Power)"
+                 }, title="Sampling Plan Power")
+        st.plotly_chart(fig)
+        
+    st.write("""
+             ### Contamination Progression
+    """)
+    st.write(DProg_PH4d.head())
+    
+    df_melt = pd.melt(DProg_PH4d)
+    
+    fig = px.box(df_melt ,y="value",x = "variable",labels={
+             "value": "CFU in System"
+         }, title="Sampling Plan Power")
+    st.plotly_chart(fig)
 
-    st.pyplot(fig)
+    
+
+    
     
     
 
