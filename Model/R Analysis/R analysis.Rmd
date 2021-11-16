@@ -16,28 +16,168 @@ library("tidyverse")
 library("ggplot2")
 ```
 
-```{r}
-
-fig <- plot_ly(data = data, x = ~Grabs, y = ~SampleMass, z = ~Clusters, color = ~PH_CFU_PerA)
-fig <- fig %>% add_markers()
-fig <- fig %>% layout(scene = list(xaxis = list(title = 'Grabs'),
-                     yaxis = list(title = 'Sample Mass'),
-                     zaxis = list(title = 'Clustering Level')))
-
-
-
-fig
-```
-
 
 ```{r}
 Summarizeddata<-data %>% 
   group_by(Clusters,ContLevel,Grabs,SampleMass) %>% 
   summarise(meanpa = mean(PH_CFU_PerA)) %>% 
   mutate(meanpr = 1-meanpa)
+```
 
+
+First PLot
+```{r}
+P1 <-Summarizeddata[1:25,]
+
+library(reshape2)
+Matrix<-acast(P1, Grabs~SampleMass, value.var="meanpr")
+
+fig1 <- plot_ly(
+  x = c(60,120,300,600,1200), 
+  y = c(1,30,60,120,300), 
+  z = Matrix,
+  type = "contour" 
+) %>% 
+layout(yaxis = list(title = 'Number of grabs/ composite sample'),xaxis = list(title = 'Composite Sample Mass (g)'), title =list(text= "100 lb Cluster (0.1%) | Total CFU in Cluster: 4,540" )) %>% 
+  colorbar(title = "% CFU Rejected (POWER)")
+
+fig1
 
 ```
+
+```{r}
+P2 <-Summarizeddata[26:50,]
+
+library(reshape2)
+Matrix<-acast(P2, Grabs~SampleMass, value.var="meanpr")
+
+fig2 <- plot_ly(
+  x = c(60,120,300,600,1200), 
+  y = c(1,30,60,120,300), 
+  z = Matrix,
+  type = "contour" 
+) %>% 
+layout(yaxis = list(title = 'Number of grabs/specimens'),xaxis = list(title = 'Composite Sample Mass (g)'), title =list(text= "100 lb Cluster | Total CFU: 45,400" )) %>% 
+  colorbar(title = "% CFU Rejected")
+
+fig2
+```
+
+```{r}
+P3 <-Summarizeddata[51:75,]
+
+library(reshape2)
+Matrix<-acast(P3, Grabs~SampleMass, value.var="meanpr")
+
+fig3 <- plot_ly(
+  x = c(60,120,300,600,1200), 
+  y = c(1,30,60,120,300), 
+  z = Matrix,
+  type = "contour" 
+) %>% 
+layout(yaxis = list(title = 'Number of grabs/specimens'),xaxis = list(title = 'Composite Sample Mass (g)'), title =list(text= "100 lb Cluster | Total CFU: 454,000" )) %>% 
+  colorbar(title = "% CFU Rejected")
+
+fig3
+```
+
+
+```{r}
+P4 <-Summarizeddata[76:100,]
+
+library(reshape2)
+Matrix<-acast(P4, Grabs~SampleMass, value.var="meanpr")
+
+fig4 <- plot_ly(
+  x = c(60,120,300,600,1200), 
+  y = c(1,30,60,120,300), 
+  z = Matrix,
+  type = "contour" 
+) %>% 
+layout(yaxis = list(title = 'Number of grabs/specimens'),xaxis = list(title = 'Composite Sample Mass (g)'), title =list(text= "100 lb Cluster | Total CFU: 4,540,000" )) %>% 
+  colorbar(title = "% CFU Rejected")
+
+fig4
+```
+
+
+```{r}
+P5 <-Summarizeddata[101:125,]
+
+library(reshape2)
+Matrix<-acast(P5, Grabs~SampleMass, value.var="meanpr")
+
+fig5 <- plot_ly(
+  x = c(60,120,300,600,1200), 
+  y = c(1,30,60,120,300), 
+  z = Matrix,
+  type = "contour" 
+) %>% 
+layout(yaxis = list(title = 'Number of grabs/specimens'),xaxis = list(title = 'Composite Sample Mass (g)'), title =list(text= "100 lb Cluster | Total CFU: 45,400,000" )) %>% 
+  colorbar(title = "% CFU Rejected")
+
+fig5
+```
+
+```{r}
+P6 <-Summarizeddata[126:150,]
+
+library(reshape2)
+Matrix<-acast(P6, Grabs~SampleMass, value.var="meanpr")
+
+fig6 <- plot_ly(
+  x = c(60,120,300,600,1200), 
+  y = c(1,30,60,120,300), 
+  z = Matrix,
+  type = "contour" 
+) %>% 
+layout(yaxis = list(title = 'Number of grabs/specimens'),xaxis = list(title = 'Composite Sample Mass (g)'), title =list(text= "100 lb Cluster | Total CFU: 454,000,000" )) %>% 
+  colorbar(title = "% CFU Rejected")
+
+fig6
+```
+
+
+
+
+
+
+
+### Large Cluster
+
+```{r}
+
+
+fig <- subplot(fig1, fig2, fig3,fig4,fig5,fig6, nrows = 2, margin = 0.05)%>% 
+    layout(annotations = list( 
+    list(x = 0.15 , y = 1.2, text = "First Subplot", showarrow = F, xref='paper', yref='paper'), 
+    list(x = 0.85 , y = 1.2, text = "Second Subplot", showarrow = F, xref='paper', yref='paper')) 
+  ) 
+
+fig
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## 95% power plot
@@ -141,85 +281,5 @@ layout(yaxis = list(title = 'Number of grabs/specimens'),xaxis = list(title = 'C
 fig
 
 
-```
-
-
-```{r}
-ggplot(ggplotdata, aes(x= Grabs, y=SampleMass, color= factor(Clusters) ))+
-  geom_line()
-```
-
-
-
-
-First PLot
-```{r}
-P1 <-Summarizeddata[1:25,]
-
-library(reshape2)
-Matrix<-acast(P1, Grabs~SampleMass, value.var="meanpa")
-
-fig <- plot_ly(
-  x = c(60,120,300,600,1200), 
-  y = c(1,30,60,120,300), 
-  z = Matrix,
-  type = "contour" 
-) %>% 
-layout(yaxis = list(title = 'Number of grabs/specimens'),xaxis = list(title = 'Composite Sample Mass (g)'), title = "Cluster: 1% , Cont Level: -3 log CFU/g" ,legend = list(title=list(text='<b> Power, P of Rejection</b>')))
-
-fig
-
-```
-
-```{r}
-P2 <-Summarizeddata[26:50,]
-
-library(reshape2)
-Matrix<-acast(P2, Grabs~SampleMass, value.var="meanpa")
-
-fig <- plot_ly(
-  x = c(60,120,300,600,1200), 
-  y = c(1,30,60,120,300), 
-  z = Matrix,
-  type = "contour" 
-) %>% 
-  layout(yaxis = list(title = 'Number of grabs/specimens'),xaxis = list(title = 'Composite Sample Mass (g)'), title = "Cluster: 1% , Cont Level: -3 log CFU/g" ,legend = list(title=list(text='<b> Power, P of Rejection</b>')))
-
-fig
-```
-
-```{r}
-P3 <-Summarizeddata[51:75,]
-
-library(reshape2)
-Matrix<-acast(P3, Grabs~SampleMass, value.var="meanpa")
-
-fig <- plot_ly(
-  x = c(60,120,300,600,1200), 
-  y = c(1,30,60,120,300), 
-  z = Matrix,
-  type = "contour" 
-) %>% 
-  layout(yaxis = list(title = 'Number of grabs/specimens'),xaxis = list(title = 'Composite Sample Mass (g)'), title = "Cluster: 1% , Cont Level: -2 log CFU/g" ,legend = list(title=list(text='<b> Power, P of Rejection</b>')))
-
-fig
-```
-
-
-```{r}
-P4 <-Summarizeddata[76:100,]
-
-library(reshape2)
-Matrix<-acast(P4, Grabs~SampleMass, value.var="meanpa")
-
-fig <- plot_ly(
-  x = c(60,120,300,600,1200), 
-  y = c(1,30,60,120,300), 
-  z = Matrix,
-  type = "contour" 
-) %>% 
-  layout(yaxis = list(title = 'Number of grabs/specimens'),xaxis = list(title = 'Composite Sample Mass (g)'), title = "Cluster: 1% , Cont Level: -1 log CFU/g" ,legend = list(title=list(text='<b> Power, P of Rejection</b>')))
-
-fig
 ```
 
