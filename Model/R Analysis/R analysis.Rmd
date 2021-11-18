@@ -19,7 +19,7 @@ library("ggplot2")
 
 ```{r}
 Summarizeddata<-data %>% 
-  group_by(Clusters,ContLevel,Grabs,SampleMass) %>% 
+  group_by(#%%) %>% 
   summarise(meanpa = mean(PH_CFU_PerA)) %>% 
   mutate(meanpr = 1-meanpa)
 ```
