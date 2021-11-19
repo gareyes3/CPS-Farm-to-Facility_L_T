@@ -19,7 +19,7 @@ library("ggplot2")
 
 ```{r}
 Summarizeddata<-data %>% 
-  group_by(#%%) %>% 
+  group_by(ContLevel,Clusters,SampleMass,Grabs) %>% 
   summarise(meanpa = mean(PH_CFU_PerA)) %>% 
   mutate(meanpr = 1-meanpa)
 ```
@@ -36,7 +36,8 @@ fig1 <- plot_ly(
   x = c(60,120,300,600,1200), 
   y = c(1,30,60,120,300), 
   z = Matrix,
-  type = "contour" 
+  type = "contour",
+  contours = list(showlabels = TRUE, labelfont = list( color = 'black', size = 16))
 ) %>% 
 layout(yaxis = list(title = 'Number of grabs/ composite sample'),xaxis = list(title = 'Composite Sample Mass (g)'), title =list(text= "100 lb Cluster (0.1%) | Total CFU in Cluster: 4,540" )) %>% 
   colorbar(title = "% CFU Rejected (POWER)")
