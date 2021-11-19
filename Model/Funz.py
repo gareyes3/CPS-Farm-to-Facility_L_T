@@ -662,7 +662,7 @@ def F_Washing_ProcLines (List_GB3, Wash_Rate, Cdf):
             L_Xl.append(Xl)
             AvCont = Xl
             CFU_2 = AvCont*((j.at[i,"Weight"]*454))
-            j.at[i,"CFU"] =  CFU_2 
+            j.at[i,"CFU"] =  CFU_2
     return (List_GB3) 
 
 

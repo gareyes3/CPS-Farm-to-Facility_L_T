@@ -43,7 +43,9 @@ def F_MainLoop():
         reload(Inputz)
         
     
-        #Adding Contmination to the Field
+        #Adding Contmination to the Field if Contmination Event Occurs Before Pre-Harvest
+        
+        
         
         #STEP 0 CONTAMINATION SCENARIOS  ----------------------------------------------------------------------------------------------------
 
@@ -52,37 +54,39 @@ def F_MainLoop():
                           Field_Weight = SCInputz.Field_Weight, 
                           slot_number = SCInputz.slot_number)
         
-        #Adding Contamination depending on challenge Pre-harvest challenges
-        if ContCondz.Background_C == True:
-            df = ContScen.F_Background_C(df=df, 
-                                         Hazard_lvl = SCInputz.BGHazard_lvl, 
-                                         Partition_Units= SCInputz.Partition_Units)
+        if Inputz.Time_CE_PHS>0:
             
-        #Adding Contamination depending on challenge Point_Source
-        if ContCondz.Point_Source_C ==True:
-            df=ContScen.F_systematic_C(df=df, 
-                                         Hazard_lvl=SCInputz.PSHazard_lvl,
-                                         No_Cont_Clusters =SCInputz.PSNo_Cont_Clusters, 
-                                         Cluster_Size = SCInputz.PSCluster_Size, 
-                                         Partition_Weight = SCInputz.Partition_Weight)
-    
-            
-        #Adding Contamination depending on challenge Systematic Sampling
-        if ContCondz.Systematic_C == True:
-            df = ContScen.F_systematic_C(df=df, Hazard_lvl= SCInputz.SysHazard_lvl,
-                                         No_Cont_Clusters =SCInputz.SysNo_Cont_Clusters,
-                                         Cluster_Size= SCInputz.SysCluster_Size,
-                                         Partition_Weight = SCInputz.Partition_Weight)
-            
-        # Local Outputs: Initial Contamination     
-        LV_Initial_CFU= sum(df.CFU) #Initial Contamination 
-        Listz.List_Initial_CFU.append(LV_Initial_CFU) #Adding Initial Contamintion to List
+            #Adding Contamination depending on challenge Pre-harvest challenges
+            if ContCondz.Background_C == True:
+                df = ContScen.F_Background_C(df=df, 
+                                             Hazard_lvl = SCInputz.BGHazard_lvl, 
+                                             Partition_Units= SCInputz.Partition_Units)
+                
+            #Adding Contamination depending on challenge Point_Source
+            if ContCondz.Point_Source_C ==True:
+                df=ContScen.F_systematic_C(df=df, 
+                                             Hazard_lvl=SCInputz.PSHazard_lvl,
+                                             No_Cont_Clusters =SCInputz.PSNo_Cont_Clusters, 
+                                             Cluster_Size = SCInputz.PSCluster_Size, 
+                                             Partition_Weight = SCInputz.Partition_Weight)
         
-        #Contprog Initial
-        df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df,
-                                                     outputDF = df_Output_Contprog,
-                                                     Step_Column = "Initial", 
-                                                     i =Iteration_In )
+                
+            #Adding Contamination depending on challenge Systematic Sampling
+            if ContCondz.Systematic_C == True:
+                df = ContScen.F_systematic_C(df=df, Hazard_lvl= SCInputz.SysHazard_lvl,
+                                             No_Cont_Clusters =SCInputz.SysNo_Cont_Clusters,
+                                             Cluster_Size= SCInputz.SysCluster_Size,
+                                             Partition_Weight = SCInputz.Partition_Weight)
+                
+            # Local Outputs: Initial Contamination     
+            LV_Initial_CFU= sum(df.CFU) #Initial Contamination 
+            Listz.List_Initial_CFU.append(LV_Initial_CFU) #Adding Initial Contamintion to List
+            
+            #Contprog Initial
+            df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df,
+                                                         outputDF = df_Output_Contprog,
+                                                         Step_Column = "Contam Event Before PHS", 
+                                                         i =Iteration_In )
     
         #STEP 1 PREHARVEST ------------------------------------------------------------------------------------------------------------------
         
@@ -102,7 +106,7 @@ def F_MainLoop():
         #print("before",LO_Cont_B_PH)
         LO_Weight_B_PH = sum(df.Weight)
         
-        #Contprog Before Pre-Harvest
+        #Contprog Before Pre-Harvest Sampling
         df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df,
                                                      outputDF = df_Output_Contprog,
                                                      Step_Column = "Bef Pre-Harvest Samp", 
@@ -151,6 +155,44 @@ def F_MainLoop():
                                                             Weight_Before = LO_Weight_B_PH, 
                                                             i = Iteration_In, 
                                                             Niterations = SCInputz.N_Iterations)
+        
+        
+        if Inputz.Time_CE_PHS==0:
+        
+        #STEP 0 CONTAMINATION SCENARIOS  ----------------------------------------------------------------------------------------------------
+            
+            #Adding Contamination depending on challenge Pre-harvest challenges
+            if ContCondz.Background_C == True:
+                df = ContScen.F_Background_C(df=df, 
+                                             Hazard_lvl = SCInputz.BGHazard_lvl, 
+                                             Partition_Units= SCInputz.Partition_Units)
+                
+            #Adding Contamination depending on challenge Point_Source
+            if ContCondz.Point_Source_C ==True:
+                df=ContScen.F_systematic_C(df=df, 
+                                             Hazard_lvl=SCInputz.PSHazard_lvl,
+                                             No_Cont_Clusters =SCInputz.PSNo_Cont_Clusters, 
+                                             Cluster_Size = SCInputz.PSCluster_Size, 
+                                             Partition_Weight = SCInputz.Partition_Weight)
+        
+                
+            #Adding Contamination depending on challenge Systematic Sampling
+            if ContCondz.Systematic_C == True:
+                df = ContScen.F_systematic_C(df=df, Hazard_lvl= SCInputz.SysHazard_lvl,
+                                             No_Cont_Clusters =SCInputz.SysNo_Cont_Clusters,
+                                             Cluster_Size= SCInputz.SysCluster_Size,
+                                             Partition_Weight = SCInputz.Partition_Weight)
+                
+            # Local Outputs: Initial Contamination     
+            LV_Initial_CFU= sum(df.CFU) #Initial Contamination 
+            Listz.List_Initial_CFU.append(LV_Initial_CFU) #Adding Initial Contamintion to List
+            
+            #Contprog Initial
+            df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df,
+                                                         outputDF = df_Output_Contprog,
+                                                         Step_Column = "Contam Event After PHS", 
+                                                         i =Iteration_In )
+    
         
         #STEP 2 HARVEST ---------------------------------------------------------------------------------------------------------------------
         
@@ -250,7 +292,7 @@ def F_MainLoop():
             #Pre_Cooling
             #Aggresive Temperature Change. Reset Lag Time
             Inputz.Lag_Consumed_Prev = 0 #Reseting Lag Consumed.
-            #New Lettuce Temperature aPproximately 5C
+            #New Lettuce Temperature approximately 5C
             
             #Storage at Receiving
             GrowthOutsSto_R = Funz.Growth_Function_Lag(DF =df, 
@@ -328,7 +370,10 @@ def F_MainLoop():
             #LO_Cont_B_Shredder = Funz.F_SummingGB2Cont(gb2 =gb2) #Contamination before Shrdder            
             #Listz.Cont_B_Shredder.append( LO_Cont_B_Shredder)
             #Contaminatio, before shredding. 
-            df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df,
+            
+            df_gb2_bs = (pd.concat(gb2))
+            
+            df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df_gb2_bs,
                    outputDF = df_Output_Contprog,
                    Step_Column =  "Bef Shredding", 
                    i =Iteration_In )
@@ -345,7 +390,9 @@ def F_MainLoop():
             
             #2 Conveyor Belt
             #Contamination before conveyor belt
-            df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df,
+            df_gb2_bcb = (pd.concat(gb2))
+            
+            df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df_gb2_bcb ,
                    outputDF = df_Output_Contprog,
                    Step_Column =  "Bef Conveyor Belt", 
                    i =Iteration_In )
@@ -365,8 +412,9 @@ def F_MainLoop():
             
             
             #3Washing:
+            df_gb2_bw = (pd.concat(gb2))
                 
-            df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df,
+            df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df_gb2_bw,
                    outputDF = df_Output_Contprog,
                    Step_Column =  "Bef Washing", 
                    i =Iteration_In )
@@ -383,8 +431,9 @@ def F_MainLoop():
             gb2 = Funz.F_Washing_ProcLines(List_GB3 =gb2, Wash_Rate = Inputz.Wash_Rate, Cdf =  Inputz.DF_Chlevels)
             
             #4 Shaker Table
+            df_gb2_bst = (pd.concat(gb2))
             
-            df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df,
+            df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df_gb2_bst,
                    outputDF = df_Output_Contprog,
                    Step_Column =  "Bef Shaker Table", 
                    i =Iteration_In )
@@ -402,7 +451,9 @@ def F_MainLoop():
             StCont = StOuts[1]
             
             #5 Centrifuge
-            df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df,
+            df_gb2_bcf = (pd.concat(gb2))
+            
+            df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df_gb2_bcf,
                    outputDF = df_Output_Contprog,
                    Step_Column =  "Bef Centrifuge", 
                    i =Iteration_In )
@@ -422,12 +473,6 @@ def F_MainLoop():
                 
             #Adding Contamination from Scenario to each lot
             
-            if ContCondz.PE_C ==True:
-                gb2 = ContScen.F_PEC_C(gb2= gb2,
-                                       Hazard_lvl = SCInputz.PECHazard_lvl, 
-                                       Processing_Lines = Inputz.Processing_Lines, 
-                                       Lines_Cont = SCInputz.Lines_Cont)
-                
             
             #Joining Data Frames into one again, with contamination from lines. 
             df=(pd.concat(gb2))

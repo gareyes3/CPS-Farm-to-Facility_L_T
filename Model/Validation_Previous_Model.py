@@ -8,7 +8,7 @@ Created on Tue Nov  9 14:09:39 2021
 #%%
 import sys, os
 sys.path
-#sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
+sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
 sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
 
 # %%
@@ -74,6 +74,7 @@ ContCondz.Pack_C= False
 #%%
 Tuning_Contamination_levels = [CFU_10000g,CFU_1000g,CFU_100g,CFU_10g]
 Tuning_SampleSize =[180,360,900,1800,3600]#[60,120,300,600,1200]
+Tuning_NoGrabs = [60,120,300,600,1200]
 
 #%%
 
@@ -109,6 +110,8 @@ for k in Tuning_Contamination_levels:
         SCInputz.BGHazard_lvl = k
         #Updating Sample Size
         SCInputz.sample_size_PH = i
+        #SCInputz.No_Grabs_PH=No_Grabs
+        SCInputz.RR_PH_Trad  = "Lot"
         
         #Running the main Loop
         Main_Mod_Outs = Trial_MainLoop_PH.F_MainLoop_Validation()
@@ -119,7 +122,7 @@ for k in Tuning_Contamination_levels:
         DF= OutFunz.F_Output_get_cols(Outdf = OutputDF , ColNames = Desired_Outputs)
         #DF= pd.melt(DF)
         DF["ContLevel"] = k
-        DF["SampleMass"] = i
+        DF["SampleMass"] = i/3 
         Output_Collection_List.append(DF)
              
 print("--- %s seconds ---" % (time.time() - start_time))
@@ -134,8 +137,9 @@ Combined_df_Probs["ContLevel"].replace({CFU_10000g: "1 CFU/10kg",
                                      CFU_10g: "1 CFU/10g"}, inplace=True)
 
 
+
 sns.lineplot(x="SampleMass", y="PH_CFU_PerA", hue = "ContLevel" ,data=Combined_df_Probs)
-plt.xlabel("Composite Sample Mass")
+plt.xlabel("Sample Size")
 plt.ylabel("% of contamination Accepted")
 plt.title("Area Contamination, Uniform")
 # Put the legend out of the figure
@@ -212,7 +216,7 @@ for k in Tuning_Contamination_levels:
         DF= OutFunz.F_Output_get_cols(Outdf = OutputDF , ColNames = Desired_Outputs)
         #DF= pd.melt(DF)
         DF["ContLevel"] = k
-        DF["SampleMass"] = SampSize
+        DF["SampleMass"] = SampSize/3
         Output_Collection_List.append(DF)
              
 print("--- %s seconds ---" % (time.time() - start_time))
@@ -225,7 +229,7 @@ Combined_df_Probs["PH_CFU_PerA"] = 1-Combined_df_Probs["PH_CFU_PerR"]
 Combined_df_Probs["ContLevel"] = "3 log CFU/g"
 
 sns.lineplot(x="SampleMass", y="PH_CFU_PerA", hue = "ContLevel" ,data=Combined_df_Probs)
-plt.xlabel("Composite Sample Mass")
+plt.xlabel("Sample Size")
 plt.ylabel("% of contamination Accepted")
 plt.title("Clustered Contamination 0.3%")
 # Put the legend out of the figure

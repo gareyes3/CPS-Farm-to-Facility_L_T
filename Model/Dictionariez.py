@@ -18,9 +18,10 @@ Column_Names_Outs = ["Step_CFU_Acc",
                     ]
 
 
-Column_Names_Progression = ["Initial",
+Column_Names_Progression = ["Contam Event Before PHS",
                             "Bef Pre-Harvest Samp",
                             "Aft Pre-Harvest Samp",
+                            "Contam Event After PHS",
                             "Bef Harvest Samp",
                             "Aft Harvest Samp",
                             "Bef Receiving Samp",

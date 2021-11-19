@@ -41,7 +41,7 @@ Time_CE_H = np.random.triangular(2,4,8) #days
 if Time_PHS_H>Time_CE_H:
     Time_CE_PHS = 0
 else:
-    Time_CE_PHS= int(Time_CE_H-Time_PHS_H) #Days Time from Contamination Event (Irrigation) to Pre-Harvest Sampling
+    Time_CE_PHS= float(Time_CE_H-Time_PHS_H) #Days Time from Contamination Event (Irrigation) to Pre-Harvest Sampling
 
 #%% Pre-Cooling- HArvest
 #PreCooling. 
