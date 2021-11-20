@@ -10,8 +10,8 @@ Created on Fri Nov 19 08:21:31 2021
 #%%
 import sys, os
 sys.path
-#sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
-sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
+sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
+#sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
 
 # %%
 from importlib import reload
@@ -126,9 +126,26 @@ Final_Compared=pd.concat([Final_Base, Final_PH4d], axis=1, ignore_index=True)
 Final_Compared.rename(columns={0: 'Final Baseline', 1: 'Final PH4d'}, inplace=True)
 Final_Compared_melt=pd.melt(Final_Compared)
 
-sns.catplot(x="variable", y="value", kind="box",
+H=sns.catplot(x="variable", y="value", kind="box",
             data=Final_Compared_melt)
 plt.xlabel("Sampling Scenario")
 plt.ylabel("Total CFUs")
 plt.title("CFUs in Final Product")
 #plt.xticks(rotation=70)
+
+
+medians = Final_Compared_melt.groupby(['variable'])['value'].median()
+
+
+
+#%%
+
+Frame_beg = Frame_all.loc[(Frame_all["variable"] == "Bef Pre-Harvest Samp") | (Frame_all["variable"] == "Aft Pre-Harvest Samp")]
+sns.catplot(x="variable", y="value", hue="type", kind="box",
+            data=Frame_beg)
+plt.xlabel("Sampling Scenario")
+plt.ylabel("Pre-Harvest Sampling Step")
+plt.title("Contamination Progression Through System")
+plt.xticks(rotation=70)
+
+medians = Frame_beg.groupby(['variable', 'type'])['value'].median()
