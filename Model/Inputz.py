@@ -69,7 +69,7 @@ Processing_Lines = 4 #Number of processing lines of product
 # B Cold Storage
 #Infor for cold storage die-off. 
 Time_ColdStorage = 24 #Days
-Temperature_ColdStorage = 4 #C 
+Temperature_ColdStorage = np.random.normal(5.1,0.27) #C 
 
 #Food Processing Events, Transfer Rates from 
 #TR1 = np.random.triangular(0,0.01,0.02) #Transfer (%) from contaminated lettuce to flume

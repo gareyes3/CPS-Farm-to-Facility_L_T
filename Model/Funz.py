@@ -618,7 +618,7 @@ def F_DF_Clvl(Time):
     df_Clvl = pd.DataFrame(dataTime)
     return (df_Clvl)
 
-F_Chloride_lvl(200)
+#F_Chloride_lvl(200)
 
 
 def F_Washing_ProcLines (List_GB3, Wash_Rate, Cdf):
@@ -629,8 +629,8 @@ def F_Washing_ProcLines (List_GB3, Wash_Rate, Cdf):
         Times_W = np.arange(0, WashT, 1).tolist()
         Times_W = [round(num, 1) for num in Times_W]
         
-        Blw = 0.47 #ml/g min: is the pathogen binding rate to pieces of shredded lettuce heads
-        alpha = 0.52#Inactivation rate of pathogen via FC L/mgmin
+        Blw = 0.38 #ml/g min: is the pathogen binding rate to pieces of shredded lettuce heads
+        alpha = 0.75#Inactivation rate of pathogen via FC L/mgmin
         V = (3200 *1000) #L #From Luo et al 2012. 
         Rate = Wash_Rate/2.2  #45.45 #kg/min #From Luo et al 2012. 
         Wash_Time = 2.3 #min 
