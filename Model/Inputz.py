@@ -68,7 +68,7 @@ Processing_Lines = 4 #Number of processing lines of product
 
 # B Cold Storage
 #Infor for cold storage die-off. 
-Time_ColdStorage = 24 #Days
+Time_ColdStorage = 24 #Houts
 Temperature_ColdStorage = np.random.normal(5.1,0.27) #C 
 
 #Food Processing Events, Transfer Rates from 

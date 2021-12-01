@@ -112,4 +112,6 @@ No_GRabs_R_FP = 60
 Limit_R_FP = 0
 RR_R_FP_Trad  = "Lot"
 
+#%% Toggles
 
+Washing_YN =True

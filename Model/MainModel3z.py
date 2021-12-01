@@ -367,9 +367,6 @@ def F_MainLoop():
             
             #1 Shredder
             
-            #LO_Cont_B_Shredder = Funz.F_SummingGB2Cont(gb2 =gb2) #Contamination before Shrdder            
-            #Listz.Cont_B_Shredder.append( LO_Cont_B_Shredder)
-            #Contaminatio, before shredding. 
             
             df_gb2_bs = (pd.concat(gb2))
             
@@ -397,8 +394,6 @@ def F_MainLoop():
                    Step_Column =  "Bef Conveyor Belt", 
                    i =Iteration_In )
             
-            #LO_Cont_B_Belt = Funz.F_SummingGB2Cont(gb2 =gb2) #Contamination before BElt
-            #Listz.Cont_B_Belt.append( LO_Cont_B_Belt)
             
             if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==2:
                 gb2 = ContScen.F_PEC_C(gb2= gb2,
@@ -413,22 +408,23 @@ def F_MainLoop():
             
             #3Washing:
             df_gb2_bw = (pd.concat(gb2))
-                
+            
+            
+              
             df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df_gb2_bw,
                    outputDF = df_Output_Contprog,
                    Step_Column =  "Bef Washing", 
                    i =Iteration_In )
-            
-            #LO_Cont_B_Washing = Funz.F_SummingGB2Cont(gb2 =gb2) #Contamination before Washing
-            #Listz.Cont_B_Washing.append( LO_Cont_B_Washing)
+        
+
             if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==3:
                 gb2 = ContScen.F_PEC_C(gb2= gb2,
                                        Hazard_lvl = SCInputz.PECHazard_lvl, 
                                        Processing_Lines = Inputz.Processing_Lines, 
                                        Lines_Cont = SCInputz.Lines_Cont)
                 
-
-            gb2 = Funz.F_Washing_ProcLines(List_GB3 =gb2, Wash_Rate = Inputz.Wash_Rate, Cdf =  Inputz.DF_Chlevels)
+            if SCInputz.Washing_YN == True: 
+                gb2 = Funz.F_Washing_ProcLines(List_GB3 =gb2, Wash_Rate = Inputz.Wash_Rate, Cdf =  Inputz.DF_Chlevels)
             
             #4 Shaker Table
             df_gb2_bst = (pd.concat(gb2))
@@ -438,8 +434,6 @@ def F_MainLoop():
                    Step_Column =  "Bef Shaker Table", 
                    i =Iteration_In )
             
-            #LO_Cont_B_Shaker = Funz.F_SummingGB2Cont(gb2 =gb2) #Contamination before Shaker Table
-            #Listz.Cont_B_Shaker.append( LO_Cont_B_Shaker)
             if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==4:
                 gb2 = ContScen.F_PEC_C(gb2= gb2,
                                        Hazard_lvl = SCInputz.PECHazard_lvl, 
@@ -458,8 +452,6 @@ def F_MainLoop():
                    Step_Column =  "Bef Centrifuge", 
                    i =Iteration_In )
             
-            #LO_Cont_B_Centrifuge = Funz.F_SummingGB2Cont(gb2 =gb2) #Contamination before Centrigure
-            #Listz.Cont_B_Centrifuge.append( LO_Cont_B_Centrifuge)
         
             if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==5:
                 gb2 = ContScen.F_PEC_C(gb2= gb2,

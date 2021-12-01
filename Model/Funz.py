@@ -72,19 +72,29 @@ def Applying_dieoff (df,Dieoff):
 
 
 def F_Growth(DF,Temperature, TimeD ):
+    Parition_Weight_g = 50*454
+    CFUs = DF["CFU"]
     b = 0.023
     Tmin  = 1.335-5.766 *b
-    DieoffRate = np.random.triangular(0.0035, 0.013,0.040)
-    TotalGrowthRate = (b*(Temperature - Tmin))**(2)
-    if Temperature >5:
-        Growth  = 1
-    else:
-        Growth = 0
-    if Growth == 1:
-        TotalGrowth = (TotalGrowthRate*TimeD)/2.303
-    else:
-        TotalGrowth  = -DieoffRate * TimeD
-    DF['CFU']=DF['CFU']*10**TotalGrowth #Final Growth change CFU/g
+    New_CFUs=[]
+    for i in CFUs:
+        CFUs_g = i/Parition_Weight_g #CFU/g
+        if CFUs_g < (10**7): #7 log max density
+            DieoffRate = np.random.triangular(0.0035, 0.013,0.040)/2.303 #log CFU /g h
+            TotalGrowthRate = (b*(Temperature - Tmin))**(2)/(2.303) #log CFU /g h
+            if Temperature >5:
+                Growth  = 1
+            else:
+                Growth = 0
+            if Growth == 1:
+                TotalGrowth = (TotalGrowthRate*TimeD)
+            else:
+                TotalGrowth  = -DieoffRate * TimeD
+            Updated_CFUs=(CFUs_g*10**TotalGrowth)*Parition_Weight_g #Final Growth change CFU/g
+        else:
+            Updated_CFUs = CFUs_g*Parition_Weight_g
+        New_CFUs.append(Updated_CFUs)
+    DF["CFU"] =New_CFUs 
     return DF
 
 
