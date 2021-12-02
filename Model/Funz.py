@@ -102,7 +102,7 @@ def F_Growth(DF,Temperature, TimeD ):
 #Calculate Lag time at given temperature
 def Growth_Function_Lag(DF, Temperature,Time,Lag_Consumed_Prev):
     if Temperature >= 5:
-        Lag_Time = 7544*(Temperature**-3.11)
+        Lag_Time = 7544*(Temperature**-3.11) #laf frmula
         Proportion_Lag_Consumed = Time/Lag_Time
         Cummulative_Lag_Consumed = Lag_Consumed_Prev + Proportion_Lag_Consumed
         if Cummulative_Lag_Consumed < 1: 

@@ -64,18 +64,21 @@ if ContCondz.Pack_C == True:
 #Sampling Inputs. 
 
 #Pre_Harvest   
-
+test_unit_PH = "Sublot"
 sample_size_PH = 375 # (Input) g #Sample Size in grams for Pre Harvest
 n_samples_slot_PH = 1 # (Input) Samples per sublot of product
 No_Grabs_PH = 60
 Limit_PH = 0
-RR_PH_Trad = "Sublot" #Reject by Sublot
+RR_PH_Trad = "Lot" #Reject by Sublot
 #Intesne pre-harvest sampling
 if ScenCondz.PHS_Int ==True:
     n_samples_lot_PH = 10 # (Input) Samples per lot of product'
     RR_PH_Int = "Sublot"
+    test_unit_PH = "Sublot"
+    
 
 #Harvest Inputs: 
+test_unit_H = "Sublot"
 sample_size_H = 375 #g #Sample Size in grams
 n_samples_slot_H = 1 # Samples per lot of product
 No_Grabs_H = 60 
@@ -88,6 +91,7 @@ if ScenCondz.HS_Agg ==True:
 
 
 #Receiving sampling:
+test_unit_R = "PalletNo"
 n_samples_pallet = 1 #samples taken per pallet
 sample_size_R = 125 #375 #g #Sample Size in grams Receiving
 No_Grabs_R = 20
@@ -96,6 +100,7 @@ RR_R_Trad= "PalletNo"
 
 
 #Finished Product Sampling: 
+test_unit_FP = "Lot"
 sample_size_FP = 375 #g #Sample Size in grams
 n_samples_FP = 1 #number of samples per lot final product
 N_Packages_Samples = 60
@@ -106,6 +111,7 @@ Limit_FP =0
 RR_FP_Agg= "Lot"
 
 #Receiving Sampling Field Pack/Also Final Product Sampling. 
+test_unit_R_FP = "Lot"
 n_samples_R_FP = 1
 sample_size_R_FP = 375
 No_GRabs_R_FP = 60

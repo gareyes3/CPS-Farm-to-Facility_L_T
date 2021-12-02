@@ -73,7 +73,7 @@ ScenCondz.H_Sampling = 0
 ScenCondz.R_Sampling = 0
 ScenCondz.FP_Sampling = 0
 # Pre_Harvest 4 Days
-ScenCondz.PHS_4d = 1  # Scenario 1
+ScenCondz.PHS_4d = 0  # Scenario 1
 ScenCondz.PHS_4h = 0  # Scenario 2
 ScenCondz.PHS_Int = 0  # Scenario 3
 
@@ -81,15 +81,106 @@ ScenCondz.PHS_Int = 0  # Scenario 3
 #Running The Model.
 Main_Mod_Outs = MainModel3z.F_MainLoop()
 
+#Getting the outputs from the function.
 OutputDF = Main_Mod_Outs[1]
 ProgDF = Main_Mod_Outs[0]
 
+#Final Contmination Baseline Scenario
 Final_CFU_Baseline =ProgDF["Final Product Facility"]
 
+#Creating boxplot for exploration
 plt.boxplot(Final_CFU_Baseline)
 plt.ticklabel_format(style='plain', axis='y')
 
+#Percent Reduction by System Initial vs Final
 (One_CFU_g-Final_CFU_Baseline.mean())/One_CFU_g #Average Reduction. 
 
 
+#%% Scenario 2. No Sampling, Only Intervention Strategy is Washing
 
+reload(SCInputz)  # Reload Inputz
+reload(Listz)  # Reload Lists
+
+# Turning of Washing. 
+SCInputz.Washing_YN = True
+SCInputz.BGHazard_lvl = One_CFU_g
+
+#Sampling Condition
+# Sampling Conditions, Baseline all conditions are off
+ScenCondz.Baseline_Sampling = 0  # all others must be 0if this one is 1
+ScenCondz.PH_Sampling = 0
+ScenCondz.H_Sampling = 0
+ScenCondz.R_Sampling = 0
+ScenCondz.FP_Sampling = 0
+# Pre_Harvest 4 Days
+ScenCondz.PHS_4d = 0  # Scenario 1
+ScenCondz.PHS_4h = 0  # Scenario 2
+ScenCondz.PHS_Int = 0  # Scenario 3
+
+
+#Running The Model.
+Main_Mod_Outs = MainModel3z.F_MainLoop()
+
+#Getting the outputs from the function.
+OutputDF_Base_Wash = Main_Mod_Outs[1]
+ProgDF_Base_Wash = Main_Mod_Outs[0]
+
+#Final Contmination Baseline Scenario
+Final_CFU_Base_Wash =ProgDF_Base_Wash["Final Product Facility"]
+
+#Creating boxplot for exploration
+plt.boxplot(Final_CFU_Base_Wash)
+plt.ticklabel_format(style='plain', axis='y')
+
+#Percent Reduction by System Initial vs Final
+(One_CFU_g-Final_CFU_Base_Wash.mean())/One_CFU_g #Average Reduction.
+
+#%% Scenario 3 PH Sampling 4D, Washing off , and normal baseline contamination reduction
+    #PH Sample: 1 Sample/Sublot, 
+    #Rejection Rule: "Lot
+    #Sample Mass: 365g per sublot
+    # GRabs per Sublot = N60
+
+reload(SCInputz)  # Reload Inputz
+reload(Listz)  # Reload Lists
+
+# Turning of Washing. 
+SCInputz.Washing_YN = False
+SCInputz.BGHazard_lvl = One_CFU_g
+
+#Sampling Condition
+# Sampling Conditions, Baseline all conditions are off
+ScenCondz.Baseline_Sampling = 0  # all others must be 0if this one is 1
+ScenCondz.PH_Sampling = 1
+ScenCondz.H_Sampling = 0
+ScenCondz.R_Sampling = 0
+ScenCondz.FP_Sampling = 0
+# Pre_Harvest 4 Days
+ScenCondz.PHS_4d = 1  # Scenario 1
+ScenCondz.PHS_4h = 0  # Scenario 2
+ScenCondz.PHS_Int = 0  # Scenario 3
+   
+#Only on when sampling,
+SCInputz.sample_size_PH = 375 # (Input) g #Sample Size in grams for Pre Harvest
+SCInputz.n_samples_slot_PH = 1 # (Input) Samples per sublot of product
+SCInputz.No_Grabs_PH = 60
+SCInputz.Limit_PH = 0
+SCInputz.RR_PH_Trad = "Lot" #Reject by Sublot
+
+
+#Running The Model.
+Main_Mod_Outs = MainModel3z.F_MainLoop()
+
+#Getting the outputs from the function.
+OutputDF_Base_PHS4d = Main_Mod_Outs[1]
+ProgDF_Base_PHS4d = Main_Mod_Outs[0]
+
+#Final Contmination Baseline Scenario
+Final_CFU_Base_PHS4d =ProgDF_Base_PHS4d["Final Product Facility"]
+
+#Creating boxplot for exploration
+plt.boxplot(Final_CFU_Base_PHS4d)
+plt.ticklabel_format(style='plain', axis='y')
+
+#Percent Reduction by System Initial vs Final
+(One_CFU_g-Final_CFU_Base_PHS4d.mean())/One_CFU_g #Average Reduction.

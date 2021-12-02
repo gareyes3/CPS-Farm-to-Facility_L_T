@@ -115,14 +115,14 @@ def F_MainLoop():
         #Sampling at Pre-Harvest
         if ScenCondz.PH_Sampling ==True: #If function to turn off Pre-Harvest Sampling
             if ScenCondz.PHS_Int ==True: #Intense pre harvest sampling
-                df = Funz.F_Sampling_2(df =df,Test_Unit ="Lot", 
+                df = Funz.F_Sampling_2(df =df,Test_Unit =SCInputz.test_unit_PH, 
                                               NSamp_Unit = SCInputz.n_samples_lot_PH, 
                                               Samp_Size =SCInputz.sample_size_PH, 
                                               Partition_Weight =SCInputz.Partition_Weight, 
                                               NoGrab =SCInputz.No_Grabs_PH )
             elif ScenCondz.PHS_4d==True or ScenCondz.PHS_4h == True :
             #Pre-Harvest Sampling, Traditional
-                 df = Funz.F_Sampling_2(df =df,Test_Unit ="Sublot", 
+                 df = Funz.F_Sampling_2(df =df,Test_Unit = SCInputz.test_unit_PH, 
                                            NSamp_Unit = SCInputz.n_samples_slot_PH, 
                                            Samp_Size =SCInputz.sample_size_PH, 
                                            Partition_Weight =SCInputz.Partition_Weight, 
@@ -223,13 +223,13 @@ def F_MainLoop():
         if ScenCondz.H_Sampling == True:
             if ScenCondz.HS_Trad==True:
                 df = Funz.F_Sampling_2(df =df,
-                                             Test_Unit ="Sublot", 
+                                             Test_Unit =SCInputz.test_unit_H, 
                                              NSamp_Unit = SCInputz.n_samples_slot_H, 
                                              Samp_Size =SCInputz.sample_size_H, 
                                              Partition_Weight =SCInputz.Partition_Weight, 
                                              NoGrab =SCInputz.No_Grabs_H )
             elif ScenCondz.HS_Agg==True:
-               df = Funz.F_Sampling_2(df =df,Test_Unit ="Sublot", 
+               df = Funz.F_Sampling_2(df =df,Test_Unit =SCInputz.test_unit_H, 
                                                NSamp_Unit = SCInputz.n_samples_slot_H, 
                                                Samp_Size =SCInputz.sample_size_H, 
                                                Partition_Weight =SCInputz.Partition_Weight, 
@@ -328,7 +328,7 @@ def F_MainLoop():
             
             if ScenCondz.R_Sampling == True:
                 #Sampling at Reception
-                df = Funz.F_Sampling_2(df =df,Test_Unit ="PalletNo", 
+                df = Funz.F_Sampling_2(df =df,Test_Unit =SCInputz.test_unit_R, 
                                                NSamp_Unit = SCInputz.n_samples_pallet, 
                                                Samp_Size =SCInputz.sample_size_R, 
                                                Partition_Weight =SCInputz.Partition_Weight, 
@@ -527,14 +527,14 @@ def F_MainLoop():
             #Sampling Step
             if ScenCondz.FP_Sampling == True:
                 if ScenCondz.FPS_Trad ==True:
-                    df =Funz.F_Sampling_2(df =df,Test_Unit ="Lot", 
+                    df =Funz.F_Sampling_2(df =df,Test_Unit =SCInputz.test_unit_FP, 
                                                NSamp_Unit = SCInputz.n_samples_FP, 
                                                Samp_Size =SCInputz.sample_size_FP, 
                                                Partition_Weight =Inputz.Pack_Weight_FP, 
                                                NoGrab = SCInputz.N_Packages_Samples)
                     
                 elif ScenCondz.FPS_Agg ==True:
-                    df =Funz.F_Sampling_2(df =df,Test_Unit ="Lot", 
+                    df =Funz.F_Sampling_2(df =df,Test_Unit =SCInputz.test_unit_FP, 
                                                NSamp_Unit = SCInputz.n_samples_FP, 
                                                Samp_Size =SCInputz.sample_size_FP, 
                                                Partition_Weight =Inputz.Pack_Weight_FP, 
@@ -613,7 +613,7 @@ def F_MainLoop():
             
             if ScenCondz.R_Sampling == True:
                 #Sampling at Reception
-                df = Funz.F_Sampling_2(df =df,Test_Unit ="Lot", 
+                df = Funz.F_Sampling_2(df =df,Test_Unit =SCInputz.test_unit_R_FP, 
                                                NSamp_Unit = SCInputz.n_samples_R_FP, 
                                                Samp_Size =SCInputz.sample_size_R_FP, 
                                                Partition_Weight =Inputz.Case_Weight_FieldPack, 
@@ -684,51 +684,7 @@ def F_MainLoop():
             
             
     #STEP 7: Outputs 
-    '''
-    #Progression Data
-    data_contprog = {"Initial":Listz.List_Initial_CFU,
-                 "Bef Pre-Harvest Samp": Listz.List_BPHS_CFU,
-                 "Aft Pre-Harvest Samp": Listz.Total_CA_PH,
-                 "Bef Harvest Samp":Listz.List_BHS_CFU,
-                 "Aft Harvest Samp": Listz.Total_CA_H,
-                 "Bef Receiving Samp": Listz.List_BRS_CFU, #Key Differing. 
-                 "After Receiving Samp": Listz.Total_CA_R,
-                 "Bef Shredding":Listz.Cont_B_Shredder,
-                 "Bef Conveyor Belt":Listz.Cont_B_Belt,
-                 "Bef Washing":Listz.Cont_B_Washing,
-                 "Bef Shaker Table":Listz.Cont_B_Shaker,
-                 "Bef Centrifuge":Listz.Cont_B_Centrifuge,
-                 "Aft Value Addition": Listz.List_AVA_CFU,
-                 "Bef Final Prod S": Listz.List_BFPS_CFU,
-                 "Final Product Facility": Listz.Total_CA_FP
-                 }
-        
-    if ScenCondz.Field_Pack == True:
-        del data_contprog["Bef Receiving Samp","After Receiving Samp", "Bef Shredding",
-                          "Bef Conveyor Belt","Bef Washing","Bef Shaker Table","Bef Centrifuge",
-                          "Aft Value Addition","Bef Final Prod S","Final Product Facility"]
-        
-    
-    df_contprog = pd.DataFrame(data_contprog)
-    
-    #Main Output Data
-    data_outputs={"Total_CFU_A":Listz.Total_CA_FP,
-                   "Total_CFU_Rej": Listz.Total_CR_FP,
-                   "Total_CFUg_A": Listz.List_TotalCFUg_FP,
-                  "Total_Weight_A":Listz.Total_PA_FP,
-                  "Total_Weight_R": Listz.Total_PR_Final,
-                  "PerRejectedWeight": Listz.Total_PerRej_Weight,
-                  "PerRejected at PH":Listz.List_Cont_PercRej_PH,
-                  "PerRejected at H":Listz.List_Cont_PercRej_H,
-                  "PerRejected at R":Listz.List_Cont_PercRej_R,
-                  "PerRejected at FP":Listz.List_Cont_PercRej_FP,
-                  }
-    
-    if ScenCondz.Field_Pack == True:
-        del data_contprog["PerRejected at R"]
 
-    df_outputs = pd.DataFrame(data_outputs)
-    '''
     df_outputs = pd.concat([df_Output_PH,df_Output_H,df_Output_R, df_Output_FP], axis=1)
     
     
