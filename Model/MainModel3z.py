@@ -91,7 +91,7 @@ def F_MainLoop():
         #STEP 1 PREHARVEST ------------------------------------------------------------------------------------------------------------------
         
         #Die-off From Contamination Event to Pre-Havrvest
-        #Die_Off_CE_PHS =Funz.F_DieOff_IR_PH(Time_CE_PHS,Break_Point, Dieoff1, Dieoff2) #Die off rate from Irrigation to pre harvest sampling, Belias et al. 
+        #LV_Die_Off_CE_PHS =Funz.F_DieOff_IR_PH(Inputz.Time_CE_PHS,Inputz.Break_Point, Inputz.Dieoff1, Inputz.Dieoff2) #Die off rate from Irrigation to pre harvest sampling, Belias et al. 
         
         #print("Initial", sum(df["CFU"]))
         
@@ -196,10 +196,16 @@ def F_MainLoop():
         
         #STEP 2 HARVEST ---------------------------------------------------------------------------------------------------------------------
         
+        
+        
         #Pre-Harvest Sampling - Harvest Sampling Die off
         LV_Time_Agg = LV_Time_Agg + Inputz.Time_PHS_H #Cummulative time so far in the process.
         LV_Die_off_B = Funz.F_Simple_DieOff(LV_Time_Agg)
         LV_Die_Off_PHS_HS= LV_Die_off_B-LV_Die_Off_CE_PHS#Funz.F_DieOff_PHS_HS(Time_PHS_H, Time_Agg, Break_Point, Dieoff1, Dieoff2)
+        
+        #Belias et al dieoff
+        #LV_Die_Off_PHS_HS =Funz.F_DieOff_PHS_HS(Inputz.Time_PHS_H,LV_Time_Agg,Inputz.Break_Point, Inputz.Dieoff1, Inputz.Dieoff2) #Die off rate from Irrigation to pre harvest sampling, Belias et al. 
+
         df = Funz.Applying_dieoff(df=df, Dieoff =LV_Die_Off_PHS_HS ) #Updating Contmination to Show Total DieOff
         
         

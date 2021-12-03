@@ -69,7 +69,7 @@ sample_size_PH = 375 # (Input) g #Sample Size in grams for Pre Harvest
 n_samples_slot_PH = 1 # (Input) Samples per sublot of product
 No_Grabs_PH = 60
 Limit_PH = 0
-RR_PH_Trad = "Lot" #Reject by Sublot
+RR_PH_Trad = "Sublot" #Reject by Sublot
 #Intesne pre-harvest sampling
 if ScenCondz.PHS_Int ==True:
     n_samples_lot_PH = 10 # (Input) Samples per lot of product'

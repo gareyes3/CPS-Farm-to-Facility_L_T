@@ -258,20 +258,39 @@ Final_CFU_Base_Wash_PHS4d = Final_CFU_Base_Wash_PHS4d.to_frame()
 Final_CFU_Base_Wash_PHS4d["Type"] = "Sampling, Wash"
 xy = Final_CFU_Base_Wash_PHS4d["Final Product Facility"]
 
+#Initial 
+Initial_CFU_V  = [One_CFU_g]
+Initial_CFU_V=pd.DataFrame(Initial_CFU_V, columns = ["Final Product Facility"])
+Initial_CFU_V["Type"] = "Initial Levels"
+
 #Combining them
-Final_Compared=pd.concat([Final_CFU_Baseline, 
+Final_Compared=pd.concat([Initial_CFU_V,
+                          Final_CFU_Baseline, 
                           Final_CFU_Base_Wash,
                           Final_CFU_Base_PHS4d,
                           Final_CFU_Base_Wash_PHS4d], 
                          axis=0, 
                          ignore_index=True)
 
-H=sns.catplot(x="Type", y="Final Product Facility", kind="box",
+
+#Initial levels represent the initial contamination level before or after PH
+    #2-8 days before harvest. Triangular distribution.     
+H=sns.catplot(x="Type", y="Final Product Facility", 
+            data=Final_Compared)
+#H.map(sns.swarmplot, 'Type', 'Final Product Facility', color='k')
+plt.xlabel("Sampling Scenario")
+plt.ylabel("Total CFUs")
+plt.title("CFUs Initial vs Strategies")
+plt.xticks(rotation=70)
+
+H=sns.catplot(x="Type", y="Final Product Facility", kind = "bar" ,
             data=Final_Compared)
 plt.xlabel("Sampling Scenario")
 plt.ylabel("Total CFUs")
-plt.title("CFUs in Final Product")
+plt.title("CFUs Initial vs Strategies")
 plt.xticks(rotation=70)
+
+
 
 #Statistical analysis. 
 from scipy import stats
@@ -279,4 +298,9 @@ import scikit_posthocs as sp
 stats.kruskal(x,y,z,xy)
 data = [x,y,z,xy]
 sp.posthoc_dunn(data, p_adjust = 'bonferroni')  
+
+#%%
+
+
+
 
