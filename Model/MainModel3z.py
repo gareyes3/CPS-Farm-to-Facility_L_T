@@ -31,6 +31,8 @@ def F_MainLoop():
     
     #DataCollection DataFrame for outputs.  
     df_Output_Contprog = Dictionariez.Output_DF_Creation(Dictionariez.Column_Names_Progression, SCInputz.N_Iterations) #Progression Dataframe
+    df_Output_Propprog = Dictionariez.Output_DF_Creation(Dictionariez.Column_Per_Contaminated, SCInputz.N_Iterations) #Progression Dataframe
+    
     df_Output_PH =  Dictionariez.Output_DF_Creation(Dictionariez.Column_Names_Outs, SCInputz.N_Iterations)#Main outputs Dataframe pre harvest
     df_Output_H =  Dictionariez.Output_DF_Creation(Dictionariez.Column_Names_Outs, SCInputz.N_Iterations)#Main outputs Dataframe Harvest
     df_Output_R =  Dictionariez.Output_DF_Creation(Dictionariez.Column_Names_Outs, SCInputz.N_Iterations)#Main outputs Dataframe Receiving
@@ -87,6 +89,11 @@ def F_MainLoop():
                                                          outputDF = df_Output_Contprog,
                                                          Step_Column = "Contam Event Before PHS", 
                                                          i =Iteration_In )
+            #PropoContaminated
+            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+                                                                   outputDF =df_Output_Propprog, 
+                                                                   Step_Column = "PropCont_CE_B_PHS", 
+                                                                   i = Iteration_In)
     
         #STEP 1 PREHARVEST ------------------------------------------------------------------------------------------------------------------
         
@@ -694,7 +701,7 @@ def F_MainLoop():
     df_outputs = pd.concat([df_Output_PH,df_Output_H,df_Output_R, df_Output_FP], axis=1)
     
     
-    outputs = [df_Output_Contprog, df_outputs,gb2,df]
+    outputs = [df_Output_Contprog, df_outputs,df_Output_Propprog,gb2,df]
 
         
     return outputs #Final 

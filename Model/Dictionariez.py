@@ -36,6 +36,24 @@ Column_Names_Progression = ["Contam Event Before PHS",
                             "Final Product Facility"
                             ]
 
+Column_Per_Contaminated = ["PropCont_CE_B_PHS",
+                            "PropCont_B_PHS",
+                            "PropCont_A_PHS",
+                            "PropCont_CE_B_PHS",
+                            "PropCont_B_HS",
+                            "PropCont_A_PHS",
+                            "PropCont_B_RS",
+                            "PropCont_A_RS",
+                            "PropCont_B_Shredding",
+                            "PropCont_B_CBelt",
+                            "PropCont_B__Washing",
+                            "PropCont_B_ST",
+                            "PropCont_B_Cent",
+                            "PropCont_A_VA",
+                            "PropCont_B_FPS",
+                            "PropCont_B_FP"
+    ]
+
 
 
 def Output_DF_Creation(Column_Names, Niterations):
@@ -52,8 +70,16 @@ def Output_Collection_Prog(df, outputDF, Step_Column,i):
     outputDF.at[i,Step_Column] = Total_CFU
     return outputDF
 
+def Pop_Output_Colection(df, outputDF, Step_Column, i):
+    Pop  = df[df.CFU>0]
+    TotalPop = len(Pop)
+    Total_whole = len(df.CFU)
+    Pop_Final = TotalPop /Total_whole
+    outputDF.at[i,Step_Column] =  Pop_Final
+    return outputDF
 
-
+#df.CFU=np.random.uniform(0,1,2000)
+#df.CFU[1] = 0
 
 def Output_Collection_Final(df, outputDF, Step, Cont_Before, Weight_Before, i, Niterations):
     #Contaminations
@@ -78,6 +104,8 @@ def Output_Collection_Final(df, outputDF, Step, Cont_Before, Weight_Before, i, N
         outputDF.columns = outputDF.columns.str.replace("Step", Step) #Updating Head of Columns Change column end iteration.
     
     return outputDF
+
+
 
 
 '''
