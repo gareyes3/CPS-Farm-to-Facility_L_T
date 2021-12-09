@@ -40,7 +40,7 @@ def F_MainLoop():
     
 
     for  i in range(SCInputz.N_Iterations):
-        Iteration_In = i
+        Iteration_In = 1
         print(Iteration_In,"iteration")
         reload(Inputz)
         
@@ -119,6 +119,13 @@ def F_MainLoop():
                                                      Step_Column = "Bef Pre-Harvest Samp", 
                                                      i =Iteration_In )
         
+        #PropoContaminated
+        df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+                                                               outputDF =df_Output_Propprog, 
+                                                               Step_Column =  "PropCont_B_PHS", 
+                                                               i = Iteration_In)
+        
+        
         #Sampling at Pre-Harvest
         if ScenCondz.PH_Sampling ==True: #If function to turn off Pre-Harvest Sampling
             if ScenCondz.PHS_Int ==True: #Intense pre harvest sampling
@@ -146,11 +153,18 @@ def F_MainLoop():
             df=Funz.F_Rejection_Rule3(df =df, Test_Unit = SCInputz.RR_PH_Trad, limit = SCInputz.Limit_PH) 
            
         #print("PH", sum(df["CFU"]))
+        
         #Contprog After Pre-Harvest
         df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df,
                                                      outputDF = df_Output_Contprog,
                                                      Step_Column = "Aft Pre-Harvest Samp", 
                                                      i =Iteration_In )
+        
+        #PropoContaminated
+        df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+                                                               outputDF =df_Output_Propprog, 
+                                                               Step_Column =  "PropCont_A_PHS", 
+                                                               i = Iteration_In)
                            
     
         
@@ -199,6 +213,12 @@ def F_MainLoop():
                                                          outputDF = df_Output_Contprog,
                                                          Step_Column = "Contam Event After PHS", 
                                                          i =Iteration_In )
+            #PropoContaminated
+            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+                                                                   outputDF =df_Output_Propprog, 
+                                                                   Step_Column =  "PropCont_CE_A_PHS", 
+                                                                   i = Iteration_In)
+            
     
         
         #STEP 2 HARVEST ---------------------------------------------------------------------------------------------------------------------
@@ -263,6 +283,12 @@ def F_MainLoop():
                                                      Step_Column = "Bef Harvest Samp", 
                                                      i =Iteration_In )
         
+        #PropoContaminated
+        df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+                                                               outputDF =df_Output_Propprog, 
+                                                               Step_Column =   "PropCont_B_HS", 
+                                                               i = Iteration_In)
+        
         
         #Filtering out the Rejected lots, Harvest Sampling
         if ScenCondz.HS_Trad == True:
@@ -276,6 +302,11 @@ def F_MainLoop():
                                                      outputDF = df_Output_Contprog,
                                                      Step_Column = "Aft Harvest Samp", 
                                                      i =Iteration_In )   
+        #PropoContaminated
+        df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+                                                               outputDF =df_Output_Propprog, 
+                                                               Step_Column =   "PropCont_A_PHS", 
+                                                               i = Iteration_In)
 
         
         df_Output_H = Dictionariez.Output_Collection_Final(df = df, 
@@ -339,6 +370,12 @@ def F_MainLoop():
                                                      Step_Column = "Bef Receiving Samp", 
                                                      i =Iteration_In )
             
+            #PropoContaminated
+            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+                                                                   outputDF =df_Output_Propprog, 
+                                                                   Step_Column =   "PropCont_B_RS", 
+                                                                   i = Iteration_In)
+            
             if ScenCondz.R_Sampling == True:
                 #Sampling at Reception
                 df = Funz.F_Sampling_2(df =df,Test_Unit =SCInputz.test_unit_R, 
@@ -356,6 +393,12 @@ def F_MainLoop():
                                            outputDF = df_Output_Contprog,
                                            Step_Column =  "After Receiving Samp", 
                                            i =Iteration_In )
+            
+            #PropoContaminated
+            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+                                                                   outputDF =df_Output_Propprog, 
+                                                                   Step_Column =    "PropCont_A_RS", 
+                                                                   i = Iteration_In)
             
             
             df_Output_R = Dictionariez.Output_Collection_Final(df = df, 
@@ -379,15 +422,20 @@ def F_MainLoop():
             #Cross-Contamination Processing by processing line between 100 lb. batches
             
             #1 Shredder
-            
-            
             df_gb2_bs = (pd.concat(gb2))
             
+            #Collecting outputs cont progression 
             df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df_gb2_bs,
                    outputDF = df_Output_Contprog,
                    Step_Column =  "Bef Shredding", 
                    i =Iteration_In )
             
+            #PropoContaminated
+            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+                                                                   outputDF =df_Output_Propprog, 
+                                                                   Step_Column =    "PropCont_B_Shredding", 
+                                                                   i = Iteration_In)
+            #Contamination event, if it happens
             if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==True:
                 gb2 = ContScen.F_PEC_C(gb2= gb2,
                                        Hazard_lvl = SCInputz.PECHazard_lvl, 
@@ -402,12 +450,19 @@ def F_MainLoop():
             #Contamination before conveyor belt
             df_gb2_bcb = (pd.concat(gb2))
             
+            #Collecting outputs cont progression 
             df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df_gb2_bcb ,
                    outputDF = df_Output_Contprog,
                    Step_Column =  "Bef Conveyor Belt", 
                    i =Iteration_In )
             
+            #PropoContaminated
+            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+                                                                   outputDF =df_Output_Propprog, 
+                                                                   Step_Column =    "PropCont_B_CBelt", 
+                                                                   i = Iteration_In)
             
+            #Contamination event
             if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==2:
                 gb2 = ContScen.F_PEC_C(gb2= gb2,
                                        Hazard_lvl = SCInputz.PECHazard_lvl, 
@@ -423,18 +478,25 @@ def F_MainLoop():
             df_gb2_bw = (pd.concat(gb2))
             
             
-              
+            #Collecting outputs cont progression 
             df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df_gb2_bw,
                    outputDF = df_Output_Contprog,
                    Step_Column =  "Bef Washing", 
                    i =Iteration_In )
+            
+            #PropoContaminated
+            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+                                                                   outputDF =df_Output_Propprog, 
+                                                                   Step_Column =    "PropCont_B_Washing", 
+                                                                   i = Iteration_In)
         
-
+            #Contamination event
             if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==3:
                 gb2 = ContScen.F_PEC_C(gb2= gb2,
                                        Hazard_lvl = SCInputz.PECHazard_lvl, 
                                        Processing_Lines = Inputz.Processing_Lines, 
                                        Lines_Cont = SCInputz.Lines_Cont)
+                
                 
             if SCInputz.Washing_YN == True: 
                 gb2 = Funz.F_Washing_ProcLines(List_GB3 =gb2, Wash_Rate = Inputz.Wash_Rate, Cdf =  Inputz.DF_Chlevels)
@@ -446,6 +508,12 @@ def F_MainLoop():
                    outputDF = df_Output_Contprog,
                    Step_Column =  "Bef Shaker Table", 
                    i =Iteration_In )
+            
+            #PropoContaminated
+            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+                                                                   outputDF =df_Output_Propprog, 
+                                                                   Step_Column =    "PropCont_B_ST", 
+                                                                   i = Iteration_In)
             
             if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==4:
                 gb2 = ContScen.F_PEC_C(gb2= gb2,
@@ -465,7 +533,15 @@ def F_MainLoop():
                    Step_Column =  "Bef Centrifuge", 
                    i =Iteration_In )
             
-        
+            #PropoContaminated
+            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+                                                                   outputDF =df_Output_Propprog, 
+                                                                   Step_Column =    "PropCont_B_Cent", 
+                                                                   i = Iteration_In)
+            
+            
+            
+            
             if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==5:
                 gb2 = ContScen.F_PEC_C(gb2= gb2,
                                        Hazard_lvl = SCInputz.PECHazard_lvl, 
@@ -486,6 +562,14 @@ def F_MainLoop():
                    outputDF = df_Output_Contprog,
                    Step_Column =  "Aft Value Addition", 
                    i =Iteration_In )
+            
+            #PropoContaminated
+            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+                                                                   outputDF =df_Output_Propprog, 
+                                                                   Step_Column =    "PropCont_A_VA", 
+                                                                   i = Iteration_In)
+            
+            
             
             #LO_Cont_A_VA= sum(df.CFU)
             #Listz.List_AVA_CFU.append(LO_Cont_A_VA)
@@ -509,7 +593,7 @@ def F_MainLoop():
                 df =Funz.F_Lots_FP(df=df, 
                                    Nolots = 2)
                 
-                #Dividing the pallets dataframe into different processing lines.  
+            #Dividing the pallets dataframe into different processing lines.  
             gb2 = df.groupby('ProLine')#Creating Listby procesing line
             gb2 =[gb2.get_group(x) for x in gb2.groups] #Creating list of separate dataframe by processing lines
             
@@ -518,23 +602,30 @@ def F_MainLoop():
                                 Hazard_lvl = SCInputz.PackHazard_lvl, 
                                 Processing_Lines = Inputz.Processing_Lines, 
                                 Lines_Cont = SCInputz.Lines_ContPack)
+                
             
             df=(pd.concat(gb2))
-            df["Accept"] = True
-            df['PositiveSamples'] = [list() for x in range(len(df.index))]
+            #df["Accept"] = True
+            #df['PositiveSamples'] = [list() for x in range(len(df.index))]
 
             
             
             LO_Cont_B_FP = sum(df.CFU) #Total CFU before FP Sampling
             LO_Weight_B_FP = sum(df.Weight)
-            #Listz.List_BFPS_CFU.append(LO_Cont_B_FP) #Adding it to a List
-            #df= Funz.F_Packaging(DF=df, Boxes_Pallet=Boxes_Pallet)
+            
             
             #Contamination before sampling
             df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df,
                    outputDF = df_Output_Contprog,
                    Step_Column =  "Bef Final Prod S", 
                    i =Iteration_In )
+            
+            #PropoContaminated
+            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+                                                                   outputDF =df_Output_Propprog, 
+                                                                   Step_Column =    "PropCont_B_FPS", 
+                                                                   i = Iteration_In)
+            
             
             
             #Sampling Step
@@ -566,6 +657,13 @@ def F_MainLoop():
                    outputDF = df_Output_Contprog,
                    Step_Column =  "Final Product Facility", 
                    i =Iteration_In )
+            
+            #PropoContaminated
+            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+                                                                   outputDF =df_Output_Propprog, 
+                                                                   Step_Column =   "PropCont_B_FP", 
+                                                                   i = Iteration_In)
+            
 
             df_Output_FP = Dictionariez.Output_Collection_Final(df = df, 
                                 outputDF = df_Output_FP, 

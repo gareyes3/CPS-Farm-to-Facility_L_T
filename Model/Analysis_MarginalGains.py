@@ -84,6 +84,7 @@ Main_Mod_Outs = MainModel3z.F_MainLoop()
 #Getting the outputs from the function.
 OutputDF = Main_Mod_Outs[1]
 ProgDF = Main_Mod_Outs[0]
+PropProgDF = Main_Mod_Outs[2]
 
 #Final Contmination Baseline Scenario
 Final_CFU_Baseline =ProgDF["Final Product Facility"]
@@ -124,6 +125,7 @@ Main_Mod_Outs = MainModel3z.F_MainLoop()
 #Getting the outputs from the function.
 OutputDF_Base_Wash = Main_Mod_Outs[1]
 ProgDF_Base_Wash = Main_Mod_Outs[0]
+PropProgDF_Base_Wash = Main_Mod_Outs[2]
 
 #Final Contmination Baseline Scenario
 Final_CFU_Base_Wash =ProgDF_Base_Wash["Final Product Facility"]
@@ -175,6 +177,7 @@ Main_Mod_Outs = MainModel3z.F_MainLoop()
 #Getting the outputs from the function.
 OutputDF_Base_PHS4d = Main_Mod_Outs[1]
 ProgDF_Base_PHS4d = Main_Mod_Outs[0]
+PropProgDF_Base_PHS4d = Main_Mod_Outs[2]
 
 #Final Contmination Baseline Scenario
 Final_CFU_Base_PHS4d =ProgDF_Base_PHS4d["Final Product Facility"]
@@ -227,6 +230,7 @@ Main_Mod_Outs = MainModel3z.F_MainLoop()
 #Getting the outputs from the function.
 OutputDF_Base_PHS4d = Main_Mod_Outs[1]
 ProgDF_Base_Wash_PHS4d = Main_Mod_Outs[0]
+PropProgDF_Base_Wash_PHS4d = Main_Mod_Outs[2]
 
 #Final Contmination Baseline Scenario
 Final_CFU_Base_Wash_PHS4d =ProgDF_Base_Wash_PHS4d["Final Product Facility"]
@@ -272,6 +276,10 @@ Final_Compared=pd.concat([Initial_CFU_V,
                          axis=0, 
                          ignore_index=True)
 
+import math
+Final_Compared["log10"] = np.log10(Final_Compared["Final Product Facility"])
+
+
 
 #Initial levels represent the initial contamination level before or after PH
     #2-8 days before harvest. Triangular distribution.     
@@ -291,7 +299,6 @@ plt.title("CFUs Initial vs Strategies")
 plt.xticks(rotation=70)
 
 
-
 #Statistical analysis. 
 from scipy import stats
 import scikit_posthocs as sp
@@ -300,6 +307,7 @@ data = [x,y,z,xy]
 sp.posthoc_dunn(data, p_adjust = 'bonferroni')  
 
 #%%
+#Percent Contaminated at each stage. 
 
 
 
