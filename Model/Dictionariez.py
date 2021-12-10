@@ -54,6 +54,21 @@ Column_Per_Contaminated = ["PropCont_CE_B_PHS",
                             "PropCont_B_FP"
     ]
 
+#PHContamination
+Sensitivity_Analysis_Dic = ["HazardLevel",
+                            "ClusteringLevel",
+                            "CETime",
+                            "PHS",
+                            "HS",
+                            "RS",
+                            "FPS",
+                            "SampleSize",
+                            "NumberGrabs",
+                            "RejectionRule",
+                            "SamplingUnit",
+                            "Washing",
+                                                        
+    ]
 
 
 def Output_DF_Creation(Column_Names, Niterations):

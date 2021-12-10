@@ -7,7 +7,7 @@ Created on Wed Dec  1 09:12:08 2021
 #%%
 import sys, os
 sys.path
-#sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
+sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
 sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
 
 # %%
@@ -36,14 +36,15 @@ sys.path.append(
 #%%
 
 #Scenarios Creation
+# 1, 1% Cluster of Contaminatoin at 1 CFU/g 
 
 # 1 CFU/g Contmination Level
 One_CFU_g = 45400000 #CFUs
 
 #Uniform Contmaination in the Field. 
 # Contamination Challenges
-ContCondz.Background_C = True
-ContCondz.Point_Source_C =False
+ContCondz.Background_C = False
+ContCondz.Point_Source_C =True
 ContCondz.Systematic_C = False
 
 # Harvester Contamination
@@ -63,7 +64,10 @@ reload(Listz)  # Reload Lists
 
 # Turning of Washing. 
 SCInputz.Washing_YN = False 
-SCInputz.BGHazard_lvl = One_CFU_g
+#SCInputz.BGHazard_lvl = One_CFU_g
+SCInputz.PSHazard_lvl = One_CFU_g  #CFU # background contamination
+SCInputz.PSCluster_Size = 1000 #lb 1%
+SCInputz.PSNo_Cont_Clusters = 1 #4 1 1% Cluster
 
 #Sampling Condition
 # Sampling Conditions, Baseline all conditions are off
@@ -89,6 +93,9 @@ PropProgDF = Main_Mod_Outs[2]
 #Final Contmination Baseline Scenario
 Final_CFU_Baseline =ProgDF["Final Product Facility"]
 
+#Final Prop Contaminated
+Final_Prop_Baseline = PropProgDF["PropCont_A_FP"]
+
 #Creating boxplot for exploration
 plt.boxplot(Final_CFU_Baseline)
 plt.ticklabel_format(style='plain', axis='y')
@@ -104,8 +111,9 @@ reload(Listz)  # Reload Lists
 
 # Turning of Washing. 
 SCInputz.Washing_YN = True
-SCInputz.BGHazard_lvl = One_CFU_g
-
+SCInputz.PSHazard_lvl = One_CFU_g  #CFU # background contamination
+SCInputz.PSCluster_Size = 1000 #lb 1%
+SCInputz.PSNo_Cont_Clusters = 1 #4 1 1% Cluster
 #Sampling Condition
 # Sampling Conditions, Baseline all conditions are off
 ScenCondz.Baseline_Sampling = 0  # all others must be 0if this one is 1
@@ -129,6 +137,8 @@ PropProgDF_Base_Wash = Main_Mod_Outs[2]
 
 #Final Contmination Baseline Scenario
 Final_CFU_Base_Wash =ProgDF_Base_Wash["Final Product Facility"]
+#Final Prop Contaminated
+Final_Prop_Base_Wash = PropProgDF["PropCont_A_FP"]
 
 #Creating boxplot for exploration
 plt.boxplot(Final_CFU_Base_Wash)
@@ -148,7 +158,9 @@ reload(Listz)  # Reload Lists
 
 # Turning of Washing. 
 SCInputz.Washing_YN = False
-SCInputz.BGHazard_lvl = One_CFU_g
+SCInputz.PSHazard_lvl = One_CFU_g  #CFU # background contamination
+SCInputz.PSCluster_Size = 1000 #lb 1%
+SCInputz.PSNo_Cont_Clusters = 1 #4 1 1% Cluster
 
 #Sampling Condition
 # Sampling Conditions, Baseline all conditions are off
@@ -182,6 +194,9 @@ PropProgDF_Base_PHS4d = Main_Mod_Outs[2]
 #Final Contmination Baseline Scenario
 Final_CFU_Base_PHS4d =ProgDF_Base_PHS4d["Final Product Facility"]
 
+#Final Prop Contaminated
+Final_Prop_Base_PHS4d = PropProgDF["PropCont_A_FP"]
+
 #Creating boxplot for exploration
 plt.boxplot(Final_CFU_Base_PHS4d)
 plt.ticklabel_format(style='plain', axis='y')
@@ -201,7 +216,9 @@ reload(Listz)  # Reload Lists
 
 # Turning of Washing. 
 SCInputz.Washing_YN = True
-SCInputz.BGHazard_lvl = One_CFU_g
+SCInputz.PSHazard_lvl = One_CFU_g  #CFU # background contamination
+SCInputz.PSCluster_Size = 1000 #lb 1%
+SCInputz.PSNo_Cont_Clusters = 1 #4 1 1% Cluster
 
 #Sampling Condition
 # Sampling Conditions, Baseline all conditions are off
@@ -234,6 +251,8 @@ PropProgDF_Base_Wash_PHS4d = Main_Mod_Outs[2]
 
 #Final Contmination Baseline Scenario
 Final_CFU_Base_Wash_PHS4d =ProgDF_Base_Wash_PHS4d["Final Product Facility"]
+#Final Prop Contaminated
+Final_Prop_Base_Wash_PHS4d = PropProgDF["PropCont_A_FP"]
 
 #Creating boxplot for exploration
 plt.boxplot(Final_CFU_Base_Wash_PHS4d)
@@ -249,6 +268,8 @@ plt.ticklabel_format(style='plain', axis='y')
 Final_CFU_Baseline = Final_CFU_Baseline.to_frame()
 Final_CFU_Baseline["Type"] = "No Sampling, No Wash"
 x = Final_CFU_Baseline["Final Product Facility"]
+
+
 
 Final_CFU_Base_Wash = Final_CFU_Base_Wash.to_frame()
 Final_CFU_Base_Wash["Type"] = "No Sampling, Wash"
@@ -276,8 +297,8 @@ Final_Compared=pd.concat([Initial_CFU_V,
                          axis=0, 
                          ignore_index=True)
 
-import math
-Final_Compared["log10"] = np.log10(Final_Compared["Final Product Facility"])
+#import math
+#Final_Compared["log10"] = np.log10(Final_Compared["Final Product Facility"])
 
 
 
@@ -298,6 +319,12 @@ plt.ylabel("Total CFUs")
 plt.title("CFUs Initial vs Strategies")
 plt.xticks(rotation=70)
 
+#Desnity Plots. 
+g = sns.FacetGrid(Final_Compared, col="Type", col_wrap=3)
+g.map_dataframe(sns.histplot, x="Final Product Facility")
+
+
+#sns.displot(Final_Compared, x="Final Product Facility", col="Type", kind="kde", common_norm=False, col_wrap=3)
 
 #Statistical analysis. 
 from scipy import stats

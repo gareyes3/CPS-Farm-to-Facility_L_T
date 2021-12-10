@@ -40,7 +40,7 @@ def F_MainLoop():
     
 
     for  i in range(SCInputz.N_Iterations):
-        Iteration_In = 1
+        Iteration_In = i
         print(Iteration_In,"iteration")
         reload(Inputz)
         
@@ -661,7 +661,7 @@ def F_MainLoop():
             #PropoContaminated
             df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
                                                                    outputDF =df_Output_Propprog, 
-                                                                   Step_Column =   "PropCont_B_FP", 
+                                                                   Step_Column =   "PropCont_A_FP", 
                                                                    i = Iteration_In)
             
 
