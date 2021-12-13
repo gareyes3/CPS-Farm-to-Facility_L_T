@@ -138,7 +138,7 @@ PropProgDF_Base_Wash = Main_Mod_Outs[2]
 #Final Contmination Baseline Scenario
 Final_CFU_Base_Wash =ProgDF_Base_Wash["Final Product Facility"]
 #Final Prop Contaminated
-Final_Prop_Base_Wash = PropProgDF["PropCont_A_FP"]
+Final_Prop_Base_Wash = PropProgDF_Base_Wash["PropCont_A_FP"]
 
 #Creating boxplot for exploration
 plt.boxplot(Final_CFU_Base_Wash)
@@ -195,7 +195,7 @@ PropProgDF_Base_PHS4d = Main_Mod_Outs[2]
 Final_CFU_Base_PHS4d =ProgDF_Base_PHS4d["Final Product Facility"]
 
 #Final Prop Contaminated
-Final_Prop_Base_PHS4d = PropProgDF["PropCont_A_FP"]
+Final_Prop_Base_PHS4d = PropProgDF_Base_PHS4d["PropCont_A_FP"]
 
 #Creating boxplot for exploration
 plt.boxplot(Final_CFU_Base_PHS4d)
@@ -252,7 +252,7 @@ PropProgDF_Base_Wash_PHS4d = Main_Mod_Outs[2]
 #Final Contmination Baseline Scenario
 Final_CFU_Base_Wash_PHS4d =ProgDF_Base_Wash_PHS4d["Final Product Facility"]
 #Final Prop Contaminated
-Final_Prop_Base_Wash_PHS4d = PropProgDF["PropCont_A_FP"]
+Final_Prop_Base_Wash_PHS4d = PropProgDF_Base_Wash_PHS4d["PropCont_A_FP"]
 
 #Creating boxplot for exploration
 plt.boxplot(Final_CFU_Base_Wash_PHS4d)
@@ -319,7 +319,7 @@ plt.ylabel("Total CFUs")
 plt.title("CFUs Initial vs Strategies")
 plt.xticks(rotation=70)
 
-#Desnity Plots. 
+#Desnity Plots for Final Contamination. 
 g = sns.FacetGrid(Final_Compared, col="Type", col_wrap=3)
 g.map_dataframe(sns.histplot, x="Final Product Facility")
 
@@ -335,6 +335,74 @@ sp.posthoc_dunn(data, p_adjust = 'bonferroni')
 
 #%%
 #Percent Contaminated at each stage. 
+#Adding Types To merge
+Final_Prop_Baseline = Final_Prop_Baseline.to_frame()
+Final_Prop_Baseline["Type"] = "No Sampling, No Wash"
+x_prp = Final_Prop_Baseline["PropCont_A_FP"]
+
+#totalcontaminated pakages
+x_totCont = PropProgDF["TotalCont_A_FP"].to_frame()
+x_totCont["Type"] = "No Sampling, No Wash"
+
+#-------------
+
+Final_Prop_Base_Wash = Final_Prop_Base_Wash.to_frame()
+Final_Prop_Base_Wash["Type"] = "No Sampling, Wash"
+y_prp = PropProgDF_Base_Wash["PropCont_A_FP"]
+
+y_totCont = PropProgDF_Base_Wash["TotalCont_A_FP"].to_frame()
+y_totCont["Type"] = "No Sampling, Wash"
+
+
+#-------------------
+Final_Prop_Base_PHS4d=Final_Prop_Base_PHS4d.to_frame()
+Final_Prop_Base_PHS4d["Type"] = "Sampling, No Wash"
+z_prp = PropProgDF_Base_PHS4d["PropCont_A_FP"]
+
+z_totCont = PropProgDF_Base_PHS4d["TotalCont_A_FP"].to_frame()
+z_totCont["Type"] = "Sampling, No Wash"
+
+#----------------------
+Final_Prop_Base_Wash_PHS4d = Final_Prop_Base_Wash_PHS4d.to_frame()
+Final_Prop_Base_Wash_PHS4d["Type"] = "Sampling, Wash"
+xy_prp = PropProgDF_Base_Wash_PHS4d["PropCont_A_FP"]
+
+xy_totCont = PropProgDF_Base_Wash_PHS4d["TotalCont_A_FP"].to_frame()
+xy_totCont["Type"] = "Sampling, Wash"
+
+
+
+#Combining them for final proportions
+Final_Compared_Prop=pd.concat([Final_Prop_Baseline, 
+                          Final_Prop_Base_Wash,
+                          Final_Prop_Base_PHS4d,
+                          Final_Prop_Base_Wash_PHS4d], 
+                         axis=0, 
+                         ignore_index=True)
+
+#sum of all 
+
+Final_Compared_TotCont=pd.concat([x_totCont, 
+                             y_totCont,
+                             z_totCont,
+                             xy_totCont], 
+                             axis=0, 
+                             ignore_index=True)
+
+
+
+#Desnity Plots for proportion of contaminated final packages
+g = sns.FacetGrid(Final_Compared_Prop, col="Type", col_wrap=3)
+g.map_dataframe(sns.histplot, x="PropCont_A_FP", binwidth=0.005, stat = "probability")
+
+
+#Barplot for proportion of contaminated final packages. 
+j = sns.barplot(data = Final_Compared_Prop, y = "Type", x = "PropCont_A_FP")
+
+#Bar plot for total contaminated final packages.
+j = sns.barplot(data = Final_Compared_TotCont, y = "Type", x = "TotalCont_A_FP")
+
+
 
 
 

@@ -51,7 +51,8 @@ Column_Per_Contaminated = ["PropCont_CE_B_PHS",
                             "PropCont_B_Cent",
                             "PropCont_A_VA",
                             "PropCont_B_FPS",
-                            "PropCont_B_FP"
+                            "PropCont_A_FP",
+                            "TotalCont_A_FP"
     ]
 
 #PHContamination

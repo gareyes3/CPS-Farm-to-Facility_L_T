@@ -103,6 +103,7 @@ def F_MainLoop():
         #print("Initial", sum(df["CFU"]))
         
         #DIE-OFF
+        
         LV_Die_Off_CE_PHS = Funz.F_Simple_DieOff(Inputz.Time_CE_PHS) #Total Die off Contamination Event to PHS. 
         df = Funz.Applying_dieoff(df=df, Dieoff=LV_Die_Off_CE_PHS ) #Applying Die off to CFU Column in the DF
         LV_Time_Agg = 0 + Inputz.Time_CE_PHS #Cummulative time so far in the process. Time #1.
@@ -658,11 +659,15 @@ def F_MainLoop():
                    Step_Column =  "Final Product Facility", 
                    i =Iteration_In )
             
-            #PropoContaminated
+            #Prop Contaminated
             df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
                                                                    outputDF =df_Output_Propprog, 
                                                                    Step_Column =   "PropCont_A_FP", 
                                                                    i = Iteration_In)
+            #Sum of positive Packages
+            df_Output_Propprog.at[i,"TotalCont_A_FP"] = len(df[df.CFU>0])
+            
+            
             
 
             df_Output_FP = Dictionariez.Output_Collection_Final(df = df, 
