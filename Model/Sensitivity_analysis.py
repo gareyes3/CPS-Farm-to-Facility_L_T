@@ -23,44 +23,32 @@ import ScenCondz
 
 Sensitivity_Analysis_Dic = ["InitialCont" ,
                             "ClusteringPer",
+                            "ClusterSize"
                             "SampleSize",
+                            "SamplesPSublot"
                             "NumberGrabs",
                             "WashingYN"
     ]
+    
 
-Sensitivity_Analysis_Dic_var = [
-    #Initial Contamination Inputs
-    SCInputz.PSHazard_lvl, #Hazard Level
-    SCInputz.PSNo_Cont_Clusters, #Number of Clusters
-    SCInputz.PSCluster_Size, #Cluster Size
-    # Sampling PH 4D. 
-    SCInputz.sample_size_PH, #Sample Size Pre-Harvest
-    SCInputz.n_samples_slot_PH, #Number of samples per Sublot
-    SCInputz.No_Grabs_PH,
-    #Rejection Rule
-    SCInputz.RR_PH_Trad,
-    #Pre_HArvest
-    Inputz.Time_CE_PHS, #Time between CE and PHS
-    LV_Die_Off_CE_PHS,#Die-off From CE-PHS
-    LV_Die_off_B, #Dieoff from CE
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    ]
+def Func_LoadInputs (OutputDF,i):
+    #Setup Factors
+    #Initial Contamination Factors
+    OutputDF.at[i, "InitialCont"] = SCInputz.PSHazard_lvl #InitialContmination
+    OutputDF.at[i, "ClusteringPer"] = SCInputz.PSNo_Cont_Clusters #Cluestering Level
+    OutputDF.at[i, "ClusterSize"] =  SCInputz.PSCluster_Size #InitialContmination
+    OutputDF.at[i, "InitialCont"] =  SCInputz.PSCluster_Size #InitialContmination
+    #Sampling Factors
+    OutputDF.at[i, "SampleSize"] = SCInputz.sample_size_PH #Sample Size at Pe-Harvest
+    OutputDF.at[i, "SamplesPSublot"] = SCInputz.n_samples_slot_PH #Number of Samples per sublot
+    OutputDF.at[i, "NumberGrabs"] =  SCInputz.No_Grabs_PH #Number of Grabs at PreHarvest.
+    #Procesing Factord
+    OutputDF.at[i, "WashingYN"] =  SCInputz.No_Grabs_PH #Number of Grabs at PreHarvest.
 
 
     
 
-def Func_LoadInputs (OutputDF,i,Input_ListString, InputListVar):
-    for j in Input_List:
-        OutputDF.at[j,]
+
     
     
 

@@ -36,7 +36,7 @@ sys.path.append(
 #%%
 
 #Scenarios Creation
-# 1, 1% Cluster of Contaminatoin at 1 CFU/g 
+# 1, 1% Cluster of Contaminatoin at 1 CFU/g, total field not only the cluster. 
 
 # 1 CFU/g Contmination Level
 One_CFU_g = 45400000 #CFUs
@@ -262,6 +262,10 @@ plt.ticklabel_format(style='plain', axis='y')
 (One_CFU_g-Final_CFU_Base_Wash_PHS4d.mean())/One_CFU_g #Average Reduction.
 
 #%%
+
+
+
+#%%
 #Comparing Scenarios
 
 #Adding Types To merge
@@ -320,8 +324,23 @@ plt.title("CFUs Initial vs Strategies")
 plt.xticks(rotation=70)
 
 #Desnity Plots for Final Contamination. 
-g = sns.FacetGrid(Final_Compared, col="Type", col_wrap=3)
-g.map_dataframe(sns.histplot, x="Final Product Facility")
+#g = sns.FacetGrid(Final_Compared, col="Type", col_wrap=3)
+#g.map_dataframe(sns.histplot, x="Final Product Facility")
+
+
+h=sns.displot( data =Final_Compared, 
+            x = "Final Product Facility" , 
+            col = "Type", 
+            col_wrap=3,
+             stat = "probability",
+            facet_kws=dict(sharey=False,sharex= False))
+plt.suptitle("Distribution of CFUs in Final Product",) 
+
+def specs(x, **kwargs):
+    plt.axvline(x.mean(), c='red', ls='-', lw=2.5)
+    plt.axvline(x.median(), c='orange', ls='--', lw=2.5)
+
+h.map(specs,"Final Product Facility" )
 
 
 #sns.displot(Final_Compared, x="Final Product Facility", col="Type", kind="kde", common_norm=False, col_wrap=3)
@@ -392,8 +411,24 @@ Final_Compared_TotCont=pd.concat([x_totCont,
 
 
 #Desnity Plots for proportion of contaminated final packages
-g = sns.FacetGrid(Final_Compared_Prop, col="Type", col_wrap=3)
-g.map_dataframe(sns.histplot, x="PropCont_A_FP", binwidth=0.005, stat = "probability")
+#g = sns.FacetGrid(Final_Compared_Prop, col="Type", col_wrap=3)
+#g.map_dataframe(sns.histplot, x="PropCont_A_FP", binwidth=0.005, stat = "probability")
+
+
+g=sns.displot( data =Final_Compared_Prop, 
+            x = "PropCont_A_FP" , 
+            col = "Type", 
+            col_wrap=3,
+             stat = "probability",
+            facet_kws=dict(sharey=False,sharex= False))
+
+def specs(x, **kwargs):
+    plt.axvline(x.mean(), c='red', ls='-', lw=2.5)
+    plt.axvline(x.median(), c='orange', ls='--', lw=2.5)
+
+g.map(specs,"PropCont_A_FP" )
+
+
 
 
 #Barplot for proportion of contaminated final packages. 
