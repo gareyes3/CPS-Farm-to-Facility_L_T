@@ -7,6 +7,8 @@ Created on Mon Sep 27 11:31:26 2021
 import math
 import pandas as pd
 import numpy as np
+import SCInputz
+import Inputz
 
 
 Column_Names_Outs = ["Step_CFU_Acc",
@@ -52,7 +54,7 @@ Column_Per_Contaminated = ["PropCont_CE_B_PHS",
                             "PropCont_A_VA",
                             "PropCont_B_FPS",
                             "PropCont_A_FP",
-                            "TotalCont_A_FP"
+                            "TotalCont_A_FP",
     ]
 
 #PHContamination
@@ -70,6 +72,8 @@ Sensitivity_Analysis_Dic = ["HazardLevel",
                             "Washing",
                                                         
     ]
+
+
 
 
 def Output_DF_Creation(Column_Names, Niterations):
@@ -120,6 +124,104 @@ def Output_Collection_Final(df, outputDF, Step, Cont_Before, Weight_Before, i, N
         outputDF.columns = outputDF.columns.str.replace("Step", Step) #Updating Head of Columns Change column end iteration.
     
     return outputDF
+
+#%%
+#Sens Analysis
+
+
+##Creation of Random Variables. 
+
+#Contamination Determination Inputs
+Total_grams= SCInputz.Field_Weight*454
+
+
+CFU_10000g = Total_grams/10000 #-4 log
+CFU_1000g = Total_grams/1000  #-3 log
+CFU_100g = Total_grams/100 #-2 log
+CFU_10g = Total_grams/10  #-1 log
+CFU_g =  Total_grams #0 log
+CFU_0_1g = Total_grams*10 #1 log
+
+
+CFU_0_01g = Total_grams*100 #2log
+
+#Contamination List
+Contamination_List = [CFU_10000g,CFU_1000g,CFU_100g,CFU_10g,CFU_g,CFU_0_1g]
+#Clustering List
+Clustering_List =[100,1000,10000,25000,50000,100000]
+NoClusters_List = [1,2,3,4]
+SampleSize_List = [60,120,300,600,1200]
+NoSamples_List = [1,2,3,4,5,6,7,8,9,10]
+NoGrabs_List = [1,60,120,300,600,1200]
+
+
+
+Sensitivity_Analysis_Dic = ["InitialCont" ,
+                            "ClusteringPer",
+                            "ClusterSize",
+                            "SampleSize",
+                            "SamplesPSublot",
+                            "NumberGrabs",
+                            "WashingYN",
+                            "TotalCFUFP"
+    ]
+    
+
+def Func_LoadInputs (OutputDF,i,df):
+    #Setup Factors
+    #Initial Contamination Factors
+    OutputDF.at[i, "InitialCont"] = SCInputz.PSHazard_lvl #InitialContmination
+    OutputDF.at[i, "ClusteringPer"] = SCInputz.PSNo_Cont_Clusters #Cluestering Level
+    OutputDF.at[i, "ClusterSize"] =  SCInputz.PSCluster_Size #InitialContmination
+    OutputDF.at[i, "InitialCont"] =  SCInputz.PSCluster_Size #InitialContmination
+    #Sampling Factors
+    OutputDF.at[i, "SampleSize"] = SCInputz.sample_size_PH #Sample Size at Pe-Harvest
+    OutputDF.at[i, "SamplesPSublot"] = SCInputz.n_samples_slot_PH #Number of Samples per sublot
+    OutputDF.at[i, "NumberGrabs"] =  SCInputz.No_Grabs_PH #Number of Grabs at PreHarvest.
+    #Procesing Factord
+    OutputDF.loc[i, "WashingYN"] =  SCInputz.Washing_YN #Washing Yes or Not
+    
+    OutputDF.loc[i, "TotalCFUFP"] =  df["CFU"].sum()
+    
+    return   OutputDF
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

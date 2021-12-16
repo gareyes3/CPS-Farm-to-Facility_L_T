@@ -1,0 +1,32 @@
+library(ppcor)
+library(sensitivity)
+library(ggplot2)
+library(randomForest)
+
+
+Data <- read.csv("SensitivityOut.csv", stringsAsFactors = TRUE)
+Data<-Data[-c(1)]
+PCC1<-pcc(X = Data[,1:7], y=Data$TotalCFUFP, rank =TRUE, conf = 0.95, nboot = 1000)
+plot(PCC1)
+
+
+pairs(Data)
+
+#8 Visuals , remaing the columns to that no error in ggplot
+names(PCC1$PRCC)=c("original", "bias" ,"std.error", "minci","maxci")
+
+#Ggplot, here is similar to a tornado plot. Also there are error bars on the 95th percentile
+
+
+
+ggplot(data = PCC1$PRCC, aes(x=rownames(PCC1$PRCC),y=original ))+
+  geom_bar(stat = "identity", position = "identity")+
+  geom_errorbar(aes(ymin=minci, ymax=maxci), width=.1,col="blue")+
+  ylab("Partial Correlation Coefficient")+
+  xlab("Action")+
+  ggtitle("Sensitivity Analysis on Final CFU in System")+
+  coord_flip()+
+  theme(plot.title = element_text(hjust = 0.5))+
+  theme(text = element_text(size=13))
+
+

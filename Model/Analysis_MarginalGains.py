@@ -11,6 +11,7 @@ sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facil
 sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
 
 # %%
+
 from importlib import reload
 import numpy as np
 import Listz
@@ -29,10 +30,9 @@ from matplotlib.ticker import ScalarFormatter
 import seaborn as sns
 import sys
 import Trial_MainLoop_PH
-sys.path
-#sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
-sys.path.append(
-    'C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
+
+
+reload(MainModel3z)
 #%%
 
 #Scenarios Creation
@@ -89,6 +89,7 @@ Main_Mod_Outs = MainModel3z.F_MainLoop()
 OutputDF = Main_Mod_Outs[1]
 ProgDF = Main_Mod_Outs[0]
 PropProgDF = Main_Mod_Outs[2]
+FinalConts = Main_Mod_Outs[6]
 
 #Final Contmination Baseline Scenario
 Final_CFU_Baseline =ProgDF["Final Product Facility"]
@@ -134,6 +135,7 @@ Main_Mod_Outs = MainModel3z.F_MainLoop()
 OutputDF_Base_Wash = Main_Mod_Outs[1]
 ProgDF_Base_Wash = Main_Mod_Outs[0]
 PropProgDF_Base_Wash = Main_Mod_Outs[2]
+FinalConts_Base_Wash = Main_Mod_Outs[6]
 
 #Final Contmination Baseline Scenario
 Final_CFU_Base_Wash =ProgDF_Base_Wash["Final Product Facility"]
@@ -190,6 +192,7 @@ Main_Mod_Outs = MainModel3z.F_MainLoop()
 OutputDF_Base_PHS4d = Main_Mod_Outs[1]
 ProgDF_Base_PHS4d = Main_Mod_Outs[0]
 PropProgDF_Base_PHS4d = Main_Mod_Outs[2]
+FinalConts_Base_PHS4d = Main_Mod_Outs[6]
 
 #Final Contmination Baseline Scenario
 Final_CFU_Base_PHS4d =ProgDF_Base_PHS4d["Final Product Facility"]
@@ -248,6 +251,7 @@ Main_Mod_Outs = MainModel3z.F_MainLoop()
 OutputDF_Base_PHS4d = Main_Mod_Outs[1]
 ProgDF_Base_Wash_PHS4d = Main_Mod_Outs[0]
 PropProgDF_Base_Wash_PHS4d = Main_Mod_Outs[2]
+FinalConts_Base_Wash_PHS4d = Main_Mod_Outs[6]
 
 #Final Contmination Baseline Scenario
 Final_CFU_Base_Wash_PHS4d =ProgDF_Base_Wash_PHS4d["Final Product Facility"]
@@ -266,7 +270,7 @@ plt.ticklabel_format(style='plain', axis='y')
 
 
 #%%
-#Comparing Scenarios
+#Comparing Scenarios for Final contamination 
 
 #Adding Types To merge
 Final_CFU_Baseline = Final_CFU_Baseline.to_frame()
@@ -307,6 +311,7 @@ Final_Compared=pd.concat([Initial_CFU_V,
 
 
 #Initial levels represent the initial contamination level before or after PH
+
     #2-8 days before harvest. Triangular distribution.     
 H=sns.catplot(x="Type", y="Final Product Facility", 
             data=Final_Compared)
@@ -437,8 +442,49 @@ j = sns.barplot(data = Final_Compared_Prop, y = "Type", x = "PropCont_A_FP")
 #Bar plot for total contaminated final packages.
 j = sns.barplot(data = Final_Compared_TotCont, y = "Type", x = "TotalCont_A_FP")
 
+#%%
+
+#Total CFUs, for all finished product bags. 
+
+#Baseline no Sampling
+FinalConts  = [item for sublist in FinalConts for item in sublist]
+dfFinalConts = pd.DataFrame(FinalConts, columns=["CFU"])
+dfFinalConts["CFU_g"] = dfFinalConts["CFU"]/(5*454)
+sns.displot(dfFinalConts["CFU_g"], bins=30,stat = "probability")
+cont_Packages=sum(dfFinalConts["CFU_g"]>0)
+Non_contPackages= sum(dfFinalConts["CFU_g"]==0)
+RejectedPackages = ((SCInputz.Field_Weight/Inputz.Pack_Weight_FP)*SCInputz.N_Iterations -len(dfFinalConts["CFU_g"]))
+cont_Packages/(Non_contPackages+RejectedPackages)*100
 
 
+#Washing
+FinalConts_Base_Wash  = [item for sublist in FinalConts_Base_Wash for item in sublist]
+dfFinalConts_Base_Wash = pd.DataFrame(FinalConts_Base_Wash, columns=["CFU"])
+dfFinalConts_Base_Wash["CFU_g"] = dfFinalConts_Base_Wash["CFU"]/(5*454)
+sns.displot(dfFinalConts_Base_Wash["CFU_g"], bins=30,stat = "probability")
+cont_Packages=sum(dfFinalConts_Base_Wash["CFU_g"]>0)
+Non_contPackages= sum(dfFinalConts_Base_Wash["CFU_g"]==0)
+RejectedPackages = ((SCInputz.Field_Weight/Inputz.Pack_Weight_FP)*SCInputz.N_Iterations -len(dfFinalConts_Base_Wash["CFU_g"]))
+cont_Packages/(Non_contPackages+RejectedPackages)*100
 
 
+#Sampling No Wash
+FinalConts_Base_PHS4d  = [item for sublist in FinalConts_Base_PHS4d for item in sublist]
+dfFinalConts_Base_PHS4d = pd.DataFrame(FinalConts_Base_PHS4d, columns=["CFU"])
+dfFinalConts_Base_PHS4d["CFU_g"] = dfFinalConts_Base_PHS4d["CFU"]/(5*454)
+sns.displot(dfFinalConts_Base_PHS4d["CFU_g"], bins=30,stat = "probability")
+cont_Packages=sum(dfFinalConts_Base_PHS4d["CFU_g"]>0)
+Non_contPackages= sum(dfFinalConts_Base_PHS4d["CFU_g"]==0)
+RejectedPackages = ((SCInputz.Field_Weight/Inputz.Pack_Weight_FP)*SCInputz.N_Iterations -len(dfFinalConts_Base_PHS4d["CFU_g"]))
+cont_Packages/(Non_contPackages+RejectedPackages)*100
+
+#Sampling and Wash.
+FinalConts_Base_Wash_PHS4d  = [item for sublist in FinalConts_Base_Wash_PHS4d for item in sublist]
+dfFinalConts_Base_Wash_PHS4d = pd.DataFrame(FinalConts_Base_Wash_PHS4d, columns=["CFU"])
+dfFinalConts_Base_Wash_PHS4d["CFU_g"] = dfFinalConts_Base_Wash_PHS4d["CFU"]/(5*454)
+sns.displot(dfFinalConts_Base_Wash_PHS4d["CFU_g"], bins=30,stat = "probability")
+cont_Packages=sum(dfFinalConts_Base_Wash_PHS4d["CFU_g"]>0)
+Non_contPackages= sum(dfFinalConts_Base_Wash_PHS4d["CFU_g"]==0)
+RejectedPackages = ((SCInputz.Field_Weight/Inputz.Pack_Weight_FP)*SCInputz.N_Iterations -len(dfFinalConts_Base_Wash_PHS4d["CFU_g"]))
+cont_Packages/(Non_contPackages+RejectedPackages)*100
 

@@ -12,8 +12,10 @@ import numpy as np
 
 
 #Initial Inputs for Field Setup and Challenges
+Sensitivity_Analysis = False
 
-N_Iterations= 100
+
+N_Iterations= 50
 
 Field_Weight= 100000 #total lb in field
 slot_weight = 10000 #weight of the sublot in field.
@@ -119,5 +121,6 @@ Limit_R_FP = 0
 RR_R_FP_Trad  = "Lot"
 
 #%% Toggles
-
 Washing_YN =True
+
+

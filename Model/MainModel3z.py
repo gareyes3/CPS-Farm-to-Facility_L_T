@@ -21,6 +21,9 @@ import Inputz #Random Inputz.
 import SCInputz #Inputz that can be changed later on through analysis
 import Dictionariez #for dataframe creation
 from importlib import reload  
+import numpy as np
+#import Sensitivity_analysis
+
 reload(Listz)
 reload(Inputz)
 
@@ -37,12 +40,40 @@ def F_MainLoop():
     df_Output_H =  Dictionariez.Output_DF_Creation(Dictionariez.Column_Names_Outs, SCInputz.N_Iterations)#Main outputs Dataframe Harvest
     df_Output_R =  Dictionariez.Output_DF_Creation(Dictionariez.Column_Names_Outs, SCInputz.N_Iterations)#Main outputs Dataframe Receiving
     df_Output_FP =  Dictionariez.Output_DF_Creation(Dictionariez.Column_Names_Outs, SCInputz.N_Iterations)#Main outputs Dataframe Final Product
-    
+    df_Sensitivity = Dictionariez.Output_DF_Creation(Dictionariez.Sensitivity_Analysis_Dic, SCInputz.N_Iterations)
+    Series_Final_Conts = []
 
     for  i in range(SCInputz.N_Iterations):
         Iteration_In = i
         print(Iteration_In,"iteration")
         reload(Inputz)
+        
+        #Sensitivity Analysis Randomized Inputs only if Sens Analysis is ON. 
+        if SCInputz.Sensitivity_Analysis == True:
+            print("true")
+            #1Hazard Level Selecting From random list
+            SCInputz.PSHazard_lvl = np.random.choice(Dictionariez.Contamination_List)
+            #2Cluser Suze
+            SCInputz.PSCluster_Size = np.random.choice(Dictionariez.Clustering_List)
+            #3Number of Clusters
+            if SCInputz.PSCluster_Size <25001:
+                SCInputz.PSNo_Cont_Clusters = np.random.choice(Dictionariez.NoClusters_List)
+            elif SCInputz.PSCluster_Size ==50000:
+                SCInputz.PSNo_Cont_Clusters = 2
+            elif SCInputz.PSCluster_Size ==100000:
+                SCInputz.PSNo_Cont_Clusters = 1
+            
+            #Sampling Factors
+            #4 Sampling Size. 
+            SCInputz.sample_size_PH = np.random.choice(Dictionariez.SampleSize_List)
+            #5 Number of samples per sublot
+            SCInputz.n_samples_slot_PH=np.random.choice(Dictionariez.NoSamples_List)
+            #6 Number of grabs per composite sample
+            SCInputz.No_Grabs_PH= np.random.choice(Dictionariez.NoGrabs_List)
+            
+            #Processing Factors
+            #7 Washing Random Choice
+            SCInputz.Washing_YN = np.random.choice([True,False])
         
     
         #Adding Contmination to the Field if Contmination Event Occurs Before Pre-Harvest
@@ -667,6 +698,9 @@ def F_MainLoop():
             #Sum of positive Packages
             df_Output_Propprog.at[i,"TotalCont_A_FP"] = len(df[df.CFU>0])
             
+            #Adding final Contamination series
+            Series_Final_Conts.append(df.CFU)
+            
             
             
 
@@ -796,15 +830,17 @@ def F_MainLoop():
             #Washing at consumer: #wash every 2 packs  
             df = Funz.Washing_Batch(df = df, New_water_every_xpacks = 2)
 
-            
-            
+        #Adding Sens outputs
+        df_Sensitivity= Dictionariez.Func_LoadInputs(df_Sensitivity,Iteration_In,df)
             
     #STEP 7: Outputs 
+    
+    
 
     df_outputs = pd.concat([df_Output_PH,df_Output_H,df_Output_R, df_Output_FP], axis=1)
     
     
-    outputs = [df_Output_Contprog, df_outputs,df_Output_Propprog,gb2,df]
+    outputs = [df_Output_Contprog, df_outputs,df_Output_Propprog,gb2,df,df_Sensitivity,Series_Final_Conts]
 
         
     return outputs #Final 
