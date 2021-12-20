@@ -123,4 +123,6 @@ RR_R_FP_Trad  = "Lot"
 #%% Toggles
 Washing_YN =True
 
+Pre_CoolingYN = True
+
 

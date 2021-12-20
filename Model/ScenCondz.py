@@ -38,3 +38,6 @@ HS_Agg = False#Scenario 6
 FPS_Trad =False #Scenario 7
 FPS_Agg = False #Scenario 8
 
+#--------------------------------- Marginal Gains Scenarios
+
+Holding_Time = True

@@ -35,20 +35,28 @@ elif ScenCondz.PHS_4h ==True:
 elif ScenCondz.PHS_4d ==True:
     Time_PHS_H = 4 #4 days before harvest
 else:
-    Time_PHS_H = 4 #if not, baseline is always 4 hours
+    Time_PHS_H = 0 #if not, baseline is always 4 hours
 
-#Time between Contamination Event and Harvest Sampling
-Time_CE_H = np.random.triangular(2,4,8) #days
+#Time between Contamination Event and Harvest Sampling *** Scenario Control
+if ScenCondz.Holding_Time == True: #Should always be true unless scenario analysis. 
+    Time_CE_H = np.random.triangular(2,4,8) #days
+elif ScenCondz.Holding_Time == False:
+    Time_CE_H = 1 #days 
+    
 #Here because of math
 if Time_PHS_H>Time_CE_H:
     Time_CE_PHS = 0
 else:
-    Time_CE_PHS= float(Time_CE_H-Time_PHS_H) #Days Time from Contamination Event (Irrigation) to Pre-Harvest Sampling
+    Time_CE_PHS= Time_CE_H-Time_PHS_H #Days Time from Contamination Event (Irrigation) to Pre-Harvest Sampling
 
 #%% Pre-Cooling- HArvest
 #PreCooling. 
 Time_H_PreCooling = np.random.uniform(2,4)
 Temperature_H_PreCooling = np.random.uniform(15,17)
+
+Time_PreCooling = np.random.uniform(0.4,0.6)  #Hours 25-35 minutes
+Temperature_PreCooling = 3 #Precooling 3 C https://www.buschvacuum.com/us/en/news-media/pre-cooling-lettuces-reliably-thanks-to-cutting-edge-vacuum-technology.html
+
 
 #%% Field Pack
 #Field Packed Lettuce:

@@ -60,7 +60,7 @@ def F_DieOff_PHS_HS(Time,Time_Agg,Break_Point ,Dieoff1, Dieoff2 ):
 
 
 def F_Simple_DieOff (Time): 
-    Reduction = -((Time/2.45/24)**0.3)
+    Reduction = -((Time/(2.45/24))**0.3)
     return Reduction
 
 def Applying_dieoff (df,Dieoff):

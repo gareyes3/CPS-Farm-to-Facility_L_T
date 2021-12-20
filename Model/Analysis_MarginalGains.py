@@ -33,18 +33,19 @@ import Trial_MainLoop_PH
 
 
 reload(MainModel3z)
+reload(Inputz)
 #%%
 
 #Scenarios Creation
-# 1, 1% Cluster of Contaminatoin at 1 CFU/g, total field not only the cluster. 
+#Systematic Failure from irrigation. 100% of field affected at 1CFU/g 
 
 # 1 CFU/g Contmination Level
 One_CFU_g = 45400000 #CFUs
 
 #Uniform Contmaination in the Field. 
 # Contamination Challenges
-ContCondz.Background_C = False
-ContCondz.Point_Source_C =True
+ContCondz.Background_C = True
+ContCondz.Point_Source_C =False
 ContCondz.Systematic_C = False
 
 # Harvester Contamination
@@ -59,16 +60,27 @@ ContCondz.Pack_C = False
 
 
 #%% Scenario 1. No intervention Strategies, Natural Field and No Washing. 
+
 reload(SCInputz)  # Reload Inputz
 reload(Listz)  # Reload Lists
 
+#Management of Control: 
+
+#Holding Time: 
+ScenCondz.Holding_Time= False #Defaults to 1 Day holding Time
+
+#Turning off Pre-Cooling
+SCInputz.Pre_CoolingYN = False 
+
 # Turning of Washing. 
 SCInputz.Washing_YN = False 
-#SCInputz.BGHazard_lvl = One_CFU_g
+
+SCInputz.BGHazard_lvl = One_CFU_g
+'''
 SCInputz.PSHazard_lvl = One_CFU_g  #CFU # background contamination
 SCInputz.PSCluster_Size = 1000 #lb 1%
 SCInputz.PSNo_Cont_Clusters = 1 #4 1 1% Cluster
-
+'''
 #Sampling Condition
 # Sampling Conditions, Baseline all conditions are off
 ScenCondz.Baseline_Sampling = 0  # all others must be 0if this one is 1
@@ -104,17 +116,27 @@ plt.ticklabel_format(style='plain', axis='y')
 #Percent Reduction by System Initial vs Final
 (One_CFU_g-Final_CFU_Baseline.mean())/One_CFU_g #Average Reduction. 
 
-
 #%% Scenario 2. No Sampling, Only Intervention Strategy is Washing
 
 reload(SCInputz)  # Reload Inputz
 reload(Listz)  # Reload Lists
 
+#Holding Time: 
+ScenCondz.Holding_Time= False #Defaults to 1 Day holding Time
+
+#Turning off Pre-Cooling
+SCInputz.Pre_CoolingYN = False 
+
 # Turning of Washing. 
 SCInputz.Washing_YN = True
+
+
+SCInputz.BGHazard_lvl = One_CFU_g
+'''
 SCInputz.PSHazard_lvl = One_CFU_g  #CFU # background contamination
 SCInputz.PSCluster_Size = 1000 #lb 1%
 SCInputz.PSNo_Cont_Clusters = 1 #4 1 1% Cluster
+'''
 #Sampling Condition
 # Sampling Conditions, Baseline all conditions are off
 ScenCondz.Baseline_Sampling = 0  # all others must be 0if this one is 1
@@ -158,11 +180,22 @@ plt.ticklabel_format(style='plain', axis='y')
 reload(SCInputz)  # Reload Inputz
 reload(Listz)  # Reload Lists
 
+#Holding Time: 
+ScenCondz.Holding_Time= False #Defaults to 1 Day holding Time
+
+#Turning off Pre-Cooling
+SCInputz.Pre_CoolingYN = False 
+
 # Turning of Washing. 
-SCInputz.Washing_YN = False
+SCInputz.Washing_YN = False #Defaults
+
+
+SCInputz.BGHazard_lvl = One_CFU_g
+'''
 SCInputz.PSHazard_lvl = One_CFU_g  #CFU # background contamination
 SCInputz.PSCluster_Size = 1000 #lb 1%
 SCInputz.PSNo_Cont_Clusters = 1 #4 1 1% Cluster
+'''
 
 #Sampling Condition
 # Sampling Conditions, Baseline all conditions are off
@@ -207,8 +240,123 @@ plt.ticklabel_format(style='plain', axis='y')
 #Percent Reduction by System Initial vs Final
 (One_CFU_g-Final_CFU_Base_PHS4d.mean())/One_CFU_g #Average Reduction.
 
+#%%
+#Scenario 4 Holding Time on Everything Else Off
 
-#%% Scenario 4 PH Sampling 4D, Washing ON , and normal baseline contamination reduction
+reload(SCInputz)  # Reload Inputz
+reload(Listz)  # Reload Lists
+
+#Holding Time: 
+ScenCondz.Holding_Time= True #Defaults to 1 Day holding Time
+
+#Turning off Pre-Cooling
+SCInputz.Pre_CoolingYN = False 
+
+# Turning of Washing. 
+SCInputz.Washing_YN = False
+
+
+SCInputz.BGHazard_lvl = One_CFU_g
+'''
+SCInputz.PSHazard_lvl = One_CFU_g  #CFU # background contamination
+SCInputz.PSCluster_Size = 1000 #lb 1%
+SCInputz.PSNo_Cont_Clusters = 1 #4 1 1% Cluster
+'''
+#Sampling Condition
+# Sampling Conditions, Baseline all conditions are off
+ScenCondz.Baseline_Sampling = 0  # all others must be 0if this one is 1
+ScenCondz.PH_Sampling = 0
+ScenCondz.H_Sampling = 0
+ScenCondz.R_Sampling = 0
+ScenCondz.FP_Sampling = 0
+# Pre_Harvest 4 Days
+ScenCondz.PHS_4d = 0  # Scenario 1
+ScenCondz.PHS_4h = 0  # Scenario 2
+ScenCondz.PHS_Int = 0  # Scenario 3
+
+
+#Running The Model.
+Main_Mod_Outs = MainModel3z.F_MainLoop()
+
+#Getting the outputs from the function.
+OutputDF_Base_Holding = Main_Mod_Outs[1]
+ProgDF_Base_Holding = Main_Mod_Outs[0]
+PropProgDF_Base_Holding = Main_Mod_Outs[2]
+FinalConts_Base_Holding = Main_Mod_Outs[6]
+
+#Final Contmination Baseline Scenario
+Final_CFU_Base_Holding =ProgDF_Base_Holding["Final Product Facility"]
+#Final Prop Contaminated
+Final_Prop_Base_Holding = PropProgDF_Base_Holding["PropCont_A_FP"]
+
+#Creating boxplot for exploration
+plt.boxplot(Final_CFU_Base_Holding)
+plt.ticklabel_format(style='plain', axis='y')
+
+#Percent Reduction by System Initial vs Final
+(One_CFU_g-Final_CFU_Base_Holding.mean())/One_CFU_g #Average Reduction.
+
+
+#%%
+#Scenario #5 Only Intervention if Pre-Cooling
+
+reload(SCInputz)  # Reload Inputz
+reload(Listz)  # Reload Lists
+
+#Holding Time: 
+ScenCondz.Holding_Time= False#Defaults to 1 Day holding Time
+
+#Turning off Pre-Cooling
+SCInputz.Pre_CoolingYN =True
+
+# Turning of Washing. 
+SCInputz.Washing_YN = False
+
+
+SCInputz.BGHazard_lvl = One_CFU_g
+'''
+SCInputz.PSHazard_lvl = One_CFU_g  #CFU # background contamination
+SCInputz.PSCluster_Size = 1000 #lb 1%
+SCInputz.PSNo_Cont_Clusters = 1 #4 1 1% Cluster
+'''
+#Sampling Condition
+# Sampling Conditions, Baseline all conditions are off
+ScenCondz.Baseline_Sampling = 0  # all others must be 0if this one is 1
+ScenCondz.PH_Sampling = 0
+ScenCondz.H_Sampling = 0
+ScenCondz.R_Sampling = 0
+ScenCondz.FP_Sampling = 0
+# Pre_Harvest 4 Days
+ScenCondz.PHS_4d = 0  # Scenario 1
+ScenCondz.PHS_4h = 0  # Scenario 2
+ScenCondz.PHS_Int = 0  # Scenario 3
+
+
+#Running The Model.
+Main_Mod_Outs = MainModel3z.F_MainLoop()
+
+#Getting the outputs from the function.
+OutputDF_Base_Precool = Main_Mod_Outs[1]
+ProgDF_Base_Precool = Main_Mod_Outs[0]
+PropProgDF_Base_Precool = Main_Mod_Outs[2]
+FinalConts_Base_Precool = Main_Mod_Outs[6]
+
+#Final Contmination Baseline Scenario
+Final_CFU_Base_Precool =ProgDF_Base_Precool["Final Product Facility"]
+#Final Prop Contaminated
+Final_Prop_Base_Precool = PropProgDF_Base_Precool["PropCont_A_FP"]
+
+#Creating boxplot for exploration
+plt.boxplot(Final_CFU_Base_Precool)
+plt.ticklabel_format(style='plain', axis='y')
+
+#Percent Reduction by System Initial vs Final
+(One_CFU_g-Final_CFU_Base_Precool.mean())/One_CFU_g #Average Reduction.
+
+
+
+
+#%% Scenario 6 PH Sampling 4D, Washing ON ,Pre-cooling on and everything else on and normal baseline contamination reduction
     #PH Sample: 1 Sample/Sublot, 
     #Rejection Rule: "Lot
     #Sample Mass: 365g per sublot
@@ -217,11 +365,21 @@ plt.ticklabel_format(style='plain', axis='y')
 reload(SCInputz)  # Reload Inputz
 reload(Listz)  # Reload Lists
 
+#Holding Time: 
+ScenCondz.Holding_Time= True#Defaults to 1 Day holding Time
+
+#Turning off Pre-Cooling
+SCInputz.Pre_CoolingYN =True
+
 # Turning of Washing. 
 SCInputz.Washing_YN = True
+
+SCInputz.BGHazard_lvl = One_CFU_g
+'''
 SCInputz.PSHazard_lvl = One_CFU_g  #CFU # background contamination
 SCInputz.PSCluster_Size = 1000 #lb 1%
 SCInputz.PSNo_Cont_Clusters = 1 #4 1 1% Cluster
+'''
 
 #Sampling Condition
 # Sampling Conditions, Baseline all conditions are off
@@ -248,22 +406,22 @@ SCInputz.RR_PH_Trad = "Sublot" #Reject by Sublot
 Main_Mod_Outs = MainModel3z.F_MainLoop()
 
 #Getting the outputs from the function.
-OutputDF_Base_PHS4d = Main_Mod_Outs[1]
-ProgDF_Base_Wash_PHS4d = Main_Mod_Outs[0]
-PropProgDF_Base_Wash_PHS4d = Main_Mod_Outs[2]
-FinalConts_Base_Wash_PHS4d = Main_Mod_Outs[6]
+OutputDF_All = Main_Mod_Outs[1]
+ProgDF_All = Main_Mod_Outs[0]
+PropProgDF_All = Main_Mod_Outs[2]
+FinalConts_All = Main_Mod_Outs[6]
 
 #Final Contmination Baseline Scenario
-Final_CFU_Base_Wash_PHS4d =ProgDF_Base_Wash_PHS4d["Final Product Facility"]
+Final_CFU_All =ProgDF_All["Final Product Facility"]
 #Final Prop Contaminated
-Final_Prop_Base_Wash_PHS4d = PropProgDF_Base_Wash_PHS4d["PropCont_A_FP"]
+Final_Prop_All = PropProgDF_All["PropCont_A_FP"]
 
 #Creating boxplot for exploration
-plt.boxplot(Final_CFU_Base_Wash_PHS4d)
+plt.boxplot(Final_CFU_All)
 plt.ticklabel_format(style='plain', axis='y')
 
 #Percent Reduction by System Initial vs Final
-(One_CFU_g-Final_CFU_Base_Wash_PHS4d.mean())/One_CFU_g #Average Reduction.
+(One_CFU_g-Final_CFU_All.mean())/One_CFU_g #Average Reduction.
 
 #%%
 
@@ -274,22 +432,31 @@ plt.ticklabel_format(style='plain', axis='y')
 
 #Adding Types To merge
 Final_CFU_Baseline = Final_CFU_Baseline.to_frame()
-Final_CFU_Baseline["Type"] = "No Sampling, No Wash"
-x = Final_CFU_Baseline["Final Product Facility"]
-
+Final_CFU_Baseline["Type"] = "Baseline"
+A = Final_CFU_Baseline["Final Product Facility"]
 
 
 Final_CFU_Base_Wash = Final_CFU_Base_Wash.to_frame()
-Final_CFU_Base_Wash["Type"] = "No Sampling, Wash"
-y = Final_CFU_Base_Wash["Final Product Facility"]
+Final_CFU_Base_Wash["Type"] = "Baseline, Wash"
+B = Final_CFU_Base_Wash["Final Product Facility"]
 
 Final_CFU_Base_PHS4d=Final_CFU_Base_PHS4d.to_frame()
-Final_CFU_Base_PHS4d["Type"] = "Sampling, No Wash"
-z = Final_CFU_Base_PHS4d["Final Product Facility"]
+Final_CFU_Base_PHS4d["Type"] = "Baseline, Sampling"
+C = Final_CFU_Base_PHS4d["Final Product Facility"]
 
-Final_CFU_Base_Wash_PHS4d = Final_CFU_Base_Wash_PHS4d.to_frame()
-Final_CFU_Base_Wash_PHS4d["Type"] = "Sampling, Wash"
-xy = Final_CFU_Base_Wash_PHS4d["Final Product Facility"]
+
+Final_CFU_Base_Holding=Final_CFU_Base_Holding.to_frame()
+Final_CFU_Base_Holding["Type"] = "Baseline, Holding"
+D = Final_CFU_Base_Holding["Final Product Facility"]
+
+
+Final_CFU_Base_Precool=Final_CFU_Base_Precool.to_frame()
+Final_CFU_Base_Precool["Type"] = "Baseline, Pre-Cool"
+E = Final_CFU_Base_Precool["Final Product Facility"]
+
+Final_CFU_All = Final_CFU_All.to_frame()
+Final_CFU_All["Type"] = "All Interventions"
+Z = Final_CFU_All["Final Product Facility"]
 
 #Initial 
 Initial_CFU_V  = [One_CFU_g]
@@ -297,16 +464,15 @@ Initial_CFU_V=pd.DataFrame(Initial_CFU_V, columns = ["Final Product Facility"])
 Initial_CFU_V["Type"] = "Initial Levels"
 
 #Combining them
-Final_Compared=pd.concat([Initial_CFU_V,
+Final_Compared=pd.concat([#Initial_CFU_V,
                           Final_CFU_Baseline, 
                           Final_CFU_Base_Wash,
                           Final_CFU_Base_PHS4d,
-                          Final_CFU_Base_Wash_PHS4d], 
+                          Final_CFU_Base_Holding,
+                          Final_CFU_Base_Precool,
+                          Final_CFU_All], 
                          axis=0, 
                          ignore_index=True)
-
-#import math
-#Final_Compared["log10"] = np.log10(Final_Compared["Final Product Facility"])
 
 
 
@@ -353,8 +519,8 @@ h.map(specs,"Final Product Facility" )
 #Statistical analysis. 
 from scipy import stats
 import scikit_posthocs as sp
-stats.kruskal(x,y,z,xy)
-data = [x,y,z,xy]
+stats.kruskal(A,B,C,D,E,Z)
+data = [A,B,C,D,E,Z]
 sp.posthoc_dunn(data, p_adjust = 'bonferroni')  
 
 #%%
@@ -387,11 +553,11 @@ z_totCont = PropProgDF_Base_PHS4d["TotalCont_A_FP"].to_frame()
 z_totCont["Type"] = "Sampling, No Wash"
 
 #----------------------
-Final_Prop_Base_Wash_PHS4d = Final_Prop_Base_Wash_PHS4d.to_frame()
-Final_Prop_Base_Wash_PHS4d["Type"] = "Sampling, Wash"
-xy_prp = PropProgDF_Base_Wash_PHS4d["PropCont_A_FP"]
+Final_Prop_All = Final_Prop_All.to_frame()
+Final_Prop_All["Type"] = "Sampling, Wash"
+xy_prp = PropProgDF_All["PropCont_A_FP"]
 
-xy_totCont = PropProgDF_Base_Wash_PHS4d["TotalCont_A_FP"].to_frame()
+xy_totCont = PropProgDF_All["TotalCont_A_FP"].to_frame()
 xy_totCont["Type"] = "Sampling, Wash"
 
 
@@ -400,7 +566,7 @@ xy_totCont["Type"] = "Sampling, Wash"
 Final_Compared_Prop=pd.concat([Final_Prop_Baseline, 
                           Final_Prop_Base_Wash,
                           Final_Prop_Base_PHS4d,
-                          Final_Prop_Base_Wash_PHS4d], 
+                          Final_Prop_All], 
                          axis=0, 
                          ignore_index=True)
 
@@ -444,7 +610,7 @@ j = sns.barplot(data = Final_Compared_TotCont, y = "Type", x = "TotalCont_A_FP")
 
 #%%
 
-#Total CFUs, for all finished product bags. 
+#Total CFUs, for all finished product bags. rrrrrrrrrrrrrrrrrrrrrr
 
 #Baseline no Sampling
 FinalConts  = [item for sublist in FinalConts for item in sublist]
@@ -479,12 +645,12 @@ RejectedPackages = ((SCInputz.Field_Weight/Inputz.Pack_Weight_FP)*SCInputz.N_Ite
 cont_Packages/(Non_contPackages+RejectedPackages)*100
 
 #Sampling and Wash.
-FinalConts_Base_Wash_PHS4d  = [item for sublist in FinalConts_Base_Wash_PHS4d for item in sublist]
-dfFinalConts_Base_Wash_PHS4d = pd.DataFrame(FinalConts_Base_Wash_PHS4d, columns=["CFU"])
-dfFinalConts_Base_Wash_PHS4d["CFU_g"] = dfFinalConts_Base_Wash_PHS4d["CFU"]/(5*454)
-sns.displot(dfFinalConts_Base_Wash_PHS4d["CFU_g"], bins=30,stat = "probability")
-cont_Packages=sum(dfFinalConts_Base_Wash_PHS4d["CFU_g"]>0)
-Non_contPackages= sum(dfFinalConts_Base_Wash_PHS4d["CFU_g"]==0)
-RejectedPackages = ((SCInputz.Field_Weight/Inputz.Pack_Weight_FP)*SCInputz.N_Iterations -len(dfFinalConts_Base_Wash_PHS4d["CFU_g"]))
+FinalConts_All  = [item for sublist in FinalConts_All for item in sublist]
+dfFinalConts_All = pd.DataFrame(FinalConts_All, columns=["CFU"])
+dfFinalConts_All["CFU_g"] = dfFinalConts_All["CFU"]/(5*454)
+sns.displot(dfFinalConts_All["CFU_g"], bins=30,stat = "probability")
+cont_Packages=sum(dfFinalConts_All["CFU_g"]>0)
+Non_contPackages= sum(dfFinalConts_All["CFU_g"]==0)
+RejectedPackages = ((SCInputz.Field_Weight/Inputz.Pack_Weight_FP)*SCInputz.N_Iterations -len(dfFinalConts_All["CFU_g"]))
 cont_Packages/(Non_contPackages+RejectedPackages)*100
 

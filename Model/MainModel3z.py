@@ -75,10 +75,9 @@ def F_MainLoop():
             #7 Washing Random Choice
             SCInputz.Washing_YN = np.random.choice([True,False])
         
-    
+        #Start
+        
         #Adding Contmination to the Field if Contmination Event Occurs Before Pre-Harvest
-        
-        
         
         #STEP 0 CONTAMINATION SCENARIOS  ----------------------------------------------------------------------------------------------------
 
@@ -87,7 +86,10 @@ def F_MainLoop():
                           Field_Weight = SCInputz.Field_Weight, 
                           slot_number = SCInputz.slot_number)
         
+        LV_Time_Agg = 0
+        
         if Inputz.Time_CE_PHS>0:
+            
             
             #Adding Contamination depending on challenge Pre-harvest challenges
             if ContCondz.Background_C == True:
@@ -135,9 +137,9 @@ def F_MainLoop():
         
         #DIE-OFF
         
-        LV_Die_Off_CE_PHS = Funz.F_Simple_DieOff(Inputz.Time_CE_PHS) #Total Die off Contamination Event to PHS. 
+        LV_Die_Off_CE_PHS = Funz.F_Simple_DieOff(Inputz.Time_CE_PHS) #Total Die off Contamination Event to PHS.
         df = Funz.Applying_dieoff(df=df, Dieoff=LV_Die_Off_CE_PHS ) #Applying Die off to CFU Column in the DF
-        LV_Time_Agg = 0 + Inputz.Time_CE_PHS #Cummulative time so far in the process. Time #1.
+        LV_Time_Agg = 0 + Inputz.Time_CE_PHS #Cummulative time so far in the process. Time #1. #4 days if 4dphs
         
         #print("Dieoff",LV_Die_Off_CE_PHS)
             
@@ -260,12 +262,19 @@ def F_MainLoop():
         #Pre-Harvest Sampling - Harvest Sampling Die off
         LV_Time_Agg = LV_Time_Agg + Inputz.Time_PHS_H #Cummulative time so far in the process.
         LV_Die_off_B = Funz.F_Simple_DieOff(LV_Time_Agg)
-        LV_Die_Off_PHS_HS= LV_Die_off_B-LV_Die_Off_CE_PHS#Funz.F_DieOff_PHS_HS(Time_PHS_H, Time_Agg, Break_Point, Dieoff1, Dieoff2)
+        LV_Die_Off_PHS_HS= LV_Die_off_B-LV_Die_Off_CE_PHS
+        
+        if Inputz.Time_PHS_H>Inputz.Time_CE_H:
+            LV_Die_off_B = Funz.F_Simple_DieOff(Inputz.Time_PHS_H)
+        else:
+            LV_Die_off_B = Funz.F_Simple_DieOff(Inputz.Time_CE_H) 
+
+        #Funz.F_DieOff_PHS_HS(Time_PHS_H, Time_Agg, Break_Point, Dieoff1, Dieoff2)
         
         #Belias et al dieoff
         #LV_Die_Off_PHS_HS =Funz.F_DieOff_PHS_HS(Inputz.Time_PHS_H,LV_Time_Agg,Inputz.Break_Point, Inputz.Dieoff1, Inputz.Dieoff2) #Die off rate from Irrigation to pre harvest sampling, Belias et al. 
 
-        df = Funz.Applying_dieoff(df=df, Dieoff =LV_Die_Off_PHS_HS ) #Updating Contmination to Show Total DieOff
+        df = Funz.Applying_dieoff(df=df, Dieoff =LV_Die_off_B ) #Updating Contmination to Show Total DieOff
         
         
         #Adding Contamination depending on challenge at harvest
@@ -366,9 +375,21 @@ def F_MainLoop():
             
             
             #Pre_Cooling
-            #Aggresive Temperature Change. Reset Lag Time
-            Inputz.Lag_Consumed_Prev = 0 #Reseting Lag Consumed.
-            #New Lettuce Temperature approximately 5C
+            if SCInputz.Pre_CoolingYN == True:
+                #Aggresive Temperature Change. Reset Lag Time
+                Inputz.Lag_Consumed_Prev = 0 #Reseting Lag Consumed.
+                #Pre-Cooling Process Cooling.
+                GrowthOutsPC = Funz.Growth_Function_Lag(DF =df, 
+                                                Temperature = Inputz.Temperature_PreCooling, 
+                                                Time = Inputz.Time_PreCooling, 
+                                                Lag_Consumed_Prev  = Inputz.Lag_Consumed_Prev)
+                df = GrowthOutsPC[0]
+                Inputz.Lag_Consumed_Prev = GrowthOutsPC[1]
+                LV_Time_Agg =  LV_Time_Agg+Inputz.Time_PreCooling
+            
+            
+            
+            #New Lettuce Temperature approximately 3C if precooling
             
             #Storage at Receiving
             GrowthOutsSto_R = Funz.Growth_Function_Lag(DF =df, 
@@ -829,9 +850,11 @@ def F_MainLoop():
             
             #Washing at consumer: #wash every 2 packs  
             df = Funz.Washing_Batch(df = df, New_water_every_xpacks = 2)
-
-        #Adding Sens outputs
-        df_Sensitivity= Dictionariez.Func_LoadInputs(df_Sensitivity,Iteration_In,df)
+            
+        if SCInputz.Sensitivity_Analysis==True:
+            #Adding Sens outputs
+            df_Sensitivity= Dictionariez.Func_LoadInputs(df_Sensitivity,Iteration_In,df)
+        
             
     #STEP 7: Outputs 
     
