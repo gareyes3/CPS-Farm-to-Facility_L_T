@@ -26,6 +26,13 @@ Lag_Consumed_Prev = 0
 
 
 #%% Time Pre-Harvest HArvest
+#Time between Contamination Event and Harvest Sampling *** Scenario Control
+if ScenCondz.Holding_Time == True: #Should always be true unless scenario analysis. 
+    Time_CE_H = np.random.triangular(2,4,8) #days
+elif ScenCondz.Holding_Time == False:
+    Time_CE_H = np.random.triangular(0,4,8) #days 
+
+
 
 #Time Options for the Sampling Scenarios 1,2,3
 if ScenCondz.PHS_Int ==True :
@@ -37,16 +44,12 @@ elif ScenCondz.PHS_4d ==True:
 else:
     Time_PHS_H = 0 #if not, baseline is always 4 hours
 
-#Time between Contamination Event and Harvest Sampling *** Scenario Control
-if ScenCondz.Holding_Time == True: #Should always be true unless scenario analysis. 
-    Time_CE_H = np.random.triangular(2,4,8) #days
-elif ScenCondz.Holding_Time == False:
-    Time_CE_H = 1 #days 
+
     
 #Here because of math
 if Time_PHS_H>Time_CE_H:
-    Time_CE_PHS = 0
-else:
+    Time_CE_PHS = 0 #No time in contamination Event. 
+elif Time_PHS_H<=Time_CE_H:
     Time_CE_PHS= Time_CE_H-Time_PHS_H #Days Time from Contamination Event (Irrigation) to Pre-Harvest Sampling
 
 #%% Pre-Cooling- HArvest

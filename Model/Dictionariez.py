@@ -57,21 +57,7 @@ Column_Per_Contaminated = ["PropCont_CE_B_PHS",
                             "TotalCont_A_FP",
     ]
 
-#PHContamination
-Sensitivity_Analysis_Dic = ["HazardLevel",
-                            "ClusteringLevel",
-                            "CETime",
-                            "PHS",
-                            "HS",
-                            "RS",
-                            "FPS",
-                            "SampleSize",
-                            "NumberGrabs",
-                            "RejectionRule",
-                            "SamplingUnit",
-                            "Washing",
-                                                        
-    ]
+
 
 
 
@@ -148,17 +134,18 @@ CFU_0_01g = Total_grams*100 #2log
 #Contamination List
 Contamination_List = [CFU_10000g,CFU_1000g,CFU_100g,CFU_10g,CFU_g,CFU_0_1g]
 #Clustering List
-Clustering_List =[100,1000,10000,25000,50000,100000]
+Clustering_List =[100,1000,10000,100000]
 NoClusters_List = [1,2,3,4]
-SampleSize_List = [60,120,300,600,1200]
+SampleSize_List = [60,120,240,600,1200]
 NoSamples_List = [1,2,3,4,5,6,7,8,9,10]
-NoGrabs_List = [1,60,120,300,600,1200]
+NoGrabs_List = [1,60,120,240,300,600,1200]
 
 
 
 Sensitivity_Analysis_Dic = ["InitialCont" ,
                             "ClusteringPer",
                             "ClusterSize",
+                            "Time_CE_H",
                             "SampleSize",
                             "SamplesPSublot",
                             "NumberGrabs",
@@ -173,7 +160,7 @@ def Func_LoadInputs (OutputDF,i,df):
     OutputDF.at[i, "InitialCont"] = SCInputz.PSHazard_lvl #InitialContmination
     OutputDF.at[i, "ClusteringPer"] = SCInputz.PSNo_Cont_Clusters #Cluestering Level
     OutputDF.at[i, "ClusterSize"] =  SCInputz.PSCluster_Size #InitialContmination
-    OutputDF.at[i, "InitialCont"] =  SCInputz.PSCluster_Size #InitialContmination
+    OutputDF.at[i, "Time_CE_H"] =  Inputz.Time_CE_H #Time between contamination event and harvest
     #Sampling Factors
     OutputDF.at[i, "SampleSize"] = SCInputz.sample_size_PH #Sample Size at Pe-Harvest
     OutputDF.at[i, "SamplesPSublot"] = SCInputz.n_samples_slot_PH #Number of Samples per sublot

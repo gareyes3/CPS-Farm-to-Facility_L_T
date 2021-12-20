@@ -504,6 +504,7 @@ h=sns.displot( data =Final_Compared,
             col = "Type", 
             col_wrap=3,
              stat = "probability",
+             bins = 30,
             facet_kws=dict(sharey=False,sharex= False))
 plt.suptitle("Distribution of CFUs in Final Product",) 
 

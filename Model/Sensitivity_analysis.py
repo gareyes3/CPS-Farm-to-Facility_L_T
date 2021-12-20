@@ -114,6 +114,8 @@ ScenCondz.PHS_4d = 1 # Scenario 1
 ScenCondz.PHS_4h = 0  # Scenario 2
 ScenCondz.PHS_Int = 0  # Scenario 3
 
+SCInputz.Sensitivity_Analysis = True
+
 
 #Running The Model.
 Main_Mod_Outs = MainModel3z.F_MainLoop()

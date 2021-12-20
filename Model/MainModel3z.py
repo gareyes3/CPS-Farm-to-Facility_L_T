@@ -50,7 +50,6 @@ def F_MainLoop():
         
         #Sensitivity Analysis Randomized Inputs only if Sens Analysis is ON. 
         if SCInputz.Sensitivity_Analysis == True:
-            print("true")
             #1Hazard Level Selecting From random list
             SCInputz.PSHazard_lvl = np.random.choice(Dictionariez.Contamination_List)
             #2Cluser Suze
@@ -81,15 +80,15 @@ def F_MainLoop():
         
         #STEP 0 CONTAMINATION SCENARIOS  ----------------------------------------------------------------------------------------------------
 
+
+        
         #Creation of the Data Frame to Track: 
         df= InFunz.F_InDF(Partition_Units = SCInputz.Partition_Units,
                           Field_Weight = SCInputz.Field_Weight, 
                           slot_number = SCInputz.slot_number)
+
         
-        LV_Time_Agg = 0
-        
-        if Inputz.Time_CE_PHS>0:
-            
+        if Inputz.Time_CE_PHS>0: #if contamination occurs before PHS then we populate DF. 
             
             #Adding Contamination depending on challenge Pre-harvest challenges
             if ContCondz.Background_C == True:
@@ -135,16 +134,15 @@ def F_MainLoop():
         
         #print("Initial", sum(df["CFU"]))
         
-        #DIE-OFF
+        #DIE-OFF, if contamination before PH Occured.
         
         LV_Die_Off_CE_PHS = Funz.F_Simple_DieOff(Inputz.Time_CE_PHS) #Total Die off Contamination Event to PHS.
+        print("Dieoff CE-PHS", LV_Die_Off_CE_PHS)
         df = Funz.Applying_dieoff(df=df, Dieoff=LV_Die_Off_CE_PHS ) #Applying Die off to CFU Column in the DF
-        LV_Time_Agg = 0 + Inputz.Time_CE_PHS #Cummulative time so far in the process. Time #1. #4 days if 4dphs
-        
-        #print("Dieoff",LV_Die_Off_CE_PHS)
+
             
         LO_Cont_B_PH = sum(df.CFU) #Contamination before rejection sampling
-        #print("before",LO_Cont_B_PH)
+
         LO_Weight_B_PH = sum(df.Weight)
         
         #Contprog Before Pre-Harvest Sampling
@@ -260,21 +258,18 @@ def F_MainLoop():
         
         
         #Pre-Harvest Sampling - Harvest Sampling Die off
-        LV_Time_Agg = LV_Time_Agg + Inputz.Time_PHS_H #Cummulative time so far in the process.
-        LV_Die_off_B = Funz.F_Simple_DieOff(LV_Time_Agg)
-        LV_Die_Off_PHS_HS= LV_Die_off_B-LV_Die_Off_CE_PHS
         
-        if Inputz.Time_PHS_H>Inputz.Time_CE_H:
-            LV_Die_off_B = Funz.F_Simple_DieOff(Inputz.Time_PHS_H)
-        else:
-            LV_Die_off_B = Funz.F_Simple_DieOff(Inputz.Time_CE_H) 
-
+        LV_Die_off_Before = Funz.F_Simple_DieOff(Inputz.Time_CE_PHS)
+        LV_Die_off_Total = Funz.F_Simple_DieOff(Inputz.Time_CE_H)
+        LV_Die_Off_PHS_HS=LV_Die_off_Total- LV_Die_off_Before
+        print("Dieoff PHS-H",LV_Die_Off_PHS_HS)
+        
         #Funz.F_DieOff_PHS_HS(Time_PHS_H, Time_Agg, Break_Point, Dieoff1, Dieoff2)
         
         #Belias et al dieoff
         #LV_Die_Off_PHS_HS =Funz.F_DieOff_PHS_HS(Inputz.Time_PHS_H,LV_Time_Agg,Inputz.Break_Point, Inputz.Dieoff1, Inputz.Dieoff2) #Die off rate from Irrigation to pre harvest sampling, Belias et al. 
 
-        df = Funz.Applying_dieoff(df=df, Dieoff =LV_Die_off_B ) #Updating Contmination to Show Total DieOff
+        df = Funz.Applying_dieoff(df=df, Dieoff =LV_Die_Off_PHS_HS ) #Updating Contmination to Show Total DieOff
         
         
         #Adding Contamination depending on challenge at harvest
@@ -371,9 +366,10 @@ def F_MainLoop():
             
             df = GrowthOutsH_PC[0]
             Inputz.Lag_Consumed_Prev = GrowthOutsH_PC[1]
-            LV_Time_Agg =  LV_Time_Agg+Inputz.Time_H_PreCooling
+            print("lag consumed b pre",Inputz.Lag_Consumed_Prev )
+
             
-            
+            LV_bef_precool = sum(df.CFU)
             #Pre_Cooling
             if SCInputz.Pre_CoolingYN == True:
                 #Aggresive Temperature Change. Reset Lag Time
@@ -385,8 +381,8 @@ def F_MainLoop():
                                                 Lag_Consumed_Prev  = Inputz.Lag_Consumed_Prev)
                 df = GrowthOutsPC[0]
                 Inputz.Lag_Consumed_Prev = GrowthOutsPC[1]
-                LV_Time_Agg =  LV_Time_Agg+Inputz.Time_PreCooling
-            
+            LV_af_precool = sum(df.CFU) 
+            print(LV_af_precool-LV_bef_precool)
             
             
             #New Lettuce Temperature approximately 3C if precooling
@@ -399,8 +395,8 @@ def F_MainLoop():
             
             df = GrowthOutsSto_R[0]
             Inputz.Lag_Consumed_Prev = GrowthOutsSto_R[1]
-            LV_Time_Agg = LV_Time_Agg+Inputz.Time_H_PreCooling
             
+            print("lag consumed after sto",Inputz.Lag_Consumed_Prev )
             
             #Paletization
             df = Funz.F_Palletization(df=df,
@@ -754,7 +750,7 @@ def F_MainLoop():
             
             df = GrowthOutsH_PC[0]
             Inputz.Lag_Consumed_Prev = GrowthOutsH_PC[1]
-            LV_Time_Agg =  LV_Time_Agg+Inputz.Time_H_PreCooling
+            
             
             #Pre_Cooling
             #Aggresive Temperature Change. Reset Lag Time
@@ -769,7 +765,7 @@ def F_MainLoop():
             
             df = GrowthOutsSto_R[0]
             Inputz.Lag_Consumed_Prev = GrowthOutsSto_R[1]
-            LV_Time_Agg = LV_Time_Agg+Inputz.Time_H_PreCooling
+            
             
                         #Contprog Before Receiving
             df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df,
