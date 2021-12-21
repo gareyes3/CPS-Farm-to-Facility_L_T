@@ -15,8 +15,6 @@ Created on Fri Dec 10 16:00:57 2021
     
     #5: Washing Step 1 or 0
     #6: 
-        
-
 
 #%%
 import sys, os
@@ -72,34 +70,6 @@ reload(Listz)  # Reload Lists
 
 #Changing Sens_analysis inputs. 
 #Turning on the Sensitivity Analysis
-
-
-
-'''
-#1Hazard Level Selecting From random list
-SCInputz.PSHazard_lvl = np.random.choice(Contamination_List)
-#2Cluser Suze
-SCInputz.PSCluster_Size = np.random.choice(Clustering_List)
-#3Number of Clusters
-if SCInputz.PSCluster_Size <25001:
-    SCInputz.PSNo_Cont_Clusters = np.random.choice(NoClusters_List)
-elif SCInputz.PSCluster_Size ==50000:
-    SCInputz.PSNo_Cont_Clusters = 2
-elif SCInputz.PSCluster_Size ==100000:
-    SCInputz.PSNo_Cont_Clusters = 1
-
-#Sampling Factors
-#4 Sampling Size. 
-SCInputz.sample_size_PH = np.random.choice(SampleSize_List)
-#5 Number of samples per sublot
-SCInputz.n_samples_slot_PH=np.random.choice(NoSamples_List)
-#6 Number of grabs per composite sample
-SCInputz.No_Grabs_PH= np.random.choice(NoGrabs_List)
-
-#Processing Factors
-#7 Washing Random Choice
-SCInputz.Washing_YN = np.random.choice([True,False])
-'''
 
 
 #Sampling Condition

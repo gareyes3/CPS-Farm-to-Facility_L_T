@@ -69,7 +69,8 @@ def F_MainLoop():
             SCInputz.n_samples_slot_PH=np.random.choice(Dictionariez.NoSamples_List)
             #6 Number of grabs per composite sample
             SCInputz.No_Grabs_PH= np.random.choice(Dictionariez.NoGrabs_List)
-            
+            #Receiving Factors
+            SCInputz.Pre_CoolingYN = np.random.choice([True,False])
             #Processing Factors
             #7 Washing Random Choice
             SCInputz.Washing_YN = np.random.choice([True,False])
@@ -353,6 +354,9 @@ def F_MainLoop():
                                                     i = Iteration_In, 
                                                     Niterations = SCInputz.N_Iterations)
         
+        #In Harvest Chlorination spray. Reduction step.
+        if SCInputz.C_Spray_HYN == True:
+            df= Funz.F_Simple_Reduction(df,Inputz.Harvest_Cspray_red)        
         
         
         if (ScenCondz.Field_Pack == False):

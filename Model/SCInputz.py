@@ -15,7 +15,7 @@ import numpy as np
 Sensitivity_Analysis = False
 
 
-N_Iterations= 100
+N_Iterations= 200
 
 Field_Weight= 100000 #total lb in field
 slot_weight = 10000 #weight of the sublot in field.
@@ -124,5 +124,7 @@ RR_R_FP_Trad  = "Lot"
 Washing_YN =True
 
 Pre_CoolingYN = True
+
+C_Spray_HYN =True
 
 

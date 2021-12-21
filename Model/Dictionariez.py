@@ -149,6 +149,8 @@ Sensitivity_Analysis_Dic = ["InitialCont" ,
                             "SampleSize",
                             "SamplesPSublot",
                             "NumberGrabs",
+                            "Harvest Wash Red",
+                            "Pre_cooling",
                             "WashingYN",
                             "TotalCFUFP"
     ]
@@ -165,6 +167,10 @@ def Func_LoadInputs (OutputDF,i,df):
     OutputDF.at[i, "SampleSize"] = SCInputz.sample_size_PH #Sample Size at Pe-Harvest
     OutputDF.at[i, "SamplesPSublot"] = SCInputz.n_samples_slot_PH #Number of Samples per sublot
     OutputDF.at[i, "NumberGrabs"] =  SCInputz.No_Grabs_PH #Number of Grabs at PreHarvest.
+    #Harvests
+    OutputDF.at[i, "Harvest Wash Red"] =  Inputz.Harvest_Cspray_red #Number of Grabs at PreHarvest.
+    #Receiving
+    OutputDF.loc[i, "Pre_cooling"] =  SCInputz.Pre_CoolingYN #Number of Grabs at PreHarvest.
     #Procesing Factord
     OutputDF.loc[i, "WashingYN"] =  SCInputz.Washing_YN #Washing Yes or Not
     

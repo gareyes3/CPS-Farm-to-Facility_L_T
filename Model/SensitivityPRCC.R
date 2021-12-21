@@ -7,7 +7,7 @@ library(forcats)
 
 Data <- read.csv("SensitivityOut.csv", stringsAsFactors = TRUE)
 Data<-Data[-c(1)]
-PCC1<-pcc(X = Data[,1:8], y=Data$TotalCFUFP, rank =TRUE, conf = 0.95, nboot = 1000)
+PCC1<-pcc(X = Data[,1:10], y=Data$TotalCFUFP, rank =TRUE, conf = 0.95, nboot = 1000)
 plot(PCC1)
 
 

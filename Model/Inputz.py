@@ -53,6 +53,10 @@ elif Time_PHS_H<=Time_CE_H:
     Time_CE_PHS= Time_CE_H-Time_PHS_H #Days Time from Contamination Event (Irrigation) to Pre-Harvest Sampling
 
 #%% Pre-Cooling- HArvest
+
+#Chrlorine Pray
+Harvest_Cspray_red = np.random.uniform(1.1,1.4) # log reduction achieved by chlorination spray. Prachi Pahariya 2022. 
+
 #PreCooling. 
 Time_H_PreCooling = np.random.uniform(2,4)
 Temperature_H_PreCooling = np.random.uniform(15,17)

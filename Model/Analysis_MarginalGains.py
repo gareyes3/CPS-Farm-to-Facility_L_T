@@ -39,8 +39,8 @@ reload(Inputz)
 #Scenarios Creation
 #Systematic Failure from irrigation. 100% of field affected at 1CFU/g 
 
-# 1 CFU/g Contmination Level
-One_CFU_g = 45400000 #CFUs
+# 1 CFU/lb Contmination Level
+One_CFU_lb = 100000 #CFUs
 
 #Uniform Contmaination in the Field. 
 # Contamination Challenges
@@ -67,7 +67,7 @@ reload(Listz)  # Reload Lists
 #Management of Control: 
 
 #Holding Time: 
-ScenCondz.Holding_Time= False #Defaults to 1 Day holding Time
+ScenCondz.Holding_Time= False #0,4,8 Holding Time
 
 #Turning off Pre-Cooling
 SCInputz.Pre_CoolingYN = False 
@@ -75,7 +75,10 @@ SCInputz.Pre_CoolingYN = False
 # Turning of Washing. 
 SCInputz.Washing_YN = False 
 
-SCInputz.BGHazard_lvl = One_CFU_g
+#Harvest Pre-Wash: 
+SCInputz.C_Spray_HYN =False
+
+SCInputz.BGHazard_lvl = One_CFU_lb
 '''
 SCInputz.PSHazard_lvl = One_CFU_g  #CFU # background contamination
 SCInputz.PSCluster_Size = 1000 #lb 1%
@@ -114,7 +117,7 @@ plt.boxplot(Final_CFU_Baseline)
 plt.ticklabel_format(style='plain', axis='y')
 
 #Percent Reduction by System Initial vs Final
-(One_CFU_g-Final_CFU_Baseline.mean())/One_CFU_g #Average Reduction. 
+(One_CFU_lb-Final_CFU_Baseline.mean())/One_CFU_lb #Average Reduction. 
 
 #%% Scenario 2. No Sampling, Only Intervention Strategy is Washing
 
@@ -130,10 +133,13 @@ SCInputz.Pre_CoolingYN = False
 # Turning of Washing. 
 SCInputz.Washing_YN = True
 
+#Harvest Pre-Wash: 
+SCInputz.C_Spray_HYN =False
 
-SCInputz.BGHazard_lvl = One_CFU_g
+
+SCInputz.BGHazard_lvl = One_CFU_lb
 '''
-SCInputz.PSHazard_lvl = One_CFU_g  #CFU # background contamination
+SCInputz.PSHazard_lvl = One_CFU_lb  #CFU # background contamination
 SCInputz.PSCluster_Size = 1000 #lb 1%
 SCInputz.PSNo_Cont_Clusters = 1 #4 1 1% Cluster
 '''
@@ -169,7 +175,7 @@ plt.boxplot(Final_CFU_Base_Wash)
 plt.ticklabel_format(style='plain', axis='y')
 
 #Percent Reduction by System Initial vs Final
-(One_CFU_g-Final_CFU_Base_Wash.mean())/One_CFU_g #Average Reduction.
+(One_CFU_lb-Final_CFU_Base_Wash.mean())/One_CFU_lb #Average Reduction.
 
 #%% Scenario 3 PH Sampling 4D, Washing off , and normal baseline contamination reduction
     #PH Sample: 1 Sample/Sublot, 
@@ -189,10 +195,13 @@ SCInputz.Pre_CoolingYN = False
 # Turning of Washing. 
 SCInputz.Washing_YN = False #Defaults
 
+#Harvest Pre-Wash: 
+SCInputz.C_Spray_HYN =False
 
-SCInputz.BGHazard_lvl = One_CFU_g
+
+SCInputz.BGHazard_lvl = One_CFU_lb
 '''
-SCInputz.PSHazard_lvl = One_CFU_g  #CFU # background contamination
+SCInputz.PSHazard_lvl = One_CFU_lb  #CFU # background contamination
 SCInputz.PSCluster_Size = 1000 #lb 1%
 SCInputz.PSNo_Cont_Clusters = 1 #4 1 1% Cluster
 '''
@@ -238,7 +247,7 @@ plt.boxplot(Final_CFU_Base_PHS4d)
 plt.ticklabel_format(style='plain', axis='y')
 
 #Percent Reduction by System Initial vs Final
-(One_CFU_g-Final_CFU_Base_PHS4d.mean())/One_CFU_g #Average Reduction.
+(One_CFU_lb-Final_CFU_Base_PHS4d.mean())/One_CFU_lb #Average Reduction.
 
 #%%
 #Scenario 4 Holding Time on Everything Else Off
@@ -255,10 +264,13 @@ SCInputz.Pre_CoolingYN = False
 # Turning of Washing. 
 SCInputz.Washing_YN = False
 
+#Harvest Pre-Wash: 
+SCInputz.C_Spray_HYN =False
 
-SCInputz.BGHazard_lvl = One_CFU_g
+
+SCInputz.BGHazard_lvl = One_CFU_lb
 '''
-SCInputz.PSHazard_lvl = One_CFU_g  #CFU # background contamination
+SCInputz.PSHazard_lvl = One_CFU_lb  #CFU # background contamination
 SCInputz.PSCluster_Size = 1000 #lb 1%
 SCInputz.PSNo_Cont_Clusters = 1 #4 1 1% Cluster
 '''
@@ -294,7 +306,7 @@ plt.boxplot(Final_CFU_Base_Holding)
 plt.ticklabel_format(style='plain', axis='y')
 
 #Percent Reduction by System Initial vs Final
-(One_CFU_g-Final_CFU_Base_Holding.mean())/One_CFU_g #Average Reduction.
+(One_CFU_lb-Final_CFU_Base_Holding.mean())/One_CFU_lb #Average Reduction.
 
 
 #%%
@@ -312,10 +324,13 @@ SCInputz.Pre_CoolingYN =True
 # Turning of Washing. 
 SCInputz.Washing_YN = False
 
+#Harvest Pre-Wash: 
+SCInputz.C_Spray_HYN =False
 
-SCInputz.BGHazard_lvl = One_CFU_g
+
+SCInputz.BGHazard_lvl = One_CFU_lb
 '''
-SCInputz.PSHazard_lvl = One_CFU_g  #CFU # background contamination
+SCInputz.PSHazard_lvl = One_CFU_lb  #CFU # background contamination
 SCInputz.PSCluster_Size = 1000 #lb 1%
 SCInputz.PSNo_Cont_Clusters = 1 #4 1 1% Cluster
 '''
@@ -351,12 +366,68 @@ plt.boxplot(Final_CFU_Base_Precool)
 plt.ticklabel_format(style='plain', axis='y')
 
 #Percent Reduction by System Initial vs Final
-(One_CFU_g-Final_CFU_Base_Precool.mean())/One_CFU_g #Average Reduction.
+(One_CFU_lb-Final_CFU_Base_Precool.mean())/One_CFU_lb #Average Reduction.
 
 
+#%%
+#Scenario #6 Only Intervention if Pre-Harvest SprayWash
+
+reload(SCInputz)  # Reload Inputz
+reload(Listz)  # Reload Lists
+
+#Holding Time: 
+ScenCondz.Holding_Time= False#Defaults to 1 Day holding Time
+
+#Turning off Pre-Cooling
+SCInputz.Pre_CoolingYN =False
+# Turning of Washing. 
+SCInputz.Washing_YN = False
+
+#Harvest Pre-Wash: 
+SCInputz.C_Spray_HYN =True
 
 
-#%% Scenario 6 PH Sampling 4D, Washing ON ,Pre-cooling on and everything else on and normal baseline contamination reduction
+SCInputz.BGHazard_lvl = One_CFU_lb
+'''
+SCInputz.PSHazard_lvl = One_CFU_lb  #CFU # background contamination
+SCInputz.PSCluster_Size = 1000 #lb 1%
+SCInputz.PSNo_Cont_Clusters = 1 #4 1 1% Cluster
+'''
+#Sampling Condition
+# Sampling Conditions, Baseline all conditions are off
+ScenCondz.Baseline_Sampling = 0  # all others must be 0if this one is 1
+ScenCondz.PH_Sampling = 0
+ScenCondz.H_Sampling = 0
+ScenCondz.R_Sampling = 0
+ScenCondz.FP_Sampling = 0
+# Pre_Harvest 4 Days
+ScenCondz.PHS_4d = 0  # Scenario 1
+ScenCondz.PHS_4h = 0  # Scenario 2
+ScenCondz.PHS_Int = 0  # Scenario 3
+
+
+#Running The Model.
+Main_Mod_Outs = MainModel3z.F_MainLoop()
+
+#Getting the outputs from the function.
+OutputDF_Base_Prewash = Main_Mod_Outs[1]
+ProgDF_Base_Prewash = Main_Mod_Outs[0]
+PropProgDF_Base_Prewash = Main_Mod_Outs[2]
+FinalConts_Base_Prewash = Main_Mod_Outs[6]
+
+#Final Contmination Baseline Scenario
+Final_CFU_Base_Prewash =ProgDF_Base_Prewash["Final Product Facility"]
+#Final Prop Contaminated
+Final_Prop_Base_Prewash = PropProgDF_Base_Prewash["PropCont_A_FP"]
+
+#Creating boxplot for exploration
+plt.boxplot(Final_CFU_Base_Prewash)
+plt.ticklabel_format(style='plain', axis='y')
+
+#Percent Reduction by System Initial vs Final
+(One_CFU_lb-Final_CFU_Base_Prewash.mean())/One_CFU_lb #Average Reduction.
+
+#%% Scenario 7 PH Sampling 4D, Washing ON ,Pre-cooling on and everything else on and normal baseline contamination reduction
     #PH Sample: 1 Sample/Sublot, 
     #Rejection Rule: "Lot
     #Sample Mass: 365g per sublot
@@ -374,9 +445,12 @@ SCInputz.Pre_CoolingYN =True
 # Turning of Washing. 
 SCInputz.Washing_YN = True
 
-SCInputz.BGHazard_lvl = One_CFU_g
+#Harvest Pre-Wash: 
+SCInputz.C_Spray_HYN =True
+
+SCInputz.BGHazard_lvl = One_CFU_lb
 '''
-SCInputz.PSHazard_lvl = One_CFU_g  #CFU # background contamination
+SCInputz.PSHazard_lvl = One_CFU_lb  #CFU # background contamination
 SCInputz.PSCluster_Size = 1000 #lb 1%
 SCInputz.PSNo_Cont_Clusters = 1 #4 1 1% Cluster
 '''
@@ -421,7 +495,7 @@ plt.boxplot(Final_CFU_All)
 plt.ticklabel_format(style='plain', axis='y')
 
 #Percent Reduction by System Initial vs Final
-(One_CFU_g-Final_CFU_All.mean())/One_CFU_g #Average Reduction.
+(One_CFU_lb-Final_CFU_All.mean())/One_CFU_lb #Average Reduction.
 
 #%%
 
@@ -454,12 +528,17 @@ Final_CFU_Base_Precool=Final_CFU_Base_Precool.to_frame()
 Final_CFU_Base_Precool["Type"] = "Baseline, Pre-Cool"
 E = Final_CFU_Base_Precool["Final Product Facility"]
 
+
+Final_CFU_Base_Prewash=Final_CFU_Base_Prewash.to_frame()
+Final_CFU_Base_Prewash["Type"] = "Baseline, Harvest Wash"
+F = Final_CFU_Base_Prewash["Final Product Facility"]
+
 Final_CFU_All = Final_CFU_All.to_frame()
 Final_CFU_All["Type"] = "All Interventions"
 Z = Final_CFU_All["Final Product Facility"]
 
 #Initial 
-Initial_CFU_V  = [One_CFU_g]
+Initial_CFU_V  = [One_CFU_lb]
 Initial_CFU_V=pd.DataFrame(Initial_CFU_V, columns = ["Final Product Facility"])
 Initial_CFU_V["Type"] = "Initial Levels"
 
@@ -470,6 +549,7 @@ Final_Compared=pd.concat([#Initial_CFU_V,
                           Final_CFU_Base_PHS4d,
                           Final_CFU_Base_Holding,
                           Final_CFU_Base_Precool,
+                          Final_CFU_Base_Prewash,
                           Final_CFU_All], 
                          axis=0, 
                          ignore_index=True)

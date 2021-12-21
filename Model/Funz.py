@@ -67,6 +67,10 @@ def Applying_dieoff (df,Dieoff):
     df["CFU"] =  df["CFU"]*(10**Dieoff) #Applying Die off through DFs
     return df
 
+def F_Simple_Reduction(df, Reduction):
+    df["CFU"] =  df["CFU"]*(10**-Reduction) 
+    return df
+
 #%% Growth  or Reduction Models
 #Cold Storage growth Model
 
