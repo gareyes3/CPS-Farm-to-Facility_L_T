@@ -600,8 +600,8 @@ h.map(specs,"Final Product Facility" )
 #Statistical analysis. 
 from scipy import stats
 import scikit_posthocs as sp
-stats.kruskal(A,B,C,D,E,Z)
-data = [A,B,C,D,E,Z]
+stats.kruskal(A,B,C,D,E,F,Z)
+data = [A,B,C,D,E,F,Z]
 sp.posthoc_dunn(data, p_adjust = 'bonferroni')  
 
 #%%
