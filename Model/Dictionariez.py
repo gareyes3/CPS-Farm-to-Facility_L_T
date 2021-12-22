@@ -9,6 +9,7 @@ import pandas as pd
 import numpy as np
 import SCInputz
 import Inputz
+import MainModel3z
 
 
 Column_Names_Outs = ["Step_CFU_Acc",
@@ -146,6 +147,7 @@ Sensitivity_Analysis_Dic = ["InitialCont" ,
                             "ClusteringPer",
                             "ClusterSize",
                             "Time_CE_H",
+                            "Total_CE_H_Dieoff",
                             "SampleSize",
                             "SamplesPSublot",
                             "NumberGrabs",
@@ -156,13 +158,15 @@ Sensitivity_Analysis_Dic = ["InitialCont" ,
     ]
     
 
-def Func_LoadInputs (OutputDF,i,df):
+def Func_LoadInputs (OutputDF,i,df, TotalDieoff):
     #Setup Factors
     #Initial Contamination Factors
     OutputDF.at[i, "InitialCont"] = SCInputz.PSHazard_lvl #InitialContmination
     OutputDF.at[i, "ClusteringPer"] = SCInputz.PSNo_Cont_Clusters #Cluestering Level
     OutputDF.at[i, "ClusterSize"] =  SCInputz.PSCluster_Size #InitialContmination
     OutputDF.at[i, "Time_CE_H"] =  Inputz.Time_CE_H #Time between contamination event and harvest
+    OutputDF.at[i, "Total_CE_H_Dieoff"] = TotalDieoff  #TotalDieoff. 
+    
     #Sampling Factors
     OutputDF.at[i, "SampleSize"] = SCInputz.sample_size_PH #Sample Size at Pe-Harvest
     OutputDF.at[i, "SamplesPSublot"] = SCInputz.n_samples_slot_PH #Number of Samples per sublot

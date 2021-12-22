@@ -31,11 +31,12 @@ ggplot(data = PCC1$PRCC, aes(x=fct_reorder(rownames(PCC1$PRCC), abs(original)),y
   theme(text = element_text(size=13))
 
 
-DataLocalSampling<-read.csv("3d-df-11-13.csv", stringsAsFactors = TRUE)
+DataLocalSampling<-read.csv("Sampling_Plan_Sens.csv", stringsAsFactors = TRUE)
 
-DataLocalSampling<-DataLocalSampling[-c(1,3,8)]
 
-PCCLocal<-pcc(X = DataLocalSampling[,2:5], y=DataLocalSampling$PH_CFU_PerR, rank =TRUE, conf = 0.95, nboot = 100)
+DataLocalSampling<-DataLocalSampling[-c(1)]
+
+PCCLocal<-pcc(X = DataLocalSampling[1:4], y=DataLocalSampling$PerReject, rank =TRUE, conf = 0.95, nboot = 1000)
 
 plot(PCCLocal)
 

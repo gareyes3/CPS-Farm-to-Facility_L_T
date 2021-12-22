@@ -60,7 +60,9 @@ def F_DieOff_PHS_HS(Time,Time_Agg,Break_Point ,Dieoff1, Dieoff2 ):
 
 
 def F_Simple_DieOff (Time): 
-    Reduction = -((Time/(2.45/24))**0.3)
+    #Reduction = -((Time/(2.45/24))**0.3)
+    dieoff= Func_NormalTrunc(-1.04,-0.33, -0.77,0.21) #Belias linear die-off. 
+    Reduction  = dieoff*Time
     return Reduction
 
 def Applying_dieoff (df,Dieoff):

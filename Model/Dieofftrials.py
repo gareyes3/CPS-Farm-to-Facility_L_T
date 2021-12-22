@@ -9,6 +9,8 @@ import numpy as np
 import math
 import statistics
 from matplotlib import pyplot as plt
+import Funz
+
 
 
 totals = []
@@ -16,9 +18,9 @@ totals = []
 for i in list(range(1,1000)):        
     time = 6
     
-    seg1 = np.random.normal(-7.07, 3.41)
-    seg2 = np.random.normal(-0.24, 0.70)
-    break_p = np.random.normal(0.68,0.98)
+    seg1 = Funz.F_DieOff1()
+    seg2 = Funz.F_DieOff2()
+    break_p =Funz.Func_NormalTrunc(0.11,3.71, 0.68,0.98)
     
     if time>break_p: 
         Timeseg1 = time-break_p
@@ -32,16 +34,17 @@ for i in list(range(1,1000)):
     totals.append(Total) 
 
 
-Reduction = -((6/(2.45/24))**0.3)
+Reduction = -((2/(2.45/24))**0.3)
 
 
 0.5*6
 
 totals= []
 for i in list(range(1,1000)):
-    time = 6
-    die=np.random.normal(-0.77, 0.21)
+    time = 2
+    die=Funz.Func_NormalTrunc(-1.04,-0.33, -0.77,0.21)
     total  = time*die
     totals.append(total)
     
 plt.hist(totals)
+statistics.median(totals)

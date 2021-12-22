@@ -853,7 +853,7 @@ def F_MainLoop():
             
         if SCInputz.Sensitivity_Analysis==True:
             #Adding Sens outputs
-            df_Sensitivity= Dictionariez.Func_LoadInputs(df_Sensitivity,Iteration_In,df)
+            df_Sensitivity= Dictionariez.Func_LoadInputs(df_Sensitivity,Iteration_In,df,LV_Die_off_Total)
         
             
     #STEP 7: Outputs 
