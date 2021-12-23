@@ -77,7 +77,7 @@ Tuning_Contamination_levels =[CFU_10000g,CFU_1000g,CFU_100g,CFU_10g,CFU_g,CFU_0_
 
 
 #%%
-Iteration1 = 10
+Iteration1 = 100
 Iteration2 = 100
 First_Set=[]
 Second_Set=[]
@@ -139,6 +139,6 @@ Data_Frame_Final  = pd.DataFrame(
     })
 
 
-path = r'C:\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model'
-Data_Frame_Final.to_csv(path+'Sampling_Plan_Sens.csv')
+
+Data_Frame_Final.to_csv('Sampling_Plan_Sens.csv')
 

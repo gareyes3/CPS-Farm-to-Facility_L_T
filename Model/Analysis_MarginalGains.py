@@ -380,7 +380,7 @@ ScenCondz.Holding_Time= False#Defaults to 1 Day holding Time
 
 #Turning off Pre-Cooling
 SCInputz.Pre_CoolingYN =False
-# Turning of Washing. 
+# Turning of Washing. |
 SCInputz.Washing_YN = False
 
 #Harvest Pre-Wash: 
@@ -553,6 +553,36 @@ Final_Compared=pd.concat([#Initial_CFU_V,
                           Final_CFU_All], 
                          axis=0, 
                          ignore_index=True)
+#Getting the mean. 
+Final_Compared.groupby("Type").mean()
+
+
+
+#Log Change in CFU population
+Final_Compared["CFU Change"] = 100000- Final_Compared["Final Product Facility"]
+Final_Compared["CFU Change Log"]=np.log10(Final_Compared["CFU Change"])
+Final_Compared["CFU Change Per"]=Final_Compared["CFU Change"]/100000
+
+#Confidence interval Creation. you can change the columns desired. 
+import math
+
+
+stats = Final_Compared.groupby(["Type"])["CFU Change Per"].agg(['mean', 'count', 'std'])
+print(stats)
+print('-'*30)
+
+ci95_hi = []
+ci95_lo = []
+
+for i in stats.index:
+    m, c, s = stats.loc[i]
+    ci95_hi.append(m + 1.96*s/math.sqrt(c))
+    ci95_lo.append(m - 1.96*s/math.sqrt(c))
+
+stats['ci95_hi'] = ci95_hi
+stats['ci95_lo'] = ci95_lo
+print(stats)
+
 
 
 
@@ -573,6 +603,36 @@ plt.xlabel("Sampling Scenario")
 plt.ylabel("Total CFUs")
 plt.title("CFUs Initial vs Strategies")
 plt.xticks(rotation=70)
+
+
+#Log Change bar bar chart
+H=sns.catplot(x="Type", y="CFU Change Log", kind = "box" ,
+            data=Final_Compared)
+plt.xlabel("Sampling Scenario")
+plt.ylabel("Total CFUs")
+plt.title("Log10 CFU Change per intervention")
+plt.xticks(rotation=70)
+
+##Progression plot for baseline scenario: 
+    
+ProgDF_melt = pd.melt(ProgDF)
+sns.catplot(x="variable", y="value", kind="bar",
+            data=ProgDF_melt, height=4, aspect=12/4)
+plt.xlabel("Sampling Scenario")
+plt.ylabel("CFU in System")
+plt.title("Contamination Progression Through System")
+plt.xticks(rotation=70)
+
+
+sns.catplot(x="variable", y="value", kind="box",
+            data=ProgDF_melt, height=4, aspect=12/4)
+plt.xlabel("Sampling Scenario")
+plt.ylabel("CFU in System")
+plt.title("Contamination Progression Through System")
+plt.xticks(rotation=70)
+
+
+
 
 #Desnity Plots for Final Contamination. 
 #g = sns.FacetGrid(Final_Compared, col="Type", col_wrap=3)
@@ -602,7 +662,7 @@ from scipy import stats
 import scikit_posthocs as sp
 stats.kruskal(A,B,C,D,E,F,Z)
 data = [A,B,C,D,E,F,Z]
-sp.posthoc_dunn(data, p_adjust = 'bonferroni')  
+Dunn_posthoc=sp.posthoc_dunn(data, p_adjust = 'bonferroni')  
 
 #%%
 #Percent Contaminated at each stage. 
@@ -691,7 +751,7 @@ j = sns.barplot(data = Final_Compared_TotCont, y = "Type", x = "TotalCont_A_FP")
 
 #%%
 
-#Total CFUs, for all finished product bags. rrrrrrrrrrrrrrrrrrrrrr
+#Total CFUs, for all finished product bags. 
 
 #Baseline no Sampling
 FinalConts  = [item for sublist in FinalConts for item in sublist]
