@@ -119,6 +119,12 @@ plt.ticklabel_format(style='plain', axis='y')
 #Percent Reduction by System Initial vs Final
 (One_CFU_lb-Final_CFU_Baseline.mean())/One_CFU_lb #Average Reduction. 
 
+
+import statistics as st
+st.stdev(OutputDF["FP_CFU_Acc"])
+st.mean(OutputDF["FP_CFU_Acc"])
+
+(1.96*9997/200)**2
 #%% Scenario 2. No Sampling, Only Intervention Strategy is Washing
 
 reload(SCInputz)  # Reload Inputz
