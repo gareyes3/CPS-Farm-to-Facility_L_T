@@ -11,11 +11,11 @@ import ScenCondz
 import ContCondz
 import Funz
 import numpy as np   
-
-                                                 
+                                             
                                                               
 #%% Die off
 
+#this no currently used. 
 # 0 Die-off in Field for first 3 contamination Events
 Break_Point=Funz.Func_NormalTrunc(0.11,3.71,0.68,0.98) #Breaking point for Die Off from Belias et al. 
 Dieoff1 = Funz.F_DieOff1() #from Belias et al. 
@@ -58,11 +58,11 @@ elif Time_PHS_H<=Time_CE_H:
 Harvest_Cspray_red = np.random.uniform(1.1,1.4) # log reduction achieved by chlorination spray. Prachi Pahariya 2022. 
 
 #PreCooling. 
-Time_H_PreCooling = np.random.uniform(2,4)
-Temperature_H_PreCooling = np.random.uniform(15,17)
+Time_H_PreCooling = np.random.uniform(2,4) #time between harevest and precooling
+Temperature_H_PreCooling = np.random.uniform(15,17) #koselki et al paper
 
 Time_PreCooling = np.random.uniform(0.4,0.6)  #Hours 25-35 minutes
-Temperature_PreCooling = 3 #Precooling 3 C https://www.buschvacuum.com/us/en/news-media/pre-cooling-lettuces-reliably-thanks-to-cutting-edge-vacuum-technology.html
+Temperature_PreCooling = np.random.uniform(3,4) #Precooling 3 C https://www.buschvacuum.com/us/en/news-media/pre-cooling-lettuces-reliably-thanks-to-cutting-edge-vacuum-technology.html
 
 
 #%% Field Pack
@@ -73,15 +73,16 @@ Case_Weight_FieldPack = 25 #lb
 #%% Receiving
 
 #Storage at Receiving
-Time_Storage_R = 5
-Temperature_Storage_R = 5
+Time_Storage_R = np.random.uniform(5,7)#need reference assumed
+Temperature_Storage_R = np.random.uniform(4,6) #refrigeration temperature at storage
 #PAllet size
 Pallet_Weight = 4000  #weight of pallet in lb. 
  
 
 #%% Processing
-Time_R_PC = 2  #Days around 2hr, Time between 
-Processing_Lines = 4 #Number of processing lines of product
+#Time_R_PC = 2  #Days around 2hr, Time between 
+
+Processing_Lines =4 #np.random.choice([1,2,3,4]) #Number of processing lines of product
 
 # B Cold Storage
 #Infor for cold storage die-off. 

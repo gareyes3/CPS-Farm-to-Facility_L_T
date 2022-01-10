@@ -143,16 +143,30 @@ NoGrabs_List = [1,60,120,240,300,600,1200]
 
 
 
-Sensitivity_Analysis_Dic = ["InitialCont" ,
+Sensitivity_Analysis_Dic = [
+                            #Field Setup Factors
+                            "InitialCont" ,
                             "ClusteringPer",
                             "ClusterSize",
                             "Time_CE_H",
                             "Total_CE_H_Dieoff",
+                            #Sampling Factors
                             "SampleSize",
                             "SamplesPSublot",
                             "NumberGrabs",
+                            #Harvest
                             "Harvest Wash Red",
+                            #Pre-coolin
+                            "Time_H_PC",
+                            "Temp_H_PC",
+                            "Time Precooling",
+                            "Temp Precooling",
                             "Pre_cooling",
+                            #Receiving
+                            "Time_Storage_R",
+                            "Temp_Storage_R",
+                            #Processing Factor
+                            "No_Processing_Lines"
                             "WashingYN",
                             "TotalCFUFP"
     ]
@@ -165,7 +179,7 @@ def Func_LoadInputs (OutputDF,i,df, TotalDieoff):
     OutputDF.at[i, "ClusteringPer"] = SCInputz.PSNo_Cont_Clusters #Cluestering Level
     OutputDF.at[i, "ClusterSize"] =  SCInputz.PSCluster_Size #InitialContmination
     OutputDF.at[i, "Time_CE_H"] =  Inputz.Time_CE_H #Time between contamination event and harvest
-    OutputDF.at[i, "Total_CE_H_Dieoff"] = TotalDieoff  #TotalDieoff. 
+    OutputDF.at[i, "Total_CE_H_Dieoff"] = TotalDieoff  #TotalDieoff between contamination event and harvest. 
     
     #Sampling Factors
     OutputDF.at[i, "SampleSize"] = SCInputz.sample_size_PH #Sample Size at Pe-Harvest
@@ -173,11 +187,18 @@ def Func_LoadInputs (OutputDF,i,df, TotalDieoff):
     OutputDF.at[i, "NumberGrabs"] =  SCInputz.No_Grabs_PH #Number of Grabs at PreHarvest.
     #Harvests
     OutputDF.at[i, "Harvest Wash Red"] =  Inputz.Harvest_Cspray_red #Number of Grabs at PreHarvest.
-    #Receiving
+    #Pre-cooling
+    OutputDF.at[i, "Time_H_PC"] =  Inputz.Time_H_PreCooling #Time beetween harvest and pre-cooling
+    OutputDF.at[i, "Temp_H_PC"] =  Inputz.Temperature_H_PreCooling #Time beetween harvest and pre-cooling
+    OutputDF.at[i, "Time Precooling"] =  Inputz.Time_PreCooling #Pre-cooling process length time
+    OutputDF.at[i, "Temp Precooling"] =  Inputz.Temperature_PreCooling #Pre-cooling process temperature
     OutputDF.loc[i, "Pre_cooling"] =  SCInputz.Pre_CoolingYN #Number of Grabs at PreHarvest.
+    #Receiving
+    OutputDF.at[i, "Time_Storage_R"] =  Inputz.Time_Storage_R #Time storage at receiving
+    OutputDF.at[i, "Temp_Storage_R"] =  Inputz.Temperature_Storage_R #temperature of receiving storage.
     #Procesing Factord
+    OutputDF.loc[i, "No_Processing_Lines"] =  SCInputz.Processing_Lines #Number of processing lines. 
     OutputDF.loc[i, "WashingYN"] =  SCInputz.Washing_YN #Washing Yes or Not
-    
     OutputDF.loc[i, "TotalCFUFP"] =  df["CFU"].sum()
     
     return   OutputDF

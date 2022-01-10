@@ -24,6 +24,8 @@ slot_number = int(Field_Weight/slot_weight) #Number of sublots per field
 Partition_Units = int(Field_Weight/Partition_Weight) #Number of partition units per field
 
 
+
+
 # Contamination Challenge Related Information
 if ContCondz.Background_C ==True:
     BGHazard_lvl = 50000  #CFU # background contamination
@@ -74,8 +76,8 @@ RR_PH_Trad = "Sublot" #Reject by Sublot
 #Intesne pre-harvest sampling
 if ScenCondz.PHS_Int ==True:
     n_samples_lot_PH = 10 # (Input) Samples per lot of product'
-    RR_PH_Int = "Sublot"
-    test_unit_PH = "Sublot"
+    RR_PH_Int = "Lot"
+    test_unit_PH = "Lot"
     
 
 #Harvest Inputs: 
