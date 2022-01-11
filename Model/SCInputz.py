@@ -15,7 +15,7 @@ import numpy as np
 Sensitivity_Analysis = False
 
 
-N_Iterations= 100
+N_Iterations= 300
 Field_Weight= 100000 #total lb in field
 slot_weight = 10000 #weight of the sublot in field.
 Partition_Weight = 50 #Partition weight for contamination Events, Partition to have better definition of field. 
@@ -96,7 +96,7 @@ if ScenCondz.HS_Agg ==True:
 #Receiving sampling:
 test_unit_R = "PalletNo"
 n_samples_pallet = 1 #samples taken per pallet
-sample_size_R = 125 #375 #g #Sample Size in grams Receiving
+sample_size_R = 150 #375 #g #Sample Size in grams Receiving
 No_Grabs_R = 20
 Limit_R =0
 RR_R_Trad= "PalletNo"
@@ -105,7 +105,7 @@ RR_R_Trad= "PalletNo"
 #Finished Product Sampling: 
 test_unit_FP = "Lot"
 sample_size_FP = 375 #g #Sample Size in grams
-n_samples_FP = 1 #number of samples per lot final product
+n_samples_FP = 10 #number of samples per lot final product
 N_Packages_Samples = 60
 RR_FP_Trad = "Lot"
 if ScenCondz.FPS_Agg ==True:

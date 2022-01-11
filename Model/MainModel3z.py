@@ -628,8 +628,8 @@ def F_MainLoop():
             #Listz.List_AVA_CFU.append(LO_Cont_A_VA)
             
             df['Lot'] =1#Updating lot column to represent finished product lots
+
      
-                
             #Environmental Monitoring Program
             
             
@@ -661,10 +661,12 @@ def F_MainLoop():
             #df["Accept"] = True
             #df['PositiveSamples'] = [list() for x in range(len(df.index))]
 
-            
+            df["PositiveSamples"] =""
+            df["PositiveSamples"] = [list() for x in range(len(df.index))]
             
             LO_Cont_B_FP = sum(df.CFU) #Total CFU before FP Sampling
             LO_Weight_B_FP = sum(df.Weight)
+            
             
             
             #Contamination before sampling
