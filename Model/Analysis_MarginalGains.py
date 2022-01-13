@@ -108,18 +108,7 @@ ProgDF = Main_Mod_Outs[0]
 PropProgDF = Main_Mod_Outs[2]
 FinalConts = Main_Mod_Outs[6]
 
-#Final Contmination Baseline Scenario
-Final_CFU_Baseline =ProgDF["Final Product Facility"]
-
-#Final Prop Contaminated
-Final_Prop_Baseline = PropProgDF["PropCont_A_FP"]
-
-#Creating boxplot for exploration
-plt.boxplot(Final_CFU_Baseline)
-plt.ticklabel_format(style='plain', axis='y')
-
-#Percent Reduction by System Initial vs Final
-(One_CFU_lb-Final_CFU_Baseline.mean())/One_CFU_lb #Average Reduction. 
+ 
 
 
 #%% Scenario 2. No Sampling, Only Intervention Strategy is Washing
@@ -168,20 +157,7 @@ ProgDF_Base_Wash = Main_Mod_Outs[0]
 PropProgDF_Base_Wash = Main_Mod_Outs[2]
 FinalConts_Base_Wash = Main_Mod_Outs[6]
 
-#Final Contmination Baseline Scenario
-Final_CFU_Base_Wash =ProgDF_Base_Wash["Final Product Facility"]
-#Final Prop Contaminated
-Final_Prop_Base_Wash = PropProgDF_Base_Wash["PropCont_A_FP"]
 
-#Creating boxplot for exploration
-plt.boxplot(Final_CFU_Base_Wash)
-plt.ticklabel_format(style='plain', axis='y')
-
-#Percent Reduction by System Initial vs Final
-(One_CFU_lb-Final_CFU_Base_Wash.mean())/One_CFU_lb #Average Reduction.
-
-#Reduction of washing step
-((ProgDF_Base_Wash["Bef Washing"]-ProgDF_Base_Wash["Bef Shaker Table"])/ProgDF_Base_Wash["Bef Washing"]).mean()
 
 #%% Scenario 3 PH Sampling 4D, Washing off , and normal baseline contamination reduction
     #PH Sample: 1 Sample/Sublot, 
@@ -229,7 +205,7 @@ SCInputz.sample_size_PH = 375 # (Input) g #Sample Size in grams for Pre Harvest
 SCInputz.n_samples_slot_PH = 1 # (Input) Samples per sublot of product
 SCInputz.No_Grabs_PH = 60
 SCInputz.Limit_PH = 0
-SCInputz.RR_PH_Trad = "Sublot" #Reject by Sublot
+SCInputz.RR_PH_Trad = "Lot" #Reject by Sublot
 
 
 #Running The Model.
@@ -241,18 +217,6 @@ ProgDF_Base_PHS4d = Main_Mod_Outs[0]
 PropProgDF_Base_PHS4d = Main_Mod_Outs[2]
 FinalConts_Base_PHS4d = Main_Mod_Outs[6]
 
-#Final Contmination Baseline Scenario
-Final_CFU_Base_PHS4d =ProgDF_Base_PHS4d["Final Product Facility"]
-
-#Final Prop Contaminated
-Final_Prop_Base_PHS4d = PropProgDF_Base_PHS4d["PropCont_A_FP"]
-
-#Creating boxplot for exploration
-plt.boxplot(Final_CFU_Base_PHS4d)
-plt.ticklabel_format(style='plain', axis='y')
-
-#Percent Reduction by System Initial vs Final
-(One_CFU_lb-Final_CFU_Base_PHS4d.mean())/One_CFU_lb #Average Reduction.
 
 
 
@@ -302,7 +266,7 @@ SCInputz.sample_size_PH = 375 # (Input) g #Sample Size in grams for Pre Harvest
 SCInputz.n_samples_slot_PH = 1 # (Input) Samples per sublot of product
 SCInputz.No_Grabs_PH = 60
 SCInputz.Limit_PH = 0
-SCInputz.RR_PH_Trad = "Sublot" #Reject by Sublot
+SCInputz.RR_PH_Trad = "Lot" #Reject by Sublot
 
 
 #Running The Model.
@@ -314,18 +278,7 @@ ProgDF_Base_PHS4h = Main_Mod_Outs[0]
 PropProgDF_Base_PHS4h = Main_Mod_Outs[2]
 FinalConts_Base_PHS4h = Main_Mod_Outs[6]
 
-#Final Contmination Baseline Scenario
-Final_CFU_Base_PHS4h =ProgDF_Base_PHS4h["Final Product Facility"]
 
-#Final Prop Contaminated
-Final_Prop_Base_PHS4h = PropProgDF_Base_PHS4h["PropCont_A_FP"]
-
-#Creating boxplot for exploration
-plt.boxplot(Final_CFU_Base_PHS4h)
-plt.ticklabel_format(style='plain', axis='y')
-
-#Percent Reduction by System Initial vs Final
-(One_CFU_lb-Final_CFU_Base_PHS4h.mean())/One_CFU_lb #Average Reduction.
 
 
 #%% Scenario 5 PH Sampling Int, Washing off , and normal baseline contamination reduction
@@ -386,18 +339,7 @@ ProgDF_Base_PHSInt = Main_Mod_Outs[0]
 PropProgDF_Base_PHSInt = Main_Mod_Outs[2]
 FinalConts_Base_PHSInt = Main_Mod_Outs[6]
 
-#Final Contmination Baseline Scenario
-Final_CFU_Base_PHSInt =ProgDF_Base_PHSInt["Final Product Facility"]
 
-#Final Prop Contaminated
-Final_Prop_Base_PHSInt = PropProgDF_Base_PHSInt["PropCont_A_FP"]
-
-#Creating boxplot for exploration
-plt.boxplot(Final_CFU_Base_PHSInt)
-plt.ticklabel_format(style='plain', axis='y')
-
-#Percent Reduction by System Initial vs Final
-(One_CFU_lb-Final_CFU_Base_PHSInt.mean())/One_CFU_lb #Average Reduction.
 
 
 #%% Harvest Sampling Traditional 
@@ -450,7 +392,7 @@ SCInputz.sample_size_H = 375 # (Input) g #Sample Size in grams for Pre Harvest
 SCInputz.n_samples_slot_H = 1 # (Input) Samples per sublot of product
 SCInputz.No_Grabs_H = 60
 SCInputz.Limit_H = 0
-SCInputz.RR_H_Trad = "Sublot" #Reject by Sublot
+SCInputz.RR_H_Trad = "Lot" #Reject by Sublot
 
 
 
@@ -463,18 +405,6 @@ ProgDF_Base_HTrad = Main_Mod_Outs[0]
 PropProgDF_Base_HTrad = Main_Mod_Outs[2]
 FinalConts_Base_HTrad = Main_Mod_Outs[6]
 
-#Final Contmination Baseline Scenario
-Final_CFU_Base_HTrad =ProgDF_Base_HTrad["Final Product Facility"]
-
-#Final Prop Contaminated
-Final_Prop_Base_HTrad = PropProgDF_Base_HTrad["PropCont_A_FP"]
-
-#Creating boxplot for exploration
-plt.boxplot(Final_CFU_Base_HTrad)
-plt.ticklabel_format(style='plain', axis='y')
-
-#Percent Reduction by System Initial vs Final
-(One_CFU_lb-Final_CFU_Base_HTrad.mean())/One_CFU_lb #Average Reduction.
 
 #%% Receiving Sampling
     #PH Sample: 1 Sample/Sublot, 
@@ -528,7 +458,7 @@ SCInputz.sample_size_R = 150 # (Input) g #Sample Size in grams for Pre Harvest
 SCInputz.n_samples_pallet = 1 # (Input) Samples per sublot of product
 SCInputz.No_Grabs_R = 24
 SCInputz.Limit_R = 0
-SCInputz.RR_R_Trad = "PalletNo" #Reject by Sublot
+SCInputz.RR_R_Trad = "Lot" #Reject by Sublot
 
 
 
@@ -541,18 +471,7 @@ ProgDF_Base_RTrad = Main_Mod_Outs[0]
 PropProgDF_Base_RTrad = Main_Mod_Outs[2]
 FinalConts_Base_RTrad = Main_Mod_Outs[6]
 
-#Final Contmination Baseline Scenario
-Final_CFU_Base_RTrad =ProgDF_Base_RTrad["Final Product Facility"]
 
-#Final Prop Contaminated
-Final_Prop_Base_RTrad = PropProgDF_Base_RTrad["PropCont_A_FP"]
-
-#Creating boxplot for exploration
-plt.boxplot(Final_CFU_Base_RTrad)
-plt.ticklabel_format(style='plain', axis='y')
-
-#Percent Reduction by System Initial vs Final
-(One_CFU_lb-Final_CFU_Base_RTrad.mean())/One_CFU_lb #Average Reduction.
 
 
 #%%  Finsihed Product Sampling
@@ -623,18 +542,7 @@ ProgDF_Base_FPTrad = Main_Mod_Outs[0]
 PropProgDF_Base_FPTrad = Main_Mod_Outs[2]
 FinalConts_Base_FPTrad = Main_Mod_Outs[6]
 
-#Final Contmination Baseline Scenario
-Final_CFU_Base_FPTrad =ProgDF_Base_FPTrad["Final Product Facility"]
 
-#Final Prop Contaminated
-Final_Prop_Base_FPTrad = PropProgDF_Base_FPTrad["PropCont_A_FP"]
-
-#Creating boxplot for exploration
-plt.boxplot(Final_CFU_Base_FPTrad)
-plt.ticklabel_format(style='plain', axis='y')
-
-#Percent Reduction by System Initial vs Final
-(One_CFU_lb-Final_CFU_Base_FPTrad.mean())/One_CFU_lb #Average Reduction.
 
 #%%
 #Scenario 5 Holding Time on Everything Else Off
@@ -684,17 +592,6 @@ ProgDF_Base_Holding = Main_Mod_Outs[0]
 PropProgDF_Base_Holding = Main_Mod_Outs[2]
 FinalConts_Base_Holding = Main_Mod_Outs[6]
 
-#Final Contmination Baseline Scenario
-Final_CFU_Base_Holding =ProgDF_Base_Holding["Final Product Facility"]
-#Final Prop Contaminated
-Final_Prop_Base_Holding = PropProgDF_Base_Holding["PropCont_A_FP"]
-
-#Creating boxplot for exploration
-plt.boxplot(Final_CFU_Base_Holding)
-plt.ticklabel_format(style='plain', axis='y')
-
-#Percent Reduction by System Initial vs Final
-(One_CFU_lb-Final_CFU_Base_Holding.mean())/One_CFU_lb #Average Reduction.
 
 
 #%%
@@ -744,17 +641,7 @@ ProgDF_Base_Precool = Main_Mod_Outs[0]
 PropProgDF_Base_Precool = Main_Mod_Outs[2]
 FinalConts_Base_Precool = Main_Mod_Outs[6]
 
-#Final Contmination Baseline Scenario
-Final_CFU_Base_Precool =ProgDF_Base_Precool["Final Product Facility"]
-#Final Prop Contaminated
-Final_Prop_Base_Precool = PropProgDF_Base_Precool["PropCont_A_FP"]
 
-#Creating boxplot for exploration
-plt.boxplot(Final_CFU_Base_Precool)
-plt.ticklabel_format(style='plain', axis='y')
-
-#Percent Reduction by System Initial vs Final
-(One_CFU_lb-Final_CFU_Base_Precool.mean())/One_CFU_lb #Average Reduction.
 
 
 #%%
@@ -804,17 +691,7 @@ ProgDF_Base_Prewash = Main_Mod_Outs[0]
 PropProgDF_Base_Prewash = Main_Mod_Outs[2]
 FinalConts_Base_Prewash = Main_Mod_Outs[6]
 
-#Final Contmination Baseline Scenario
-Final_CFU_Base_Prewash =ProgDF_Base_Prewash["Final Product Facility"]
-#Final Prop Contaminated
-Final_Prop_Base_Prewash = PropProgDF_Base_Prewash["PropCont_A_FP"]
 
-#Creating boxplot for exploration
-plt.boxplot(Final_CFU_Base_Prewash)
-plt.ticklabel_format(style='plain', axis='y')
-
-#Percent Reduction by System Initial vs Final
-(One_CFU_lb-Final_CFU_Base_Prewash.mean())/One_CFU_lb #Average Reduction.
 
 #%% Scenario 8 PH Sampling 4D, Washing ON ,Pre-cooling on and everything else on and normal baseline contamination reduction
     #PH Sample: 1 Sample/Sublot, 
@@ -873,97 +750,120 @@ ProgDF_All = Main_Mod_Outs[0]
 PropProgDF_All = Main_Mod_Outs[2]
 FinalConts_All = Main_Mod_Outs[6]
 
-#Final Contmination Baseline Scenario
-Final_CFU_All =ProgDF_All["Final Product Facility"]
-#Final Prop Contaminated
-Final_Prop_All = PropProgDF_All["PropCont_A_FP"]
 
-Final_CFU_Log = np.log10(Final_CFU_All)
-
-
-#Creating boxplot for exploration
-plt.boxplot(Final_CFU_All)
-plt.ticklabel_format(style='plain', axis='y')
-
-#Percent Reduction by System Initial vs Final
-(One_CFU_lb-Final_CFU_All.mean())/One_CFU_lb #Average Reduction.
 
 #%% Data Cleaning
 
 #Plotting the current data. 
+List_of_OutputDFs = [OutputDF,
+                     OutputDF_Base_Wash,
+                     OutputDF_Base_PHS4d,
+                     OutputDF_Base_PHS4h,
+                     OutputDF_Base_PHSInt,
+                     OutputDF_Base_HTrad,
+                     OutputDF_Base_RTrad,
+                     OutputDF_Base_FPTrad,
+                     OutputDF_Base_Holding,
+                     OutputDF_Base_Precool,
+                     OutputDF_Base_Prewash,
+                     OutputDF_All]
+List_of_ProgDfs = [ProgDF,
+                     ProgDF_Base_Wash,
+                     ProgDF_Base_PHS4d,
+                     ProgDF_Base_PHS4h,
+                     ProgDF_Base_PHSInt,
+                     ProgDF_Base_HTrad,
+                     ProgDF_Base_RTrad,
+                     ProgDF_Base_FPTrad,
+                     ProgDF_Base_Holding,
+                     ProgDF_Base_Precool,
+                     ProgDF_Base_Prewash,
+                     ProgDF_All]
 
 
+List_of_Propprog  = [PropProgDF,
+                     PropProgDF_Base_Wash,
+                     PropProgDF_Base_PHS4d,
+                     PropProgDF_Base_PHS4h,
+                     PropProgDF_Base_PHSInt,
+                     PropProgDF_Base_HTrad,
+                     PropProgDF_Base_RTrad,
+                     PropProgDF_Base_FPTrad,
+                     PropProgDF_Base_Holding,
+                     PropProgDF_Base_Precool,
+                     PropProgDF_Base_Prewash,
+                     PropProgDF_All]
+
+List_Contaminated_Packages = [FinalConts,
+                     FinalConts_Base_Wash,
+                     FinalConts_Base_PHS4d,
+                     FinalConts_Base_PHS4h,
+                     FinalConts_Base_PHSInt,
+                     FinalConts_Base_HTrad,
+                     FinalConts_Base_RTrad,
+                     FinalConts_Base_FPTrad,
+                     FinalConts_Base_Holding,
+                     FinalConts_Base_Precool,
+                     FinalConts_Base_Prewash,
+                     FinalConts_All]
+
+List_of_Final_Conts = [x["Final Product Facility"] for x in List_of_ProgDfs]
+Column_Names = "Baseline Wash PH4D PH4h PHInt HTrad RTrad FPTrad Holding Precool PreWash All".split()
+
+#Removing outliers from the contamination before.
+def remove_outliers(list_a):
+    new_list=[]
+    for i in list_a:
+        Q1 = i.quantile(0.25)
+        Q3 = i.quantile(0.75)
+        IQR = Q3 - Q1
+        new = i[~((i < (Q1 - 1.5 * IQR)) |(i > (Q3 + 1.5 * IQR)))]
+        new_list.append(new)
+    return new_list
+
+List_FinalCont_NoOuts = remove_outliers(list_a = List_of_Final_Conts)
+
+#CREATING THE DATAFRAME for contaminations without outliers
+Final_Contdf = pd.concat(List_FinalCont_NoOuts, axis = 1)
+Final_Contdf.columns = Column_Names
+#melting that dataframe
+Final_Contdf_melted = Final_Contdf.melt()
 
 
-#%%
-#Comparing Scenarios for Final contamination 
+#Contaminated Packages
+#strp 1, make them into a list of 
+aaaaa=pd.concat(List_Contaminated_Packages[0], axis =1)
 
-#Adding Types To merge
-Final_CFU_Baseline = Final_CFU_Baseline.to_frame()
-Final_CFU_Baseline["Type"] = "Baseline"
-A = Final_CFU_Baseline["Final Product Facility"]
+Non_Zeros=List_Contaminated_Packages[0][2][List_Contaminated_Packages[0][2]>0]
+Prop_Cont = len(Non_Zeros)/len(List_Contaminated_Packages[0][2])
+CFU_g_Cont=Non_Zeros/5
+CFU_g_Cont.describe()
 
+    
 
-Final_CFU_Base_Wash = Final_CFU_Base_Wash.to_frame()
-Final_CFU_Base_Wash["Type"] = "Baseline, Wash"
-B = Final_CFU_Base_Wash["Final Product Facility"]
+#%% Data Analysis and Plotting
 
-Final_CFU_Base_PHS4d=Final_CFU_Base_PHS4d.to_frame()
-Final_CFU_Base_PHS4d["Type"] = "Baseline, Sampling 4d"
-C = Final_CFU_Base_PHS4d["Final Product Facility"]
+#Boxplot Y axis log scale adjusted. 
+H=sns.catplot(x="variable", y="value", kind = "box" ,
+            data=Final_Contdf_melted)
+plt.xlabel("Sampling Scenario")
+plt.ylabel("Total CFUs")
+plt.yscale('log')
+plt.title("Log10 CFU Final Contaminations")
+plt.xticks(rotation=70)
 
-Final_CFU_Base_PHS4h=Final_CFU_Base_PHS4h.to_frame()
-Final_CFU_Base_PHS4h["Type"] = "Baseline, Sampling 4h"
-G = Final_CFU_Base_PHS4h["Final Product Facility"]
+#same plot but instead we use the means
+H=sns.catplot(x="variable", y="value" ,
+            data=Final_Contdf_melted)
+plt.xlabel("Sampling Scenario")
+plt.ylabel("Total CFUs")
+plt.title("Log10 CFU Final Contaminations")
+plt.xticks(rotation=70)
 
-Final_CFU_Base_PHSInt=Final_CFU_Base_PHSInt.to_frame()
-Final_CFU_Base_PHSInt["Type"] = "Baseline, Sampling Int"
-H = Final_CFU_Base_PHSInt["Final Product Facility"]
-
-
-Final_CFU_Base_Holding=Final_CFU_Base_Holding.to_frame()
-Final_CFU_Base_Holding["Type"] = "Baseline, Holding"
-D = Final_CFU_Base_Holding["Final Product Facility"]
-
-
-Final_CFU_Base_Precool=Final_CFU_Base_Precool.to_frame()
-Final_CFU_Base_Precool["Type"] = "Baseline, Pre-Cool"
-E = Final_CFU_Base_Precool["Final Product Facility"]
-
-
-Final_CFU_Base_Prewash=Final_CFU_Base_Prewash.to_frame()
-Final_CFU_Base_Prewash["Type"] = "Baseline, Harvest Wash"
-F = Final_CFU_Base_Prewash["Final Product Facility"]
-
-Final_CFU_All = Final_CFU_All.to_frame()
-Final_CFU_All["Type"] = "All Interventions"
-Z = Final_CFU_All["Final Product Facility"]
-
-#Initial 
-Initial_CFU_V  = [One_CFU_lb]
-Initial_CFU_V=pd.DataFrame(Initial_CFU_V, columns = ["Final Product Facility"])
-Initial_CFU_V["Type"] = "Initial Levels"
-
-List_of_dfs = [#Initial_CFU_V,
-                          Final_CFU_Baseline, 
-                          Final_CFU_Base_Wash,
-                          Final_CFU_Base_PHS4d,
-                          Final_CFU_Base_PHS4h,
-                          Final_CFU_Base_PHSInt,
-                          Final_CFU_Base_Holding,
-                          Final_CFU_Base_Precool,
-                          Final_CFU_Base_Prewash,
-                          Final_CFU_All]
-
-
-#Combining them
-Final_Compared=pd.concat(List_of_dfs, 
-                         axis=0, 
-                         ignore_index=True)
 
 #%% DATA ANALYSIS
 
-#cOMPARING THE mean and 95% CI Reduction between two groups. 
+#COMPARING THE mean and 95% CI Reduction between two groups. 
 import numpy as np
 import math
 import scipy.stats as st
@@ -992,6 +892,32 @@ def mean_CI_ONE(Array):
     #log_mean = mean.log10()
     #CI_log = CI.log10()
     return [mean,CI]
+
+def mean_CI_ONE_log(Array):
+    mean = Array.mean()
+    CI = sms.DescrStatsW(Array).tconfint_mean()
+    log_mean = np.log10(mean)
+    CI_log = np.log10(CI)
+    return [log_mean,CI_log]
+
+np.log10(40)
+
+#Getting the mean log reduction per Name
+[mean_CI_ONE_log(x) for x in List_of_Final_Conts]
+[mean_CI_ONE(x) for x in List_of_Final_Conts]
+(7049-1828)/7049
+2735.6133333333332
+(7049-2735.6133333333332)/7049
+
+
+
+
+
+
+
+
+
+
 
 
  
