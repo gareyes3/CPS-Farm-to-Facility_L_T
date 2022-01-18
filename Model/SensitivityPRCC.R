@@ -5,10 +5,14 @@ library(randomForest)
 library(forcats)
 
 
-Data <- read.csv("SensitivityOut12-22.csv", stringsAsFactors = TRUE)
+Data <- read.csv("SensitivityOut01-27.csv", stringsAsFactors = TRUE)
 Data<-Data[-c(1)]
-PCC1<-pcc(X = Data[,1:11], y=Data$TotalCFUFP, rank =TRUE, conf = 0.95, nboot = 1000)
+Data<-Data[-c(12)]
+Data<-Data[-c(8)]
+Data_x<-Data[-c(19)]
+PCC1<-pcc(X = Data_x, y=Data$TotalCFUFP, rank =TRUE, conf = 0.8, nboot = 1000)
 plot(PCC1)
+
 
 
 pairs(Data)
