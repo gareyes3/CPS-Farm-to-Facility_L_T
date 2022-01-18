@@ -73,16 +73,6 @@ reload(Listz)  # Reload Lists
 
 
 #Sampling Condition
-# Sampling Conditions, Baseline all conditions are off
-ScenCondz.Baseline_Sampling = 0  # all others must be 0if this one is 1
-ScenCondz.PH_Sampling = 1
-ScenCondz.H_Sampling = 0
-ScenCondz.R_Sampling = 0
-ScenCondz.FP_Sampling = 0
-# Pre_Harvest 4 Days
-ScenCondz.PHS_4d = 1 # Scenario 1
-ScenCondz.PHS_4h = 0  # Scenario 2
-ScenCondz.PHS_Int = 0  # Scenario 3
 
 SCInputz.Sensitivity_Analysis = True
 
@@ -98,4 +88,4 @@ Sensitivity_Df = Main_Mod_Outs[5]
     
 
 #%%
-Sensitivity_Df.to_csv('SensitivityOut12-22.csv')
+Sensitivity_Df.to_csv('SensitivityOut01-27.csv')

@@ -50,6 +50,28 @@ def F_MainLoop():
         
         #Sensitivity Analysis Randomized Inputs only if Sens Analysis is ON. 
         if SCInputz.Sensitivity_Analysis == True:
+            #Sampling Contamination
+            Sampling_Type_SA = np.random.choice(["PH", "H", "R", "FP"])
+            if Sampling_Type_SA == "PH":
+                ScenCondz.PH_Sampling = True
+                PH_Type_S = np.random.choice(["4d", "4h", "Int"])
+                if PH_Type_S == "4d":
+                    ScenCondz.PHS_4d= True
+                elif PH_Type_S == "4h":
+                    ScenCondz.PHS_4h= True
+                elif PH_Type_S == "Int":
+                    ScenCondz.PHS_Int= True
+            if Sampling_Type_SA == "H":
+                ScenCondz.H_Sampling = True
+                ScenCondz.HS_Trad = True
+            if Sampling_Type_SA == "R":
+                ScenCondz.R_Sampling = True
+            if Sampling_Type_SA == "FP":
+                ScenCondz.FP_Sampling = True
+                ScenCondz.FPS_Trad= True
+            
+            
+            
             #1Hazard Level Selecting From random list
             SCInputz.PSHazard_lvl = np.random.choice(Dictionariez.Contamination_List)
             #2Cluser Suze
@@ -62,6 +84,7 @@ def F_MainLoop():
             elif SCInputz.PSCluster_Size ==100000:
                 SCInputz.PSNo_Cont_Clusters = 1
             
+            '''
             #Sampling Factors
             #4 Sampling Size. 
             SCInputz.sample_size_PH = np.random.choice(Dictionariez.SampleSize_List)
@@ -69,6 +92,7 @@ def F_MainLoop():
             SCInputz.n_samples_slot_PH=np.random.choice(Dictionariez.NoSamples_List)
             #6 Number of grabs per composite sample
             SCInputz.No_Grabs_PH= np.random.choice(Dictionariez.NoGrabs_List)
+            '''
             #Receiving Factors
             SCInputz.Pre_CoolingYN = np.random.choice([True,False])
             #Processing Factors

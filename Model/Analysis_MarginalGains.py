@@ -106,7 +106,7 @@ Main_Mod_Outs = MainModel3z.F_MainLoop()
 OutputDF = Main_Mod_Outs[1]
 ProgDF = Main_Mod_Outs[0]
 PropProgDF = Main_Mod_Outs[2]
-FinalConts = Main_Mod_Outs[6]
+#FinalConts = Main_Mod_Outs[6]
 
  
 
@@ -155,7 +155,7 @@ Main_Mod_Outs = MainModel3z.F_MainLoop()
 OutputDF_Base_Wash = Main_Mod_Outs[1]
 ProgDF_Base_Wash = Main_Mod_Outs[0]
 PropProgDF_Base_Wash = Main_Mod_Outs[2]
-FinalConts_Base_Wash = Main_Mod_Outs[6]
+#FinalConts_Base_Wash = Main_Mod_Outs[6]
 
 
 
@@ -215,7 +215,7 @@ Main_Mod_Outs = MainModel3z.F_MainLoop()
 OutputDF_Base_PHS4d = Main_Mod_Outs[1]
 ProgDF_Base_PHS4d = Main_Mod_Outs[0]
 PropProgDF_Base_PHS4d = Main_Mod_Outs[2]
-FinalConts_Base_PHS4d = Main_Mod_Outs[6]
+#FinalConts_Base_PHS4d = Main_Mod_Outs[6]
 
 
 
@@ -276,7 +276,7 @@ Main_Mod_Outs = MainModel3z.F_MainLoop()
 OutputDF_Base_PHS4h = Main_Mod_Outs[1]
 ProgDF_Base_PHS4h = Main_Mod_Outs[0]
 PropProgDF_Base_PHS4h = Main_Mod_Outs[2]
-FinalConts_Base_PHS4h = Main_Mod_Outs[6]
+#FinalConts_Base_PHS4h = Main_Mod_Outs[6]
 
 
 
@@ -337,7 +337,7 @@ Main_Mod_Outs = MainModel3z.F_MainLoop()
 OutputDF_Base_PHSInt = Main_Mod_Outs[1]
 ProgDF_Base_PHSInt = Main_Mod_Outs[0]
 PropProgDF_Base_PHSInt = Main_Mod_Outs[2]
-FinalConts_Base_PHSInt = Main_Mod_Outs[6]
+#FinalConts_Base_PHSInt = Main_Mod_Outs[6]
 
 
 
@@ -403,7 +403,7 @@ Main_Mod_Outs = MainModel3z.F_MainLoop()
 OutputDF_Base_HTrad = Main_Mod_Outs[1]
 ProgDF_Base_HTrad = Main_Mod_Outs[0]
 PropProgDF_Base_HTrad = Main_Mod_Outs[2]
-FinalConts_Base_HTrad = Main_Mod_Outs[6]
+#FinalConts_Base_HTrad = Main_Mod_Outs[6]
 
 
 #%% Receiving Sampling
@@ -469,7 +469,7 @@ Main_Mod_Outs = MainModel3z.F_MainLoop()
 OutputDF_Base_RTrad = Main_Mod_Outs[1]
 ProgDF_Base_RTrad = Main_Mod_Outs[0]
 PropProgDF_Base_RTrad = Main_Mod_Outs[2]
-FinalConts_Base_RTrad = Main_Mod_Outs[6]
+#FinalConts_Base_RTrad = Main_Mod_Outs[6]
 
 
 
@@ -540,7 +540,7 @@ Main_Mod_Outs = MainModel3z.F_MainLoop()
 OutputDF_Base_FPTrad = Main_Mod_Outs[1]
 ProgDF_Base_FPTrad = Main_Mod_Outs[0]
 PropProgDF_Base_FPTrad = Main_Mod_Outs[2]
-FinalConts_Base_FPTrad = Main_Mod_Outs[6]
+#FinalConts_Base_FPTrad = Main_Mod_Outs[6]
 
 
 
@@ -590,7 +590,7 @@ Main_Mod_Outs = MainModel3z.F_MainLoop()
 OutputDF_Base_Holding = Main_Mod_Outs[1]
 ProgDF_Base_Holding = Main_Mod_Outs[0]
 PropProgDF_Base_Holding = Main_Mod_Outs[2]
-FinalConts_Base_Holding = Main_Mod_Outs[6]
+#FinalConts_Base_Holding = Main_Mod_Outs[6]
 
 
 
@@ -639,7 +639,7 @@ Main_Mod_Outs = MainModel3z.F_MainLoop()
 OutputDF_Base_Precool = Main_Mod_Outs[1]
 ProgDF_Base_Precool = Main_Mod_Outs[0]
 PropProgDF_Base_Precool = Main_Mod_Outs[2]
-FinalConts_Base_Precool = Main_Mod_Outs[6]
+#FinalConts_Base_Precool = Main_Mod_Outs[6]
 
 
 
@@ -689,7 +689,7 @@ Main_Mod_Outs = MainModel3z.F_MainLoop()
 OutputDF_Base_Prewash = Main_Mod_Outs[1]
 ProgDF_Base_Prewash = Main_Mod_Outs[0]
 PropProgDF_Base_Prewash = Main_Mod_Outs[2]
-FinalConts_Base_Prewash = Main_Mod_Outs[6]
+#FinalConts_Base_Prewash = Main_Mod_Outs[6]
 
 
 
@@ -748,7 +748,7 @@ Main_Mod_Outs = MainModel3z.F_MainLoop()
 OutputDF_All = Main_Mod_Outs[1]
 ProgDF_All = Main_Mod_Outs[0]
 PropProgDF_All = Main_Mod_Outs[2]
-FinalConts_All = Main_Mod_Outs[6]
+#FinalConts_All = Main_Mod_Outs[6]
 
 
 
@@ -793,7 +793,7 @@ List_of_Propprog  = [PropProgDF,
                      PropProgDF_Base_Precool,
                      PropProgDF_Base_Prewash,
                      PropProgDF_All]
-
+'''
 List_Contaminated_Packages = [FinalConts,
                      FinalConts_Base_Wash,
                      FinalConts_Base_PHS4d,
@@ -806,6 +806,7 @@ List_Contaminated_Packages = [FinalConts,
                      FinalConts_Base_Precool,
                      FinalConts_Base_Prewash,
                      FinalConts_All]
+'''
 
 List_of_Final_Conts = [x["Final Product Facility"] for x in List_of_ProgDfs]
 Column_Names = "Baseline Wash PH4D PH4h PHInt HTrad RTrad FPTrad Holding Precool PreWash All".split()
@@ -829,7 +830,7 @@ Final_Contdf.columns = Column_Names
 #melting that dataframe
 Final_Contdf_melted = Final_Contdf.melt()
 
-
+'''
 #Contaminated Packages
 #strp 1, make them into a list of 
 aaaaa=pd.concat(List_Contaminated_Packages[0], axis =1)
@@ -838,7 +839,7 @@ Non_Zeros=List_Contaminated_Packages[0][2][List_Contaminated_Packages[0][2]>0]
 Prop_Cont = len(Non_Zeros)/len(List_Contaminated_Packages[0][2])
 CFU_g_Cont=Non_Zeros/5
 CFU_g_Cont.describe()
-
+'''
     
 
 #%% Data Analysis and Plotting
@@ -900,7 +901,6 @@ def mean_CI_ONE_log(Array):
     CI_log = np.log10(CI)
     return [log_mean,CI_log]
 
-np.log10(40)
 
 #Getting the mean log reduction per Name
 [mean_CI_ONE_log(x) for x in List_of_Final_Conts]
@@ -910,6 +910,32 @@ np.log10(40)
 (7049-2735.6133333333332)/7049
 
 
+[mean_CI_ONE(x)[0]/8776.7325 for x in List_of_Final_Conts]
+
+
+#desnsity plot
+h=sns.displot( data =Final_Contdf_melted, 
+            x = "value" , 
+            col = "variable", 
+            col_wrap=3,
+             stat = "probability",
+             bins = 30,
+            facet_kws=dict(sharey=False,sharex= False))
+plt.suptitle("Distribution of CFUs in Final Product",) 
+
+def specs(x, **kwargs):
+    plt.axvline(x.mean(), c='red', ls='-', lw=2.5)
+    plt.axvline(x.median(), c='orange', ls='--', lw=2.5)
+
+h.map(specs,"value" )
+
+
+
+#Statistical analysis. 
+from scipy import stats
+import scikit_posthocs as sp
+stats.kruskal(List_of_Final_Conts)
+Dunn_posthoc=sp.posthoc_dunn(List_of_Final_Conts, p_adjust = 'bonferroni')  
 
 
 
@@ -918,47 +944,6 @@ np.log10(40)
 
 
 
-
-
- 
-Q1 = Final_CFU_Baseline["Final Product Facility"].quantile(0.1)
-Q3 = Final_CFU_Baseline["Final Product Facility"].quantile(0.9)
-IQR = Q3 - Q1
-aaa = Final_CFU_Baseline["Final Product Facility"][~((Final_CFU_Baseline["Final Product Facility"] < (Q1 - 1.5 * IQR)) |(Final_CFU_Baseline["Final Product Facility"] > (Q3 + 1.5 * IQR)))]
-aaa.describe()
-plt.boxplot(aaa)
-aaa=Final_CFU_Baseline["Final Product Facility"][Final_CFU_Baseline["Final Product Facility"]< Q3]
-
-
-
-
-#Obtaining all the means and CIs
-#Baseline
-Baseline_summary = mean_CI_ONE(Final_CFU_Baseline["Final Product Facility"])
-np.log10(Baseline_summary[0])
-np.log10(Baseline_summary[1])
-
-#Wash
-Wash_summary=mean_CI_ONE(Final_CFU_Base_Wash["Final Product Facility"])
-np.log10(Wash_summary[0])
-np.log10(Wash_summary[1])
-
-(5770.733333333334 -2451.52) /5770.733333333334
-#
-
-#Obtaining reduction CI #Baseline vs Wash
-Reduct_Wash=mean_CI_RED(Final_CFU_Baseline["Final Product Facility"] ,Final_CFU_Base_Wash["Final Product Facility"])
-np.log10(Reduct_Wash[0])
-np.log10(Reduct_Wash[1])
-
-
-def mean_CI_ONE(Array):
-    mean = Final_CFU_Baseline["Final Product Facility"].mean()
-    CI = sms.DescrStatsW(Final_CFU_Baseline["Final Product Facility"]).tconfint_mean()
-    return [mean, CI]
-
-
-#Wash
 
 
 

@@ -10,6 +10,7 @@ import numpy as np
 import SCInputz
 import Inputz
 import MainModel3z
+import ScenCondz
 
 
 Column_Names_Outs = ["Step_CFU_Acc",
@@ -150,10 +151,20 @@ Sensitivity_Analysis_Dic = [
                             "ClusterSize",
                             "Time_CE_H",
                             "Total_CE_H_Dieoff",
+                            #Sampling Type: 
+                            "PH4d",
+                            "PH4h",
+                            "PHInt",
+                            "HTrad",
+                            "RTrad",
+                            "FPTrad",
+                            
+                            '''
                             #Sampling Factors
                             "SampleSize",
                             "SamplesPSublot",
                             "NumberGrabs",
+                            '''
                             #Harvest
                             "Harvest Wash Red",
                             #Pre-coolin
@@ -166,7 +177,6 @@ Sensitivity_Analysis_Dic = [
                             "Time_Storage_R",
                             "Temp_Storage_R",
                             #Processing Factor
-                            "No_Processing_Lines"
                             "WashingYN",
                             "TotalCFUFP"
     ]
@@ -175,16 +185,26 @@ Sensitivity_Analysis_Dic = [
 def Func_LoadInputs (OutputDF,i,df, TotalDieoff):
     #Setup Factors
     #Initial Contamination Factors
-    OutputDF.at[i, "InitialCont"] = SCInputz.PSHazard_lvl #InitialContmination
-    OutputDF.at[i, "ClusteringPer"] = SCInputz.PSNo_Cont_Clusters #Cluestering Level
-    OutputDF.at[i, "ClusterSize"] =  SCInputz.PSCluster_Size #InitialContmination
+    OutputDF.at[i, "InitialCont"] =  SCInputz.PSHazard_lvl #InitialContmination
+    OutputDF.at[i, "ClusteringPer"] =  SCInputz.PSNo_Cont_Clusters #Cluestering Level
+    OutputDF.at[i, "ClusterSize"] =   SCInputz.PSCluster_Size #InitialContmination
     OutputDF.at[i, "Time_CE_H"] =  Inputz.Time_CE_H #Time between contamination event and harvest
     OutputDF.at[i, "Total_CE_H_Dieoff"] = TotalDieoff  #TotalDieoff between contamination event and harvest. 
     
+    #Sampling Selection
+    OutputDF.loc[i, "PH4d"] = ScenCondz.PHS_4d #InitialContmination
+    OutputDF.loc[i, "PH4h"] = ScenCondz.PHS_4h #Cluestering Level
+    OutputDF.loc[i, "PHInt"] =  ScenCondz.PHS_Int #InitialContmination
+    OutputDF.loc[i, "HTrad"] =  ScenCondz.H_Sampling #Time between contamination event and harvest
+    OutputDF.loc[i, "RTrad"] =  ScenCondz.R_Sampling #Time between contamination event and harvest
+    OutputDF.loc[i, "FPTrad"] =  ScenCondz.FP_Sampling #Time between contamination event and harvest
+    
+    '''
     #Sampling Factors
     OutputDF.at[i, "SampleSize"] = SCInputz.sample_size_PH #Sample Size at Pe-Harvest
     OutputDF.at[i, "SamplesPSublot"] = SCInputz.n_samples_slot_PH #Number of Samples per sublot
     OutputDF.at[i, "NumberGrabs"] =  SCInputz.No_Grabs_PH #Number of Grabs at PreHarvest.
+    '''
     #Harvests
     OutputDF.at[i, "Harvest Wash Red"] =  Inputz.Harvest_Cspray_red #Number of Grabs at PreHarvest.
     #Pre-cooling
@@ -197,7 +217,6 @@ def Func_LoadInputs (OutputDF,i,df, TotalDieoff):
     OutputDF.at[i, "Time_Storage_R"] =  Inputz.Time_Storage_R #Time storage at receiving
     OutputDF.at[i, "Temp_Storage_R"] =  Inputz.Temperature_Storage_R #temperature of receiving storage.
     #Procesing Factord
-    OutputDF.loc[i, "No_Processing_Lines"] =  SCInputz.Processing_Lines #Number of processing lines. 
     OutputDF.loc[i, "WashingYN"] =  SCInputz.Washing_YN #Washing Yes or Not
     OutputDF.loc[i, "TotalCFUFP"] =  df["CFU"].sum()
     
