@@ -177,6 +177,7 @@ Sensitivity_Analysis_Dic = [
                             "Time_Storage_R",
                             "Temp_Storage_R",
                             #Processing Factor
+                            "PreWashYN",
                             "WashingYN",
                             "TotalCFUFP"
     ]
@@ -217,6 +218,7 @@ def Func_LoadInputs (OutputDF,i,df, TotalDieoff):
     OutputDF.at[i, "Time_Storage_R"] =  Inputz.Time_Storage_R #Time storage at receiving
     OutputDF.at[i, "Temp_Storage_R"] =  Inputz.Temperature_Storage_R #temperature of receiving storage.
     #Procesing Factord
+    OutputDF.loc[i, "PreWashYN"] =  SCInputz.C_Spray_HYN #Washing Yes or Not
     OutputDF.loc[i, "WashingYN"] =  SCInputz.Washing_YN #Washing Yes or Not
     OutputDF.loc[i, "TotalCFUFP"] =  df["CFU"].sum()
     
