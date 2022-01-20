@@ -98,6 +98,7 @@ def F_MainLoop():
             #Processing Factors
             #7 Washing Random Choice
             SCInputz.Washing_YN = np.random.choice([True,False])
+            SCInputz.C_Spray_HYN = np.random.choice([True,False])
         
         #Start
         
