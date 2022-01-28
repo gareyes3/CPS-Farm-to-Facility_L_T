@@ -31,11 +31,24 @@ reload(Inputz)
 #%%
 
 def F_MainLoop():
+    '''
+    This main model puts all the functions together into the Leafy green process. 
     
-    #DataCollection DataFrame for outputs.  
+    Returns the 4 main outputs of the model
+    0.the output dataframe
+    1. 
+    -------
+    TYPE
+        DESCRIPTION.
+
+    '''
+    
+    #DataCollection DataFrame for outputs.
+    #Progression Data Frames
     df_Output_Contprog = Dictionariez.Output_DF_Creation(Dictionariez.Column_Names_Progression, SCInputz.N_Iterations) #Progression Dataframe
     df_Output_Propprog = Dictionariez.Output_DF_Creation(Dictionariez.Column_Per_Contaminated, SCInputz.N_Iterations) #Progression Dataframe
     
+    #Outputs dataframe for each of the sampling steps. 
     df_Output_PH =  Dictionariez.Output_DF_Creation(Dictionariez.Column_Names_Outs, SCInputz.N_Iterations)#Main outputs Dataframe pre harvest
     df_Output_H =  Dictionariez.Output_DF_Creation(Dictionariez.Column_Names_Outs, SCInputz.N_Iterations)#Main outputs Dataframe Harvest
     df_Output_R =  Dictionariez.Output_DF_Creation(Dictionariez.Column_Names_Outs, SCInputz.N_Iterations)#Main outputs Dataframe Receiving
@@ -48,7 +61,7 @@ def F_MainLoop():
         print(Iteration_In,"iteration")
         reload(Inputz)
         
-        #Sensitivity Analysis Randomized Inputs only if Sens Analysis is ON. 
+        #PRCC SENSITYIVITY ANALYSIS SECTION Randomized Inputs only if Sens Analysis is ON. 
         if SCInputz.Sensitivity_Analysis == True:
             #Sampling Contamination
             Sampling_Type_SA = np.random.choice(["PH", "H", "R", "FP"])
@@ -68,10 +81,7 @@ def F_MainLoop():
                 ScenCondz.R_Sampling = True
             if Sampling_Type_SA == "FP":
                 ScenCondz.FP_Sampling = True
-                ScenCondz.FPS_Trad= True
-            
-            
-            
+                ScenCondz.FPS_Trad= True    
             #1Hazard Level Selecting From random list
             SCInputz.PSHazard_lvl = np.random.choice(Dictionariez.Contamination_List)
             #2Cluser Suze
@@ -84,15 +94,7 @@ def F_MainLoop():
             elif SCInputz.PSCluster_Size ==100000:
                 SCInputz.PSNo_Cont_Clusters = 1
             
-            '''
-            #Sampling Factors
-            #4 Sampling Size. 
-            SCInputz.sample_size_PH = np.random.choice(Dictionariez.SampleSize_List)
-            #5 Number of samples per sublot
-            SCInputz.n_samples_slot_PH=np.random.choice(Dictionariez.NoSamples_List)
-            #6 Number of grabs per composite sample
-            SCInputz.No_Grabs_PH= np.random.choice(Dictionariez.NoGrabs_List)
-            '''
+            
             #Receiving Factors
             SCInputz.Pre_CoolingYN = np.random.choice([True,False])
             #Processing Factors
@@ -100,21 +102,23 @@ def F_MainLoop():
             SCInputz.Washing_YN = np.random.choice([True,False])
             SCInputz.C_Spray_HYN = np.random.choice([True,False])
         
-        #Start
+        
+        
+        ##################BEGGINING OF THE MODEL ###########################
         
         #Adding Contmination to the Field if Contmination Event Occurs Before Pre-Harvest
         
         #STEP 0 CONTAMINATION SCENARIOS  ----------------------------------------------------------------------------------------------------
 
-
         
-        #Creation of the Data Frame to Track: 
+        #Creation of the main model dataframe. 
         df= InFunz.F_InDF(Partition_Units = SCInputz.Partition_Units,
                           Field_Weight = SCInputz.Field_Weight, 
                           slot_number = SCInputz.slot_number)
 
         
-        if Inputz.Time_CE_PHS>0: #if contamination occurs before PHS then we populate DF. 
+        #adding contamination to the dataframe is contamination happened before PH. 
+        if Inputz.Time_CE_PHS>0: 
             
             #Adding Contamination depending on challenge Pre-harvest challenges
             if ContCondz.Background_C == True:
@@ -128,7 +132,8 @@ def F_MainLoop():
                                              Hazard_lvl=SCInputz.PSHazard_lvl,
                                              No_Cont_Clusters =SCInputz.PSNo_Cont_Clusters, 
                                              Cluster_Size = SCInputz.PSCluster_Size, 
-                                             Partition_Weight = SCInputz.Partition_Weight)
+                                             Partition_Weight = SCInputz.Partition_Weight,
+                                             Random_HL = True)
         
                 
             #Adding Contamination depending on challenge Systematic Sampling
@@ -142,12 +147,12 @@ def F_MainLoop():
             LV_Initial_CFU= sum(df.CFU) #Initial Contamination 
             Listz.List_Initial_CFU.append(LV_Initial_CFU) #Adding Initial Contamintion to List
             
-            #Contprog Initial
+            #Collection of progression
             df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df,
                                                          outputDF = df_Output_Contprog,
                                                          Step_Column = "Contam Event Before PHS", 
                                                          i =Iteration_In )
-            #PropoContaminated
+            #Collection of proportsion contaminated
             df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
                                                                    outputDF =df_Output_Propprog, 
                                                                    Step_Column = "PropCont_CE_B_PHS", 
@@ -158,12 +163,10 @@ def F_MainLoop():
         #Die-off From Contamination Event to Pre-Havrvest
         #LV_Die_Off_CE_PHS =Funz.F_DieOff_IR_PH(Inputz.Time_CE_PHS,Inputz.Break_Point, Inputz.Dieoff1, Inputz.Dieoff2) #Die off rate from Irrigation to pre harvest sampling, Belias et al. 
         
-        #print("Initial", sum(df["CFU"]))
         
         #DIE-OFF, if contamination before PH Occured.
         
         LV_Die_Off_CE_PHS = Funz.F_Simple_DieOff(Inputz.Time_CE_PHS) #Total Die off Contamination Event to PHS.
-        print("Dieoff CE-PHS", LV_Die_Off_CE_PHS)
         df = Funz.Applying_dieoff(df=df, Dieoff=LV_Die_Off_CE_PHS ) #Applying Die off to CFU Column in the DF
 
             
@@ -210,7 +213,6 @@ def F_MainLoop():
         else:  #Rejection normal
             df=Funz.F_Rejection_Rule3(df =df, Test_Unit = SCInputz.RR_PH_Trad, limit = SCInputz.Limit_PH) 
            
-        #print("PH", sum(df["CFU"]))
         
         #Contprog After Pre-Harvest
         df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df,
@@ -288,7 +290,6 @@ def F_MainLoop():
         LV_Die_off_Before = Funz.F_Simple_DieOff(Inputz.Time_CE_PHS)
         LV_Die_off_Total = Funz.F_Simple_DieOff(Inputz.Time_CE_H)
         LV_Die_Off_PHS_HS=LV_Die_off_Total- LV_Die_off_Before
-        print("Dieoff PHS-H",LV_Die_Off_PHS_HS)
         
         #Funz.F_DieOff_PHS_HS(Time_PHS_H, Time_Agg, Break_Point, Dieoff1, Dieoff2)
         
@@ -379,6 +380,7 @@ def F_MainLoop():
                                                     i = Iteration_In, 
                                                     Niterations = SCInputz.N_Iterations)
         
+        
         #In Harvest Chlorination spray. Reduction step.
         if SCInputz.C_Spray_HYN == True:
             df= Funz.F_Simple_Reduction(df,Inputz.Harvest_Cspray_red)        
@@ -395,10 +397,10 @@ def F_MainLoop():
             
             df = GrowthOutsH_PC[0]
             Inputz.Lag_Consumed_Prev = GrowthOutsH_PC[1]
-            print("lag consumed b pre",Inputz.Lag_Consumed_Prev )
 
             
             LV_bef_precool = sum(df.CFU)
+            
             #Pre_Cooling
             if SCInputz.Pre_CoolingYN == True:
                 #Aggresive Temperature Change. Reset Lag Time
@@ -411,7 +413,7 @@ def F_MainLoop():
                 df = GrowthOutsPC[0]
                 Inputz.Lag_Consumed_Prev = GrowthOutsPC[1]
             LV_af_precool = sum(df.CFU) 
-            print(LV_af_precool-LV_bef_precool)
+            print(LV_af_precool-LV_bef_precool, "pre-cool effect")
             
             
             #New Lettuce Temperature approximately 3C if precooling
@@ -662,7 +664,7 @@ def F_MainLoop():
             
             #Mixing products into one batch
             df = df.reset_index(drop=True) 
-            LV_NewPart_Weight  = df.at[1,"Weight"]
+            LV_NewPart_Weight  = df.at[0,"Weight"]
             LV_N_Partitions = int(LV_NewPart_Weight/Inputz.Pack_Weight_FP) 
             df = Funz.F_Partitioning(DF=df,
                                      NPartitions= LV_N_Partitions)

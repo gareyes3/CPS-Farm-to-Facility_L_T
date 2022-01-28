@@ -6,6 +6,8 @@ import math
 import random
 import itertools
 import ScenCondz
+import matplotlib as plt
+import SCInputz
 
 
 
@@ -16,6 +18,13 @@ def Func_NormalTrunc(Min,Max, Mean, SD):
      X= stats.truncnorm((Min - Mean) / SD, (Max - Mean) / SD, loc=Mean, scale=SD)
      Y=(np.float(X.rvs(1)))
      return Y
+ 
+def pert(a, b, c, *, size=1, lamb=4):
+    r = c - a
+    alpha = 1 + lamb * (b - a) / r
+    beta = 1 + lamb * (c - b) / r
+    return a + np.random.beta(alpha, beta, size=size) * r
+
 
 #%% Die off functions    
 
@@ -158,6 +167,14 @@ def F_HarvestingCont ():
     Nh1 = Nb*Rt1 #Total E coli from harvesting blades to lettuce
     return Nh1
 
+def F_InitialCont():
+    #Using base pert distribution
+    #Calculation of total CFUs
+    Cont_CFU_g = float(pert(0,0,634))
+    g_field = SCInputz.Field_Weight*454 #454 g in 1 lb. 
+    Final_Cont = int(Cont_CFU_g*g_field)
+    return Final_Cont
+    
 #%% Sampling Functions
 
 #New Sampling Function
@@ -234,11 +251,11 @@ def F_Rejection_Rule3 (df, Test_Unit, limit):
         Unique_Positives =list(np.unique(flat_list))
         if len(Unique_Positives)>limit:
             Reject.append(i)
-    df.PositiveSamples = [list() for x in range(len(df.index))]
+    df.PositiveSamples = [list() for x in range(len(df.index))] #this is in case everything gets rejected
     if set(Unique_Test_Unit)<= set(Reject):
         df_Blank = df.iloc[[0]]
         df_Blank.loc[:, ['CFU']] = 0
-        df_Blank.loc[:, ['Weight']] = 1000
+        df_Blank.loc[:, ['Weight']] = SCInputz.Partition_Weight
         df_Blank.loc[:, ['Accept']] = "All Rej"
         df = df_Blank
     else:
@@ -617,8 +634,11 @@ def Washing_Batch(df, New_water_every_xpacks):
 def F_Partitioning_ProcLines(gb3 , NPartitions):
     List_GB3 = []
     for j in gb3:
-        j = F_Partitioning_W(DF= j,NPartitions= NPartitions) 
-        List_GB3.append(j)
+        if len(j) != 1:
+            j = F_Partitioning_W(DF= j,NPartitions= NPartitions) 
+            List_GB3.append(j)
+        elif len(j) == 1:
+            List_GB3.append(j)
     return List_GB3
 
 def F_DF_Clvl(Time):

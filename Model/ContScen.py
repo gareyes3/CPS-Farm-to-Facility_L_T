@@ -9,6 +9,7 @@ import random
 import seaborn as sns
 from matplotlib import pyplot as plt
 import Funz
+import Inputz
 
 #%% Contamination Scenarios
 
@@ -26,7 +27,9 @@ def F_Point_Source_C (df, Hazard_lvl, No_Cont_Clusters, Cluster_Size, Partition_
     df.loc[X_1,'CFU']= df['CFU'] + Ci
     return df
     
-def F_systematic_C(df, Hazard_lvl,No_Cont_Clusters,Cluster_Size, Partition_Weight ):
+def F_systematic_C(df, Hazard_lvl,No_Cont_Clusters,Cluster_Size, Partition_Weight, Random_HL = False):
+    if Random_HL == True:
+        Hazard_lvl = Inputz.Random_HL
     #number of contminated partitions per cluster
     No_Cont_PartitionUnits = int(Cluster_Size/Partition_Weight) 
     #Determining haard level per partitions

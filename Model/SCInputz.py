@@ -15,7 +15,7 @@ import numpy as np
 Sensitivity_Analysis = False
 
 
-N_Iterations= 1000
+N_Iterations= 100
 Field_Weight= 100000 #total lb in field
 slot_weight = 10000 #weight of the sublot in field.
 Partition_Weight = 50 #Partition weight for contamination Events, Partition to have better definition of field. 
@@ -68,25 +68,27 @@ if ContCondz.Pack_C == True:
 
 #Pre_Harvest   
 test_unit_PH = "Sublot"
-sample_size_PH = 375 # (Input) g #Sample Size in grams for Pre Harvest
-n_samples_slot_PH = 1 # (Input) Samples per sublot of product
-No_Grabs_PH = 60
+sample_size_PH = 37.5 # (Input) g #Sample Size in grams for Pre Harvest
+n_samples_slot_PH = 10 # (Input) Samples per sublot of product
+No_Grabs_PH = 6 #Number of graps per sample. stratified per sample. 
 Limit_PH = 0
-RR_PH_Trad = "Sublot" #Reject by Sublot
+RR_PH_Trad = "Lot" #Reject by Sublot
 #Intesne pre-harvest sampling
 if ScenCondz.PHS_Int ==True:
+    sample_size_PH = 37.5
     n_samples_lot_PH = 10 # (Input) Samples per lot of product'
+    No_Grabs_PH = 6
     RR_PH_Int = "Lot"
     test_unit_PH = "Lot"
     
 
 #Harvest Inputs: 
 test_unit_H = "Sublot"
-sample_size_H = 375 #g #Sample Size in grams
-n_samples_slot_H = 1 # Samples per lot of product
-No_Grabs_H = 60 
+sample_size_H = 37.5 #g #Sample Size in grams
+n_samples_slot_H = 10 # Samples per lot of product
+No_Grabs_H = 6 
 Limit_H = 0
-RR_H_Trad  = "Sublot"
+RR_H_Trad  = "Lot"
 #aggregative_prehavest sampling
 if ScenCondz.HS_Agg ==True:
     n_samples_slot_H = 10 # (Input) Samples per lot of product'
@@ -96,16 +98,16 @@ if ScenCondz.HS_Agg ==True:
 #Receiving sampling:
 test_unit_R = "PalletNo"
 n_samples_pallet = 1 #samples taken per pallet
-sample_size_R = 150 #375 #g #Sample Size in grams Receiving
-No_Grabs_R = 20
+sample_size_R = 15 #375 #g #Sample Size in grams Receiving
+No_Grabs_R = np.random.choice([2,3])
 Limit_R =0
-RR_R_Trad= "PalletNo"
+RR_R_Trad= "Lot"
 
 
 #Finished Product Sampling: 
 test_unit_FP = "Lot"
 sample_size_FP = 375 #g #Sample Size in grams
-n_samples_FP = 10 #number of samples per lot final product
+n_samples_FP = 1 #number of samples per lot final product
 N_Packages_Samples = 60
 RR_FP_Trad = "Lot"
 if ScenCondz.FPS_Agg ==True:

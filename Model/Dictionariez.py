@@ -61,6 +61,15 @@ Column_Per_Contaminated = ["PropCont_CE_B_PHS",
 
 
 
+#Rejected Contaminated
+#Rejected Not Contaminated
+
+#Accepted Contaminated
+#Accepted Not Contaminated
+
+def Contingency_Output(df, Step_Column, i):
+    PH_B_Rej= df["CFU"]
+    
 
 
 
