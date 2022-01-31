@@ -41,7 +41,6 @@ reload(SCInputz)
 reload(ScenCondz)
 
 #%%
-
 #Options
      #Washing
      #Holding
@@ -81,6 +80,10 @@ def scenario_function(
         3. Proportion Progression DF
     
     '''
+    reload(MainModel3z)
+    reload(Inputz)
+    reload(SCInputz)
+    reload(ScenCondz)
     
     #Contamination Type
     ContCondz.Systematic_C = True
@@ -104,7 +107,7 @@ def scenario_function(
     SCInputz.C_Spray_HYN =Harvest_Wash
     
     
-    SCInputz.SysHazard_lvl = 1_000_000  #CFU # background contaminatio
+    SCInputz.SysHazard_lvl = 100_000  #CFU # background contaminatio
     SCInputz.SysCluster_Size = np.random.choice(np.arange(1_000,100_001,1_000)) #Range of cluster from 1,000 lb to 100,000 lb 
     SCInputz.SysNo_Cont_Clusters = 1 #One cluster per field.  
     
@@ -136,6 +139,7 @@ def scenario_function(
         ScenCondz.FP_Sampling = 1
         ScenCondz.FPS_Trad = 1
 
+    reload(SCInputz)
     
     #Running The Model.
     Main_Mod_Outs = MainModel3z.F_MainLoop()
@@ -147,25 +151,140 @@ def scenario_function(
     #FinalConts = Main_Mod_Outs[6]
     
     return [OutputDF,ProgDF,PropProgDF]
+
+#%%
+
+#COMPARING THE mean and 95% CI Reduction between two groups. 
+import numpy as np
+import math
+import scipy.stats as st
+import statsmodels.stats.api as sms
+
+def mean_CI_ONE(Array):
+    mean = Array.mean()
+    CI = sms.DescrStatsW(Array).tconfint_mean()
+    #log_mean = mean.log10()
+    #CI_log = CI.log10()
+    return [mean,CI]
+
+def Calc_red(meanCI, treatments):
+    list_1=[]
+    for i in list(range(0,treatments)):
+        mean = meanCI[i][0]
+        list_1.append(((meanCI[0][0]-mean)/meanCI[0][0]))
+    return list_1
     
+#%% Effect of Individual Interventions
+Baseline_NI =  scenario_function()
+
+#Effect of Holding
+Baseline_NI_Holding =  scenario_function(Holding=True)
+
+#Effect of PreCooling
+Baseline_NI_Precooling =  scenario_function(Pre_Cooling=True)
+
+#Effect of Wash
+Baseline_NI_Wash =  scenario_function(Washing=True)
+
+#Harvest Wash
+Baseline_NI_H_Wash =  scenario_function(Harvest_Wash=True)
+
+
+Baseline_NI[1].columns
+
+#Initial Contamination From BAseline
+(Baseline_NI[1]['Contam Event Before PHS'].mean() - 6882030.7) / Baseline_NI[1]['Contam Event Before PHS'].mean()
+
+(6882030.7- Baseline_NI_Holding[1]['Final Product Facility'].mean()) / 6882030.7
+
+
+Intervention_Final_Conts = [Baseline_NI[1],
+                     Baseline_NI_Holding[1],
+                     Baseline_NI_Precooling[1],
+                     Baseline_NI_Wash[1],
+                     Baseline_NI_H_Wash[1]
+                     ]
+
+
+
+List_of_Final_Conts_Ints = [x["Final Product Facility"] for x in Intervention_Final_Conts]
+Column_Names = "BaselineNI Holding Precooling Washing Harvest_Wash".split()
+
+
+Final_Conts_INT = pd.concat(List_of_Final_Conts_Ints, axis = 1)
+Final_Conts_INT.columns = Column_Names
+Final_Conts_INT_melted = Final_Conts_INT.melt()
+
+H=sns.catplot(x="variable", y="value", kind = "bar" ,
+            data=Final_Conts_INT_melted)
+plt.xlabel("Intervention")
+plt.ylabel("Total CFUs at Finished Product")
+plt.yscale('log')
+plt.title("CFU Final Contamination")
+plt.xticks(rotation=70)
+
+
+
+Mean_andCI= [mean_CI_ONE(x) for x in List_of_Final_Conts_Ints]
+
+
+
+
+Reduction = Calc_red(meanCI =Mean_andCI,treatments= 5)
+
+reduction_DF = pd.DataFrame({"Treatment": Column_Names,
+                             "Reduction": Reduction} )
+
+reduction_DF=reduction_DF.sort_values('Reduction',ascending=False).reset_index()
+
+chart = sns.barplot(data = reduction_DF, x = "Treatment", y = "Reduction", order=reduction_DF['Treatment'])
+chart.bar_label(chart.containers[0])
+plt.xlabel("Intervention")
+plt.ylabel("Percent Reduction from Baseline NI")
+
+Intervention_Comp = pd.DataFrame([mean_CI_ONE(x) for x in List_of_Final_Conts_Ints], columns = ["mean", "95% CI"])
+
 
 #%% Running the scenarios. 
 
-### BASELINE ###
+### BASELINE  NO INTERVENTION###
 #Baseline Scenario No Intervention. 
 Baseline_NI =  scenario_function()
 
+### Pre-Harvest Sampling 4 days.
+#Baseline no intervention. 4 days preharvest sampling
+Baseline_NI_PHS4d =  scenario_function(PHS4d = True)
 
+#Baseline no intervention. 4 hours preharvest sampling
+Baseline_NI_PHS4h =  scenario_function(PHS4h = True)
+
+#Baseline no intervention. 4 hours preharvest sampling
+Baseline_NI_PHSInt =  scenario_function(PHSInt = True)
+
+#Baseline no intervention Harvest Sampling Traditional
+Baseline_NI_H=  scenario_function(HSTrad = True)
+
+#Baseline no intervention Receiving Samplgin Traditional
+Baseline_NI_R=  scenario_function(RSTrad =True)
+
+#Baseline no intervention Receiving Samplgin Traditional
+Baseline_NI_FP=  scenario_function(FPSTrad =True)
+
+
+
+
+
+### BASELINE  ALL INTERVENTIONS###
+
+### Pre-Harvest Sampling 4 days.
 #Baseline Scenario All Interventions.
 Baseline_AI =  scenario_function(Washing = True,
                                  Holding = True,
                                  Pre_Cooling = True,
                                  Harvest_Wash = True)
+ 
 
-### Pre-Harvest Sampling 4 days. 
 
-#Baseline no intervention. 4 days preharvest sampling
-Baseline_NI_PHS4d =  scenario_function(PHS4d = True)
 
 #Baseline with intervention. 4 days pre-harvest sampling
 
@@ -179,41 +298,104 @@ Baseline_AI_PHS4d =  scenario_function(Washing = True,
 #Baseline no intervention. 4 hours preharvest sampling
 Baseline_NI_PHS4h =  scenario_function(PHS4h = True)
 
+### Pre-Harvest Sampling 4h
 #Baseline with intervention. 4 hours pre-harvest sampling
-
 Baseline_AI_PHS4h =  scenario_function(Washing = True,
                                  Holding = True,
                                  Pre_Cooling = True,
                                  Harvest_Wash = True,
                                  PHS4h = True)
 
-### Pre-Harvest Sampling 4h
-#Baseline no intervention. 4 hours preharvest sampling
-Baseline_NI_PHSInt =  scenario_function(PHSInt = True)
-
-#Baseline with intervention. 4 hours pre-harvest sampling
-
+### Pre-Harvest Sampling Intense
+#Baseline with intervention. Intense pre-harvest sampling
 Baseline_AI_PHSInt =  scenario_function(Washing = True,
                                  Holding = True,
                                  Pre_Cooling = True,
                                  Harvest_Wash = True,
                                  PHSInt = True)
 
+### Harvest Sampling Intense
+#Baseline with intervention. Intense Harvest sampling
+Baseline_AI_H =  scenario_function(Washing = True,
+                                 Holding = True,
+                                 Pre_Cooling = True,
+                                 Harvest_Wash = True,
+                                 HSTrad = True)
+
+### Receiving Sampling Intense
+#Baseline with intervention. Intense Receiving sampling
+Baseline_AI_R =  scenario_function(Washing = True,
+                                 Holding = True,
+                                 Pre_Cooling = True,
+                                 Harvest_Wash = True,
+                                 RSTrad = True)
+
+### FPS Sampling Intense
+#Baseline with intervention. Intense Receiving sampling
+Baseline_AI_FP =  scenario_function(Washing = True,
+                                 Holding = True,
+                                 Pre_Cooling = True,
+                                 Harvest_Wash = True,
+                                 FPSTrad = True)
+
 
 
 #%% Data analysis
 
+#BASELINE NO INTERVETIONS -------------------------------------------------------
+
 #Creating list of contamination progression
-List_of_Progs = [Baseline_NI[1],
-                     Baseline_AI[1],
+List_of_Progs_NI = [Baseline_NI[1],
                      Baseline_NI_PHS4d[1],
-                     Baseline_AI_PHS4d[1],
                      Baseline_NI_PHS4h[1],
-                     Baseline_AI_PHS4h[1],
                      Baseline_NI_PHSInt[1],
-                     Baseline_AI_PHSInt[1]
+                     Baseline_NI_H[1],
+                     Baseline_NI_R[1],
+                     Baseline_NI_FP[1]
                      ]
 
+L_FC_NI = [x["Final Product Facility"] for x in List_of_Progs_NI]
+Column_Names_L_FC_NI = "BaselineNI PHS4D PHS4H PHSInt HTrad RSTrad FPSTrad".split()
+
+
+FC_NI = pd.concat(L_FC_NI, axis = 1)
+FC_NI.columns = Column_Names_L_FC_NI
+FC_NI_melted = FC_NI.melt()
+
+#Catplot
+H=sns.catplot(x="variable", y="value", kind = "box" ,
+            data=FC_NI_melted)
+plt.xlabel("Intervention")
+plt.ylabel("Total CFUs at Finished Product")
+plt.yscale('log')
+plt.title("CFU Final Contamination: Baseline No INterventions")
+plt.xticks(rotation=70)
+
+
+L_FC_NI_Mean_CI= [mean_CI_ONE(x) for x in L_FC_NI]
+
+
+Reduction_L_FC_NI = Calc_red(meanCI =L_FC_NI_Mean_CI,treatments= 7)
+
+reduction_DF_L_FC_NI = pd.DataFrame({"Treatment": Column_Names_L_FC_NI,
+                             "Reduction": Reduction_L_FC_NI} )
+
+reduction_DF_L_FC_NI=reduction_DF_L_FC_NI.sort_values('Reduction',ascending=False).reset_index()
+#reduction_DF_L_FC_NI=reduction_DF_L_FC_NI[:6]
+
+chart = sns.barplot(data = reduction_DF_L_FC_NI, x = "Treatment", y = "Reduction", order=reduction_DF_L_FC_NI['Treatment'])
+chart.bar_label(chart.containers[0])
+plt.xlabel("Intervention")
+plt.ylabel("Percent Reduction from Baseline NI")
+#plt.ylim(0.995,1)
+
+
+
+
+
+
+
+#### BASELINE INTERVETION-------------------------------------------------------------------------------
 
 List_of_Rejs = [Baseline_NI[0],
                      Baseline_AI[0],
@@ -226,6 +408,7 @@ List_of_Rejs = [Baseline_NI[0],
                      ]
 
 List_of_Final_Conts = [x["Final Product Facility"] for x in List_of_Progs]
+List_of_Initial_Cont = [x["Final Product Facility"] for x in List_of_Progs]
 Column_Names = "BaselineNI BaselineAI NI_PHS4D AI_PHS4D NI_PHS4H AI_PHS4H NI_PHSInt AI_PHSInt".split()
 
 
@@ -258,21 +441,12 @@ plt.xticks(rotation=70)
 
 
 #%%
-#COMPARING THE mean and 95% CI Reduction between two groups. 
-import numpy as np
-import math
-import scipy.stats as st
-import statsmodels.stats.api as sms
 
-def mean_CI_ONE(Array):
-    mean = Array.mean()
-    CI = sms.DescrStatsW(Array).tconfint_mean()
-    #log_mean = mean.log10()
-    #CI_log = CI.log10()
-    return [mean,CI]
+
+
 
 [mean_CI_ONE(x) for x in List_of_Final_Conts]
 
-
+pd.DataFrame([mean_CI_ONE(x) for x in List_of_Final_Conts], columns = ["mean", "95% CI"])
 
 [mean_CI_ONE(x) for x in List_of_Final_Rejs]

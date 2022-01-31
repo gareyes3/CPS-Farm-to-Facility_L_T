@@ -138,10 +138,12 @@ def F_MainLoop():
                 
             #Adding Contamination depending on challenge Systematic Sampling
             if ContCondz.Systematic_C == True:
-                df = ContScen.F_systematic_C(df=df, Hazard_lvl= SCInputz.SysHazard_lvl,
+                df = ContScen.F_systematic_C(df=df, 
+                                             Hazard_lvl= SCInputz.SysHazard_lvl,
                                              No_Cont_Clusters =SCInputz.SysNo_Cont_Clusters,
                                              Cluster_Size= SCInputz.SysCluster_Size,
-                                             Partition_Weight = SCInputz.Partition_Weight)
+                                             Partition_Weight = SCInputz.Partition_Weight,
+                                             Random_HL=False)
                 
             # Local Outputs: Initial Contamination     
             LV_Initial_CFU= sum(df.CFU) #Initial Contamination 
@@ -262,7 +264,8 @@ def F_MainLoop():
                 df = ContScen.F_systematic_C(df=df, Hazard_lvl= SCInputz.SysHazard_lvl,
                                              No_Cont_Clusters =SCInputz.SysNo_Cont_Clusters,
                                              Cluster_Size= SCInputz.SysCluster_Size,
-                                             Partition_Weight = SCInputz.Partition_Weight)
+                                             Partition_Weight = SCInputz.Partition_Weight,
+                                             Random_HL = False)
                 
             # Local Outputs: Initial Contamination     
             LV_Initial_CFU= sum(df.CFU) #Initial Contamination 

@@ -37,8 +37,27 @@ Column_Names_Progression = ["Contam Event Before PHS",
                             "Bef Centrifuge",
                             "Aft Value Addition",
                             "Bef Final Prod S",
-                            "Final Product Facility"
+                            "Final Product Facility",
                             ]
+
+Column_Names_Mass_Prog = ["Contam Event Before PHS",
+                            "Bef Pre-Harvest Samp",
+                            "Aft Pre-Harvest Samp",
+                            "Contam Event After PHS",
+                            "Bef Harvest Samp",
+                            "Aft Harvest Samp",
+                            "Bef Receiving Samp",
+                            "After Receiving Samp",
+                            "Bef Shredding",
+                            "Bef Conveyor Belt",
+                            "Bef Washing",
+                            "Bef Shaker Table",
+                            "Bef Centrifuge",
+                            "Aft Value Addition",
+                            "Bef Final Prod S",
+                            "Final Product Facility",
+                            ]
+
 
 Column_Per_Contaminated = ["PropCont_CE_B_PHS",
                             "PropCont_B_PHS",
@@ -59,6 +78,16 @@ Column_Per_Contaminated = ["PropCont_CE_B_PHS",
                             "TotalCont_A_FP",
     ]
 
+Columns_Final_Outs = [
+    "I_Per_Cont_Packages",
+    "I_Total_CFU",
+    "I_Total_CFU_g"
+    "F_Per_Cont_Packages",
+    "TotalCF",
+    "I_Total_CFU",
+    "F_Total_CFU_g"
+    ]
+
 
 
 #Rejected Contaminated
@@ -66,11 +95,7 @@ Column_Per_Contaminated = ["PropCont_CE_B_PHS",
 
 #Accepted Contaminated
 #Accepted Not Contaminated
-
-def Contingency_Output(df, Step_Column, i):
-    PH_B_Rej= df["CFU"]
     
-
 
 
 def Output_DF_Creation(Column_Names, Niterations):
