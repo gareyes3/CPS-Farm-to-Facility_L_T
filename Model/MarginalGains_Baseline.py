@@ -84,6 +84,37 @@ def scenario_function(
     reload(Inputz)
     reload(SCInputz)
     reload(ScenCondz)
+    reload(ContCondz)
+    
+        #Sampling Condition
+    # Sampling Conditions, Baseline all conditions are off
+    
+    ScenCondz.Baseline_Sampling = 0  # all others must be 0 if this one is 1
+    #PHS4d
+    if PHS4d == True:
+        ScenCondz.PH_Sampling = 1
+        ScenCondz.PHS_4d = 1
+        
+    if PHS4h == True:
+        ScenCondz.PH_Sampling = 1
+        ScenCondz.PHS_4h = 1
+    
+    if PHSInt == True:
+        ScenCondz.PH_Sampling = 1
+        ScenCondz.PHS_Int = 1
+    
+    if HSTrad == True:
+        ScenCondz.H_Sampling = 1
+        ScenCondz.HS_Trad = 1
+    
+    if RSTrad == True:
+        ScenCondz.R_Sampling = 1
+    
+    if FPSTrad == True:
+        ScenCondz.FP_Sampling = 1
+        ScenCondz.FPS_Trad = 1
+    
+    reload(SCInputz)
     
     #Contamination Type
     ContCondz.Systematic_C = True
@@ -111,35 +142,7 @@ def scenario_function(
     SCInputz.SysCluster_Size = np.random.choice(np.arange(1_000,100_001,1_000)) #Range of cluster from 1,000 lb to 100,000 lb 
     SCInputz.SysNo_Cont_Clusters = 1 #One cluster per field.  
     
-    #Sampling Condition
-    # Sampling Conditions, Baseline all conditions are off
-    
-    ScenCondz.Baseline_Sampling = 0  # all others must be 0 if this one is 1
-    #PHS4d
-    if PHS4d == True:
-        ScenCondz.PH_Sampling = 1
-        ScenCondz.PHS_4d = 1
-        
-    if PHS4h == True:
-        ScenCondz.PH_Sampling = 1
-        ScenCondz.PHS_4h = 1
-    
-    if PHSInt == True:
-        ScenCondz.PH_Sampling = 1
-        ScenCondz.PHS_Int = 1
-    
-    if HSTrad == True:
-        ScenCondz.H_Sampling = 1
-        ScenCondz.HS_Trad = 1
-    
-    if RSTrad == True:
-        ScenCondz.R_Sampling = 1
-    
-    if FPSTrad == True:
-        ScenCondz.FP_Sampling = 1
-        ScenCondz.FPS_Trad = 1
 
-    reload(SCInputz)
     
     #Running The Model.
     Main_Mod_Outs = MainModel3z.F_MainLoop()
@@ -239,6 +242,7 @@ reduction_DF=reduction_DF.sort_values('Reduction',ascending=False).reset_index()
 
 chart = sns.barplot(data = reduction_DF, x = "Treatment", y = "Reduction", order=reduction_DF['Treatment'])
 chart.bar_label(chart.containers[0])
+plt.title("mean % Reduction obtained by Intervention")
 plt.xlabel("Intervention")
 plt.ylabel("Percent Reduction from Baseline NI")
 
@@ -269,8 +273,6 @@ Baseline_NI_R=  scenario_function(RSTrad =True)
 
 #Baseline no intervention Receiving Samplgin Traditional
 Baseline_NI_FP=  scenario_function(FPSTrad =True)
-
-
 
 
 
@@ -363,7 +365,7 @@ FC_NI.columns = Column_Names_L_FC_NI
 FC_NI_melted = FC_NI.melt()
 
 #Catplot
-H=sns.catplot(x="variable", y="value", kind = "box" ,
+H=sns.catplot(x="variable", y="value", kind = "bar" ,
             data=FC_NI_melted)
 plt.xlabel("Intervention")
 plt.ylabel("Total CFUs at Finished Product")
@@ -391,6 +393,52 @@ plt.ylabel("Percent Reduction from Baseline NI")
 
 
 
+NI_PH4d_RE=Baseline_NI_PHS4d[0]
+NI_PH4h_RE=Baseline_NI_PHS4h[0]
+NI_PHSInt_RE=Baseline_NI_PHSInt[0]
+NI_HSTrad_RE=Baseline_NI_H[0]
+NI_RSTrad_RE=Baseline_NI_R[0]
+NI_FPSTrad_RE=Baseline_NI_FP[0]
+
+
+len(NI_PH4d_RE[(NI_PH4d_RE["PH_CFU_Acc"]>0) | (NI_PH4d_RE["PH_CFU_Rej"]>0) ])
+len(NI_PH4d_RE[ (NI_PH4d_RE["PH_CFU_Rej"]>0) ])
+
+Before_PHS4d=Baseline_NI_PHS4d[1]["Bef Pre-Harvest Samp"]
+Before_PHS4d[Before_PHS4d>0].describe()
+
+
+NI_PH4h_RE[(NI_PH4h_RE["PH_CFU_Acc"]>0) | (NI_PH4h_RE["PH_CFU_Rej"]>0) ]
+NI_PH4h_RE[ (NI_PH4h_RE["PH_CFU_Rej"]>0) ]
+
+Before_PHS4h=Baseline_NI_PHS4h[1]["Bef Pre-Harvest Samp"]
+Before_PHS4h[Before_PHS4h>0].describe()
+
+
+NI_PHSInt_RE[(NI_PHSInt_RE["PH_CFU_Acc"]>0) | (NI_PHSInt_RE["PH_CFU_Rej"]>0) ]
+NI_PHSInt_RE[ (NI_PHSInt_RE["PH_CFU_Rej"]>0) ]
+
+Before_PHSInt=Baseline_NI_PHSInt[1]["Bef Pre-Harvest Samp"]
+Before_PHSInt[Before_PHSInt>0].describe()
+
+
+NI_HSTrad_RE[(NI_HSTrad_RE["H_CFU_Acc"]>0) | (NI_HSTrad_RE["H_CFU_Rej"]>0) ]
+NI_HSTrad_RE[ (NI_HSTrad_RE["H_CFU_Rej"]>0) ]
+
+Before_HS=Baseline_NI_H[1]["Bef Harvest Samp"]
+Before_HS[Before_HS>0].describe()
+
+
+NI_RSTrad_RE[(NI_RSTrad_RE["R_CFU_Acc"]>0) | (NI_RSTrad_RE["R_CFU_Rej"]>0) ]
+NI_RSTrad_RE[ (NI_RSTrad_RE["R_CFU_Rej"]>0) ]
+
+Before_R=Baseline_NI_R[1]["Bef Receiving Samp"]
+Before_R[Before_R>0].describe()
+
+
+
+NI_FPSTrad_RE[(NI_FPSTrad_RE["FP_CFU_Acc"]>0) | (NI_FPSTrad_RE["FP_CFU_Rej"]>0) ]
+NI_FPSTrad_RE[ (NI_FPSTrad_RE["FP_CFU_Rej"]>0) ]
 
 
 

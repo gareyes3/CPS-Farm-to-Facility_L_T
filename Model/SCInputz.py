@@ -15,7 +15,7 @@ import numpy as np
 Sensitivity_Analysis = False
 
 
-N_Iterations= 100
+N_Iterations= 500
 Field_Weight= 100000 #total lb in field
 slot_weight = 10000 #weight of the sublot in field.
 Partition_Weight = 50 #Partition weight for contamination Events, Partition to have better definition of field. 

@@ -128,7 +128,7 @@ def Output_Collection_Final(df, outputDF, Step, Cont_Before, Weight_Before, i, N
     Cont_Acc = sum(df.CFU)
     Cont_Rej = Cont_Before-Cont_Acc
     if Cont_Acc == 0:
-        Cont_PerR = 1
+        Cont_PerR = None
     else:
         Cont_PerR = Cont_Rej/(Cont_Acc+Cont_Rej) #Percentage Rejected by Finished product sampling
     #Weight
