@@ -167,8 +167,9 @@ def F_MainLoop():
         
         
         #DIE-OFF, if contamination before PH Occured.
-        
-        LV_Die_Off_CE_PHS = Funz.F_Simple_DieOff(Inputz.Time_CE_PHS) #Total Die off Contamination Event to PHS.
+        LV_Die_off_Total = Funz.F_Simple_DieOff(Inputz.Time_CE_H)
+        LV_Die_Off_CE_PHS = ((Inputz.Time_CE_PHS)/Inputz.Time_CE_H)*LV_Die_off_Total
+
         df = Funz.Applying_dieoff(df=df, Dieoff=LV_Die_Off_CE_PHS ) #Applying Die off to CFU Column in the DF
 
             
@@ -288,11 +289,14 @@ def F_MainLoop():
         
         
         
-        #Pre-Harvest Sampling - Harvest Sampling Die off
+        #Pre-Harvest Sampling - Harvest Sampling Die off       
+    
+
+        LV_Die_Off_PHS_HS=LV_Die_off_Total - LV_Die_Off_CE_PHS
+        print(LV_Die_off_Total, "Total Dieoff")
+        print(LV_Die_Off_CE_PHS, "Dieoff Before")
+        print(LV_Die_Off_PHS_HS, "Die off PHS+HS")
         
-        LV_Die_off_Before = Funz.F_Simple_DieOff(Inputz.Time_CE_PHS)
-        LV_Die_off_Total = Funz.F_Simple_DieOff(Inputz.Time_CE_H)
-        LV_Die_Off_PHS_HS=LV_Die_off_Total- LV_Die_off_Before
         
         #Funz.F_DieOff_PHS_HS(Time_PHS_H, Time_Agg, Break_Point, Dieoff1, Dieoff2)
         

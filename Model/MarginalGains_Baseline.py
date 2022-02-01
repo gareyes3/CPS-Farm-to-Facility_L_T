@@ -440,6 +440,9 @@ Before_R[Before_R>0].describe()
 NI_FPSTrad_RE[(NI_FPSTrad_RE["FP_CFU_Acc"]>0) | (NI_FPSTrad_RE["FP_CFU_Rej"]>0) ]
 NI_FPSTrad_RE[ (NI_FPSTrad_RE["FP_CFU_Rej"]>0) ]
 
+Before_FPS=Baseline_NI_FP[1]["Bef Final Prod S"]
+Before_FPS[Before_FPS>0].describe()
+
 
 
 
