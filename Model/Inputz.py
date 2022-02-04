@@ -10,7 +10,8 @@ Created on Tue Jul 20 09:31:30 2021
 import ScenCondz
 import ContCondz
 import Funz
-import numpy as np   
+import numpy as np  
+import SCInputz 
        
 #Randomized Initial Contamination
 
@@ -107,9 +108,35 @@ Temperature_ColdStorage = np.random.normal(5.1,0.27) #C
     #Shredder
 Tr_Sh_P =np.random.triangular(0.16,0.20,0.28)
 Tr_P_Sh =np.random.triangular(0,0.0025,0.0053)
+
+if SCInputz.Sanitation_YN == True:
+    #Sanitation Shredder.
+    Sh_Compliance = np.random.choice([0,0.25,0.50,0.75,1])
+    Sh_San_freq = np.random.choice([2500,5000,7500])
+    Sh_San_Eff = int(np.random.choice([-1,-2,-3,-4]))
+
+if SCInputz.Sanitation_YN == False:
+    #Sanitation Shredder.
+    Sh_Compliance = 0
+    Sh_San_freq = 0
+    Sh_San_Eff = 0
+    
+
     #Conveyor Belt
 Tr_Cv_P =np.random.triangular(0.15,0.18,0.22)
 Tr_P_Cv =np.random.triangular(0,0.0062,0.0139)
+
+if SCInputz.Sanitation_YN == True:
+    #Sanitation CV
+    Cv_Compliance = np.random.choice([0,0.25,0.50,0.75,1])
+    Cv_San_freq = np.random.choice([2500,5000,7500])
+    Cv_San_Eff = int(np.random.choice([-1,-2,-3,-4]))
+
+if SCInputz.Sanitation_YN == False:
+    Cv_Compliance = 0
+    Cv_San_freq = 0
+    Cv_San_Eff = 0
+    
 
 #Flume tank washing step
 Wash_Rate = 100 #lb/min
@@ -118,9 +145,35 @@ DF_Chlevels = Funz.F_Chloride_lvl(300) #Simlating Chlorine levels after time.
     #Shaker Table
 Tr_St_P =np.random.triangular(0.06,0.28,0.30)
 Tr_P_St =np.random.triangular(0,0.0006,0.0038)
+
+if SCInputz.Sanitation_YN == True:
+        #Sanitation Shaker Table
+    St_Compliance = np.random.choice([0,0.25,0.50,0.75,1])
+    St_San_freq = np.random.choice([2500,5000,7500])
+    St_San_Eff = int(np.random.choice([-1,-2,-3,-4]))
+    
+if SCInputz.Sanitation_YN == False:
+    St_Compliance = 0
+    St_San_freq = 0
+    St_San_Eff = 0
+
+
     #Centrifuge
 Tr_C_P =np.random.triangular(0.23,0.27,0.31)
 Tr_P_C =np.random.triangular(0,0.0035,0.0159)
+
+if SCInputz.Sanitation_YN == True:
+        #Centrifuge compliance.
+    C_Compliance = np.random.choice([0,0.25,0.50,0.75,1])
+    C_San_freq = np.random.choice([2500,5000,7500])
+    C_San_Eff = int(np.random.choice([-1,-2,-3,-4]))
+    
+if SCInputz.Sanitation_YN == False:
+    #Centrifuge compliance.
+    C_Compliance =0
+    C_San_freq = 0
+    C_San_Eff = 0
+
 
   
 #%% Final Product

@@ -133,7 +133,7 @@ def F_MainLoop():
                                              No_Cont_Clusters =SCInputz.PSNo_Cont_Clusters, 
                                              Cluster_Size = SCInputz.PSCluster_Size, 
                                              Partition_Weight = SCInputz.Partition_Weight,
-                                             Random_HL = True)
+                                             Random_HL = SCInputz.Random_Contam)
         
                 
             #Adding Contamination depending on challenge Systematic Sampling
@@ -143,7 +143,7 @@ def F_MainLoop():
                                              No_Cont_Clusters =SCInputz.SysNo_Cont_Clusters,
                                              Cluster_Size= SCInputz.SysCluster_Size,
                                              Partition_Weight = SCInputz.Partition_Weight,
-                                             Random_HL=False)
+                                             Random_HL=SCInputz.Random_Contam)
                 
             # Local Outputs: Initial Contamination     
             LV_Initial_CFU= sum(df.CFU) #Initial Contamination 
@@ -188,7 +188,7 @@ def F_MainLoop():
                                                                outputDF =df_Output_Propprog, 
                                                                Step_Column =  "PropCont_B_PHS", 
                                                                i = Iteration_In)
-        
+
         
         #Sampling at Pre-Harvest
         if ScenCondz.PH_Sampling ==True: #If function to turn off Pre-Harvest Sampling
@@ -266,7 +266,7 @@ def F_MainLoop():
                                              No_Cont_Clusters =SCInputz.SysNo_Cont_Clusters,
                                              Cluster_Size= SCInputz.SysCluster_Size,
                                              Partition_Weight = SCInputz.Partition_Weight,
-                                             Random_HL = False)
+                                             Random_HL = SCInputz.Random_Contam)
                 
             # Local Outputs: Initial Contamination     
             LV_Initial_CFU= sum(df.CFU) #Initial Contamination 
@@ -293,9 +293,9 @@ def F_MainLoop():
     
 
         LV_Die_Off_PHS_HS=LV_Die_off_Total - LV_Die_Off_CE_PHS
-        print(LV_Die_off_Total, "Total Dieoff")
-        print(LV_Die_Off_CE_PHS, "Dieoff Before")
-        print(LV_Die_Off_PHS_HS, "Die off PHS+HS")
+        #print(LV_Die_off_Total, "Total Dieoff")
+        #print(LV_Die_Off_CE_PHS, "Dieoff Before")
+        #print(LV_Die_Off_PHS_HS, "Die off PHS+HS")
         
         
         #Funz.F_DieOff_PHS_HS(Time_PHS_H, Time_Agg, Break_Point, Dieoff1, Dieoff2)
@@ -395,7 +395,6 @@ def F_MainLoop():
         
         if (ScenCondz.Field_Pack == False):
             #STEP 3 RECEIVING ---------------------------------------------------------------------------------------------------------------------
-            
             #Time Between Harvest and Pre-Cooling KoseKi. 
             GrowthOutsH_PC = Funz.Growth_Function_Lag(DF =df, 
                                                     Temperature = Inputz.Temperature_H_PreCooling, 
@@ -420,7 +419,7 @@ def F_MainLoop():
                 df = GrowthOutsPC[0]
                 Inputz.Lag_Consumed_Prev = GrowthOutsPC[1]
             LV_af_precool = sum(df.CFU) 
-            print(LV_af_precool-LV_bef_precool, "pre-cool effect")
+            #print(LV_af_precool-LV_bef_precool, "pre-cool effect")
             
             
             #New Lettuce Temperature approximately 3C if precooling
@@ -434,7 +433,7 @@ def F_MainLoop():
             df = GrowthOutsSto_R[0]
             Inputz.Lag_Consumed_Prev = GrowthOutsSto_R[1]
             
-            print("lag consumed after sto",Inputz.Lag_Consumed_Prev )
+            #print("lag consumed after sto",Inputz.Lag_Consumed_Prev )
             
             #Paletization
             df = Funz.F_Palletization(df=df,
@@ -497,18 +496,17 @@ def F_MainLoop():
                                             Niterations = SCInputz.N_Iterations)
 
             #STEP 4 Value Addition ---------------------------------------------------------------------------------------------------------------------
-        
             #Splitting pallets into processing lines. 
             gb2 = Funz.F_ProLineSplitting(df =df, Processing_Lines = Inputz.Processing_Lines)
-            
+
             #Splitting Processing Lines into Mini Batches
-            gb2 = Funz.F_Partitioning_ProcLines(gb3 = gb2 , NPartitions = int(Inputz.Pallet_Weight/Inputz.Wash_Rate))
-            
+            gb2 = Funz.F_Partitioning_ProcLines(gb3 = gb2 , NPartitions = int(Inputz.Pallet_Weight/SCInputz.Partition_Weight))
+
             #Value Addition Steps
         
             #Cross-Contamination Processing by processing line between 100 lb. batches
             
-            #1 Shredder
+            #1 Shredder --------------------------------------------------------
             df_gb2_bs = (pd.concat(gb2))
             
             #Collecting outputs cont progression 
@@ -529,11 +527,17 @@ def F_MainLoop():
                                        Processing_Lines = Inputz.Processing_Lines, 
                                        Lines_Cont = SCInputz.Lines_Cont)
                 
-            ShredderOuts = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Inputz.Tr_P_Sh, Tr_S_P= Inputz.Tr_Sh_P)
+            ShredderOuts = Funz.F_CrossContProLine(gb2 =gb2, 
+                                                   Tr_P_S = Inputz.Tr_P_Sh, 
+                                                   Tr_S_P= Inputz.Tr_Sh_P,
+                                                   Sanitation_Freq_lb = Inputz.Sh_San_freq,
+                                                   StepEff = Inputz.Sh_San_Eff , 
+                                                   compliance = Inputz.Sh_Compliance)
             gb2 = ShredderOuts[0]
+            gb2[1]["CFU"].sum()
             ShredCont = ShredderOuts[1]  
             
-            #2 Conveyor Belt
+            #2 Conveyor Belt ----------------------------------------------------
             #Contamination before conveyor belt
             df_gb2_bcb = (pd.concat(gb2))
             
@@ -556,13 +560,24 @@ def F_MainLoop():
                                        Processing_Lines = Inputz.Processing_Lines, 
                                        Lines_Cont = SCInputz.Lines_Cont)
                 
-            CVOuts = Funz.F_CrossContProLine(gb2 = gb2, Tr_P_S = Inputz.Tr_P_Cv, Tr_S_P = Inputz.Tr_Cv_P)
+            CVOuts = Funz.F_CrossContProLine(gb2 = gb2, 
+                                             Tr_P_S = Inputz.Tr_P_Cv, 
+                                             Tr_S_P = Inputz.Tr_Cv_P,
+                                             Sanitation_Freq_lb = Inputz.Cv_San_freq,
+                                             StepEff = Inputz.Cv_San_Eff , 
+                                             compliance = Inputz.Cv_Compliance)
             gb2 = CVOuts[0]
             CvCont = CVOuts[1]
             
             
             #3Washing:
             df_gb2_bw = (pd.concat(gb2))
+            
+            #Making it into a dataframe
+            gb2 = Funz.F_ProLineSplitting(df =df_gb2_bw, Processing_Lines = Inputz.Processing_Lines)
+
+            #Changing it into washing batches
+            gb2 = Funz.F_Partitioning_ProcLines(gb3 = gb2 , NPartitions = int(Inputz.Pallet_Weight/Inputz.Wash_Rate))
             
             
             #Collecting outputs cont progression 
@@ -591,6 +606,13 @@ def F_MainLoop():
             #4 Shaker Table
             df_gb2_bst = (pd.concat(gb2))
             
+            #Spliting it back into 5 lb chunks. 
+            gb2 = Funz.F_ProLineSplitting(df =df_gb2_bst, Processing_Lines = Inputz.Processing_Lines)
+
+            #Splitting Processing Lines into Mini Batches
+            gb2 = Funz.F_Partitioning_ProcLines(gb3 = gb2 , NPartitions = int(Inputz.Pallet_Weight/SCInputz.Partition_Weight))
+            
+            
             df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df_gb2_bst,
                    outputDF = df_Output_Contprog,
                    Step_Column =  "Bef Shaker Table", 
@@ -608,7 +630,12 @@ def F_MainLoop():
                                        Processing_Lines = Inputz.Processing_Lines, 
                                        Lines_Cont = SCInputz.Lines_Cont)
                 
-            StOuts = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Inputz.Tr_P_St, Tr_S_P= Inputz.Tr_St_P)
+            StOuts = Funz.F_CrossContProLine(gb2 =gb2, 
+                                             Tr_P_S = Inputz.Tr_P_St, 
+                                             Tr_S_P= Inputz.Tr_St_P,
+                                             Sanitation_Freq_lb = Inputz.St_San_freq,
+                                             StepEff = Inputz.St_San_Eff , 
+                                             compliance = Inputz.St_Compliance)
             gb2 = StOuts[0]
             StCont = StOuts[1]
             
@@ -635,7 +662,12 @@ def F_MainLoop():
                                        Processing_Lines = Inputz.Processing_Lines, 
                                        Lines_Cont = SCInputz.Lines_Cont)
                 
-            CentrifugeOuts = Funz.F_CrossContProLine(gb2 =gb2, Tr_P_S = Inputz.Tr_P_C, Tr_S_P= Inputz.Tr_C_P)
+            CentrifugeOuts = Funz.F_CrossContProLine(gb2 =gb2, 
+                                                     Tr_P_S = Inputz.Tr_P_C, 
+                                                     Tr_S_P= Inputz.Tr_C_P,
+                                                     Sanitation_Freq_lb = Inputz.C_San_freq,
+                                                     StepEff = Inputz.C_San_Eff , 
+                                                     compliance = Inputz.C_Compliance)
             gb2 = CentrifugeOuts[0]
             CentrifugeCont = CentrifugeOuts[1]
                 
@@ -752,6 +784,11 @@ def F_MainLoop():
                                                                    outputDF =df_Output_Propprog, 
                                                                    Step_Column =   "PropCont_A_FP", 
                                                                    i = Iteration_In)
+            
+            df_Output_Propprog = Dictionariez.Prop_Collection_WholeField(df = df, 
+                                                       outputDF =df_Output_Propprog, 
+                                                       Step_Column =   "PropCont_A_FP_Whole", 
+                                                       i = Iteration_In)
             #Sum of positive Packages
             df_Output_Propprog.at[i,"TotalCont_A_FP"] = len(df[df.CFU>0])
             

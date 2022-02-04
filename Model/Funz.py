@@ -75,12 +75,26 @@ def F_Simple_DieOff (Time):
     return Reduction
 
 def Applying_dieoff (df,Dieoff):
-    df["CFU"] =  df["CFU"]*(10**Dieoff) #Applying Die off through DFs
+    vector = np.array(df["CFU"])
+    new_vector=[]
+    for i in vector: 
+        CFU_1 = i
+        new_cont = np.random.binomial(CFU_1,10**Dieoff)
+        new_vector.append(new_cont)
+    df["CFU"] = new_vector
     return df
 
 def F_Simple_Reduction(df, Reduction):
-    df["CFU"] =  df["CFU"]*(10**-Reduction) 
+    vector = np.array(df["CFU"])
+    new_vector=[]
+    for i in vector: 
+        CFU_1 = i
+        new_cont = np.random.binomial(CFU_1,10**-Reduction)
+        new_vector.append(new_cont)
+    df["CFU"] = new_vector
     return df
+
+
 
 #%% Growth  or Reduction Models
 #Cold Storage growth Model
@@ -94,6 +108,7 @@ def F_Growth(DF,Temperature, TimeD ):
     New_CFUs=[]
     for i in CFUs:
         CFUs_g = i/Parition_Weight_g #CFU/g
+        Total_CFU = i
         if CFUs_g < (10**7): #7 log max density
             DieoffRate = np.random.triangular(0.0035, 0.013,0.040)/2.303 #log CFU /g h
             TotalGrowthRate = (b*(Temperature - Tmin))**(2)/(2.303) #log CFU /g h
@@ -105,9 +120,14 @@ def F_Growth(DF,Temperature, TimeD ):
                 TotalGrowth = (TotalGrowthRate*TimeD)
             else:
                 TotalGrowth  = -DieoffRate * TimeD
-            Updated_CFUs=(CFUs_g*10**TotalGrowth)*Parition_Weight_g #Final Growth change CFU/g
+            if TotalGrowth>0:
+                MaxCFUs = Total_CFU*10**math.ceil(TotalGrowth)
+                Difference =  math.ceil(TotalGrowth) - TotalGrowth
+                Updated_CFUs=np.random.binomial(MaxCFUs, 10**-Difference)
+            else:
+                Updated_CFUs= np.random.binomial(Total_CFU,10**TotalGrowth)
         else:
-            Updated_CFUs = CFUs_g*Parition_Weight_g
+            Updated_CFUs = Total_CFU
         New_CFUs.append(Updated_CFUs)
     DF["CFU"] =New_CFUs 
     return DF
@@ -149,13 +169,10 @@ def F_Washing (DF, LogRedWash):
 
 #Calculation of E.coli in Water
 def F_Ecoli_Water():   
-    Cw = random.uniform(1,235)
-    X = stats.truncnorm((-5 - -1.9) / 0.6, (0 - -1.9) / 0.6, loc=-1.9, scale=0.6)
-    Rw_1=(np.float(X.rvs(1)))
-    Rw = 10**Rw_1
-    Y = stats.truncnorm((0 - 0.108) / 0.019, (5 - 0.108) / 0.019, loc=0.108, scale=0.019)
-    W=np.float(Y.rvs(1))
-    Ci = (Cw/100)*Rw*W
+    Cw = np.random.uniform(1,235)
+    Rw = 10**Func_NormalTrunc(Min= -100000, Max = 0, Mean=-1.9, SD = 0.6)
+    W = Func_NormalTrunc(Min = 0, Max = 100000, Mean = 0.108, SD = 0.019)
+    Ci = ((Cw/100)*Rw*W)*(454*SCInputz.Field_Weight)
     return Ci
 
 def F_HarvestingCont ():
@@ -369,12 +386,23 @@ def F_ProLineSplitting(df, Processing_Lines,): #
     gb2 =[gb.get_group(x) for x in gb.groups] #Creating list of separate dataframe by processing lines
     return gb2
 
-def F_CrossContProLine (gb2, Tr_P_S, Tr_S_P):
+
+
+def F_CrossContProLine (gb2, Tr_P_S, Tr_S_P,Sanitation_Freq_lb = 0, StepEff = 0 , compliance = 0 ):
     ContS_L=[]
     for j in gb2:
+        rateweight = j.iloc[0]['Weight']
+        every_x_many = int(Sanitation_Freq_lb/rateweight)
         ContS=0
+        if every_x_many > 0:
+            Cleaning_steps = np.arange(0, len(j) , every_x_many )
         for row in j.itertuples():
             i  = row[0]
+            if random.uniform(0,1)<compliance:
+                if every_x_many > 0:
+                    if i in Cleaning_steps:
+                        if ContS>0:
+                            ContS = ContS*(10**StepEff) 
             ContP = j.CFU[i] #Contamination product
             TotTr_P_S= np.random.binomial(ContP,Tr_P_S) #Transfer from Product to Surfaces
             TotTr_S_P = np.random.binomial(ContS,Tr_S_P) #Trasnfer from Surfaves to product
@@ -386,20 +414,28 @@ def F_CrossContProLine (gb2, Tr_P_S, Tr_S_P):
     return Outputs
 
 
-def F_CrossContProLine2 (gb2, Tr_P_S, Tr_S_P):
+def F_CrossContProLine2 (gb2, Tr_P_S, Tr_S_P, Sanitation_Freq_lb = 0, StepEff = 0 , compliance = 0 ):
     ContS_L=[]
     for j in gb2:
+        rateweight = j.iloc[0]['Weight']
+        every_x_many = int(Sanitation_Freq_lb/rateweight)
         ContS=0
         vectorCFU = j.CFU
         newvector=[]
-        for i in vectorCFU:
-            ContP = i #Contamination product
+        if every_x_many > 0:
+            Cleaning_steps = np.arange(0, len(vectorCFU) , every_x_many )
+        for i in range(len(vectorCFU)):
+            if random.uniform(0,1)<compliance:
+                if every_x_many > 0:
+                    if i in Cleaning_steps:
+                        ContS = ContS*10**StepEff
+                        print ("cleaned")
+            ContP = vectorCFU[i] #Contamination product
             TotTr_P_S= np.random.binomial(ContP,Tr_P_S) #Transfer from Product to Surfaces
             TotTr_S_P = np.random.binomial(ContS,Tr_S_P) #Trasnfer from Surfaves to product
             ContPNew = ContP-TotTr_P_S+TotTr_S_P #New Contmination on Product
             ContS=ContS+TotTr_P_S-TotTr_S_P #Remiining Contamination in Surface for upcoming batches
-            i=ContPNew #Updating the Contamination in the Data Frame
-            newvector.append(i)
+            newvector.append(ContPNew)
         j["CFU"] = newvector
         ContS_L.append(ContS)
     Outputs = [gb2,ContS_L]

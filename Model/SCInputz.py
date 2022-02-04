@@ -10,12 +10,13 @@ import Funz
 import numpy as np    
 
 
+Random_Contam = False
 
 #Initial Inputs for Field Setup and Challenges
 Sensitivity_Analysis = False
 
 
-N_Iterations= 500
+N_Iterations= 100
 Field_Weight= 100000 #total lb in field
 slot_weight = 10000 #weight of the sublot in field.
 Partition_Weight = 50 #Partition weight for contamination Events, Partition to have better definition of field. 
@@ -130,4 +131,5 @@ Pre_CoolingYN = True
 
 C_Spray_HYN =True
 
+Sanitation_YN = True
 

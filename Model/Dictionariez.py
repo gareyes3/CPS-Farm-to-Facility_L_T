@@ -75,6 +75,7 @@ Column_Per_Contaminated = ["PropCont_CE_B_PHS",
                             "PropCont_A_VA",
                             "PropCont_B_FPS",
                             "PropCont_A_FP",
+                            "PropCont_A_FP_Whole",
                             "TotalCont_A_FP",
     ]
 
@@ -119,6 +120,15 @@ def Pop_Output_Colection(df, outputDF, Step_Column, i):
     Pop_Final = TotalPop /Total_whole
     outputDF.at[i,Step_Column] =  Pop_Final
     return outputDF
+
+def Prop_Collection_WholeField (df, outputDF, Step_Column, i):
+    Pop  = df[df.CFU>0]
+    TotalPop = len(Pop)
+    Total_whole = (SCInputz.Field_Weight/ Inputz.Pack_Weight_FP)
+    Pop_Final = TotalPop /Total_whole
+    outputDF.at[i,Step_Column] =  Pop_Final
+    return outputDF
+
 
 #df.CFU=np.random.uniform(0,1,2000)
 #df.CFU[1] = 0

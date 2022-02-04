@@ -29,17 +29,19 @@ def F_Point_Source_C (df, Hazard_lvl, No_Cont_Clusters, Cluster_Size, Partition_
     
 def F_systematic_C(df, Hazard_lvl,No_Cont_Clusters,Cluster_Size, Partition_Weight, Random_HL = False):
     if Random_HL == True:
-        Hazard_lvl = Inputz.Random_HL
+        Hazard_lvl = Funz.F_Ecoli_Water()
     #number of contminated partitions per cluster
     No_Cont_PartitionUnits = int(Cluster_Size/Partition_Weight) 
-    #Determining haard level per partitions
-    Hazard_lvl_C= Hazard_lvl/(No_Cont_PartitionUnits*No_Cont_Clusters)
+    #Determining the hazard level per cluster
+    Hazard_lvl_percluster= Hazard_lvl / No_Cont_Clusters #(No_Cont_PartitionUnits*No_Cont_Clusters)
     for i in range(0,No_Cont_Clusters):
-        Ci = Hazard_lvl_C
         n = random.randint(0,len(df.index)- No_Cont_PartitionUnits)
         x_random_consecutive_rows = df[n:n + No_Cont_PartitionUnits]
         x_random_consecutive_rows = list(x_random_consecutive_rows.index)
-        df.loc[ x_random_consecutive_rows,'CFU']= df['CFU'] + Ci
+        #using multinomial creating array to contaminated the desired outputs
+        #probaility defined by the number of partitions. 
+        Contamination_Pattern = np.random.multinomial(Hazard_lvl_percluster,[1/No_Cont_PartitionUnits]*No_Cont_PartitionUnits,1)
+        df.at[x_random_consecutive_rows,'CFU']= df.loc[x_random_consecutive_rows,'CFU'] + Contamination_Pattern[0]
     return df
         
 def F_Crew_C(df, Hazard_lvl,No_Cont_Clusters, Cluster_Size, Partition_Weight):
