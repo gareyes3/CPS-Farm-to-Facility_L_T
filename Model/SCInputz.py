@@ -129,7 +129,7 @@ Washing_YN =True
 
 Pre_CoolingYN = True
 
-C_Spray_HYN =True
+Spray_WashYN =True
 
 Sanitation_YN = True
 

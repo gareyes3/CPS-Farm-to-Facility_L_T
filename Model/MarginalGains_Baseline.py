@@ -58,7 +58,7 @@ def scenario_function(
                       Washing = False,
                       Holding = False,
                       Pre_Cooling = False,
-                      Harvest_Wash = False,
+                      PreS_Wash = False,
                       #Sampling Strategies.
                       PHS4d = False,
                       PHS4h= False,
@@ -138,7 +138,7 @@ def scenario_function(
     
     #Harvest Pre-Wash: 
         #Harvest Pre-Wash yes or not
-    SCInputz.C_Spray_HYN =Harvest_Wash
+    SCInputz.Spray_WashYN =PreS_Wash
     
     
     SCInputz.SysHazard_lvl = 100_000  #CFU # background contaminatio
@@ -209,7 +209,7 @@ Baseline_NI_Precooling =  scenario_function(Pre_Cooling=True)
 Baseline_NI_Wash =  scenario_function(Washing=True)
 
 #Harvest Wash
-Baseline_NI_H_Wash =  scenario_function(Harvest_Wash=True)
+Baseline_NI_Sp_Wash =  scenario_function(Harvest_Wash=True)
 
 
 # Data Analysis
@@ -222,7 +222,7 @@ Intervention_Final_Conts = [Baseline_NI[1],
                      Baseline_NI_Holding[1],
                      Baseline_NI_Precooling[1],
                      Baseline_NI_Wash[1],
-                     Baseline_NI_H_Wash[1]
+                     Baseline_NI_Sp_Wash[1]
                      ]
 
 

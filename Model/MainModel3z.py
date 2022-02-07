@@ -388,11 +388,7 @@ def F_MainLoop():
                                                     Niterations = SCInputz.N_Iterations)
         
         
-        #In Harvest Chlorination spray. Reduction step.
-        if SCInputz.C_Spray_HYN == True:
-            df= Funz.F_Simple_Reduction(df,Inputz.Harvest_Cspray_red)        
-        
-        
+   
         if (ScenCondz.Field_Pack == False):
             #STEP 3 RECEIVING ---------------------------------------------------------------------------------------------------------------------
             #Time Between Harvest and Pre-Cooling KoseKi. 
@@ -506,7 +502,32 @@ def F_MainLoop():
         
             #Cross-Contamination Processing by processing line between 100 lb. batches
             
-            #1 Shredder --------------------------------------------------------
+            #1 Preliminary Spray Wash ------------------------------------------
+            
+            df_gb2_bsw = (pd.concat(gb2))
+            
+            #Collecting outputs cont progression 
+            df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df_gb2_bsw,
+                   outputDF = df_Output_Contprog,
+                   Step_Column =  "Bef SprayWash", 
+                   i =Iteration_In )
+            
+            #PropoContaminated
+            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+                                                                   outputDF =df_Output_Propprog, 
+                                                                   Step_Column =    "PropCont_B_SprayWash", 
+                                                                   i = Iteration_In)
+            #Contamination event, if it happens
+            if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==True:
+                gb2 = ContScen.F_PEC_C(gb2= gb2,
+                                       Hazard_lvl = SCInputz.PECHazard_lvl, 
+                                       Processing_Lines = Inputz.Processing_Lines, 
+                                       Lines_Cont = SCInputz.Lines_Cont)
+            
+            if SCInputz.Spray_WashYN == True:
+                gb2  = Funz.F_Simple_Reduction_PLines(gb2,Inputz.Harvest_Cspray_red)
+                        
+            #2 Shredder --------------------------------------------------------
             df_gb2_bs = (pd.concat(gb2))
             
             #Collecting outputs cont progression 
@@ -534,10 +555,9 @@ def F_MainLoop():
                                                    StepEff = Inputz.Sh_San_Eff , 
                                                    compliance = Inputz.Sh_Compliance)
             gb2 = ShredderOuts[0]
-            gb2[1]["CFU"].sum()
             ShredCont = ShredderOuts[1]  
             
-            #2 Conveyor Belt ----------------------------------------------------
+            #3 Conveyor Belt ----------------------------------------------------
             #Contamination before conveyor belt
             df_gb2_bcb = (pd.concat(gb2))
             
@@ -570,7 +590,7 @@ def F_MainLoop():
             CvCont = CVOuts[1]
             
             
-            #3Washing:
+            #4Washing:
             df_gb2_bw = (pd.concat(gb2))
             
             #Making it into a dataframe
@@ -603,7 +623,7 @@ def F_MainLoop():
             if SCInputz.Washing_YN == True: 
                 gb2 = Funz.F_Washing_ProcLines(List_GB3 =gb2, Wash_Rate = Inputz.Wash_Rate, Cdf =  Inputz.DF_Chlevels)
             
-            #4 Shaker Table
+            #5Shaker Table ----------------------------------------------------
             df_gb2_bst = (pd.concat(gb2))
             
             #Spliting it back into 5 lb chunks. 
@@ -639,7 +659,8 @@ def F_MainLoop():
             gb2 = StOuts[0]
             StCont = StOuts[1]
             
-            #5 Centrifuge
+            #6 Centrifuge-----------------------------------------------------
+            
             df_gb2_bcf = (pd.concat(gb2))
             
             df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df_gb2_bcf,

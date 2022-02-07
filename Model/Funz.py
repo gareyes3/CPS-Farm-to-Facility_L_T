@@ -94,6 +94,17 @@ def F_Simple_Reduction(df, Reduction):
     df["CFU"] = new_vector
     return df
 
+def F_Simple_Reduction_PLines(gb2, Reduction):
+    for j in gb2: 
+        vector = np.array(j["CFU"])
+        new_vector=[]
+        for i in vector: 
+            CFU_1 = i
+            new_cont = np.random.binomial(CFU_1,10**-Reduction)
+            new_vector.append(new_cont)
+        j["CFU"] = new_vector
+    return gb2
+
 
 
 #%% Growth  or Reduction Models
