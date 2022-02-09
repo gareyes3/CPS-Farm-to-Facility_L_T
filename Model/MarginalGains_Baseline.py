@@ -59,6 +59,7 @@ def scenario_function(
                       Holding = False,
                       Pre_Cooling = False,
                       PreS_Wash = False,
+                      Sanitation = False,
                       #Sampling Strategies.
                       PHS4d = False,
                       PHS4h= False,
@@ -116,11 +117,6 @@ def scenario_function(
     
     reload(SCInputz)
     
-    #Random Irrigation Water Contamination.
-    SCInputz.Random_Contam = False
-    
-    #Contamination Type
-    ContCondz.Systematic_C = True
     
     #Management of System Control: 
     
@@ -140,13 +136,10 @@ def scenario_function(
         #Harvest Pre-Wash yes or not
     SCInputz.Spray_WashYN =PreS_Wash
     
+    #Sanitation:
+    SCInputz.Sanitation_YN = Sanitation
     
-    SCInputz.SysHazard_lvl = 100_000  #CFU # background contaminatio
-    SCInputz.SysCluster_Size = 100_000 #np.random.choice(np.arange(1_000,100_001,1_000)) #Range of cluster from 1,000 lb to 100,000 lb 
-    SCInputz.SysNo_Cont_Clusters = 1 #One cluster per field.  
-    
-
-    
+        
     #Running The Model.
     Main_Mod_Outs = MainModel3z.F_MainLoop()
     
@@ -209,7 +202,10 @@ Baseline_NI_Precooling =  scenario_function(Pre_Cooling=True)
 Baseline_NI_Wash =  scenario_function(Washing=True)
 
 #Harvest Wash
-Baseline_NI_Sp_Wash =  scenario_function(Harvest_Wash=True)
+Baseline_NI_Sp_Wash =  scenario_function(PreS_Wash=True)
+
+
+Baseline_NI_PLS = scenario_function(Sanitation=True)
 
 
 # Data Analysis
@@ -222,19 +218,20 @@ Intervention_Final_Conts = [Baseline_NI[1],
                      Baseline_NI_Holding[1],
                      Baseline_NI_Precooling[1],
                      Baseline_NI_Wash[1],
-                     Baseline_NI_Sp_Wash[1]
+                     Baseline_NI_Sp_Wash[1],
+                     Baseline_NI_PLS[1]
                      ]
 
 
 #Creating dataframe of final contamination for every intervention. 
 List_of_Final_Conts_Ints = [x["Final Product Facility"] for x in Intervention_Final_Conts]
-Column_Names = "BaselineNI Holding Precooling Washing Harvest_Wash".split()
+Column_Names = "BaselineNI Holding Precooling Washing PreSpray_Wash Sanitation".split()
 Final_Conts_INT = pd.concat(List_of_Final_Conts_Ints, axis = 1)
 Final_Conts_INT.columns = Column_Names
 Final_Conts_INT_melted = Final_Conts_INT.melt()
 
 #Plotting the bar graph or boxplot of the differences. 
-H=sns.catplot(x="variable", y="value", kind = "bar" ,
+H=sns.catplot(x="variable", y="value", kind = "box" ,
             data=Final_Conts_INT_melted)
 plt.xlabel("Intervention")
 plt.ylabel("Total CFUs at Finished Product")
@@ -246,7 +243,7 @@ plt.xticks(rotation=70)
 Mean_andCI= [mean_CI_ONE(x) for x in List_of_Final_Conts_Ints]
 
 #Calculating the reduction of the means for each one of them
-Reduction = Calc_red(meanCI =Mean_andCI,treatments= 5)
+Reduction = Calc_red(meanCI =Mean_andCI,treatments= 6)
 
 reduction_DF = pd.DataFrame({"Treatment": Column_Names,
                              "Reduction": Reduction} )
@@ -262,6 +259,47 @@ plt.ylabel("Percent Reduction from Baseline NI")
 
 #GEtting the confidence interval for the final contamination in dataframe form
 Intervention_Comp = pd.DataFrame([mean_CI_ONE(x) for x in List_of_Final_Conts_Ints], columns = ["mean", "95% CI"])
+
+#Proportion of packages contaminated
+Intervention_Props = [Baseline_NI[2],
+                     Baseline_NI_Holding[2],
+                     Baseline_NI_Precooling[2],
+                     Baseline_NI_Wash[2],
+                     Baseline_NI_Sp_Wash[2],
+                     Baseline_NI_PLS[2]
+                     ]
+
+#Creating dataframe of final contamination for every intervention. 
+Intervention_PropCont_List = [x["PropCont_A_FP_Whole"] for x in Intervention_Props]
+
+Prop_Cont_INT = pd.concat(Intervention_PropCont_List, axis = 1)
+Prop_Cont_INT.columns = Column_Names
+Prop_Cont_INT_melted = Prop_Cont_INT.melt()
+
+#Plotting the bar graph or boxplot of the differences. 
+H=sns.catplot(x="variable", y="value", kind = "bar" ,
+            data=Prop_Cont_INT_melted)
+plt.xlabel("Intervention")
+plt.ylabel("Proportion Contaminated at Final Product")
+plt.xticks(rotation=70)
+
+Mean_Props_INT= [mean_CI_ONE(x) for x in Intervention_PropCont_List]
+
+#Histplot
+h=sns.displot( data =Prop_Cont_INT_melted, 
+            x = "value" , 
+            col = "variable", 
+            col_wrap=3,
+             stat = "count",
+             bins = 30,
+            facet_kws=dict(sharey=False,sharex= False))
+plt.suptitle("Proportion of Paclages Contminated",) 
+
+def specs(x, **kwargs):
+    plt.axvline(x.mean(), c='red', ls='-', lw=2.5)
+    plt.axvline(x.median(), c='orange', ls='--', lw=2.5)
+
+h.map(specs,"value" )
 
 
 #%% Running the scenarios. 
@@ -300,29 +338,28 @@ Baseline_NI_FP=  scenario_function(FPSTrad =True)
 Baseline_AI =  scenario_function(Washing = True,
                                  Holding = True,
                                  Pre_Cooling = True,
-                                 Harvest_Wash = True)
+                                 PreS_Wash=True,
+                                 Sanitation = True
+                                 )
  
-
-
 
 #Baseline with intervention. 4 days pre-harvest sampling
 
 Baseline_AI_PHS4d =  scenario_function(Washing = True,
                                  Holding = True,
                                  Pre_Cooling = True,
-                                 Harvest_Wash = True,
+                                 PreS_Wash=True,
+                                 Sanitation = True,
                                  PHS4d = True)
 
-### Pre-Harvest Sampling 4h
-#Baseline no intervention. 4 hours preharvest sampling
-Baseline_NI_PHS4h =  scenario_function(PHS4h = True)
 
 ### Pre-Harvest Sampling 4h
 #Baseline with intervention. 4 hours pre-harvest sampling
 Baseline_AI_PHS4h =  scenario_function(Washing = True,
                                  Holding = True,
                                  Pre_Cooling = True,
-                                 Harvest_Wash = True,
+                                 PreS_Wash=True,
+                                 Sanitation = True,
                                  PHS4h = True)
 
 ### Pre-Harvest Sampling Intense
@@ -330,7 +367,8 @@ Baseline_AI_PHS4h =  scenario_function(Washing = True,
 Baseline_AI_PHSInt =  scenario_function(Washing = True,
                                  Holding = True,
                                  Pre_Cooling = True,
-                                 Harvest_Wash = True,
+                                 PreS_Wash=True,
+                                 Sanitation = True,
                                  PHSInt = True)
 
 ### Harvest Sampling Intense
@@ -338,7 +376,8 @@ Baseline_AI_PHSInt =  scenario_function(Washing = True,
 Baseline_AI_H =  scenario_function(Washing = True,
                                  Holding = True,
                                  Pre_Cooling = True,
-                                 Harvest_Wash = True,
+                                 PreS_Wash=True,
+                                 Sanitation = True,
                                  HSTrad = True)
 
 ### Receiving Sampling Intense
@@ -346,7 +385,8 @@ Baseline_AI_H =  scenario_function(Washing = True,
 Baseline_AI_R =  scenario_function(Washing = True,
                                  Holding = True,
                                  Pre_Cooling = True,
-                                 Harvest_Wash = True,
+                                 PreS_Wash=True,
+                                 Sanitation = True,
                                  RSTrad = True)
 
 ### FPS Sampling Intense
@@ -354,7 +394,8 @@ Baseline_AI_R =  scenario_function(Washing = True,
 Baseline_AI_FP =  scenario_function(Washing = True,
                                  Holding = True,
                                  Pre_Cooling = True,
-                                 Harvest_Wash = True,
+                                 PreS_Wash=True,
+                                 Sanitation = True,
                                  FPSTrad = True)
 
 
@@ -382,7 +423,7 @@ DF_Final_Cont_NI.columns = Col_Names_NI
 DF_Final_Cont_NI_melted = DF_Final_Cont_NI.melt()
 
 #Creating Cat plot bar or box, change arguement
-H=sns.catplot(x="variable", y="value", kind = "bar" ,
+H=sns.catplot(x="variable", y="value", kind = "box" ,
             data=DF_Final_Cont_NI_melted)
 plt.xlabel("Intervention")
 plt.ylabel("Total CFUs at Finished Product")
@@ -436,9 +477,168 @@ Final_Cont_NI_MeanCI
 #Getting the Prevalence of Contaminated Packages.
 
 Mean_Quantiles(df = Baseline_NI[2],columnname ="PropCont_A_FP_Whole" ,q1 = 0.05,q2 = 0.95)  
+
+#Proportion of packages contaminated
+Intervention_Props_NI = [Baseline_NI[2],
+                     Baseline_NI_PHS4d[2],
+                     Baseline_NI_PHS4h[2],
+                     Baseline_NI_PHSInt[2],
+                     Baseline_NI_H[2],
+                     Baseline_NI_R[2],
+                     Baseline_NI_FP[2]
+                     ]
+
+#Creating dataframe of final contamination for every intervention. 
+Intervention_PropCont_List_NI = [x["PropCont_A_FP_Whole"] for x in Intervention_Props_NI]
+
+Prop_Cont_NI = pd.concat(Intervention_PropCont_List_NI, axis = 1)
+Prop_Cont_NI.columns = Col_Names_NI
+Prop_Cont_NI_melted = Prop_Cont_NI.melt()
+
+#Plotting the bar graph or boxplot of the differences. 
+H=sns.catplot(x="variable", y="value", kind = "bar" ,
+            data=Prop_Cont_NI_melted)
+plt.xlabel("Intervention")
+plt.ylabel("Proportion Contaminated at Final Product")
+plt.xticks(rotation=70)
+
+Mean_Props_NI= [mean_CI_ONE(x) for x in Intervention_PropCont_List_NI]
+
+#Histplot
+h=sns.displot( data =Prop_Cont_NI_melted, 
+            x = "value" , 
+            col = "variable", 
+            col_wrap=3,
+             stat = "count",
+             bins = 30,
+            facet_kws=dict(sharey=False,sharex= False))
+plt.suptitle("Proportion of Paclages Contminated",) 
+
+def specs(x, **kwargs):
+    plt.axvline(x.mean(), c='red', ls='-', lw=2.5)
+    plt.axvline(x.median(), c='orange', ls='--', lw=2.5)
+
+h.map(specs,"value" )
+
  
 
 ### Baseline All Interventions, good system.
+
+#Creating list of contamination progression
+List_of_Progs_AI = [Baseline_AI[1],
+                     Baseline_AI_PHS4d[1],
+                     Baseline_AI_PHS4h[1],
+                     Baseline_AI_PHSInt[1],
+                     Baseline_AI_H[1],
+                     Baseline_AI_R[1],
+                     Baseline_AI_FP[1]
+                     ]
+
+#Creating list of Final Contmainations
+List_Final_Cont_AI = [x["Final Product Facility"] for x in List_of_Progs_AI]
+Col_Names_AI = "BaselineAI PHS4D_AI PHS4H_AI PHSInt_AI HTrad_AI RSTrad_AI FPSTrad_AI".split()
+#Creating and Melting the Dataframe of Final Contminations
+DF_Final_Cont_AI = pd.concat(List_Final_Cont_AI, axis = 1)
+DF_Final_Cont_AI.columns = Col_Names_AI
+DF_Final_Cont_AI_melted = DF_Final_Cont_AI.melt()
+
+#Creating Cat plot bar or box, change arguement
+H=sns.catplot(x="variable", y="value", kind = "box" ,
+            data=DF_Final_Cont_AI_melted)
+plt.xlabel("Intervention")
+plt.ylabel("Total CFUs at Finished Product")
+plt.yscale('log')
+plt.title("CFU Final Contamination: Baseline No INterventions")
+plt.xticks(rotation=70)
+
+#Means compared to each other. 
+Final_Cont_AI_MeanCI= [mean_CI_ONE(x) for x in List_Final_Cont_AI]
+
+
+Reduction_Cont_AI = Calc_red(meanCI =Final_Cont_AI_MeanCI,treatments= 7)
+
+DF_Reduction_Cont_AI = pd.DataFrame({"Treatment": Col_Names_AI,
+                             "Reduction": Reduction_Cont_AI} )
+
+DF_Reduction_Cont_AI=DF_Reduction_Cont_AI.sort_values('Reduction',ascending=False).reset_index()
+
+chart = sns.barplot(data = DF_Reduction_Cont_AI, x = "Treatment", y = "Reduction", order=DF_Reduction_Cont_AI['Treatment'])
+chart.bar_label(chart.containers[0])
+plt.xlabel("Intervention")
+plt.ylabel("Percent Reduction from BaselineAI")
+
+
+
+#Sampling Results: 
+
+#PHS4d
+F_Sampling_Power(Baseline_AI_PHS4d[0],"PH_CFU_Acc","PH_CFU_Rej")
+CFU_Sampling_Stage (Baseline_AI_PHS4d[1],"Bef Pre-Harvest Samp")
+#PHS4h
+F_Sampling_Power(Baseline_AI_PHS4h[0],"PH_CFU_Acc","PH_CFU_Rej")
+CFU_Sampling_Stage (Baseline_AI_PHS4h[1],"Bef Pre-Harvest Samp")
+#PHSInt    
+F_Sampling_Power(Baseline_AI_PHSInt[0],"PH_CFU_Acc","PH_CFU_Rej")
+CFU_Sampling_Stage (Baseline_AI_PHSInt[1],"Bef Pre-Harvest Samp")
+#HS   
+F_Sampling_Power(Baseline_AI_H[0],"H_CFU_Acc","H_CFU_Rej")
+CFU_Sampling_Stage (Baseline_AI_H[1],"Bef Harvest Samp")
+#RS
+F_Sampling_Power(Baseline_AI_R[0],"R_CFU_Acc","R_CFU_Rej")
+CFU_Sampling_Stage (Baseline_AI_R[1],"Bef Receiving Samp")
+#FPS
+F_Sampling_Power(Baseline_AI_FP[0],"FP_CFU_Acc","FP_CFU_Rej")
+CFU_Sampling_Stage (Baseline_AI_FP[1],'Bef Final Prod S')
+
+#Final CFUs for all. 
+#prints the mean total CFUs and the CIs
+Final_Cont_AI_MeanCI
+
+#Getting the Prevalence of Contaminated Packages.
+
+Mean_Quantiles(df = Baseline_AI[2],columnname ="PropCont_A_FP_Whole" ,q1 = 0.05,q2 = 0.95)  
+
+#Proportion of packages contaminated
+Intervention_Props_AI = [Baseline_AI[2],
+                     Baseline_AI_PHS4d[2],
+                     Baseline_AI_PHS4h[2],
+                     Baseline_AI_PHSInt[2],
+                     Baseline_AI_H[2],
+                     Baseline_AI_R[2],
+                     Baseline_AI_FP[2]
+                     ]
+
+#Creating dataframe of final contamination for every intervention. 
+Intervention_PropCont_List_AI = [x["PropCont_A_FP_Whole"] for x in Intervention_Props_AI]
+
+Prop_Cont_AI = pd.concat(Intervention_PropCont_List_AI, axis = 1)
+Prop_Cont_AI.columns = Col_Names_AI
+Prop_Cont_AI_melted = Prop_Cont_AI.melt()
+
+#Plotting the bar graph or boxplot of the differences. 
+H=sns.catplot(x="variable", y="value", kind = "bar" ,
+            data=Prop_Cont_AI_melted)
+plt.xlabel("Intervention")
+plt.ylabel("Proportion Contaminated at Final Product")
+plt.xticks(rotation=70)
+
+Mean_Props_AI= [mean_CI_ONE(x) for x in Intervention_PropCont_List_AI]
+
+#Histplot
+h=sns.displot( data =Prop_Cont_AI_melted, 
+            x = "value" , 
+            col = "variable", 
+            col_wrap=3,
+             stat = "count",
+             bins = 30,
+            facet_kws=dict(sharey=False,sharex= False))
+plt.suptitle("Proportion of Paclages Contminated",) 
+
+def specs(x, **kwargs):
+    plt.axvline(x.mean(), c='red', ls='-', lw=2.5)
+    plt.axvline(x.median(), c='orange', ls='--', lw=2.5)
+
+h.map(specs,"value" )
 
 
 
@@ -446,4 +646,29 @@ Mean_Quantiles(df = Baseline_NI[2],columnname ="PropCont_A_FP_Whole" ,q1 = 0.05,
 
 #%%
 
+sns.barplot(data = Baseline_NI[1])
+
+plt.xticks(rotation=-80)
+plt.yscale('log')
+plt.yticks([1,10,100,1000,10000,100000])
+plt.title("Contamination Progression")
+plt.ylabel("CFUs in System")
+
+
+
+sns.barplot(data = Baseline_AI[1])
+plt.xticks(rotation=-80)
+plt.yticks([1,10,100,1000,10000,100000])
+plt.yscale('log')
+plt.title("Contamination Progression")
+plt.ylabel("CFUs in System")
+
+
+
+sns.barplot(data = Baseline_AI_PHS4d[1])
+plt.xticks(rotation=-80)
+plt.yticks([1,10,100,1000,10000,100000])
+plt.yscale('log')
+plt.title("Contamination Progression")
+plt.ylabel("CFUs in System")
 

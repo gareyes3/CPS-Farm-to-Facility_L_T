@@ -27,9 +27,7 @@ def F_Point_Source_C (df, Hazard_lvl, No_Cont_Clusters, Cluster_Size, Partition_
     df.loc[X_1,'CFU']= df['CFU'] + Ci
     return df
     
-def F_systematic_C(df, Hazard_lvl,No_Cont_Clusters,Cluster_Size, Partition_Weight, Random_HL = False):
-    if Random_HL == True:
-        Hazard_lvl = Funz.F_Ecoli_Water()
+def F_systematic_C(df, Hazard_lvl,No_Cont_Clusters,Cluster_Size, Partition_Weight):
     #number of contminated partitions per cluster
     No_Cont_PartitionUnits = int(Cluster_Size/Partition_Weight) 
     #Determining the hazard level per cluster

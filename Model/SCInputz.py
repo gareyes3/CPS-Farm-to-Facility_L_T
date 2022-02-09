@@ -16,7 +16,7 @@ Random_Contam = False
 Sensitivity_Analysis = False
 
 
-N_Iterations= 100
+N_Iterations= 500
 Field_Weight= 100000 #total lb in field
 slot_weight = 10000 #weight of the sublot in field.
 Partition_Weight = 50 #Partition weight for contamination Events, Partition to have better definition of field. 
@@ -25,44 +25,6 @@ slot_number = int(Field_Weight/slot_weight) #Number of sublots per field
 Partition_Units = int(Field_Weight/Partition_Weight) #Number of partition units per field
 
 
-
-
-# Contamination Challenge Related Information
-if ContCondz.Background_C ==True:
-    BGHazard_lvl = 50000  #CFU # background contamination
-    BGCluster_Size = 100000 #lb
-    BGNo_Cont_Clusters = 1 #Number of contamination clusters here one uniform cluster, field size.
-    #BackGround Contamination. 
-
-if ContCondz.Point_Source_C ==True:
-    PSHazard_lvl = 50000  #CFU # background contamination
-    PSCluster_Size = 1000 #lb
-    PSNo_Cont_Clusters = 1 #4 1000k lb clusters. 
-    
-if ContCondz.Systematic_C ==True: 
-    SysHazard_lvl = 50000  #CFU # background contamination
-    SysCluster_Size = 10000 #lb
-    SysNo_Cont_Clusters = 1 #Number of contaminated clusters
-
- 
-if ContCondz.Crew_C == True: 
-    CrewHazard_lvl = 50000  #CFU # background contamination
-    CrewCluster_Size = 5000 #lb
-    CrewNo_Cont_Clusters = 4 #Number of contaminated clusters
-
-
-if ContCondz.Harvester_C==True:
-    HCHazard_lvl = 50000  #CFU # background contamination
-    HCCluster_Size = 50000 #lb
-    HCNo_Cont_Clusters = 1 #Number of contaminated clusters
-    
-if ContCondz.PE_C == True:
-    PECHazard_lvl = 50000  #CFU # background contamination
-    Lines_Cont = 1
-    
-if ContCondz.Pack_C == True:
-    PackHazard_lvl = 50000  #CFU # background contamination
-    Lines_ContPack = 1  
 
 
 #Sampling Inputs. 

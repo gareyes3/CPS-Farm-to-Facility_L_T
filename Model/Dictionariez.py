@@ -30,6 +30,7 @@ Column_Names_Progression = ["Contam Event Before PHS",
                             "Aft Harvest Samp",
                             "Bef Receiving Samp",
                             "After Receiving Samp",
+                            "Bef SprayWash",
                             "Bef Shredding",
                             "Bef Conveyor Belt",
                             "Bef Washing",
@@ -47,8 +48,7 @@ Column_Names_Mass_Prog = ["Contam Event Before PHS",
                             "Bef Harvest Samp",
                             "Aft Harvest Samp",
                             "Bef Receiving Samp",
-                            "After Receiving Samp",
-                            "Bef SprayWash",
+                            "After Receiving Samp"
                             "Bef Shredding",
                             "Bef Conveyor Belt",
                             "Bef Washing",
@@ -131,6 +131,15 @@ def Prop_Collection_WholeField (df, outputDF, Step_Column, i):
     outputDF.at[i,Step_Column] =  Pop_Final
     return outputDF
 
+def Prop_Sensitivity(df):
+    Pop  = df[df.CFU>0]
+    TotalPop = len(Pop)
+    Total_whole = (SCInputz.Field_Weight/ Inputz.Pack_Weight_FP)
+    Pop_Final = TotalPop /Total_whole
+    return Pop_Final
+    
+    
+
 
 #df.CFU=np.random.uniform(0,1,2000)
 #df.CFU[1] = 0
@@ -162,7 +171,7 @@ def Output_Collection_Final(df, outputDF, Step, Cont_Before, Weight_Before, i, N
 #%%
 #Sens Analysis
 
-
+'''
 ##Creation of Random Variables. 
 
 #Contamination Determination Inputs
@@ -187,7 +196,7 @@ NoClusters_List = [1,2,3,4]
 SampleSize_List = [60,120,240,600,1200]
 NoSamples_List = [1,2,3,4,5,6,7,8,9,10]
 NoGrabs_List = [1,60,120,240,300,600,1200]
-
+'''
 
 
 Sensitivity_Analysis_Dic = [
@@ -197,22 +206,7 @@ Sensitivity_Analysis_Dic = [
                             "ClusterSize",
                             "Time_CE_H",
                             "Total_CE_H_Dieoff",
-                            #Sampling Type: 
-                            "PH4d",
-                            "PH4h",
-                            "PHInt",
-                            "HTrad",
-                            "RTrad",
-                            "FPTrad",
                             
-                            '''
-                            #Sampling Factors
-                            "SampleSize",
-                            "SamplesPSublot",
-                            "NumberGrabs",
-                            '''
-                            #Harvest
-                            "Harvest Wash Red",
                             #Pre-coolin
                             "Time_H_PC",
                             "Temp_H_PC",
@@ -223,21 +217,46 @@ Sensitivity_Analysis_Dic = [
                             "Time_Storage_R",
                             "Temp_Storage_R",
                             #Processing Factor
+                            "PreWashRed",
                             "PreWashYN",
                             "WashingYN",
-                            "TotalCFUFP"
+                            "Tr_Sh_P",
+                            "Tr_P_Sh",
+                            "Sh_Compliance",
+                            "Sh_San_freq",
+                            "Sh_San_Eff",
+                            "Tr_Cv_P",
+                            "Tr_P_Cv",
+                            "Cv_Compliance",
+                            "Cv_San_freq",
+                            "Cv_San_Eff",
+                            "Tr_St_P",
+                            "Tr_P_St",
+                            "St_Compliance",
+                            "St_San_freq",
+                            "St_San_Eff",
+                            "Tr_C_P",
+                            "Tr_P_C",
+                            "C_Compliance",
+                            "C_San_freq",
+                            "C_San_Eff",
+                            "TotalCFUFP",
+                            "PropCont"
+                        
+                            
     ]
     
 
 def Func_LoadInputs (OutputDF,i,df, TotalDieoff):
     #Setup Factors
     #Initial Contamination Factors
-    OutputDF.at[i, "InitialCont"] =  SCInputz.PSHazard_lvl #InitialContmination
-    OutputDF.at[i, "ClusteringPer"] =  SCInputz.PSNo_Cont_Clusters #Cluestering Level
-    OutputDF.at[i, "ClusterSize"] =   SCInputz.PSCluster_Size #InitialContmination
+    OutputDF.at[i, "InitialCont"] =  Inputz.Hazard_Lvl #InitialContmination
+    OutputDF.at[i, "No Clusters"] =  Inputz.Cont_Cluster #Cluestering Level
+    OutputDF.at[i, "ClusterSize"] =   Inputz.Cluster_Size #InitialContmination
     OutputDF.at[i, "Time_CE_H"] =  Inputz.Time_CE_H #Time between contamination event and harvest
     OutputDF.at[i, "Total_CE_H_Dieoff"] = TotalDieoff  #TotalDieoff between contamination event and harvest. 
     
+    '''
     #Sampling Selection
     OutputDF.loc[i, "PH4d"] = ScenCondz.PHS_4d #InitialContmination
     OutputDF.loc[i, "PH4h"] = ScenCondz.PHS_4h #Cluestering Level
@@ -245,15 +264,8 @@ def Func_LoadInputs (OutputDF,i,df, TotalDieoff):
     OutputDF.loc[i, "HTrad"] =  ScenCondz.H_Sampling #Time between contamination event and harvest
     OutputDF.loc[i, "RTrad"] =  ScenCondz.R_Sampling #Time between contamination event and harvest
     OutputDF.loc[i, "FPTrad"] =  ScenCondz.FP_Sampling #Time between contamination event and harvest
-    
-    '''
-    #Sampling Factors
-    OutputDF.at[i, "SampleSize"] = SCInputz.sample_size_PH #Sample Size at Pe-Harvest
-    OutputDF.at[i, "SamplesPSublot"] = SCInputz.n_samples_slot_PH #Number of Samples per sublot
-    OutputDF.at[i, "NumberGrabs"] =  SCInputz.No_Grabs_PH #Number of Grabs at PreHarvest.
     '''
     #Harvests
-    OutputDF.at[i, "Harvest Wash Red"] =  Inputz.Harvest_Cspray_red #Number of Grabs at PreHarvest.
     #Pre-cooling
     OutputDF.at[i, "Time_H_PC"] =  Inputz.Time_H_PreCooling #Time beetween harvest and pre-cooling
     OutputDF.at[i, "Temp_H_PC"] =  Inputz.Temperature_H_PreCooling #Time beetween harvest and pre-cooling
@@ -264,9 +276,39 @@ def Func_LoadInputs (OutputDF,i,df, TotalDieoff):
     OutputDF.at[i, "Time_Storage_R"] =  Inputz.Time_Storage_R #Time storage at receiving
     OutputDF.at[i, "Temp_Storage_R"] =  Inputz.Temperature_Storage_R #temperature of receiving storage.
     #Procesing Factord
-    OutputDF.loc[i, "PreWashYN"] =  SCInputz.C_Spray_HYN #Washing Yes or Not
-    OutputDF.loc[i, "WashingYN"] =  SCInputz.Washing_YN #Washing Yes or Not
+    OutputDF.at[i, "PreWashRed"] =  Inputz.Harvest_Cspray_red #Reduction pre-wash
+    OutputDF.loc[i, "WashingYN"] =  SCInputz.Washing_YN #Washing Yes or NotSCInputz.Spray_WashYN
+    OutputDF.loc[i, "PreWashYN"] =  SCInputz.Spray_WashYN #Washing Yes or Not
+    
+    OutputDF.at[i, "Tr_Sh_P"] =  Inputz.Tr_Sh_P
+    OutputDF.at[i, "Tr_P_Sh"] =  Inputz.Tr_P_Sh
+    OutputDF.at[i, "Sh_Compliance"] =  Inputz.Sh_Compliance
+    OutputDF.at[i, "Sh_San_freq"] =  Inputz.Sh_San_freq
+    OutputDF.at[i, "Sh_San_Eff"] =  Inputz.Sh_San_Eff
+    
+    OutputDF.at[i, "Tr_Cv_P"] =  Inputz.Tr_Cv_P
+    OutputDF.at[i, "Tr_P_Cv"] =  Inputz.Tr_P_Cv
+    OutputDF.at[i, "Cv_Compliance"] =  Inputz.Cv_Compliance
+    OutputDF.at[i, "Cv_San_freq"] =  Inputz.Cv_San_freq
+    OutputDF.at[i, "Cv_San_Eff"] =  Inputz.Cv_San_Eff
+    
+    OutputDF.at[i, "Tr_St_P"] =  Inputz.Tr_St_P
+    OutputDF.at[i, "Tr_P_St"] =  Inputz.Tr_P_St
+    OutputDF.at[i, "St_Compliance"] =  Inputz.St_Compliance
+    OutputDF.at[i, "St_San_freq"] =  Inputz.St_San_freq
+    OutputDF.at[i, "St_San_Eff"] =  Inputz.St_San_Eff
+    
+    OutputDF.at[i, "Tr_C_P"] =  Inputz.Tr_C_P
+    OutputDF.at[i, "Tr_P_C"] =  Inputz.Tr_P_C
+    OutputDF.at[i, "C_Compliance"] =  Inputz.C_Compliance
+    OutputDF.at[i, "C_San_freq"] =  Inputz.C_San_freq
+    OutputDF.at[i, "C_San_Eff"] =  Inputz.C_San_Eff
+
+    
+    #Output
     OutputDF.loc[i, "TotalCFUFP"] =  df["CFU"].sum()
+    OutputDF.loc[i, "PropCont"] = Prop_Sensitivity(df)
+    
     
     return   OutputDF
 

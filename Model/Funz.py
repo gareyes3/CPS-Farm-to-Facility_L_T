@@ -202,6 +202,13 @@ def F_InitialCont():
     g_field = SCInputz.Field_Weight*454 #454 g in 1 lb. 
     Final_Cont = int(Cont_CFU_g*g_field)
     return Final_Cont
+
+'''
+Cs = 10**Func_NormalTrunc(Min= 0, Max = 3.67, Mean=0.928, SD =1.1)
+Rs = 10**Func_NormalTrunc(Min= -100000, Max = 0, Mean=-1.9, SD = 0.6)
+M = 10.22
+Cs*Rs*M
+ '''   
     
 #%% Sampling Functions
 

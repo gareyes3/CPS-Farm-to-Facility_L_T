@@ -5,11 +5,11 @@ library(randomForest)
 library(forcats)
 
 
-Data <- read.csv("SensitivityOut01-27.csv", stringsAsFactors = TRUE)
-Data<-Data[-c(1)]
-Data<-Data[-c(12)]
-Data<-Data[-c(8)]
-Data_x<-Data[-c(19)]
+Data <- read.csv("SensitivityOut02-09.csv", stringsAsFactors = TRUE)
+Data<-Data[-c(39)]
+Data<-Data[-c(1,3)]
+
+Data_x<-Data[-c(35,36)]
 PCC1<-pcc(X = Data_x, y=Data$TotalCFUFP, rank =TRUE, conf = 0.8, nboot = 1000)
 plot(PCC1)
 
@@ -28,7 +28,7 @@ ggplot(data = PCC1$PRCC, aes(x=fct_reorder(rownames(PCC1$PRCC), abs(original)),y
   geom_bar(stat = "identity", position = "identity")+
   geom_errorbar(aes(ymin=minci, ymax=maxci), width=.1,col="blue")+
   ylab("Partial Correlation Coefficient")+
-  xlab("Action")+
+  xlab("Model Input")+
   ggtitle("Sensitivity Analysis on Final CFU in System")+
   coord_flip()+
   theme(plot.title = element_text(hjust = 0.5))+
@@ -60,3 +60,11 @@ ggplot(data = PCCLocal$PRCC, aes(x=fct_reorder(rownames(PCCLocal$PRCC), abs(orig
   coord_flip()+
   theme(plot.title = element_text(hjust = 0.5))+
   theme(text = element_text(size=13))
+
+
+
+Data8<-Data
+
+Data8<-replace(Data8[,],Data8[,] < 0, 0)
+
+

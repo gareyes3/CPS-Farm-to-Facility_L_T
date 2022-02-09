@@ -15,9 +15,49 @@ import SCInputz
        
 #Randomized Initial Contamination
 
-Random_HL = Funz.F_InitialCont()
-                                      
-                                                              
+#Contamination Scenario: 
+    
+#1 Pre-Harvest Irrigation
+#2. Point Source Contamination 0.3% of the field
+#3. Sporadic from soil manure
+#4. Harvest Contmaination #Pending
+#5. Custom Plan #Pending
+    
+Contamination_Scenario = np.random.choice([1,2,3])  
+
+#Contamination Scenario #1
+if Contamination_Scenario == 1: 
+    Hazard_Lvl = Funz.F_Ecoli_Water()
+    Cont_Cluster = 1
+    Cluster_Size = SCInputz.Field_Weight
+    if ScenCondz.Holding_Time == True: #Should always be true unless scenario analysis. 
+        Time_CE_H = np.random.triangular(2,4,8) #days
+    elif ScenCondz.Holding_Time == False:
+        Time_CE_H = np.random.triangular(0,4,8) #days 
+        
+#Contamination Scenario #1
+if Contamination_Scenario == 2:
+    Hazard_Lvl = np.random.uniform(100_000, 200_000)
+    Con_Cluster = 1
+    Cluster_Size  = 300  
+    if ScenCondz.Holding_Time == True: #Should always be true unless scenario analysis. 
+        Time_CE_H = np.random.uniform(0,8) #days
+    elif ScenCondz.Holding_Time == False:
+        Time_CE_H = np.random.uniform(0,8) #days 
+
+#Contamination Scenario #1
+if Contamination_Scenario == 3:
+    Hazard_Lvl = np.random.uniform(100_000, 200_000)
+    Con_Cluster = 1
+    Cluster_Size = SCInputz.Field_Weight
+    if ScenCondz.Holding_Time == True: #Should always be true unless scenario analysis. 
+        Time_CE_H = np.random.triangular(0,4,8) #days
+    elif ScenCondz.Holding_Time == False:
+        Time_CE_H = np.random.triangular(0,4,8) #days 
+
+        
+
+                                                                                             
 #%% Die off
 
 #this no currently used. 

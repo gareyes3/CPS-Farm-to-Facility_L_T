@@ -63,6 +63,7 @@ def F_MainLoop():
         
         #PRCC SENSITYIVITY ANALYSIS SECTION Randomized Inputs only if Sens Analysis is ON. 
         if SCInputz.Sensitivity_Analysis == True:
+            '''
             #Sampling Contamination
             Sampling_Type_SA = np.random.choice(["PH", "H", "R", "FP"])
             if Sampling_Type_SA == "PH":
@@ -81,26 +82,16 @@ def F_MainLoop():
                 ScenCondz.R_Sampling = True
             if Sampling_Type_SA == "FP":
                 ScenCondz.FP_Sampling = True
-                ScenCondz.FPS_Trad= True    
-            #1Hazard Level Selecting From random list
-            SCInputz.PSHazard_lvl = np.random.choice(Dictionariez.Contamination_List)
-            #2Cluser Suze
-            SCInputz.PSCluster_Size = np.random.choice(Dictionariez.Clustering_List)
-            #3Number of Clusters
-            if SCInputz.PSCluster_Size <25001:
-                SCInputz.PSNo_Cont_Clusters = np.random.choice(Dictionariez.NoClusters_List)
-            elif SCInputz.PSCluster_Size ==50000:
-                SCInputz.PSNo_Cont_Clusters = 2
-            elif SCInputz.PSCluster_Size ==100000:
-                SCInputz.PSNo_Cont_Clusters = 1
-            
-            
+                ScenCondz.FPS_Trad= True  
+            '''
+
             #Receiving Factors
             SCInputz.Pre_CoolingYN = np.random.choice([True,False])
             #Processing Factors
             #7 Washing Random Choice
             SCInputz.Washing_YN = np.random.choice([True,False])
-            SCInputz.C_Spray_HYN = np.random.choice([True,False])
+            
+            SCInputz.Spray_WashYN = np.random.choice([True,False])
         
         
         
@@ -120,30 +111,17 @@ def F_MainLoop():
         #adding contamination to the dataframe is contamination happened before PH. 
         if Inputz.Time_CE_PHS>0: 
             
-            #Adding Contamination depending on challenge Pre-harvest challenges
-            if ContCondz.Background_C == True:
-                df = ContScen.F_Background_C(df=df, 
-                                             Hazard_lvl = SCInputz.BGHazard_lvl, 
-                                             Partition_Units= SCInputz.Partition_Units)
-                
-            #Adding Contamination depending on challenge Point_Source
-            if ContCondz.Point_Source_C ==True:
-                df=ContScen.F_systematic_C(df=df, 
-                                             Hazard_lvl=SCInputz.PSHazard_lvl,
-                                             No_Cont_Clusters =SCInputz.PSNo_Cont_Clusters, 
-                                             Cluster_Size = SCInputz.PSCluster_Size, 
-                                             Partition_Weight = SCInputz.Partition_Weight,
-                                             Random_HL = SCInputz.Random_Contam)
-        
-                
+
             #Adding Contamination depending on challenge Systematic Sampling
-            if ContCondz.Systematic_C == True:
+            
+            #Pre-Harvest Contamination Scenarios:
+            if Inputz.Contamination_Scenario in [1,2,3]:
                 df = ContScen.F_systematic_C(df=df, 
-                                             Hazard_lvl= SCInputz.SysHazard_lvl,
-                                             No_Cont_Clusters =SCInputz.SysNo_Cont_Clusters,
-                                             Cluster_Size= SCInputz.SysCluster_Size,
-                                             Partition_Weight = SCInputz.Partition_Weight,
-                                             Random_HL=SCInputz.Random_Contam)
+                                             Hazard_lvl= Inputz.Hazard_Lvl,
+                                             No_Cont_Clusters =Inputz.Cont_Cluster,
+                                             Cluster_Size= Inputz.Cluster_Size,
+                                             Partition_Weight = SCInputz.Partition_Weight)
+                
                 
             # Local Outputs: Initial Contamination     
             LV_Initial_CFU= sum(df.CFU) #Initial Contamination 
@@ -246,27 +224,12 @@ def F_MainLoop():
         #STEP 0 CONTAMINATION SCENARIOS  ----------------------------------------------------------------------------------------------------
             
             #Adding Contamination depending on challenge Pre-harvest challenges
-            if ContCondz.Background_C == True:
-                df = ContScen.F_Background_C(df=df, 
-                                             Hazard_lvl = SCInputz.BGHazard_lvl, 
-                                             Partition_Units= SCInputz.Partition_Units)
-                
-            #Adding Contamination depending on challenge Point_Source
-            if ContCondz.Point_Source_C ==True:
-                df=ContScen.F_systematic_C(df=df, 
-                                             Hazard_lvl=SCInputz.PSHazard_lvl,
-                                             No_Cont_Clusters =SCInputz.PSNo_Cont_Clusters, 
-                                             Cluster_Size = SCInputz.PSCluster_Size, 
-                                             Partition_Weight = SCInputz.Partition_Weight)
-        
-                
-            #Adding Contamination depending on challenge Systematic Sampling
-            if ContCondz.Systematic_C == True:
-                df = ContScen.F_systematic_C(df=df, Hazard_lvl= SCInputz.SysHazard_lvl,
-                                             No_Cont_Clusters =SCInputz.SysNo_Cont_Clusters,
-                                             Cluster_Size= SCInputz.SysCluster_Size,
-                                             Partition_Weight = SCInputz.Partition_Weight,
-                                             Random_HL = SCInputz.Random_Contam)
+            if Inputz.Contamination_Scenario in [1,2,3]:
+                df = ContScen.F_systematic_C(df=df, 
+                                             Hazard_lvl= Inputz.Hazard_Lvl,
+                                             No_Cont_Clusters =Inputz.Cont_Cluster,
+                                             Cluster_Size= Inputz.Cluster_Size,
+                                             Partition_Weight = SCInputz.Partition_Weight )
                 
             # Local Outputs: Initial Contamination     
             LV_Initial_CFU= sum(df.CFU) #Initial Contamination 
@@ -307,19 +270,7 @@ def F_MainLoop():
         
         
         #Adding Contamination depending on challenge at harvest
-        if ContCondz.Crew_C == True:
-            df = ContScen.F_Crew_C(df =df, 
-                                   Hazard_lvl =SCInputz.CrewHazard_lvl, 
-                                   No_Cont_Clusters = SCInputz.CrewNo_Cont_Clusters,
-                                   Cluster_Size =SCInputz.CrewCluster_Size, 
-                                   Partition_Weight = SCInputz.Partition_Weight)
-    
-        if ContCondz.Harvester_C == True:
-            df = ContScen.F_Harvester_C(df =df, 
-                                        Hazard_lvl =SCInputz.HCHazard_lvl, 
-                                        No_Cont_Clusters = SCInputz.HCNo_Cont_Clusters, 
-                                        Cluster_Size =SCInputz.HCCluster_Size, 
-                                        Partition_Weight = SCInputz.Partition_Weight)
+        #PENDING:
         
         
         #Harvest Sampling
@@ -517,15 +468,12 @@ def F_MainLoop():
                                                                    outputDF =df_Output_Propprog, 
                                                                    Step_Column =    "PropCont_B_SprayWash", 
                                                                    i = Iteration_In)
-            #Contamination event, if it happens
-            if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==True:
-                gb2 = ContScen.F_PEC_C(gb2= gb2,
-                                       Hazard_lvl = SCInputz.PECHazard_lvl, 
-                                       Processing_Lines = Inputz.Processing_Lines, 
-                                       Lines_Cont = SCInputz.Lines_Cont)
             
             if SCInputz.Spray_WashYN == True:
-                gb2  = Funz.F_Simple_Reduction_PLines(gb2,Inputz.Harvest_Cspray_red)
+                gb2 = Funz.F_Simple_Reduction_PLines(gb2, Inputz.Harvest_Cspray_red)
+            
+            #Contamination event, if it happens
+            #Pending
                         
             #2 Shredder --------------------------------------------------------
             df_gb2_bs = (pd.concat(gb2))
@@ -542,11 +490,7 @@ def F_MainLoop():
                                                                    Step_Column =    "PropCont_B_Shredding", 
                                                                    i = Iteration_In)
             #Contamination event, if it happens
-            if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==True:
-                gb2 = ContScen.F_PEC_C(gb2= gb2,
-                                       Hazard_lvl = SCInputz.PECHazard_lvl, 
-                                       Processing_Lines = Inputz.Processing_Lines, 
-                                       Lines_Cont = SCInputz.Lines_Cont)
+            #Pending
                 
             ShredderOuts = Funz.F_CrossContProLine(gb2 =gb2, 
                                                    Tr_P_S = Inputz.Tr_P_Sh, 
@@ -573,12 +517,8 @@ def F_MainLoop():
                                                                    Step_Column =    "PropCont_B_CBelt", 
                                                                    i = Iteration_In)
             
-            #Contamination event
-            if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==2:
-                gb2 = ContScen.F_PEC_C(gb2= gb2,
-                                       Hazard_lvl = SCInputz.PECHazard_lvl, 
-                                       Processing_Lines = Inputz.Processing_Lines, 
-                                       Lines_Cont = SCInputz.Lines_Cont)
+            #Contamination event, if it happens
+            #Pending
                 
             CVOuts = Funz.F_CrossContProLine(gb2 = gb2, 
                                              Tr_P_S = Inputz.Tr_P_Cv, 
@@ -612,12 +552,8 @@ def F_MainLoop():
                                                                    Step_Column =    "PropCont_B_Washing", 
                                                                    i = Iteration_In)
         
-            #Contamination event
-            if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==3:
-                gb2 = ContScen.F_PEC_C(gb2= gb2,
-                                       Hazard_lvl = SCInputz.PECHazard_lvl, 
-                                       Processing_Lines = Inputz.Processing_Lines, 
-                                       Lines_Cont = SCInputz.Lines_Cont)
+            #Contamination event, if it happens
+            #Pending
                 
                 
             if SCInputz.Washing_YN == True: 
@@ -644,11 +580,8 @@ def F_MainLoop():
                                                                    Step_Column =    "PropCont_B_ST", 
                                                                    i = Iteration_In)
             
-            if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==4:
-                gb2 = ContScen.F_PEC_C(gb2= gb2,
-                                       Hazard_lvl = SCInputz.PECHazard_lvl, 
-                                       Processing_Lines = Inputz.Processing_Lines, 
-                                       Lines_Cont = SCInputz.Lines_Cont)
+            #Contamination event, if it happens
+            #Pending
                 
             StOuts = Funz.F_CrossContProLine(gb2 =gb2, 
                                              Tr_P_S = Inputz.Tr_P_St, 
@@ -677,11 +610,8 @@ def F_MainLoop():
             
             
             
-            if ContCondz.PE_C ==True and ContCondz.PE_Cont_Loc ==5:
-                gb2 = ContScen.F_PEC_C(gb2= gb2,
-                                       Hazard_lvl = SCInputz.PECHazard_lvl, 
-                                       Processing_Lines = Inputz.Processing_Lines, 
-                                       Lines_Cont = SCInputz.Lines_Cont)
+            #Contamination event, if it happens
+            #Pending
                 
             CentrifugeOuts = Funz.F_CrossContProLine(gb2 =gb2, 
                                                      Tr_P_S = Inputz.Tr_P_C, 
@@ -737,11 +667,8 @@ def F_MainLoop():
             gb2 = df.groupby('ProLine')#Creating Listby procesing line
             gb2 =[gb2.get_group(x) for x in gb2.groups] #Creating list of separate dataframe by processing lines
             
-            if ContCondz.Pack_C ==True:
-                gb2 = ContScen.F_PEC_C(gb2=gb2,
-                                Hazard_lvl = SCInputz.PackHazard_lvl, 
-                                Processing_Lines = Inputz.Processing_Lines, 
-                                Lines_Cont = SCInputz.Lines_ContPack)
+            #Contamination event, if it happens
+            #Pending
                 
             
             df=(pd.concat(gb2))
