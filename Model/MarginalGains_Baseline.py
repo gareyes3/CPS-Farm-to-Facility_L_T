@@ -682,11 +682,15 @@ plt.ylabel("CFUs in System")
 
 
 
-dfBaseline_NI_melted= pd.melt(Baseline_NI[1])
+dfBaseline_NI_melted= pd.melt(Baseline_NI[1]["Final Product Facility"])
 dfBaseline_NI_melted["Type"] = "BaselineNI"
 
 
-dfBaseline_NI_PH4D_melted= pd.melt(Baseline_NI_PHS4d[1])
+
+dfBaseline_NI_melted= Baseline_NI[1]["Final Product Facility"]
+dfBaseline_NI_melted["Type"] = "BaselineNI"
+
+dfBaseline_NI_PH4D_melted= Baseline_NI_PHS4d[1]["Final Product Facility"]
 dfBaseline_NI_PH4D_melted["Type"] = "BaselineNI_PH4d"
 
 NI_compared = pd.concat([dfBaseline_NI_melted, dfBaseline_NI_PH4D_melted], 0)
@@ -703,6 +707,8 @@ dfBaseline_AI_melted= pd.melt(Baseline_AI[1])
 dfBaseline_AI_melted["Type"] = "BaselineAI"
 
 
+
+
 dfBaseline_AI_PH4D_melted= pd.melt(Baseline_AI_PHS4d[1])
 dfBaseline_AI_PH4D_melted["Type"] = "BaselineAI_PH4d"
 
@@ -714,3 +720,29 @@ plt.yticks([1,10,100,1000,10000,100000])
 plt.yscale('log')
 plt.title("Contamination Progression")
 plt.ylabel("CFUs in System")
+
+
+df_comparisons = pd.DataFrame ({"Baseline NI": Baseline_NI[1]["Final Product Facility"],
+                              "PH4d": Baseline_NI_PHS4d[1]["Final Product Facility"] })
+df_comparisons_melt = pd.melt(df_comparisons)
+
+
+sns.barplot(data =df_comparisons_melt, x  = "variable", y= "value")
+plt.xticks(rotation=-80)
+#plt.yticks([1,10,100,1000,10000,100000])
+#plt.yscale('log')
+plt.title("Contamination at Final Product")
+plt.ylabel("CFUs ")
+
+
+df_comparisons_AI = pd.DataFrame ({"Baseline AI": Baseline_AI[1]["Final Product Facility"],
+                              "PH4d": Baseline_AI_PHS4d[1]["Final Product Facility"] })
+df_comparisons_melt_AI = pd.melt(df_comparisons_AI)
+
+
+sns.barplot(data =df_comparisons_melt_AI, x  = "variable", y= "value")
+plt.xticks(rotation=-80)
+#plt.yticks([1,10,100,1000,10000,100000])
+#plt.yscale('log')
+plt.title("Contamination at Final Product")
+plt.ylabel("CFUs ")
