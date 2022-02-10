@@ -12,6 +12,7 @@ import sys, os
 sys.path
 sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
 sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility\Model')
+sys.path.append('C:\\Users\reyes\Documents\GitHub\CPS-Farm-to-Facility')
 
 # %%
 import random
@@ -496,7 +497,7 @@ Prop_Cont_NI.columns = Col_Names_NI
 Prop_Cont_NI_melted = Prop_Cont_NI.melt()
 
 #Plotting the bar graph or boxplot of the differences. 
-H=sns.catplot(x="variable", y="value", kind = "bar" ,
+H=sns.catplot(x="variable", y="value", kind = "box" ,
             data=Prop_Cont_NI_melted)
 plt.xlabel("Intervention")
 plt.ylabel("Proportion Contaminated at Final Product")
@@ -534,6 +535,8 @@ List_of_Progs_AI = [Baseline_AI[1],
                      Baseline_AI_FP[1]
                      ]
 
+
+
 #Creating list of Final Contmainations
 List_Final_Cont_AI = [x["Final Product Facility"] for x in List_of_Progs_AI]
 Col_Names_AI = "BaselineAI PHS4D_AI PHS4H_AI PHSInt_AI HTrad_AI RSTrad_AI FPSTrad_AI".split()
@@ -548,11 +551,14 @@ H=sns.catplot(x="variable", y="value", kind = "box" ,
 plt.xlabel("Intervention")
 plt.ylabel("Total CFUs at Finished Product")
 plt.yscale('log')
-plt.title("CFU Final Contamination: Baseline No INterventions")
+plt.title("CFU Final Contamination: Baseline All Interventions")
 plt.xticks(rotation=70)
 
 #Means compared to each other. 
 Final_Cont_AI_MeanCI= [mean_CI_ONE(x) for x in List_Final_Cont_AI]
+
+for i in range(7):
+    print(Final_Cont_AI_MeanCI[i][0]/Final_Cont_AI_MeanCI[0][0])
 
 
 Reduction_Cont_AI = Calc_red(meanCI =Final_Cont_AI_MeanCI,treatments= 7)
@@ -624,6 +630,9 @@ plt.xticks(rotation=70)
 
 Mean_Props_AI= [mean_CI_ONE(x) for x in Intervention_PropCont_List_AI]
 
+for i in range(7):
+    print(Mean_Props_AI[i][0]/Mean_Props_AI[0][0])
+
 #Histplot
 h=sns.displot( data =Prop_Cont_AI_melted, 
             x = "value" , 
@@ -647,7 +656,6 @@ h.map(specs,"value" )
 #%%
 
 sns.barplot(data = Baseline_NI[1])
-
 plt.xticks(rotation=-80)
 plt.yscale('log')
 plt.yticks([1,10,100,1000,10000,100000])
@@ -672,3 +680,37 @@ plt.yscale('log')
 plt.title("Contamination Progression")
 plt.ylabel("CFUs in System")
 
+
+
+dfBaseline_NI_melted= pd.melt(Baseline_NI[1])
+dfBaseline_NI_melted["Type"] = "BaselineNI"
+
+
+dfBaseline_NI_PH4D_melted= pd.melt(Baseline_NI_PHS4d[1])
+dfBaseline_NI_PH4D_melted["Type"] = "BaselineNI_PH4d"
+
+NI_compared = pd.concat([dfBaseline_NI_melted, dfBaseline_NI_PH4D_melted], 0)
+
+sns.barplot(data = NI_compared, x  = "variable", y= "value", hue = "Type")
+plt.xticks(rotation=-80)
+plt.yticks([1,10,100,1000,10000,100000])
+plt.yscale('log')
+plt.title("Contamination Progression")
+plt.ylabel("CFUs in System")
+
+
+dfBaseline_AI_melted= pd.melt(Baseline_AI[1])
+dfBaseline_AI_melted["Type"] = "BaselineAI"
+
+
+dfBaseline_AI_PH4D_melted= pd.melt(Baseline_AI_PHS4d[1])
+dfBaseline_AI_PH4D_melted["Type"] = "BaselineAI_PH4d"
+
+AI_compared = pd.concat([dfBaseline_AI_melted, dfBaseline_AI_PH4D_melted], 0)
+
+sns.barplot(data = AI_compared, x  = "variable", y= "value", hue = "Type")
+plt.xticks(rotation=-80)
+plt.yticks([1,10,100,1000,10000,100000])
+plt.yscale('log')
+plt.title("Contamination Progression")
+plt.ylabel("CFUs in System")
