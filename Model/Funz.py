@@ -79,7 +79,8 @@ def Applying_dieoff (df,Dieoff):
     new_vector=[]
     for i in vector: 
         CFU_1 = i
-        new_cont = np.random.binomial(CFU_1,10**Dieoff)
+        new_cont=np.random.poisson(10**Dieoff, CFU_1).sum()
+        #new_cont = np.random.binomial(CFU_1,10**Dieoff)
         new_vector.append(new_cont)
     df["CFU"] = new_vector
     return df
@@ -89,7 +90,8 @@ def F_Simple_Reduction(df, Reduction):
     new_vector=[]
     for i in vector: 
         CFU_1 = i
-        new_cont = np.random.binomial(CFU_1,10**-Reduction)
+        #new_cont = np.random.binomial(CFU_1,10**-Reduction)
+        new_cont=np.random.poisson(10**-Reduction, CFU_1).sum()
         new_vector.append(new_cont)
     df["CFU"] = new_vector
     return df
@@ -100,7 +102,8 @@ def F_Simple_Reduction_PLines(gb2, Reduction):
         new_vector=[]
         for i in vector: 
             CFU_1 = i
-            new_cont = np.random.binomial(CFU_1,10**-Reduction)
+            #new_cont = np.random.binomial(CFU_1,10**-Reduction)
+            new_cont=np.random.poisson(10**-Reduction, CFU_1).sum()
             new_vector.append(new_cont)
         j["CFU"] = new_vector
     return gb2
@@ -131,12 +134,9 @@ def F_Growth(DF,Temperature, TimeD ):
                 TotalGrowth = (TotalGrowthRate*TimeD)
             else:
                 TotalGrowth  = -DieoffRate * TimeD
-            if TotalGrowth>0:
-                MaxCFUs = Total_CFU*10**math.ceil(TotalGrowth)
-                Difference =  math.ceil(TotalGrowth) - TotalGrowth
-                Updated_CFUs=np.random.binomial(MaxCFUs, 10**-Difference)
-            else:
-                Updated_CFUs= np.random.binomial(Total_CFU,10**TotalGrowth)
+
+            #Updated_CFUs= np.random.binomial(Total_CFU,10**TotalGrowth)
+            Updated_CFUs=np.random.poisson(10**TotalGrowth, Total_CFU).sum()
         else:
             Updated_CFUs = Total_CFU
         New_CFUs.append(Updated_CFUs)

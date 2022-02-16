@@ -14,11 +14,11 @@ import ScenCondz
 
 
 Column_Names_Outs = ["Step_CFU_Acc",
-                    "Step_CFU_Rej",
-                    "Step_CFU_PerR",
-                    "Step_Wei_Acc",
-                    "Step_Wei_Rej",
-                    "Step_Wei_PerR",
+                     "Step_CFU_Rej",
+                     "Step_CFU_PerR",
+                     "Step_Wei_Acc",
+                     "Step_Wei_Rej",
+                     "Step_Wei_PerR",
                     ]
 
 
