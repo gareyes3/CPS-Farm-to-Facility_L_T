@@ -190,6 +190,73 @@ def Mean_Quantiles(df,columnname,q1,q2) :
     quantiles_1= df[columnname].quantile([q1,q2])
     return(mean_1, quantiles_1)
     
+
+def F_Outputs_Table(List_of_Outputs):
+    rep = 0
+    Columns_Final_Outs = [
+        "Final_CFU_Acc_Portion_mean",
+        "Final_CFU_Acc_Portion_5CI",
+        "Final_CFU_Acc_Portion_95CI",
+        "Final_CFU_Rej_Portion_mean",
+        "Final_CFU_Rej_Portion_5CI",
+        "Final_CFU_Rej_Portion_95CI",
+        "Prevalence_Acc_Mean",
+        "Prevalence_Acc_5CI",
+        "Prevalence_Acc_95CI",
+        "Prevalence_Rej_Mean",
+        "Prevalence_Rej_5CI",
+        "Prevalence_Rej_95CI",
+        "Ratio_Product_accepted"
+    ]
+    
+    Outputs_Df =pd.DataFrame(np.NaN, index= range(len(List_of_Outputs)), columns =Columns_Final_Outs)
+    for i in List_of_Outputs:
+        #Subseting Dataframe for the accepted
+        Subset_Acc_NI_PHS4d= i[0][i[0]['FP_Wei_Acc'] == 100_000].index
+        Subset_Rej_NI_PHS4d= i[0][i[0]['FP_Wei_Acc'] != 100_000].index
+        
+        #Final CFUs based on if accepted or rejected
+            #Accepted
+        Final_CFU_Acc_Portion_mean=i[1][i[1].index.isin(Subset_Acc_NI_PHS4d)]["Final Product Facility"].mean()
+        Final_CFU_Acc_Portion_90CI=i[1][i[1].index.isin(Subset_Acc_NI_PHS4d)]["Final Product Facility"].quantile([0.05,0.95])
+            #Rejected
+        Final_CFU_Rej_Portion_mean=i[1][i[1].index.isin(Subset_Rej_NI_PHS4d)]["Final Product Facility"].mean()
+        Final_CFU_Rej_Portion_90CI=i[1][i[1].index.isin(Subset_Rej_NI_PHS4d)]["Final Product Facility"].quantile([0.05,0.95])
+        
+        #Prevalence of contaminated packages 
+            #Accepted
+        Prevalence_Acc_Mean=i[2][i[2].index.isin(Subset_Acc_NI_PHS4d)]["PropCont_A_FP_Whole"].mean()
+        Prevalence_Acc_90CI=i[2][i[2].index.isin(Subset_Acc_NI_PHS4d)]["PropCont_A_FP_Whole"].quantile([0.05,0.95])
+            #Rejected
+        Prevalence_Rej_Mean=i[2][i[2].index.isin(Subset_Rej_NI_PHS4d)]["PropCont_A_FP_Whole"].mean()
+        Prevalence_Rej_90CI=i[2][i[2].index.isin(Subset_Rej_NI_PHS4d)]["PropCont_A_FP_Whole"].quantile([0.05,0.95])
+        
+        #Ratio of product accepted all iterations (weight)
+        i[0][i[0]['FP_Wei_Acc'] == 50] = 0
+        Ratio_Product_accepted=i[0]['FP_Wei_Acc'].sum()/(100*100_000)
+        
+        Outputs_Df.at[rep,"Final_CFU_Acc_Portion_mean"] = Final_CFU_Acc_Portion_mean
+        Outputs_Df.at[rep,"Final_CFU_Acc_Portion_5CI"] = Final_CFU_Acc_Portion_90CI.to_list()[0]
+        Outputs_Df.at[rep,"Final_CFU_Acc_Portion_95CI"] = Final_CFU_Acc_Portion_90CI.to_list()[1]
+        
+        
+        Outputs_Df.at[rep,"Final_CFU_Rej_Portion_mean"] = Final_CFU_Rej_Portion_mean
+        Outputs_Df.at[rep,"Final_CFU_Rej_Portion_5CI"] = Final_CFU_Rej_Portion_90CI.to_list()[0]
+        Outputs_Df.at[rep,"Final_CFU_Rej_Portion_95CI"] = Final_CFU_Rej_Portion_90CI.to_list()[1]
+        
+        Outputs_Df.at[rep,"Prevalence_Acc_Mean"] = Prevalence_Acc_Mean
+        Outputs_Df.at[rep,"Prevalence_Acc_5CI"] = Prevalence_Acc_90CI.to_list()[0]
+        Outputs_Df.at[rep,"Prevalence_Acc_95CI"] = Prevalence_Acc_90CI.to_list()[1]
+        
+        Outputs_Df.at[rep,"Prevalence_Rej_Mean"] = Prevalence_Rej_Mean
+        Outputs_Df.at[rep,"Prevalence_Rej_5CI"] = Prevalence_Rej_90CI.to_list()[0]
+        Outputs_Df.at[rep,"Prevalence_Rej_95CI"] = Prevalence_Rej_90CI.to_list()[1]
+        
+        Outputs_Df.at[rep,"Ratio_Product_accepted"] = Ratio_Product_accepted
+        
+        rep=rep+1
+    
+    return Outputs_Df
 #%% Effect of Individual Interventions
 Baseline_NI =  scenario_function()
 
@@ -211,6 +278,15 @@ Baseline_NI_PLS = scenario_function(Sanitation=True)
 
 # Data Analysis
 
+List_of_Outs_Ints = [Baseline_NI,
+                     Baseline_NI_Holding,
+                     Baseline_NI_Precooling,
+                     Baseline_NI_Wash,
+                     Baseline_NI_Sp_Wash,
+                     Baseline_NI_PLS
+                     ]
+
+Outputdf_INT = F_Outputs_Table(List_of_Outs_Ints)
 
 #Initial Contamination From BAseline
 
@@ -436,69 +512,10 @@ List_of_Outs = [Baseline_NI,
                      ]
 
 
-def F_Outputs_Table(List_of_Outputs):
-    rep = 0
-    Columns_Final_Outs = [
-        "Final_CFU_Acc_Portion_mean",
-        "Final_CFU_Acc_Portion_90CI",
-        "Final_CFU_Rej_Portion_mean",
-        "Final_CFU_Rej_Portion_90CI",
-        "Prevalence_Acc_Mean",
-        "Prevalence_Acc_90CI",
-        "Prevalence_Rej_Mean",
-        "Prevalence_Rej_90CI",
-        "Ratio_Product_accepted"
-    ]
-    
-    Outputs_Df =pd.DataFrame(np.NaN, index= range(7), columns =Columns_Final_Outs)
-    for i in List_of_Outputs:
-        #Subseting Dataframe for the accepted
-        Subset_Acc_NI_PHS4d= i[0][i[0]['FP_Wei_Acc'] == 100_000].index
-        Subset_Rej_NI_PHS4d= i[0][i[0]['FP_Wei_Acc'] != 100_000].index
-        
-        #Final CFUs based on if accepted or rejected
-            #Accepted
-        Final_CFU_Acc_Portion_mean=i[1][i[1].index.isin(Subset_Acc_NI_PHS4d)]["Final Product Facility"].mean()
-        Final_CFU_Acc_Portion_90CI=i[1][i[1].index.isin(Subset_Acc_NI_PHS4d)]["Final Product Facility"].quantile([0.05,0.95])
-            #Rejected
-        Final_CFU_Rej_Portion_mean=i[1][i[1].index.isin(Subset_Rej_NI_PHS4d)]["Final Product Facility"].mean()
-        Final_CFU_Rej_Portion_90CI=i[1][i[1].index.isin(Subset_Rej_NI_PHS4d)]["Final Product Facility"].quantile([0.05,0.95])
-        
-        #Prevalence of contaminated packages 
-            #Accepted
-        Prevalence_Acc_Mean=i[2][i[2].index.isin(Subset_Acc_NI_PHS4d)]["PropCont_A_FP_Whole"].mean()
-        Prevalence_Acc_90CI=i[2][i[2].index.isin(Subset_Acc_NI_PHS4d)]["PropCont_A_FP_Whole"].quantile([0.05,0.95])
-            #Rejected
-        Prevalence_Rej_Mean=i[2][i[2].index.isin(Subset_Rej_NI_PHS4d)]["PropCont_A_FP_Whole"].mean()
-        Prevalence_Rej_90CI=i[2][i[2].index.isin(Subset_Rej_NI_PHS4d)]["PropCont_A_FP_Whole"].quantile([0.05,0.95])
-        
-        #Ratio of product accepted all iterations (weight)
-        i[0][i[0]['FP_Wei_Acc'] == 50] = 0
-        Ratio_Product_accepted=i[0]['FP_Wei_Acc'].sum()/(100*100_000)
-        
-        Outputs_Df.at[rep,"Final_CFU_Acc_Portion_mean"] = Final_CFU_Acc_Portion_mean
-        Outputs_Df.at[rep,"Final_CFU_Acc_Portion_90CI"] = Final_CFU_Acc_Portion_90CI
-        
-        Outputs_Df.at[rep,"Final_CFU_Rej_Portion_mean"] = Final_CFU_Rej_Portion_mean
-        Outputs_Df.at[rep,"Final_CFU_Rej_Portion_90CI"] = Final_CFU_Rej_Portion_90CI
-        
-        Outputs_Df.at[rep,"Prevalence_Acc_Mean"] = Prevalence_Acc_Mean
-        Outputs_Df.at[rep,"Prevalence_Acc_90CI"] = [Prevalence_Acc_90CI]
-        
-        Outputs_Df.at[rep,"Prevalence_Rej_Mean"] = Prevalence_Rej_Mean
-        Outputs_Df.at[rep,"Prevalence_Rej_90CI"] = [Prevalence_Rej_90CI]
-        
-        Outputs_Df.at[rep,"Ratio_Product_accepted"] = Ratio_Product_accepted
-        
-        rep=rep+1
-    
-    return Outputs_Df
-        
-        
-        
-F_Outputs_Table(List_of_Outs)       
+#Using function        
+Outputs_Df=F_Outputs_Table(List_of_Outs)  
 
-    
+
     
     
 Columns_Final_Outs = [
