@@ -206,7 +206,11 @@ def F_Outputs_Table(List_of_Outputs):
         "Prevalence_Rej_Mean",
         "Prevalence_Rej_5CI",
         "Prevalence_Rej_95CI",
-        "Ratio_Product_accepted"
+        "Ratio_Product_accepted",
+        "Pooled_CFU_g_mean",
+        "Pooled_CFU_g_5CI",
+        "Pooled_CFU_g_5CI",   
+        
     ]
     
     Outputs_Df =pd.DataFrame(np.NaN, index= range(len(List_of_Outputs)), columns =Columns_Final_Outs)
@@ -230,6 +234,8 @@ def F_Outputs_Table(List_of_Outputs):
             #Rejected
         Prevalence_Rej_Mean=i[2][i[2].index.isin(Subset_Rej_NI_PHS4d)]["PropCont_A_FP_Whole"].mean()
         Prevalence_Rej_90CI=i[2][i[2].index.isin(Subset_Rej_NI_PHS4d)]["PropCont_A_FP_Whole"].quantile([0.05,0.95])
+            #Pooled Stuff
+        Pooled_CFU_g_mean= (Subset_Acc_NI_PHS4d/ (i[0]['FP_Wei_Acc'] )*454).mean()
         
         #Ratio of product accepted all iterations (weight)
         i[0][i[0]['FP_Wei_Acc'] == 50] = 0
@@ -253,6 +259,9 @@ def F_Outputs_Table(List_of_Outputs):
         Outputs_Df.at[rep,"Prevalence_Rej_95CI"] = Prevalence_Rej_90CI.to_list()[1]
         
         Outputs_Df.at[rep,"Ratio_Product_accepted"] = Ratio_Product_accepted
+        
+        Outputs_Df.at[rep,"Pooled_CFU_g_mean"] = Pooled_CFU_g_mean
+        
         
         rep=rep+1
     
@@ -383,7 +392,6 @@ h.map(specs,"value" )
 
 ### BASELINE  NO INTERVENTION###
 
-
 #Baseline Scenario No Intervention. 
 Baseline_NI =  scenario_function()
 
@@ -511,30 +519,24 @@ List_of_Outs = [Baseline_NI,
                      Baseline_NI_FP
                      ]
 
-
+#Names
+Col_Names_NI = "BaselineNI PHS4D_NI PHS4H_NI PHSInt_NI HTrad_NI RSTrad_NI FPSTrad_NI".split()
 #Using function        
 Outputs_Df=F_Outputs_Table(List_of_Outs)  
 
+Outputs_Df.columns
+Outputs_Df["Treatments"] = Col_Names_NI
 
-    
-    
-Columns_Final_Outs = [
-    "Final_CFU_Acc_Portion_mean",
-    "Final_CFU_Acc_Portion_90CI",
-    "Final_CFU_Rej_Portion_mean",
-    "Final_CFU_Rej_Portion_90CI",
-    "Prevalence_Acc_Mean",
-    "Prevalence_Acc_90CI",
-    "Prevalence_Rej_Mean",
-    "Prevalence_Rej_90CI",
-    "Ratio_Product_accepted"
-]
+#Exploring the relationships
+sns.scatterplot(data=Outputs_Df, x="Final_CFU_Acc_Portion_mean", y="Ratio_Product_accepted", hue="Treatments")
 
-Outputs_Df =pd.DataFrame(np.NaN, index= range(7), columns =Columns_Final_Outs) 
+#Pooled CFU_g, 
 
-Final_CFU_Acc_Portion_90CI=Baseline_NI_PHS4d[1][Baseline_NI_PHS4d[1].index.isin(Subset_Acc_NI_PHS4d)]["Final Product Facility"].quantile([0.05,0.95])
 
-Outputs_Df.loc[1,"Final_CFU_Acc_Portion_90CI"] =Final_CFU_Acc_Portion_90CI
+
+
+
+
 
 #Creating list of Final Contmainations
 List_Final_Cont_NI = [x["Final Product Facility"] for x in List_of_Progs_NI]
