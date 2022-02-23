@@ -235,7 +235,8 @@ def F_Outputs_Table(List_of_Outputs):
         Prevalence_Rej_Mean=i[2][i[2].index.isin(Subset_Rej_NI_PHS4d)]["PropCont_A_FP_Whole"].mean()
         Prevalence_Rej_90CI=i[2][i[2].index.isin(Subset_Rej_NI_PHS4d)]["PropCont_A_FP_Whole"].quantile([0.05,0.95])
             #Pooled Stuff
-        Pooled_CFU_g_mean= (Subset_Acc_NI_PHS4d/ (i[0]['FP_Wei_Acc'] )*454).mean()
+        Pooled_CFU_g_mean= ((i[1][i[1].index.isin(Subset_Acc_NI_PHS4d)]["Final Product Facility"])/ (i[0][i[0].index.isin(Subset_Acc_NI_PHS4d)]["FP_Wei_Acc"]*454)).mean()
+        Pooled_CFU_g_90CI= ((i[1][i[1].index.isin(Subset_Acc_NI_PHS4d)]["Final Product Facility"])/ (i[0][i[0].index.isin(Subset_Acc_NI_PHS4d)]["FP_Wei_Acc"]*454)).quantile([0.05,0.95])
         
         #Ratio of product accepted all iterations (weight)
         i[0][i[0]['FP_Wei_Acc'] == 50] = 0
@@ -261,6 +262,9 @@ def F_Outputs_Table(List_of_Outputs):
         Outputs_Df.at[rep,"Ratio_Product_accepted"] = Ratio_Product_accepted
         
         Outputs_Df.at[rep,"Pooled_CFU_g_mean"] = Pooled_CFU_g_mean
+        Outputs_Df.at[rep,"Pooled_CFU_g_5CI"] =  Pooled_CFU_g_90CI.to_list()[0]
+        Outputs_Df.at[rep,"Pooled_CFU_g_95CI"] =  Pooled_CFU_g_90CI.to_list()[1]
+        
         
         
         rep=rep+1
