@@ -79,8 +79,8 @@ def Applying_dieoff (df,Dieoff):
     new_vector=[]
     for i in vector: 
         CFU_1 = i
-        new_cont=np.random.poisson(10**Dieoff, CFU_1).sum()
-        #new_cont = np.random.binomial(CFU_1,10**Dieoff)
+        #new_cont=np.random.poisson(10**Dieoff, CFU_1).sum()
+        new_cont = np.random.binomial(CFU_1,10**Dieoff)
         new_vector.append(new_cont)
     df["CFU"] = new_vector
     return df
