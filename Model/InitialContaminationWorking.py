@@ -162,9 +162,6 @@ Time_PHS_H_PartD =math.modf(Time_PHS_H)[0]
 Time_Cutoff_Irrigation = Total_Days-Holding_Time
 
 
-Total__Days_BS = 14 #Total Days before sampling
-Total_Irr_Days = 4
-
 #function inputs
 scenario_no = 1
 
