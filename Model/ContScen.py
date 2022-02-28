@@ -10,6 +10,8 @@ import seaborn as sns
 from matplotlib import pyplot as plt
 import Funz
 import Inputz
+from numpy.random import Generator, PCG64
+rng = Generator(PCG64())
 
 #%% Contamination Scenarios
 
@@ -38,7 +40,7 @@ def F_systematic_C(df, Hazard_lvl,No_Cont_Clusters,Cluster_Size, Partition_Weigh
         x_random_consecutive_rows = list(x_random_consecutive_rows.index)
         #using multinomial creating array to contaminated the desired outputs
         #probaility defined by the number of partitions. 
-        Contamination_Pattern = np.random.multinomial(Hazard_lvl_percluster,[1/No_Cont_PartitionUnits]*No_Cont_PartitionUnits,1)
+        Contamination_Pattern = rng.multinomial(Hazard_lvl_percluster,[1/No_Cont_PartitionUnits]*No_Cont_PartitionUnits,1)
         df.at[x_random_consecutive_rows,'CFU']= df.loc[x_random_consecutive_rows,'CFU'] + Contamination_Pattern[0]
     return df
         
