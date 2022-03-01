@@ -69,24 +69,31 @@ def Irrigation_Soil_Splash():
     Increase_IrrigationCFU = Cont*(454*100_000)
     return int(Increase_IrrigationCFU) 
 
-def Feces_Addition(): #Wrose case scenrio, High level of contamination.
-    Month = np.random.choice([1,2,3,4,5,6,7,8,9,10,11,12 ])
+def Feces_Addition(Month): #Wrose case scenrio, High level of contamination.
     Month_Index = Month-1
     Cont_ferral_means =[-29.13,-29.13,-29.13,-29.13,-29.13,-29.13,-1.26,-2.1,-29.13,-2.75,-2.35,-2.13] 
     Cont_ferral_sds = [9.72,9.72,9.72,9.72,9.72,9.72,2.2,2.44,9.72,2.62,2.51,2.46]
     Ferral_Day = 4260 #g of feces per day
-    tr=transfer_1(np.random.uniform(0,1))/(1.29*10**8)
+    #tr=transfer_1(np.random.uniform(0,1))/(1.29*10**8)
     Cont_Ferral=np.random.lognormal(Cont_ferral_means[Month_Index],Cont_ferral_sds[Month_Index])
     Cont_Ferral_CFU=10**Cont_Ferral
-    CFU_ferralloc_CFU = Ferral_Day*Cont_Ferral_CFU #CFU/g
-    CFU_ferralloc_CFU*tr #CFU/g trafered to Sublot
-
+    CFU_ferralloc_Soil_CFU = Ferral_Day*Cont_Ferral_CFU #CFU/g
+    return CFU_ferralloc_Soil_CFU
+    #CFU_ferralloc_CFU*tr #CFU/g trafered to Sublot
+    
 #def Feces_Splash():
     
     
 
 #%%
+df= InFunz.F_InDF(Partition_Units = SCInputz.Partition_Units,
+                  Field_Weight = SCInputz.Field_Weight, 
+                  slot_number = SCInputz.slot_number)
 
+Soil_Slots = df["CFU"]
+Month = np.random.choice([1,2,3,4,5,6,7,8,9,10,11,12 ])
+Index_Cont=Soil_Slots.sample(n=10).index
+Soil_Slots[Index_Cont] =Soil_Slots[Index_Cont]+ Feces_Addition(Month)/10
 
 
 #%%
