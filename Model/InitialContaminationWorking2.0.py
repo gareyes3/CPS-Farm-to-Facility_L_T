@@ -45,6 +45,8 @@ def transfer_1(val):
        trans = 340+((230000-340)*(val-0.946)/(1-0.946)) 
     return trans
 #%% Contamination Functions: 
+    
+#Scenario 1: Uniform Contamination
 def Irrigation_Water_Cont():
     #Ecoli_soil = np.random.normal(0.549,0.816) #log10 CFU/g
     #P_Ecoli_Water = 0.35
@@ -60,6 +62,8 @@ def Irrigation_Water_Cont():
     Increase_Irrigation =C_Ecoli_Water*Tr_Irr_Water #CFU/g
     Increase_IrrigationCFU = Increase_Irrigation*(454*100_000)
     return Increase_IrrigationCFU
+
+#Scenario 2: Uniform Contamination
 def Irrigation_Soil_Splash():
     Ecoli_soil = np.random.normal(0.549,0.816) #log10 CFU/g
     #Pr_Irr_Splashing = pert(0.02,0.04,0.05)
@@ -69,6 +73,7 @@ def Irrigation_Soil_Splash():
     Increase_IrrigationCFU = Cont*(454*100_000)
     return int(Increase_IrrigationCFU) 
 
+#Scenario 3
 def Feces_Addition(Month): #Wrose case scenrio, High level of contamination.
     Month_Index = Month-1
     Cont_ferral_means =[-29.13,-29.13,-29.13,-29.13,-29.13,-29.13,-1.26,-2.1,-29.13,-2.75,-2.35,-2.13] 
@@ -81,19 +86,28 @@ def Feces_Addition(Month): #Wrose case scenrio, High level of contamination.
     return CFU_ferralloc_Soil_CFU
     #CFU_ferralloc_CFU*tr #CFU/g trafered to Sublot
     
-#def Feces_Splash():
+def Feces_Splash(Soil_Slots):
+    tr=transfer_1(np.random.uniform(0,1))/(1.29*10**8)
+    Cont_Trans = Soil_Slots.apply(lambda x: np.random.binomial(x,tr))
+    df["CFU"] = df["CFU"]+Cont_Trans
+    return df
     
     
 
 #%%
+
 df= InFunz.F_InDF(Partition_Units = SCInputz.Partition_Units,
                   Field_Weight = SCInputz.Field_Weight, 
                   slot_number = SCInputz.slot_number)
 
 Soil_Slots = df["CFU"]
 Month = np.random.choice([1,2,3,4,5,6,7,8,9,10,11,12 ])
-Index_Cont=Soil_Slots.sample(n=10).index
-Soil_Slots[Index_Cont] =Soil_Slots[Index_Cont]+ Feces_Addition(Month)/10
+for  i in range(10):
+    Index_Cont=Soil_Slots.sample(n=10).index
+    Updates_values=Soil_Slots[Index_Cont].values+ np.random.multinomial(Feces_Addition(Month),[1/10]*10,1)
+    Soil_Slots[Index_Cont]=Updates_values[0]
+    Soil_Slots = Soil_Slots.apply(lambda x: np.random.binomial(x,10**-0.1744)) #applying daily die-off. 
+
 
 
 #%%
@@ -104,13 +118,7 @@ df= InFunz.F_InDF(Partition_Units = SCInputz.Partition_Units,
                   Field_Weight = SCInputz.Field_Weight, 
                   slot_number = SCInputz.slot_number)
 
-df = ContScen.F_systematic_C(df =df, 
-              Hazard_lvl = 6356,
-              No_Cont_Clusters=1,
-              Cluster_Size=100_000, 
-              Partition_Weight= 50)
 
-df=Funz.F_Sampling_2 (df =df, Test_Unit= "Lot", NSamp_Unit= 1, Samp_Size= 3750, Partition_Weight = 50, NoGrab = 60)
 
 #Pre-Contamination Information
 Scenario_no = 2 # np.random.choice([1,2,3,4,5])
