@@ -44,6 +44,8 @@ def transfer_1(val):
     else:
        trans = 340+((230000-340)*(val-0.946)/(1-0.946)) 
     return trans
+
+
 #%% Contamination Functions: 
     
 #Scenario 1: Uniform Contamination

@@ -12,6 +12,7 @@ import ContCondz
 import Funz
 import numpy as np  
 import SCInputz 
+import math
        
 #Randomized Initial Contamination
 
@@ -22,7 +23,9 @@ import SCInputz
 #3. Sporadic from soil manure
 #4. Harvest Contmaination #Pending
 #5. Custom Plan #Pending
-    
+
+#Old ContamiNATION iNFORMATION
+'''    
 Contamination_Scenario = np.random.choice([1,2,3])  
 
 #Contamination Scenario #1
@@ -55,7 +58,60 @@ if Contamination_Scenario == 3:
     elif ScenCondz.Holding_Time == False:
         Time_CE_H = np.random.triangular(0,4,8) #days 
 
-        
+''' 
+#%% Contamination Scenario Inputs
+
+Scenario_no = np.random.choice([1,2,3,4])
+    #1. Refers to irrigation water contaminating field
+    #2. Refers to splash from irrigation water whenimproper manure is applied
+    #3. Refers to splash due to ferral swine feces, clustered
+    #4. Referes to splash due to cattle and ferral swine runoff due to irrigation.
+Month_choice = np.random.choice([1,2,3,4,5,6,7,8,9,10,11,12 ])
+       
+
+#%% Inputs for Initial Contamination
+
+#Pre-Contamination Information
+
+Total_Days = 14 #Refers to the total days that the model simulates field contamination and irrigation
+
+
+#Time Options for the Sampling Scenarios 1,2,3
+if ScenCondz.PHS_Int ==True :
+    Time_PHS_H = 0 #Days #time from pre harvest sampling to harvest Sampling
+elif ScenCondz.PHS_4h ==True:
+    Time_PHS_H = 0.166 # 4Hours before harvest
+elif ScenCondz.PHS_4d ==True:
+    Time_PHS_H = 4 #4 days before harvest
+else:
+    Time_PHS_H = 0 #if not, baseline is always 4 hours
+
+PHS_Day = math.ceil(Time_PHS_H)
+
+#Times from Initial to PHS:
+Time_I_PHS = Total_Days-Time_PHS_H
+Time_I_PHS_FullD=int(math.modf(Time_I_PHS)[1])
+Time_I_PHS_PartD=math.modf(Time_I_PHS)[0]
+
+#Times from PHS to H
+Time_PHS_H_FullD =int(math.modf(Time_PHS_H)[1])
+Time_PHS_H_PartD =math.modf(Time_PHS_H)[0]
+
+#Holding Time Days:
+Holding_Time = int(Funz.pert(2,4,8)) #Irrigation
+
+if ScenCondz.Holding_Time == True: #Should always be true unless scenario analysis. 
+    Holding_Time = int(Funz.pert(2,4,8)) #Irrigation
+elif ScenCondz.Holding_Time == False:
+    Holding_Time = 0 #Irrigation
+
+#%% Irrigation information
+
+irrigation_frequency = int(np.random.uniform(5,7))
+probability_irrigation_day = (1/irrigation_frequency) #irrigation every 7 days. 
+irrigation_days=list(range(1,(14-Holding_Time+1))) #1 is 1st day, 14 is harvest.
+Normalized_Irrigation=len(irrigation_days)/7
+Final_Irrigation_Days = [i for i in irrigation_days if (probability_irrigation_day*Normalized_Irrigation)>np.random.uniform(0,1)]
 
                                                                                              
 #%% Die off
@@ -69,8 +125,8 @@ Dieoff2 = Funz.F_DieOff2() #from Belias et al.
 #Lag Consumed for Growth models, always starts at 0, updated in model.
 Lag_Consumed_Prev = 0
 
-
 #%% Time Pre-Harvest HArvest
+'''
 #Time between Contamination Event and Harvest Sampling *** Scenario Control
 if ScenCondz.Holding_Time == True: #Should always be true unless scenario analysis. 
     Time_CE_H = np.random.triangular(2,4,8) #days
@@ -96,7 +152,7 @@ if Time_PHS_H>Time_CE_H:
     Time_CE_PHS = 0 #No time in contamination Event. 
 elif Time_PHS_H<=Time_CE_H:
     Time_CE_PHS= Time_CE_H-Time_PHS_H #Days Time from Contamination Event (Irrigation) to Pre-Harvest Sampling
-
+'''
 #%% Pre-Cooling- HArvest
 
 #Chrlorine Pray

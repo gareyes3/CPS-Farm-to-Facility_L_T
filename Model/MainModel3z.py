@@ -108,52 +108,15 @@ def F_MainLoop():
                           slot_number = SCInputz.slot_number)
 
         
-        #adding contamination to the dataframe is contamination happened before PH. 
-        if Inputz.Time_CE_PHS>0: 
-            
-
-            #Adding Contamination depending on challenge Systematic Sampling
-            
-            #Pre-Harvest Contamination Scenarios:
-            if Inputz.Contamination_Scenario in [1,2,3]:
-                df = ContScen.F_systematic_C(df=df, 
-                                             Hazard_lvl= Inputz.Hazard_Lvl,
-                                             No_Cont_Clusters =Inputz.Cont_Cluster,
-                                             Cluster_Size= Inputz.Cluster_Size,
-                                             Partition_Weight = SCInputz.Partition_Weight)
-                
-                
-            # Local Outputs: Initial Contamination     
-            LV_Initial_CFU= sum(df.CFU) #Initial Contamination 
-            Listz.List_Initial_CFU.append(LV_Initial_CFU) #Adding Initial Contamintion to List
-            
-            #Collection of progression
-            df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df,
-                                                         outputDF = df_Output_Contprog,
-                                                         Step_Column = "Contam Event Before PHS", 
-                                                         i =Iteration_In )
-            #Collection of proportsion contaminated
-            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
-                                                                   outputDF =df_Output_Propprog, 
-                                                                   Step_Column = "PropCont_CE_B_PHS", 
-                                                                   i = Iteration_In)
+        
     
         #STEP 1 PREHARVEST ------------------------------------------------------------------------------------------------------------------
         
-        #Die-off From Contamination Event to Pre-Havrvest
-        #LV_Die_Off_CE_PHS =Funz.F_DieOff_IR_PH(Inputz.Time_CE_PHS,Inputz.Break_Point, Inputz.Dieoff1, Inputz.Dieoff2) #Die off rate from Irrigation to pre harvest sampling, Belias et al. 
-        
-        
-        #DIE-OFF, if contamination before PH Occured.
-        LV_Die_off_Total = Funz.F_Simple_DieOff(Inputz.Time_CE_H)
-        LV_Die_Off_CE_PHS = ((Inputz.Time_CE_PHS)/Inputz.Time_CE_H)*LV_Die_off_Total
-
-        df = Funz.Applying_dieoff(df=df, Dieoff=LV_Die_Off_CE_PHS ) #Applying Die off to CFU Column in the DF
-
-            
-        LO_Cont_B_PH = sum(df.CFU) #Contamination before rejection sampling
-
-        LO_Weight_B_PH = sum(df.Weight)
+        Outs_In_PHS = Funz.Cont_Ini_PHS(df)
+        df=Outs_In_PHS[0]
+        Total_CFU_v = Outs_In_PHS[1]
+        TotalTime = Outs_In_PHS[2]
+        Happens_YN_1part = Outs_In_PHS[3]
         
         #Contprog Before Pre-Harvest Sampling
         df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df,
@@ -184,9 +147,8 @@ def F_MainLoop():
                                            Partition_Weight =SCInputz.Partition_Weight, 
                                            NoGrab =SCInputz.No_Grabs_PH)
             
-            
-        
-        Listz.List_BPHS_CFU.append( LO_Cont_B_PH) #List of contamination before sampling
+        LO_Cont_B_PH = sum(df.CFU)
+        LO_Weight_B_PH = sum(df.Weight)
         
         #Filtering out the Rejected lots, Pre-Harvest
         if ScenCondz.PHS_Int ==True: #Rejection intense
@@ -195,7 +157,7 @@ def F_MainLoop():
             df=Funz.F_Rejection_Rule3(df =df, Test_Unit = SCInputz.RR_PH_Trad, limit = SCInputz.Limit_PH) 
            
         
-        #Contprog After Pre-Harvest
+        #Contprog After Pre-Harvest Sampling
         df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df,
                                                      outputDF = df_Output_Contprog,
                                                      Step_Column = "Aft Pre-Harvest Samp", 
@@ -219,55 +181,26 @@ def F_MainLoop():
                                                             Niterations = SCInputz.N_Iterations)
         
         
-        if Inputz.Time_CE_PHS==0:
         
-        #STEP 0 CONTAMINATION SCENARIOS  ----------------------------------------------------------------------------------------------------
             
-            #Adding Contamination depending on challenge Pre-harvest challenges
-            if Inputz.Contamination_Scenario in [1,2,3]:
-                df = ContScen.F_systematic_C(df=df, 
-                                             Hazard_lvl= Inputz.Hazard_Lvl,
-                                             No_Cont_Clusters =Inputz.Cont_Cluster,
-                                             Cluster_Size= Inputz.Cluster_Size,
-                                             Partition_Weight = SCInputz.Partition_Weight )
-                
-            # Local Outputs: Initial Contamination     
-            LV_Initial_CFU= sum(df.CFU) #Initial Contamination 
-            Listz.List_Initial_CFU.append(LV_Initial_CFU) #Adding Initial Contamintion to List
-            
-            #Contprog Initial
-            df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df,
-                                                         outputDF = df_Output_Contprog,
-                                                         Step_Column = "Contam Event After PHS", 
-                                                         i =Iteration_In )
-            #PropoContaminated
-            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
-                                                                   outputDF =df_Output_Propprog, 
-                                                                   Step_Column =  "PropCont_CE_A_PHS", 
-                                                                   i = Iteration_In)
-            
-    
+        #Contprog Initial
+        df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df,
+                                                     outputDF = df_Output_Contprog,
+                                                     Step_Column = "Contam Event After PHS", 
+                                                     i =Iteration_In )
+        #PropoContaminated
+        df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+                                                               outputDF =df_Output_Propprog, 
+                                                               Step_Column =  "PropCont_CE_A_PHS", 
+                                                               i = Iteration_In)
+        
+        Outs_In_PHS = Funz.Cont_PHS_End(df, Happens_YN_1part, TotalTime,Total_CFU_v )
+        df = Outs_In_PHS[0]
+        Total_CFU_v = Outs_In_PHS[1]
+        
+        
         
         #STEP 2 HARVEST ---------------------------------------------------------------------------------------------------------------------
-        
-        
-        
-        #Pre-Harvest Sampling - Harvest Sampling Die off       
-    
-
-        LV_Die_Off_PHS_HS=LV_Die_off_Total - LV_Die_Off_CE_PHS
-        #print(LV_Die_off_Total, "Total Dieoff")
-        #print(LV_Die_Off_CE_PHS, "Dieoff Before")
-        #print(LV_Die_Off_PHS_HS, "Die off PHS+HS")
-        
-        
-        #Funz.F_DieOff_PHS_HS(Time_PHS_H, Time_Agg, Break_Point, Dieoff1, Dieoff2)
-        
-        #Belias et al dieoff
-        #LV_Die_Off_PHS_HS =Funz.F_DieOff_PHS_HS(Inputz.Time_PHS_H,LV_Time_Agg,Inputz.Break_Point, Inputz.Dieoff1, Inputz.Dieoff2) #Die off rate from Irrigation to pre harvest sampling, Belias et al. 
-
-        df = Funz.Applying_dieoff(df=df, Dieoff =LV_Die_Off_PHS_HS ) #Updating Contmination to Show Total DieOff
-        
         
         #Adding Contamination depending on challenge at harvest
         #PENDING:
@@ -874,7 +807,7 @@ def F_MainLoop():
             
         if SCInputz.Sensitivity_Analysis==True:
             #Adding Sens outputs
-            df_Sensitivity= Dictionariez.Func_LoadInputs(df_Sensitivity,Iteration_In,df,LV_Die_off_Total)
+            df_Sensitivity= Dictionariez.Func_LoadInputs(df_Sensitivity,Iteration_In,df)
         
             
     #STEP 7: Outputs 
