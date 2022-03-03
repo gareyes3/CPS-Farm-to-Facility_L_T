@@ -9,10 +9,12 @@ Created on Tue Jul 20 09:31:30 2021
                                                        #Inputs for the Model, Initial Inputs
 import ScenCondz
 import ContCondz
-import Funz
 import numpy as np  
 import SCInputz 
 import math
+from numpy.random import Generator, PCG64
+import pandas as pd
+rng = Generator(PCG64())
        
 #Randomized Initial Contamination
 
@@ -59,6 +61,69 @@ if Contamination_Scenario == 3:
         Time_CE_H = np.random.triangular(0,4,8) #days 
 
 ''' 
+def pert(a, b, c, *, size=1, lamb=4):
+    r = c - a
+    alpha = 1 + lamb * (b - a) / r
+    beta = 1 + lamb * (c - b) / r
+    return a + rng.beta(alpha, beta, size=size) * r
+
+def F_Chloride_lvl (Time_Wash):
+    #Function Inputs. 
+    #Changing times to 0.1 increments.
+    Times = np.arange(0, Time_Wash+0.1, 0.1).tolist()
+    Times = [round(num, 1) for num in Times]
+    #Addition Rates
+    r1= 12.75 #(mg/(ml/min**2))
+    r2 = 7.47 #(mg/(ml/min**2))
+    r3 = 5.56 #(mg/(ml/min**2))
+    #Dose
+    Ro = 12 #Chlorine dosing period, ever7 12 minutes
+    Ro0 = 2 #Minutes duration of dose
+    #Time
+    Pre_runningT = 0 #Runing time variable
+    K0 = 32.3 # free chrolirine demand per min 
+    C= 0 # initial #(mg/L) #Concentration of Free Chrloride available
+    O = 0  # Initial Oxygen demand
+    #Other parameters
+    SigC = 1.70*(10**-3) #Natural decay of FC
+    BC = 5.38*(10**-4) #Depletion rate of FC in water. 
+    A_Per =0
+    List_Time_Ints = list(range(Ro,500,Ro))
+    List_C=[]
+    for i in Times: 
+        Running_Time = i
+        if(Running_Time in List_Time_Ints):
+            A_Per=A_Per+1
+        Time_Interval = Running_Time-(Pre_runningT)
+        if 0<= Running_Time <= (0+Ro0) :
+            Rate = r1
+            X = 1
+        elif Ro <= Running_Time <= (Ro+Ro0) :
+            Rate = r2
+            X = 1
+        elif 2*Ro <= Running_Time <= (2*Ro+Ro0) : 
+            Rate = r3
+            X = 1
+        elif (A_Per*Ro) <= Running_Time <= (A_Per*Ro+Ro0) : 
+            Rate = r3
+            X = 1
+        else: 
+            X = 0
+        dO = K0*Time_Interval #Demand per time interval
+        O = O+dO # Current oxygen demand
+        decay = ((-SigC*Time_Interval)*C) - ((BC*Time_Interval)*O*C)  #Decay due to demand of chlorine
+        Increase = (Rate*X*Time_Interval) #increase due to dosing period. 
+        dC = decay + Increase #Total chanfe in Free Chlorine
+        C = C+dC #FRee Chlorine after set time.
+        if C < 0:
+            C = 0 
+        Pre_runningT = i #Running Time.
+        List_C.append(C)
+    Cdf = pd.DataFrame(
+    {'Time': Times,
+     'C': List_C,
+    })
+    return Cdf
 #%% Contamination Scenario Inputs
 
 Scenario_no = np.random.choice([1,2,3,4])
@@ -98,10 +163,9 @@ Time_PHS_H_FullD =int(math.modf(Time_PHS_H)[1])
 Time_PHS_H_PartD =math.modf(Time_PHS_H)[0]
 
 #Holding Time Days:
-Holding_Time = int(Funz.pert(2,4,8)) #Irrigation
 
 if ScenCondz.Holding_Time == True: #Should always be true unless scenario analysis. 
-    Holding_Time = int(Funz.pert(2,4,8)) #Irrigation
+    Holding_Time = int(pert(2,4,8)) #Irrigation
 elif ScenCondz.Holding_Time == False:
     Holding_Time = 0 #Irrigation
 
@@ -113,14 +177,15 @@ irrigation_days=list(range(1,(14-Holding_Time+1))) #1 is 1st day, 14 is harvest.
 Normalized_Irrigation=len(irrigation_days)/7
 Final_Irrigation_Days = [i for i in irrigation_days if (probability_irrigation_day*Normalized_Irrigation)>np.random.uniform(0,1)]
 
+
                                                                                              
 #%% Die off
 
 #this no currently used. 
 # 0 Die-off in Field for first 3 contamination Events
-Break_Point=Funz.Func_NormalTrunc(0.11,3.71,0.68,0.98) #Breaking point for Die Off from Belias et al. 
-Dieoff1 = Funz.F_DieOff1() #from Belias et al. 
-Dieoff2 = Funz.F_DieOff2() #from Belias et al. 
+#Break_Point=Funz.Func_NormalTrunc(0.11,3.71,0.68,0.98) #Breaking point for Die Off from Belias et al. 
+#Dieoff1 = Funz.F_DieOff1() #from Belias et al. 
+#Dieoff2 = Funz.F_DieOff2() #from Belias et al. 
 
 #Lag Consumed for Growth models, always starts at 0, updated in model.
 Lag_Consumed_Prev = 0
@@ -236,7 +301,7 @@ if SCInputz.Sanitation_YN == False:
 
 #Flume tank washing step
 Wash_Rate = 100 #lb/min
-DF_Chlevels = Funz.F_Chloride_lvl(300) #Simlating Chlorine levels after time.
+DF_Chlevels = F_Chloride_lvl(300) #Simlating Chlorine levels after time.
 
     #Shaker Table
 Tr_St_P =np.random.triangular(0.06,0.28,0.30)

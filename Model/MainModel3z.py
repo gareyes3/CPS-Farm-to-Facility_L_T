@@ -55,11 +55,15 @@ def F_MainLoop():
     df_Output_FP =  Dictionariez.Output_DF_Creation(Dictionariez.Column_Names_Outs, SCInputz.N_Iterations)#Main outputs Dataframe Final Product
     df_Sensitivity = Dictionariez.Output_DF_Creation(Dictionariez.Sensitivity_Analysis_Dic, SCInputz.N_Iterations)
     Series_Final_Conts = []
+    Total_CFU_V_L = []
+    Scenario_No_L = []
 
     for  i in range(SCInputz.N_Iterations):
         Iteration_In = i
         print(Iteration_In,"iteration")
         reload(Inputz)
+        
+        print(Inputz.Final_Irrigation_Days)
         
         #PRCC SENSITYIVITY ANALYSIS SECTION Randomized Inputs only if Sens Analysis is ON. 
         if SCInputz.Sensitivity_Analysis == True:
@@ -809,6 +813,8 @@ def F_MainLoop():
             #Adding Sens outputs
             df_Sensitivity= Dictionariez.Func_LoadInputs(df_Sensitivity,Iteration_In,df)
         
+        Total_CFU_V_L.append(Total_CFU_v)
+        Scenario_No_L.append(Inputz.Scenario_no)
             
     #STEP 7: Outputs 
     
@@ -817,7 +823,7 @@ def F_MainLoop():
     df_outputs = pd.concat([df_Output_PH,df_Output_H,df_Output_R, df_Output_FP], axis=1)
     
     
-    outputs = [df_Output_Contprog, df_outputs,df_Output_Propprog,gb2,df,df_Sensitivity,Series_Final_Conts]
+    outputs = [df_Output_Contprog, df_outputs,df_Output_Propprog,gb2,df,df_Sensitivity,Series_Final_Conts,Total_CFU_V_L,Scenario_No_L]
 
         
     return outputs #Final 

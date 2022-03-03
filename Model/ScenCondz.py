@@ -40,4 +40,4 @@ FPS_Agg = False #Scenario 8
 
 #--------------------------------- Marginal Gains Scenarios
 
-Holding_Time = True
+Holding_Time = False
