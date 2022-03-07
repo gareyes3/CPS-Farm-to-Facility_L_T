@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
+import numpy as np
 
 #Scenario and Conditions
+Contamination_Scenario = np.random.choice([1,2,3])  
                                                                 #Scenarios and Conditions
 #Sampling Conditions, Baseline all conditions are off
 Baseline_Sampling= False #all others must be 0if this one is 1

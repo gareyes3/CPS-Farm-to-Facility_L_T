@@ -27,12 +27,12 @@ rng = Generator(PCG64())
 #5. Custom Plan #Pending
 
 #Old ContamiNATION iNFORMATION
-'''    
-Contamination_Scenario = np.random.choice([1,2,3])  
+   
+
 
 #Contamination Scenario #1
-if Contamination_Scenario == 1: 
-    Hazard_Lvl = Funz.F_Ecoli_Water()
+if ScenCondz.Contamination_Scenario == 1: 
+    Hazard_Lvl = 100_000
     Cont_Cluster = 1
     Cluster_Size = SCInputz.Field_Weight
     if ScenCondz.Holding_Time == True: #Should always be true unless scenario analysis. 
@@ -41,41 +41,46 @@ if Contamination_Scenario == 1:
         Time_CE_H = np.random.triangular(0,4,8) #days 
         
 #Contamination Scenario #1
-if Contamination_Scenario == 2:
-    Hazard_Lvl = np.random.uniform(100_000, 200_000)
+if ScenCondz.Contamination_Scenario == 2:
+    Hazard_Lvl = 100_000
     Con_Cluster = 1
-    Cluster_Size  = 300  
+    Cluster_Size  =1_000 
     if ScenCondz.Holding_Time == True: #Should always be true unless scenario analysis. 
-        Time_CE_H = np.random.uniform(0,8) #days
+        Time_CE_H = np.random.uniform(2,4,8) #days
     elif ScenCondz.Holding_Time == False:
         Time_CE_H = np.random.uniform(0,8) #days 
 
 #Contamination Scenario #1
-if Contamination_Scenario == 3:
-    Hazard_Lvl = np.random.uniform(100_000, 200_000)
+if ScenCondz.Contamination_Scenario == 3:
+    Hazard_Lvl = 100_000
     Con_Cluster = 1
-    Cluster_Size = SCInputz.Field_Weight
+    Cluster_Size = 10_000
     if ScenCondz.Holding_Time == True: #Should always be true unless scenario analysis. 
-        Time_CE_H = np.random.triangular(0,4,8) #days
+        Time_CE_H = np.random.triangular(2,4,8) #days
     elif ScenCondz.Holding_Time == False:
         Time_CE_H = np.random.triangular(0,4,8) #days 
 
-''' 
+#%% Functions 
 def pert(a, b, c, *, size=1, lamb=4):
     r = c - a
     alpha = 1 + lamb * (b - a) / r
     beta = 1 + lamb * (c - b) / r
     return a + rng.beta(alpha, beta, size=size) * r
 
-def F_Chloride_lvl (Time_Wash):
+def F_Chloride_lvl (Time_Wash, Treatment = 1):
     #Function Inputs. 
     #Changing times to 0.1 increments.
     Times = np.arange(0, Time_Wash+0.1, 0.1).tolist()
     Times = [round(num, 1) for num in Times]
     #Addition Rates
-    r1= 12.75 #(mg/(ml/min**2))
-    r2 = 7.47 #(mg/(ml/min**2))
-    r3 = 5.56 #(mg/(ml/min**2))
+    if Treatment ==1:
+        r1= 12.75 #(mg/(ml/min**2))
+        r2 = 7.47 #(mg/(ml/min**2))
+        r3 = 5.56 #(mg/(ml/min**2))
+    elif Treatment == 0:
+        r1= 0 #(mg/(ml/min**2))
+        r2 =0 #(mg/(ml/min**2))
+        r3 =0 #(mg/(ml/min**2))
     #Dose
     Ro = 12 #Chlorine dosing period, ever7 12 minutes
     Ro0 = 2 #Minutes duration of dose
@@ -124,20 +129,23 @@ def F_Chloride_lvl (Time_Wash):
      'C': List_C,
     })
     return Cdf
-#%% Contamination Scenario Inputs
 
+
+
+#%% Contamination Scenario Inputs
+'''
 Scenario_no = np.random.choice([1,2,3,4])
     #1. Refers to irrigation water contaminating field
     #2. Refers to splash from irrigation water whenimproper manure is applied
     #3. Refers to splash due to ferral swine feces, clustered
     #4. Referes to splash due to cattle and ferral swine runoff due to irrigation.
 Month_choice = np.random.choice([1,2,3,4,5,6,7,8,9,10,11,12 ])
-       
+'''      
 
 #%% Inputs for Initial Contamination
 
 #Pre-Contamination Information
-
+'''
 Total_Days = 14 #Refers to the total days that the model simulates field contamination and irrigation
 
 
@@ -168,15 +176,15 @@ if ScenCondz.Holding_Time == True: #Should always be true unless scenario analys
     Holding_Time = int(pert(2,4,8)) #Irrigation
 elif ScenCondz.Holding_Time == False:
     Holding_Time = 0 #Irrigation
-
+'''
 #%% Irrigation information
-
+'''
 irrigation_frequency = int(np.random.uniform(5,7))
 probability_irrigation_day = (1/irrigation_frequency) #irrigation every 7 days. 
 irrigation_days=list(range(1,(14-Holding_Time+1))) #1 is 1st day, 14 is harvest.
 Normalized_Irrigation=len(irrigation_days)/7
 Final_Irrigation_Days = [i for i in irrigation_days if (probability_irrigation_day*Normalized_Irrigation)>np.random.uniform(0,1)]
-
+'''
 
                                                                                              
 #%% Die off
@@ -191,7 +199,7 @@ Final_Irrigation_Days = [i for i in irrigation_days if (probability_irrigation_d
 Lag_Consumed_Prev = 0
 
 #%% Time Pre-Harvest HArvest
-'''
+
 #Time between Contamination Event and Harvest Sampling *** Scenario Control
 if ScenCondz.Holding_Time == True: #Should always be true unless scenario analysis. 
     Time_CE_H = np.random.triangular(2,4,8) #days
@@ -217,7 +225,7 @@ if Time_PHS_H>Time_CE_H:
     Time_CE_PHS = 0 #No time in contamination Event. 
 elif Time_PHS_H<=Time_CE_H:
     Time_CE_PHS= Time_CE_H-Time_PHS_H #Days Time from Contamination Event (Irrigation) to Pre-Harvest Sampling
-'''
+
 #%% Pre-Cooling- HArvest
 
 #Chrlorine Pray
@@ -301,7 +309,11 @@ if SCInputz.Sanitation_YN == False:
 
 #Flume tank washing step
 Wash_Rate = 100 #lb/min
-DF_Chlevels = F_Chloride_lvl(300) #Simlating Chlorine levels after time.
+if SCInputz.Washing_YN == True:
+    DF_Chlevels = F_Chloride_lvl(300, Treatment =1) #Simlating Chlorine levels after time.
+    
+if SCInputz.Washing_YN == False:
+    DF_Chlevels = F_Chloride_lvl(300, Treatment =0) #Simlating Chlorine levels after time.
 
     #Shaker Table
 Tr_St_P =np.random.triangular(0.06,0.28,0.30)

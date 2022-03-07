@@ -1105,7 +1105,14 @@ def Case_Packaging(df,Case_Weight, Pack_Weight):
     Crop_No = len(df.index)
     Case_Pattern=Case_Pattern[:Crop_No]
     df.insert(1,"Case",Case_Pattern)
+    
+    Total_Pallets = Total_Packages/320
+    Pallet_Pattern = [i for i in range(1, int(Total_Pallets)+2) for _ in range(int(320))]
+    Pallet_Pattern=Pallet_Pattern[:Crop_No]
+    df.insert(1,"PalletNoFS",Pallet_Pattern)
+    
     return df
+
 
 
 #OTher Functions

@@ -148,10 +148,7 @@ def scenario_function(
     OutputDF = Main_Mod_Outs[1]
     ProgDF = Main_Mod_Outs[0]
     PropProgDF = Main_Mod_Outs[2]
-    Cont_Levels_PH = Main_Mod_Outs[7]
-    #FinalConts = Main_Mod_Outs[6]
-    Scenario_No = Main_Mod_Outs[8]
-    
+
     return [OutputDF,ProgDF,PropProgDF,Cont_Levels_PH,Scenario_No]
 
 #%% Important Functions for the Analysys
