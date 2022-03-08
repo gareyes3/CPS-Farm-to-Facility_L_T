@@ -31,6 +31,7 @@ import seaborn as sns
 import sys
 import Trial_MainLoop_PH
 import math
+import SCInputsValidation
 sys.path
 #sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility\Model')
 sys.path.append(
@@ -57,9 +58,9 @@ CFU_0_001g = Total_grams*1000 #3log
     
 ################################### Brackground PLOT #####################################
 #Contamination Challenges
-ContCondz.Background_C=True
+ContCondz.Background_C=False
 ContCondz.Point_Source_C=False
-ContCondz.Systematic_C=False
+ContCondz.Systematic_C=True
 
 #Harvester Contamination
 ContCondz.Crew_C = False
@@ -77,7 +78,7 @@ Tuning_SampleSize =[180,360,900,1800,3600]#[60,120,300,600,1200]
 Tuning_NoGrabs = [60,120,300,600,1200]
 
 #%%
-
+reload(Trial_MainLoop_PH)
 
 import time
 start_time = time.time()
@@ -88,7 +89,7 @@ Desired_Outputs = ["PH_CFU_PerR", "PH_Wei_PerR"""]
 Output_Collection_List = [] #First Index
 
 for k in Tuning_Contamination_levels:
-    for i in Tuning_SampleSize:
+    for i in Tuning_NoGrabs:
 
 
         # Sampling Conditions, Baseline all conditions are off
@@ -105,13 +106,17 @@ for k in Tuning_Contamination_levels:
 
         reload(SCInputz)  # Reload Inputz
         reload(Listz)  # Reload Lists
+        reload(SCInputsValidation)
         
         #Updating Hazard Level
-        SCInputz.BGHazard_lvl = k
+        SCInputsValidation.Hazard_Level = k
         #Updating Sample Size
-        SCInputz.sample_size_PH = i
-        #SCInputz.No_Grabs_PH=No_Grabs
-        SCInputz.RR_PH_Trad  = "Lot"
+        
+        SCInputz.No_Grabs_PH=i
+        
+        SCInputzsample_size_PH = i*3
+        
+        RR_PH_Trad  = "Lot"
         
         #Running the main Loop
         Main_Mod_Outs = Trial_MainLoop_PH.F_MainLoop_Validation()
@@ -122,7 +127,7 @@ for k in Tuning_Contamination_levels:
         DF= OutFunz.F_Output_get_cols(Outdf = OutputDF , ColNames = Desired_Outputs)
         #DF= pd.melt(DF)
         DF["ContLevel"] = k
-        DF["SampleMass"] = i/3 
+        DF["SampleMass"] = i 
         Output_Collection_List.append(DF)
              
 print("--- %s seconds ---" % (time.time() - start_time))
@@ -136,10 +141,12 @@ Combined_df_Probs["ContLevel"].replace({CFU_10000g: "1 CFU/10kg",
                                      CFU_100g: "1 CFU/100g", 
                                      CFU_10g: "1 CFU/10g"}, inplace=True)
 
+Combined_df_Probs['PH_CFU_PerA'] = Combined_df_Probs['PH_CFU_PerA'].fillna(0)
+
 
 
 sns.lineplot(x="SampleMass", y="PH_CFU_PerA", hue = "ContLevel" ,data=Combined_df_Probs)
-plt.xlabel("Sample Size")
+plt.xlabel("Number of 3g samples")
 plt.ylabel("% of contamination Accepted")
 plt.title("Area Contamination, Uniform")
 # Put the legend out of the figure
