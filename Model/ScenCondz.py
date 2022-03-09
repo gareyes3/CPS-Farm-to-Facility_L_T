@@ -10,6 +10,7 @@ PH_Sampling = False
 H_Sampling = False
 R_Sampling = False
 FP_Sampling = False
+C_Sampling = False
 
 #Additional Sampling Conditions. Env and 
 Water_SamplingProc = 0
@@ -20,7 +21,7 @@ Water_SamplingCust = 0
 Field_Pack = False
 
 #Customer
-Customer_Added_Steps = 0 
+Customer_Added_Steps = True
 
 #Sampling Options
 

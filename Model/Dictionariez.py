@@ -39,6 +39,8 @@ Column_Names_Progression = ["Contam Event Before PHS",
                             "Aft Value Addition",
                             "Bef Final Prod S",
                             "Final Product Facility",
+                            "Bef CS Samp",
+                            "After CS Samp"
                             ]
 
 Column_Names_Mass_Prog = ["Contam Event Before PHS",
@@ -57,6 +59,8 @@ Column_Names_Mass_Prog = ["Contam Event Before PHS",
                             "Aft Value Addition",
                             "Bef Final Prod S",
                             "Final Product Facility",
+                            "Bef CS Samp",
+                            "After CS Samp"
                             ]
 
 
@@ -77,8 +81,12 @@ Column_Per_Contaminated = ["PropCont_CE_B_PHS",
                             "PropCont_A_VA",
                             "PropCont_B_FPS",
                             "PropCont_A_FP",
+                            "PropCont_B_CS",
+                            "PropCont_A_CS",
                             "PropCont_A_FP_Whole",
+                            "PropCont_A_CS_Whole"
                             "TotalCont_A_FP",
+                            "TotalCont_A_CS"
     ]
 
 Columns_Final_Outs = [

@@ -86,6 +86,14 @@ No_GRabs_R_FP = 60
 Limit_R_FP = 0
 RR_R_FP_Trad  = "Lot"
 
+#Retail Sampling
+test_unit_CS = "PalletNoFS"
+n_samples_CS = 1
+sample_size_CS = 25
+No_GRabs_CS = 3
+Limit_CS = 0
+RR_R_CS  = "Lot"
+
 #%% Toggles
 Washing_YN =True
 

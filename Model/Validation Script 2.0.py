@@ -90,6 +90,46 @@ def Sampling_Validation(Hazard_Level, Sample_Size, Number_Grabs, iterations):
     
     return Rejection_List
 
+def Sampling_Validation_Wu( Sample_Size, Number_Grabs, iterations, No_Clusters):
+    Rejection_List = []
+    for i in range(iterations):
+        Contam = np.random.normal(3,1)
+        Contam_PerCluster = 370*10**Contam
+        Hazard_Level=Contam_PerCluster*No_Clusters
+        
+        #Creation of the Data Frame to Track: 
+        df= InFunz.F_InDF(Partition_Units = 20_000,
+                          Field_Weight = 100_000, 
+                          slot_number = 10)
+               
+        #Adding Contamination depending on challenge Systematic Sampling
+        
+        df = ContScen.F_systematic_C(df=df, Hazard_lvl= Hazard_Level,
+                                     No_Cont_Clusters =No_Clusters,
+                                     Cluster_Size= 370,
+                                     Partition_Weight = 5)
+            
+        
+        
+        #Sampling at Pre-Harvest
+        
+        df = Funz.F_Sampling_2(df =df,Test_Unit ="Lot", 
+                                      NSamp_Unit = 1, 
+                                      Samp_Size =Sample_Size, 
+                                      Partition_Weight =5, 
+                                      NoGrab =Number_Grabs )
+        
+        df=Funz.F_Rejection_Rule3(df =df, Test_Unit = SCInputz.RR_PH_Trad, limit = SCInputz.Limit_PH) 
+        
+        if df["Weight"].sum() == 50:
+
+            Rejection_List.append(0)
+        else:
+
+            Rejection_List.append(1)
+    
+    return Rejection_List
+
 def Sampling_Validation_PS(Hazard_Level, Sample_Size, Number_Grabs, iterations):
     Rejection_List = []
     for i in range(iterations):
@@ -138,7 +178,7 @@ for k in Tuning_Contamination_levels:
         Hazard_Level = k
         Number_Grabs = i
         Sample_Size = i*3
-        iterations = 1000
+        iterations = 100
         
         Results = Sampling_Validation(Hazard_Level, Sample_Size, Number_Grabs, iterations)
         
@@ -166,6 +206,9 @@ plt.ylabel("% of contamination Accepted")
 plt.title("Area Contamination, Uniform")
 # Put the legend out of the figure
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+
+#Validation of means: 
+FinalDF.groupby(["Cont_Level", "Grabs"]).mean()
         
 #%%
 ########################POINT SOURce##############################
@@ -193,6 +236,8 @@ for k in Tuning_Contamination_levels:
              "Acceptance": Results}
         df = pd.DataFrame(dic)
         Frames.append(df)
+    
+    print(i)
 
 FinalDF_PS = pd.concat(Frames)   
 
@@ -207,3 +252,58 @@ plt.ylabel("% of contamination Accepted")
 plt.title("Area Contamination, Uniform")
 # Put the legend out of the figure
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+
+
+#%% 
+############################# VALIDATION FIG 2.0 ############################
+
+# =============================================================================
+# Chaging the Xu and Buchanan Experimental Data to ours
+#   270 subplots in the field. this is each cluster is 370 lb or 0.37% of the field
+
+# =============================================================================
+#Contamination Level = c(3,1) #mean 3, 1 standard deviation log CFU/g
+
+# =============================================================================
+
+
+Tuning_Clusters = [1,2,3,4,5,6,7,8,9,10]
+Tuning_NoGrabs = [5,10,15,30]
+
+
+Frames = []
+for k in Tuning_NoGrabs:
+    for i in Tuning_Clusters:
+        
+        Number_Grabs = k
+        Sample_Size = k*25
+        iterations = 500
+        No_Clusters = i
+        
+        Results = Sampling_Validation_Wu(Sample_Size, Number_Grabs, iterations, No_Clusters)
+        
+        Cluster_List = [i]*iterations
+        Grabs_List = [k]*iterations
+        Size_List = [k*25]*iterations
+        
+        dic={'Cont_Points': Cluster_List, 
+             'Grabs': Grabs_List,
+             "Mass":Size_List,
+             "Acceptance": Results}
+        df = pd.DataFrame(dic)
+        Frames.append(df)
+    print(i)
+
+FinalDF_WB = pd.concat(Frames)
+
+FinalDF_WB["Rejection"] = 1- FinalDF_WB["Acceptance"] 
+ 
+palette = sns.color_palette("mako_r", 4)
+sns.lineplot(x="Cont_Points", y="Rejection", hue = "Grabs", style = "Grabs" ,data=FinalDF_WB,markers=True,dashes=False, palette=palette)
+plt.xlabel("Number of Contamination Points")
+plt.ylabel("Probability of Detection")
+plt.title("Model Validation Plot")
+# Put the legend out of the figure
+plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+
+

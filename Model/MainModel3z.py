@@ -53,6 +53,7 @@ def F_MainLoop():
     df_Output_H =  Dictionariez.Output_DF_Creation(Dictionariez.Column_Names_Outs, SCInputz.N_Iterations)#Main outputs Dataframe Harvest
     df_Output_R =  Dictionariez.Output_DF_Creation(Dictionariez.Column_Names_Outs, SCInputz.N_Iterations)#Main outputs Dataframe Receiving
     df_Output_FP =  Dictionariez.Output_DF_Creation(Dictionariez.Column_Names_Outs, SCInputz.N_Iterations)#Main outputs Dataframe Final Product
+    df_Output_CS =  Dictionariez.Output_DF_Creation(Dictionariez.Column_Names_Outs, SCInputz.N_Iterations)#Main outputs Dataframe Final Product
     df_Sensitivity = Dictionariez.Output_DF_Creation(Dictionariez.Sensitivity_Analysis_Dic, SCInputz.N_Iterations)
     Series_Final_Conts = []
 
@@ -833,7 +834,7 @@ def F_MainLoop():
             df = GrowthOutsPPS[0]
             Inputz.Lag_Consumed_Prev = GrowthOutsPPS[1]
             
-            #Transportation of final product through trucks.            
+            #Transportation of final product via trucks.            
             
             GrowthOutsPPT = Funz.Growth_Function_Lag(DF =df, 
                             Temperature = Inputz.Transportation_Temp, 
@@ -844,6 +845,71 @@ def F_MainLoop():
             Inputz.Lag_Consumed_Prev = GrowthOutsPPT[1]
             
             #Here a step where the lot might get split into different Customers AKA restuarants
+            LO_Cont_B_CS = sum(df.CFU) #Total CFU before FP Sampling
+            LO_Weight_B_CS = sum(df.Weight)
+            
+            
+            
+            #Contamination before sampling
+            df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df,
+                   outputDF = df_Output_Contprog,
+                   Step_Column =  "Bef CS Samp", 
+                   i =Iteration_In )
+            
+            #PropoContaminated
+            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+                                                                   outputDF =df_Output_Propprog, 
+                                                                   Step_Column =    "PropCont_B_CS", 
+                                                                   i = Iteration_In)
+            
+            
+            
+            #Sampling at CS upon reception 
+                        #Sampling Step
+            if ScenCondz.C_Sampling == True:
+                df =Funz.F_Sampling_2(df =df,Test_Unit =SCInputz.test_unit_CS, 
+                                           NSamp_Unit = SCInputz.n_samples_CS, 
+                                           Samp_Size =SCInputz.sample_size_CS, 
+                                           Partition_Weight =Inputz.Pack_Weight_CS, 
+                                           NoGrab = SCInputz.No_GRabs_CS)
+            
+            #Filtering out the Rejected lots, Final product
+            
+            #Rejecting Inidividual pallets if 1 positive
+            df = Funz.F_Rejection_Rule3 (df =df, Test_Unit = SCInputz.RR_CS, limit = SCInputz.Limit_CS) 
+            
+            #collecting outputs
+            df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df,
+                   outputDF = df_Output_Contprog,
+                   Step_Column =  "After CS Samp", 
+                   i =Iteration_In )
+            
+            #Prop Contaminated
+            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+                                                                   outputDF =df_Output_Propprog, 
+                                                                   Step_Column =   "PropCont_A_CS", 
+                                                                   i = Iteration_In)
+            
+            df_Output_Propprog = Dictionariez.Prop_Collection_WholeField(df = df, 
+                                                       outputDF =df_Output_Propprog, 
+                                                       Step_Column =   "PropCont_A_CS_Whole", 
+                                                       i = Iteration_In)
+            #Sum of positive Packages
+            df_Output_Propprog.at[i,"TotalCont_A_CS"] = len(df[df.CFU>0])
+            
+            #Adding final Contamination series
+            #Series_Final_Conts.append(df.CFU)
+            
+            
+            df_Output_CS = Dictionariez.Output_Collection_Final(df = df, 
+                                outputDF = df_Output_CS, 
+                                Step = "C", 
+                                Cont_Before = LO_Cont_B_CS, 
+                                Weight_Before = LO_Weight_B_CS, 
+                                i = Iteration_In, 
+                                Niterations = SCInputz.N_Iterations)
+                    
+            
             
             #Storage at customer: 
             GrowthOutsPPCS = Funz.Growth_Function_Lag(DF =df, 
@@ -865,8 +931,10 @@ def F_MainLoop():
     #STEP 7: Outputs 
     
     
-
-    df_outputs = pd.concat([df_Output_PH,df_Output_H,df_Output_R, df_Output_FP], axis=1)
+    if ScenCondz.Customer_Added_Steps ==True:
+        df_outputs = pd.concat([df_Output_PH,df_Output_H,df_Output_R, df_Output_FP,df_Output_CS ], axis=1)
+    else:
+        df_outputs = pd.concat([df_Output_PH,df_Output_H,df_Output_R, df_Output_FP], axis=1)
     
     
     outputs = [df_Output_Contprog, df_outputs,df_Output_Propprog,gb2,df,df_Sensitivity,Series_Final_Conts]
