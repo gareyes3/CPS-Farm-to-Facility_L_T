@@ -54,7 +54,7 @@ reload(ScenCondz)
      #RTrad
      #FPTrad
      
-def scenario_function(
+def scenario_function(Cont_Scen_no,
                       #Intervention Strategies
                       Washing = False,
                       Holding = False,
@@ -67,7 +67,8 @@ def scenario_function(
                       PHSInt =False,
                       HSTrad = False,
                       RSTrad = False,
-                      FPSTrad = False
+                      FPSTrad = False,
+                      CSampling = False
                       ):
     ''' Docstring
     Select the scenarios from the arguements to run the scenario function. 
@@ -88,6 +89,7 @@ def scenario_function(
     reload(ScenCondz)
     reload(ContCondz)
     
+    ScenCondz.Contamination_Scenario = Cont_Scen_no
         #Sampling Condition
     # Sampling Conditions, Baseline all conditions are off
     
@@ -115,6 +117,9 @@ def scenario_function(
     if FPSTrad == True:
         ScenCondz.FP_Sampling = 1
         ScenCondz.FPS_Trad = 1
+    
+    if CSampling == True:
+        ScenCondz.C_Sampling == 1
     
     reload(SCInputz)
     
@@ -149,7 +154,7 @@ def scenario_function(
     ProgDF = Main_Mod_Outs[0]
     PropProgDF = Main_Mod_Outs[2]
 
-    return [OutputDF,ProgDF,PropProgDF,Cont_Levels_PH,Scenario_No]
+    return [OutputDF,ProgDF,PropProgDF]
 
 #%% Important Functions for the Analysys
 
@@ -196,12 +201,14 @@ def F_Outputs_Table(List_of_Outputs):
         "Final_CFU_Acc_Portion_mean",
         "Final_CFU_Acc_Portion_5CI",
         "Final_CFU_Acc_Portion_95CI",
+        "MeanComparison",
         "Final_CFU_Rej_Portion_mean",
         "Final_CFU_Rej_Portion_5CI",
         "Final_CFU_Rej_Portion_95CI",
         "Prevalence_Acc_Mean",
         "Prevalence_Acc_5CI",
         "Prevalence_Acc_95CI",
+        "Prevalence_Comparison",
         "Prevalence_Rej_Mean",
         "Prevalence_Rej_5CI",
         "Prevalence_Rej_95CI",
@@ -220,30 +227,32 @@ def F_Outputs_Table(List_of_Outputs):
         
         #Final CFUs based on if accepted or rejected
             #Accepted
-        Final_CFU_Acc_Portion_mean=i[1][i[1].index.isin(Subset_Acc_NI_PHS4d)]["Final Product Facility"].mean()
-        Final_CFU_Acc_Portion_90CI=i[1][i[1].index.isin(Subset_Acc_NI_PHS4d)]["Final Product Facility"].quantile([0.05,0.95])
+        Final_CFU_Acc_Portion_mean=i[1][i[1].index.isin(Subset_Acc_NI_PHS4d)]["After CS Samp"].mean()
+        Final_CFU_Acc_Portion_90CI=i[1][i[1].index.isin(Subset_Acc_NI_PHS4d)]["After CS Samp"].quantile([0.05,0.95])
             #Rejected
-        Final_CFU_Rej_Portion_mean=i[1][i[1].index.isin(Subset_Rej_NI_PHS4d)]["Final Product Facility"].mean()
-        Final_CFU_Rej_Portion_90CI=i[1][i[1].index.isin(Subset_Rej_NI_PHS4d)]["Final Product Facility"].quantile([0.05,0.95])
+        Final_CFU_Rej_Portion_mean=i[1][i[1].index.isin(Subset_Rej_NI_PHS4d)]["After CS Samp"].mean()
+        Final_CFU_Rej_Portion_90CI=i[1][i[1].index.isin(Subset_Rej_NI_PHS4d)]["After CS Samp"].quantile([0.05,0.95])
         
         #Prevalence of contaminated packages 
             #Accepted
-        Prevalence_Acc_Mean=i[2][i[2].index.isin(Subset_Acc_NI_PHS4d)]["PropCont_A_FP_Whole"].mean()
-        Prevalence_Acc_90CI=i[2][i[2].index.isin(Subset_Acc_NI_PHS4d)]["PropCont_A_FP_Whole"].quantile([0.05,0.95])
+        Prevalence_Acc_Mean=i[2][i[2].index.isin(Subset_Acc_NI_PHS4d)]["PropCont_A_CS_Whole"].mean()
+        Prevalence_Acc_90CI=i[2][i[2].index.isin(Subset_Acc_NI_PHS4d)]["PropCont_A_CS_Whole"].quantile([0.05,0.95])
             #Rejected
-        Prevalence_Rej_Mean=i[2][i[2].index.isin(Subset_Rej_NI_PHS4d)]["PropCont_A_FP_Whole"].mean()
-        Prevalence_Rej_90CI=i[2][i[2].index.isin(Subset_Rej_NI_PHS4d)]["PropCont_A_FP_Whole"].quantile([0.05,0.95])
+        Prevalence_Rej_Mean=i[2][i[2].index.isin(Subset_Rej_NI_PHS4d)]["PropCont_A_CS_Whole"].mean()
+        Prevalence_Rej_90CI=i[2][i[2].index.isin(Subset_Rej_NI_PHS4d)]["PropCont_A_CS_Whole"].quantile([0.05,0.95])
             #Pooled Stuff
-        Pooled_CFU_g_mean= ((i[1][i[1].index.isin(Subset_Acc_NI_PHS4d)]["Final Product Facility"])/ (i[0][i[0].index.isin(Subset_Acc_NI_PHS4d)]["FP_Wei_Acc"]*454)).mean()
-        Pooled_CFU_g_90CI= ((i[1][i[1].index.isin(Subset_Acc_NI_PHS4d)]["Final Product Facility"])/ (i[0][i[0].index.isin(Subset_Acc_NI_PHS4d)]["FP_Wei_Acc"]*454)).quantile([0.05,0.95])
+        Pooled_CFU_g_mean= ((i[1][i[1].index.isin(Subset_Acc_NI_PHS4d)]["After CS Samp"])/ (i[0][i[0].index.isin(Subset_Acc_NI_PHS4d)]["C_Wei_Acc"]*454)).mean()
+        Pooled_CFU_g_90CI= ((i[1][i[1].index.isin(Subset_Acc_NI_PHS4d)]["After CS Samp"])/ (i[0][i[0].index.isin(Subset_Acc_NI_PHS4d)]["C_Wei_Acc"]*454)).quantile([0.05,0.95])
         
         #Ratio of product accepted all iterations (weight)
-        i[0][i[0]['FP_Wei_Acc'] == 50] = 0
-        Ratio_Product_accepted=i[0]['FP_Wei_Acc'].sum()/(100*100_000)
+        i[0][i[0]['C_Wei_Acc'] == 50] = 0
+        Ratio_Product_accepted=i[0]['C_Wei_Acc'].sum()/(100*100_000)
         
         Outputs_Df.at[rep,"Final_CFU_Acc_Portion_mean"] = Final_CFU_Acc_Portion_mean
         Outputs_Df.at[rep,"Final_CFU_Acc_Portion_5CI"] = Final_CFU_Acc_Portion_90CI.to_list()[0]
         Outputs_Df.at[rep,"Final_CFU_Acc_Portion_95CI"] = Final_CFU_Acc_Portion_90CI.to_list()[1]
+        
+        Outputs_Df.at[rep,"MeanComparison"] = Outputs_Df.at[rep,"Final_CFU_Acc_Portion_mean"] / Outputs_Df.at[0,"Final_CFU_Acc_Portion_mean"] 
         
         
         Outputs_Df.at[rep,"Final_CFU_Rej_Portion_mean"] = Final_CFU_Rej_Portion_mean
@@ -253,6 +262,8 @@ def F_Outputs_Table(List_of_Outputs):
         Outputs_Df.at[rep,"Prevalence_Acc_Mean"] = Prevalence_Acc_Mean
         Outputs_Df.at[rep,"Prevalence_Acc_5CI"] = Prevalence_Acc_90CI.to_list()[0]
         Outputs_Df.at[rep,"Prevalence_Acc_95CI"] = Prevalence_Acc_90CI.to_list()[1]
+        
+        Outputs_Df.at[rep,"Prevalence_Comparison"] = Outputs_Df.at[rep,"Prevalence_Acc_Mean"] / Outputs_Df.at[0,"Prevalence_Acc_Mean"]
         
         Outputs_Df.at[rep,"Prevalence_Rej_Mean"] = Prevalence_Rej_Mean
         Outputs_Df.at[rep,"Prevalence_Rej_5CI"] = Prevalence_Rej_90CI.to_list()[0]
@@ -270,57 +281,130 @@ def F_Outputs_Table(List_of_Outputs):
     
     return Outputs_Df
 #%% Effect of Individual Interventions
-Baseline_NI =  scenario_function()
+'''
+This chunk of code runs 6 systems talked on the effect of individual interventions section. 
+'''
+
+Baseline_NI_1 =  scenario_function(Cont_Scen_no=1)
+Baseline_NI_2 =  scenario_function(Cont_Scen_no=2)
+Baseline_NI_3 =  scenario_function(Cont_Scen_no=3)
 
 #Effect of Holding
-Baseline_NI_Holding =  scenario_function(Holding=True)
+Baseline_NI_Holding_1 =  scenario_function(Cont_Scen_no=1,Holding=True)
+Baseline_NI_Holding_2 =  scenario_function(Cont_Scen_no=2,Holding=True)
+Baseline_NI_Holding_3 =  scenario_function(Cont_Scen_no=3,Holding=True)
 
 #Effect of PreCooling
-Baseline_NI_Precooling =  scenario_function(Pre_Cooling=True)
+Baseline_NI_Precooling_1 =  scenario_function(Cont_Scen_no=1,Pre_Cooling=True)
+Baseline_NI_Precooling_2 =  scenario_function(Cont_Scen_no=2,Pre_Cooling=True)
+Baseline_NI_Precooling_3 =  scenario_function(Cont_Scen_no=3,Pre_Cooling=True)
 
 #Effect of Wash
-Baseline_NI_Wash =  scenario_function(Washing=True)
+Baseline_NI_Wash_1 =  scenario_function(Cont_Scen_no=1,Washing=True)
+Baseline_NI_Wash_2 =  scenario_function(Cont_Scen_no=2,Washing=True)
+Baseline_NI_Wash_3 =  scenario_function(Cont_Scen_no=3,Washing=True)
 
 #Harvest Wash
-Baseline_NI_Sp_Wash =  scenario_function(PreS_Wash=True)
+Baseline_NI_Sp_Wash_1 =  scenario_function(Cont_Scen_no=1,PreS_Wash=True)
+Baseline_NI_Sp_Wash_2 =  scenario_function(Cont_Scen_no=2,PreS_Wash=True)
+Baseline_NI_Sp_Wash_3 =  scenario_function(Cont_Scen_no=3,PreS_Wash=True)
 
 
-Baseline_NI_PLS = scenario_function(Sanitation=True)
+Baseline_NI_PLS_1 = scenario_function(Cont_Scen_no=1,Sanitation=True)
+Baseline_NI_PLS_2 = scenario_function(Cont_Scen_no=2,Sanitation=True)
+Baseline_NI_PLS_3 = scenario_function(Cont_Scen_no=3,Sanitation=True)
+#%%%
 
+'''
+This Chunk conducts data analysis for the effect of individual interventions
+'''
 
-# Data Analysis
+# Data Analysis for getting the diffences between  individual interventions
 
-List_of_Outs_Ints = [Baseline_NI,
-                     Baseline_NI_Holding,
-                     Baseline_NI_Precooling,
-                     Baseline_NI_Wash,
-                     Baseline_NI_Sp_Wash,
-                     Baseline_NI_PLS
+#Scenario 1 Uniform Contamination
+List_of_Outs_Ints_1 = [Baseline_NI_1,
+                     Baseline_NI_Holding_1,
+                     Baseline_NI_Precooling_1,
+                     Baseline_NI_Wash_1,
+                     Baseline_NI_Sp_Wash_1,
+                     Baseline_NI_PLS_1
                      ]
 
-Outputdf_INT = F_Outputs_Table(List_of_Outs_Ints)
+Outputdf_INT_1 = F_Outputs_Table(List_of_Outs_Ints_1)
 
+
+#Scenario 2 Uniform Contamination
+List_of_Outs_Ints_2 = [Baseline_NI_2,
+                     Baseline_NI_Holding_2,
+                     Baseline_NI_Precooling_2,
+                     Baseline_NI_Wash_2,
+                     Baseline_NI_Sp_Wash_2,
+                     Baseline_NI_PLS_2
+                     ]
+
+Outputdf_INT_2 = F_Outputs_Table(List_of_Outs_Ints_2)
+
+#Scenario 3 Uniform Contamination
+List_of_Outs_Ints_3 = [Baseline_NI_3,
+                     Baseline_NI_Holding_3,
+                     Baseline_NI_Precooling_3,
+                     Baseline_NI_Wash_3,
+                     Baseline_NI_Sp_Wash_3,
+                     Baseline_NI_PLS_3
+                     ]
+
+Outputdf_INT_3 = F_Outputs_Table(List_of_Outs_Ints_3)
+
+def Progression_DF_Melt(List_of_Outs):
+    Column_Names = "BaselineNI Holding Precooling Washing PreSpray_Wash Sanitation".split()
+    
+    Index_1 = 0
+    List_dfs = []
+    for  i in List_of_Outs:
+        #Progression Data. 
+        i[1]["Type"] = Column_Names[Index_1]
+        Melted_BNI_1 = i[1].melt(id_vars=['Type'])
+        Index_1 = Index_1+1
+        List_dfs.append(Melted_BNI_1)
+    
+    df = pd.concat(List_dfs)
+    return df
+
+Melted_Prog_DF_NI_1 = Progression_DF_Melt(List_of_Outs = List_of_Outs_Ints_1)
+
+
+
+H=sns.lineplot(x="variable", y="value",hue = "Type", style = "Type", 
+            data=Melted_Prog_DF_NI_1)
+plt.xlabel("Process Stage")
+plt.ylabel("Total CFUs in System")
+plt.yscale('log')
+plt.title("Contamination Progressoin")
+plt.xticks(rotation=70)
+plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+
+'''
 #Initial Contamination From BAseline
 
-#Creatring Dataframe with the Final Contmainations
-Intervention_Final_Conts = [Baseline_NI[1],
-                     Baseline_NI_Holding[1],
-                     Baseline_NI_Precooling[1],
-                     Baseline_NI_Wash[1],
-                     Baseline_NI_Sp_Wash[1],
-                     Baseline_NI_PLS[1]
+#Creating Dataframe with the Final Contmainations
+Intervention_Final_Conts = [Baseline_NI_1[1],
+                     Baseline_NI_Holding_1[1],
+                     Baseline_NI_Precooling_1[1],
+                     Baseline_NI_Wash_1[1],
+                     Baseline_NI_Sp_Wash_1[1],
+                     Baseline_NI_PLS_1[1]
                      ]
 
-
+ ##FINAL CFUs
 #Creating dataframe of final contamination for every intervention. 
-List_of_Final_Conts_Ints = [x["Final Product Facility"] for x in Intervention_Final_Conts]
+List_of_Final_Conts_Ints = [x["After CS Samp"] for x in Intervention_Final_Conts]
 Column_Names = "BaselineNI Holding Precooling Washing PreSpray_Wash Sanitation".split()
 Final_Conts_INT = pd.concat(List_of_Final_Conts_Ints, axis = 1)
 Final_Conts_INT.columns = Column_Names
 Final_Conts_INT_melted = Final_Conts_INT.melt()
 
 #Plotting the bar graph or boxplot of the differences. 
-H=sns.catplot(x="variable", y="value", kind = "box" ,
+H=sns.catplot(x="variable", y="value", kind = "bar" ,
             data=Final_Conts_INT_melted)
 plt.xlabel("Intervention")
 plt.ylabel("Total CFUs at Finished Product")
@@ -328,8 +412,14 @@ plt.yscale('log')
 plt.title("CFU Final Contamination")
 plt.xticks(rotation=70)
 
-#Mean and Confidence interval for each
+#Getting the Mean and Confidence interval for each
 Mean_andCI= [mean_CI_ONE(x) for x in List_of_Final_Conts_Ints]
+#Making a DataFrame
+
+
+
+
+
 
 #Calculating the reduction of the means for each one of them
 Reduction = Calc_red(meanCI =Mean_andCI,treatments= 6)
@@ -389,102 +479,131 @@ def specs(x, **kwargs):
     plt.axvline(x.median(), c='orange', ls='--', lw=2.5)
 
 h.map(specs,"value" )
-
+'''
 
 #%% Running the scenarios. 
 
 ### BASELINE  NO INTERVENTION###
 
+
 #Baseline Scenario No Intervention. 
-Baseline_NI =  scenario_function()
+Baseline_NI_1 =  scenario_function(Cont_Scen_no=1)
+Baseline_NI_2 =  scenario_function(Cont_Scen_no=2)
+Baseline_NI_3 =  scenario_function(Cont_Scen_no=3)
 
 ### Pre-Harvest Sampling 4 days.
 #Baseline no intervention. 4 days preharvest sampling
-Baseline_NI_PHS4d =  scenario_function(PHS4d = True)
+Baseline_NI_PHS4d_1 =  scenario_function(Cont_Scen_no=1,PHS4d = True)
+Baseline_NI_PHS4d_2 =  scenario_function(Cont_Scen_no=2,PHS4d = True)
+Baseline_NI_PHS4d_3 =  scenario_function(Cont_Scen_no=3,PHS4d = True)
 
 #Baseline no intervention. 4 hours preharvest sampling
-Baseline_NI_PHS4h =  scenario_function(PHS4h = True)
+Baseline_NI_PHS4h_1 =  scenario_function(Cont_Scen_no=1,PHS4h = True)
+Baseline_NI_PHS4h_2 =  scenario_function(Cont_Scen_no=2,PHS4h = True)
+Baseline_NI_PHS4h_3 =  scenario_function(Cont_Scen_no=3,PHS4h = True)
 
 #Baseline no intervention. 4 hours preharvest sampling
-Baseline_NI_PHSInt =  scenario_function(PHSInt = True)
+Baseline_NI_PHSInt_1 =  scenario_function(Cont_Scen_no=1,PHSInt = True)
+Baseline_NI_PHSInt_2 =  scenario_function(Cont_Scen_no=2,PHSInt = True)
+Baseline_NI_PHSInt_3 =  scenario_function(Cont_Scen_no=3,PHSInt = True)
 
 #Baseline no intervention Harvest Sampling Traditional
-Baseline_NI_H=  scenario_function(HSTrad = True)
+Baseline_NI_H_1=  scenario_function(Cont_Scen_no=1,HSTrad = True)
+Baseline_NI_H_2=  scenario_function(Cont_Scen_no=2,HSTrad = True)
+Baseline_NI_H_3=  scenario_function(Cont_Scen_no=3,HSTrad = True)
 
 #Baseline no intervention Receiving Samplgin Traditional
-Baseline_NI_R=  scenario_function(RSTrad =True)
+Baseline_NI_R_1=  scenario_function(Cont_Scen_no=1,RSTrad =True)
+Baseline_NI_R_2=  scenario_function(Cont_Scen_no=2,RSTrad =True)
 
 #Baseline no intervention Receiving Samplgin Traditional
-Baseline_NI_FP=  scenario_function(FPSTrad =True)
+Baseline_NI_FP_1=  scenario_function(Cont_Scen_no=1,FPSTrad =True)
+Baseline_NI_FP_2=  scenario_function(Cont_Scen_no=2,FPSTrad =True)
+Baseline_NI_FP_3=  scenario_function(Cont_Scen_no=3,FPSTrad =True)
 
+#Baseline no intervention Receiving Samplgin Traditional
+Baseline_NI_FP_1=  scenario_function(Cont_Scen_no=1,FPSTrad =True)
+Baseline_NI_FP_2=  scenario_function(Cont_Scen_no=2,FPSTrad =True)
+Baseline_NI_FP_3=  scenario_function(Cont_Scen_no=3,FPSTrad =True)
+
+#Baseline no intervention Receiving Samplgin Traditional
+Baseline_NI_FP_1=  scenario_function(Cont_Scen_no=1,CSampling =True)
+Baseline_NI_FP_2=  scenario_function(Cont_Scen_no=2,CSampling =True)
+Baseline_NI_FP_3=  scenario_function(Cont_Scen_no=3,CSampling =True)
 
 
 ### BASELINE  ALL INTERVENTIONS###
 
 ### Pre-Harvest Sampling 4 days.
 #Baseline Scenario All Interventions.
-Baseline_AI =  scenario_function(Washing = True,
-                                 Holding = True,
-                                 Pre_Cooling = True,
-                                 PreS_Wash=True,
-                                 Sanitation = True
-                                 )
+Baseline_AI_1 =  scenario_function(Cont_Scen_no=1,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True)
+Baseline_AI_2 =  scenario_function(Cont_Scen_no=2,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True)
+Baseline_AI_3 =  scenario_function(Cont_Scen_no=3,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True)
  
 
 #Baseline with intervention. 4 days pre-harvest sampling
 
-Baseline_AI_PHS4d =  scenario_function(Washing = True,
-                                 Holding = True,
-                                 Pre_Cooling = True,
-                                 PreS_Wash=True,
-                                 Sanitation = True,
-                                 PHS4d = True)
+Baseline_AI_PHS4d_1 =  scenario_function(Cont_Scen_no=1,Washing = True, 
+                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHS4d = True)
+Baseline_AI_PHS4d_2 =  scenario_function(Cont_Scen_no=2,Washing = True, 
+                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHS4d = True)
+Baseline_AI_PHS4d_3 =  scenario_function(Cont_Scen_no=3,Washing = True,
+                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHS4d = True)
 
 
 ### Pre-Harvest Sampling 4h
 #Baseline with intervention. 4 hours pre-harvest sampling
-Baseline_AI_PHS4h =  scenario_function(Washing = True,
-                                 Holding = True,
-                                 Pre_Cooling = True,
-                                 PreS_Wash=True,
-                                 Sanitation = True,
-                                 PHS4h = True)
+Baseline_AI_PHS4h_1 =  scenario_function(Cont_Scen_no=1,Washing = True, 
+                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHS4h = True)
+Baseline_AI_PHS4h_2 =  scenario_function(Cont_Scen_no=2,Washing = True, 
+                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHS4h = True)
+Baseline_AI_PHS4h_3 =  scenario_function(Cont_Scen_no=3,Washing = True, 
+                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHS4h = True)
 
 ### Pre-Harvest Sampling Intense
 #Baseline with intervention. Intense pre-harvest sampling
-Baseline_AI_PHSInt =  scenario_function(Washing = True,
-                                 Holding = True,
-                                 Pre_Cooling = True,
-                                 PreS_Wash=True,
-                                 Sanitation = True,
-                                 PHSInt = True)
+Baseline_AI_PHSInt_1 =  scenario_function(Cont_Scen_no=1,Washing = True, 
+                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHSInt = True)
+Baseline_AI_PHSInt_2 =  scenario_function(Cont_Scen_no=2,Washing = True, 
+                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHSInt = True)
+Baseline_AI_PHSInt_3 =  scenario_function(Cont_Scen_no=3,Washing = True, 
+                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHSInt = True)
 
 ### Harvest Sampling Intense
 #Baseline with intervention. Intense Harvest sampling
-Baseline_AI_H =  scenario_function(Washing = True,
-                                 Holding = True,
-                                 Pre_Cooling = True,
-                                 PreS_Wash=True,
-                                 Sanitation = True,
-                                 HSTrad = True)
+Baseline_AI_H_1 =  scenario_function(Cont_Scen_no=1,Washing = True, 
+                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, HSTrad= True)
+Baseline_AI_H_2 =  scenario_function(Cont_Scen_no=2,Washing = True, 
+                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, HSTrad= True)
+Baseline_AI_H_3 =  scenario_function(Cont_Scen_no=3,Washing = True, 
+                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, HSTrad= True)
 
 ### Receiving Sampling Intense
 #Baseline with intervention. Intense Receiving sampling
-Baseline_AI_R =  scenario_function(Washing = True,
-                                 Holding = True,
-                                 Pre_Cooling = True,
-                                 PreS_Wash=True,
-                                 Sanitation = True,
-                                 RSTrad = True)
+Baseline_AI_R_1 =  scenario_function(Cont_Scen_no=1,Washing = True, 
+                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, RSTrad = True)
+Baseline_AI_R_2 =  scenario_function(Cont_Scen_no=2,Washing = True, 
+                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, RSTrad = True)
+Baseline_AI_R_3 =  scenario_function(Cont_Scen_no=3,Washing = True, 
+                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, RSTrad = True)
 
 ### FPS Sampling Intense
 #Baseline with intervention. Intense Receiving sampling
-Baseline_AI_FP =  scenario_function(Washing = True,
-                                 Holding = True,
-                                 Pre_Cooling = True,
-                                 PreS_Wash=True,
-                                 Sanitation = True,
-                                 FPSTrad = True)
+Baseline_AI_FP_1 =  scenario_function(Cont_Scen_no=1,Washing = True, 
+                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, FPSTrad = True)
+Baseline_AI_FP_2 =  scenario_function(Cont_Scen_no=2,Washing = True, 
+                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, FPSTrad = True)
+Baseline_AI_FP_3 =  scenario_function(Cont_Scen_no=3,Washing = True, 
+                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, FPSTrad = True)
+
+### FPS Sampling Intense
+#Baseline with intervention. Intense Receiving sampling
+Baseline_AI_CS_1 =  scenario_function(Cont_Scen_no=1,Washing = True, 
+                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, CSampling = True)
+Baseline_AI_CS_2 =  scenario_function(Cont_Scen_no=2,Washing = True, 
+                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, CSampling = True)
+Baseline_AI_CS_3 =  scenario_function(Cont_Scen_no=3,Washing = True, 
+                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, CSampling = True)
 
 
 

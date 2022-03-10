@@ -58,7 +58,7 @@ def F_MainLoop():
     Series_Final_Conts = []
 
     for  i in range(SCInputz.N_Iterations):
-        Iteration_In = 1
+        Iteration_In = i
         print(Iteration_In,"iteration")
         reload(Inputz)
         
@@ -457,7 +457,8 @@ def F_MainLoop():
                                                                    Step_Column =    "PropCont_B_SprayWash", 
                                                                    i = Iteration_In)
             
-            gb2 = Funz.F_Simple_Reduction_PLines(gb2, Inputz.Harvest_Cspray_red)
+            if SCInputz.Spray_WashYN == True:
+                gb2 = Funz.F_Simple_Reduction_PLines(gb2, Inputz.Harvest_Cspray_red)
             
             #Contamination event, if it happens
             #Pending
@@ -910,7 +911,7 @@ def F_MainLoop():
                                 Niterations = SCInputz.N_Iterations)
                     
             
-            
+            ''' 
             #Storage at customer: 
             GrowthOutsPPCS = Funz.Growth_Function_Lag(DF =df, 
                             Temperature = Inputz.Temperature_PostPCS, 
@@ -922,7 +923,10 @@ def F_MainLoop():
             
             #Washing at consumer: #wash every 2 packs  
             df = Funz.Washing_Batch(df = df, New_water_every_xpacks = 2)
+            '''
             
+        #SEnsitivity Analaysis Outsputs
+        
         if SCInputz.Sensitivity_Analysis==True:
             #Adding Sens outputs
             df_Sensitivity= Dictionariez.Func_LoadInputs(df_Sensitivity,Iteration_In,df,LV_Die_off_Total)

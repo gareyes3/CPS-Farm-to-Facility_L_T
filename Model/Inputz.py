@@ -48,7 +48,7 @@ if ScenCondz.Contamination_Scenario == 2:
     if ScenCondz.Holding_Time == True: #Should always be true unless scenario analysis. 
         Time_CE_H = np.random.uniform(2,4,8) #days
     elif ScenCondz.Holding_Time == False:
-        Time_CE_H = np.random.uniform(0,8) #days 
+        Time_CE_H = np.random.triangular(0,4,8) #days 
 
 #Contamination Scenario #1
 if ScenCondz.Contamination_Scenario == 3:
@@ -358,14 +358,13 @@ Case_Weight = 20 #lb #Only if not field packed
 
 #%% Post Processing Storage
 Time_PostPStorage = 24 #hr
-Temperature_ColdStorage = 4 #C 
+Temperature_ColdStorage = np.random.uniform(4,6) #C 
 
 #%%Transportartion post processing
 Trasnportation_Time = 63.57 #h from Ryser et al
 Transportation_Temp = np.random.triangular(0,4,6) #C
 
 #%%Customer Storage
-
 Time_PostPCS = 24 #hr
 Temperature_PostPCS = 4 #C 
 

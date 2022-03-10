@@ -1007,7 +1007,6 @@ def Washing_Batch(df, New_water_every_xpacks):
     for i in range(len(Contamination_Vector)):
         if i in every_so:
             Cont_Water = 0
-        print(i)
         Cont =  Contamination_Vector[i]
         if Cont>0:
             New_Cont = Cont*10**-Log_Red_WashW
