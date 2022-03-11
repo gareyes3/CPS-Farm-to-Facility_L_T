@@ -515,6 +515,7 @@ Baseline_NI_H_3=  scenario_function(Cont_Scen_no=3,HSTrad = True)
 #Baseline no intervention Receiving Samplgin Traditional
 Baseline_NI_R_1=  scenario_function(Cont_Scen_no=1,RSTrad =True)
 Baseline_NI_R_2=  scenario_function(Cont_Scen_no=2,RSTrad =True)
+Baseline_NI_R_3=  scenario_function(Cont_Scen_no=3,RSTrad =True)
 
 #Baseline no intervention Receiving Samplgin Traditional
 Baseline_NI_FP_1=  scenario_function(Cont_Scen_no=1,FPSTrad =True)
@@ -527,9 +528,9 @@ Baseline_NI_FP_2=  scenario_function(Cont_Scen_no=2,FPSTrad =True)
 Baseline_NI_FP_3=  scenario_function(Cont_Scen_no=3,FPSTrad =True)
 
 #Baseline no intervention Receiving Samplgin Traditional
-Baseline_NI_FP_1=  scenario_function(Cont_Scen_no=1,CSampling =True)
-Baseline_NI_FP_2=  scenario_function(Cont_Scen_no=2,CSampling =True)
-Baseline_NI_FP_3=  scenario_function(Cont_Scen_no=3,CSampling =True)
+Baseline_NI_CS_1=  scenario_function(Cont_Scen_no=1,CSampling =True)
+Baseline_NI_CS_2=  scenario_function(Cont_Scen_no=2,CSampling =True)
+Baseline_NI_CS_3=  scenario_function(Cont_Scen_no=3,CSampling =True)
 
 
 ### BASELINE  ALL INTERVENTIONS###
@@ -610,7 +611,7 @@ Baseline_AI_CS_3 =  scenario_function(Cont_Scen_no=3,Washing = True,
 #%% Data analysis
 
 #BASELINE NO INTERVETIONS -------------------------------------------------------
-
+'''
 #Creating list of contamination progression
 List_of_Progs_NI = [Baseline_NI[1],
                      Baseline_NI_PHS4d[1],
@@ -631,20 +632,67 @@ List_of_MainOuts = [Baseline_NI[0],
                      ]
 
 Baseline_NI_PHS4d[0].columns
+'''
+List_of_Outs_NI_1 = [Baseline_NI_1,
+                     Baseline_NI_PHS4d_1,
+                     Baseline_NI_PHS4h_1,
+                     Baseline_NI_PHSInt_1,
+                     Baseline_NI_H_1,
+                     Baseline_NI_R_1,
+                     Baseline_NI_FP_1,
+                     Baseline_NI_CS_1
+                     ]
 
-List_of_Outs = [Baseline_NI,
-                     Baseline_NI_PHS4d,
-                     Baseline_NI_PHS4h,
-                     Baseline_NI_PHSInt,
-                     Baseline_NI_H,
-                     Baseline_NI_R,
-                     Baseline_NI_FP
+List_of_Outs_NI_2 = [Baseline_NI_2,
+                     Baseline_NI_PHS4d_2,
+                     Baseline_NI_PHS4h_2,
+                     Baseline_NI_PHSInt_2,
+                     Baseline_NI_H_2,
+                     Baseline_NI_R_2,
+                     Baseline_NI_FP_2,
+                     Baseline_NI_CS_2
+                     ]
+
+List_of_Outs_NI_3 = [Baseline_NI_3,
+                     Baseline_NI_PHS4d_3,
+                     Baseline_NI_PHS4h_3,
+                     Baseline_NI_PHSInt_3,
+                     Baseline_NI_H_3,
+                     Baseline_NI_R_3,
+                     Baseline_NI_FP_3,
+                     Baseline_NI_CS_2
                      ]
 
 #Names
-Col_Names_NI = "BaselineNI PHS4D_NI PHS4H_NI PHSInt_NI HTrad_NI RSTrad_NI FPSTrad_NI".split()
-#Using function        
-Outputs_Df=F_Outputs_Table(List_of_Outs)  
+Col_Names_NI = "BaselineNI PHS4D_NI PHS4H_NI PHSInt_NI HTrad_NI RSTrad_NI FPSTrad_NI CS_NI".split()
+#Using function   
+     
+Outputs_Df_NI_1=F_Outputs_Table(List_of_Outs_NI_1)  
+Outputs_Df_NI_2=F_Outputs_Table(List_of_Outs_NI_2)
+Outputs_Df_NI_3=F_Outputs_Table(List_of_Outs_NI_3)    
+
+#Sampling Results: 
+
+#PHS4d
+F_Sampling_Power(Baseline_NI_PHS4d_1[0],"PH_CFU_Acc","PH_CFU_Rej")
+CFU_Sampling_Stage (Baseline_NI_PHS4d_1[1],"Bef Pre-Harvest Samp")
+#PHS4h
+F_Sampling_Power(Baseline_NI_PHS4h_1[0],"PH_CFU_Acc","PH_CFU_Rej")
+CFU_Sampling_Stage (Baseline_NI_PHS4h_1[1],"Bef Pre-Harvest Samp")
+#PHSInt    
+F_Sampling_Power(Baseline_NI_PHSInt_1[0],"PH_CFU_Acc","PH_CFU_Rej")
+CFU_Sampling_Stage (Baseline_NI_PHSInt_1[1],"Bef Pre-Harvest Samp")
+#HS   
+F_Sampling_Power(Baseline_NI_H_1[0],"H_CFU_Acc","H_CFU_Rej")
+CFU_Sampling_Stage (Baseline_NI_H_1[1],"Bef Harvest Samp")
+#RS
+F_Sampling_Power(Baseline_NI_R_1[0],"R_CFU_Acc","R_CFU_Rej")
+CFU_Sampling_Stage (Baseline_NI_R_1[1],"Bef Receiving Samp")
+#FPS
+F_Sampling_Power(Baseline_NI_FP_1[0],"FP_CFU_Acc","FP_CFU_Rej")
+CFU_Sampling_Stage (Baseline_NI_FP_1[1],'Bef Final Prod S')
+
+
 
 Outputs_Df.columns
 Outputs_Df["Treatments"] = Col_Names_NI

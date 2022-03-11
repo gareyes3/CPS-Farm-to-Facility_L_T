@@ -201,12 +201,6 @@ Lag_Consumed_Prev = 0
 #%% Time Pre-Harvest HArvest
 
 #Time between Contamination Event and Harvest Sampling *** Scenario Control
-if ScenCondz.Holding_Time == True: #Should always be true unless scenario analysis. 
-    Time_CE_H = np.random.triangular(2,4,8) #days
-elif ScenCondz.Holding_Time == False:
-    Time_CE_H = np.random.triangular(0,4,8) #days 
-
-
 
 #Time Options for the Sampling Scenarios 1,2,3
 if ScenCondz.PHS_Int ==True :

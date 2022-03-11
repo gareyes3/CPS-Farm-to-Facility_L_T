@@ -231,7 +231,7 @@ def F_MainLoop():
         
             
             #Adding Contamination depending on challenge Pre-harvest challenges
-            if Inputz.Contamination_Scenario in [1,2,3]:
+            if ScenCondz.Contamination_Scenario in [1,2,3]:
                 df = ContScen.F_systematic_C(df=df, 
                                              Hazard_lvl= Inputz.Hazard_Lvl,
                                              No_Cont_Clusters =Inputz.Cont_Cluster,
@@ -824,7 +824,8 @@ def F_MainLoop():
             
             #Putting Packages into Cases
             if ScenCondz.Field_Pack == False:
-                df = Funz.Case_Packaging(df =df,Case_Weight = Inputz.Case_Weight, Pack_Weight = Inputz.Pack_Weight_FP)
+                if df["Weight"].sum() != 50:
+                    df = Funz.Case_Packaging(df =df,Case_Weight = Inputz.Case_Weight, Pack_Weight = Inputz.Pack_Weight_FP)
             
             #Growth or Die-off during storage post processing storage:
             GrowthOutsPPS = Funz.Growth_Function_Lag(DF =df, 
