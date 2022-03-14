@@ -210,7 +210,6 @@ NoGrabs_List = [1,60,120,240,300,600,1200]
 Sensitivity_Analysis_Dic = [
                             #Field Setup Factors
                             "InitialCont" ,
-                            "ClusteringPer",
                             "ClusterSize",
                             "Time_CE_H",
                             "Total_CE_H_Dieoff",
@@ -259,7 +258,6 @@ def Func_LoadInputs (OutputDF,i,df, TotalDieoff):
     #Setup Factors
     #Initial Contamination Factors
     OutputDF.at[i, "InitialCont"] =  Inputz.Hazard_Lvl #InitialContmination
-    OutputDF.at[i, "No Clusters"] =  Inputz.Cont_Cluster #Cluestering Level
     OutputDF.at[i, "ClusterSize"] =   Inputz.Cluster_Size #InitialContmination
     OutputDF.at[i, "Time_CE_H"] =  Inputz.Time_CE_H #Time between contamination event and harvest
     OutputDF.at[i, "Total_CE_H_Dieoff"] = TotalDieoff  #TotalDieoff between contamination event and harvest. 

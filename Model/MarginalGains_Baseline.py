@@ -193,6 +193,13 @@ def Mean_Quantiles(df,columnname,q1,q2) :
     mean_1 = df[columnname].mean()*100
     quantiles_1= df[columnname].quantile([q1,q2])
     return(mean_1, quantiles_1)
+
+def Remove_Outlier_Indices(df):
+    Q1 = df.quantile(0.25)
+    Q3 = df.quantile(0.75)
+    IQR = Q3 - Q1
+    trueList = ~((df < (Q1 - 1.5 * IQR)) |(df > (Q3 + 1.5 * IQR)))
+    return trueList
     
 
 def F_Outputs_Table(List_of_Outputs):
@@ -222,21 +229,22 @@ def F_Outputs_Table(List_of_Outputs):
     Outputs_Df =pd.DataFrame(np.NaN, index= range(len(List_of_Outputs)), columns =Columns_Final_Outs)
     for i in List_of_Outputs:
         #Subseting Dataframe for the accepted
-        Subset_Acc_NI_PHS4d= i[0][i[0]['FP_Wei_Acc'] == 100_000].index
-        Subset_Rej_NI_PHS4d= i[0][i[0]['FP_Wei_Acc'] != 100_000].index
+        Subset_Acc_NI_PHS4d= i[0][i[0]['C_Wei_Acc'] == 100_000].index
+        Subset_Rej_NI_PHS4d= i[0][i[0]['C_Wei_Acc'] != 100_000].index
+        
         
         #Final CFUs based on if accepted or rejected
             #Accepted
-        Final_CFU_Acc_Portion_mean=i[1][i[1].index.isin(Subset_Acc_NI_PHS4d)]["After CS Samp"].mean()
-        Final_CFU_Acc_Portion_90CI=i[1][i[1].index.isin(Subset_Acc_NI_PHS4d)]["After CS Samp"].quantile([0.05,0.95])
+        Final_CFU_Acc_Portion_mean=i[1]["After CS Samp"].mean()
+        Final_CFU_Acc_Portion_90CI=i[1]["After CS Samp"].quantile([0.05,0.95])
             #Rejected
         Final_CFU_Rej_Portion_mean=i[1][i[1].index.isin(Subset_Rej_NI_PHS4d)]["After CS Samp"].mean()
         Final_CFU_Rej_Portion_90CI=i[1][i[1].index.isin(Subset_Rej_NI_PHS4d)]["After CS Samp"].quantile([0.05,0.95])
         
         #Prevalence of contaminated packages 
             #Accepted
-        Prevalence_Acc_Mean=i[2][i[2].index.isin(Subset_Acc_NI_PHS4d)]["PropCont_A_CS_Whole"].mean()
-        Prevalence_Acc_90CI=i[2][i[2].index.isin(Subset_Acc_NI_PHS4d)]["PropCont_A_CS_Whole"].quantile([0.05,0.95])
+        Prevalence_Acc_Mean=i[2]["PropCont_A_CS_Whole"].mean()
+        Prevalence_Acc_90CI=i[2]["PropCont_A_CS_Whole"].quantile([0.05,0.95])
             #Rejected
         Prevalence_Rej_Mean=i[2][i[2].index.isin(Subset_Rej_NI_PHS4d)]["PropCont_A_CS_Whole"].mean()
         Prevalence_Rej_90CI=i[2][i[2].index.isin(Subset_Rej_NI_PHS4d)]["PropCont_A_CS_Whole"].quantile([0.05,0.95])
@@ -699,7 +707,7 @@ List_of_Outs_NI_3 = [Baseline_NI_3,
                      Baseline_NI_H_3,
                      Baseline_NI_R_3,
                      Baseline_NI_FP_3,
-                     Baseline_NI_CS_2
+                     Baseline_NI_CS_3
                      ]
 
 #Names
@@ -732,26 +740,56 @@ for i in list(range(8)):
     Powers_NI_2.append(Power_1)
     
 Powers_NI_2
+
+#Scenario 3
+
+Powers_NI_3 = []
+for i in list(range(8)):
+    Power_1= sampling_power(List_of_Outs_NI_3[i],Step_Acc_List[i])
+    Powers_NI_3.append(Power_1)
+    
+Powers_NI_3
+
+#Plot of contamination levels at sampling stage.
+
+
+
+def Sampling_Loc_DF(list_1):
+    a=list_1[1][1]["Bef Pre-Harvest Samp"]
+    b=list_1[2][1]["Bef Pre-Harvest Samp"]
+    c=list_1[3][1]["Bef Pre-Harvest Samp"]
+    d=list_1[4][1]["Bef Harvest Samp"]
+    e=list_1[5][1]["Bef Receiving Samp"]
+    f=list_1[6][1]["Bef Final Prod S"]
+    g=list_1[7][1]["Bef CS Samp"]
+    
+    df = pd.concat([a,b,c,d,e,f,g], axis = 1)
+    Col_Names = ("Before PHS4d", "Before PHS4h","Before PHS Int","Before HS","Before RS","Before FPS","Before CS")
+    df.columns = Col_Names
+    
+    df_melted = pd.melt(df)
+    return df_melted
+
+Sampling_Loc_NI_1 =Sampling_Loc_DF(List_of_Outs_NI_1)
+Sampling_Loc_NI_2 =Sampling_Loc_DF(List_of_Outs_NI_2)
+Sampling_Loc_NI_3 =Sampling_Loc_DF(List_of_Outs_NI_3)
+
+Sampling_Loc_NI_1["Cont Scenario"] = "Uniform"
+Sampling_Loc_NI_2["Cont Scenario"] = "1% Cluster"
+Sampling_Loc_NI_3["Cont Scenario"] = "10% Cluster"
+
+Sampling_Loc_Melt = pd.concat([Sampling_Loc_NI_1,Sampling_Loc_NI_2,Sampling_Loc_NI_3])
+
+H=sns.catplot(x="variable", y="value", hue = "Cont Scenario", kind = "box" ,
+data=Sampling_Loc_Melt)
+plt.xlabel("Sampling Stage")
+plt.ylabel("Total CFUs in System")
+plt.yscale('log')
+plt.title("No Intervention: Sytem contamination before sampling steps")
+plt.xticks(rotation=-90)
+
     
 
-#PHS4d
-F_Sampling_Power(Baseline_NI_PHS4d_1[0],"PH_CFU_Acc","PH_CFU_Rej")
-CFU_Sampling_Stage (Baseline_NI_PHS4d_1[1],"Bef Pre-Harvest Samp")
-#PHS4h
-F_Sampling_Power(Baseline_NI_PHS4h_1[0],"PH_CFU_Acc","PH_CFU_Rej")
-CFU_Sampling_Stage (Baseline_NI_PHS4h_1[1],"Bef Pre-Harvest Samp")
-#PHSInt    
-F_Sampling_Power(Baseline_NI_PHSInt_1[0],"PH_CFU_Acc","PH_CFU_Rej")
-CFU_Sampling_Stage (Baseline_NI_PHSInt_1[1],"Bef Pre-Harvest Samp")
-#HS   
-F_Sampling_Power(Baseline_NI_H_1[0],"H_CFU_Acc","H_CFU_Rej")
-CFU_Sampling_Stage (Baseline_NI_H_1[1],"Bef Harvest Samp")
-#RS
-F_Sampling_Power(Baseline_NI_R_1[0],"R_CFU_Acc","R_CFU_Rej")
-CFU_Sampling_Stage (Baseline_NI_R_1[1],"Bef Receiving Samp")
-#FPS
-F_Sampling_Power(Baseline_NI_FP_1[0],"FP_CFU_Acc","FP_CFU_Rej")
-CFU_Sampling_Stage (Baseline_NI_FP_1[1],'Bef Final Prod S')
 
 
 
@@ -808,8 +846,8 @@ plt.ylabel("Percent Reduction from Baseline NI")
 #Sampling Results: 
 
 #PHS4d
-F_Sampling_Power(Baseline_NI_PHS4d[0],"PH_CFU_Acc","PH_CFU_Rej")
-CFU_Sampling_Stage (Baseline_NI_PHS4d[1],"Bef Pre-Harvest Samp")
+F_Sampling_Power(Baseline_NI_PHS4d_1[0],"PH_CFU_Acc","PH_CFU_Rej")
+CFU_Sampling_Stage (Baseline_NI_PHS4d_1[1],"Bef Pre-Harvest Samp")
 #PHS4h
 F_Sampling_Power(Baseline_NI_PHS4h[0],"PH_CFU_Acc","PH_CFU_Rej")
 CFU_Sampling_Stage (Baseline_NI_PHS4h[1],"Bef Pre-Harvest Samp")

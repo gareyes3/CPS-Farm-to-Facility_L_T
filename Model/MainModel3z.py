@@ -86,7 +86,7 @@ def F_MainLoop():
                 ScenCondz.FP_Sampling = True
                 ScenCondz.FPS_Trad= True  
             '''
-
+            ScenCondz.Contamination_Scenario = np.random.choice([1,2,3])
             #Receiving Factors
             SCInputz.Pre_CoolingYN = np.random.choice([True,False])
             #Processing Factors

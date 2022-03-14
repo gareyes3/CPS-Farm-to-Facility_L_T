@@ -5,12 +5,11 @@ library(randomForest)
 library(forcats)
 
 
-Data <- read.csv("SensitivityOut02-09.csv", stringsAsFactors = TRUE)
-Data<-Data[-c(39)]
-Data<-Data[-c(1,3)]
+Data <- read.csv("SensitivityOut03-14.csv", stringsAsFactors = TRUE)
 
-Data_x<-Data[-c(35,36)]
-PCC1<-pcc(X = Data_x, y=Data$TotalCFUFP, rank =TRUE, conf = 0.8, nboot = 1000)
+
+Data_x<-Data[-c(1,36,37)]
+PCC1<-pcc(X = Data_x, y=Data$TotalCFUFP, rank =TRUE, conf = 0.8, nboot = 100)
 plot(PCC1)
 
 
@@ -21,8 +20,8 @@ pairs(Data)
 names(PCC1$PRCC)=c("original", "bias" ,"std.error", "minci","maxci")
 
 #Ggplot, here is similar to a tornado plot. Also there are error bars on the 95th percentile
-
-
+PCC1$PRCC %>% 
+  
 
 ggplot(data = PCC1$PRCC, aes(x=fct_reorder(rownames(PCC1$PRCC), abs(original)),y=original ))+
   geom_bar(stat = "identity", position = "identity")+

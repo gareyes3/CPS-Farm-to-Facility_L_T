@@ -50,8 +50,8 @@ import Trial_MainLoop_PH
 #Uniform Contmaination in the Field. 
 # Contamination Challenges
 ContCondz.Background_C = False
-ContCondz.Point_Source_C =True
-ContCondz.Systematic_C = False
+ContCondz.Point_Source_C =False
+ContCondz.Systematic_C = True
 
 # Harvester Contamination
 ContCondz.Crew_C = False
