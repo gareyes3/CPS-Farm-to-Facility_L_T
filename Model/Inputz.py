@@ -38,7 +38,8 @@ if ScenCondz.Contamination_Scenario == 1:
     if ScenCondz.Holding_Time == True: #Should always be true unless scenario analysis. 
         Time_CE_H = np.random.triangular(2,4,8) #days
     elif ScenCondz.Holding_Time == False:
-        Time_CE_H = np.random.triangular(0,4,8) #days 
+        Time_CE_H = np.random.triangular(0,4,8) #days
+
         
 #Contamination Scenario #1
 if ScenCondz.Contamination_Scenario == 2:
@@ -46,7 +47,7 @@ if ScenCondz.Contamination_Scenario == 2:
     Con_Cluster = 1
     Cluster_Size  =1_000 
     if ScenCondz.Holding_Time == True: #Should always be true unless scenario analysis. 
-        Time_CE_H = np.random.uniform(2,4,8) #days
+        Time_CE_H = np.random.triangular(2,4,8) #days
     elif ScenCondz.Holding_Time == False:
         Time_CE_H = np.random.triangular(0,4,8) #days 
 

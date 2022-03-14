@@ -285,6 +285,7 @@ def F_Outputs_Table(List_of_Outputs):
 This chunk of code runs 6 systems talked on the effect of individual interventions section. 
 '''
 
+
 Baseline_NI_1 =  scenario_function(Cont_Scen_no=1)
 Baseline_NI_2 =  scenario_function(Cont_Scen_no=2)
 Baseline_NI_3 =  scenario_function(Cont_Scen_no=3)
@@ -371,16 +372,54 @@ def Progression_DF_Melt(List_of_Outs):
     return df
 
 Melted_Prog_DF_NI_1 = Progression_DF_Melt(List_of_Outs = List_of_Outs_Ints_1)
+Melted_Prog_DF_NI_2 = Progression_DF_Melt(List_of_Outs = List_of_Outs_Ints_2)
+Melted_Prog_DF_NI_3 = Progression_DF_Melt(List_of_Outs = List_of_Outs_Ints_3)
+
+Melted_Prog_DF_NI_1["Scenario"] = "Uniform"
+Melted_Prog_DF_NI_2["Scenario"] = "1% Cluster"
+Melted_Prog_DF_NI_3["Scenario"] = "10% Cluster"
+
+All_Melted = pd.concat([Melted_Prog_DF_NI_1,Melted_Prog_DF_NI_2,Melted_Prog_DF_NI_3])
+
+sns.relplot(
+    data=All_Melted, x="variable", y="value",
+   row="Scenario", hue="Type", style="Type",
+    kind="line" 
+)
+plt.xlabel("Process Stage")
+plt.ylabel("Total CFUs in System")
+plt.yscale('log')
+plt.title("Contamination Progression 1) Uniform Contamination")
+plt.xticks(rotation=-90)
+plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 
 
 
 H=sns.lineplot(x="variable", y="value",hue = "Type", style = "Type", 
-            data=Melted_Prog_DF_NI_1)
+            data=Melted_Prog_DF_NI_1,  )
 plt.xlabel("Process Stage")
 plt.ylabel("Total CFUs in System")
 plt.yscale('log')
-plt.title("Contamination Progressoin")
-plt.xticks(rotation=70)
+plt.title("Contamination Progression 1) Uniform Contamination")
+plt.xticks(rotation=-90)
+plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+
+H=sns.lineplot(x="variable", y="value",hue = "Type", style = "Type", 
+            data=Melted_Prog_DF_NI_2,  )
+plt.xlabel("Process Stage")
+plt.ylabel("Total CFUs in System")
+plt.yscale('log')
+plt.title("Contamination Progression 2) 1% Clustered Contamination")
+plt.xticks(rotation=-90)
+plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+
+H=sns.lineplot(x="variable", y="value",hue = "Type", style = "Type", 
+            data=Melted_Prog_DF_NI_2,  )
+plt.xlabel("Process Stage")
+plt.ylabel("Total CFUs in System")
+plt.yscale('log')
+plt.title("Contamination Progression 3) 10% Clustered Contamination")
+plt.xticks(rotation=-90)
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 
 '''
@@ -484,7 +523,7 @@ h.map(specs,"value" )
 #%% Running the scenarios. 
 
 ### BASELINE  NO INTERVENTION###
-
+random.seed(10)
 
 #Baseline Scenario No Intervention. 
 Baseline_NI_1 =  scenario_function(Cont_Scen_no=1)
@@ -671,7 +710,29 @@ Outputs_Df_NI_1=F_Outputs_Table(List_of_Outs_NI_1)
 Outputs_Df_NI_2=F_Outputs_Table(List_of_Outs_NI_2)
 Outputs_Df_NI_3=F_Outputs_Table(List_of_Outs_NI_3)    
 
-#Sampling Results: 
+#Sampling Results:
+
+def sampling_power(df,Step_Acc):
+    return len(df[0][df[0][Step_Acc] ==0])/SCInputz.N_Iterations
+
+Step_Acc_List = "PH_Wei_Acc PH_Wei_Acc PH_Wei_Acc PH_Wei_Acc H_Wei_Acc R_Wei_Acc FP_Wei_Acc C_Wei_Acc".split()
+
+Powers_NI = []
+for i in list(range(8)):
+    Power_1= sampling_power(List_of_Outs_NI_1[i],Step_Acc_List[i])
+    Powers_NI.append(Power_1)
+    
+Powers_NI
+
+#Scenario 2: 
+    
+Powers_NI_2 = []
+for i in list(range(8)):
+    Power_1= sampling_power(List_of_Outs_NI_2[i],Step_Acc_List[i])
+    Powers_NI_2.append(Power_1)
+    
+Powers_NI_2
+    
 
 #PHS4d
 F_Sampling_Power(Baseline_NI_PHS4d_1[0],"PH_CFU_Acc","PH_CFU_Rej")

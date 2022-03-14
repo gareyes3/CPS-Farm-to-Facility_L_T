@@ -231,12 +231,13 @@ def F_MainLoop():
         
             
             #Adding Contamination depending on challenge Pre-harvest challenges
-            if ScenCondz.Contamination_Scenario in [1,2,3]:
-                df = ContScen.F_systematic_C(df=df, 
-                                             Hazard_lvl= Inputz.Hazard_Lvl,
-                                             No_Cont_Clusters =Inputz.Cont_Cluster,
-                                             Cluster_Size= Inputz.Cluster_Size,
-                                             Partition_Weight = SCInputz.Partition_Weight )
+            if df["Weight"].sum() != 50:
+                if ScenCondz.Contamination_Scenario in [1,2,3]:
+                    df = ContScen.F_systematic_C(df=df, 
+                                                 Hazard_lvl= Inputz.Hazard_Lvl,
+                                                 No_Cont_Clusters =Inputz.Cont_Cluster,
+                                                 Cluster_Size= Inputz.Cluster_Size,
+                                                 Partition_Weight = SCInputz.Partition_Weight )
                 
             # Local Outputs: Initial Contamination     
             LV_Initial_CFU= sum(df.CFU) #Initial Contamination 

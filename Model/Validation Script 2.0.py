@@ -277,7 +277,7 @@ for k in Tuning_NoGrabs:
         
         Number_Grabs = k
         Sample_Size = k*25
-        iterations = 500
+        iterations = 1000
         No_Clusters = i
         
         Results = Sampling_Validation_Wu(Sample_Size, Number_Grabs, iterations, No_Clusters)
@@ -302,7 +302,8 @@ palette = sns.color_palette("mako_r", 4)
 sns.lineplot(x="Cont_Points", y="Rejection", hue = "Grabs", style = "Grabs" ,data=FinalDF_WB,markers=True,dashes=False, palette=palette)
 plt.xlabel("Number of Contamination Points")
 plt.ylabel("Probability of Detection")
-plt.title("Model Validation Plot")
+plt.title("Simulated probability of detection")
+plt.ylim(0,1)
 # Put the legend out of the figure
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 
