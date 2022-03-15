@@ -235,7 +235,7 @@ def F_Outputs_Table(List_of_Outputs):
         
         #Final CFUs based on if accepted or rejected
             #Accepted
-        Final_CFU_Acc_Portion_mean=i[1]["After CS Samp"].mean()
+        Final_CFU_Acc_Portion_mean=i[1]["After CS Samp"].sum()
         Final_CFU_Acc_Portion_90CI=i[1]["After CS Samp"].quantile([0.05,0.95])
             #Rejected
         Final_CFU_Rej_Portion_mean=i[1][i[1].index.isin(Subset_Rej_NI_PHS4d)]["After CS Samp"].mean()
@@ -531,9 +531,9 @@ h.map(specs,"value" )
 #%% Running the scenarios. 
 
 ### BASELINE  NO INTERVENTION###
-random.seed(10)
 
 #Baseline Scenario No Intervention. 
+
 Baseline_NI_1 =  scenario_function(Cont_Scen_no=1)
 Baseline_NI_2 =  scenario_function(Cont_Scen_no=2)
 Baseline_NI_3 =  scenario_function(Cont_Scen_no=3)
@@ -564,10 +564,6 @@ Baseline_NI_R_1=  scenario_function(Cont_Scen_no=1,RSTrad =True)
 Baseline_NI_R_2=  scenario_function(Cont_Scen_no=2,RSTrad =True)
 Baseline_NI_R_3=  scenario_function(Cont_Scen_no=3,RSTrad =True)
 
-#Baseline no intervention Receiving Samplgin Traditional
-Baseline_NI_FP_1=  scenario_function(Cont_Scen_no=1,FPSTrad =True)
-Baseline_NI_FP_2=  scenario_function(Cont_Scen_no=2,FPSTrad =True)
-Baseline_NI_FP_3=  scenario_function(Cont_Scen_no=3,FPSTrad =True)
 
 #Baseline no intervention Receiving Samplgin Traditional
 Baseline_NI_FP_1=  scenario_function(Cont_Scen_no=1,FPSTrad =True)
@@ -788,7 +784,128 @@ plt.yscale('log')
 plt.title("No Intervention: Sytem contamination before sampling steps")
 plt.xticks(rotation=-90)
 
+#%% New All intervention analysis
+
+List_of_Outs_AI_1 = [Baseline_AI_1,
+                     Baseline_AI_PHS4d_1,
+                     Baseline_AI_PHS4h_1,
+                     Baseline_AI_PHSInt_1,
+                     Baseline_AI_H_1,
+                     Baseline_AI_R_1,
+                     Baseline_AI_FP_1,
+                     Baseline_AI_CS_1
+                     ]
+
+List_of_Outs_AI_2 = [Baseline_AI_2,
+                     Baseline_AI_PHS4d_2,
+                     Baseline_AI_PHS4h_2,
+                     Baseline_AI_PHSInt_2,
+                     Baseline_AI_H_2,
+                     Baseline_AI_R_2,
+                     Baseline_AI_FP_2,
+                     Baseline_AI_CS_2
+                     ]
+
+List_of_Outs_AI_3 = [Baseline_AI_3,
+                     Baseline_AI_PHS4d_3,
+                     Baseline_AI_PHS4h_3,
+                     Baseline_AI_PHSInt_3,
+                     Baseline_AI_H_3,
+                     Baseline_AI_R_3,
+                     Baseline_AI_FP_3,
+                     Baseline_AI_CS_3
+                     ]
+
+#Names
+Col_Names_AI = "BaselineAI PHS4D_AI PHS4H_AI PHSInt_AI HTrad_AI RSTrad_AI FPSTrad_AI CS_AI".split()
+#Using function   
+     
+Outputs_Df_AI_1=F_Outputs_Table(List_of_Outs_AI_1)  
+Outputs_Df_AI_2=F_Outputs_Table(List_of_Outs_AI_2)
+Outputs_Df_AI_3=F_Outputs_Table(List_of_Outs_AI_3)    
+
+#Sampling Results:
+
+def sampling_power(df,Step_Acc):
+    return len(df[0][df[0][Step_Acc] ==0])/SCInputz.N_Iterations
+
+Step_Acc_List = "PH_Wei_Acc PH_Wei_Acc PH_Wei_Acc PH_Wei_Acc H_Wei_Acc R_Wei_Acc FP_Wei_Acc C_Wei_Acc".split()
+
+Powers_AI = []
+for i in list(range(8)):
+    Power_1= sampling_power(List_of_Outs_AI_1[i],Step_Acc_List[i])
+    Powers_AI.append(Power_1)
     
+Powers_AI
+
+#Scenario 2: 
+    
+Powers_AI_2 = []
+for i in list(range(8)):
+    Power_1= sampling_power(List_of_Outs_AI_2[i],Step_Acc_List[i])
+    Powers_AI_2.append(Power_1)
+    
+Powers_AI_2
+
+#Scenario 3
+
+Powers_AI_3 = []
+for i in list(range(8)):
+    Power_1= sampling_power(List_of_Outs_AI_3[i],Step_Acc_List[i])
+    Powers_AI_3.append(Power_1)
+    
+Powers_AI_3
+
+
+Initial_Conts = []
+    for i in list(range(8)):
+
+
+#Plot of contamination levels at sampling stage.
+Sampling_Loc_AI_1 =Sampling_Loc_DF(List_of_Outs_AI_1)
+Sampling_Loc_AI_2 =Sampling_Loc_DF(List_of_Outs_AI_2)
+Sampling_Loc_AI_3 =Sampling_Loc_DF(List_of_Outs_AI_3)
+
+Sampling_Loc_AI_1["Cont Scenario"] = "Uniform"
+Sampling_Loc_AI_2["Cont Scenario"] = "1% Cluster"
+Sampling_Loc_AI_3["Cont Scenario"] = "10% Cluster"
+
+Sampling_Loc_Melt = pd.concat([Sampling_Loc_AI_1,Sampling_Loc_AI_2,Sampling_Loc_AI_3])
+
+H=sns.catplot(x="variable", y="value", hue = "Cont Scenario", kind = "box" ,
+data=Sampling_Loc_Melt)
+plt.xlabel("Sampling Stage")
+plt.ylabel("Total CFUs in System")
+plt.yscale('log')
+plt.title("All Interventions: Sytem contamination before sampling steps")
+plt.xticks(rotation=-90)
+
+
+
+#Noramlized Contamination
+Power_AI_PHS4d = 1-0.127 
+Power_AI_FP = 1-0
+
+Subset_Acc_AI_PHS4d= Baseline_AI_PHS4d_1[0][Baseline_AI_PHS4d_1[0]['PH_Wei_Acc'] == 100_000].index
+Subset_Rej_AI_PHS4d= Baseline_AI_PHS4d_1[0][Baseline_AI_PHS4d_1[0]['PH_Wei_Acc'] != 100_000].index
+
+
+Subset_Acc_AI_FP= Baseline_AI_FP_1[0][Baseline_AI_FP_1[0]['FP_Wei_Acc'] == 100_000].index
+Subset_Rej_AI_FP= Baseline_AI_FP_1[0][Baseline_AI_FP_1[0]['FP_Wei_Acc'] != 100_000].index
+
+#Final CFUs based on if accepted or rejected
+
+#Accepted
+(Baseline_AI_PHS4d_1[1][Baseline_AI_PHS4d_1[1].index.isin(Subset_Acc_AI_PHS4d)]["After CS Samp"]*Power_AI_PHS4d).mean()
+
+(Baseline_AI_FP_1[1][Baseline_AI_FP_1[1].index.isin(Subset_Acc_AI_FP)]["After CS Samp"]*Power_AI_FP).mean()
+
+
+Final_CFU_Acc_Portion_90CI=i[1]["After CS Samp"].quantile([0.05,0.95])
+
+
+
+#%%    
 
 
 

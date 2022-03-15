@@ -5,7 +5,6 @@ Created on Tue Jul 20 09:31:30 2021
 @author: Gustavo Reyes
 """
 
-
                                                        #Inputs for the Model, Initial Inputs
 import ScenCondz
 import ContCondz
@@ -14,6 +13,7 @@ import SCInputz
 import math
 from numpy.random import Generator, PCG64
 import pandas as pd
+import random
 rng = Generator(PCG64())
        
 #Randomized Initial Contamination
@@ -27,8 +27,6 @@ rng = Generator(PCG64())
 #5. Custom Plan #Pending
 
 #Old ContamiNATION iNFORMATION
-   
-
 
 #Contamination Scenario #1
 if ScenCondz.Contamination_Scenario == 1: 
@@ -40,7 +38,7 @@ if ScenCondz.Contamination_Scenario == 1:
     elif ScenCondz.Holding_Time == False:
         Time_CE_H = np.random.triangular(0,4,8) #days
 
-        
+random.seed(10)        
 #Contamination Scenario #1
 if ScenCondz.Contamination_Scenario == 2:
     Hazard_Lvl = 100_000
@@ -50,7 +48,6 @@ if ScenCondz.Contamination_Scenario == 2:
         Time_CE_H = np.random.triangular(2,4,8) #days
     elif ScenCondz.Holding_Time == False:
         Time_CE_H = np.random.triangular(0,4,8) #days 
-
 #Contamination Scenario #1
 if ScenCondz.Contamination_Scenario == 3:
     Hazard_Lvl = 100_000
@@ -221,6 +218,7 @@ if Time_PHS_H>Time_CE_H:
 elif Time_PHS_H<=Time_CE_H:
     Time_CE_PHS= Time_CE_H-Time_PHS_H #Days Time from Contamination Event (Irrigation) to Pre-Harvest Sampling
 
+print(Time_CE_H)
 #%% Pre-Cooling- HArvest
 
 #Chrlorine Pray

@@ -23,10 +23,9 @@ import Dictionariez #for dataframe creation
 from importlib import reload  
 import numpy as np
 #import Sensitivity_analysis
+import random
 
 reload(Listz)
-reload(Inputz)
-
 
 #%%
 
@@ -57,9 +56,12 @@ def F_MainLoop():
     df_Sensitivity = Dictionariez.Output_DF_Creation(Dictionariez.Sensitivity_Analysis_Dic, SCInputz.N_Iterations)
     Series_Final_Conts = []
 
+    
     for  i in range(SCInputz.N_Iterations):
+
         Iteration_In = i
         print(Iteration_In,"iteration")
+        np.random.seed(i)
         reload(Inputz)
         
         
