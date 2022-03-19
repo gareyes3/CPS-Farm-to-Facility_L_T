@@ -178,7 +178,7 @@ for k in Tuning_Contamination_levels:
         Hazard_Level = k
         Number_Grabs = i
         Sample_Size = i*3
-        iterations = 100
+        iterations = 1000
         
         Results = Sampling_Validation(Hazard_Level, Sample_Size, Number_Grabs, iterations)
         
@@ -209,6 +209,9 @@ plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 
 #Validation of means: 
 FinalDF.groupby(["Cont_Level", "Grabs"]).mean()
+
+FinalDF.to_csv('Uniform_Validation.csv')
+
         
 #%%
 ########################POINT SOURce##############################
@@ -222,7 +225,7 @@ for k in Tuning_Contamination_levels:
         Hazard_Level = k
         Number_Grabs = i
         Sample_Size = i*3
-        iterations = 100
+        iterations = 1000
         
         Results = Sampling_Validation_PS(Hazard_Level, Sample_Size, Number_Grabs, iterations)
         
@@ -252,6 +255,8 @@ plt.ylabel("% of contamination Accepted")
 plt.title("Area Contamination, Uniform")
 # Put the legend out of the figure
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+
+FinalDF_PS.to_csv('PointSource.csv')
 
 
 #%% 

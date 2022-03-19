@@ -293,7 +293,6 @@ def F_Outputs_Table(List_of_Outputs):
 This chunk of code runs 6 systems talked on the effect of individual interventions section. 
 '''
 
-
 Baseline_NI_1 =  scenario_function(Cont_Scen_no=1)
 Baseline_NI_2 =  scenario_function(Cont_Scen_no=2)
 Baseline_NI_3 =  scenario_function(Cont_Scen_no=3)
@@ -322,6 +321,11 @@ Baseline_NI_Sp_Wash_3 =  scenario_function(Cont_Scen_no=3,PreS_Wash=True)
 Baseline_NI_PLS_1 = scenario_function(Cont_Scen_no=1,Sanitation=True)
 Baseline_NI_PLS_2 = scenario_function(Cont_Scen_no=2,Sanitation=True)
 Baseline_NI_PLS_3 = scenario_function(Cont_Scen_no=3,Sanitation=True)
+
+Baseline_AI_1 =  scenario_function(Cont_Scen_no=1,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True)
+Baseline_AI_2 =  scenario_function(Cont_Scen_no=2,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True)
+Baseline_AI_3 =  scenario_function(Cont_Scen_no=3,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True)
+ 
 #%%%
 
 '''
@@ -332,6 +336,7 @@ This Chunk conducts data analysis for the effect of individual interventions
 
 #Scenario 1 Uniform Contamination
 List_of_Outs_Ints_1 = [Baseline_NI_1,
+                       Baseline_AI_1,
                      Baseline_NI_Holding_1,
                      Baseline_NI_Precooling_1,
                      Baseline_NI_Wash_1,
@@ -344,6 +349,7 @@ Outputdf_INT_1 = F_Outputs_Table(List_of_Outs_Ints_1)
 
 #Scenario 2 Uniform Contamination
 List_of_Outs_Ints_2 = [Baseline_NI_2,
+                       Baseline_AI_2,
                      Baseline_NI_Holding_2,
                      Baseline_NI_Precooling_2,
                      Baseline_NI_Wash_2,
@@ -355,6 +361,7 @@ Outputdf_INT_2 = F_Outputs_Table(List_of_Outs_Ints_2)
 
 #Scenario 3 Uniform Contamination
 List_of_Outs_Ints_3 = [Baseline_NI_3,
+                       Baseline_AI_3,
                      Baseline_NI_Holding_3,
                      Baseline_NI_Precooling_3,
                      Baseline_NI_Wash_3,
@@ -365,7 +372,7 @@ List_of_Outs_Ints_3 = [Baseline_NI_3,
 Outputdf_INT_3 = F_Outputs_Table(List_of_Outs_Ints_3)
 
 def Progression_DF_Melt(List_of_Outs):
-    Column_Names = "BaselineNI Holding Precooling Washing PreSpray_Wash Sanitation".split()
+    Column_Names = "BaselineNI BaselineAI Holding Precooling Washing PreSpray_Wash Sanitation".split()
     
     Index_1 = 0
     List_dfs = []
@@ -417,7 +424,7 @@ H=sns.lineplot(x="variable", y="value",hue = "Type", style = "Type",
 plt.xlabel("Process Stage")
 plt.ylabel("Total CFUs in System")
 plt.yscale('log')
-plt.title("Contamination Progression 2) 1% Clustered Contamination")
+plt.title("Contamination Progression 3) 1% Clustered Contamination")
 plt.xticks(rotation=-90)
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 
@@ -426,7 +433,7 @@ H=sns.lineplot(x="variable", y="value",hue = "Type", style = "Type",
 plt.xlabel("Process Stage")
 plt.ylabel("Total CFUs in System")
 plt.yscale('log')
-plt.title("Contamination Progression 3) 10% Clustered Contamination")
+plt.title("Contamination Progression 2) 10% Clustered Contamination")
 plt.xticks(rotation=-90)
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 

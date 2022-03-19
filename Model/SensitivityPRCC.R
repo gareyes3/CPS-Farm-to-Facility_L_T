@@ -20,10 +20,53 @@ pairs(Data)
 names(PCC1$PRCC)=c("original", "bias" ,"std.error", "minci","maxci")
 
 #Ggplot, here is similar to a tornado plot. Also there are error bars on the 95th percentile
-PCC1$PRCC %>% 
+Sens_DF<-PCC1$PRCC 
+Sens_DF$Cateogry
   
+Cateogries<-c(
+  "Contamination Scen",# "InitialCont" ,
+  "Contamination Scen",#"ClusterSize",
+  "Time",#Time_CE_H",
+  "Reduction",#"Total_CE_H_Dieoff",
+  
+  #Pre-cooling
+  "Time",#"Time_H_PC",
+  "Temperature",#"Temp_H_PC",
+  "Time",#"Time Precooling",
+  "Time",#"Temp Precooling",
+  "Intervention",#"Pre_cooling",
+  #Receiving
+  "Time",#"Time_Storage_R",
+  "Temperature",#"Temp_Storage_R",
+  #Processing Factor
+  "Reduction",#"PreWashRed",
+  "Reduction",#"PreWashYN",
+  "Reduction",#"WashingYN",
+  "Processing",#"Tr_Sh_P",
+  "Processing",#"Tr_P_Sh",
+  "Reduction",#"Sh_Compliance",
+  "Reduction",#"Sh_San_freq",
+  "Reduction",#"Sh_San_Eff",
+  "Processing",#"Tr_Cv_P",
+  "Processing",#"Tr_P_Cv",
+  "Reduction",#"Cv_Compliance",
+  "Reduction",#"Cv_San_freq",
+  "Reduction",#"Cv_San_Eff",
+  "Processing",#"Tr_St_P",
+  "Processing",#"Tr_P_St",
+  "Reduction",#"St_Compliance",
+  "Reduction",#"St_San_freq",
+  "Reduction",#"St_San_Eff",
+  "Processing",#"Tr_C_P",
+  "Processing",#"Tr_P_C",
+  "Reduction",#"C_Compliance",
+  "Reduction",#"C_San_freq",
+  "Reduction"# "C_San_Eff",
+)
+  
+Sens_DF$Cateogry <-Cateogries 
 
-ggplot(data = PCC1$PRCC, aes(x=fct_reorder(rownames(PCC1$PRCC), abs(original)),y=original ))+
+ggplot(data = Sens_DF, aes(x=fct_reorder(rownames(PCC1$PRCC), abs(original)),y=original , fill = Cateogry))+
   geom_bar(stat = "identity", position = "identity")+
   geom_errorbar(aes(ymin=minci, ymax=maxci), width=.1,col="blue")+
   ylab("Partial Correlation Coefficient")+
