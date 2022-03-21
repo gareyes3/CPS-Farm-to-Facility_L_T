@@ -227,6 +227,7 @@ Sensitivity_Analysis_Dic = [
                             "PreWashRed",
                             "PreWashYN",
                             "WashingYN",
+                            "ChSpray_eff", #new
                             "Tr_Sh_P",
                             "Tr_P_Sh",
                             "Sh_Compliance",
@@ -247,6 +248,14 @@ Sensitivity_Analysis_Dic = [
                             "C_Compliance",
                             "C_San_freq",
                             "C_San_Eff",
+                            #After finished product
+                            "Time_PostPStorage",
+                            "Temperature_ColdStoragePostFP",
+                            "Trasnportation_TimeFP_C",
+                            "Transportation_TempFP_C",
+                            "Time_Cust_Sto",
+                            "Temp_Cust_Sto",
+                            
                             "TotalCFUFP",
                             "PropCont"
                         
@@ -286,6 +295,8 @@ def Func_LoadInputs (OutputDF,i,df, TotalDieoff):
     OutputDF.loc[i, "WashingYN"] =  SCInputz.Washing_YN #Washing Yes or NotSCInputz.Spray_WashYN
     OutputDF.loc[i, "PreWashYN"] =  SCInputz.Spray_WashYN #Washing Yes or Not
     
+    OutputDF.loc[i, "ChSpray_eff"] =  Inputz.Harvest_Cspray_red #Washing Yes or Not
+    
     OutputDF.at[i, "Tr_Sh_P"] =  Inputz.Tr_Sh_P
     OutputDF.at[i, "Tr_P_Sh"] =  Inputz.Tr_P_Sh
     OutputDF.at[i, "Sh_Compliance"] =  Inputz.Sh_Compliance
@@ -310,6 +321,14 @@ def Func_LoadInputs (OutputDF,i,df, TotalDieoff):
     OutputDF.at[i, "C_San_freq"] =  Inputz.C_San_freq
     OutputDF.at[i, "C_San_Eff"] =  Inputz.C_San_Eff
 
+    #Finsihed product and beyond
+    OutputDF.at[i, "Time_PostPStorage"] =  Inputz.Time_PostPStorage
+    OutputDF.at[i, "Temperature_ColdStoragePostFP"] =  Inputz.Temperature_ColdStorage
+    OutputDF.at[i,  "Trasnportation_TimeFP_C"] =  Inputz.Trasnportation_Time
+    OutputDF.at[i, "Transportation_TempFP_C"] =  Inputz.Transportation_Temp
+    OutputDF.at[i, "Time_Cust_Sto"] =  Inputz.Time_PostPCS
+    OutputDF.at[i, "Temp_Cust_Sto"] =  Inputz.Temperature_PostPCS
+    
     
     #Output
     OutputDF.loc[i, "TotalCFUFP"] =  df["CFU"].sum()

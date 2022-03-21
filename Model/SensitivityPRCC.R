@@ -5,11 +5,11 @@ library(randomForest)
 library(forcats)
 
 
-Data <- read.csv("SensitivityOut03-14.csv", stringsAsFactors = TRUE)
+Data <- read.csv("SensitivityOut03-21.csv", stringsAsFactors = TRUE)
 
 
-Data_x<-Data[-c(1,36,37)]
-PCC1<-pcc(X = Data_x, y=Data$TotalCFUFP, rank =TRUE, conf = 0.8, nboot = 100)
+Data_x<-Data[-c(1,43,44)]
+PCC1<-pcc(X = Data_x, y=Data$TotalCFUFP, rank =TRUE, conf = 0.8, nboot = 1000)
 plot(PCC1)
 
 
@@ -42,6 +42,7 @@ Cateogries<-c(
   "Reduction",#"PreWashRed",
   "Reduction",#"PreWashYN",
   "Reduction",#"WashingYN",
+  "Reduction", #"ChSpray_eff"
   "Processing",#"Tr_Sh_P",
   "Processing",#"Tr_P_Sh",
   "Reduction",#"Sh_Compliance",
@@ -61,12 +62,70 @@ Cateogries<-c(
   "Processing",#"Tr_P_C",
   "Reduction",#"C_Compliance",
   "Reduction",#"C_San_freq",
-  "Reduction"# "C_San_Eff",
+  "Reduction",# "C_San_Eff",
+  "Time",
+  "Temperature",
+  "Time",
+  "Temperature",
+  "Time",
+  "Temperature"
+  
+)
+
+
+Column_Names<-c(
+  "Initial Contamination",# "InitialCont" ,
+  "Cluster Size",#"ClusterSize",
+  "Time CE-H",#Time_CE_H",
+  "Total Pre-Harvest Die-off",#"Total_CE_H_Dieoff",
+  
+  #Pre-cooling
+  "Time H-Pre-cooling",#"Time_H_PC",
+  "Temperature H-Pre-cooling",#"Temp_H_PC",
+  "Length Pre-cooling",#"Time Precooling",
+  "Teperature Pre-cooling",#"Temp Precooling",
+  "Pre-cooling ON",#"Pre_cooling",
+  #Receiving
+  "Time Storage- Receiving",#"Time_Storage_R",
+  "Storage Temperature",#"Temp_Storage_R",
+  #Processing Factor
+  "Pre-Wash Reduction",#"PreWashRed",
+  "Pre-Wash ON",#"PreWashYN",
+  "Chlorinated Wash ON",#"WashingYN",
+  "Pre-Wash Efficacy", #"ChSpray_eff"
+  "Tr_Sh_P",
+  "Tr_P_Sh",
+  "Sh_Compliance",
+  "Sh_San_freq",
+  "Sh_San_Eff",
+  "Tr_Cv_P",
+  "Tr_P_Cv",
+  "Cv_Compliance",
+  "Cv_San_freq",
+  "Cv_San_Eff",
+  "Tr_St_P",
+  "Tr_P_St",
+  "St_Compliance",
+  "St_San_freq",
+  "St_San_Eff",
+ "Tr_C_P",
+  "Tr_P_C",
+  "C_Compliance",
+  "C_San_freq",
+  "C_San_Eff",
+  "Time Post Processing Storage",
+  "Temperature Post P Storage",
+  "Time Transportation to C",
+  "Temperature Transportation to C",
+  "Time Consumer Storage",
+  "Temperature Consumer Storage"
+  
 )
   
 Sens_DF$Cateogry <-Cateogries 
+rownames(Sens_DF)<-Column_Names
 
-ggplot(data = Sens_DF, aes(x=fct_reorder(rownames(PCC1$PRCC), abs(original)),y=original , fill = Cateogry))+
+ggplot(data = Sens_DF, aes(x=fct_reorder(rownames(Sens_DF), abs(original)),y=original , fill = Cateogry))+
   geom_bar(stat = "identity", position = "identity")+
   geom_errorbar(aes(ymin=minci, ymax=maxci), width=.1,col="blue")+
   ylab("Partial Correlation Coefficient")+
