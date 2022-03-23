@@ -783,12 +783,13 @@ Sampling_Loc_NI_3["Cont Scenario"] = "10% Cluster"
 
 Sampling_Loc_Melt = pd.concat([Sampling_Loc_NI_1,Sampling_Loc_NI_2,Sampling_Loc_NI_3])
 
-H=sns.catplot(x="variable", y="value", hue = "Cont Scenario", kind = "box" ,
+H=sns.catplot(x="variable", y="value", hue = "Cont Scenario", kind = "bar" ,
 data=Sampling_Loc_Melt)
 plt.xlabel("Sampling Stage")
 plt.ylabel("Total CFUs in System")
 plt.yscale('log')
-plt.title("No Intervention: Sytem contamination before sampling steps")
+plt.yticks([1,10,100,1000,10000,100000])
+plt.title("No Intervention: System contamination before sampling steps")
 plt.xticks(rotation=-90)
 
 #%% New All intervention analysis
@@ -864,9 +865,6 @@ for i in list(range(8)):
 Powers_AI_3
 
 
-Initial_Conts = []
-    for i in list(range(8)):
-
 
 #Plot of contamination levels at sampling stage.
 Sampling_Loc_AI_1 =Sampling_Loc_DF(List_of_Outs_AI_1)
@@ -879,12 +877,13 @@ Sampling_Loc_AI_3["Cont Scenario"] = "10% Cluster"
 
 Sampling_Loc_Melt = pd.concat([Sampling_Loc_AI_1,Sampling_Loc_AI_2,Sampling_Loc_AI_3])
 
-H=sns.catplot(x="variable", y="value", hue = "Cont Scenario", kind = "box" ,
+H=sns.catplot(x="variable", y="value", hue = "Cont Scenario", kind = "bar" ,
 data=Sampling_Loc_Melt)
 plt.xlabel("Sampling Stage")
 plt.ylabel("Total CFUs in System")
 plt.yscale('log')
-plt.title("All Interventions: Sytem contamination before sampling steps")
+plt.yticks([1,10,100,1000,10000,100000])
+plt.title("All Interventions: System contamination before sampling steps")
 plt.xticks(rotation=-90)
 
 

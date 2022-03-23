@@ -256,6 +256,16 @@ Sensitivity_Analysis_Dic = [
                             "Time_Cust_Sto",
                             "Temp_Cust_Sto",
                             
+                            #Sampling
+                            "PHS4d",
+                            "PHS4h",
+                            "PHSInt",
+                            "HS",
+                            "RS",
+                            "FPS",
+                            "CS",
+                            
+                            
                             "TotalCFUFP",
                             "PropCont"
                         
@@ -329,6 +339,14 @@ def Func_LoadInputs (OutputDF,i,df, TotalDieoff):
     OutputDF.at[i, "Time_Cust_Sto"] =  Inputz.Time_PostPCS
     OutputDF.at[i, "Temp_Cust_Sto"] =  Inputz.Temperature_PostPCS
     
+    #sampling
+    OutputDF.loc[i, "PHS4d"] =  ScenCondz.PHS_4d,
+    OutputDF.loc[i, "PHS4h"] =  ScenCondz.PHS_4h,
+    OutputDF.loc[i, "PHSInt"] =  ScenCondz.PHS_Int,
+    OutputDF.loc[i, "HS"] =  ScenCondz.HS_Trad,
+    OutputDF.loc[i, "RS"] =  ScenCondz.R_Sampling,
+    OutputDF.loc[i, "FPS"] =  ScenCondz.FPS_Trad,
+    OutputDF.loc[i, "CS"] =   ScenCondz.C_Sampling,
     
     #Output
     OutputDF.loc[i, "TotalCFUFP"] =  df["CFU"].sum()

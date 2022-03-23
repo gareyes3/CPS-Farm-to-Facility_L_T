@@ -5,10 +5,10 @@ library(randomForest)
 library(forcats)
 
 
-Data <- read.csv("SensitivityOut03-21.csv", stringsAsFactors = TRUE)
+Data <- read.csv("SensitivityOut03-22.csv", stringsAsFactors = TRUE)
 
 
-Data_x<-Data[-c(1,43,44)]
+Data_x<-Data[-c(1,50,51)]
 PCC1<-pcc(X = Data_x, y=Data$TotalCFUFP, rank =TRUE, conf = 0.8, nboot = 1000)
 plot(PCC1)
 
@@ -68,7 +68,15 @@ Cateogries<-c(
   "Time",
   "Temperature",
   "Time",
-  "Temperature"
+  "Temperature", 
+  
+  "Sampling",
+  "Sampling",
+  "Sampling",
+  "Sampling",
+  "Sampling",
+  "Sampling",
+  "Sampling"
   
 )
 
@@ -118,12 +126,24 @@ Column_Names<-c(
   "Time Transportation to C",
   "Temperature Transportation to C",
   "Time Consumer Storage",
-  "Temperature Consumer Storage"
+  "Temperature Consumer Storage",
+ "PHS 4 days ON",
+ "PHS 4 Hours ON",
+ "PHS 4 Intense ON",
+ "Harvest S ON",
+ "Receiving S ON",
+ "Finished Product S ON",
+ "Consumer S ON"
+ 
   
 )
   
 Sens_DF$Cateogry <-Cateogries 
 rownames(Sens_DF)<-Column_Names
+
+Sens_DF_T25<-Sens_DF %>% 
+  arrange(desc(abs(original))) %>% 
+  slice_head(n=25)
 
 ggplot(data = Sens_DF, aes(x=fct_reorder(rownames(Sens_DF), abs(original)),y=original , fill = Cateogry))+
   geom_bar(stat = "identity", position = "identity")+

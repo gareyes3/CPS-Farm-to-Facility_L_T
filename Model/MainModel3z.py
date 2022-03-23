@@ -67,14 +67,15 @@ def F_MainLoop():
         
         #PRCC SENSITYIVITY ANALYSIS SECTION Randomized Inputs only if Sens Analysis is ON. 
         if SCInputz.Sensitivity_Analysis == True:
-            '''
+
+            reload(ScenCondz)
             #Sampling Contamination
-            Sampling_Type_SA = np.random.choice(["PH", "H", "R", "FP"])
+            Sampling_Type_SA = np.random.choice(["PH", "H", "R", "FP", "CS"])
             if Sampling_Type_SA == "PH":
                 ScenCondz.PH_Sampling = True
                 PH_Type_S = np.random.choice(["4d", "4h", "Int"])
                 if PH_Type_S == "4d":
-                    ScenCondz.PHS_4d= True
+                    ScenCondz.PHS_4d = True
                 elif PH_Type_S == "4h":
                     ScenCondz.PHS_4h= True
                 elif PH_Type_S == "Int":
@@ -86,8 +87,10 @@ def F_MainLoop():
                 ScenCondz.R_Sampling = True
             if Sampling_Type_SA == "FP":
                 ScenCondz.FP_Sampling = True
-                ScenCondz.FPS_Trad= True  
-            '''
+                ScenCondz.FPS_Trad= True 
+            if Sampling_Type_SA == "CS":
+                ScenCondz.C_Sampling  = True
+
             ScenCondz.Contamination_Scenario = np.random.choice([1,2,3])
             #Receiving Factors
             SCInputz.Pre_CoolingYN = np.random.choice([True,False])
@@ -871,11 +874,12 @@ def F_MainLoop():
             
             #Sampling at CS upon reception 
                         #Sampling Step
+            print(df["Weight"].sum(), "weight")
             if ScenCondz.C_Sampling == True:
                 df =Funz.F_Sampling_2(df =df,Test_Unit =SCInputz.test_unit_CS, 
                                            NSamp_Unit = SCInputz.n_samples_CS, 
                                            Samp_Size =SCInputz.sample_size_CS, 
-                                           Partition_Weight =Inputz.Pack_Weight_CS, 
+                                           Partition_Weight =Inputz.Pack_Weight_FP, 
                                            NoGrab = SCInputz.No_GRabs_CS)
             
             #Filtering out the Rejected lots, Final product
