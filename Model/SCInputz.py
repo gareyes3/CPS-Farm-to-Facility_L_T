@@ -75,9 +75,9 @@ n_samples_FP = 1 #number of samples per lot final product
 N_Packages_Samples = 60
 RR_FP_Trad = "Lot"
 if ScenCondz.FPS_Agg ==True:
-    n_samples_FP = 10
-Limit_FP =0
-RR_FP_Agg= "Lot"
+    n_samples_FP = 1
+    Limit_FP =0
+    RR_FP_Agg= "Lot"
 
 #Receiving Sampling Field Pack/Also Final Product Sampling. 
 test_unit_R_FP = "Lot"
@@ -96,11 +96,11 @@ Limit_CS = 0
 RR_CS  = "Lot"
 
 #%% Toggles
-Washing_YN =True
+Washing_YN =False
 
-Pre_CoolingYN = True
+Pre_CoolingYN = False
 
-Spray_WashYN =True
+Spray_WashYN =False
 
-Sanitation_YN = True
+Sanitation_YN = False
 

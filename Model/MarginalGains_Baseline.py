@@ -437,6 +437,38 @@ plt.title("Contamination Progression 2) 10% Clustered Contamination")
 plt.xticks(rotation=-90)
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 
+
+
+# Prevalence Proegression NI: 
+    
+Prog_progression=Baseline_NI_2[2]    
+Prog_progression=Prog_progression.iloc[:,0:19]
+Prog_prog=pd.melt(Prog_progression)
+Prog_prog["value"]=Prog_prog["value"]*100
+
+H=sns.lineplot(x="variable", y="value", 
+            data=Prog_prog,  )
+plt.xlabel("Process Stage")
+plt.ylabel("Percentage contmainated")
+plt.title("Prevalence Progression")
+plt.xticks(rotation=-90)
+plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+
+
+
+Prog_progression=Baseline_NI_1[2]    
+Prog_progression=Prog_progression.iloc[:,0:19]
+Prog_prog=pd.melt(Prog_progression)
+Prog_prog["value"]=Prog_prog["value"]*100
+
+H=sns.lineplot(x="variable", y="value", 
+            data=Prog_prog,  )
+plt.xlabel("Process Stage")
+plt.ylabel("Percentage contmainated mass (%)")
+plt.title("Prevalence Progression")
+plt.xticks(rotation=-90)
+plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+
 '''
 #Initial Contamination From BAseline
 

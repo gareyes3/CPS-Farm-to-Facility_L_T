@@ -458,7 +458,7 @@ def F_MainLoop():
                    i =Iteration_In )
             
             #PropoContaminated
-            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df_gb2_bsw, 
                                                                    outputDF =df_Output_Propprog, 
                                                                    Step_Column =    "PropCont_B_SprayWash", 
                                                                    i = Iteration_In)
@@ -479,7 +479,7 @@ def F_MainLoop():
                    i =Iteration_In )
             
             #PropoContaminated
-            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df_gb2_bs, 
                                                                    outputDF =df_Output_Propprog, 
                                                                    Step_Column =    "PropCont_B_Shredding", 
                                                                    i = Iteration_In)
@@ -506,7 +506,7 @@ def F_MainLoop():
                    i =Iteration_In )
             
             #PropoContaminated
-            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df_gb2_bcb, 
                                                                    outputDF =df_Output_Propprog, 
                                                                    Step_Column =    "PropCont_B_CBelt", 
                                                                    i = Iteration_In)
@@ -541,7 +541,7 @@ def F_MainLoop():
                    i =Iteration_In )
             
             #PropoContaminated
-            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df_gb2_bw, 
                                                                    outputDF =df_Output_Propprog, 
                                                                    Step_Column =    "PropCont_B_Washing", 
                                                                    i = Iteration_In)
@@ -569,7 +569,7 @@ def F_MainLoop():
                    i =Iteration_In )
             
             #PropoContaminated
-            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df_gb2_bst, 
                                                                    outputDF =df_Output_Propprog, 
                                                                    Step_Column =    "PropCont_B_ST", 
                                                                    i = Iteration_In)
@@ -596,7 +596,7 @@ def F_MainLoop():
                    i =Iteration_In )
             
             #PropoContaminated
-            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df, 
+            df_Output_Propprog = Dictionariez.Pop_Output_Colection(df = df_gb2_bcf, 
                                                                    outputDF =df_Output_Propprog, 
                                                                    Step_Column =    "PropCont_B_Cent", 
                                                                    i = Iteration_In)
