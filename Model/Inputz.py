@@ -42,7 +42,7 @@ random.seed(10)
 #Contamination Scenario #1
 if ScenCondz.Contamination_Scenario == 2:
     Hazard_Lvl = 100_000
-    Con_Cluster = 1
+    Cont_Cluster = 1
     Cluster_Size  =1_000 
     if ScenCondz.Holding_Time == True: #Should always be true unless scenario analysis. 
         Time_CE_H = np.random.triangular(2,4,8) #days
@@ -51,7 +51,7 @@ if ScenCondz.Contamination_Scenario == 2:
 #Contamination Scenario #1
 if ScenCondz.Contamination_Scenario == 3:
     Hazard_Lvl = 100_000
-    Con_Cluster = 1
+    Cont_Cluster = 1
     Cluster_Size = 10_000
     if ScenCondz.Holding_Time == True: #Should always be true unless scenario analysis. 
         Time_CE_H = np.random.triangular(2,4,8) #days

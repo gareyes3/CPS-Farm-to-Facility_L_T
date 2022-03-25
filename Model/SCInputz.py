@@ -74,6 +74,7 @@ sample_size_FP = 375 #g #Sample Size in grams
 n_samples_FP = 1 #number of samples per lot final product
 N_Packages_Samples = 60
 RR_FP_Trad = "Lot"
+Limit_FP =0
 if ScenCondz.FPS_Agg ==True:
     n_samples_FP = 1
     Limit_FP =0
