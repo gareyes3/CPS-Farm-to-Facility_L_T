@@ -469,6 +469,28 @@ plt.title("Prevalence Progression")
 plt.xticks(rotation=-90)
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 
+
+##Relative difference
+Column_Names_INT = "BaselineNI BaselineAI Holding Precooling Washing PreSpray_Wash Sanitation".split()
+
+Outputdf_INT_1["ScenarioN"] = Column_Names_INT
+Outputdf_INT_2["ScenarioN"] = Column_Names_INT
+Outputdf_INT_3["ScenarioN"] = Column_Names_INT
+
+Outputdf_INT_1["Cont_Spread"] = "Uniform"
+Outputdf_INT_2["Cont_Spread"] = "1% Cluster"
+Outputdf_INT_3["Cont_Spread"] = "10% Cluster"
+
+INT_Combined=pd.concat([Outputdf_INT_1,Outputdf_INT_3,Outputdf_INT_2])
+
+
+
+H= sns.catplot(x ="MeanComparison", y = "ScenarioN", col="Cont_Spread",
+                data=INT_Combined, kind="bar",
+                height=4, aspect=1)
+H.set_axis_labels("Relative Difference", "Sampling Plan Scenario")
+
+
 '''
 #Initial Contamination From BAseline
 
@@ -824,6 +846,38 @@ plt.yticks([1,10,100,1000,10000,100000])
 plt.title("No Intervention: System contamination before sampling steps")
 plt.xticks(rotation=-90)
 
+Outputs_Df_NI_1["ScenarioN"] = Col_Names_NI
+Outputs_Df_NI_2["ScenarioN"] = Col_Names_NI
+Outputs_Df_NI_3["ScenarioN"] = Col_Names_NI
+
+Outputs_Df_NI_1["Cont_Spread"] = "Uniform"
+Outputs_Df_NI_2["Cont_Spread"] = "1% Cluster"
+Outputs_Df_NI_3["Cont_Spread"] = "10% Cluster"
+
+#Bar Chart for Relative Difference: 
+sns.barplot(x ="MeanComparison" , y = "ScenarioN", data = Outputs_Df_NI_1)
+plt.xlabel("Relative Difference")
+plt.title("No-Intervention: Uniform")
+
+#Bar Chart for Relative Difference: 
+sns.barplot(x ="MeanComparison" , y = "ScenarioN", data = Outputs_Df_NI_3)
+plt.xlabel("Relative Difference")
+plt.title("No-Intervention: 10% Cluster")
+
+NI_Combined=pd.concat([Outputs_Df_NI_1,Outputs_Df_NI_3,Outputs_Df_NI_2])
+
+
+#Bar Chart for Relative Difference: 
+sns.barplot(x ="MeanComparison" , y = "ScenarioN", col = "Cont_Spread", data = NI_Combined)
+plt.xlabel("Relative Difference")
+plt.title("No-Intervention: 10% Cluster")
+
+H= sns.catplot(x ="MeanComparison", y = "ScenarioN", col="Cont_Spread",
+                data=NI_Combined, kind="bar",
+                height=4, aspect=1)
+H.set_axis_labels("Relative Difference", "Sampling Plan Scenario")
+
+
 #%% New All intervention analysis
 
 List_of_Outs_AI_1 = [Baseline_AI_1,
@@ -941,6 +995,24 @@ Subset_Rej_AI_FP= Baseline_AI_FP_1[0][Baseline_AI_FP_1[0]['FP_Wei_Acc'] != 100_0
 
 Final_CFU_Acc_Portion_90CI=i[1]["After CS Samp"].quantile([0.05,0.95])
 
+
+###
+Outputs_Df_AI_1["ScenarioN"] = Col_Names_AI
+Outputs_Df_AI_2["ScenarioN"] = Col_Names_AI
+Outputs_Df_AI_3["ScenarioN"] = Col_Names_AI
+
+Outputs_Df_AI_1["Cont_Spread"] = "Uniform"
+Outputs_Df_AI_2["Cont_Spread"] = "1% Cluster"
+Outputs_Df_AI_3["Cont_Spread"] = "10% Cluster"
+
+AI_Combined=pd.concat([Outputs_Df_AI_1,Outputs_Df_AI_3,Outputs_Df_AI_2])
+
+
+
+H= sns.catplot(x ="MeanComparison", y = "ScenarioN", col="Cont_Spread",
+                data=AI_Combined, kind="bar",
+                height=4, aspect=1)
+H.set_axis_labels("Relative Difference", "Sampling Plan Scenario")
 
 
 #%%    

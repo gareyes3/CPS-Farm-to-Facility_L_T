@@ -39,6 +39,8 @@ DF_2k["CFU"].sum()
 DF_20K.at[220:419, "CFU"] = 300
 DF_20K["CFU"].sum()
 
+DF_2k  = df
+
 CFU_list= DF_2k["CFU"]
 Finalresults_2k = []
 for j in range(1000):
@@ -57,6 +59,8 @@ for j in range(1000):
 Finalresults_2k=pd.Series(Finalresults_2k)
 Finalresults_2k[Finalresults_2k>0].sum()/1000
 
+
+DF_20K = df
 
 CFU_list= DF_20K["CFU"]
 Finalresults = []
