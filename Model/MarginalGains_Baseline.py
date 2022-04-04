@@ -648,67 +648,46 @@ Baseline_AI_3 =  scenario_function(Cont_Scen_no=3,Washing = True, Holding = True
 
 #Baseline with intervention. 4 days pre-harvest sampling
 
-Baseline_AI_PHS4d_1 =  scenario_function(Cont_Scen_no=1,Washing = True, 
-                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHS4d = True)
-Baseline_AI_PHS4d_2 =  scenario_function(Cont_Scen_no=2,Washing = True, 
-                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHS4d = True)
-Baseline_AI_PHS4d_3 =  scenario_function(Cont_Scen_no=3,Washing = True,
-                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHS4d = True)
+Baseline_AI_PHS4d_1 =  scenario_function(Cont_Scen_no=1,Washing = True,Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHS4d = True)
+Baseline_AI_PHS4d_2 =  scenario_function(Cont_Scen_no=2,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHS4d = True)
+Baseline_AI_PHS4d_3 =  scenario_function(Cont_Scen_no=3,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHS4d = True)
 
 
 ### Pre-Harvest Sampling 4h
 #Baseline with intervention. 4 hours pre-harvest sampling
-Baseline_AI_PHS4h_1 =  scenario_function(Cont_Scen_no=1,Washing = True, 
-                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHS4h = True)
-Baseline_AI_PHS4h_2 =  scenario_function(Cont_Scen_no=2,Washing = True, 
-                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHS4h = True)
-Baseline_AI_PHS4h_3 =  scenario_function(Cont_Scen_no=3,Washing = True, 
-                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHS4h = True)
+Baseline_AI_PHS4h_1 =  scenario_function(Cont_Scen_no=1,Washing = True,  Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHS4h = True)
+Baseline_AI_PHS4h_2 =  scenario_function(Cont_Scen_no=2,Washing = True,Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHS4h = True)
+Baseline_AI_PHS4h_3 =  scenario_function(Cont_Scen_no=3,Washing = True,  Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHS4h = True)
 
 ### Pre-Harvest Sampling Intense
 #Baseline with intervention. Intense pre-harvest sampling
-Baseline_AI_PHSInt_1 =  scenario_function(Cont_Scen_no=1,Washing = True, 
-                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHSInt = True)
-Baseline_AI_PHSInt_2 =  scenario_function(Cont_Scen_no=2,Washing = True, 
-                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHSInt = True)
-Baseline_AI_PHSInt_3 =  scenario_function(Cont_Scen_no=3,Washing = True, 
-                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHSInt = True)
+Baseline_AI_PHSInt_1 =  scenario_function(Cont_Scen_no=1,Washing = True,Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHSInt = True)
+Baseline_AI_PHSInt_2 =  scenario_function(Cont_Scen_no=2,Washing = True,  Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHSInt = True)
+Baseline_AI_PHSInt_3 =  scenario_function(Cont_Scen_no=3,Washing = True,  Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, PHSInt = True)
 
 ### Harvest Sampling Intense
 #Baseline with intervention. Intense Harvest sampling
-Baseline_AI_H_1 =  scenario_function(Cont_Scen_no=1,Washing = True, 
-                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, HSTrad= True)
-Baseline_AI_H_2 =  scenario_function(Cont_Scen_no=2,Washing = True, 
-                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, HSTrad= True)
-Baseline_AI_H_3 =  scenario_function(Cont_Scen_no=3,Washing = True, 
-                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, HSTrad= True)
+Baseline_AI_H_1 =  scenario_function(Cont_Scen_no=1,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, HSTrad= True)
+Baseline_AI_H_2 =  scenario_function(Cont_Scen_no=2,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, HSTrad= True)
+Baseline_AI_H_3 =  scenario_function(Cont_Scen_no=3,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, HSTrad= True)
 
 ### Receiving Sampling Intense
 #Baseline with intervention. Intense Receiving sampling
-Baseline_AI_R_1 =  scenario_function(Cont_Scen_no=1,Washing = True, 
-                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, RSTrad = True)
-Baseline_AI_R_2 =  scenario_function(Cont_Scen_no=2,Washing = True, 
-                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, RSTrad = True)
-Baseline_AI_R_3 =  scenario_function(Cont_Scen_no=3,Washing = True, 
-                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, RSTrad = True)
+Baseline_AI_R_1 =  scenario_function(Cont_Scen_no=1,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, RSTrad = True)
+Baseline_AI_R_2 =  scenario_function(Cont_Scen_no=2,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, RSTrad = True)
+Baseline_AI_R_3 =  scenario_function(Cont_Scen_no=3,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, RSTrad = True)
 
 ### FPS Sampling Intense
 #Baseline with intervention. Intense Receiving sampling
-Baseline_AI_FP_1 =  scenario_function(Cont_Scen_no=1,Washing = True, 
-                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, FPSTrad = True)
-Baseline_AI_FP_2 =  scenario_function(Cont_Scen_no=2,Washing = True, 
-                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, FPSTrad = True)
-Baseline_AI_FP_3 =  scenario_function(Cont_Scen_no=3,Washing = True, 
-                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, FPSTrad = True)
+Baseline_AI_FP_1 =  scenario_function(Cont_Scen_no=1,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, FPSTrad = True)
+Baseline_AI_FP_2 =  scenario_function(Cont_Scen_no=2,Washing = True,  Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, FPSTrad = True)
+Baseline_AI_FP_3 =  scenario_function(Cont_Scen_no=3,Washing = True,Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, FPSTrad = True)
 
 ### FPS Sampling Intense
 #Baseline with intervention. Intense Receiving sampling
-Baseline_AI_CS_1 =  scenario_function(Cont_Scen_no=1,Washing = True, 
-                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, CSampling = True)
-Baseline_AI_CS_2 =  scenario_function(Cont_Scen_no=2,Washing = True, 
-                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, CSampling = True)
-Baseline_AI_CS_3 =  scenario_function(Cont_Scen_no=3,Washing = True, 
-                                         Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, CSampling = True)
+Baseline_AI_CS_1 =  scenario_function(Cont_Scen_no=1,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, CSampling = True)
+Baseline_AI_CS_2 =  scenario_function(Cont_Scen_no=2,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, CSampling = True)
+Baseline_AI_CS_3 =  scenario_function(Cont_Scen_no=3,Washing = True,  Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True, CSampling = True)
 
 
 
