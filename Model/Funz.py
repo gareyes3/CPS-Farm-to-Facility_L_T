@@ -992,6 +992,18 @@ def F_Chloride_lvl (Time_Wash):
     })
     return Cdf
 
+'''
+import seaborn as sns
+df_c= F_Chloride_lvl(300)
+sns.lineplot(df_c["Time"], df_c["C"])
+
+Cdf = pd.DataFrame(
+{'Time': list(range(0,301)),
+ 'C': 2,
+})
+
+sns.lineplot(Cdf["Time"], Cdf["C"])
+'''
 
 #CFU_Non = (TR(decimal)*(CFU non inoculatred + CFU wash Water))
 def Washing_Batch(df, New_water_every_xpacks):
