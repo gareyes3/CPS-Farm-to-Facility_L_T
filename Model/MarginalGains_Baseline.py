@@ -327,6 +327,20 @@ Baseline_AI_2 =  scenario_function(Cont_Scen_no=2,Washing = True, Holding = True
 Baseline_AI_3 =  scenario_function(Cont_Scen_no=3,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True)
  
 #%%%
+#Section to try washing
+Baseline_AI_1_5ppm =  scenario_function(Cont_Scen_no=1,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True)
+
+Baseline_AI_1_10ppm =  scenario_function(Cont_Scen_no=1,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True)
+
+Baseline_AI_1_20ppm =  scenario_function(Cont_Scen_no=1,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True)
+
+
+Baseline_AI_1_0ppm =  scenario_function(Cont_Scen_no=1,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True)
+
+
+Baseline_AI_1_False=  scenario_function(Cont_Scen_no=1,Washing = False, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True)
+
+#%%%
 
 '''
 This Chunk conducts data analysis for the effect of individual interventions

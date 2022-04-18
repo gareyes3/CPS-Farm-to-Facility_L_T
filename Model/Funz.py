@@ -933,7 +933,10 @@ def F_Partitioning_W(DF,NPartitions):
 
 
 
-#Washing Chloride: 
+#Washing Chloride:
+    #This function creates the CDF of chlorine levels (mg/L) ppm, per unit time, in this case every 0.1 minutes. 
+    #Timewash is the time washed per minutes default is set to 300 min. 
+    #Chlorine levels increase every 12 min
 def F_Chloride_lvl (Time_Wash):
     #Function Inputs. 
     #Changing times to 0.1 increments.
@@ -992,10 +995,21 @@ def F_Chloride_lvl (Time_Wash):
     })
     return Cdf
 
+def F_Chloride_lvl_Constant(Time_Wash, C_level):
+    Times = np.arange(0, Time_Wash+0.1, 0.1).tolist()
+    Cdf = pd.DataFrame(
+    {'Time': Times,
+     'C': C_level,
+    })
+    return Cdf
+
+
+
 '''
 import seaborn as sns
 df_c= F_Chloride_lvl(300)
 sns.lineplot(df_c["Time"], df_c["C"])
+
 
 Cdf = pd.DataFrame(
 {'Time': list(range(0,301)),
@@ -1069,7 +1083,7 @@ def F_Washing_ProcLines (List_GB3, Wash_Rate, Cdf):
         Times_W = [round(num, 1) for num in Times_W]
         
         Blw = 0.38 #ml/g min: is the pathogen binding rate to pieces of shredded lettuce heads
-        alpha = 0.75#Inactivation rate of pathogen via FC L/mgmin
+        alpha = np.random.uniform(0.5,0.75)#Inactivation rate of pathogen via FC L/mgmin
         V = (3200 *1000) #L #From Luo et al 2012. 
         Rate = Wash_Rate/2.2  #45.45 #kg/min #From Luo et al 2012. 
         Wash_Time = 2.3 #min 
@@ -1077,6 +1091,7 @@ def F_Washing_ProcLines (List_GB3, Wash_Rate, Cdf):
         L = (Rate*1000)/(c1) #g of lettuce in the tak at the same time
         Xl = 0
         Xw =0  #pathogen in process water MPN/ml
+        Xs = np.random.triangular(0.003,0.055,0.149)
         
         L_Xw = []
         L_Xl = []
@@ -1084,10 +1099,11 @@ def F_Washing_ProcLines (List_GB3, Wash_Rate, Cdf):
             #Defining Initial Contamination
             Time = i
             AvCont = j.at[i,"CFU"] /(j.at[i,"Weight"]*454)
-            AvContAfter = AvCont*10**-0.8
+            #AvContAfter = AvCont*10**-0.8
             C =   float(Cdf.loc[Cdf['Time'] == Time, 'C'])
             #C= F_Chloride_lvl(Time_Wash= Time)
-            Bws = ((AvCont- AvContAfter)*Rate)/V
+            Bws = AvCont*(1-Xs)*(Wash_Time/V)
+            #Bws = ((AvCont- AvContAfter)*Rate)/V
             CXw = Bws - (Blw*Xw*(L/V)) - (alpha*Xw*C)
             Xw = Xw+CXw
             if Xw<0:

@@ -16,7 +16,7 @@ Random_Contam = False
 Sensitivity_Analysis = False
 
 
-N_Iterations= 10000
+N_Iterations= 50
 Field_Weight= 100000 #total lb in field
 slot_weight = 10000 #weight of the sublot in field.
 Partition_Weight = 50 #Partition weight for contamination Events, Partition to have better definition of field. 
@@ -99,9 +99,13 @@ RR_CS  = "Lot"
 #%% Toggles
 Washing_YN =False
 
+Washing_Optimized = True
+
 Pre_CoolingYN = False
 
 Spray_WashYN =False
 
 Sanitation_YN = False
+
+
 

@@ -549,8 +549,9 @@ def F_MainLoop():
             #Contamination event, if it happens
             #Pending
                 
-                
+            #Washing Step.   
             if SCInputz.Washing_YN == True: 
+                print(Inputz.DF_Chlevels["C"][3])
                 gb2 = Funz.F_Washing_ProcLines(List_GB3 =gb2, Wash_Rate = Inputz.Wash_Rate, Cdf =  Inputz.DF_Chlevels)
             
             #5Shaker Table ----------------------------------------------------
@@ -874,7 +875,7 @@ def F_MainLoop():
             
             #Sampling at CS upon reception 
                         #Sampling Step
-            print(df["Weight"].sum(), "weight")
+            #print(df["Weight"].sum(), "weight")
             if ScenCondz.C_Sampling == True:
                 df =Funz.F_Sampling_2(df =df,Test_Unit =SCInputz.test_unit_CS, 
                                            NSamp_Unit = SCInputz.n_samples_CS, 

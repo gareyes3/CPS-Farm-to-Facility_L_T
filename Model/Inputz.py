@@ -128,7 +128,13 @@ def F_Chloride_lvl (Time_Wash, Treatment = 1):
     })
     return Cdf
 
-
+def F_Chloride_lvl_Constant(Time_Wash, C_level):
+    Times = np.arange(0, Time_Wash+0.1, 0.1).tolist()
+    Cdf = pd.DataFrame(
+    {'Time': Times,
+     'C': C_level,
+    })
+    return Cdf
 
 #%% Contamination Scenario Inputs
 '''
@@ -218,7 +224,7 @@ if Time_PHS_H>Time_CE_H:
 elif Time_PHS_H<=Time_CE_H:
     Time_CE_PHS= Time_CE_H-Time_PHS_H #Days Time from Contamination Event (Irrigation) to Pre-Harvest Sampling
 
-print(Time_CE_H)
+#print(Time_CE_H)
 #%% Pre-Cooling- HArvest
 
 #Chrlorine Pray
@@ -298,15 +304,26 @@ if SCInputz.Sanitation_YN == False:
     Cv_Compliance = 0
     Cv_San_freq = 0
     Cv_San_Eff = 0
-    
+   
+
 
 #Flume tank washing step
 Wash_Rate = 100 #lb/min
+
+Optimized_washing_clevel = 0 #ppm
+
 if SCInputz.Washing_YN == True:
-    DF_Chlevels = F_Chloride_lvl(300, Treatment =1) #Simlating Chlorine levels after time.
+    if SCInputz.Washing_Optimized== True:
+        DF_Chlevels = F_Chloride_lvl_Constant(Time_Wash = 300, C_level = Optimized_washing_clevel)
+        print("optimized")
+        print(Optimized_washing_clevel)
+    else:
+        DF_Chlevels = F_Chloride_lvl(300, Treatment =1) #Simlating Chlorine levels after time.
+        print("this is also going")
+    
     
 if SCInputz.Washing_YN == False:
-    DF_Chlevels = F_Chloride_lvl(300, Treatment =0) #Simlating Chlorine levels after time.
+    DF_Chlevels = F_Chloride_lvl(300, Treatment =0) #Simlating Chlorine levels after time. without any treament. 
 
     #Shaker Table
 Tr_St_P =np.random.triangular(0.06,0.28,0.30)
