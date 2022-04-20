@@ -4,7 +4,6 @@ Created on Tue Jul 20 09:31:30 2021
 
 @author: Gustavo Reyes
 """
-
                                                        #Inputs for the Model, Initial Inputs
 import ScenCondz
 import ContCondz
