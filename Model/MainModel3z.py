@@ -90,14 +90,17 @@ def F_MainLoop():
                 ScenCondz.FPS_Trad= True 
             if Sampling_Type_SA == "CS":
                 ScenCondz.C_Sampling  = True
-
+                
+            
             ScenCondz.Contamination_Scenario = np.random.choice([1,2,3])
             #Receiving Factors
             SCInputz.Pre_CoolingYN = np.random.choice([True,False])
             #Processing Factors
             #7 Washing Random Choice
             SCInputz.Washing_YN = np.random.choice([True,False])
-            
+            if SCInputz.Washing_YN == True:
+                SCInputz.Washing_Optimized=np.random.choice([True,False])
+                       
             SCInputz.Spray_WashYN = np.random.choice([True,False])
         
         
@@ -188,11 +191,11 @@ def F_MainLoop():
         #Sampling at Pre-Harvest
         if ScenCondz.PH_Sampling ==True: #If function to turn off Pre-Harvest Sampling
             if ScenCondz.PHS_Int ==True: #Intense pre harvest sampling
-                df = Funz.F_Sampling_2(df =df,Test_Unit =SCInputz.test_unit_PH, 
-                                              NSamp_Unit = SCInputz.n_samples_lot_PH, 
-                                              Samp_Size =SCInputz.sample_size_PH, 
+                df = Funz.F_Sampling_2(df =df,Test_Unit =SCInputz.test_unit_PH_Int, 
+                                              NSamp_Unit = SCInputz.n_samples_lot_PH_Int, 
+                                              Samp_Size =SCInputz.sample_size_PH_Int, 
                                               Partition_Weight =SCInputz.Partition_Weight, 
-                                              NoGrab =SCInputz.No_Grabs_PH )
+                                              NoGrab =SCInputz.No_Grabs_PH_Int)
             elif ScenCondz.PHS_4d==True or ScenCondz.PHS_4h == True :
             #Pre-Harvest Sampling, Traditional
                  df = Funz.F_Sampling_2(df =df,Test_Unit = SCInputz.test_unit_PH, 
@@ -551,8 +554,7 @@ def F_MainLoop():
                 
             #Washing Step.   
             if SCInputz.Washing_YN == True: 
-                print(Inputz.DF_Chlevels["C"][3])
-                gb2 = Funz.F_Washing_ProcLines(List_GB3 =gb2, Wash_Rate = Inputz.Wash_Rate, Cdf =  Inputz.DF_Chlevels)
+                gb2 = Funz.F_Washing_ProcLines2(List_GB3 =gb2, Wash_Rate = Inputz.Wash_Rate, Cdf =  Inputz.DF_Chlevels)
             
             #5Shaker Table ----------------------------------------------------
             df_gb2_bst = (pd.concat(gb2))

@@ -64,11 +64,11 @@ def pert(a, b, c, *, size=1, lamb=4):
     beta = 1 + lamb * (c - b) / r
     return a + rng.beta(alpha, beta, size=size) * r
 
-def F_Chloride_lvl (Time_Wash, Treatment = 1):
+def F_Chloride_lvl (Time_Wash, Treatment):
     #Function Inputs. 
     #Changing times to 0.1 increments.
-    Times = np.arange(0, Time_Wash+0.1, 0.1).tolist()
-    Times = [round(num, 1) for num in Times]
+    Times = np.arange(0, Time_Wash+0.01, 0.01).tolist()
+    Times = [round(num, 2) for num in Times]
     #Addition Rates
     if Treatment ==1:
         r1= 12.75 #(mg/(ml/min**2))
@@ -85,10 +85,10 @@ def F_Chloride_lvl (Time_Wash, Treatment = 1):
     Pre_runningT = 0 #Runing time variable
     K0 = 32.3 # free chrolirine demand per min 
     C= 0 # initial #(mg/L) #Concentration of Free Chrloride available
-    O = 0  # Initial Oxygen demand
+    O = 301 # Initial Oxygen demand, as per luos initial oxygen demand
     #Other parameters
     SigC = 1.70*(10**-3) #Natural decay of FC
-    BC = 5.38*(10**-4) #Depletion rate of FC in water. 
+    BC =5.38*(10**-4) #Depletion rate of FC in water. 
     A_Per =0
     List_Time_Ints = list(range(Ro,500,Ro))
     List_C=[]
@@ -120,6 +120,8 @@ def F_Chloride_lvl (Time_Wash, Treatment = 1):
         if C < 0:
             C = 0 
         Pre_runningT = i #Running Time.
+        if(i==10):
+            print(O)
         List_C.append(C)
     Cdf = pd.DataFrame(
     {'Time': Times,
@@ -128,7 +130,8 @@ def F_Chloride_lvl (Time_Wash, Treatment = 1):
     return Cdf
 
 def F_Chloride_lvl_Constant(Time_Wash, C_level):
-    Times = np.arange(0, Time_Wash+0.1, 0.1).tolist()
+    Times = np.arange(0, Time_Wash+0.01, 0.01).tolist()
+    Times = [round(num, 2) for num in Times]
     Cdf = pd.DataFrame(
     {'Time': Times,
      'C': C_level,
@@ -309,16 +312,14 @@ if SCInputz.Sanitation_YN == False:
 #Flume tank washing step
 Wash_Rate = 100 #lb/min
 
-Optimized_washing_clevel = 0 #ppm
+Optimized_washing_clevel = 5 #ppm
 
 if SCInputz.Washing_YN == True:
     if SCInputz.Washing_Optimized== True:
         DF_Chlevels = F_Chloride_lvl_Constant(Time_Wash = 300, C_level = Optimized_washing_clevel)
-        print("optimized")
         print(Optimized_washing_clevel)
     else:
         DF_Chlevels = F_Chloride_lvl(300, Treatment =1) #Simlating Chlorine levels after time.
-        print("this is also going")
     
     
 if SCInputz.Washing_YN == False:

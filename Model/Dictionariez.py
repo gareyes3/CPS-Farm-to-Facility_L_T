@@ -227,6 +227,7 @@ Sensitivity_Analysis_Dic = [
                             "PreWashRed",
                             "PreWashYN",
                             "WashingYN",
+                            "OptimizeWashingYN",
                             "ChSpray_eff", #new
                             "Tr_Sh_P",
                             "Tr_P_Sh",
@@ -304,6 +305,7 @@ def Func_LoadInputs (OutputDF,i,df, TotalDieoff):
     OutputDF.at[i, "PreWashRed"] =  Inputz.Harvest_Cspray_red #Reduction pre-wash
     OutputDF.loc[i, "WashingYN"] =  SCInputz.Washing_YN #Washing Yes or NotSCInputz.Spray_WashYN
     OutputDF.loc[i, "PreWashYN"] =  SCInputz.Spray_WashYN #Washing Yes or Not
+    OutputDF.loc[i, "OptimizeWashingYN"] =  SCInputz.Washing_Optimized #Washing Yes or Not
     
     OutputDF.loc[i, "ChSpray_eff"] =  Inputz.Harvest_Cspray_red #Washing Yes or Not
     

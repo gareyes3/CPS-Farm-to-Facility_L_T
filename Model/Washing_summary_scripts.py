@@ -346,7 +346,7 @@ def F_Chloride_lvl_Constant(Time_Wash, C_level):
 
 
 df_conts = pd.DataFrame(
-    {'CFU': [10000]*300,
+    {'CFU': [100]*300,
      'Weight': 100,
     })
 
@@ -384,7 +384,7 @@ def F_Washing_ProcLines (df , Wash_Rate, Cdf):
         C =   float(Cdf.loc[Cdf['Time'] == Time, 'C'])
         Bws = (((AvCont)-(AvCont*Xs))*Rate*1000)/V
         #Bws = ((AvCont- AvContAfter)*Rate)/V
-        print(Bws)
+        #print(Bws)
         CXWfirst = Bws - (Blw*Xw*(L/V))
         CXw =  CXWfirst - (alphablw*Xw*C)
         Xw = Xw+CXw
@@ -392,14 +392,16 @@ def F_Washing_ProcLines (df , Wash_Rate, Cdf):
             Xw = 0
         L_Xw.append(Xw)
         Xl = (AvCont*Xs)
-        print(Xl)
+        #print(Xl)
         CXL23t = (alpha*Xl*C) - (c1*Xl)
+        #print(CXL23t, "CXL23t")
         if CXL23t>Xl:
             Xl = 0
             print("is 0")
-        CXl = (Blw*Xw) -CXL23t  #- (alpha*Xl*C) - (c1*Xl)
-        print(Blw*Xw, "fist section")
-        print(CXl, "CXL")
+        CXl = (Blw*Xw)  #- (alpha*Xl*C) - (c1*Xl)
+        #print(Blw*Xw, "fist section")
+        #print(CXl, "CXL")
+        #print(Xl, "XL")
         Xl =Xl +CXl
         if Xl < 0:
             Xl = 0
@@ -411,9 +413,9 @@ def F_Washing_ProcLines (df , Wash_Rate, Cdf):
     return (outs) 
 
 
-#chlorine_levs =  F_Chloride_lvl (Time_Wash=300)
+chlorine_levs =  F_Chloride_lvl (Time_Wash=300)
 
-chlorine_levs =F_Chloride_lvl_Constant(300,0)
+#chlorine_levs =F_Chloride_lvl_Constant(300,5)
 
 
 outs_val = F_Washing_ProcLines (df =df_conts , Wash_Rate = 100, Cdf =chlorine_levs )

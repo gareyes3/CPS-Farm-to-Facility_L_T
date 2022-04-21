@@ -16,7 +16,7 @@ Random_Contam = False
 Sensitivity_Analysis = False
 
 
-N_Iterations= 50
+N_Iterations= 1000
 Field_Weight= 100000 #total lb in field
 slot_weight = 10000 #weight of the sublot in field.
 Partition_Weight = 50 #Partition weight for contamination Events, Partition to have better definition of field. 
@@ -36,14 +36,15 @@ n_samples_slot_PH = 1 # (Input) Samples per sublot of product
 No_Grabs_PH = 6 #Number of graps per sample. stratified per sample. 
 Limit_PH = 0
 RR_PH_Trad = "Lot" #Reject by Sublot
+
+
 #Intesne pre-harvest sampling
-if ScenCondz.PHS_Int ==True:
-    test_unit_PH = "Lot"
-    sample_size_PH = 375
-    n_samples_lot_PH = 10 # (Input) Samples per lot of product'
-    No_Grabs_PH = 60
-    RR_PH_Int = "Lot"
-    test_unit_PH = "Lot"
+test_unit_PH_Int = "Lot"
+sample_size_PH_Int = 375
+n_samples_lot_PH_Int = 10 # (Input) Samples per lot of product'
+No_Grabs_PH_Int = 60
+RR_PH_Int = "Lot"
+test_unit_PH_Int = "Lot"
     
 
 #Harvest Inputs: 

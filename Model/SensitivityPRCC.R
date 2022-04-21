@@ -3,12 +3,13 @@ library(sensitivity)
 library(ggplot2)
 library(randomForest)
 library(forcats)
+library(tidyverse)
 
 
-Data <- read.csv("SensitivityOut03-22.csv", stringsAsFactors = TRUE)
+Data <- read.csv("SensitivityOut04-21.csv", stringsAsFactors = TRUE)
 
 
-Data_x<-Data[-c(1,50,51)]
+Data_x<-Data[-c(1,51,52)]
 PCC1<-pcc(X = Data_x, y=Data$TotalCFUFP, rank =TRUE, conf = 0.8, nboot = 1000)
 plot(PCC1)
 
@@ -42,6 +43,7 @@ Cateogries<-c(
   "Reduction",#"PreWashRed",
   "Reduction",#"PreWashYN",
   "Reduction",#"WashingYN",
+  "Reduction", #OptimizedYN
   "Reduction", #"ChSpray_eff"
   "Processing",#"Tr_Sh_P",
   "Processing",#"Tr_P_Sh",
@@ -100,6 +102,7 @@ Column_Names<-c(
   "Pre-Wash Reduction",#"PreWashRed",
   "Pre-Wash ON",#"PreWashYN",
   "Chlorinated Wash ON",#"WashingYN",
+  "Optimized Washing ON",
   "Pre-Wash Efficacy", #"ChSpray_eff"
   "Tr_Sh_P",
   "Tr_P_Sh",
@@ -143,7 +146,7 @@ rownames(Sens_DF)<-Column_Names
 
 Sens_DF_T25<-Sens_DF %>% 
   arrange(desc(abs(original))) %>% 
-  slice_head(n=25)
+  head(n=25)
 
 ggplot(data = Sens_DF, aes(x=fct_reorder(rownames(Sens_DF), abs(original)),y=original , fill = Cateogry))+
   geom_bar(stat = "identity", position = "identity")+
@@ -187,5 +190,55 @@ ggplot(data = PCCLocal$PRCC, aes(x=fct_reorder(rownames(PCCLocal$PRCC), abs(orig
 Data8<-Data
 
 Data8<-replace(Data8[,],Data8[,] < 0, 0)
+
+######likelyhood displacement
+
+library(randomForest)
+
+RFData<-cbind(Data_x, Data$TotalCFUFP)
+
+RFData()
+
+Model<-lm(`Data$TotalCFUFP`~. , data = RFData)
+summary(Model)
+
+Vect<-predict(Model)
+
+DFData2<-as.data.frame(cbind(Data$TotalCFUFP, Vect))
+
+DFData3<-DFData2 %>% 
+  mutate(error = Data$TotalCFUFP-Vect)
+
+
+ggplot(data= DFData3, aes(Data$TotalCFUFP, Vect))+
+  geom_point()
+
+
+#Test training Split
+
+## 75% of the sample size
+smp_size <- floor(0.75 * nrow(RFData))
+
+## set the seed to make your partition reproducible
+set.seed(123)
+train_ind <- sample(seq_len(nrow(RFData)), size = smp_size)
+
+train <-RFData[train_ind, ]
+test <- RFData[-train_ind, ]
+
+
+Model<-lm(`Data$TotalCFUFP`~., data = train)
+summary(Model)
+
+
+Vector2<-predict(Model, newdata = test)
+
+DFData2<-as.data.frame(cbind(test$`Data$TotalCFUFP`, Vector2))
+
+DFData3<-DFData2 %>% 
+  mutate(error =V1 -Vector2)
+
+ggplot(data= DFData3, aes(V1, Vector2))+
+  geom_point()
 
 

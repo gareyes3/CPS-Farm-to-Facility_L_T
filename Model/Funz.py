@@ -937,15 +937,20 @@ def F_Partitioning_W(DF,NPartitions):
     #This function creates the CDF of chlorine levels (mg/L) ppm, per unit time, in this case every 0.1 minutes. 
     #Timewash is the time washed per minutes default is set to 300 min. 
     #Chlorine levels increase every 12 min
-def F_Chloride_lvl (Time_Wash):
+def F_Chloride_lvl (Time_Wash, Treatment):
     #Function Inputs. 
     #Changing times to 0.1 increments.
-    Times = np.arange(0, Time_Wash+0.1, 0.1).tolist()
-    Times = [round(num, 1) for num in Times]
+    Times = np.arange(0, Time_Wash+0.01, 0.01).tolist()
+    Times = [round(num, 2) for num in Times]
     #Addition Rates
-    r1= 12.75 #(mg/(ml/min**2))
-    r2 = 7.47 #(mg/(ml/min**2))
-    r3 = 5.56 #(mg/(ml/min**2))
+    if Treatment ==1:
+        r1= 12.75 #(mg/(ml/min**2))
+        r2 = 7.47 #(mg/(ml/min**2))
+        r3 = 5.56 #(mg/(ml/min**2))
+    elif Treatment == 0:
+        r1= 0 #(mg/(ml/min**2))
+        r2 =0 #(mg/(ml/min**2))
+        r3 =0 #(mg/(ml/min**2))
     #Dose
     Ro = 12 #Chlorine dosing period, ever7 12 minutes
     Ro0 = 2 #Minutes duration of dose
@@ -953,10 +958,10 @@ def F_Chloride_lvl (Time_Wash):
     Pre_runningT = 0 #Runing time variable
     K0 = 32.3 # free chrolirine demand per min 
     C= 0 # initial #(mg/L) #Concentration of Free Chrloride available
-    O = 0  # Initial Oxygen demand
+    O = 301 # Initial Oxygen demand, as per luos initial oxygen demand
     #Other parameters
     SigC = 1.70*(10**-3) #Natural decay of FC
-    BC = 5.38*(10**-4) #Depletion rate of FC in water. 
+    BC =5.38*(10**-4) #Depletion rate of FC in water. 
     A_Per =0
     List_Time_Ints = list(range(Ro,500,Ro))
     List_C=[]
@@ -988,18 +993,12 @@ def F_Chloride_lvl (Time_Wash):
         if C < 0:
             C = 0 
         Pre_runningT = i #Running Time.
+        if(i==10):
+            print(O)
         List_C.append(C)
     Cdf = pd.DataFrame(
     {'Time': Times,
      'C': List_C,
-    })
-    return Cdf
-
-def F_Chloride_lvl_Constant(Time_Wash, C_level):
-    Times = np.arange(0, Time_Wash+0.1, 0.1).tolist()
-    Cdf = pd.DataFrame(
-    {'Time': Times,
-     'C': C_level,
     })
     return Cdf
 
@@ -1119,49 +1118,61 @@ def F_Washing_ProcLines (List_GB3, Wash_Rate, Cdf):
     return (List_GB3) 
 
 
-def F_Washing_ProcLines_2 (List_GB3, Wash_Rate, Cdf):
+def F_Washing_ProcLines2 (List_GB3, Wash_Rate, Cdf):
     for j in List_GB3:
         WashT = len(j.index)
         #DF_Clvl = F_DF_Clvl(WashT)
         
         Times_W = np.arange(0, WashT, 1).tolist()
         Times_W = [round(num, 1) for num in Times_W]
-        V = (3200 *1000) #L #From Luo et al 2012. 
         
+        Blw = 0.38 #ml/g min: is the pathogen binding rate to pieces of shredded lettuce heads
+        alpha = 0.75#Inactivation rate of pathogen via FC L/mgmin
+        V = (3200 *1000) #L #From Luo et al 2012. 
+        Rate = Wash_Rate/2.2  #45.45 #kg/min #From Luo et al 2012. 
+        Wash_Time = 2.3 #min 
+        c1 = 1/Wash_Time #Reciprocal of average time. 
+        L = (Rate*1000)/(c1) #g of lettuce in the tak at the same time
         Xl = 0
         Xw =0  #pathogen in process water MPN/ml
- 
+        
         L_Xw = []
         L_Xl = []
         for i in Times_W:
             Xs = np.random.triangular(0.003,0.055,0.149)
-            alpha = np.random.uniform(0.5,0.75)#Inactivation rate of pathogen via FC L/mgmin
-            Blw =  np.random.triangular(0.38,0.75,2.2) #ml/g min: is the pathogen binding rate to pieces of shredded lettuce heads
-            Wash_Time = np.random.choice([0.5,0.75,1.0]) 
-            c1 = 1/Wash_Time #Reciprocal of average time.
-            Rate = Wash_Rate/2.2  #45.45 #kg/min #From Luo et al 2012. 
-            L = (Rate*1000)/(c1) #g of lettuce in the tank at the same time
-            
+            index =i
             #Defining Initial Contamination
-            Time = i #indicating the minute
-            AvCont = j.at[i,"CFU"] /(j.at[i,"Weight"]*454) #Contmaination in partition CFU/g
-            Xl = j.at[i,"CFU"]
-            C =   float(Cdf.loc[Cdf['Time'] == Time, 'C']) #Chlorine in ppm
-            Bws = AvCont*(1-Xs)*(Wash_Time/V)
-            CXw = Bws - (Blw*Xw*(L/V)) - (alpha*Xw*C) #Change in Xw: Concentration of ecoli in water
-            Xw = Xw+CXw #Updated Concentration of ecoli in water
+            Time = i
+            AvCont = j.at[i,"CFU"] /(j.at[i,"Weight"]*454)
+            #AvCont_CFU = df.at[i,"CFU"]
+            #AvContAfter = AvCont*10**-0.8
+            C =   float(Cdf.loc[Cdf['Time'] == Time, 'C'])
+            Bws = (((AvCont)-(AvCont*Xs))*Rate*1000)/V
+            #Bws = ((AvCont- AvContAfter)*Rate)/V
+            #print(Bws)
+            CXWfirst = Bws - (Blw*Xw*(L/V))
+            CXw =  CXWfirst - (alpha*Xw*C)
+            Xw = Xw+CXw
             if Xw<0:
                 Xw = 0
             L_Xw.append(Xw)
-            #Xl = AvCont #CFU
-            CXl = (Blw*Xw) - (alpha*Xl*C) - (c1*Xl)
+            Xl = (AvCont*Xs)
+            #print(Xl)
+            CXL23t = (alpha*Xl*C) - (c1*Xl)
+            #print(CXL23t, "CXL23t")
+            if CXL23t>Xl:
+                Xl = 0
+            CXl = (Blw*Xw)  #- (alpha*Xl*C) - (c1*Xl)
+            #print(Blw*Xw, "fist section")
+            #print(CXl, "CXL")
+            #print(Xl, "XL")
             Xl =Xl +CXl
             if Xl < 0:
                 Xl = 0
             L_Xl.append(Xl)
-            #AvCont = Xl
-            #CFU_2 = AvCont*((j.at[i,"Weight"]*454))
-            j.at[i,"CFU"] =  Xl
+            AvCont = Xl
+            CFU_2 = AvCont*((j.at[index,"Weight"]*454))
+            j.at[index,"CFU"] =  CFU_2
     return (List_GB3) 
 
 
