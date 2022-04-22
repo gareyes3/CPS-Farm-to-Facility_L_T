@@ -241,4 +241,7 @@ DFData3<-DFData2 %>%
 ggplot(data= DFData3, aes(V1, Vector2))+
   geom_point()
 
+###Using PPcor
 
+library(ppcor
+        
