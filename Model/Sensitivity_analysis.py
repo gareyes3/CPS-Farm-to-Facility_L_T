@@ -46,23 +46,6 @@ import Trial_MainLoop_PH
 
 #%%
 
-#%%
-#Uniform Contmaination in the Field. 
-# Contamination Challenges
-ContCondz.Background_C = False
-ContCondz.Point_Source_C =False
-ContCondz.Systematic_C = True
-
-# Harvester Contamination
-ContCondz.Crew_C = False
-ContCondz.Harvester_C = False
-
-# Processing equipment
-ContCondz.PE_C = False
-ContCondz.PE_Cont_Loc = False,  # 1,2,3,4,5
-# 1 = Shredder, #2 = Belt, #3 = Washing, #4 Shaker, #5Centrifuge
-ContCondz.Pack_C = False
-
 #%% Sensitivity. 
 
 reload(SCInputz)  # Reload Inputz
@@ -88,4 +71,4 @@ Sensitivity_Df = Main_Mod_Outs[5]
     
 
 #%%
-Sensitivity_Df.to_csv('SensitivityOut04-21.csv')
+Sensitivity_Df.to_csv('SensitivityOut04-23.csv')

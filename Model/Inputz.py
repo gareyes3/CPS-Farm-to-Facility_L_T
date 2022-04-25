@@ -25,7 +25,7 @@ rng = Generator(PCG64())
 #4. Harvest Contmaination #Pending
 #5. Custom Plan #Pending
 
-#Old ContamiNATION iNFORMATION
+
 
 #Contamination Scenario #1
 if ScenCondz.Contamination_Scenario == 1: 
@@ -36,8 +36,7 @@ if ScenCondz.Contamination_Scenario == 1:
         Time_CE_H = np.random.triangular(2,4,8) #days
     elif ScenCondz.Holding_Time == False:
         Time_CE_H = np.random.triangular(0,4,8) #days
-
-random.seed(10)        
+      
 #Contamination Scenario #1
 if ScenCondz.Contamination_Scenario == 2:
     Hazard_Lvl = 100_000
@@ -217,7 +216,6 @@ elif ScenCondz.PHS_4d ==True:
     Time_PHS_H = 4 #4 days before harvest
 else:
     Time_PHS_H = 0 #if not, baseline is always 4 hours
-
 
     
 #Here because of math

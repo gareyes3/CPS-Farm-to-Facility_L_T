@@ -332,7 +332,7 @@ plt.plot(outs_val[1])
 plt.plot(outs_val[2])
 
 
-#Updting Washing 
+#Updting Washing -----------------------------------------------------------------
 
 def F_Chloride_lvl_Constant(Time_Wash, C_level):
     Times = np.arange(0, Time_Wash+0.01, 0.01).tolist()
@@ -346,7 +346,7 @@ def F_Chloride_lvl_Constant(Time_Wash, C_level):
 
 
 df_conts = pd.DataFrame(
-    {'CFU': [100]*300,
+    {'CFU': [1]*300,
      'Weight': 100,
     })
 
@@ -363,7 +363,7 @@ def F_Washing_ProcLines (df , Wash_Rate, Cdf):
     Blw = 0.38 #ml/g min: is the pathogen binding rate to pieces of shredded lettuce heads
     alphablw = 0.75#Inactivation rate of pathogen via FC L/mgmin
     alpha = 0.75
-    V = (3200 *1000) #L #From Luo et al 2012. 
+    V = (3500 *1000) #L #From Luo et al 2012. 
     Rate = Wash_Rate/2.2  #45.45 #kg/min #From Luo et al 2012. 
     Wash_Time = 0.46 #min 
     c1 = 1/Wash_Time #Reciprocal of average time. 
@@ -415,7 +415,7 @@ def F_Washing_ProcLines (df , Wash_Rate, Cdf):
 
 chlorine_levs =  F_Chloride_lvl (Time_Wash=300)
 
-#chlorine_levs =F_Chloride_lvl_Constant(300,5)
+#chlorine_levs =F_Chloride_lvl_Constant(300,0)
 
 
 outs_val = F_Washing_ProcLines (df =df_conts , Wash_Rate = 100, Cdf =chlorine_levs )

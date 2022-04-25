@@ -57,10 +57,12 @@ reload(ScenCondz)
 def scenario_function(Cont_Scen_no,
                       #Intervention Strategies
                       Washing = False,
+                      Washing_Optimized = False,
                       Holding = False,
                       Pre_Cooling = False,
                       PreS_Wash = False,
                       Sanitation = False,
+                      
                       #Sampling Strategies.
                       PHS4d = False,
                       PHS4h= False,
@@ -137,6 +139,8 @@ def scenario_function(Cont_Scen_no,
     # Turning of Washing. 
         #Washing process yes or not. 
     SCInputz.Washing_YN = Washing
+    
+    SCInputz.Washing_Optimized =  Washing_Optimized
     
     #Harvest Pre-Wash: 
         #Harvest Pre-Wash yes or not
@@ -312,6 +316,10 @@ Baseline_NI_Wash_1 =  scenario_function(Cont_Scen_no=1,Washing=True)
 Baseline_NI_Wash_2 =  scenario_function(Cont_Scen_no=2,Washing=True)
 Baseline_NI_Wash_3 =  scenario_function(Cont_Scen_no=3,Washing=True)
 
+Baseline_NI_Wash_Opt_1 =  scenario_function(Cont_Scen_no=1,Washing=True,Washing_Optimized =True)
+Baseline_NI_Wash_Opt_2 =  scenario_function(Cont_Scen_no=2,Washing=True,Washing_Optimized =True)
+Baseline_NI_Wash_Opt_3 =  scenario_function(Cont_Scen_no=3,Washing=True,Washing_Optimized =True)
+
 #Harvest Wash
 Baseline_NI_Sp_Wash_1 =  scenario_function(Cont_Scen_no=1,PreS_Wash=True)
 Baseline_NI_Sp_Wash_2 =  scenario_function(Cont_Scen_no=2,PreS_Wash=True)
@@ -328,17 +336,8 @@ Baseline_AI_3 =  scenario_function(Cont_Scen_no=3,Washing = True, Holding = True
  
 #%%%
 #Section to try washing
-Baseline_AI_1_5ppm =  scenario_function(Cont_Scen_no=1,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True)
+Baseline_NI_Wash_Opt_1 =  scenario_function(Cont_Scen_no=1,Washing=True,Washing_Optimized =True)
 
-Baseline_AI_1_10ppm =  scenario_function(Cont_Scen_no=1,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True)
-
-Baseline_AI_1_20ppm =  scenario_function(Cont_Scen_no=1,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True)
-
-
-Baseline_AI_1_0ppm =  scenario_function(Cont_Scen_no=1,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True)
-
-
-Baseline_AI_1_False=  scenario_function(Cont_Scen_no=1,Washing = False, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True)
 
 #%%%
 
@@ -354,6 +353,7 @@ List_of_Outs_Ints_1 = [Baseline_NI_1,
                      Baseline_NI_Holding_1,
                      Baseline_NI_Precooling_1,
                      Baseline_NI_Wash_1,
+                     Baseline_NI_Wash_Opt_1,
                      Baseline_NI_Sp_Wash_1,
                      Baseline_NI_PLS_1
                      ]
@@ -367,6 +367,7 @@ List_of_Outs_Ints_2 = [Baseline_NI_2,
                      Baseline_NI_Holding_2,
                      Baseline_NI_Precooling_2,
                      Baseline_NI_Wash_2,
+                     Baseline_NI_Wash_Opt_2,
                      Baseline_NI_Sp_Wash_2,
                      Baseline_NI_PLS_2
                      ]
@@ -379,6 +380,7 @@ List_of_Outs_Ints_3 = [Baseline_NI_3,
                      Baseline_NI_Holding_3,
                      Baseline_NI_Precooling_3,
                      Baseline_NI_Wash_3,
+                     Baseline_NI_Wash_Opt_3,
                      Baseline_NI_Sp_Wash_3,
                      Baseline_NI_PLS_3
                      ]
@@ -386,7 +388,7 @@ List_of_Outs_Ints_3 = [Baseline_NI_3,
 Outputdf_INT_3 = F_Outputs_Table(List_of_Outs_Ints_3)
 
 def Progression_DF_Melt(List_of_Outs):
-    Column_Names = "BaselineNI BaselineAI Holding Precooling Washing PreSpray_Wash Sanitation".split()
+    Column_Names = "BaselineNI BaselineAI Holding Precooling Washing Washing_opt PreSpray_Wash Sanitation".split()
     
     Index_1 = 0
     List_dfs = []
@@ -485,7 +487,7 @@ plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 
 
 ##Relative difference
-Column_Names_INT = "BaselineNI BaselineAI Holding Precooling Washing PreSpray_Wash Sanitation".split()
+Column_Names_INT = "BaselineNI BaselineAI Holding Precooling Washing Washing_opt PreSpray_Wash Sanitation".split()
 
 Outputdf_INT_1["ScenarioN"] = Column_Names_INT
 Outputdf_INT_2["ScenarioN"] = Column_Names_INT
