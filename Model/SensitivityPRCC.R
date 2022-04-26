@@ -147,6 +147,7 @@ rownames(Sens_DF)<-Column_Names
 Sens_DF_T25<-Sens_DF %>% 
   arrange(desc(abs(original))) %>% 
   head(n=25)
+dev.off()
 
 ggplot(data = Sens_DF, aes(x=fct_reorder(rownames(Sens_DF), abs(original)),y=original , fill = Cateogry))+
   geom_bar(stat = "identity", position = "identity")+
@@ -191,16 +192,30 @@ Data8<-Data
 
 Data8<-replace(Data8[,],Data8[,] < 0, 0)
 
+
+
+
+#Anova 
+
+
 ######likelyhood displacement
 
-library(randomForest)
+DFData2<-as.data.frame(cbind(Data$TotalCFUFP, Data_x))
 
-RFData<-cbind(Data_x, Data$TotalCFUFP)
-
-RFData()
-
-Model<-lm(`Data$TotalCFUFP`~. , data = RFData)
+Model<-lm(`Data$TotalCFUFP`~. , data = DFData2)
 summary(Model)
+RFData$WashingYN
+
+ggplot(data= DFData2, aes(x =`Data$TotalCFUFP`, y = OptimizeWashingYN  ))+
+  geom_point()
+
+ggplot(data= DFData2, aes(x =`Data$TotalCFUFP`, y = WashingYN ))+
+  geom_point()
+
+Anova_mod<-aov(Model)
+
+Table_Summ_An<-summary(Anova_mod)[[1]]
+
 
 Vect<-predict(Model)
 
