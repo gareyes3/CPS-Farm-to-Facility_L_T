@@ -319,6 +319,8 @@ def F_Washing_ProcLines (df , Wash_Rate, Cdf):
 
 chlorine_levs =  F_Chloride_lvl (Time_Wash=36)
 
+chlorine_levs =F_Chloride_lvl_Constant(36,10)
+
 
 outs_val = F_Washing_ProcLines (df =df_conts , Wash_Rate = 100, Cdf =chlorine_levs )
 
@@ -346,7 +348,7 @@ def F_Chloride_lvl_Constant(Time_Wash, C_level):
 
 
 df_conts = pd.DataFrame(
-    {'CFU': [1]*300,
+    {'CFU': [10]*300,
      'Weight': 100,
     })
 
@@ -382,12 +384,14 @@ def F_Washing_ProcLines (df , Wash_Rate, Cdf):
         #AvCont_CFU = df.at[i,"CFU"]
         #AvContAfter = AvCont*10**-0.8
         C =   float(Cdf.loc[Cdf['Time'] == Time, 'C'])
-        Bws = (((AvCont)-(AvCont*Xs))*Rate*1000)/V
+        Bws = (((AvCont)-(AvCont*Xs))*(Rate*1000))/V
+        
         #Bws = ((AvCont- AvContAfter)*Rate)/V
         #print(Bws)
         CXWfirst = Bws - (Blw*Xw*(L/V))
         CXw =  CXWfirst - (alphablw*Xw*C)
         Xw = Xw+CXw
+        print(Xw)
         if Xw<0:
             Xw = 0
         L_Xw.append(Xw)
@@ -408,14 +412,16 @@ def F_Washing_ProcLines (df , Wash_Rate, Cdf):
         L_Xl.append(Xl)
         AvCont = Xl
         CFU_2 = AvCont*((df.at[index,"Weight"]*454))
-        df.at[index,"CFU"] =  CFU_2
+        print(CFU_2," CFU_2")
+        if CFU_2<1:
+            CFU_2= np.random.binomial(1,CFU_2)
+        df.at[index,"CFU"] = CFU_2
+        print(df.at[index,"CFU"])
         outs = [df, L_Xl, L_Xw]
     return (outs) 
 
 
 chlorine_levs =  F_Chloride_lvl (Time_Wash=300)
-
-#chlorine_levs =F_Chloride_lvl_Constant(300,0)
 
 
 outs_val = F_Washing_ProcLines (df =df_conts , Wash_Rate = 100, Cdf =chlorine_levs )
@@ -433,4 +439,9 @@ plt.plot(outs_val[1])
 #Plot of the  Xw
 plt.plot(outs_val[2])
 
-0.00220261684300283*100*454
+19/3500000
+90*128
+90*0.128
+
+
+0.46/3500000

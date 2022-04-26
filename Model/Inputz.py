@@ -310,7 +310,7 @@ if SCInputz.Sanitation_YN == False:
 #Flume tank washing step
 Wash_Rate = 100 #lb/min
 
-Optimized_washing_clevel = 5 #ppm
+Optimized_washing_clevel = 0 #ppm
 
 if SCInputz.Washing_YN == True:
     if SCInputz.Washing_Optimized== True:

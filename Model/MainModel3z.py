@@ -556,7 +556,7 @@ def F_MainLoop():
                 
             #Washing Step.   
             if SCInputz.Washing_YN == True: 
-                gb2 = Funz.F_Washing_ProcLines2(List_GB3 =gb2, Wash_Rate = Inputz.Wash_Rate, Cdf =  Inputz.DF_Chlevels)
+                gb2 = Funz.F_Washing_ProcLines(List_GB3 =gb2, Wash_Rate = Inputz.Wash_Rate, Cdf =  Inputz.DF_Chlevels)
             
             #5Shaker Table ----------------------------------------------------
             df_gb2_bst = (pd.concat(gb2))

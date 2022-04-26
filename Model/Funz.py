@@ -1172,6 +1172,8 @@ def F_Washing_ProcLines2 (List_GB3, Wash_Rate, Cdf):
             L_Xl.append(Xl)
             AvCont = Xl
             CFU_2 = AvCont*((j.at[index,"Weight"]*454))
+            if CFU_2<1:
+                CFU_2= np.random.binomial(1,CFU_2)
             j.at[index,"CFU"] =  CFU_2
     return (List_GB3) 
 
