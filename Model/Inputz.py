@@ -228,15 +228,22 @@ elif Time_PHS_H<=Time_CE_H:
 #%% Pre-Cooling- HArvest
 
 #Chrlorine Pray
-Harvest_Cspray_red = np.random.uniform(1.1,1.46) # log reduction achieved by chlorination spray. Prachi Pahariya 2022. #revisisit. 
+if SCInputz.Spray_WashYN == True:
+    Harvest_Cspray_red = np.random.uniform(1.1,1.46) # log reduction achieved by chlorination spray. Prachi Pahariya 2022. #revisisit. 
+if SCInputz.Spray_WashYN == False:
+    Harvest_Cspray_red = 0 # log reduction achieved by chlorination spray. Prachi Pahariya 2022. #revisisit. 
 
 #PreCooling. 
+
 Time_H_PreCooling = np.random.uniform(2,4) #time between harevest and precooling
 Temperature_H_PreCooling = np.random.uniform(15,17) #koselki et al paper
 
-Time_PreCooling = np.random.uniform(0.4,0.6)  #Hours 25-35 minutes
-Temperature_PreCooling = np.random.uniform(3,4) #Precooling 3 C https://www.buschvacuum.com/us/en/news-media/pre-cooling-lettuces-reliably-thanks-to-cutting-edge-vacuum-technology.html
-
+if SCInputz.Pre_CoolingYN==True:
+    Time_PreCooling = np.random.uniform(0.4,0.6)  #Hours 25-35 minutes
+    Temperature_PreCooling = np.random.uniform(3,4) #Precooling 3 C https://www.buschvacuum.com/us/en/news-media/pre-cooling-lettuces-reliably-thanks-to-cutting-edge-vacuum-technology.html
+if SCInputz.Pre_CoolingYN==False:
+    Time_PreCooling = 0  #Hours 25-35 minutes
+    Temperature_PreCooling = np.random.uniform(3,4) #Precooling 3 C https://www.buschvacuum.com/us/en/news-media/pre-cooling-lettuces-reliably-thanks-to-cutting-edge-vacuum-technology.html
 
 #%% Field Pack
 #Field Packed Lettuce:
@@ -310,7 +317,7 @@ if SCInputz.Sanitation_YN == False:
 #Flume tank washing step
 Wash_Rate = 100 #lb/min
 
-Optimized_washing_clevel = 0 #ppm
+Optimized_washing_clevel = 10 #ppm
 
 if SCInputz.Washing_YN == True:
     if SCInputz.Washing_Optimized== True:

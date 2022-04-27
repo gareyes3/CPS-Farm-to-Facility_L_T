@@ -53,6 +53,7 @@ gb4= gb2
 
 import numpy as np
 import pandas as pd
+import math
 import matplotlib.pyplot as plt
 
 
@@ -348,7 +349,7 @@ def F_Chloride_lvl_Constant(Time_Wash, C_level):
 
 
 df_conts = pd.DataFrame(
-    {'CFU': [10]*300,
+    {'CFU': [1]*300,
      'Weight': 100,
     })
 
@@ -390,18 +391,22 @@ def F_Washing_ProcLines (df , Wash_Rate, Cdf):
         #print(Bws)
         CXWfirst = Bws - (Blw*Xw*(L/V))
         CXw =  CXWfirst - (alphablw*Xw*C)
+        print(CXw, "CXw")
         Xw = Xw+CXw
-        print(Xw)
         if Xw<0:
             Xw = 0
         L_Xw.append(Xw)
         Xl = (AvCont*Xs)
         #print(Xl)
-        CXL23t = (alpha*Xl*C) - (c1*Xl)
+        #CXL23t = (alpha*Xl*C) - (c1*Xl)
         #print(CXL23t, "CXL23t")
-        if CXL23t>Xl:
-            Xl = 0
-            print("is 0")
+        if C>0.5:
+            CXL23t = 0.214*np.log(C)+0.220
+        if C<0.5:
+            CXL23t = 0
+        print(C, "C")
+        print(CXL23t, "CXL23")
+        Xl = Xl*(10**-CXL23t)
         CXl = (Blw*Xw)  #- (alpha*Xl*C) - (c1*Xl)
         #print(Blw*Xw, "fist section")
         #print(CXl, "CXL")
@@ -415,14 +420,20 @@ def F_Washing_ProcLines (df , Wash_Rate, Cdf):
         print(CFU_2," CFU_2")
         if CFU_2<1:
             CFU_2= np.random.binomial(1,CFU_2)
+        elif CFU_2>1:
+            partial =math.modf(CFU_2)
+            part1= np.random.binomial(1,partial[0])
+            part2= partial[1]
+            CFU_2 = part1+part2
         df.at[index,"CFU"] = CFU_2
         print(df.at[index,"CFU"])
         outs = [df, L_Xl, L_Xw]
     return (outs) 
 
 
-chlorine_levs =  F_Chloride_lvl (Time_Wash=300)
+#chlorine_levs =  F_Chloride_lvl (Time_Wash=300)
 
+chlorine_levs =F_Chloride_lvl_Constant(Time_Wash = 300, C_level = 10)
 
 outs_val = F_Washing_ProcLines (df =df_conts , Wash_Rate = 100, Cdf =chlorine_levs )
 

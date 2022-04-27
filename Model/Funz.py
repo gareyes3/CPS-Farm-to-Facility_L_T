@@ -14,8 +14,6 @@ import Inputz
 import ContScen
 rng = Generator(PCG64())
 
-
-
 #Function Source File
 #%% Utility Functions
 #Normal Truncated function
@@ -1176,6 +1174,75 @@ def F_Washing_ProcLines2 (List_GB3, Wash_Rate, Cdf):
                 CFU_2= np.random.binomial(1,CFU_2)
             j.at[index,"CFU"] =  CFU_2
     return (List_GB3) 
+
+def F_Washing_ProcLines3 (List_GB3, Wash_Rate, Cdf):
+    for j in List_GB3:
+        WashT = len(j.index)
+        #DF_Clvl = F_DF_Clvl(WashT)
+        
+        Times_W = np.arange(0, WashT, 1).tolist()
+        Times_W = [round(num, 1) for num in Times_W]
+        
+        Blw = 0.38 #ml/g min: is the pathogen binding rate to pieces of shredded lettuce heads
+        alpha = 0.75#Inactivation rate of pathogen via FC L/mgmin
+        V = (3200 *1000) #L #From Luo et al 2012. 
+        Rate = Wash_Rate/2.2  #45.45 #kg/min #From Luo et al 2012. 
+        Wash_Time = 2.3 #min 
+        c1 = 1/Wash_Time #Reciprocal of average time. 
+        L = (Rate*1000)/(c1) #g of lettuce in the tak at the same time
+        Xl = 0
+        Xw =0  #pathogen in process water MPN/ml
+        
+        L_Xw = []
+        L_Xl = []
+        for i in Times_W:
+            Xs = np.random.triangular(0.003,0.055,0.149)
+            index =i
+            #Defining Initial Contamination
+            Time = i
+            AvCont = j.at[i,"CFU"] /(j.at[i,"Weight"]*454)
+            #AvCont_CFU = df.at[i,"CFU"]
+            #AvContAfter = AvCont*10**-0.8
+            C =   float(Cdf.loc[Cdf['Time'] == Time, 'C'])
+            Bws = (((AvCont)-(AvCont*Xs))*(Rate*1000))/V
+            
+            #Bws = ((AvCont- AvContAfter)*Rate)/V
+            #print(Bws)
+            CXWfirst = Bws - (Blw*Xw*(L/V))
+            CXw =  CXWfirst - (alpha*Xw*C)
+            Xw = Xw+CXw
+            if Xw<0:
+                Xw = 0
+            L_Xw.append(Xw)
+            Xl = (AvCont*Xs)
+            #print(Xl)
+            #CXL23t = (alpha*Xl*C) - (c1*Xl)
+            #print(CXL23t, "CXL23t")
+            if C>0.5:
+                CXL23t = 0.214*np.log(C)+0.220
+            if C<0.5:
+                CXL23t = 0
+            Xl = Xl*(10**-CXL23t)
+            CXl = (Blw*Xw)  #- (alpha*Xl*C) - (c1*Xl)
+            #print(Blw*Xw, "fist section")
+            #print(CXl, "CXL")
+            #print(Xl, "XL")
+            Xl =Xl +CXl
+            if Xl < 0:
+                Xl = 0
+            L_Xl.append(Xl)
+            AvCont = Xl
+            CFU_2 = AvCont*((j.at[index,"Weight"]*454))
+            if CFU_2<1:
+                CFU_2= np.random.binomial(1,CFU_2)
+            elif CFU_2>1:
+                partial =math.modf(CFU_2)
+                part1= np.random.binomial(1,partial[0])
+                part2= partial[1]
+                CFU_2 = part1+part2
+            j.at[index,"CFU"] =  CFU_2
+    return (List_GB3) 
+
 
 
 #Final Product Case

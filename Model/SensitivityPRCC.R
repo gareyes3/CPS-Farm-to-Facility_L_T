@@ -6,7 +6,7 @@ library(forcats)
 library(tidyverse)
 
 
-Data <- read.csv("SensitivityOut04-23.csv", stringsAsFactors = TRUE)
+Data <- read.csv("SensitivityOut04-26.csv", stringsAsFactors = TRUE)
 
 
 Data_x<-Data[-c(1,51,52)]
@@ -203,13 +203,26 @@ Data8<-replace(Data8[,],Data8[,] < 0, 0)
 DFData2<-as.data.frame(cbind(Data$TotalCFUFP, Data_x))
 
 Model<-lm(`Data$TotalCFUFP`~. , data = DFData2)
-summary(Model)
-RFData$WashingYN
+SumMod<-summary(Model)
+CoeffsSumMod<-SumMod$coefficients
+
+DFData2$
 
 ggplot(data= DFData2, aes(x =`Data$TotalCFUFP`, y = OptimizeWashingYN  ))+
   geom_point()
 
+cor(DFData2$`Data$TotalCFUFP`, as.numeric(DFData2$OptimizeWashingYN))
+
+mode<-lm(DFData2$`Data$TotalCFUFP`~DFData2$PHS4h)
+summary(mode)
+
 ggplot(data= DFData2, aes(x =`Data$TotalCFUFP`, y = WashingYN ))+
+  geom_point()
+
+ggplot(data= DFData2, aes(x =`Data$TotalCFUFP`, y =PHS4d ))+
+  geom_point()
+
+ggplot(data= DFData2, aes(x =`Data$TotalCFUFP`, y =PHS4h ))+
   geom_point()
 
 Anova_mod<-aov(Model)

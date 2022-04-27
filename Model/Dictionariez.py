@@ -217,8 +217,8 @@ Sensitivity_Analysis_Dic = [
                             #Pre-coolin
                             "Time_H_PC",
                             "Temp_H_PC",
-                            "Time Precooling",
-                            "Temp Precooling",
+                            "Time_Precooling",
+                            "Temp_Precooling",
                             "Pre_cooling",
                             #Receiving
                             "Time_Storage_R",
@@ -228,6 +228,7 @@ Sensitivity_Analysis_Dic = [
                             "PreWashYN",
                             "WashingYN",
                             "OptimizeWashingYN",
+                            "SanitationYN", #New Added saniation after optimied wash
                             "ChSpray_eff", #new
                             "Tr_Sh_P",
                             "Tr_P_Sh",
@@ -295,8 +296,8 @@ def Func_LoadInputs (OutputDF,i,df, TotalDieoff):
     #Pre-cooling
     OutputDF.at[i, "Time_H_PC"] =  Inputz.Time_H_PreCooling #Time beetween harvest and pre-cooling
     OutputDF.at[i, "Temp_H_PC"] =  Inputz.Temperature_H_PreCooling #Time beetween harvest and pre-cooling
-    OutputDF.at[i, "Time Precooling"] =  Inputz.Time_PreCooling #Pre-cooling process length time
-    OutputDF.at[i, "Temp Precooling"] =  Inputz.Temperature_PreCooling #Pre-cooling process temperature
+    OutputDF.at[i, "Time_Precooling"] =  Inputz.Time_PreCooling #Pre-cooling process length time
+    OutputDF.at[i, "Temp_Precooling"] =  Inputz.Temperature_PreCooling #Pre-cooling process temperature
     OutputDF.loc[i, "Pre_cooling"] =  SCInputz.Pre_CoolingYN #Number of Grabs at PreHarvest.
     #Receiving
     OutputDF.at[i, "Time_Storage_R"] =  Inputz.Time_Storage_R #Time storage at receiving
@@ -306,6 +307,8 @@ def Func_LoadInputs (OutputDF,i,df, TotalDieoff):
     OutputDF.loc[i, "WashingYN"] =  SCInputz.Washing_YN #Washing Yes or NotSCInputz.Spray_WashYN
     OutputDF.loc[i, "PreWashYN"] =  SCInputz.Spray_WashYN #Washing Yes or Not
     OutputDF.loc[i, "OptimizeWashingYN"] =  SCInputz.Washing_Optimized #Washing Yes or Not
+    OutputDF.loc[i, "SanitationYN"] =  SCInputz.Sanitation_YN #Washing Yes or Not
+    
     
     OutputDF.loc[i, "ChSpray_eff"] =  Inputz.Harvest_Cspray_red #Washing Yes or Not
     

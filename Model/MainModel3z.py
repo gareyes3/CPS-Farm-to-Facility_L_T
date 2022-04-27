@@ -96,6 +96,7 @@ def F_MainLoop():
             #Receiving Factors
             SCInputz.Pre_CoolingYN = np.random.choice([True,False])
             #Processing Factors
+            SCInputz.Sanitation_YN = np.random.choice([True,False])
             #7 Washing Random Choice
             SCInputz.Washing_YN = np.random.choice([True,False])
             if SCInputz.Washing_YN == True:
@@ -556,7 +557,7 @@ def F_MainLoop():
                 
             #Washing Step.   
             if SCInputz.Washing_YN == True: 
-                gb2 = Funz.F_Washing_ProcLines(List_GB3 =gb2, Wash_Rate = Inputz.Wash_Rate, Cdf =  Inputz.DF_Chlevels)
+                gb2 = Funz.F_Washing_ProcLines3(List_GB3 =gb2, Wash_Rate = Inputz.Wash_Rate, Cdf =  Inputz.DF_Chlevels)
             
             #5Shaker Table ----------------------------------------------------
             df_gb2_bst = (pd.concat(gb2))
