@@ -102,6 +102,8 @@ Washing_YN =False
 
 Washing_Optimized = False
 
+Always_Washing_Optimized = False
+
 Pre_CoolingYN = False
 
 Spray_WashYN =False

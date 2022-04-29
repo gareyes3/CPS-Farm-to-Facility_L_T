@@ -57,7 +57,7 @@ reload(ScenCondz)
 def scenario_function(Cont_Scen_no,
                       #Intervention Strategies
                       Washing = False,
-                      Washing_Optimized = False,
+                      Always_Washing_Optimized = False,
                       Holding = False,
                       Pre_Cooling = False,
                       PreS_Wash = False,
@@ -141,7 +141,7 @@ def scenario_function(Cont_Scen_no,
         #Washing process yes or not. 
     SCInputz.Washing_YN = Washing
     
-    SCInputz.Washing_Optimized =  Washing_Optimized
+    SCInputz.Always_Washing_Optimized = Always_Washing_Optimized
     
     #Harvest Pre-Wash: 
         #Harvest Pre-Wash yes or not
@@ -165,9 +165,69 @@ def scenario_function(Cont_Scen_no,
 
 Baseline = scenario_function(Cont_Scen_no=1)
 Baseline_washing = scenario_function(Cont_Scen_no=1,Washing = True)
-Baseline_washing_opt = scenario_function(Cont_Scen_no=1,Washing = True,Washing_Optimized= True)
+Baseline_washing_opt = scenario_function(Cont_Scen_no=1,Washing = True,Always_Washing_Optimized= True)
 Baseline_holding = scenario_function(Cont_Scen_no=1,Holding= True)
 Baseline_Pre_Cooling = scenario_function(Cont_Scen_no=1,Pre_Cooling= True)
+Baseline_PreS_Wash = scenario_function(Cont_Scen_no=1, PreS_Wash = True)
+Baseline_Sanitation = scenario_function(Cont_Scen_no=1, Sanitation = True)
+Baseline_PHS4d = scenario_function(Cont_Scen_no=1, PHS4d = True)
+Baseline_PHS4h = scenario_function(Cont_Scen_no=1, PHS4h = True)
+Baseline_PHS4Int = scenario_function(Cont_Scen_no=1, PHSInt = True)
+Baseline_HS = scenario_function(Cont_Scen_no=1, HSTrad = True)
+Baseline_RS = scenario_function(Cont_Scen_no=1, RSTrad = True)
+Baseline_FPSTrad = scenario_function(Cont_Scen_no=1, FPSTrad = True)
+Baseline_CS = scenario_function(Cont_Scen_no=1, CSampling = True)
+Baseline_AI = scenario_function(Cont_Scen_no=1,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True)
+Baseline_AI_PHS4d = scenario_function(Cont_Scen_no=1,Washing = True,  Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True,PHS4d = True)
+Baseline_AI_PHS4h = scenario_function(Cont_Scen_no=1,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True,PHS4h = True)
+Baseline_AI_PHSInt = scenario_function(Cont_Scen_no=1,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True,PHSInt =True)
+Baseline_AI_HSTrad = scenario_function(Cont_Scen_no=1,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True,HSTrad = True)
+Baseline_AI_RS = scenario_function(Cont_Scen_no=1,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True,RSTrad = True)
+Baseline_AI_FPSTrad = scenario_function(Cont_Scen_no=1,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True,FPSTrad = True)
+Baseline_AI_CS = scenario_function(Cont_Scen_no=1,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True,CSampling = True)
+
+
+
+
+
+List_of_FS = [
+    Baseline,
+    Baseline_washing,
+    Baseline_washing_opt,
+    Baseline_holding,
+    Baseline_Pre_Cooling,
+    Baseline_PreS_Wash,
+    Baseline_Sanitation,
+    Baseline_PHS4d,
+    Baseline_PHS4h,
+    Baseline_PHS4Int,
+    Baseline_HS,
+    Baseline_RS,
+    Baseline_FPSTrad,
+    Baseline_CS,
+    Baseline_AI,
+    Baseline_AI_PHS4d,
+    Baseline_AI_PHS4h,
+    Baseline_AI_PHSInt,
+    Baseline_AI_HSTrad,
+    Baseline_AI_RS,
+    Baseline_AI_FPSTrad,
+    Baseline_AI_CS
+    ]
+
+
+def get_FS(List):
+    vector_of_FS = []
+    for i in List:
+        factorin = i[1]["After CS Samp"].sum()
+        baselinein=List[0][1]["After CS Samp"].sum()
+        FS = np.log10(factorin/baselinein)
+        vector_of_FS.append(FS)
+    return vector_of_FS
+
+get_FS(List_of_FS)
+        
+        
 
 Baseline[1]["After CS Samp"].sum()
 Baseline_washing[1]["After CS Samp"].sum()

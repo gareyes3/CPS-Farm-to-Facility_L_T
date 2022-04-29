@@ -320,9 +320,13 @@ Wash_Rate = 100 #lb/min
 Optimized_washing_clevel = 10 #ppm
 
 if SCInputz.Washing_YN == True:
+    if SCInputz.Always_Washing_Optimized == False:
+        SCInputz.Washing_Optimized=np.random.choice([True,False])
+    elif SCInputz.Always_Washing_Optimized == True:
+        SCInputz.Washing_Optimized=True
+        
     if SCInputz.Washing_Optimized== True:
         DF_Chlevels = F_Chloride_lvl_Constant(Time_Wash = 300, C_level = Optimized_washing_clevel)
-        print(Optimized_washing_clevel)
     else:
         DF_Chlevels = F_Chloride_lvl(300, Treatment =1) #Simlating Chlorine levels after time.
     

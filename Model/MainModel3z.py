@@ -99,10 +99,6 @@ def F_MainLoop():
             SCInputz.Sanitation_YN = np.random.choice([True,False])
             #7 Washing Random Choice
             SCInputz.Washing_YN = np.random.choice([True,False])
-            if SCInputz.Washing_YN == True:
-                SCInputz.Washing_Optimized=np.random.choice([True,False])
-            else:
-                SCInputz.Washing_Optimized=False
                        
             SCInputz.Spray_WashYN = np.random.choice([True,False])
         
