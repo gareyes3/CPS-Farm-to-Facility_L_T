@@ -29,6 +29,7 @@ import InFunz
 import OutFunz
 import ContScen
 import Funz
+import csv
 from matplotlib import pyplot as plt
 from matplotlib.ticker import ScalarFormatter
 import seaborn as sns
@@ -407,12 +408,18 @@ Melted_Prog_DF_NI_1["Scenario"] = "Uniform"
 Melted_Prog_DF_NI_2["Scenario"] = "1% Cluster"
 Melted_Prog_DF_NI_3["Scenario"] = "10% Cluster"
 
+##Exporting to CSV
+Melted_Prog_DF_NI_1.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Box Sync\\CPS Project- Farm to Facility\\Papers\\CSV Data\\Melted_Prog_DF_NI_1.csv")
+
+
+os.getcwd()
+
 All_Melted = pd.concat([Melted_Prog_DF_NI_1,Melted_Prog_DF_NI_2,Melted_Prog_DF_NI_3])
 
 sns.relplot(
     data=All_Melted, x="variable", y="value",
-   row="Scenario", hue="Type", style="Type",
-    kind="line" 
+   col="Scenario", hue="Type", style="Type",
+    kind="line" ,col_wrap=3
 )
 plt.xlabel("Process Stage")
 plt.ylabel("Total CFUs in System")
@@ -432,6 +439,7 @@ plt.ylim(0, 100000)
 plt.title("Contamination Progression 1) Uniform Contamination")
 plt.xticks(rotation=-90)
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
+
 
 H=sns.lineplot(x="variable", y="value",hue = "Type", style = "Type", 
             data=Melted_Prog_DF_NI_2,  )
