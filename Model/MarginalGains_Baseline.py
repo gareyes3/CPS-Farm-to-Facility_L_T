@@ -316,9 +316,9 @@ Baseline_NI_Wash_1 =  scenario_function(Cont_Scen_no=1,Washing=True)
 Baseline_NI_Wash_2 =  scenario_function(Cont_Scen_no=2,Washing=True)
 Baseline_NI_Wash_3 =  scenario_function(Cont_Scen_no=3,Washing=True)
 
-Baseline_NI_Wash_Opt_1 =  scenario_function(Cont_Scen_no=1,Washing=True,Washing_Optimized =True)
-Baseline_NI_Wash_Opt_2 =  scenario_function(Cont_Scen_no=2,Washing=True,Washing_Optimized =True)
-Baseline_NI_Wash_Opt_3 =  scenario_function(Cont_Scen_no=3,Washing=True,Washing_Optimized =True)
+#Baseline_NI_Wash_Opt_1 =  scenario_function(Cont_Scen_no=1,Washing=True,Washing_Optimized =True)
+#Baseline_NI_Wash_Opt_2 =  scenario_function(Cont_Scen_no=2,Washing=True,Washing_Optimized =True)
+#Baseline_NI_Wash_Opt_3 =  scenario_function(Cont_Scen_no=3,Washing=True,Washing_Optimized =True)
 
 #Harvest Wash
 Baseline_NI_Sp_Wash_1 =  scenario_function(Cont_Scen_no=1,PreS_Wash=True)
@@ -353,7 +353,6 @@ List_of_Outs_Ints_1 = [Baseline_NI_1,
                      Baseline_NI_Holding_1,
                      Baseline_NI_Precooling_1,
                      Baseline_NI_Wash_1,
-                     Baseline_NI_Wash_Opt_1,
                      Baseline_NI_Sp_Wash_1,
                      Baseline_NI_PLS_1
                      ]
@@ -367,7 +366,6 @@ List_of_Outs_Ints_2 = [Baseline_NI_2,
                      Baseline_NI_Holding_2,
                      Baseline_NI_Precooling_2,
                      Baseline_NI_Wash_2,
-                     Baseline_NI_Wash_Opt_2,
                      Baseline_NI_Sp_Wash_2,
                      Baseline_NI_PLS_2
                      ]
@@ -380,7 +378,6 @@ List_of_Outs_Ints_3 = [Baseline_NI_3,
                      Baseline_NI_Holding_3,
                      Baseline_NI_Precooling_3,
                      Baseline_NI_Wash_3,
-                     Baseline_NI_Wash_Opt_3,
                      Baseline_NI_Sp_Wash_3,
                      Baseline_NI_PLS_3
                      ]
@@ -388,7 +385,7 @@ List_of_Outs_Ints_3 = [Baseline_NI_3,
 Outputdf_INT_3 = F_Outputs_Table(List_of_Outs_Ints_3)
 
 def Progression_DF_Melt(List_of_Outs):
-    Column_Names = "BaselineNI BaselineAI Holding Precooling Washing Washing_opt PreSpray_Wash Sanitation".split()
+    Column_Names = "BaselineNI BaselineAI Holding Precooling Washing PreSpray_Wash Sanitation".split()
     
     Index_1 = 0
     List_dfs = []
@@ -489,7 +486,7 @@ plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 
 
 ##Relative difference
-Column_Names_INT = "BaselineNI BaselineAI Holding Precooling Washing Washing_opt PreSpray_Wash Sanitation".split()
+Column_Names_INT = "BaselineNI BaselineAI Holding Precooling Washing PreSpray_Wash Sanitation".split()
 
 Outputdf_INT_1["ScenarioN"] = Column_Names_INT
 Outputdf_INT_2["ScenarioN"] = Column_Names_INT

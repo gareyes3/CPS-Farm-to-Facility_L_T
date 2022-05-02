@@ -253,7 +253,7 @@ Case_Weight_FieldPack = 25 #lb
 #%% Receiving
 
 #Storage at Receiving
-Time_Storage_R = np.random.uniform(5,7)#need reference assumed
+Time_Storage_R = 0#np.random.uniform(5,7)#need reference assumed
 Temperature_Storage_R = np.random.uniform(4,6) #refrigeration temperature at storage
 #PAllet size
 Pallet_Weight = 4000  #weight of pallet in lb. 
