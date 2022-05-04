@@ -187,6 +187,11 @@ Baseline_AI_FPSTrad = scenario_function(Cont_Scen_no=1,Washing = True, Holding =
 Baseline_AI_CS = scenario_function(Cont_Scen_no=1,Washing = True, Holding = True,Pre_Cooling = True, PreS_Wash=True, Sanitation = True,CSampling = True)
 
 
+List_of_Names = ["Baseline-NI","Baseline-NI-Washing","Baseline-NI-Washing 10 ppm","Baseline-NI Holding","Baseline-NI Pre-cooling",
+                 "Baseline-NI PreWash","Baseline-NI Sanitation", "Baseline-NI PHS4d","Baseline-NI PHS4h","Baseline-NI Int","Baseline-NI HS",
+                 "Baseline-NI RS", "Baseline-NI FPS", "Baseline-NI CS", "Baseline-AI","Baseline-AI PHS4d","Baseline-AI PHS4h", "Baseline-AI PHSInt",
+                 "Baseline-AI HS", "Baseline-AI RS", "Baseline-AI FPS", "Baseline-AI CS"
+                 ]
 
 
 
@@ -216,6 +221,8 @@ List_of_FS = [
     ]
 
 
+
+
 def get_FS(List):
     vector_of_FS = []
     for i in List:
@@ -225,9 +232,15 @@ def get_FS(List):
         vector_of_FS.append(FS)
     return vector_of_FS
 
-get_FS(List_of_FS)
-        
-        
+FS = get_FS(List_of_FS)
+
+FSdf= pd.DataFrame({
+    "FS": FS,
+    "Name": List_of_Names
+    })
+
+
+FSdf.to_csv(path_or_buf = "C:\\Users\\Gustavo Reyes\\Box\\CPS Project- Farm to Facility\\Papers\\CSV Data\\FSdf.csv")      
 
 Baseline[1]["After CS Samp"].sum()
 Baseline_washing[1]["After CS Samp"].sum()

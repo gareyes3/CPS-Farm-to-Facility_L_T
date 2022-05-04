@@ -1,0 +1,37 @@
+---
+title: "R Plots"
+author: "Gustavo Reyes"
+date: '2022-05-03'
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+
+setwd("C:/Users/Gustavo Reyes/Box/CPS Project- Farm to Facility/Papers/CSV Data")
+```
+
+
+```{r}
+FSdf<-read_csv("FSdf.csv")
+```
+
+```{r}
+order_x = c("Baseline-NI","Baseline-NI-Washing","Baseline-NI-Washing 10 ppm","Baseline-NI Holding","Baseline-NI Pre-cooling", "Baseline-NI PreWash","Baseline-NI Sanitation", "Baseline-NI PHS4d","Baseline-NI PHS4h","Baseline-NI Int","Baseline-NI HS", "Baseline-NI RS", "Baseline-NI FPS", "Baseline-NI CS", "Baseline-AI","Baseline-AI PHS4d","Baseline-AI PHS4h", "Baseline-AI PHSInt", "Baseline-AI HS", "Baseline-AI RS", "Baseline-AI FPS", "Baseline-AI CS")
+
+FSdf$System<-c(rep("No Intervention", 14),rep("All Interventions", 8))
+
+ggplot(data= FSdf, aes(x = fct_reorder(Name, abs(FS)), y = FS, fill = System))+
+  geom_col()+
+  coord_flip()+
+  geom_hline(yintercept = -3.4214121199,linetype="dotted")+
+    geom_hline(yintercept = 0,linetype="dashed")+
+  ylab("Factor Sensitivity Index")+
+  xlab("Scenario/ Intervention")+
+  #scale_x_discrete(limits=rev)+
+  ggtitle("Factor Sensitivity Analysis")
+
+
+```
+

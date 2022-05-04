@@ -384,6 +384,7 @@ List_of_Outs_Ints_3 = [Baseline_NI_3,
 
 Outputdf_INT_3 = F_Outputs_Table(List_of_Outs_Ints_3)
 
+
 def Progression_DF_Melt(List_of_Outs):
     Column_Names = "BaselineNI BaselineAI Holding Precooling Washing PreSpray_Wash Sanitation".split()
     
@@ -497,6 +498,12 @@ Outputdf_INT_2["Cont_Spread"] = "1% Cluster"
 Outputdf_INT_3["Cont_Spread"] = "10% Cluster"
 
 INT_Combined=pd.concat([Outputdf_INT_1,Outputdf_INT_3,Outputdf_INT_2])
+
+(Baseline_AI_1[1]["After CS Samp"].mean() - Baseline_NI_1[1]["After CS Samp"].mean() )/Baseline_NI_1[1]["After CS Samp"].mean()
+
+np.log10(Baseline_AI_1[1]["After CS Samp"].mean() /Baseline_NI_1[1]["After CS Samp"].mean())
+np.log10(Baseline_AI_2[1]["After CS Samp"].mean() /Baseline_NI_2[1]["After CS Samp"].mean())
+np.log10(Baseline_AI_3[1]["After CS Samp"].mean() /Baseline_NI_3[1]["After CS Samp"].mean())
 
 
 
@@ -944,6 +951,14 @@ for i in list(range(8)):
     
 Powers_AI_3
 
+powers_df = pd.DataFrame({
+    "1NI": Powers_NI,
+    "1AI": Powers_AI,
+    "2NI": Powers_NI_3,
+    "2AI": Powers_AI_3,
+    "3NI": Powers_NI_2,
+    "3AI": Powers_AI_2
+    })
 
 
 #Plot of contamination levels at sampling stage.
