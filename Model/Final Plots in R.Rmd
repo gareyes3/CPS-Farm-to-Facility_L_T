@@ -8,10 +8,15 @@ output: html_document
 ```{r}
 library(tidyverse)
 library(ggplot2)
+library(scales)
 
-setwd("C:/Users/Gustavo Reyes/Box/CPS Project- Farm to Facility/Papers/CSV Data")
+#setwd("C:/Users/Gustavo Reyes/Box/CPS Project- Farm to Facility/Papers/CSV Data")
+setwd("C:/Users/gareyes3/Box Sync/CPS Project- Farm to Facility/Papers/CSV Data")
 ```
 
+
+
+## Factor Sensitivity plot
 
 ```{r}
 FSdf<-read_csv("FSdf.csv")
@@ -34,4 +39,95 @@ ggplot(data= FSdf, aes(x = fct_reorder(Name, abs(FS)), y = FS, fill = System))+
 
 
 ```
+
+
+## Contmainationation progression
+```{r}
+NI_1_ProgInt<-read_csv("Melted_Prog_DF_NI_1.csv")
+NI_2_ProgInt<-read_csv("Melted_Prog_DF_NI_2.csv")
+NI_3_ProgInt<-read_csv("Melted_Prog_DF_NI_3.csv")
+
+order_progression<-unique(NI_1_ProgInt$variable) #getting exact order of events
+
+margin_calc<-function(x){
+  margin <- qt(0.975,df=1000-1)*sd(x)/sqrt(1000)
+}
+
+#random
+NI_Summ<-NI_1_ProgInt %>% 
+  group_by(Type,variable ) %>% 
+  summarize(mean= mean(value),h95 =mean + margin_calc(value),l95 =mean - margin_calc(value)) %>% 
+  mutate(ContScen = "Random Contamination") %>% 
+  drop_na()
+#10%
+NI_Summ_3<-NI_3_ProgInt %>% 
+  group_by(Type,variable ) %>% 
+  summarize(mean= mean(value),h95 =mean + margin_calc(value),l95 =mean - margin_calc(value)) %>% 
+  mutate(ContScen = "10% Clustered Contamaination") %>% 
+  drop_na()
+#1%
+NI_Summ_2<-NI_2_ProgInt %>% 
+  group_by(Type,variable ) %>% 
+  summarize(mean= mean(value),h95 =mean + margin_calc(value),l95 =mean - margin_calc(value)) %>% 
+    mutate(ContScen = "1% Clustered Contamaination") %>% 
+  drop_na()
+
+Binded_all<-bind_rows(NI_Summ,NI_Summ_3,NI_Summ_2)
+
+
+Binded_all$variable<-factor(Binded_all$variable, levels=order_progression)
+Binded_all$ContScen<-factor(Binded_all$ContScen, levels=c("Random Contamination","10% Clustered Contamaination","1% Clustered Contamaination"))
+
+
+ggplot(data= Binded_all, aes(x= variable,y = mean, group= Type, color = Type, linetype=Type, fill = Type))+
+  geom_line(size = 0.75)+
+  geom_ribbon(aes(ymin = l95, ymax = h95), alpha = 0.2)+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  theme(text = element_text(size=24))+
+   scale_y_continuous(trans='log10',
+                      labels = trans_format("log10", math_format(10^.x)))+
+  labs(y= "Total CFUs in System", x="Process Stage")+
+  #ggtitle("1) Random Contamination")+
+  facet_wrap(~ ContScen, ncol = 2)
+
+ggsave("contprog.png", width = 40, height = 35, units = "cm", dpi = 600)
+  
+
+```
+
+
+## Contamination at sampling Point
+
+```{r}
+Con_S<-read_csv("ContSamp.csv")
+Con_S_AI<-read_csv("ContSamp_AI.csv")
+
+Con_S$Process<-"No Intervetion"
+Con_S_AI$Process<-"All Interventions"
+
+
+Binded_Con<-bind_rows(Con_S,Con_S_AI)
+
+
+Order_ConS<-unique(Con_S$variable)
+Binded_Con$variable<-factor(Binded_Con$variable, levels=Order_ConS)
+Binded_Con$`Cont Scenario`<-factor(Binded_Con$`Cont Scenario`, levels=c("Random","10% Cluster","1% Cluster"))
+
+
+ggplot(data = Binded_Con, aes(x = variable, y =value, fill = `Cont Scenario`))+
+  geom_boxplot()+
+   scale_y_continuous(trans='log10',
+                      labels = trans_format("log10", math_format(10^.x)))+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  theme(text = element_text(size=24))+
+  labs(x= "Sampling Step", y = "Total CFUs in System")+
+  facet_wrap(~Process)
+
+ggsave("Cont_Sampling.png", width = 40, height = 35, units = "cm", dpi = 600)
+  
+
+```
+
+
+
 
