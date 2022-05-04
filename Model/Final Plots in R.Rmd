@@ -30,7 +30,7 @@ ggplot(data= FSdf, aes(x = fct_reorder(Name, abs(FS)), y = FS, fill = System))+
   ylab("Factor Sensitivity Index")+
   xlab("Scenario/ Intervention")+
   #scale_x_discrete(limits=rev)+
-  ggtitle("Factor Sensitivity Analysis")
+  ggtitle("Factor Sensitivity Analysis (FS)")
 
 
 ```
