@@ -16,7 +16,7 @@ Random_Contam = False
 Sensitivity_Analysis = False
 
 
-N_Iterations= 10000
+N_Iterations= 100
 Field_Weight= 100000 #total lb in field
 slot_weight = 10000 #weight of the sublot in field.
 Partition_Weight = 50 #Partition weight for contamination Events, Partition to have better definition of field. 
@@ -70,10 +70,10 @@ RR_R_Trad= "Lot"
 
 
 #Finished Product Sampling: 
-test_unit_FP = "Lot"
-sample_size_FP = 375 #g #Sample Size in grams
+test_unit_FP = "HourProd"
+sample_size_FP = 200 #g #Sample Size in grams
 n_samples_FP = 1 #number of samples per lot final product
-N_Packages_Samples = 60
+N_Packages_Samples = 4
 RR_FP_Trad = "Lot"
 Limit_FP =0
 if ScenCondz.FPS_Agg ==True:

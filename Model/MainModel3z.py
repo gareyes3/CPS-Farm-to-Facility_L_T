@@ -641,7 +641,7 @@ def F_MainLoop():
             #Listz.List_AVA_CFU.append(LO_Cont_A_VA)
             
             df['Lot'] =1#Updating lot column to represent finished product lots
-            #df["ProdHour"] = 
+            df = Funz.Production_Hours(df = df,FP_Hour = Inputz.FP_Hour)
 
      
             #Environmental Monitoring Program

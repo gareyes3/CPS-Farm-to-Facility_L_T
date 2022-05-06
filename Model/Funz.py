@@ -816,7 +816,7 @@ def F_Partitioning(DF,NPartitions):
         newdf.Weight=newdf.Weight/NPartitions
         newdf.CFU = b_flat
         newdf["Sublot"] = 1
-        newdf = newdf[['PalletNo','PackNo','CFU', 'Weight', 'Sublot','ProLine','Lot']]
+        newdf = newdf[['PalletNo','HourProd','PackNo','CFU', 'Weight', 'Sublot','ProLine','Lot']]
     elif ScenCondz.Field_Pack == True:
         AllParts_Cont = []
         for row in DF.itertuples():
@@ -1243,6 +1243,31 @@ def F_Washing_ProcLines3 (List_GB3, Wash_Rate, Cdf):
             j.at[index,"CFU"] =  CFU_2
     return (List_GB3) 
 
+
+#Adding production hours to final product
+
+def Production_Hours(df,FP_Hour):
+    df.reset_index(drop =True, inplace= True)
+    Part_per_hour = FP_Hour/df["Weight"][0]
+    Total_Part = len(df.index)
+    
+    Hours_Prod = Total_Part/Part_per_hour
+    
+    #If the ones do not add to a whole number. 
+    Splits =math.modf(Hours_Prod)
+    Complete_H= int(Splits[1])
+    Partial = Splits[0]
+    
+    Partial_Parts = Part_per_hour*Partial
+    
+    
+    #Creating the sequence
+    Seq_P1=np.repeat(range(1,Complete_H+1),Part_per_hour)
+    Seq_P2 = np.repeat(Complete_H+1,Partial_Parts)
+    
+    Full_Seq =np.concatenate((Seq_P1,Seq_P2))
+    df["HourProd"] = Full_Seq
+    return df
 
 
 #Final Product Case
