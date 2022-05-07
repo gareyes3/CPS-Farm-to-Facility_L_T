@@ -411,10 +411,10 @@ Melted_Prog_DF_NI_3["Scenario"] = "10% Cluster"
 
 ##Exporting to CSV
 Melted_Prog_DF_NI_1.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Box Sync\\CPS Project- Farm to Facility\\Papers\\CSV Data\\Melted_Prog_DF_NI_1.csv")
+Melted_Prog_DF_NI_2.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Box Sync\\CPS Project- Farm to Facility\\Papers\\CSV Data\\Melted_Prog_DF_NI_2.csv")
+Melted_Prog_DF_NI_3.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Box Sync\\CPS Project- Farm to Facility\\Papers\\CSV Data\\Melted_Prog_DF_NI_3.csv")
 
-
-os.getcwd()
-
+###Plots, Replaced by R plots
 All_Melted = pd.concat([Melted_Prog_DF_NI_1,Melted_Prog_DF_NI_2,Melted_Prog_DF_NI_3])
 
 sns.relplot(
@@ -464,7 +464,7 @@ plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 
 
 # Prevalence Proegression NI: 
-    
+'''    
 Prog_progression=Baseline_NI_2[2]    
 Prog_progression=Prog_progression.iloc[:,0:19]
 Prog_prog=pd.melt(Prog_progression)
@@ -492,7 +492,7 @@ plt.ylabel("Percentage contmainated mass (%)")
 plt.title("Prevalence Progression")
 plt.xticks(rotation=-90)
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
-
+'''
 
 ##Relative difference
 Column_Names_INT = "BaselineNI BaselineAI Holding Precooling Washing PreSpray_Wash Sanitation".split()
@@ -507,12 +507,30 @@ Outputdf_INT_3["Cont_Spread"] = "10% Cluster"
 
 INT_Combined=pd.concat([Outputdf_INT_1,Outputdf_INT_3,Outputdf_INT_2])
 
-(Baseline_AI_1[1]["After CS Samp"].mean() - Baseline_NI_1[1]["After CS Samp"].mean() )/Baseline_NI_1[1]["After CS Samp"].mean()
 
-np.log10(Baseline_AI_1[1]["After CS Samp"].mean() /Baseline_NI_1[1]["After CS Samp"].mean())
-np.log10(Baseline_AI_2[1]["After CS Samp"].mean() /Baseline_NI_2[1]["After CS Samp"].mean())
-np.log10(Baseline_AI_3[1]["After CS Samp"].mean() /Baseline_NI_3[1]["After CS Samp"].mean())
+#Compating two scenarios
+def logredcomp  (df1,dfbaseline):
+    return np.log10(df1[1]["After CS Samp"].mean() /dfbaseline[1]["After CS Samp"].mean())
 
+#spray wash
+logredcomp(Baseline_NI_Sp_Wash_1, Baseline_NI_1)
+logredcomp(Baseline_NI_Sp_Wash_3, Baseline_NI_3)
+logredcomp(Baseline_NI_Sp_Wash_2, Baseline_NI_2)
+
+#wash
+logredcomp(Baseline_NI_Wash_1, Baseline_NI_1)
+logredcomp(Baseline_NI_Wash_3, Baseline_NI_3)
+logredcomp(Baseline_NI_Wash_2, Baseline_NI_2)
+
+#holding
+logredcomp(Baseline_NI_Holding_1, Baseline_NI_1)
+logredcomp(Baseline_NI_Holding_3, Baseline_NI_3)
+logredcomp(Baseline_NI_Holding_2, Baseline_NI_2)
+
+#holding
+logredcomp(Baseline_AI_1, Baseline_NI_1)
+logredcomp(Baseline_AI_3, Baseline_NI_3)
+logredcomp(Baseline_AI_2, Baseline_NI_2)
 
 
 H= sns.catplot(x ="MeanComparison", y = "ScenarioN", col="Cont_Spread",
@@ -521,103 +539,6 @@ H= sns.catplot(x ="MeanComparison", y = "ScenarioN", col="Cont_Spread",
 H.set_axis_labels("Relative Difference", "Sampling Plan Scenario")
 
 
-'''
-#Initial Contamination From BAseline
-
-#Creating Dataframe with the Final Contmainations
-Intervention_Final_Conts = [Baseline_NI_1[1],
-                     Baseline_NI_Holding_1[1],
-                     Baseline_NI_Precooling_1[1],
-                     Baseline_NI_Wash_1[1],
-                     Baseline_NI_Sp_Wash_1[1],
-                     Baseline_NI_PLS_1[1]
-                     ]
-
- ##FINAL CFUs
-#Creating dataframe of final contamination for every intervention. 
-List_of_Final_Conts_Ints = [x["After CS Samp"] for x in Intervention_Final_Conts]
-Column_Names = "BaselineNI Holding Precooling Washing PreSpray_Wash Sanitation".split()
-Final_Conts_INT = pd.concat(List_of_Final_Conts_Ints, axis = 1)
-Final_Conts_INT.columns = Column_Names
-Final_Conts_INT_melted = Final_Conts_INT.melt()
-
-#Plotting the bar graph or boxplot of the differences. 
-H=sns.catplot(x="variable", y="value", kind = "bar" ,
-            data=Final_Conts_INT_melted)
-plt.xlabel("Intervention")
-plt.ylabel("Total CFUs at Finished Product")
-plt.yscale('log')
-plt.title("CFU Final Contamination")
-plt.xticks(rotation=70)
-
-#Getting the Mean and Confidence interval for each
-Mean_andCI= [mean_CI_ONE(x) for x in List_of_Final_Conts_Ints]
-#Making a DataFrame
-
-
-
-
-
-
-#Calculating the reduction of the means for each one of them
-Reduction = Calc_red(meanCI =Mean_andCI,treatments= 6)
-
-reduction_DF = pd.DataFrame({"Treatment": Column_Names,
-                             "Reduction": Reduction} )
-
-reduction_DF=reduction_DF.sort_values('Reduction',ascending=False).reset_index()
-
-#Graph of the difference between the treatments. 
-chart = sns.barplot(data = reduction_DF, x = "Treatment", y = "Reduction", order=reduction_DF['Treatment'])
-chart.bar_label(chart.containers[0])
-plt.title("mean % Reduction obtained by Intervention")
-plt.xlabel("Intervention")
-plt.ylabel("Percent Reduction from Baseline NI")
-
-#GEtting the confidence interval for the final contamination in dataframe form
-Intervention_Comp = pd.DataFrame([mean_CI_ONE(x) for x in List_of_Final_Conts_Ints], columns = ["mean", "95% CI"])
-
-#Proportion of packages contaminated
-Intervention_Props = [Baseline_NI[2],
-                     Baseline_NI_Holding[2],
-                     Baseline_NI_Precooling[2],
-                     Baseline_NI_Wash[2],
-                     Baseline_NI_Sp_Wash[2],
-                     Baseline_NI_PLS[2]
-                     ]
-
-#Creating dataframe of final contamination for every intervention. 
-Intervention_PropCont_List = [x["PropCont_A_FP_Whole"] for x in Intervention_Props]
-
-Prop_Cont_INT = pd.concat(Intervention_PropCont_List, axis = 1)
-Prop_Cont_INT.columns = Column_Names
-Prop_Cont_INT_melted = Prop_Cont_INT.melt()
-
-#Plotting the bar graph or boxplot of the differences. 
-H=sns.catplot(x="variable", y="value", kind = "bar" ,
-            data=Prop_Cont_INT_melted)
-plt.xlabel("Intervention")
-plt.ylabel("Proportion Contaminated at Final Product")
-plt.xticks(rotation=70)
-
-Mean_Props_INT= [mean_CI_ONE(x) for x in Intervention_PropCont_List]
-
-#Histplot
-h=sns.displot( data =Prop_Cont_INT_melted, 
-            x = "value" , 
-            col = "variable", 
-            col_wrap=3,
-             stat = "count",
-             bins = 30,
-            facet_kws=dict(sharey=False,sharex= False))
-plt.suptitle("Proportion of Paclages Contminated",) 
-
-def specs(x, **kwargs):
-    plt.axvline(x.mean(), c='red', ls='-', lw=2.5)
-    plt.axvline(x.median(), c='orange', ls='--', lw=2.5)
-
-h.map(specs,"value" )
-'''
 
 #%% Running the scenarios. 
 
@@ -840,11 +761,14 @@ Sampling_Loc_NI_1 =Sampling_Loc_DF(List_of_Outs_NI_1)
 Sampling_Loc_NI_2 =Sampling_Loc_DF(List_of_Outs_NI_2)
 Sampling_Loc_NI_3 =Sampling_Loc_DF(List_of_Outs_NI_3)
 
-Sampling_Loc_NI_1["Cont Scenario"] = "Uniform"
+Sampling_Loc_NI_1["Cont Scenario"] = "Random"
 Sampling_Loc_NI_2["Cont Scenario"] = "1% Cluster"
 Sampling_Loc_NI_3["Cont Scenario"] = "10% Cluster"
 
 Sampling_Loc_Melt = pd.concat([Sampling_Loc_NI_1,Sampling_Loc_NI_2,Sampling_Loc_NI_3])
+
+#Exporting to CSV
+Sampling_Loc_Melt.to_csv("C:\\Users\\gareyes3\\Box Sync\\CPS Project- Farm to Facility\\Papers\\CSV Data\\ContSamp.csv")
 
 H=sns.catplot(x="variable", y="value", hue = "Cont Scenario", kind = "bar" ,
 data=Sampling_Loc_Melt)
@@ -862,6 +786,8 @@ Outputs_Df_NI_3["ScenarioN"] = Col_Names_NI
 Outputs_Df_NI_1["Cont_Spread"] = "Uniform"
 Outputs_Df_NI_2["Cont_Spread"] = "1% Cluster"
 Outputs_Df_NI_3["Cont_Spread"] = "10% Cluster"
+
+
 
 #Bar Chart for Relative Difference: 
 sns.barplot(x ="MeanComparison" , y = "ScenarioN", data = Outputs_Df_NI_1)
@@ -974,11 +900,14 @@ Sampling_Loc_AI_1 =Sampling_Loc_DF(List_of_Outs_AI_1)
 Sampling_Loc_AI_2 =Sampling_Loc_DF(List_of_Outs_AI_2)
 Sampling_Loc_AI_3 =Sampling_Loc_DF(List_of_Outs_AI_3)
 
-Sampling_Loc_AI_1["Cont Scenario"] = "Uniform"
+Sampling_Loc_AI_1["Cont Scenario"] = "Random"
 Sampling_Loc_AI_2["Cont Scenario"] = "1% Cluster"
 Sampling_Loc_AI_3["Cont Scenario"] = "10% Cluster"
 
-Sampling_Loc_Melt = pd.concat([Sampling_Loc_AI_1,Sampling_Loc_AI_2,Sampling_Loc_AI_3])
+Sampling_Loc_Melt_AI = pd.concat([Sampling_Loc_AI_1,Sampling_Loc_AI_2,Sampling_Loc_AI_3])
+
+#Export CSV
+Sampling_Loc_Melt_AI.to_csv("C:\\Users\\gareyes3\\Box Sync\\CPS Project- Farm to Facility\\Papers\\CSV Data\\ContSamp_AI.csv")
 
 H=sns.catplot(x="variable", y="value", hue = "Cont Scenario", kind = "bar" ,
 data=Sampling_Loc_Melt)

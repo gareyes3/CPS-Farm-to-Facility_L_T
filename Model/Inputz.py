@@ -369,6 +369,9 @@ if SCInputz.Sanitation_YN == False:
 
   
 #%% Final Product
+
+#Lb of product per hour
+FP_Hour = 20_000
 Pack_Weight_FP = 5 #Weight of each pack. 
 N_Lots_FP = 1 #Lost of final product
 #Packaging into Cases
