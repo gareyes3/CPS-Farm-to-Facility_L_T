@@ -708,7 +708,7 @@ Outputs_Df_NI_3=F_Outputs_Table(List_of_Outs_NI_3)
 #Sampling Results:
 
 def sampling_power(df,Step_Acc):
-    return len(df[0][df[0][Step_Acc] ==0])/SCInputz.N_Iterations
+    return len(df[0][df[0][Step_Acc] ==0])/10000
 
 Step_Acc_List = "PH_Wei_Acc PH_Wei_Acc PH_Wei_Acc PH_Wei_Acc H_Wei_Acc R_Wei_Acc FP_Wei_Acc C_Wei_Acc".split()
 
@@ -856,7 +856,7 @@ Outputs_Df_AI_3=F_Outputs_Table(List_of_Outs_AI_3)
 #Sampling Results:
 
 def sampling_power(df,Step_Acc):
-    return len(df[0][df[0][Step_Acc] ==0])/SCInputz.N_Iterations
+    return len(df[0][df[0][Step_Acc] ==0])/10000
 
 Step_Acc_List = "PH_Wei_Acc PH_Wei_Acc PH_Wei_Acc PH_Wei_Acc H_Wei_Acc R_Wei_Acc FP_Wei_Acc C_Wei_Acc".split()
 

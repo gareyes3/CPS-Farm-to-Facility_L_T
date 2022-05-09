@@ -3,6 +3,8 @@ title: "R Plots"
 author: "Gustavo Reyes"
 date: '2022-05-03'
 output: html_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r}
@@ -124,7 +126,8 @@ ggplot(data = Binded_Con, aes(x = variable, y =value, fill = `Cont Scenario`))+
   facet_wrap(~Process)
 
 ggsave("Cont_Sampling.png", width = 40, height = 35, units = "cm", dpi = 600)
-  
+
+options("device")
 
 ```
 
