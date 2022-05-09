@@ -32,7 +32,7 @@ FSdf$System<-c(rep("No Intervention", 14),rep("All Interventions", 8))
 ggplot(data= FSdf, aes(x = fct_reorder(Name, abs(FS)), y = FS, fill = System))+
   geom_col()+
   coord_flip()+
-  geom_hline(yintercept = -3.4214121199,linetype="dotted")+
+  geom_hline(yintercept = -3.4892,linetype="dotted")+
     geom_hline(yintercept = 0,linetype="dashed")+
   ylab("Factor Sensitivity Index")+
   xlab("Scenario/ Intervention")+
@@ -115,6 +115,10 @@ Order_ConS<-unique(Con_S$variable)
 Binded_Con$variable<-factor(Binded_Con$variable, levels=Order_ConS)
 Binded_Con$`Cont Scenario`<-factor(Binded_Con$`Cont Scenario`, levels=c("Random","10% Cluster","1% Cluster"))
 
+Binded_Con %>% 
+  group_by(variable,`Cont Scenario` ) %>% 
+  summarise(quantile = quantile(value, 0.05))
+
 
 ggplot(data = Binded_Con, aes(x = variable, y =value, fill = `Cont Scenario`))+
   geom_boxplot()+
@@ -128,6 +132,10 @@ ggplot(data = Binded_Con, aes(x = variable, y =value, fill = `Cont Scenario`))+
 ggsave("Cont_Sampling.png", width = 40, height = 35, units = "cm", dpi = 600)
 
 options("device")
+
+log10( 4447 /13749302 )
+
+(1-(4447 /13749302))*100
 
 ```
 
