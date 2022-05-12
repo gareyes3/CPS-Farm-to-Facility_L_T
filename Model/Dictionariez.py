@@ -230,6 +230,8 @@ Sensitivity_Analysis_Dic = [
                             #"OptimizeWashingYN",
                             #"SanitationYN", #New Added saniation after optimied wash
                             "ChSpray_eff", #new
+                            "TotalRedPre_wash",
+                            "TotalRed_wash",
                             "Tr_Sh_P",
                             "Tr_P_Sh",
                             "Sh_Compliance",
@@ -275,7 +277,7 @@ Sensitivity_Analysis_Dic = [
     ]
     
 
-def Func_LoadInputs (OutputDF,i,df, TotalDieoff):
+def Func_LoadInputs (OutputDF,i,df, TotalDieoff,TotalRed_PreWash,TotalRed_Wash ):
     #Setup Factors
     #Initial Contamination Factors
     OutputDF.at[i, "InitialCont"] =  Inputz.Hazard_Lvl #InitialContmination
@@ -311,6 +313,9 @@ def Func_LoadInputs (OutputDF,i,df, TotalDieoff):
     
     
     OutputDF.loc[i, "ChSpray_eff"] =  Inputz.Harvest_Cspray_red #Washing Yes or Not
+    OutputDF.loc[i, "TotalRedPre_wash"] =  TotalRed_PreWash #Washing Yes or Not
+    OutputDF.loc[i, "TotalRed_wash"] =  TotalRed_Wash #Washing Yes or Not
+    
     
     OutputDF.at[i, "Tr_Sh_P"] =  Inputz.Tr_Sh_P
     OutputDF.at[i, "Tr_P_Sh"] =  Inputz.Tr_P_Sh

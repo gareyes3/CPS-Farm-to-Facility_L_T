@@ -475,6 +475,9 @@ def F_MainLoop():
             #2 Shredder --------------------------------------------------------
             df_gb2_bs = (pd.concat(gb2))
             
+            #Prewashreduction
+            TotalRed_PreWash = -(np.log10(df_gb2_bsw["CFU"].sum()/df_gb2_bs["CFU"].sum()))
+            
             #Collecting outputs cont progression 
             df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df_gb2_bs,
                    outputDF = df_Output_Contprog,
@@ -559,6 +562,9 @@ def F_MainLoop():
             #5Shaker Table ----------------------------------------------------
             df_gb2_bst = (pd.concat(gb2))
             
+            #Total Reduction Wash
+            TotalRed_Wash = np.log10(df_gb2_bw["CFU"].sum()/df_gb2_bst["CFU"].sum())
+            
             #Spliting it back into 5 lb chunks. 
             gb2 = Funz.F_ProLineSplitting(df =df_gb2_bst, Processing_Lines = Inputz.Processing_Lines)
 
@@ -590,6 +596,8 @@ def F_MainLoop():
             StCont = StOuts[1]
             
             #6 Centrifuge-----------------------------------------------------
+            
+
             
             df_gb2_bcf = (pd.concat(gb2))
             
@@ -941,7 +949,7 @@ def F_MainLoop():
         
         if SCInputz.Sensitivity_Analysis==True:
             #Adding Sens outputs
-            df_Sensitivity= Dictionariez.Func_LoadInputs(df_Sensitivity,Iteration_In,df,LV_Die_off_Total)
+            df_Sensitivity= Dictionariez.Func_LoadInputs(df_Sensitivity,Iteration_In,df,LV_Die_off_Total,TotalRed_PreWash,TotalRed_Wash)
         
             
     #STEP 7: Outputs 

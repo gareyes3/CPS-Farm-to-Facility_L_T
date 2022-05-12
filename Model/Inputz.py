@@ -379,16 +379,16 @@ Case_Weight = 20 #lb #Only if not field packed
 
 
 #%% Post Processing Storage
-Time_PostPStorage = 24 #hr
+Time_PostPStorage = np.random.uniform(0,1) #hr #no post processing storage https://ohioline.osu.edu/factsheet/aex-261
 Temperature_ColdStorage = np.random.uniform(4,6) #C 
 
 #%%Transportartion post processing
-Trasnportation_Time = 63.57 #h from Ryser et al
+Trasnportation_Time = np.random.uniform(31.17,83.92) #h from Ryser et al brown all ranges. 
 Transportation_Temp = np.random.triangular(0,4,6) #C
 
 #%%Customer Storage
-Time_PostPCS = 24 #hr
-Temperature_PostPCS = 4 #C 
+Time_PostPCS = np.random.uniform(24,72) #Zheng et al temperature   #hr
+Temperature_PostPCS = np.random.triangular(0,8,14) #C #WZheng et al temperature , also from  mandamba model
 
 
 
