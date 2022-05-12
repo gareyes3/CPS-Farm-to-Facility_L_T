@@ -12,8 +12,8 @@ library(tidyverse)
 library(ggplot2)
 library(scales)
 
-#setwd("C:/Users/Gustavo Reyes/Box/CPS Project- Farm to Facility/Papers/CSV Data")
-setwd("C:/Users/gareyes3/Box Sync/CPS Project- Farm to Facility/Papers/CSV Data")
+setwd("C:/Users/Gustavo Reyes/Box/CPS Project- Farm to Facility/Papers/CSV Data")
+#setwd("C:/Users/gareyes3/Box Sync/CPS Project- Farm to Facility/Papers/CSV Data")
 ```
 
 
@@ -22,22 +22,81 @@ setwd("C:/Users/gareyes3/Box Sync/CPS Project- Farm to Facility/Papers/CSV Data"
 
 ```{r}
 FSdf<-read_csv("FSdf.csv")
+
+log10(4388/13740302)
+
+FSdf$FS<-c(0,-1.2769679063, -1.7998346791, -0.8368652945, -0.0747038970, -1.2406815098, 0.0373676179, -0.0048823063, -0.1545419933, -0.5291657397, -0.0500426243, -0.1400479579, -0.1535739862, -0.0009942127,-3.492672, -3.516924,-3.497117, -3.597166, -3.495334, -3.500707, -3.499108, -3.49573)
 ```
 
 ```{r}
-order_x = c("Baseline-NI","Baseline-NI-Washing","Baseline-NI-Washing 10 ppm","Baseline-NI Holding","Baseline-NI Pre-cooling", "Baseline-NI PreWash","Baseline-NI Sanitation", "Baseline-NI PHS4d","Baseline-NI PHS4h","Baseline-NI Int","Baseline-NI HS", "Baseline-NI RS", "Baseline-NI FPS", "Baseline-NI CS", "Baseline-AI","Baseline-AI PHS4d","Baseline-AI PHS4h", "Baseline-AI PHSInt", "Baseline-AI HS", "Baseline-AI RS", "Baseline-AI FPS", "Baseline-AI CS")
+order_x = c("Baseline-NI",
+            "Baseline-NI-Washing",
+            "Baseline-NI-Washing 10 ppm",
+            "Baseline-NI Holding",
+            "Baseline-NI Pre-cooling", 
+            "Baseline-NI PreWash",
+            "Baseline-NI Sanitation", 
+            "Baseline-NI PHS4d",
+            "Baseline-NI PHS4h",
+            "Baseline-NI Int",
+            "Baseline-NI HS", 
+            "Baseline-NI RS",
+            "Baseline-NI FPS", 
+            "Baseline-NI CS", 
+            "Baseline-AI",
+            "Baseline-AI PHS4d",
+            "Baseline-AI PHS4h", 
+            "Baseline-AI PHSInt", 
+            "Baseline-AI HS",
+            "Baseline-AI RS", 
+            "Baseline-AI FPS", 
+            "Baseline-AI CS")
+
+labels_x = c("Baseline-NI" = "Baseline",
+            "Baseline-NI-Washing" = "Washing",
+            "Baseline-NI-Washing 10 ppm" = "Washing 10 ppm",
+            "Baseline-NI Holding" ="Holding",
+            "Baseline-NI Pre-cooling" = "Pre-Cooling", 
+            "Baseline-NI PreWash" = "Pre-Wash",
+            "Baseline-NI Sanitation" = "Sanitation", 
+            "Baseline-NI PHS4d" = "PHS 4d",
+            "Baseline-NI PHS4h"="PHS 4h",
+            "Baseline-NI Int" = "PHS Int",
+            "Baseline-NI HS" = "HS", 
+            "Baseline-NI RS" = "RS",
+            "Baseline-NI FPS" = "FPS", 
+            "Baseline-NI CS" = "CS", 
+            "Baseline-AI"= "All Interventions",
+            "Baseline-AI PHS4d" = "PHS 4d",
+            "Baseline-AI PHS4h"="PHS 4h", 
+            "Baseline-AI PHSInt" = "PHS Int", 
+            "Baseline-AI HS"= "HS",
+            "Baseline-AI RS" = "RS", 
+            "Baseline-AI FPS" = "FPS", 
+            "Baseline-AI CS" = "CS")
+
+
 
 FSdf$System<-c(rep("No Intervention", 14),rep("All Interventions", 8))
 
-ggplot(data= FSdf, aes(x = fct_reorder(Name, abs(FS)), y = FS, fill = System))+
+pfs = ggplot(data= FSdf, aes(x = fct_reorder(Name, abs(FS)), y = FS, fill = System))+
   geom_col()+
-  coord_flip()+
-  geom_hline(yintercept = -3.4892,linetype="dotted")+
-    geom_hline(yintercept = 0,linetype="dashed")+
+  coord_flip()
+
+
+  pfs+
+  theme(text = element_text(size=24))+
+  geom_hline(yintercept = -3.492672,linetype="dotted", size = 2)+
+    geom_hline(yintercept = 0,linetype="dashed",size = 2)+
   ylab("Factor Sensitivity Index")+
   xlab("Scenario/ Intervention")+
+  scale_x_discrete(labels = labels_x)+
+  theme(text = element_text(size=26), axis.text = element_text(size = 26))+
+  theme(legend.text=element_text(size=20),legend.title=element_text(size=20))+
   #scale_x_discrete(limits=rev)+
   ggtitle("Factor Sensitivity Analysis (FS)")
+
+  ggsave("FS.png", width = 40, height = 30, units = "cm", dpi = 600)
 
 
 ```
@@ -95,6 +154,10 @@ ggplot(data= Binded_all, aes(x= variable,y = mean, group= Type, color = Type, li
 ggsave("contprog.png", width = 40, height = 35, units = "cm", dpi = 600)
   
 
+
+
+#Making Individual One. 
+
 ```
 
 
@@ -140,5 +203,77 @@ log10( 4447 /13749302 )
 ```
 
 
+## Poster Plot Scenario Comparison
+
+```{r}
+order_x2 = c('BaselineNI',
+ 'PHS4D_NI',
+ 'PHS4H_NI',
+ 'PHSInt_NI',
+ 'HTrad_NI',
+ 'RSTrad_NI',
+ 'FPSTrad_NI',
+ 'CS_NI',
+ 'BaselineAI',
+ 'PHS4D_AI',
+ 'PHS4H_AI',
+ 'PHSInt_AI',
+ 'HTrad_AI',
+ 'RSTrad_AI',
+ 'FPSTrad_AI',
+ 'CS_AI')
+
+labels_2 = c('BaselineNI' = "Baseline",
+ 'PHS4D_NI'= "PHS 4d",
+ 'PHS4H_NI'= "PHS 4h",
+ 'PHSInt_NI'= "PHS Int",
+ 'HTrad_NI'= "HS",
+ 'RSTrad_NI'= "RS",
+ 'FPSTrad_NI'= "FPS",
+ 'CS_NI'= "CS",
+ 'BaselineAI'= "Baseline",
+ 'PHS4D_AI'= "PHS 4d",
+ 'PHS4H_AI'= "PHS 4h",
+ 'PHSInt_AI'= "PHS Int",
+ 'HTrad_AI'= "HS",
+ 'RSTrad_AI'= "RS",
+ 'FPSTrad_AI'= "FPS",
+ 'CS_AI'= "CS")
+
+
+
+
+Final_Exps<-read_csv("final_exp.csv")
+empty<-c()
+list_loop<-c(1,9,17,25,33,41)
+for (i in list_loop ){
+  list_2<-Final_Exps$Expossure[i:(i+7)]/Final_Exps$Expossure[i]
+  empty<-c(empty,list_2 )
+}
+
+Final_Exps$`Relative Difference`<-empty
+
+Final_Exps[48,6] = 0.999999
+Final_Exps[32,6] = 0.999999
+
+Final_Exps$`Sampling Plan`<-factor(Final_Exps$`Sampling Plan`, levels = order_x2)
+Final_Exps$`Cont Scenario`<-factor(Final_Exps$`Cont Scenario`, levels = c("Random Contamination", "10% Cluster Contamination",  "1% Cluster Contamination"))
+
+ggplot(data= Final_Exps, aes(x =fct_reorder(`Sampling Plan`, `Relative Difference`) , y = `Relative Difference`, fill =`Cont Scenario` ))+
+  geom_col(position = "dodge")+
+  coord_flip()+
+  theme(text = element_text(size=26), axis.text = element_text(size = 24))+
+  theme(legend.text=element_text(size=16),legend.title=element_text(size=20))+
+  geom_hline(yintercept = 1,linetype="dashed",size = 2)+
+  labs(x= "Sampling Plan", y= "Relative Difference: Total Consumer Exposure")+
+  facet_wrap(.~ `Baseline System`, scales = "free")+
+  theme(legend.position = 'top', 
+        legend.spacing.x = unit(1.0, 'cm'))+
+  scale_x_discrete(labels = labels_2)+
+  scale_y_continuous(labels = scales::percent)
+  #geom_hline(yintercept = 13740302,linetype="dotted")+
+  #geom_hline(yintercept = 4532,linetype="dashed")
+  ggsave("EXposure.png", width = 40, height = 28, units = "cm", dpi = 600)
+```
 
 
