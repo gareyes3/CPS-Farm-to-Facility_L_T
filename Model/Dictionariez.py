@@ -209,7 +209,7 @@ NoGrabs_List = [1,60,120,240,300,600,1200]
 
 Sensitivity_Analysis_Dic = [
                             #Field Setup Factors
-                            "InitialCont" ,
+                            #"InitialCont" ,
                             "ClusterSize",
                             "Time_CE_H",
                             #"Total_CE_H_Dieoff",
@@ -219,7 +219,7 @@ Sensitivity_Analysis_Dic = [
                             "Temp_H_PC",
                             "Time_Precooling",
                             "Temp_Precooling",
-                            "Pre_cooling",
+                            #"Pre_cooling",
                             #Receiving
                             "Time_Storage_R",
                             "Temp_Storage_R",
@@ -280,7 +280,7 @@ Sensitivity_Analysis_Dic = [
 def Func_LoadInputs (OutputDF,i,df, TotalDieoff,TotalRed_PreWash,TotalRed_Wash ):
     #Setup Factors
     #Initial Contamination Factors
-    OutputDF.at[i, "InitialCont"] =  Inputz.Hazard_Lvl #InitialContmination
+    #OutputDF.at[i, "InitialCont"] =  Inputz.Hazard_Lvl #InitialContmination
     OutputDF.at[i, "ClusterSize"] =   Inputz.Cluster_Size #InitialContmination
     OutputDF.at[i, "Time_CE_H"] =  Inputz.Time_CE_H #Time between contamination event and harvest
     #OutputDF.at[i, "Total_CE_H_Dieoff"] = TotalDieoff  #TotalDieoff between contamination event and harvest. 
@@ -300,7 +300,7 @@ def Func_LoadInputs (OutputDF,i,df, TotalDieoff,TotalRed_PreWash,TotalRed_Wash )
     OutputDF.at[i, "Temp_H_PC"] =  Inputz.Temperature_H_PreCooling #Time beetween harvest and pre-cooling
     OutputDF.at[i, "Time_Precooling"] =  Inputz.Time_PreCooling #Pre-cooling process length time
     OutputDF.at[i, "Temp_Precooling"] =  Inputz.Temperature_PreCooling #Pre-cooling process temperature
-    OutputDF.loc[i, "Pre_cooling"] =  SCInputz.Pre_CoolingYN #Number of Grabs at PreHarvest.
+    #OutputDF.loc[i, "Pre_cooling"] =  SCInputz.Pre_CoolingYN #Number of Grabs at PreHarvest.
     #Receiving
     OutputDF.at[i, "Time_Storage_R"] =  Inputz.Time_Storage_R #Time storage at receiving
     OutputDF.at[i, "Temp_Storage_R"] =  Inputz.Temperature_Storage_R #temperature of receiving storage.

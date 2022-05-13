@@ -476,7 +476,7 @@ def F_MainLoop():
             df_gb2_bs = (pd.concat(gb2))
             
             #Prewashreduction
-            TotalRed_PreWash = -(np.log10(df_gb2_bsw["CFU"].sum()/df_gb2_bs["CFU"].sum()))
+            TotalRed_PreWash =df_gb2_bs["CFU"].sum()-df_gb2_bsw["CFU"].sum() #-(np.log10(df_gb2_bsw["CFU"].sum()/df_gb2_bs["CFU"].sum()))
             
             #Collecting outputs cont progression 
             df_Output_Contprog =  Dictionariez.Output_Collection_Prog(df = df_gb2_bs,
@@ -563,7 +563,7 @@ def F_MainLoop():
             df_gb2_bst = (pd.concat(gb2))
             
             #Total Reduction Wash
-            TotalRed_Wash = np.log10(df_gb2_bw["CFU"].sum()/df_gb2_bst["CFU"].sum())
+            TotalRed_Wash = df_gb2_bst["CFU"].sum()-df_gb2_bw["CFU"].sum()#np.log10(df_gb2_bw["CFU"].sum()/df_gb2_bst["CFU"].sum())
             
             #Spliting it back into 5 lb chunks. 
             gb2 = Funz.F_ProLineSplitting(df =df_gb2_bst, Processing_Lines = Inputz.Processing_Lines)
