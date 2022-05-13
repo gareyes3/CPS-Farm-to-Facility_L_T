@@ -170,6 +170,16 @@ Con_S_AI<-read_csv("ContSamp_AI.csv")
 Con_S$Process<-"No Intervetion"
 Con_S_AI$Process<-"All Interventions"
 
+####
+Con_S %>% 
+  group_by(variable) %>% 
+  summarise(mean(value), quantile(value, 0.05), quantile(value, 0.95))
+  
+
+
+Con_S_AI %>% 
+  group_by(variable) %>% 
+  summarise(mean(value), quantile(value, 0.05), quantile(value, 0.95))
 
 Binded_Con<-bind_rows(Con_S,Con_S_AI)
 

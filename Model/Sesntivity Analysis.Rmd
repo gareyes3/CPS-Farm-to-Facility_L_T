@@ -12,11 +12,12 @@ library(tidyverse)
 
 ```{r}
 Data<-read_csv("SensitivityDF2.csv")
-Data_x<-Data[-c(1,39,40)]
+Data_x<-Data[-c(1,49,50)]
+
 ```
 
 ```{r}
-PCC1<-pcc(X = Data_x, y=Data$TotalCFUFP, rank =TRUE, conf = 0.8, nboot = 200)
+PCC1<-pcc(X = Data_x, y=Data$TotalCFUFP, rank =TRUE, conf = 0.8, nboot = 1000)
 plot(PCC1)
 ```
 
@@ -26,8 +27,11 @@ names(PCC1$PRCC)=c("original", "bias" ,"std.error", "minci","maxci")
 
 #Ggplot, here is similar to a tornado plot. Also there are error bars on the 95th percentile
 Sens_DF<-PCC1$PRCC 
-Sens_DF$Cateogry
 
+
+```
+
+```{r}
 Cateogries<-c(
   #"Contamination Scen",# "InitialCont" ,
   "Contamination Scen",#"ClusterSize",
@@ -39,18 +43,18 @@ Cateogries<-c(
   "Temperature",#"Temp_H_PC",
   "Time",#"Time Precooling",
   "Time",#"Temp Precooling",
-  #"Intervention",#"Pre_cooling",
+  "Intervention", #"Pre_cooling",
   #Receiving
   "Time",#"Time_Storage_R",
   "Temperature",#"Temp_Storage_R",
   #Processing Factor
-  #"Reduction",#"PreWashRed",
-  #"Reduction",#"PreWashYN",
-  #"Reduction",#"WashingYN",
-  #"Reduction", #OptimizedYN
+  "Reduction",#"PreWashRed",
+  "Reduction",#"PreWashYN",
+  "Reduction",#"WashingYN",
+  "Reduction", #OptimizedYN
   "Reduction", #"ChSpray_eff"
-  "Reduction", #PRewash
-  "Reduction", #Wash red
+  #"Reduction", #PRewash
+  #"Reduction", #Wash red
   
   "Processing",#"Tr_Sh_P",
   "Processing",#"Tr_P_Sh",
@@ -77,15 +81,15 @@ Cateogries<-c(
   "Time",
   "Temperature",
   "Time",
-  "Temperature" 
+  "Temperature", 
 
-  #"Sampling",
-  #"Sampling",
-  #"Sampling",
-  #"Sampling",
-  #"Sampling",
-  #"Sampling",
-  #"Sampling"
+  "Sampling", #PHS4d
+  "Sampling", #PHS4h
+  "Sampling", #PH Int
+  "Sampling", #HS
+  "Sampling", #HS
+  "Sampling", #FPS
+  "Sampling"  #CS
 
 )
 
@@ -101,18 +105,18 @@ Column_Names<-c(
   "Temperature H-Pre-cooling",#"Temp_H_PC",
   "Length Pre-cooling",#"Time Precooling",
   "Teperature Pre-cooling",#"Temp Precooling",
-  #"Pre-cooling ON",#"Pre_cooling",
+  "Pre-cooling ON",#"Pre_cooling",
   #Receiving
   "Time Storage- Receiving",#"Time_Storage_R",
   "Storage Temperature Receiving",#"Temp_Storage_R",
   #Processing Factor
-  #"Pre-Wash Reduction",#"PreWashRed",
-  #"Pre-Wash ON",#"PreWashYN",
-  #"Chlorinated Wash ON",#"WashingYN",
-  #"Optimized Washing ON",
+  "Pre-Wash Reduction",#"PreWashRed",
+  "Pre-Wash ON",#"PreWashYN",
+  "Chlorinated Wash ON",#"WashingYN",
+  "Optimized Washing ON",
   "Pre-Wash Efficacy", #"ChSpray_eff"
-  "Prewash Total Reduction",
-  "Wash Total Reduction",
+  #"Prewash Total Reduction",
+  #"Wash Total Reduction",
   "Tr_Sh_P",
   "Tr_P_Sh",
   "Sh_Compliance",
@@ -128,7 +132,7 @@ Column_Names<-c(
   "St_Compliance",
   "St_San_freq",
   "St_San_Eff",
- "Tr_C_P",
+  "Tr_C_P",
   "Tr_P_C",
   "C_Compliance",
   "C_San_freq",
@@ -138,14 +142,14 @@ Column_Names<-c(
   "Time Transportation to C",
   "Temperature Transportation to C",
   "Time Consumer Storage",
-  "Temperature Consumer Storage"
- #"PHS 4 days ON",
- #"PHS 4 Hours ON",
- #"PHS 4 Intense ON",
- #"Harvest S ON",
- #"Receiving S ON",
- #"Finished Product S ON",
- #"Consumer S ON"
+  "Temperature Consumer Storage",
+  "PHS 4 days ON",
+  "PHS 4 Hours ON",
+  "PHS 4 Intense ON",
+  "Harvest S ON",
+  "Receiving S ON",
+  "Finished Product S ON",
+  "Consumer S ON"
 
 
 )
@@ -161,7 +165,7 @@ Sens_DF_T25<-Sens_DF %>%
 
 
 ```{r}
-ggplot(data = Sens_DF, aes(x=fct_reorder(rownames(Sens_DF), abs(original)),y=original))+
+ggplot(data = Sens_DF, aes(x=fct_reorder(rownames(Sens_DF), abs(original)),y=original, fill = Cateogry))+
   geom_bar(stat = "identity", position = "identity")+
   geom_errorbar(aes(ymin=minci, ymax=maxci), width=.1,col="blue")+
   ylab("Partial Correlation Coefficient")+
@@ -170,5 +174,7 @@ ggplot(data = Sens_DF, aes(x=fct_reorder(rownames(Sens_DF), abs(original)),y=ori
   coord_flip()+
   theme(plot.title = element_text(hjust = 0.5))+
   theme(text = element_text(size=13))
+
+ggsave("SensitivityPlot", height = 40, width =30, dpi = 600)
 ```
 

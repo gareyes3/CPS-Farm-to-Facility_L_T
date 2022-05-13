@@ -219,19 +219,19 @@ Sensitivity_Analysis_Dic = [
                             "Temp_H_PC",
                             "Time_Precooling",
                             "Temp_Precooling",
-                            #"Pre_cooling",
+                            "Pre_cooling",
                             #Receiving
                             "Time_Storage_R",
                             "Temp_Storage_R",
                             #Processing Factor
-                            #"PreWashRed",
-                            #"PreWashYN",
-                            #"WashingYN",
+                            "PreWashRed",
+                            "PreWashYN",
+                            "WashingYN",
                             #"OptimizeWashingYN",
-                            #"SanitationYN", #New Added saniation after optimied wash
+                            "SanitationYN", #New Added saniation after optimied wash
                             "ChSpray_eff", #new
-                            "TotalRedPre_wash",
-                            "TotalRed_wash",
+                            #"TotalRedPre_wash",
+                            #"TotalRed_wash",
                             "Tr_Sh_P",
                             "Tr_P_Sh",
                             "Sh_Compliance",
@@ -261,13 +261,13 @@ Sensitivity_Analysis_Dic = [
                             "Temp_Cust_Sto",
                             
                             #Sampling
-                            #"PHS4d",
-                            #"PHS4h",
-                            #"PHSInt",
-                            #"HS",
-                            #"RS",
-                            #"FPS",
-                            #"CS",
+                            "PHS4d",
+                            "PHS4h",
+                            "PHSInt",
+                            "HS",
+                            "RS",
+                            "FPS",
+                            "CS",
                             
                             
                             "TotalCFUFP",
@@ -300,21 +300,21 @@ def Func_LoadInputs (OutputDF,i,df, TotalDieoff,TotalRed_PreWash,TotalRed_Wash )
     OutputDF.at[i, "Temp_H_PC"] =  Inputz.Temperature_H_PreCooling #Time beetween harvest and pre-cooling
     OutputDF.at[i, "Time_Precooling"] =  Inputz.Time_PreCooling #Pre-cooling process length time
     OutputDF.at[i, "Temp_Precooling"] =  Inputz.Temperature_PreCooling #Pre-cooling process temperature
-    #OutputDF.loc[i, "Pre_cooling"] =  SCInputz.Pre_CoolingYN #Number of Grabs at PreHarvest.
+    OutputDF.loc[i, "Pre_cooling"] =  SCInputz.Pre_CoolingYN #Number of Grabs at PreHarvest.
     #Receiving
     OutputDF.at[i, "Time_Storage_R"] =  Inputz.Time_Storage_R #Time storage at receiving
     OutputDF.at[i, "Temp_Storage_R"] =  Inputz.Temperature_Storage_R #temperature of receiving storage.
     #Procesing Factord
-    #OutputDF.at[i, "PreWashRed"] =  Inputz.Harvest_Cspray_red #Reduction pre-wash
-    #OutputDF.loc[i, "WashingYN"] =  SCInputz.Washing_YN #Washing Yes or NotSCInputz.Spray_WashYN
-    #OutputDF.loc[i, "PreWashYN"] =  SCInputz.Spray_WashYN #Washing Yes or Not
+    OutputDF.at[i, "PreWashRed"] =  Inputz.Harvest_Cspray_red #Reduction pre-wash
+    OutputDF.loc[i, "WashingYN"] =  SCInputz.Washing_YN #Washing Yes or NotSCInputz.Spray_WashYN
+    OutputDF.loc[i, "PreWashYN"] =  SCInputz.Spray_WashYN #Washing Yes or Not
     #OutputDF.loc[i, "OptimizeWashingYN"] =  SCInputz.Washing_Optimized #Washing Yes or Not
-    #OutputDF.loc[i, "SanitationYN"] =  SCInputz.Sanitation_YN #Washing Yes or Not
+    OutputDF.loc[i, "SanitationYN"] =  SCInputz.Sanitation_YN #Washing Yes or Not
     
     
     OutputDF.loc[i, "ChSpray_eff"] =  Inputz.Harvest_Cspray_red #Washing Yes or Not
-    OutputDF.loc[i, "TotalRedPre_wash"] =  TotalRed_PreWash #Washing Yes or Not
-    OutputDF.loc[i, "TotalRed_wash"] =  TotalRed_Wash #Washing Yes or Not
+    #OutputDF.loc[i, "TotalRedPre_wash"] =  TotalRed_PreWash #Washing Yes or Not
+    #OutputDF.loc[i, "TotalRed_wash"] =  TotalRed_Wash #Washing Yes or Not
     
     
     OutputDF.at[i, "Tr_Sh_P"] =  Inputz.Tr_Sh_P
@@ -350,13 +350,13 @@ def Func_LoadInputs (OutputDF,i,df, TotalDieoff,TotalRed_PreWash,TotalRed_Wash )
     OutputDF.at[i, "Temp_Cust_Sto"] =  Inputz.Temperature_PostPCS
     
     #sampling
-    #OutputDF.loc[i, "PHS4d"] =  ScenCondz.PHS_4d,
-    #OutputDF.loc[i, "PHS4h"] =  ScenCondz.PHS_4h,
-    #OutputDF.loc[i, "PHSInt"] =  ScenCondz.PHS_Int,
-    #OutputDF.loc[i, "HS"] =  ScenCondz.HS_Trad,
-    #OutputDF.loc[i, "RS"] =  ScenCondz.R_Sampling,
-    #OutputDF.loc[i, "FPS"] =  ScenCondz.FPS_Trad,
-    #OutputDF.loc[i, "CS"] =   ScenCondz.C_Sampling,
+    OutputDF.loc[i, "PHS4d"] =  ScenCondz.PHS_4d
+    OutputDF.loc[i, "PHS4h"] =  ScenCondz.PHS_4h
+    OutputDF.loc[i, "PHSInt"] =  ScenCondz.PHS_Int
+    OutputDF.loc[i, "HS"] =  ScenCondz.HS_Trad
+    OutputDF.loc[i, "RS"] =  ScenCondz.R_Sampling
+    OutputDF.loc[i, "FPS"] =  ScenCondz.FPS_Trad
+    OutputDF.loc[i, "CS"] =   ScenCondz.C_Sampling
     
     #Output
     OutputDF.loc[i, "TotalCFUFP"] =  df["CFU"].sum()

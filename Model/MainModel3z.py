@@ -70,7 +70,7 @@ def F_MainLoop():
 
             reload(ScenCondz)
             #Sampling Contamination
-            '''
+
             Sampling_Type_SA = np.random.choice(["PH", "H", "R", "FP", "CS"])
             if Sampling_Type_SA == "PH":
                 ScenCondz.PH_Sampling = True
@@ -91,17 +91,17 @@ def F_MainLoop():
                 ScenCondz.FPS_Trad= True 
             if Sampling_Type_SA == "CS":
                 ScenCondz.C_Sampling  = True
-            '''    
+   
             
             ScenCondz.Contamination_Scenario = np.random.choice([1,2,3])
             #Receiving Factors
-            SCInputz.Pre_CoolingYN = True#np.random.choice([True,False])
+            SCInputz.Pre_CoolingYN = np.random.choice([True,False])
             #Processing Factors
-            SCInputz.Sanitation_YN = True#np.random.choice([True,False])
+            SCInputz.Sanitation_YN = np.random.choice([True,False])
             #7 Washing Random Choice
-            SCInputz.Washing_YN = True#np.random.choice([True,False])
+            SCInputz.Washing_YN = np.random.choice([True,False])
                        
-            SCInputz.Spray_WashYN = True#np.random.choice([True,False])
+            SCInputz.Spray_WashYN = np.random.choice([True,False])
         
         
         
