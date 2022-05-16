@@ -168,12 +168,12 @@ Baseline_washing = scenario_function(Cont_Scen_no=1,Washing = True)
 Baseline_washing_opt = scenario_function(Cont_Scen_no=1,Washing = True,Always_Washing_Optimized= True)
 Baseline_holding = scenario_function(Cont_Scen_no=1,Holding= True)
 Baseline_Pre_Cooling = scenario_function(Cont_Scen_no=1,Pre_Cooling= True)
-Baseline_PreS_Wash = scenario_function(Cont_Scen_no=1, PreS_Wash = True)
-Baseline_Sanitation = scenario_function(Cont_Scen_no=1, Sanitation = True)
-Baseline_PHS4d = scenario_function(Cont_Scen_no=1, PHS4d = True)
-Baseline_PHS4h = scenario_function(Cont_Scen_no=1, PHS4h = True)
-Baseline_PHS4Int = scenario_function(Cont_Scen_no=1, PHSInt = True)
-Baseline_HS = scenario_function(Cont_Scen_no=1, HSTrad = True)
+Baseline_PreS_Wash = scenario_function(Cont_Scen_no=1, PreS_Wash = True) #
+Baseline_Sanitation = scenario_function(Cont_Scen_no=1, Sanitation = True) #
+Baseline_PHS4d = scenario_function(Cont_Scen_no=1, PHS4d = True) #
+Baseline_PHS4h = scenario_function(Cont_Scen_no=1, PHS4h = True) #
+Baseline_PHS4Int = scenario_function(Cont_Scen_no=1, PHSInt = True)#
+Baseline_HS = scenario_function(Cont_Scen_no=1, HSTrad = True)#
 Baseline_RS = scenario_function(Cont_Scen_no=1, RSTrad = True)
 Baseline_FPSTrad = scenario_function(Cont_Scen_no=1, FPSTrad = True)
 Baseline_CS = scenario_function(Cont_Scen_no=1, CSampling = True)
