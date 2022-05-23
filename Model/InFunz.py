@@ -26,7 +26,17 @@ def F_InDF (Partition_Units,Field_Weight,slot_number ):
     df.PositiveSamples = [list() for x in range(len(df.index))]
     return df
 
-
+def F_InDF_T (Partition_Units,Field_Weight,Pick_No):
+    #Parition_Units = Partition Units, 
+    #Field_Weight = Weight of Field
+    #Slot_number = Number of Sublots
+    data = {'Pick': Pick_No, #Pick Number
+            'PartitionID': list(range(1,Partition_Units+1)), #Paritition
+            'CFU':0, #CFU Pathogen
+            'Weight': Field_Weight/Partition_Units} #Weight per Partition
+    
+    df = pd.DataFrame(data)
+    return df
 
 
 
