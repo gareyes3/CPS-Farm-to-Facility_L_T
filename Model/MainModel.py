@@ -26,8 +26,6 @@ import InFunz
 Partition_Units = T_Inputz.Pick_Weight/T_Inputz.Bucket_Weight
 
 df= InFunz.F_InDF_T(Partition_Units = 1093,
-                  Field_Weight = 35_000, )
+                  Field_Weight = 35_000,
+                  Pick_No = 1)
 
-int(35000/32)
-
-int(1093/11)
