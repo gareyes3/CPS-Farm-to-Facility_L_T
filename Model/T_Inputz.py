@@ -19,7 +19,8 @@ Time_B_Picks = np.random.choice(list(range(12,21+1)))
 
 Pick_Weight = 35_000 #lb
 Bin_Weight = 1_000 #lb
-Bucket_Weight = 35 #lb
+Bucket_Weight = 32 #lb
+Partition_Units = int(Pick_Weight/Bucket_Weight)
 
 
 
