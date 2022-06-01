@@ -19,13 +19,27 @@ import pandas as pd
 import Funz
 import T_Inputz
 import InFunz
+import ContScen
 
 #%%
 
 #Creating the initial dataframe for this harvest. 
-Partition_Units = T_Inputz.Pick_Weight/T_Inputz.Bucket_Weight
+i=1
 
-df= InFunz.F_InDF_T(Partition_Units = 1093,
-                  Field_Weight = 35_000,
-                  Pick_No = 1)
+#Intiializing dataframe that tracks the contmaination that may remain in the plant
+field_cont = InFunz.F_InFieldCont_T(Partition_Units =T_Inputz.Partition_Units ,Field_Weight =T_Inputz.Pick_Weight) 
 
+#Initializing dataframe of actual contamination. 
+df= InFunz.F_InDF_T(Partition_Units = T_Inputz.Partition_Units,
+                  Field_Weight = T_Inputz.Pick_Weight,
+                  Pick_No = i)
+
+#Contaminating Field/ Field Dataframe. 
+
+ContScen.F_systematic_C(df = df, 
+               Hazard_lvl = 100000,
+               No_Cont_Clusters = 1,
+               Cluster_Size = 32.022, 
+               Partition_Weight = 32.022)
+
+df["Harvester"] = Funz.F_Assign_Harvesters(df = df, n_harvesters = T_Inputz.N_Harvesters)

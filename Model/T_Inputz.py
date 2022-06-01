@@ -22,6 +22,8 @@ Bin_Weight = 1_000 #lb
 Bucket_Weight = 32 #lb
 Partition_Units = int(Pick_Weight/Bucket_Weight)
 
+#Number of Harvesters
 
+N_Harvesters = 8
 
 

@@ -38,7 +38,16 @@ def F_InDF_T (Partition_Units,Field_Weight,Pick_No):
     df = pd.DataFrame(data)
     return df
 
-
+def F_InFieldCont_T (Partition_Units,Field_Weight):
+    #Parition_Units = Partition Units, 
+    #Field_Weight = Weight of Field
+    #Slot_number = Number of Sublots
+    data = {'PartitionID': list(range(1,Partition_Units+1)), #Paritition
+            'CFU':0, #CFU Pathogen
+            'Weight': Field_Weight/Partition_Units
+            }
+    df = pd.DataFrame(data)
+    return df
 
 
 

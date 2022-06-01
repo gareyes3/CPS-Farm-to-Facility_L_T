@@ -1301,4 +1301,16 @@ def F_SummingGB2Cont(gb2):
     Out =sum(List_x_Sum)
     return Out
 
+#%%
+#New tomatoes Functions
 
+def F_Assign_Harvesters(df, n_harvesters):
+    n_harvesters = 8
+    reps_per_harvester=math.ceil(len(df)/ n_harvesters)
+    total_list=list(range(1,n_harvesters+1))*reps_per_harvester
+    trimmed_list = total_list[0:len(df)]
+    return trimmed_list
+
+
+def F_Constmination_Event_T(df,Hazard_lvl, ):
+    
