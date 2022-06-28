@@ -14,6 +14,7 @@ sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility_L_T\Mo
 #%%
 import numpy as np
 import pandas as pd
+import random 
 
 #Own Libraries
 import Funz
@@ -43,3 +44,17 @@ ContScen.F_systematic_C(df = df,
                Partition_Weight = 32.022)
 
 df["Harvester"] = Funz.F_Assign_Harvesters(df = df, n_harvesters = T_Inputz.N_Harvesters)
+
+#%%
+Tomato_weight = 123/454 #for medium tomato
+Tomato_Sequence = int(35_000/0.27)
+Individual_Tomatoes = np.arange(1,Tomato_Sequence)
+Individual_Plants = np.repeat(np.arange(1,int(np.ceil(Tomato_Sequence/20))),20)
+Pick_Random = random.sample([1,2,3], len([1,2,3]))*(np.ceil(Tomato_Sequence/3))
+
+
+
+
+
+pd.DataFrame({""
+    })
