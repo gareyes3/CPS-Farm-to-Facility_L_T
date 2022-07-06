@@ -15,6 +15,7 @@ sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility_L_T\Mo
 import numpy as np
 import pandas as pd
 import random 
+import math
 from numpy.random import Generator, PCG64
 rng = Generator(PCG64())
 
@@ -48,6 +49,13 @@ ContScen.F_systematic_C(df = df,
 df["Harvester"] = Funz.F_Assign_Harvesters(df = df, n_harvesters = T_Inputz.N_Harvesters)
 
 #%%
+
+def random_chunk(lst, chunk_size):
+    nb_chunks = int(math.ceil(len(lst)/chunk_size))
+    choice = random.randrange(nb_chunks) # 0 <= choice < nb_chunks
+    return lst[choice*chunk_size:(choice+1)*chunk_size]
+
+
 #Basic Information
 Tomato_weight = 123/454 #for medium tomato
 Tomato_Sequence = int(35_000/0.27)
@@ -93,17 +101,14 @@ Hazard_lvl = 100_000
 No_Cont_Clusters = 2
 No_Cont_PartitionUnits = int((len(Field_df[Field_df["Location"]==2]))*Percent_Contaminated/100)
 
-Field_df_1 =Field_df.loc[Field_df["Location"]==2]
+Field_df_1 =Field_df.loc[Field_df["Location"]==1]
 
 #Determining the hazard level per cluster
 Hazard_lvl_percluster= Hazard_lvl / No_Cont_Clusters #(No_Cont_PartitionUnits*No_Cont_Clusters)
 for i in range(0,No_Cont_Clusters):
-    n = random.randint(0,len(Field_df_1.index)- No_Cont_PartitionUnits)
-    x_random_consecutive_rows = Field_df_1[n:n + No_Cont_PartitionUnits]
-    x_random_consecutive_rows = list(x_random_consecutive_rows.index)
-    #using multinomial creating array to contaminated the desired outputs
-    #probaility defined by the number of partitions. 
+    random_Chunky = list(random_chunk(lst = Field_df_1.index, chunk_size = No_Cont_PartitionUnits))
     Contamination_Pattern = rng.multinomial(Hazard_lvl_percluster,[1/No_Cont_PartitionUnits]*No_Cont_PartitionUnits,1)
-    df.at[x_random_consecutive_rows,'CFU']= Field_df_1.loc[x_random_consecutive_rows,'CFU'] + Contamination_Pattern[0]
+    Field_df_1.loc[random_Chunky, "CFU"] = Field_df_1.loc[random_Chunky, "CFU"] + Contamination_Pattern[0]
 
 
+Field_df_1.loc[[33277, 33278], "CFU"]
