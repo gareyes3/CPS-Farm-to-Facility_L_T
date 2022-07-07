@@ -50,11 +50,51 @@ df["Harvester"] = Funz.F_Assign_Harvesters(df = df, n_harvesters = T_Inputz.N_Ha
 
 #%%
 
+#This function create a random chunk of X rows in a dataframe (each row in this mdoel represents one individual tomato)
 def random_chunk(lst, chunk_size):
     nb_chunks = int(math.ceil(len(lst)/chunk_size))
     choice = random.randrange(nb_chunks) # 0 <= choice < nb_chunks
     return lst[choice*chunk_size:(choice+1)*chunk_size]
 
+def field_cont_percetage(df, percent_cont, Hazard_lvl, No_Cont_Clusters):
+    #This function contaminated the tomato field randomly based on a cluter of X%. 
+    Percent_Contaminated =percent_cont #Percentage of tomatoes contaminated
+    Percent_D_Contaminatinated= Percent_Contaminated/100 #Percentage in decimal point
+    Hazard_lvl = Hazard_lvl #CFUs in contaminated area total Cells
+    No_Cont_Clusters = No_Cont_Clusters #in how many clusters will the percentage and cont be split into
+    No_Cont_PartitionUnits = int((len(df[df["Location"]==1]))*Percent_D_Contaminatinated) #how many tomatoes are contmainated based on percentage
+    Field_df_1 =df.loc[df["Location"]==1] #filtering main df into only those that are in a field
+    
+    #Determining the hazard level per cluster
+    Hazard_lvl_percluster= Hazard_lvl / No_Cont_Clusters #(No_Cont_PartitionUnits*No_Cont_Clusters)
+    for i in range(0,No_Cont_Clusters):
+        random_Chunky = list(random_chunk(lst = Field_df_1.index, chunk_size = No_Cont_PartitionUnits)) #creating random chunk
+        Contamination_Pattern = rng.multinomial(Hazard_lvl_percluster,[1/No_Cont_PartitionUnits]*No_Cont_PartitionUnits,1) #spliting cont into chunks length
+        Field_df_1.loc[random_Chunky, "CFU"] = Field_df_1.loc[random_Chunky, "CFU"] + Contamination_Pattern[0] #adding contmaination
+
+    df.update(Field_df_1)
+    
+    return df
+
+def field_cont_ntomatoes(df, ntomatoes_cont_pclust, Hazard_lvl, No_Cont_Clusters):
+    #This function contaminated the tomato field randomly based on a cluter of X%. 
+    Hazard_lvl = Hazard_lvl #CFUs in contaminated area total Cells
+    No_Cont_Clusters = No_Cont_Clusters #in how many clusters will the percentage and cont be split into
+    No_Cont_PartitionUnits = ntomatoes_cont_pclust #how many tomatoes are contmainated per cluster
+    Field_df_1 =df.loc[df["Location"]==1] #filtering main df into only those that are in a field
+    
+    #Determining the hazard level per cluster
+    Hazard_lvl_percluster= Hazard_lvl / No_Cont_Clusters #(No_Cont_PartitionUnits*No_Cont_Clusters)
+    for i in range(0,No_Cont_Clusters):
+        random_Chunky = list(random_chunk(lst = Field_df_1.index, chunk_size = No_Cont_PartitionUnits)) #creating random chunk
+        Contamination_Pattern = rng.multinomial(Hazard_lvl_percluster,[1/No_Cont_PartitionUnits]*No_Cont_PartitionUnits,1) #spliting cont into chunks length
+        Field_df_1.loc[random_Chunky, "CFU"] = Field_df_1.loc[random_Chunky, "CFU"] + Contamination_Pattern[0] #adding contmaination
+
+    df.update(Field_df_1)
+    
+    return df
+
+#%%
 
 #Basic Information
 Tomato_weight = 123/454 #for medium tomato
@@ -93,22 +133,8 @@ for i in Field_df['Pick_ID'].to_numpy():
 #1. Bird Droppings
 #Percent of total tomatoes contaminated by bird droppings? 
 
-Percent_Contaminated = 0.1 #Percentage of tomatoes contaminated
-Percent_D_Contaminatinated= Percent_Contaminated/100
+Field_df = field_cont_percetage(df = Field_df, percent_cont = 0.1, Hazard_lvl = 50_000, No_Cont_Clusters= 1)
+
+Field_df= field_cont_ntomatoes(df=Field_df, ntomatoes_cont_pclust= 10, Hazard_lvl = 50_000, No_Cont_Clusters = 2)
 
 
-Hazard_lvl = 100_000
-No_Cont_Clusters = 2
-No_Cont_PartitionUnits = int((len(Field_df[Field_df["Location"]==2]))*Percent_Contaminated/100)
-
-Field_df_1 =Field_df.loc[Field_df["Location"]==1]
-
-#Determining the hazard level per cluster
-Hazard_lvl_percluster= Hazard_lvl / No_Cont_Clusters #(No_Cont_PartitionUnits*No_Cont_Clusters)
-for i in range(0,No_Cont_Clusters):
-    random_Chunky = list(random_chunk(lst = Field_df_1.index, chunk_size = No_Cont_PartitionUnits))
-    Contamination_Pattern = rng.multinomial(Hazard_lvl_percluster,[1/No_Cont_PartitionUnits]*No_Cont_PartitionUnits,1)
-    Field_df_1.loc[random_Chunky, "CFU"] = Field_df_1.loc[random_Chunky, "CFU"] + Contamination_Pattern[0]
-
-
-Field_df_1.loc[[33277, 33278], "CFU"]
