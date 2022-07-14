@@ -94,15 +94,40 @@ def field_cont_ntomatoes(df, ntomatoes_cont_pclust, Hazard_lvl, No_Cont_Clusters
     
     return df
 
+def Harvesting_Function(df, Total_Harvesters, Tomatoes_Per_Bucket,Tomato_Sequence, Pick_No):
+    Harvester_Pattern = np.repeat(list(range(1,Total_Harvesters+1)),Tomatoes_Per_Bucket)
+    Harvester_Pattern_Full=np.tile(Harvester_Pattern,int(np.ceil(Tomato_Sequence/len(Harvester_Pattern))))
+    Field_df_1 =df.loc[df['Pick_ID']==Pick_No]
+    Field_df_1["Harvester"] = Harvester_Pattern_Full[list(range(Field_df_1["Harvester"].size))]
+    Field_df_1["Location"] = 2
+    
+    df.update(Field_df_1)
+    return df
+
+def Harvester_Cont_Function(df, Hazard_Level, Pick_No, Cont_Harvester_No):
+    Field_df_1 =df.loc[(df['Pick_ID']==Pick_No) & (df['Harvester'] == Cont_Harvester_No )]
+    Size_1 = Field_df_1['Harvester'].size
+    cont_pattern=rng.multinomial(Hazard_Level,[1/Size_1]*Size_1,1) 
+    Field_df_1["CFU"] = cont_pattern[0]
+    df.update(Field_df_1)
+    return df
+
 #%%
 
 #Basic Information
-Tomato_weight = 123/454 #for medium tomato
-Tomato_Sequence = int(35_000/0.27)
+Tomato_weight = 250/454 #for medium tomato
+Tomato_Sequence = int(105_000/Tomato_weight)
 Individual_Tomatoes = np.arange(1,Tomato_Sequence)
+Tomatoes_Per_Plant = 120
+Tomatoes_Per_Bucket = int(32/Tomato_weight)
 
-Individual_Plants = np.repeat(np.arange(1,int(np.ceil(Tomato_Sequence/120))),120+1)
-Pick_Sequence = [1,2,3]*(int(np.ceil(Tomato_Sequence/3)))
+#total pick information
+N_Pick = 3
+Days_Between_Picks = 7
+
+
+Individual_Plants = np.repeat(np.arange(1,int(np.ceil(Tomato_Sequence/Tomatoes_Per_Plant))),Tomatoes_Per_Plant+1)
+Pick_Sequence = list(range(1,N_Pick+1))*(int(np.ceil(Tomato_Sequence/3)))
 Pick_Random = random.sample(Pick_Sequence, len(Pick_Sequence))
 
 #Harvest information
@@ -113,21 +138,22 @@ Total_Harvesters = 14
 Field_df=pd.DataFrame({"Tomato_ID": Individual_Tomatoes,
                        "Plant_ID": Individual_Plants[0:Individual_Tomatoes.size],
                        "Pick_ID": Pick_Random[0:Individual_Tomatoes.size],
-                       "Weight": 0.27,
+                       "Weight": Tomato_weight,
                        "Harvester" : 0,
                        "CFU": 0,
                        "Location": 1,
                   })
 
 #Harvest
-Harvester_Pattern = np.repeat(list(range(1,15)),118)
-Harvester_Pattern_Full=np.tile(Harvester_Pattern,int(np.ceil(Tomato_Sequence/len(Harvester_Pattern))))
-count = 0
-for i in Field_df['Pick_ID'].to_numpy():
-    if i == 1:
-        Field_df.loc[count, "Harvester"] = Harvester_Pattern_Full[count]
-        Field_df.loc[count, "Location"] = 2
-    count = count+1
+   
+Field_df = Harvesting_Function(df = Field_df, Total_Harvesters = Total_Harvesters, 
+                               Tomatoes_Per_Bucket = Tomatoes_Per_Bucket,
+                               Tomato_Sequence =Tomato_Sequence,
+                               Pick_No = 2)
+
+#Contamination if harvesterter is contaminated. 
+Field_df = Harvester_Cont_Function(df =Field_df , Hazard_Level = 100_000, Pick_No = 2, Cont_Harvester_No = 12)
+
 
 #Contamination Scenarios: 
 #1. Bird Droppings
@@ -138,3 +164,24 @@ Field_df = field_cont_percetage(df = Field_df, percent_cont = 0.1, Hazard_lvl = 
 Field_df= field_cont_ntomatoes(df=Field_df, ntomatoes_cont_pclust= 10, Hazard_lvl = 50_000, No_Cont_Clusters = 2)
 
 
+
+#Tomato Growth Model. 
+def growth_mod_tomatoes(x, Temp, Time):
+    #Time in hour
+    #Temp in deg celcious
+    growth_rate = ((0.026*Temp) - 0.107)**2 # from https://doi.org/10.4315/0362-028X-73.8.1502
+    total_growth = growth_rate*Time
+    print(total_growth)
+    updated_cont = x*(10**total_growth)
+    return updated_cont
+
+#df_trial = pd.DataFrame(data={'col1': [1, 4, 6, 2, 7], 'col2': [6, 7, 1, 2, 8]}) 
+#df_trial['col1'] = df_trial['col1'].apply(growth_mod_tomatoes, args = (25,10))
+
+
+Total_Days = N_Pick*Days_Between_Picks
+Harvest_Days = []
+
+for i in range(Total_Days):
+    
+    
