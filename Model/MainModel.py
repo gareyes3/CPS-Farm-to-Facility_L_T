@@ -97,6 +97,7 @@ def field_cont_ntomatoes(df, ntomatoes_cont_pclust, Hazard_lvl, No_Cont_Clusters
 def Harvesting_Function(df, Total_Harvesters, Tomatoes_Per_Bucket,Tomato_Sequence, Pick_No):
     Harvester_Pattern = np.repeat(list(range(1,Total_Harvesters+1)),Tomatoes_Per_Bucket)
     Harvester_Pattern_Full=np.tile(Harvester_Pattern,int(np.ceil(Tomato_Sequence/len(Harvester_Pattern))))
+
     Field_df_1 =df.loc[df['Pick_ID']==Pick_No]
     Field_df_1["Harvester"] = Harvester_Pattern_Full[list(range(Field_df_1["Harvester"].size))]
     Field_df_1["Location"] = 2
@@ -121,6 +122,7 @@ Individual_Tomatoes = np.arange(1,Tomato_Sequence)
 Tomatoes_Per_Plant = 120
 Tomatoes_Per_Bucket = int(32/Tomato_weight)
 
+
 #total pick information
 N_Pick = 3
 Days_Between_Picks = 7
@@ -133,6 +135,10 @@ Pick_Random = random.sample(Pick_Sequence, len(Pick_Sequence))
 #Harvest information
 Total_Harvesters = 14
 
+#Probabilities
+
+Pr_bird_drop = 0.2 #probability of bird contamination fields
+
 #Model
 #Creation of the initial dataframe
 Field_df=pd.DataFrame({"Tomato_ID": Individual_Tomatoes,
@@ -143,6 +149,7 @@ Field_df=pd.DataFrame({"Tomato_ID": Individual_Tomatoes,
                        "CFU": 0,
                        "Location": 1,
                   })
+
 
 #Harvest
    
@@ -181,6 +188,75 @@ def growth_mod_tomatoes(x, Temp, Time):
 
 Total_Days = N_Pick*Days_Between_Picks
 Harvest_Days = []
+
+
+#%%%
+#Basic Information
+Tomato_weight = 250/454 #for medium tomato
+Tomato_Sequence = int(105_000/Tomato_weight)
+Individual_Tomatoes = np.arange(1,Tomato_Sequence)
+Tomatoes_Per_Plant = 120
+Tomatoes_Per_Bucket = int(32/Tomato_weight)
+Tomatoes_per_Bin = int(1000/Tomato_weight)
+
+#total pick information
+N_Pick = 3
+Days_Between_Picks = 7
+
+#individual sequences for functions
+Individual_Plants = np.repeat(np.arange(1,int(np.ceil(Tomato_Sequence/Tomatoes_Per_Plant))),Tomatoes_Per_Plant+1)
+Pick_Sequence = list(range(1,N_Pick+1))*(int(np.ceil(Tomato_Sequence/3)))
+Pick_Random = random.sample(Pick_Sequence, len(Pick_Sequence))
+
+
+#Harvest information
+Total_Harvesters = 14
+
+#Probabilities
+
+Pr_bird_drop = 0.2 #probability of bird contamination fields
+Pr_of_rain = 0.1 #probability that it will rain in a given day
+Pr_harvester_cont = 0.05 #probability that a harvester is contmainated
+Pr_bucket_cont = 0.05 #probability that a bucket is contaminated
+Pr_Bin_cont = 0.05 #probability that a bin is contaminated
+
+
+#Model
+#Creation of the initial dataframe
+Field_df=pd.DataFrame({"Tomato_ID": Individual_Tomatoes,
+                       "Plant_ID": Individual_Plants[0:Individual_Tomatoes.size],
+                       "Pick_ID": Pick_Random[0:Individual_Tomatoes.size],
+                       "Weight": Tomato_weight,
+                       "Harvester" : 0,
+                       "Bucket":0,
+                       "Bin": 0,
+                       "CFU": 0,
+                       "Location": 1,
+                  })
+
+
+Currennt_Pick = 0 
+
+def Harvesting_Function(df, Total_Harvesters, Tomatoes_Per_Bucket,Tomato_Sequence, Pick_No):
+    Harvester_Pattern = np.repeat(list(range(1,Total_Harvesters+1)),Tomatoes_Per_Bucket)
+    Harvester_Pattern_Full=np.tile(Harvester_Pattern,int(np.ceil(Tomato_Sequence/len(Harvester_Pattern))))
+    
+    Field_df_1 =df.loc[df['Pick_ID']==Pick_No]
+    
+    Bin_Pattern =  np.repeat(list(range(1,math.ceil(Field_df_1["Tomato_ID"].size/Tomatoes_per_Bin))), Tomatoes_per_Bin)
+    Bin_Pattern_Trimmed = Bin_Pattern[list(range(Field_df_1["Tomato_ID"].size))]
+    
+    Field_df_1["Harvester"] = Harvester_Pattern_Full[list(range(Field_df_1["Harvester"].size))]
+    Field_df_1["Location"] = 2
+    
+    df.update(Field_df_1)
+    return df
+
+Field_df = Harvester_Cont_Function(df =Field_df , Hazard_Level = 100_000, Pick_No = 2, Cont_Harvester_No = 12)
+
+#Deciding which bin will be contmainated. 
+
+
 
 for i in range(Total_Days):
     
