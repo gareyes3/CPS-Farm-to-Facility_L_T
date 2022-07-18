@@ -97,10 +97,15 @@ def field_cont_ntomatoes(df, ntomatoes_cont_pclust, Hazard_lvl, No_Cont_Clusters
 def Harvesting_Function(df, Total_Harvesters, Tomatoes_Per_Bucket,Tomato_Sequence, Pick_No):
     Harvester_Pattern = np.repeat(list(range(1,Total_Harvesters+1)),Tomatoes_Per_Bucket)
     Harvester_Pattern_Full=np.tile(Harvester_Pattern,int(np.ceil(Tomato_Sequence/len(Harvester_Pattern))))
-
+    
     Field_df_1 =df.loc[df['Pick_ID']==Pick_No]
+    
+    Bin_Pattern =  np.repeat(list(range(1,math.ceil(Field_df_1["Tomato_ID"].size/Tomatoes_per_Bin)+1)), Tomatoes_per_Bin)
+    Bin_Pattern_Trimmed = Bin_Pattern[list(range(1,Field_df_1["Tomato_ID"].size+1))]
+    
     Field_df_1["Harvester"] = Harvester_Pattern_Full[list(range(Field_df_1["Harvester"].size))]
     Field_df_1["Location"] = 2
+    Field_df_1["Bin"] = Bin_Pattern_Trimmed
     
     df.update(Field_df_1)
     return df
@@ -113,64 +118,8 @@ def Harvester_Cont_Function(df, Hazard_Level, Pick_No, Cont_Harvester_No):
     df.update(Field_df_1)
     return df
 
-#%%
 
-#Basic Information
-Tomato_weight = 250/454 #for medium tomato
-Tomato_Sequence = int(105_000/Tomato_weight)
-Individual_Tomatoes = np.arange(1,Tomato_Sequence)
-Tomatoes_Per_Plant = 120
-Tomatoes_Per_Bucket = int(32/Tomato_weight)
-
-
-#total pick information
-N_Pick = 3
-Days_Between_Picks = 7
-
-
-Individual_Plants = np.repeat(np.arange(1,int(np.ceil(Tomato_Sequence/Tomatoes_Per_Plant))),Tomatoes_Per_Plant+1)
-Pick_Sequence = list(range(1,N_Pick+1))*(int(np.ceil(Tomato_Sequence/3)))
-Pick_Random = random.sample(Pick_Sequence, len(Pick_Sequence))
-
-#Harvest information
-Total_Harvesters = 14
-
-#Probabilities
-
-Pr_bird_drop = 0.2 #probability of bird contamination fields
-
-#Model
-#Creation of the initial dataframe
-Field_df=pd.DataFrame({"Tomato_ID": Individual_Tomatoes,
-                       "Plant_ID": Individual_Plants[0:Individual_Tomatoes.size],
-                       "Pick_ID": Pick_Random[0:Individual_Tomatoes.size],
-                       "Weight": Tomato_weight,
-                       "Harvester" : 0,
-                       "CFU": 0,
-                       "Location": 1,
-                  })
-
-
-#Harvest
-   
-Field_df = Harvesting_Function(df = Field_df, Total_Harvesters = Total_Harvesters, 
-                               Tomatoes_Per_Bucket = Tomatoes_Per_Bucket,
-                               Tomato_Sequence =Tomato_Sequence,
-                               Pick_No = 2)
-
-#Contamination if harvesterter is contaminated. 
-Field_df = Harvester_Cont_Function(df =Field_df , Hazard_Level = 100_000, Pick_No = 2, Cont_Harvester_No = 12)
-
-
-#Contamination Scenarios: 
-#1. Bird Droppings
-#Percent of total tomatoes contaminated by bird droppings? 
-
-Field_df = field_cont_percetage(df = Field_df, percent_cont = 0.1, Hazard_lvl = 50_000, No_Cont_Clusters= 1)
-
-Field_df= field_cont_ntomatoes(df=Field_df, ntomatoes_cont_pclust= 10, Hazard_lvl = 50_000, No_Cont_Clusters = 2)
-
-
+#Tomato Growth Model
 
 #Tomato Growth Model. 
 def growth_mod_tomatoes(x, Temp, Time):
@@ -182,12 +131,24 @@ def growth_mod_tomatoes(x, Temp, Time):
     updated_cont = x*(10**total_growth)
     return updated_cont
 
-#df_trial = pd.DataFrame(data={'col1': [1, 4, 6, 2, 7], 'col2': [6, 7, 1, 2, 8]}) 
-#df_trial['col1'] = df_trial['col1'].apply(growth_mod_tomatoes, args = (25,10))
+
+def die_off_tomatoes(x ,Time):
+    Time_d =  Time/24
+    #Time in hours
+    die_off_rate = 0.5 #log  CFU/days
+    total_die_off = die_off_rate*Time_d
+    #updated_cont = x*(10**-total_die_off)
+    
+    updated_cont = rng.binomial(x,10**-total_die_off)
+    return updated_cont
 
 
-Total_Days = N_Pick*Days_Between_Picks
-Harvest_Days = []
+def applying_dieoff(df,Time):
+    df["CFU"]=df["CFU"].apply(func=die_off_tomatoes, Time = Time)
+    return df
+
+
+    
 
 
 #%%%
@@ -197,11 +158,14 @@ Tomato_Sequence = int(105_000/Tomato_weight)
 Individual_Tomatoes = np.arange(1,Tomato_Sequence)
 Tomatoes_Per_Plant = 120
 Tomatoes_Per_Bucket = int(32/Tomato_weight)
-Tomatoes_per_Bin = int(1000/Tomato_weight)
+Bin_Weight = 1000
+Tomatoes_per_Bin = math.ceil(Bin_Weight/Tomato_weight)
 
 #total pick information
 N_Pick = 3
 Days_Between_Picks = 7
+Days = np.arange(1, (N_Pick*Days_Between_Picks)+1)
+Harvest_Days = [7,14,21]
 
 #individual sequences for functions
 Individual_Plants = np.repeat(np.arange(1,int(np.ceil(Tomato_Sequence/Tomatoes_Per_Plant))),Tomatoes_Per_Plant+1)
@@ -221,6 +185,11 @@ Pr_bucket_cont = 0.05 #probability that a bucket is contaminated
 Pr_Bin_cont = 0.05 #probability that a bin is contaminated
 
 
+#Contamination Scenario
+    #Small Cluster
+Total_Hazard = 100_000
+    
+#%%
 #Model
 #Creation of the initial dataframe
 Field_df=pd.DataFrame({"Tomato_ID": Individual_Tomatoes,
@@ -235,29 +204,51 @@ Field_df=pd.DataFrame({"Tomato_ID": Individual_Tomatoes,
                   })
 
 
-Currennt_Pick = 0 
+#%%
 
-def Harvesting_Function(df, Total_Harvesters, Tomatoes_Per_Bucket,Tomato_Sequence, Pick_No):
-    Harvester_Pattern = np.repeat(list(range(1,Total_Harvesters+1)),Tomatoes_Per_Bucket)
-    Harvester_Pattern_Full=np.tile(Harvester_Pattern,int(np.ceil(Tomato_Sequence/len(Harvester_Pattern))))
+#Simulating Days
+Current_Pick = 1
+
+for i in Days:
+    #Contmaination Event Due to Rain
+    if (np.random.uniform(0,1)<Pr_of_rain):
+        #This function contaminated the field uniformly. 100% of the field cont. 
+        Field_df = field_cont_percetage(df = Field_df, 
+                                        percent_cont = 100,
+                                        Hazard_lvl = Total_Hazard, 
+                                        No_Cont_Clusters = 1)
+        #Contaminated field with Rain
+        print("Field Cont with Rain")
     
-    Field_df_1 =df.loc[df['Pick_ID']==Pick_No]
+    #Contmaination Event Due to Rain
+    if (np.random.uniform(0,1)<Pr_bird_drop):
+        #Contaminated field with 0.1% contamination, simulated bird droping. 
+        Field_df = field_cont_percetage(df = Field_df, 
+                                        percent_cont = 0.1,
+                                        Hazard_lvl = Total_Hazard, 
+                                        No_Cont_Clusters = 1)
+        print("Field Cont with Bird Dropping")
     
-    Bin_Pattern =  np.repeat(list(range(1,math.ceil(Field_df_1["Tomato_ID"].size/Tomatoes_per_Bin))), Tomatoes_per_Bin)
-    Bin_Pattern_Trimmed = Bin_Pattern[list(range(Field_df_1["Tomato_ID"].size))]
-    
-    Field_df_1["Harvester"] = Harvester_Pattern_Full[list(range(Field_df_1["Harvester"].size))]
-    Field_df_1["Location"] = 2
-    
-    df.update(Field_df_1)
-    return df
-
-Field_df = Harvester_Cont_Function(df =Field_df , Hazard_Level = 100_000, Pick_No = 2, Cont_Harvester_No = 12)
-
-#Deciding which bin will be contmainated. 
-
-
-
-for i in range(Total_Days):
-    
+    #This is where process starts, along with simulated harvest. 
+    if i in Harvest_Days:
+        print("The product was harvested")
+        Field_df = Harvesting_Function(df = Field_df, Total_Harvesters = Total_Harvesters, 
+                                      Tomatoes_Per_Bucket = Tomatoes_Per_Bucket,
+                                      Tomato_Sequence = Tomato_Sequence, 
+                                      Pick_No = Current_Pick)
+        #Harvester contmaination
+        if (np.random.uniform(0,1)<Pr_harvester_cont):
+            #Picking the contaminated harvester at random
+            Contam_Harvester = random.sample(list(range(1,Total_Harvesters+1)),1)[0]
+            #applying the contmainated harvester function to the Data. 
+            Field_df =Harvester_Cont_Function(df = Field_df,
+                                    Hazard_Level = 100_000, 
+                                    Pick_No =Current_Pick  , 
+                                    Cont_Harvester_No =Contam_Harvester )
+        
+        #Establishing which pick we are int
+        Current_Pick = Current_Pick+1
+        
+        Field_df = applying_dieoff(df = Field_df ,Time = 24)
+        
     
