@@ -63,7 +63,7 @@ def field_cont_percetage(df, percent_cont, Hazard_lvl, No_Cont_Clusters):
     Hazard_lvl = Hazard_lvl #CFUs in contaminated area total Cells
     No_Cont_Clusters = No_Cont_Clusters #in how many clusters will the percentage and cont be split into
     No_Cont_PartitionUnits = int((len(df[df["Location"]==1]))*Percent_D_Contaminatinated) #how many tomatoes are contmainated based on percentage
-    Field_df_1 =df.loc[df["Location"]==1] #filtering main df into only those that are in a field
+    Field_df_1 =df.loc[df["Location"]==1].copy() #filtering main df into only those that are in a field
     
     #Determining the hazard level per cluster
     Hazard_lvl_percluster= Hazard_lvl / No_Cont_Clusters #(No_Cont_PartitionUnits*No_Cont_Clusters)
@@ -81,7 +81,7 @@ def field_cont_ntomatoes(df, ntomatoes_cont_pclust, Hazard_lvl, No_Cont_Clusters
     Hazard_lvl = Hazard_lvl #CFUs in contaminated area total Cells
     No_Cont_Clusters = No_Cont_Clusters #in how many clusters will the percentage and cont be split into
     No_Cont_PartitionUnits = ntomatoes_cont_pclust #how many tomatoes are contmainated per cluster
-    Field_df_1 =df.loc[df["Location"]==1] #filtering main df into only those that are in a field
+    Field_df_1 =df.loc[df["Location"]==1].copy() #filtering main df into only those that are in a field
     
     #Determining the hazard level per cluster
     Hazard_lvl_percluster= Hazard_lvl / No_Cont_Clusters #(No_Cont_PartitionUnits*No_Cont_Clusters)
@@ -98,14 +98,14 @@ def Harvesting_Function(df, Total_Harvesters, Tomatoes_Per_Bucket,Tomato_Sequenc
     Harvester_Pattern = np.repeat(list(range(1,Total_Harvesters+1)),Tomatoes_Per_Bucket)
     Harvester_Pattern_Full=np.tile(Harvester_Pattern,int(np.ceil(Tomato_Sequence/len(Harvester_Pattern))))
     
-    Field_df_1 =df.loc[df['Pick_ID']==Pick_No]
+    Field_df_1 =df.loc[df['Pick_ID']==Pick_No].copy()
     
     Bin_Pattern =  np.repeat(list(range(1,math.ceil(Field_df_1["Tomato_ID"].size/Tomatoes_per_Bin)+1)), Tomatoes_per_Bin)
     Bin_Pattern_Trimmed = Bin_Pattern[list(range(1,Field_df_1["Tomato_ID"].size+1))]
     
-    Field_df_1["Harvester"] = Harvester_Pattern_Full[list(range(Field_df_1["Harvester"].size))]
-    Field_df_1["Location"] = 2
-    Field_df_1["Bin"] = Bin_Pattern_Trimmed
+    Field_df_1.loc[:,"Harvester"] = Harvester_Pattern_Full[list(range(Field_df_1["Harvester"].size))]
+    Field_df_1.loc[:,"Location"] = 2
+    Field_df_1.loc[:,"Bin"] = Bin_Pattern_Trimmed
     
     df.update(Field_df_1)
     return df
@@ -114,7 +114,7 @@ def Harvester_Cont_Function(df, Hazard_Level, Pick_No, Cont_Harvester_No):
     Field_df_1 =df.loc[(df['Pick_ID']==Pick_No) & (df['Harvester'] == Cont_Harvester_No )]
     Size_1 = Field_df_1['Harvester'].size
     cont_pattern=rng.multinomial(Hazard_Level,[1/Size_1]*Size_1,1) 
-    Field_df_1["CFU"] = cont_pattern[0]
+    Field_df_1.loc["","CFU"] = cont_pattern[0]
     df.update(Field_df_1)
     return df
 
@@ -144,7 +144,7 @@ def die_off_tomatoes(x ,Time):
 
 
 def applying_dieoff(df,Time):
-    df["CFU"]=df["CFU"].apply(func=die_off_tomatoes, Time = Time)
+    df.loc[:,"CFU"]=df["CFU"].apply(func=die_off_tomatoes, Time = Time)
     return df
 
 
@@ -251,4 +251,5 @@ for i in Days:
         
         Field_df = applying_dieoff(df = Field_df ,Time = 24)
         
-    
+Field_df.loc[:,"CFU"]  = 1000
+
