@@ -25,28 +25,6 @@ import T_Inputz
 import InFunz
 import ContScen
 
-#%%
-
-#Creating the initial dataframe for this harvest. 
-i=1
-
-#Intiializing dataframe that tracks the contmaination that may remain in the plant
-field_cont = InFunz.F_InFieldCont_T(Partition_Units =T_Inputz.Partition_Units ,Field_Weight =T_Inputz.Pick_Weight) 
-
-#Initializing dataframe of actual contamination. 
-df= InFunz.F_InDF_T(Partition_Units = T_Inputz.Partition_Units,
-                  Field_Weight = T_Inputz.Pick_Weight,
-                  Pick_No = i)
-
-#Contaminating Field/ Field Dataframe. 
-
-ContScen.F_systematic_C(df = df, 
-               Hazard_lvl = 100000,
-               No_Cont_Clusters = 1,
-               Cluster_Size = 32.022, 
-               Partition_Weight = 32.022)
-
-df["Harvester"] = Funz.F_Assign_Harvesters(df = df, n_harvesters = T_Inputz.N_Harvesters)
 
 #%%
 
@@ -118,6 +96,14 @@ def Harvester_Cont_Function(df, Hazard_Level, Pick_No, Cont_Harvester_No):
     df.update(Field_df_1)
     return df
 
+def Bin_Cont_Function(df, Hazard_Level, Pick_No, Cont_Bin_No):
+    Field_df_1 =df.loc[(df['Pick_ID']==Pick_No) & (df['Bin'] == Cont_Bin_No)]
+    Size_1 = Field_df_1['Bin'].size
+    cont_pattern=rng.multinomial(Hazard_Level,[1/Size_1]*Size_1,1) 
+    Field_df_1.loc["","CFU"] = cont_pattern[0]
+    df.update(Field_df_1)
+    return df
+
 
 #Tomato Growth Model
 
@@ -148,13 +134,41 @@ def applying_dieoff(df,Time):
     return df
 
 
+def Survival_Salmonella_cucum(x,Time, RH, Temp):
+    #time  in H
     
+    #model obtained fromhttps://www.sciencedirect.com/science/article/pii/S0740002021001052#fig4
+    Log_Change_7= 4.48385-0.00199*(Temp)*RH
+    Day_Log_h = Log_Change_7/24/7 #Change in log CFU per hour
+    
+    total_change = -(Day_Log_h*Time)
+    
+    if total_change>=0:
+        GrowthCeil = math.ceil(total_change)
+        Difference = total_change-GrowthCeil
+        MaxCont = x*10**GrowthCeil
+        Updated_CFUs = rng.binomial(MaxCont,10**Difference)
+    else:
+        Updated_CFUs= rng.binomial(x,10**total_change)
+    
+    return Updated_CFUs
+
+
+
+def applying_survival_salmonella_cucum(df, Time, RH, Temp):
+    df.loc[:,"CFU"]=df["CFU"].apply(func= Survival_Salmonella_cucum, 
+                                                Time = Time,
+                                                RH = RH,
+                                                Temp = Temp)
+    return df
+
+
 
 
 #%%%
 #Basic Information
-Tomato_weight = 250/454 #for medium tomato
-Tomato_Sequence = int(105_000/Tomato_weight)
+Tomato_weight = 260/454 #for medium tomato
+Tomato_Sequence = int(132_000/Tomato_weight)
 Individual_Tomatoes = np.arange(1,Tomato_Sequence)
 Tomatoes_Per_Plant = 120
 Tomatoes_Per_Bucket = int(32/Tomato_weight)
@@ -174,8 +188,8 @@ Pick_Random = random.sample(Pick_Sequence, len(Pick_Sequence))
 
 
 #Harvest information
-Total_Harvesters = 14
-
+Total_Harvesters = 55
+Total_Bins = 44
 #Probabilities
 
 Pr_bird_drop = 0.2 #probability of bird contamination fields
@@ -188,6 +202,26 @@ Pr_Bin_cont = 0.05 #probability that a bin is contaminated
 #Contamination Scenario
     #Small Cluster
 Total_Hazard = 100_000
+
+
+#Processing Factors
+RH_Florida= 74.5
+#From the Field to the Shipping Center
+Temp_F_Sc = 25 #C need to parametrize
+Time_F_Sc = 0.5 #hr
+
+#Shipping Center Storage
+Temp_Sc = 25
+Time_Sc = 2 #hr
+
+#Shipping Center to packing
+Temp_Sc_Pack = 25
+Time_Sc_Pack = 2 #hr
+
+#Packer Storage
+Temp_Pack = 25
+Time_Pack = 4 #hr
+
     
 #%%
 #Model
@@ -206,8 +240,18 @@ Field_df=pd.DataFrame({"Tomato_ID": Individual_Tomatoes,
 
 #%%
 
+Cont_Scenario = 1
+    #1 = Rainfall event  (uniform contamination)
+    #2 = Bird feces, 0.01 percent of fieldl contaminaated (point source contamination)
+    #3 = harvester / bucket contamination, small clusters spread throughout the field
+    #4 = Bins , medium size clusters spread across the field. 
+    
+    
+
 #Simulating Days
 Current_Pick = 1
+
+#Contaminated Bin
 
 for i in Days:
     #Contmaination Event Due to Rain
@@ -245,11 +289,57 @@ for i in Days:
                                     Hazard_Level = 100_000, 
                                     Pick_No =Current_Pick  , 
                                     Cont_Harvester_No =Contam_Harvester )
+            
+       #Bin Contmaination
+        if (np.random.uniform(0,1)<Pr_Bin_cont):
+            #Picking the contaminated harvester at random
+            Contam_Bin = random.sample(list(range(1,Total_Bins+1)),1)[0]
+            #applying the contmainated harvester function to the Data. 
+            Field_df =Bin_Cont_Function(df = Field_df,
+                                    Hazard_Level = 100_000, 
+                                    Pick_No =Current_Pick  , 
+                                    Cont_Bin_No = Contam_Bin )
         
         #Establishing which pick we are int
         Current_Pick = Current_Pick+1
         
-        Field_df = applying_dieoff(df = Field_df ,Time = 24)
+        #Transportation from the field to the shipping center
+        #Here we need to caculate die-off for the tranportation of growth due to transportation. 
+        Field_df = applying_survival_salmonella_cucum(df = Field_df , 
+                                                      Time = Time_F_Sc,
+                                                      RH = RH_Florida,
+                                                      Temp = Temp_F_Sc)
+        
+        #At Shipping center, temporary storage in open bins
+        Field_df = applying_survival_salmonella_cucum(df = Field_df , 
+                                                      Time = Time_Sc,
+                                                      RH = RH_Florida,
+                                                      Temp = Temp_Sc)
+        
+        #From shipping center to packing facility.
+        Field_df = applying_survival_salmonella_cucum(df = Field_df , 
+                                                      Time = Time_Sc_Pack,
+                                                      RH = RH_Florida,
+                                                      Temp = Temp_Sc_Pack)
+        
+        #Temporary Storage in Packing Facility
+        Field_df = applying_survival_salmonella_cucum(df = Field_df , 
+                                                      Time = Time_Pack,
+                                                      RH = RH_Florida,
+                                                      Temp = Temp_Pack)
+        
+        #Processing
+        #Wasing. 
+        
+        
         
 Field_df.loc[:,"CFU"]  = 1000
 
+
+#%%
+
+
+Field_df = applying_survival_salmonella_cucum(df = Field_df , 
+                                              Time = 24,
+                                              RH = 100,
+                                              Temp = 21)
