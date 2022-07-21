@@ -180,6 +180,7 @@ N_Pick = 3
 Days_Between_Picks = 7
 Days = np.arange(1, (N_Pick*Days_Between_Picks)+1)
 Harvest_Days = [7,14,21]
+PHS_Days = [4,11,18]
 
 #individual sequences for functions
 Individual_Plants = np.repeat(np.arange(1,int(np.ceil(Tomato_Sequence/Tomatoes_Per_Plant))),Tomatoes_Per_Plant+1)
@@ -273,6 +274,9 @@ for i in Days:
                                         No_Cont_Clusters = 1)
         print("Field Cont with Bird Dropping")
     
+    if i in PHS_Days:
+        
+    
     #This is where process starts, along with simulated harvest. 
     if i in Harvest_Days:
         print("The product was harvested")
@@ -331,9 +335,6 @@ for i in Days:
         #Processing
         #Wasing. 
         
-        
-        
-Field_df.loc[:,"CFU"]  = 1000
 
 
 #%%
