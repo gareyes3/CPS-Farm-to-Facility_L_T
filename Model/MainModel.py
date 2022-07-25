@@ -216,6 +216,48 @@ def Tomato_Wash(df):
     return df
 
 
+def F_CrossContProLine_tom (df, Tr_P_S, Tr_S_P, Sanitation_Freq_lb = 0, StepEff = 0 , compliance = 0 ):
+        df_field_1 =df.loc[df["Location"]==2].copy()
+        rateweight = 0.54
+        every_x_many = int(Sanitation_Freq_lb/rateweight)
+        ContS=0
+        vectorCFU = df_field_1["CFU"].copy()
+        newvector=[]
+        if every_x_many > 0:
+            Cleaning_steps = np.arange(0, len(vectorCFU) , every_x_many )
+        for i in list(vectorCFU.index):
+            if random.uniform(0,1)<compliance:
+                if every_x_many > 0:
+                    if i in Cleaning_steps:
+                        ContS = ContS*10**StepEff
+                        print ("cleaned")
+            ContP = vectorCFU[i] #Contamination product
+            TotTr_P_S= rng.binomial(ContP,Tr_P_S) #Transfer from Product to Surfaces
+            TotTr_S_P = rng.binomial(ContS,Tr_S_P) #Trasnfer from Surfaves to product
+            ContPNew = ContP-TotTr_P_S+TotTr_S_P #New Contmination on Product
+            ContS=ContS+TotTr_P_S-TotTr_S_P #Remiining Contamination in Surface for upcoming batches
+            newvector.append(ContPNew)
+        df_field_1.loc[:,"CFU"] = newvector
+        df.update(df_field_1)
+        return df
+    
+
+def Case_Packaging(df,Case_Weight,Tomato_Weight):
+    
+    df_field_1 =df.loc[df["Location"]==2].copy()
+    
+    Tomatoes_Case = math.ceil(Case_Weight/Tomato_Weight)
+    Total_Packages = len(df_field_1.index)
+    Total_Cases = math.ceil(Total_Packages/Tomatoes_Case)
+    Case_Pattern = [i for i in range(1, int(Total_Cases)+1) for _ in range(Tomatoes_Case)]
+    Crop_No = len(df_field_1.index)
+    Case_Pattern=Case_Pattern[:Crop_No]
+    print(Case_Pattern)
+    df_field_1.loc[:,"Case_PH"] = Case_Pattern
+    
+    df.update(df_field_1)
+    return df
+
 
 
 #%%%
@@ -276,6 +318,10 @@ Time_Sc_Pack = 2 #hr
 Temp_Pack = 25
 Time_Pack = 4 #hr
 
+#Pot Packer Storage 
+Temp_Post_Pack = 25
+Time_Post_Pack = 6
+
     
 #%%
 #Model
@@ -287,6 +333,7 @@ Field_df=pd.DataFrame({"Tomato_ID": Individual_Tomatoes,
                        "Harvester" : 0,
                        "Bucket":0,
                        "Bin": 0,
+                       "Case_PH": 0,
                        "CFU": 0,
                        "Location": 1,
                   })
@@ -389,12 +436,74 @@ for i in Days:
         #Wasing. 
         Field_df= Tomato_Wash(df = Field_df)
         
+        #Cross Contamination sorting
+        Field_df=F_CrossContProLine_tom (df = Field_df, Tr_P_S = 0.02, Tr_S_P = 0.01, Sanitation_Freq_lb = 0, StepEff = 0 , compliance = 0 )
+        
+        #Drying Cross Contmination
+        Field_df=F_CrossContProLine_tom (df = Field_df, Tr_P_S = 0.02, Tr_S_P = 0.01, Sanitation_Freq_lb = 0, StepEff = 0 , compliance = 0 )
+        
+        #Sorting2 cross contmaination
+        Field_df=F_CrossContProLine_tom (df = Field_df, Tr_P_S = 0.02, Tr_S_P = 0.01, Sanitation_Freq_lb = 0, StepEff = 0 , compliance = 0 )
+        
+        #Packing product into the cases at the Packing house. 
+        Field_df=Case_Packaging(df = Field_df,Case_Weight = 20,Tomato_Weight = 0.54)
+        
+        #Post Packaging Storage
+        Field_df = applying_survival_salmonella_cucum(df = Field_df , 
+                                                      Time = Time_Post_Pack,
+                                                      RH = RH_Florida,
+                                                      Temp = Temp_Post_Pack)
+        
+        
+        
 
 
 #%%
 
+Field_df.loc[list(range(3,200)), "CFU" ] = 1000
+Field_df.loc[list(range(3,500)), "Location" ] = 2
 
-Field_df = applying_survival_salmonella_cucum(df = Field_df , 
-                                              Time = 24,
-                                              RH = 100,
-                                              Temp = 21)
+
+def F_CrossContProLine_tom (df, Tr_P_S, Tr_S_P, Sanitation_Freq_lb = 0, StepEff = 0 , compliance = 0 ):
+        df_field_1 =df.loc[df["Location"]==2].copy()
+        rateweight = 0.54
+        every_x_many = int(Sanitation_Freq_lb/rateweight)
+        ContS=0
+        vectorCFU = df_field_1["CFU"].copy()
+        newvector=[]
+        if every_x_many > 0:
+            Cleaning_steps = np.arange(0, len(vectorCFU) , every_x_many )
+        for i in list(vectorCFU.index):
+            if random.uniform(0,1)<compliance:
+                if every_x_many > 0:
+                    if i in Cleaning_steps:
+                        ContS = ContS*10**StepEff
+                        print ("cleaned")
+            ContP = vectorCFU[i] #Contamination product
+            TotTr_P_S= rng.binomial(ContP,Tr_P_S) #Transfer from Product to Surfaces
+            TotTr_S_P = rng.binomial(ContS,Tr_S_P) #Trasnfer from Surfaves to product
+            ContPNew = ContP-TotTr_P_S+TotTr_S_P #New Contmination on Product
+            ContS=ContS+TotTr_P_S-TotTr_S_P #Remiining Contamination in Surface for upcoming batches
+            newvector.append(ContPNew)
+        df_field_1.loc[:,"CFU"] = newvector
+        df.update(df_field_1)
+        return df
+    
+    
+def Case_Packaging(df,Case_Weight,Tomato_Weight):
+    
+    df_field_1 =df.loc[df["Location"]==2].copy()
+    
+    Tomatoes_Case = math.ceil(Case_Weight/Tomato_Weight)
+    Total_Packages = len(df_field_1.index)
+    Total_Cases = math.ceil(Total_Packages/Tomatoes_Case)
+    Case_Pattern = [i for i in range(1, int(Total_Cases)+1) for _ in range(Tomatoes_Case)]
+    Crop_No = len(df_field_1.index)
+    Case_Pattern=Case_Pattern[:Crop_No]
+    print(Case_Pattern)
+    df_field_1.loc[:,"Case_PH"] = Case_Pattern
+    
+    df.update(df_field_1)
+    return df
+
+df3 = Case_Packaging(df = Field_df,Case_Weight = 20,Tomato_Weight = 0.54)
