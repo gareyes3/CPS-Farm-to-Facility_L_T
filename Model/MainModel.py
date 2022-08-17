@@ -157,17 +157,23 @@ def Survival_Salmonella_cucum(x,Time, RH, Temp):
 
 
 
-def applying_survival_salmonella_cucum(df, Time, RH, Temp):
-    df.loc[:,"CFU"]=df["CFU"].apply(func= Survival_Salmonella_cucum, 
+def applying_survival_salmonella_cucum(df, Time, RH, Temp, Location):
+    df_field_1 =df.loc[df["Location"]==Location].copy()
+
+    
+    
+    df_field_1.loc[:,"CFU"]=df_field_1["CFU"].apply(func= Survival_Salmonella_cucum, 
                                                 Time = Time,
                                                 RH = RH,
                                                 Temp = Temp)
+    
+    df.update(df_field_1)
     return df
 
 
-def Tomato_Wash(df):
+def Tomato_Wash(df, Location):
 
-    FC_lvl = 150 #np.random.triangular(0,5,10)
+    FC_lvl = np.random.triangular(0,5,10)
     if FC_lvl<10:
         log_red_Wash_mean = (FC_lvl*0.04)+0.3
     elif FC_lvl>10:
@@ -181,7 +187,7 @@ def Tomato_Wash(df):
     Log_Trans_Upper = (-0.6798*FC_lvl)-0.6003
     Log_Trans_Lower = (-1.3596*FC_lvl)-0.6
     
-    Field_df_1 =df.loc[df["Location"]==2].copy() #location 4 is wash water
+    Field_df_1 =df.loc[df["Location"]==Location].copy() #location 4 is wash water
     Field_df_1_conts = Field_df_1["CFU"].copy()
     
     Tras_old= 0
@@ -218,8 +224,8 @@ def Tomato_Wash(df):
     return df
 
 
-def F_CrossContProLine_tom (df, Tr_P_S, Tr_S_P, Sanitation_Freq_lb = 0, StepEff = 0 , compliance = 0 ):
-        df_field_1 =df.loc[df["Location"]==2].copy()
+def F_CrossContProLine_tom (df, Tr_P_S, Tr_S_P,  Location, Sanitation_Freq_lb = 0, StepEff = 0 , compliance = 0):
+        df_field_1 =df.loc[df["Location"]==Location].copy()
         rateweight = 0.54
         every_x_many = int(Sanitation_Freq_lb/rateweight)
         ContS=0
@@ -244,9 +250,9 @@ def F_CrossContProLine_tom (df, Tr_P_S, Tr_S_P, Sanitation_Freq_lb = 0, StepEff 
         return df
     
 
-def Case_Packaging(df,Case_Weight,Tomato_Weight):
+def Case_Packaging(df,Case_Weight,Tomato_Weight, Location):
     
-    df_field_1 =df.loc[df["Location"]==2].copy()
+    df_field_1 =df.loc[df["Location"]==Location].copy()
     
     Tomatoes_Case = math.ceil(Case_Weight/Tomato_Weight)
     Total_Packages = len(df_field_1.index)
@@ -259,7 +265,31 @@ def Case_Packaging(df,Case_Weight,Tomato_Weight):
     df.update(df_field_1)
     return df
 
+def Update_Location(df, Previous, NewLoc):
+    df_field_1 =df.loc[df["Location"]==Previous].copy()
+    df_field_1.loc[:,"Location"] =NewLoc
+    df.update(df_field_1)
+    return df
 
+
+#Sampling Function
+
+def F_Sampling_2 (df, Test_Unit, NSamp_Unit, Samp_Size, Partition_Weight, NoGrab):
+    Unique_TestUnit = list(df[Test_Unit].unique())
+    Grab_Weight = Samp_Size/NoGrab
+    for i in (Unique_TestUnit): #From sublot 1 to sublot n (same for pallet,lot,case etc)
+        for l in range (1, NSamp_Unit+1): #Number of samples per sublot or lot or pallet.
+            for j in range(NoGrab):
+                CFU_hh=np.array(df["CFU"])
+                List_Random=random.choice(list(enumerate(CFU_hh)))
+                CFU = List_Random[1]
+                Index = List_Random[0]
+                CFU_grab = CFU*(Grab_Weight/(Partition_Weight*454))
+                P_Detection=1-math.exp(-CFU_grab)
+                RandomUnif = random.uniform(0,1)
+                if RandomUnif < P_Detection:
+                    df.at[Index, 'PositiveSamples'].append(l)
+    return (df)
 
 #%%%
 #Basic Information
@@ -298,7 +328,7 @@ Pr_Bin_cont = 0.05 #probability that a bin is contaminated
 
 #Contamination Scenario
     #Small Cluster
-Total_Hazard = 100_000
+Total_Hazard = 42_000
 
 
 #Processing Factors
@@ -364,10 +394,23 @@ for k in Total_Iterations:
     #Reseting to current pick
     Current_Pick = 1
     
-    ###
+    ###Contamination Event Selection
+    Days_B_Pick1 = list(range(1,Days_Between_Picks+1))
+    Days_B_Pick2 = list(range(Days_Between_Picks+1,2*Days_Between_Picks+1))
+    Days_B_Pick3 = list(range(2*Days_Between_Picks+1,3*Days_Between_Picks+1))
+    
+    Cont_Event_1_Days = [random.sample(Days_B_Pick1,1)[0], random.sample(Days_B_Pick2,1)[0], random.sample(Days_B_Pick3,1)[0]]
+    Cont_Event_2_Days = [random.sample(Days_B_Pick1,1)[0], random.sample(Days_B_Pick2,1)[0], random.sample(Days_B_Pick3,1)[0]]
+    Cont_Event_3_Harvesters = random.sample(list(range(1,Total_Harvesters+1)),3)
+    
+    
+    
+    
     for i in Days:
-        #Contmaination Event Due to Rain
-        if (np.random.uniform(0,1)<Pr_of_rain):
+        
+        #Contmaination Event Due to Rain'
+        
+        if (Cont_Scenario == 1 and i in Cont_Event_1_Days):
             #This function contaminated the field uniformly. 100% of the field cont. 
             Field_df = field_cont_percetage(df = Field_df, 
                                             percent_cont = 100,
@@ -376,8 +419,9 @@ for k in Total_Iterations:
             #Contaminated field with Rain
             print("Field Cont with Rain")
         
-        #Contmaination Event Due to Rain
-        if (np.random.uniform(0,1)<Pr_bird_drop):
+        #Contmaination Event Due to Animal Intrusion
+        #if (np.random.uniform(0,1)<Pr_bird_drop):
+        if (Cont_Scenario == 2 and i in Cont_Event_2_Days):   
             #Contaminated field with 0.1% contamination, simulated bird droping. 
             Field_df = field_cont_percetage(df = Field_df, 
                                             percent_cont = 0.1,
@@ -387,18 +431,21 @@ for k in Total_Iterations:
         
         #if i in PHS_Days:
             
+            
         
         #This is where process starts, along with simulated harvest. 
         if i in Harvest_Days:
             print("The product was harvested")
+            #Location 2
             Field_df = Harvesting_Function(df = Field_df, Total_Harvesters = Total_Harvesters, 
                                           Tomatoes_Per_Bucket = Tomatoes_Per_Bucket,
                                           Tomato_Sequence = Tomato_Sequence, 
                                           Pick_No = Current_Pick)
             #Harvester contmaination
-            if (np.random.uniform(0,1)<Pr_harvester_cont):
+            #if (np.random.uniform(0,1)<Pr_harvester_cont):
+            if (Cont_Scenario == 3):
                 #Picking the contaminated harvester at random
-                Contam_Harvester = random.sample(list(range(1,Total_Harvesters+1)),1)[0]
+                Contam_Harvester = Cont_Event_3_Harvesters[N_Pick-1] #random.sample(list(range(1,Total_Harvesters+1)),1)[0]
                 #applying the contmainated harvester function to the Data. 
                 Field_df =Harvester_Cont_Function(df = Field_df,
                                         Hazard_Level = 100_000, 
@@ -406,7 +453,8 @@ for k in Total_Iterations:
                                         Cont_Harvester_No =Contam_Harvester )
                 
             #Bin Contmaination
-            if (np.random.uniform(0,1)<Pr_Bin_cont):
+            #if (np.random.uniform(0,1)<Pr_Bin_cont):
+            if (Cont_Scenario == 4):
                 #Picking the contaminated harvester at random
                 Contam_Bin = random.sample(list(range(1,Total_Bins+1)),1)[0]
                 #applying the contmainated harvester function to the Data. 
@@ -415,7 +463,7 @@ for k in Total_Iterations:
                                         Pick_No =Current_Pick  , 
                                         Cont_Bin_No = Contam_Bin )
             
-            #Establishing which pick we are int
+            #Establishing which pick we are in
             Current_Pick = Current_Pick+1
             
             #Transportation from the field to the shipping center
@@ -423,56 +471,106 @@ for k in Total_Iterations:
             Field_df = applying_survival_salmonella_cucum(df = Field_df , 
                                                           Time = Time_F_Sc,
                                                           RH = RH_Florida,
-                                                          Temp = Temp_F_Sc)
+                                                          Temp = Temp_F_Sc,
+                                                          Location = 2)
+            
+            #Updates location from Harvest to Shipping Center
+            Field_df=Update_Location(df= Field_df, Previous = 2, NewLoc =3)
             
             #At Shipping center, temporary storage in open bins
             Field_df = applying_survival_salmonella_cucum(df = Field_df , 
                                                           Time = Time_Sc,
                                                           RH = RH_Florida,
-                                                          Temp = Temp_Sc)
+                                                          Temp = Temp_Sc,
+                                                          Location = 3)
             
             #From shipping center to packing facility.
             Field_df = applying_survival_salmonella_cucum(df = Field_df , 
                                                           Time = Time_Sc_Pack,
                                                           RH = RH_Florida,
-                                                          Temp = Temp_Sc_Pack)
+                                                          Temp = Temp_Sc_Pack,
+                                                          Location = 3)
+            
+            #Updates location from Shipping Center to Packing House
+            Field_df=Update_Location(df= Field_df, Previous = 3, NewLoc =4)
             
             #Temporary Storage in Packing Facility
             Field_df = applying_survival_salmonella_cucum(df = Field_df , 
                                                           Time = Time_Pack,
                                                           RH = RH_Florida,
-                                                          Temp = Temp_Pack)
+                                                          Temp = Temp_Pack,
+                                                          Location = 4)
             
             #Processing
             #Wasing. 
-            Field_df= Tomato_Wash(df = Field_df)
+            #Updates location from  Packing House to Washing
+            Field_df=Update_Location(df= Field_df, Previous = 4, NewLoc =5)
             
-            #Cross Contamination sorting
-            Field_df=F_CrossContProLine_tom (df = Field_df, Tr_P_S = 0.02, Tr_S_P = 0.01, Sanitation_Freq_lb = 0, StepEff = 0 , compliance = 0 )
+            Field_df= Tomato_Wash(df = Field_df, Location  = 5)
+            
+            #Cross Contamination Conveyor Belt
+            #Updates location from  Washing to Sorting
+            Field_df=Update_Location(df= Field_df, Previous = 5, NewLoc =6)
+            
+            Field_df=F_CrossContProLine_tom (df = Field_df, 
+                                             Tr_P_S = 0.02, 
+                                             Tr_S_P = 0.01,
+                                             Location = 6,
+                                             Sanitation_Freq_lb = 0, 
+                                             StepEff = 0 , 
+                                             compliance = 0 )
             
             #Drying Cross Contmination
-            Field_df=F_CrossContProLine_tom (df = Field_df, Tr_P_S = 0.02, Tr_S_P = 0.01, Sanitation_Freq_lb = 0, StepEff = 0 , compliance = 0 )
+            #Updates location from  Conveyor Belt to Drying
+            Field_df=Update_Location(df= Field_df, Previous = 6, NewLoc =7)
+            
+            Field_df=F_CrossContProLine_tom (df = Field_df, 
+                                             Tr_P_S = 0.02, 
+                                             Tr_S_P = 0.01,
+                                             Location = 7,
+                                             Sanitation_Freq_lb = 0, 
+                                             StepEff = 0 , 
+                                             compliance = 0 )
             
             #Sorting2 cross contmaination
-            Field_df=F_CrossContProLine_tom (df = Field_df, Tr_P_S = 0.02, Tr_S_P = 0.01, Sanitation_Freq_lb = 0, StepEff = 0 , compliance = 0 )
+            #Updates location from  Drying to Sorting
+            Field_df=Update_Location(df= Field_df, Previous = 7, NewLoc =8)
+            Field_df=F_CrossContProLine_tom (df = Field_df, 
+                                             Tr_P_S = 0.02, 
+                                             Tr_S_P = 0.01,
+                                             Location = 8,
+                                             Sanitation_Freq_lb = 0, 
+                                             StepEff = 0 , 
+                                             compliance = 0 )
             
             #Packing product into the cases at the Packing house. 
-            Field_df=Case_Packaging(df = Field_df,Case_Weight = 20,Tomato_Weight = 0.54)
+            #Updates location from  Sorting to Packing
+            Field_df=Update_Location(df= Field_df, Previous = 8, NewLoc = 9)
+            
+            Field_df=Case_Packaging(df = Field_df,Case_Weight = 20,Tomato_Weight = 0.54, Location = 9)
             
             #Post Packaging Storage
             Field_df = applying_survival_salmonella_cucum(df = Field_df , 
                                                           Time = Time_Post_Pack,
                                                           RH = RH_Florida,
-                                                          Temp = Temp_Post_Pack)
+                                                          Temp = Temp_Post_Pack,
+                                                          Location = 9)
         #Adding Contmination to Every Day
         DC_Cont_Day= Dictionariez_T.Output_Collection_Prog(df = Field_df , outputDF =DC_Cont_Day , Step_Column = i,i = k)
             
-        if i not in Harvest_Days:
-            #Dieoff for All Fays
-            Field_df = applying_survival_salmonella_cucum(df = Field_df , 
-                                                          Time = 24, #hr
-                                                          RH = RH_Florida,
-                                                          Temp = Temp_In_Field)
+
+        #Dieoff for Items that stayed in the Field. 
+        Field_df = applying_survival_salmonella_cucum(df = Field_df , 
+                                                      Time = 24, #hr
+                                                      RH = RH_Florida,
+                                                      Temp = Temp_In_Field,
+                                                      Location = 1)
+        
+        #Total Consumer Exposure
+        
+        
+        
+        
 #%%
 
 Field_df.loc[list(range(3,200)), "CFU" ] = 1000
@@ -527,7 +625,7 @@ df3 = Case_Packaging(df = Field_df,Case_Weight = 20,Tomato_Weight = 0.54)
 #%%
 #Experimenntal Plots
 DC_Cont_Day_Melted = DC_Cont_Day.melt()
-p=sns.lineplot(data=DC_Cont_Day_Melted, x="variable", y="value", markers = True)
+p=sns.pointplot(data=DC_Cont_Day_Melted, x="variable", y="value")
 p.set_xlabel("Days in System", fontsize = 12)
 p.set_ylabel("Total Adulterant Cells in System", fontsize = 12)
 
@@ -537,3 +635,13 @@ Field_df =Bin_Cont_Function(df = Field_df,
                         Hazard_Level = 100_000, 
                         Pick_No =1  , 
                         Cont_Bin_No = Contam_Bin)
+
+#### Function Change Location
+def Update_Location(df, Previous, NewLoc):
+    df_field_1 =df.loc[df["Location"]==Previous].copy()
+    df_field_1.loc[:,"Location"] =NewLoc
+    df.update(df_field_1)
+    return df
+
+Update_Location(df= Field_df, Previous = 2, NewLoc =3)
+
