@@ -29,13 +29,13 @@ def Output_Collection_Prog(df, outputDF, Step_Column,i):
 
 
 
-df_field_1 =df.loc[df["Location"]==Previous].copy()
+#df_field_1 =df.loc[df["Location"]==Previous].copy()
 
 def Output_Collection_Prog_Pick(df, outputDF, Step_Column,i, PickNo):
     #df= main model df
     #outputDF = contprogdataframe
     #Step_column = column for the step we are at
-    df2 =df.loc[df["Pick"]==PickNo].copy()
+    df2 =df.loc[df["Pick_ID"]==PickNo].copy()
     Total_CFU = sum(df2.CFU)
     outputDF.at[i,Step_Column] = Total_CFU
     return outputDF

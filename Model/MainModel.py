@@ -291,6 +291,8 @@ def F_Sampling_2 (df, Test_Unit, NSamp_Unit, Samp_Size, Partition_Weight, NoGrab
                     df.at[Index, 'PositiveSamples'].append(l)
     return (df)
 
+
+
 #%%%
 #Basic Information
 Tomato_weight = 260/454 #for medium tomato #260g tomato
@@ -358,13 +360,18 @@ Temp_In_Field = 25
 
 
 #Total Iterations
-Iteration_Number = 10
+Iteration_Number = 100
 Total_Iterations = list(range(0,Iteration_Number))
 
 #%%
 #Model
 #Creation of collection Data Frames.
 DC_Cont_Day = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Iteration_Number)
+
+DC_Cont_Day_Pick1 = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Iteration_Number)
+DC_Cont_Day_Pick2 = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Iteration_Number)
+DC_Cont_Day_Pick3 = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Iteration_Number)
+
 
 #%%
 Cont_Scenario = 1
@@ -555,8 +562,15 @@ for k in Total_Iterations:
                                                           RH = RH_Florida,
                                                           Temp = Temp_Post_Pack,
                                                           Location = 9)
+            #Ripening: 
+            Field_df=Update_Location(df= Field_df, Previous = 9, NewLoc = 10)
         #Adding Contmination to Every Day
         DC_Cont_Day= Dictionariez_T.Output_Collection_Prog(df = Field_df , outputDF =DC_Cont_Day , Step_Column = i,i = k)
+        DC_Cont_Day_Pick1= Dictionariez_T.Output_Collection_Prog_Pick(df = Field_df , outputDF = DC_Cont_Day_Pick1 , Step_Column = i,i = k, PickNo = 1)
+        DC_Cont_Day_Pick2= Dictionariez_T.Output_Collection_Prog_Pick(df = Field_df , outputDF = DC_Cont_Day_Pick2 , Step_Column = i,i = k, PickNo = 2)
+        DC_Cont_Day_Pick3= Dictionariez_T.Output_Collection_Prog_Pick(df = Field_df , outputDF = DC_Cont_Day_Pick3 , Step_Column = i,i = k, PickNo = 3)
+
+
             
 
         #Dieoff for Items that stayed in the Field. 
@@ -571,7 +585,7 @@ for k in Total_Iterations:
         
         
         
-#%%
+ #%%
 
 Field_df.loc[list(range(3,200)), "CFU" ] = 1000
 Field_df.loc[list(range(3,500)), "Location" ] = 2
@@ -630,6 +644,23 @@ p.set_xlabel("Days in System", fontsize = 12)
 p.set_ylabel("Total Adulterant Cells in System", fontsize = 12)
 
 Contam_Bin = random.sample(list(range(1,Total_Bins+1)),1)[0]
+
+
+DC_Cont_Day_Pick1_Melted = DC_Cont_Day_Pick1.melt()
+DC_Cont_Day_Pick1_Melted["Pick_ID"] = 1
+DC_Cont_Day_Pick2_Melted = DC_Cont_Day_Pick2.melt()
+DC_Cont_Day_Pick2_Melted["Pick_ID"] = 2
+DC_Cont_Day_Pick3_Melted = DC_Cont_Day_Pick3.melt()
+DC_Cont_Day_Pick3_Melted["Pick_ID"] = 3
+
+DC_Cont_Day_Combined=pd.concat([DC_Cont_Day_Pick1_Melted,DC_Cont_Day_Pick2_Melted,DC_Cont_Day_Pick3_Melted])
+
+p=sns.pointplot(data=DC_Cont_Day_Combined, x="variable", y="value", hue = "Pick_ID")
+p.set_xlabel("Days in System", fontsize = 12)
+p.set_ylabel("Total Adulterant Cells in System", fontsize = 12)
+plt.xticks(rotation=90)
+
+Field_df.loc[(Field_df["Pick_ID"] ==1) & (Field_df["Harvester"] == 1 )]
 
 Field_df =Bin_Cont_Function(df = Field_df,
                         Hazard_Level = 100_000, 
