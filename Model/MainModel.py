@@ -274,9 +274,9 @@ def Update_Location(df, Previous, NewLoc):
 
 #Sampling Function
 
-def F_Sampling_2 (df, Test_Unit, NSamp_Unit, Samp_Size, Partition_Weight, NoGrab):
+def F_Sampling_T (df, Test_Unit, NSamp_Unit, Samp_Size, Partition_Weight, NoGrab):
     Unique_TestUnit = list(df[Test_Unit].unique())
-    Grab_Weight = Samp_Size/NoGrab
+    Grab_Weight = Partition_Weight #In lb
     for i in (Unique_TestUnit): #From sublot 1 to sublot n (same for pallet,lot,case etc)
         for l in range (1, NSamp_Unit+1): #Number of samples per sublot or lot or pallet.
             for j in range(NoGrab):
@@ -379,7 +379,16 @@ Cont_Scenario = 1
     #2 = Bird feces, 0.01 percent of fieldl contaminaated (point source contamination)
     #3 = harvester / bucket contamination, small clusters spread throughout the field
     #4 = Bins , medium size clusters spread across the field. 
+
+#Sampling Plan
+Samp_Plan = 1
+    #PHS
+    #HS
+    #RS
+    #PPS
     
+Tomatoes_per_sample = 5
+
     
 #Simulating Days
 
@@ -397,7 +406,10 @@ for k in Total_Iterations:
                            "Case_PH": 0,
                            "CFU": 0,
                            "Location": 1,
+                           'PositiveSamples':"",
+                           "Rej_Acc" :"Acc"
                       })
+    Field_df.PositiveSamples = [list() for x in range(len(Field_df.index))]
     #Reseting to current pick
     Current_Pick = 1
     
@@ -676,3 +688,91 @@ def Update_Location(df, Previous, NewLoc):
 
 Update_Location(df= Field_df, Previous = 2, NewLoc =3)
 
+
+###
+
+def F_Sampling_T (df, Pick_No, Location, NSamp_Unit, NoGrab):
+    
+    df_field_1 =df.loc[(df["Pick_ID"]==Pick_No) & (df["Location"]==Location)].copy()
+    
+    #Unique_TestUnit = list(df[Test_Unit].unique())
+    #Grab_Weight = Partition_Weight #In lb
+    #for i in (Unique_TestUnit): #From sublot 1 to sublot n (same for pallet,lot,case etc)
+    for l in range (1, NSamp_Unit+1): #Number of samples per sublot or lot or pallet.
+        for j in range(NoGrab):
+            CFU_hh=df_field_1["CFU"]
+            List_Random=CFU_hh.sample(n=1)
+            CFU = List_Random
+            Index = List_Random.index[0]
+            CFU_grab = CFU#*(Grab_Weight/(Partition_Weight*454))
+            P_Detection=1-math.exp(-CFU_grab)
+            RandomUnif = random.uniform(0,1)
+            if RandomUnif < P_Detection:
+                df_field_1.at[Index, 'PositiveSamples'].append(l)
+    df.update(df_field_1)
+    return (df)
+
+
+def F_Rejection_Rule_T (df, Pick_No, Av_Picks, Test_Unit, limit):
+    #Unique_Test_Unit =list(df[Test_Unit].unique())
+    df_field_1 =df.loc[(df["Pick_ID"].isin(Av_Picks))].copy()
+    Reject = []
+    #for  i in Unique_Test_Unit:
+    df_Subset = df_field_1[df_field_1[Test_Unit] == Pick_No].copy()
+    List_of_grabs = df_Subset['PositiveSamples'].tolist()
+    flat_list = [item for sublist in  List_of_grabs for item in sublist]
+    Unique_Positives =list(np.unique(flat_list))
+    if len(Unique_Positives)>limit:
+        Reject.append(i)
+    df_field_1.PositiveSamples = [list() for x in range(len(df.index))] #this is in case everything gets rejected
+    if len(Reject)>0:
+     df_field_1.loc[:,"Rej_Acc"] = "REJ"
+        #df_Blank = df.iloc[[0]]
+        #df_Blank.loc[:, ['CFU']] = 0
+        #df_Blank.loc[:, ['Weight']] = SCInputz.Partition_Weight
+        #df_Blank.loc[:, ['Accept']] = "All Rej"
+        #df = df_Blank
+    #else:
+        #df = df[~df[Test_Unit].isin(Reject)]
+    df.update(df_field_1)
+    return df
+
+Field_df=pd.DataFrame({"Tomato_ID": Individual_Tomatoes,
+                       "Plant_ID": Individual_Plants[0:Individual_Tomatoes.size],
+                       "Pick_ID": Pick_Random[0:Individual_Tomatoes.size],
+                       "Weight": Tomato_weight,
+                       "Harvester" : 0,
+                       "Bucket":0,
+                       "Bin": 0,
+                       "Case_PH": 0,
+                       "CFU": 0,
+                       "Location": 1,
+                       'PositiveSamples':"",
+                       "Rej_Acc" :"Acc"
+                  })
+Field_df.PositiveSamples = [list() for x in range(len(Field_df.index))]
+
+Field_df.loc[1:25000:,"CFU"] =100
+
+F_Sampling_T (df= Field_df, 
+              Pick_No = 1, 
+              Location = 1, 
+              NSamp_Unit = 1, 
+              NoGrab =800 )
+
+F_Rejection_Rule_T (df = Field_df, 
+                    Pick_No = 1, Av_Picks= [1,2,3], 
+                    Test_Unit = "Pick_ID", 
+                    limit = 0)
+
+df_field_1 =Field_df.loc[(Field_df["Pick_ID"]==Pick_No) & (Field_df["Location"]==Location)].copy()
+
+df_field_1.index[4]
+
+CFU_hh.sample(n=1).index[0]
+
+list(range(1,3+1))
+
+Field_df.loc[(Field_df["Pick_ID"].isin([1,2]))]
+
+len([])
