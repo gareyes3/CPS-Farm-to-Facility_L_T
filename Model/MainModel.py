@@ -724,7 +724,7 @@ def F_Rejection_Rule_T (df, Pick_No, Av_Picks, Test_Unit, limit):
     Unique_Positives =list(np.unique(flat_list))
     if len(Unique_Positives)>limit:
         Reject.append(i)
-    df_field_1.PositiveSamples = [list() for x in range(len(df.index))] #this is in case everything gets rejected
+    df_field_1.PositiveSamples = [list() for x in range(len(df_field_1.index))] #this is in case everything gets rejected
     if len(Reject)>0:
      df_field_1.loc[:,"Rej_Acc"] = "REJ"
         #df_Blank = df.iloc[[0]]
@@ -752,16 +752,16 @@ Field_df=pd.DataFrame({"Tomato_ID": Individual_Tomatoes,
                   })
 Field_df.PositiveSamples = [list() for x in range(len(Field_df.index))]
 
-Field_df.loc[1:25000:,"CFU"] =100
+Field_df.loc[1:2500:,"CFU"] =10
 
 F_Sampling_T (df= Field_df, 
-              Pick_No = 1, 
+              Pick_No = 2, 
               Location = 1, 
               NSamp_Unit = 1, 
-              NoGrab =800 )
+              NoGrab =80 )
 
 F_Rejection_Rule_T (df = Field_df, 
-                    Pick_No = 1, Av_Picks= [1,2,3], 
+                    Pick_No = 2, Av_Picks= [2,3], 
                     Test_Unit = "Pick_ID", 
                     limit = 0)
 
