@@ -42,15 +42,16 @@ def field_cont_percetage(df, percent_cont, Hazard_lvl, No_Cont_Clusters):
     Percent_D_Contaminatinated= Percent_Contaminated/100 #Percentage in decimal point
     Hazard_lvl = Hazard_lvl #CFUs in contaminated area total Cells
     No_Cont_Clusters = No_Cont_Clusters #in how many clusters will the percentage and cont be split into
-    No_Cont_PartitionUnits = int((len(df[df["Location"]==1]))*Percent_D_Contaminatinated) #how many tomatoes are contmainated based on percentage
-    Field_df_1 =df.loc[df["Location"]==1].copy() #filtering main df into only those that are in a field
+    No_Cont_PartitionUnits = int((len(df[(df["Location"]==1) & (df["Rej_Acc"]=="Acc") ]))*Percent_D_Contaminatinated) #how many tomatoes are contmainated based on percentage
+    Field_df_1 =df.loc[(df["Location"]==1)& (df["Rej_Acc"]=="Acc")].copy() #filtering main df into only those that are in a field
     
+    if len(Field_df_1)>0: #The field is only contamiated if the Product is still in accepted condition
     #Determining the hazard level per cluster
-    Hazard_lvl_percluster= Hazard_lvl / No_Cont_Clusters #(No_Cont_PartitionUnits*No_Cont_Clusters)
-    for i in range(0,No_Cont_Clusters):
-        random_Chunky = list(random_chunk(lst = Field_df_1.index, chunk_size = No_Cont_PartitionUnits)) #creating random chunk
-        Contamination_Pattern = rng.multinomial(Hazard_lvl_percluster,[1/No_Cont_PartitionUnits]*No_Cont_PartitionUnits,1) #spliting cont into chunks length
-        Field_df_1.loc[random_Chunky, "CFU"] = Field_df_1.loc[random_Chunky, "CFU"] + Contamination_Pattern[0] #adding contmaination
+        Hazard_lvl_percluster= Hazard_lvl / No_Cont_Clusters #(No_Cont_PartitionUnits*No_Cont_Clusters)
+        for i in range(0,No_Cont_Clusters):
+            random_Chunky = list(random_chunk(lst = Field_df_1.index, chunk_size = No_Cont_PartitionUnits)) #creating random chunk
+            Contamination_Pattern = rng.multinomial(Hazard_lvl_percluster,[1/No_Cont_PartitionUnits]*No_Cont_PartitionUnits,1) #spliting cont into chunks length
+            Field_df_1.loc[random_Chunky, "CFU"] = Field_df_1.loc[random_Chunky, "CFU"] + Contamination_Pattern[0] #adding contmaination
 
     df.update(Field_df_1)
     
@@ -78,7 +79,7 @@ def Harvesting_Function(df, Total_Harvesters, Tomatoes_Per_Bucket,Tomato_Sequenc
     Harvester_Pattern = np.repeat(list(range(1,Total_Harvesters+1)),Tomatoes_Per_Bucket)
     Harvester_Pattern_Full=np.tile(Harvester_Pattern,int(np.ceil(Tomato_Sequence/len(Harvester_Pattern))))
     
-    Field_df_1 =df.loc[df['Pick_ID']==Pick_No].copy()
+    Field_df_1 =df.loc[(df['Pick_ID']==Pick_No) & (df['Rej_Acc']== "Acc") ].copy()
     
     Bin_Pattern =  np.repeat(list(range(1,math.ceil(Field_df_1["Tomato_ID"].size/Tomatoes_per_Bin)+1)), Tomatoes_per_Bin)
     Bin_Pattern_Trimmed = Bin_Pattern[list(range(1,Field_df_1["Tomato_ID"].size+1))]
@@ -158,7 +159,7 @@ def Survival_Salmonella_cucum(x,Time, RH, Temp):
 
 
 def applying_survival_salmonella_cucum(df, Time, RH, Temp, Location):
-    df_field_1 =df.loc[df["Location"]==Location].copy()
+    df_field_1 =df.loc[(df["Location"]==Location)].copy()
 
     
     
@@ -274,24 +275,53 @@ def Update_Location(df, Previous, NewLoc):
 
 #Sampling Function
 
-def F_Sampling_T (df, Test_Unit, NSamp_Unit, Samp_Size, Partition_Weight, NoGrab):
-    Unique_TestUnit = list(df[Test_Unit].unique())
-    Grab_Weight = Partition_Weight #In lb
-    for i in (Unique_TestUnit): #From sublot 1 to sublot n (same for pallet,lot,case etc)
-        for l in range (1, NSamp_Unit+1): #Number of samples per sublot or lot or pallet.
-            for j in range(NoGrab):
-                CFU_hh=np.array(df["CFU"])
-                List_Random=random.choice(list(enumerate(CFU_hh)))
-                CFU = List_Random[1]
-                Index = List_Random[0]
-                CFU_grab = CFU*(Grab_Weight/(Partition_Weight*454))
-                P_Detection=1-math.exp(-CFU_grab)
-                RandomUnif = random.uniform(0,1)
-                if RandomUnif < P_Detection:
-                    df.at[Index, 'PositiveSamples'].append(l)
+def F_Sampling_T (df, Pick_No, Location, NSamp_Unit, NoGrab):
+    
+    df_field_1 =df.loc[(df["Pick_ID"]==Pick_No) & (df["Location"]==Location)].copy()
+    
+    #Unique_TestUnit = list(df[Test_Unit].unique())
+    #Grab_Weight = Partition_Weight #In lb
+    #for i in (Unique_TestUnit): #From sublot 1 to sublot n (same for pallet,lot,case etc)
+    for l in range (1, NSamp_Unit+1): #Number of samples per sublot or lot or pallet.
+        for j in range(NoGrab):
+            CFU_hh=df_field_1["CFU"]
+            List_Random=CFU_hh.sample(n=1)
+            CFU = List_Random
+            Index = List_Random.index[0]
+            CFU_grab = CFU#*(Grab_Weight/(Partition_Weight*454))
+            P_Detection=1-math.exp(-CFU_grab)
+            RandomUnif = random.uniform(0,1)
+            if RandomUnif < P_Detection:
+                df_field_1.at[Index, 'PositiveSamples'].append(l)
+    df.update(df_field_1)
     return (df)
 
-
+def F_Rejection_Rule_T (df, Pick_No, Av_Picks, Test_Unit, limit):
+    #Unique_Test_Unit =list(df[Test_Unit].unique())
+    df_field_1 =df.loc[(df["Pick_ID"].isin(Av_Picks))].copy()
+    Reject = []
+    #for  i in Unique_Test_Unit:
+    df_Subset = df_field_1[df_field_1[Test_Unit] == Pick_No].copy()
+    List_of_grabs = df_Subset['PositiveSamples'].tolist()
+    flat_list = [item for sublist in  List_of_grabs for item in sublist]
+    Unique_Positives =list(np.unique(flat_list))
+    if len(Unique_Positives)>limit:
+        Reject.append(i)
+    df_field_1.PositiveSamples = [list() for x in range(len(df_field_1.index))] #this is in case everything gets rejected
+    if len(Reject)>0:
+     df_field_1.loc[:,"Rej_Acc"] = "REJ"
+     df_field_1.loc[:,"CFU_BRej"] = df_field_1["CFU"]
+     df_field_1.loc[:,"CFU"] = 0
+     
+        #df_Blank = df.iloc[[0]]
+        #df_Blank.loc[:, ['CFU']] = 0
+        #df_Blank.loc[:, ['Weight']] = SCInputz.Partition_Weight
+        #df_Blank.loc[:, ['Accept']] = "All Rej"
+        #df = df_Blank
+    #else:
+        #df = df[~df[Test_Unit].isin(Reject)]
+    df.update(df_field_1)
+    return df
 
 #%%%
 #Basic Information
@@ -360,18 +390,18 @@ Temp_In_Field = 25
 
 
 #Total Iterations
-Iteration_Number = 100
+Iteration_Number = 10
 Total_Iterations = list(range(0,Iteration_Number))
 
 #%%
 #Model
 #Creation of collection Data Frames.
 DC_Cont_Day = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Iteration_Number)
+DC_Exp = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Columns_Final_Outs, Niterations = Iteration_Number)
 
 DC_Cont_Day_Pick1 = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Iteration_Number)
 DC_Cont_Day_Pick2 = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Iteration_Number)
 DC_Cont_Day_Pick3 = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Iteration_Number)
-
 
 #%%
 Cont_Scenario = 1
@@ -405,11 +435,14 @@ for k in Total_Iterations:
                            "Bin": 0,
                            "Case_PH": 0,
                            "CFU": 0,
+                           "CFU_BRej":"",
                            "Location": 1,
                            'PositiveSamples':"",
                            "Rej_Acc" :"Acc"
                       })
+    
     Field_df.PositiveSamples = [list() for x in range(len(Field_df.index))]
+    
     #Reseting to current pick
     Current_Pick = 1
     
@@ -421,8 +454,6 @@ for k in Total_Iterations:
     Cont_Event_1_Days = [random.sample(Days_B_Pick1,1)[0], random.sample(Days_B_Pick2,1)[0], random.sample(Days_B_Pick3,1)[0]]
     Cont_Event_2_Days = [random.sample(Days_B_Pick1,1)[0], random.sample(Days_B_Pick2,1)[0], random.sample(Days_B_Pick3,1)[0]]
     Cont_Event_3_Harvesters = random.sample(list(range(1,Total_Harvesters+1)),3)
-    
-    
     
     
     for i in Days:
@@ -448,8 +479,23 @@ for k in Total_Iterations:
                                             No_Cont_Clusters = 1)
             print("Field Cont with Bird Dropping")
         
-        #if i in PHS_Days:
+        #Conduncting preharvest sampling. 
+        if Samp_Plan == 1:
+            if i in PHS_Days:
+                Field_df = F_Sampling_T (df= Field_df, 
+                                          Pick_No = Current_Pick, 
+                                          Location = 1, #Location is in field
+                                          NSamp_Unit = 1, 
+                                          NoGrab = Tomatoes_per_sample) 
+                #Rejection rules, reject current pick plus any upcoming picks
+                F_Rejection_Rule_T (df = Field_df, 
+                                    Pick_No = Current_Pick, 
+                                    Av_Picks= list(range(Current_Pick,N_Pick+1)), 
+                                    Test_Unit = "Pick_ID", 
+                                    limit = 0)
+
             
+        
             
         
         #This is where process starts, along with simulated harvest. 
@@ -467,7 +513,7 @@ for k in Total_Iterations:
                 Contam_Harvester = Cont_Event_3_Harvesters[N_Pick-1] #random.sample(list(range(1,Total_Harvesters+1)),1)[0]
                 #applying the contmainated harvester function to the Data. 
                 Field_df =Harvester_Cont_Function(df = Field_df,
-                                        Hazard_Level = 100_000, 
+                                        Hazard_Level = Total_Hazard, 
                                         Pick_No =Current_Pick  , 
                                         Cont_Harvester_No =Contam_Harvester )
                 
@@ -478,7 +524,7 @@ for k in Total_Iterations:
                 Contam_Bin = random.sample(list(range(1,Total_Bins+1)),1)[0]
                 #applying the contmainated harvester function to the Data. 
                 Field_df =Bin_Cont_Function(df = Field_df,
-                                        Hazard_Level = 100_000, 
+                                        Hazard_Level = Total_Hazard, 
                                         Pick_No =Current_Pick  , 
                                         Cont_Bin_No = Contam_Bin )
             
@@ -593,6 +639,8 @@ for k in Total_Iterations:
                                                       Location = 1)
         
         #Total Consumer Exposure
+        DC_Exp= Dictionariez_T.Output_Collection_Exp(df = Field_df, outputDF =DC_Exp ,i = k)
+        
         
         
         
@@ -666,8 +714,9 @@ DC_Cont_Day_Pick3_Melted = DC_Cont_Day_Pick3.melt()
 DC_Cont_Day_Pick3_Melted["Pick_ID"] = 3
 
 DC_Cont_Day_Combined=pd.concat([DC_Cont_Day_Pick1_Melted,DC_Cont_Day_Pick2_Melted,DC_Cont_Day_Pick3_Melted])
+DC_Cont_Day_Combined=DC_Cont_Day_Combined.reset_index()
 
-p=sns.pointplot(data=DC_Cont_Day_Combined, x="variable", y="value", hue = "Pick_ID")
+p=sns.lineplot(data=DC_Cont_Day_Combined, x="variable", y="value", hue = "Pick_ID")
 p.set_xlabel("Days in System", fontsize = 12)
 p.set_ylabel("Total Adulterant Cells in System", fontsize = 12)
 plt.xticks(rotation=90)
@@ -775,4 +824,10 @@ list(range(1,3+1))
 
 Field_df.loc[(Field_df["Pick_ID"].isin([1,2]))]
 
+aaaa= Field_df.loc[(Field_df['Pick_ID']==1) & (Field_df['Rej_Acc']== "Acc") ].copy()
+aaaa["CFU"].sum()
+
 len([])
+
+P_Detection=1-math.exp(-2)
+len(aaaa)
