@@ -390,7 +390,7 @@ Temp_In_Field = 25
 
 
 #Total Iterations
-Iteration_Number = 10
+Iteration_Number = 200
 Total_Iterations = list(range(0,Iteration_Number))
 
 #%%
@@ -445,6 +445,7 @@ for k in Total_Iterations:
     
     #Reseting to current pick
     Current_Pick = 1
+    Current_Samp = 1
     
     ###Contamination Event Selection
     Days_B_Pick1 = list(range(1,Days_Between_Picks+1))
@@ -479,9 +480,20 @@ for k in Total_Iterations:
                                             No_Cont_Clusters = 1)
             print("Field Cont with Bird Dropping")
         
-        #Conduncting preharvest sampling. 
+        #Conduncting preharvest sampling.
+        
         if Samp_Plan == 1:
+            #Collection of Outputs
+
             if i in PHS_Days:
+                print(Current_Samp, "Pick No")
+                DC_Exp= Dictionariez_T.Output_Collection_Sampling(df = Field_df, 
+                                                  outputDF=DC_Exp,
+                                                  i = k, 
+                                                  SampType = "PHS", 
+                                                  PickNo = Current_Samp,
+                                                  Bef_Aft = "Bef")
+                
                 Field_df = F_Sampling_T (df= Field_df, 
                                           Pick_No = Current_Pick, 
                                           Location = 1, #Location is in field
@@ -489,11 +501,18 @@ for k in Total_Iterations:
                                           NoGrab = Tomatoes_per_sample) 
                 #Rejection rules, reject current pick plus any upcoming picks
                 F_Rejection_Rule_T (df = Field_df, 
-                                    Pick_No = Current_Pick, 
+                                    Pick_No = Current_Samp, 
                                     Av_Picks= list(range(Current_Pick,N_Pick+1)), 
                                     Test_Unit = "Pick_ID", 
                                     limit = 0)
-
+                
+                DC_Exp= Dictionariez_T.Output_Collection_Sampling(df = Field_df, 
+                                  outputDF=DC_Exp,
+                                  i = k, 
+                                  SampType = "PHS", 
+                                  PickNo = Current_Samp,
+                                  Bef_Aft = "Aft")
+                Current_Samp=Current_Samp+1
             
         
             
@@ -639,7 +658,7 @@ for k in Total_Iterations:
                                                       Location = 1)
         
         #Total Consumer Exposure
-        DC_Exp= Dictionariez_T.Output_Collection_Exp(df = Field_df, outputDF =DC_Exp ,i = k)
+    DC_Exp= Dictionariez_T.Output_Collection_Exp(df = Field_df, outputDF =DC_Exp ,i = k)
         
         
         

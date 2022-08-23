@@ -44,6 +44,30 @@ def Output_Collection_Exp(df, outputDF,i):
     
     return outputDF
 
+def Output_Collection_Sampling(df, outputDF,i, SampType, PickNo, Bef_Aft):
+    Total_CFU = sum(df.CFU)
+    if SampType == "PHS":
+        if PickNo == 1:
+            if Bef_Aft == "Bef":
+                outputDF.at[i,"CFU_Bef_Pick1PHS"] = Total_CFU
+            elif Bef_Aft == "Aft":
+                outputDF.at[i,"CFU_Aft_Pick1PHS"] = Total_CFU 
+            
+        if PickNo == 2:
+            if Bef_Aft == "Bef":
+                outputDF.at[i,"CFU_Bef_Pick2PHS"] = Total_CFU
+            elif Bef_Aft == "Aft":
+                outputDF.at[i,"CFU_Aft_Pick2PHS"] = Total_CFU 
+        
+        if PickNo == 3:
+            if Bef_Aft == "Bef":
+                outputDF.at[i,"CFU_Bef_Pick3PHS"] = Total_CFU
+            elif Bef_Aft == "Aft":
+                outputDF.at[i,"CFU_Aft_Pick3PHS"] = Total_CFU 
+    return outputDF
+        
+        
+
 
 
 #df_field_1 =df.loc[df["Location"]==Previous].copy()
@@ -67,7 +91,13 @@ Col_Days = list(np.arange(1, (14)+1))
 Columns_Final_Outs = [
     "Total CFU",
     "Total CFU_ACC",
-    "Total_Weight_Harvested"
+    "Total_Weight_Harvested",
+    "CFU_Bef_Pick1PHS",
+    "CFU_Aft_Pick1PHS",
+    "CFU_Bef_Pick2PHS",
+    "CFU_Aft_Pick2PHS",
+    "CFU_Bef_Pick3PHS",
+    "CFU_Aft_Pick3PHS"
     ]
 
 
