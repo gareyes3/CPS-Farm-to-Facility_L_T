@@ -20,6 +20,8 @@ from numpy.random import Generator, PCG64
 rng = Generator(PCG64())
 import matplotlib.pyplot as plt
 import seaborn as sns
+
+import time
 #Own Libraries
 import Funz
 import T_Inputz
@@ -338,7 +340,7 @@ N_Pick = 3
 Days_Between_Picks = 14
 Days = np.arange(1, (N_Pick*Days_Between_Picks)+1)
 Harvest_Days = [14,28,42] #This final Harvest Day has to be the final day as well. 
-PHS_Days = [11,25,28]
+PHS_Days = [11,25,39]
 
 #individual sequences for functions
 Individual_Plants = np.repeat(np.arange(1,int(np.ceil(Tomato_Sequence/Tomatoes_Per_Plant))),Tomatoes_Per_Plant+1)
@@ -390,7 +392,7 @@ Temp_In_Field = 25
 
 
 #Total Iterations
-Iteration_Number = 200
+Iteration_Number = 1
 Total_Iterations = list(range(0,Iteration_Number))
 
 #%%
@@ -422,7 +424,8 @@ Tomatoes_per_sample = 5
     
 #Simulating Days
 
-
+start = time.time()
+print(time.time() - start)
 #Contaminated Bin
 for k in Total_Iterations:
     print(k)
@@ -493,6 +496,13 @@ for k in Total_Iterations:
                                                   SampType = "PHS", 
                                                   PickNo = Current_Samp,
                                                   Bef_Aft = "Bef")
+                DC_Exp = Dictionariez_T.Output_Collection_Sampling_Weight_R(df = Field_df, 
+                                                  outputDF=DC_Exp,
+                                                  i = k, 
+                                                  SampType = "PHS", 
+                                                  PickNo = Current_Samp,
+                                                  Bef_Aft = "Bef")
+
                 
                 Field_df = F_Sampling_T (df= Field_df, 
                                           Pick_No = Current_Pick, 
@@ -512,6 +522,13 @@ for k in Total_Iterations:
                                   SampType = "PHS", 
                                   PickNo = Current_Samp,
                                   Bef_Aft = "Aft")
+                
+                DC_Exp = Dictionariez_T.Output_Collection_Sampling_Weight_R(df = Field_df, 
+                                                  outputDF=DC_Exp,
+                                                  i = k, 
+                                                  SampType = "PHS", 
+                                                  PickNo = Current_Samp,
+                                                  Bef_Aft = "Aft")
                 Current_Samp=Current_Samp+1
             
         
@@ -661,9 +678,6 @@ for k in Total_Iterations:
     DC_Exp= Dictionariez_T.Output_Collection_Exp(df = Field_df, outputDF =DC_Exp ,i = k)
         
         
-        
-        
-        
  #%%
 
 Field_df.loc[list(range(3,200)), "CFU" ] = 1000
@@ -739,6 +753,32 @@ p=sns.lineplot(data=DC_Cont_Day_Combined, x="variable", y="value", hue = "Pick_I
 p.set_xlabel("Days in System", fontsize = 12)
 p.set_ylabel("Total Adulterant Cells in System", fontsize = 12)
 plt.xticks(rotation=90)
+plt.axvline(11, color='red', alpha = 0.5)
+plt.axvline(25, color='red', alpha = 0.5)
+plt.axvline(39, color='red', alpha = 0.5)
+
+
+######### Summary_Exposure
+#Power_PER_Pick
+
+
+def Get_Power(df, Weight_After, Weight_Before, CFU_avail): 
+  return  sum((df[Weight_After]-df[Weight_Before])>0 )/ (sum(df[ CFU_avail]>0))
+
+Total_Exposure = sum(DC_Exp["Total CFU"])
+
+Get_Power(df = DC_Exp, 
+          Weight_After = "PHS 3 Weight Rejected Aft", 
+          Weight_Before = "PHS 3 Weight Rejected Bef", 
+          CFU_avail = "CFU_Avail Pick 3"
+          )
+
+########
+
+
+
+
+
 
 Field_df.loc[(Field_df["Pick_ID"] ==1) & (Field_df["Harvester"] == 1 )]
 
