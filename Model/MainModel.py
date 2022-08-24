@@ -20,9 +20,15 @@ from numpy.random import Generator, PCG64
 rng = Generator(PCG64())
 import matplotlib.pyplot as plt
 import seaborn as sns
+from importlib import reload 
 
 import time
 #Own Libraries
+import Funz_T
+import Inputz_T
+import Scen_T
+import DepInputz
+
 import Funz
 import T_Inputz
 import InFunz
@@ -32,861 +38,296 @@ import Dictionariez_T
 
 #%%
 
-#This function create a random chunk of X rows in a dataframe (each row in this mdoel represents one individual tomato)
-def random_chunk(lst, chunk_size):
-    nb_chunks = int(math.ceil(len(lst)/chunk_size))
-    choice = random.randrange(nb_chunks) # 0 <= choice < nb_chunks
-    return lst[choice*chunk_size:(choice+1)*chunk_size]
-
-def field_cont_percetage(df, percent_cont, Hazard_lvl, No_Cont_Clusters):
-    #This function contaminated the tomato field randomly based on a cluter of X%. 
-    Percent_Contaminated =percent_cont #Percentage of tomatoes contaminated
-    Percent_D_Contaminatinated= Percent_Contaminated/100 #Percentage in decimal point
-    Hazard_lvl = Hazard_lvl #CFUs in contaminated area total Cells
-    No_Cont_Clusters = No_Cont_Clusters #in how many clusters will the percentage and cont be split into
-    No_Cont_PartitionUnits = int((len(df[(df["Location"]==1) & (df["Rej_Acc"]=="Acc") ]))*Percent_D_Contaminatinated) #how many tomatoes are contmainated based on percentage
-    Field_df_1 =df.loc[(df["Location"]==1)& (df["Rej_Acc"]=="Acc")].copy() #filtering main df into only those that are in a field
-    
-    if len(Field_df_1)>0: #The field is only contamiated if the Product is still in accepted condition
-    #Determining the hazard level per cluster
-        Hazard_lvl_percluster= Hazard_lvl / No_Cont_Clusters #(No_Cont_PartitionUnits*No_Cont_Clusters)
-        for i in range(0,No_Cont_Clusters):
-            random_Chunky = list(random_chunk(lst = Field_df_1.index, chunk_size = No_Cont_PartitionUnits)) #creating random chunk
-            Contamination_Pattern = rng.multinomial(Hazard_lvl_percluster,[1/No_Cont_PartitionUnits]*No_Cont_PartitionUnits,1) #spliting cont into chunks length
-            Field_df_1.loc[random_Chunky, "CFU"] = Field_df_1.loc[random_Chunky, "CFU"] + Contamination_Pattern[0] #adding contmaination
-
-    df.update(Field_df_1)
-    
-    return df
-
-def field_cont_ntomatoes(df, ntomatoes_cont_pclust, Hazard_lvl, No_Cont_Clusters):
-    #This function contaminated the tomato field randomly based on a cluter of X%. 
-    Hazard_lvl = Hazard_lvl #CFUs in contaminated area total Cells
-    No_Cont_Clusters = No_Cont_Clusters #in how many clusters will the percentage and cont be split into
-    No_Cont_PartitionUnits = ntomatoes_cont_pclust #how many tomatoes are contmainated per cluster
-    Field_df_1 =df.loc[df["Location"]==1].copy() #filtering main df into only those that are in a field
-    
-    #Determining the hazard level per cluster
-    Hazard_lvl_percluster= Hazard_lvl / No_Cont_Clusters #(No_Cont_PartitionUnits*No_Cont_Clusters)
-    for i in range(0,No_Cont_Clusters):
-        random_Chunky = list(random_chunk(lst = Field_df_1.index, chunk_size = No_Cont_PartitionUnits)) #creating random chunk
-        Contamination_Pattern = rng.multinomial(Hazard_lvl_percluster,[1/No_Cont_PartitionUnits]*No_Cont_PartitionUnits,1) #spliting cont into chunks length
-        Field_df_1.loc[random_Chunky, "CFU"] = Field_df_1.loc[random_Chunky, "CFU"] + Contamination_Pattern[0] #adding contmaination
-
-    df.update(Field_df_1)
-    
-    return df
-
-def Harvesting_Function(df, Total_Harvesters, Tomatoes_Per_Bucket,Tomato_Sequence, Pick_No):
-    Harvester_Pattern = np.repeat(list(range(1,Total_Harvesters+1)),Tomatoes_Per_Bucket)
-    Harvester_Pattern_Full=np.tile(Harvester_Pattern,int(np.ceil(Tomato_Sequence/len(Harvester_Pattern))))
-    
-    Field_df_1 =df.loc[(df['Pick_ID']==Pick_No) & (df['Rej_Acc']== "Acc") ].copy()
-    
-    Bin_Pattern =  np.repeat(list(range(1,math.ceil(Field_df_1["Tomato_ID"].size/Tomatoes_per_Bin)+1)), Tomatoes_per_Bin)
-    Bin_Pattern_Trimmed = Bin_Pattern[list(range(1,Field_df_1["Tomato_ID"].size+1))]
-    
-    Field_df_1.loc[:,"Harvester"] = Harvester_Pattern_Full[list(range(Field_df_1["Harvester"].size))]
-    Field_df_1.loc[:,"Location"] = 2
-    Field_df_1.loc[:,"Bin"] = Bin_Pattern_Trimmed
-    
-    df.update(Field_df_1)
-    return df
-
-def Harvester_Cont_Function(df, Hazard_Level, Pick_No, Cont_Harvester_No):
-    Field_df_1 =df.loc[(df['Pick_ID']==Pick_No) & (df['Harvester'] == Cont_Harvester_No )]
-    Size_1 = Field_df_1['Harvester'].size
-    cont_pattern=rng.multinomial(Hazard_Level,[1/Size_1]*Size_1,1) 
-    Field_df_1.loc[:,"CFU"] = cont_pattern[0]
-    df.update(Field_df_1)
-    return df
-
-def Bin_Cont_Function(df, Hazard_Level, Pick_No, Cont_Bin_No):
-    Field_df_1 =df.loc[(df['Pick_ID']==Pick_No) & (df['Bin'] == Cont_Bin_No)]
-    Size_1 = Field_df_1['Bin'].size
-    cont_pattern=rng.multinomial(Hazard_Level,[1/Size_1]*Size_1,1) 
-    Field_df_1.loc[:,"CFU"] = cont_pattern[0]
-    df.update(Field_df_1)
-    return df
-
-
-#Tomato Growth Model
-
-#Tomato Growth Model. 
-def growth_mod_tomatoes(x, Temp, Time):
-    #Time in hour
-    #Temp in deg celcious
-    growth_rate = ((0.026*Temp) - 0.107)**2 # from https://doi.org/10.4315/0362-028X-73.8.1502
-    total_growth = growth_rate*Time
-    print(total_growth)
-    updated_cont = x*(10**total_growth)
-    return updated_cont
-
-
-def die_off_tomatoes(x ,Time):
-    Time_d =  Time/24
-    #Time in hours
-    die_off_rate = 0.5 #log  CFU/days
-    total_die_off = die_off_rate*Time_d
-    #updated_cont = x*(10**-total_die_off)
-    
-    updated_cont = rng.binomial(x,10**-total_die_off)
-    return updated_cont
-
-
-def applying_dieoff(df,Time):
-    df.loc[:,"CFU"]=df["CFU"].apply(func=die_off_tomatoes, Time = Time)
-    return df
-
-
-def Survival_Salmonella_cucum(x,Time, RH, Temp):
-    #time  in H
-    
-    #model obtained fromhttps://www.sciencedirect.com/science/article/pii/S0740002021001052#fig4
-    Log_Change_7= 4.48385-0.00199*(Temp)*RH
-    Day_Log_h = Log_Change_7/24/7 #Change in log CFU per hour
-    
-    total_change = -(Day_Log_h*Time)
-    
-    if total_change>=0:
-        GrowthCeil = math.ceil(total_change)
-        Difference = total_change-GrowthCeil
-        MaxCont = x*10**GrowthCeil
-        Updated_CFUs = rng.binomial(MaxCont,10**Difference)
-    else:
-        Updated_CFUs= rng.binomial(x,10**total_change)
-    
-    return Updated_CFUs
-
-
-
-def applying_survival_salmonella_cucum(df, Time, RH, Temp, Location):
-    df_field_1 =df.loc[(df["Location"]==Location)].copy()
-
-    
-    
-    df_field_1.loc[:,"CFU"]=df_field_1["CFU"].apply(func= Survival_Salmonella_cucum, 
-                                                Time = Time,
-                                                RH = RH,
-                                                Temp = Temp)
-    
-    df.update(df_field_1)
-    return df
-
-
-def Tomato_Wash(df, Location):
-
-    FC_lvl = np.random.triangular(0,5,10)
-    if FC_lvl<10:
-        log_red_Wash_mean = (FC_lvl*0.04)+0.3
-    elif FC_lvl>10:
-        log_red_Wash_mean = (FC_lvl*0.0056)+0.5952
-        
-    logred_sd = 0.175
-    
-    logred_cont = np.random.normal(log_red_Wash_mean, logred_sd)
-    
-    #Transfer to uncontaminated pieces. 
-    Log_Trans_Upper = (-0.6798*FC_lvl)-0.6003
-    Log_Trans_Lower = (-1.3596*FC_lvl)-0.6
-    
-    Field_df_1 =df.loc[df["Location"]==Location].copy() #location 4 is wash water
-    Field_df_1_conts = Field_df_1["CFU"].copy()
-    
-    Tras_old= 0
-    
-    for i in list(Field_df_1_conts.index):
-        #Parameters from https://www.sciencedirect.com/science/article/pii/S0963996916306081#f0010
-        #Maffei. 
-        #Backup https://www.sciencedirect.com/science/article/pii/S0740002019309694?casa_token=dt-V4Cbh89YAAAAA:FoQTt7f3Hly2-k9lJjUXPqkZ-W5tJChevsm2XIz3UTimqrYdUT9zAoqZUQlZWx1OhENvX3zqpqw
-        Cont = Field_df_1_conts[i]
-        
-        logred_cont = -np.random.normal(log_red_Wash_mean, logred_sd)
-        Percent_Trans = 10**np.random.uniform(Log_Trans_Lower,Log_Trans_Upper)
-        
-        if logred_cont>=0:
-            GrowthCeil = math.ceil(logred_cont)
-            Difference = logred_cont-GrowthCeil
-            MaxCont = Cont*10**GrowthCeil
-            Updated_CFUs = rng.binomial(MaxCont,10**Difference)
-        else:
-            Updated_CFUs= rng.binomial(Cont,10**logred_cont)
-    
-        Reduction = Updated_CFUs
-        
-        if i == 0:
-            Field_df_1_conts[i] = Reduction
-        if i >0:
-            Field_df_1_conts[i] = Reduction + Tras_old
-        Cont = Field_df_1_conts[i]
-        Transfer = rng.binomial(Cont,Percent_Trans)
-        Tras_old = Transfer
-        
-    Field_df_1.loc[:, "CFU"] = Field_df_1_conts
-    df.update(Field_df_1)
-    return df
-
-
-def F_CrossContProLine_tom (df, Tr_P_S, Tr_S_P,  Location, Sanitation_Freq_lb = 0, StepEff = 0 , compliance = 0):
-        df_field_1 =df.loc[df["Location"]==Location].copy()
-        rateweight = 0.54
-        every_x_many = int(Sanitation_Freq_lb/rateweight)
-        ContS=0
-        vectorCFU = df_field_1["CFU"].copy()
-        newvector=[]
-        if every_x_many > 0:
-            Cleaning_steps = np.arange(0, len(vectorCFU) , every_x_many )
-        for i in list(vectorCFU.index):
-            if random.uniform(0,1)<compliance:
-                if every_x_many > 0:
-                    if i in Cleaning_steps:
-                        ContS = ContS*10**StepEff
-                        print ("cleaned")
-            ContP = vectorCFU[i] #Contamination product
-            TotTr_P_S= rng.binomial(ContP,Tr_P_S) #Transfer from Product to Surfaces
-            TotTr_S_P = rng.binomial(ContS,Tr_S_P) #Trasnfer from Surfaves to product
-            ContPNew = ContP-TotTr_P_S+TotTr_S_P #New Contmination on Product
-            ContS=ContS+TotTr_P_S-TotTr_S_P #Remiining Contamination in Surface for upcoming batches
-            newvector.append(ContPNew)
-        df_field_1.loc[:,"CFU"] = newvector
-        df.update(df_field_1)
-        return df
-    
-
-def Case_Packaging(df,Case_Weight,Tomato_Weight, Location):
-    
-    df_field_1 =df.loc[df["Location"]==Location].copy()
-    
-    Tomatoes_Case = math.ceil(Case_Weight/Tomato_Weight)
-    Total_Packages = len(df_field_1.index)
-    Total_Cases = math.ceil(Total_Packages/Tomatoes_Case)
-    Case_Pattern = [i for i in range(1, int(Total_Cases)+1) for _ in range(Tomatoes_Case)]
-    Crop_No = len(df_field_1.index)
-    Case_Pattern=Case_Pattern[:Crop_No]
-    df_field_1.loc[:,"Case_PH"] = Case_Pattern
-    
-    df.update(df_field_1)
-    return df
-
-def Update_Location(df, Previous, NewLoc):
-    df_field_1 =df.loc[df["Location"]==Previous].copy()
-    df_field_1.loc[:,"Location"] =NewLoc
-    df.update(df_field_1)
-    return df
-
-
-#Sampling Function
-
-def F_Sampling_T (df, Pick_No, Location, NSamp_Unit, NoGrab):
-    
-    df_field_1 =df.loc[(df["Pick_ID"]==Pick_No) & (df["Location"]==Location)].copy()
-    
-    #Unique_TestUnit = list(df[Test_Unit].unique())
-    #Grab_Weight = Partition_Weight #In lb
-    #for i in (Unique_TestUnit): #From sublot 1 to sublot n (same for pallet,lot,case etc)
-    for l in range (1, NSamp_Unit+1): #Number of samples per sublot or lot or pallet.
-        for j in range(NoGrab):
-            CFU_hh=df_field_1["CFU"]
-            List_Random=CFU_hh.sample(n=1)
-            CFU = List_Random
-            Index = List_Random.index[0]
-            CFU_grab = CFU#*(Grab_Weight/(Partition_Weight*454))
-            P_Detection=1-math.exp(-CFU_grab)
-            RandomUnif = random.uniform(0,1)
-            if RandomUnif < P_Detection:
-                df_field_1.at[Index, 'PositiveSamples'].append(l)
-    df.update(df_field_1)
-    return (df)
-
-def F_Rejection_Rule_T (df, Pick_No, Av_Picks, Test_Unit, limit):
-    #Unique_Test_Unit =list(df[Test_Unit].unique())
-    df_field_1 =df.loc[(df["Pick_ID"].isin(Av_Picks))].copy()
-    Reject = []
-    #for  i in Unique_Test_Unit:
-    df_Subset = df_field_1[df_field_1[Test_Unit] == Pick_No].copy()
-    List_of_grabs = df_Subset['PositiveSamples'].tolist()
-    flat_list = [item for sublist in  List_of_grabs for item in sublist]
-    Unique_Positives =list(np.unique(flat_list))
-    if len(Unique_Positives)>limit:
-        Reject.append(i)
-    df_field_1.PositiveSamples = [list() for x in range(len(df_field_1.index))] #this is in case everything gets rejected
-    if len(Reject)>0:
-     df_field_1.loc[:,"Rej_Acc"] = "REJ"
-     df_field_1.loc[:,"CFU_BRej"] = df_field_1["CFU"]
-     df_field_1.loc[:,"CFU"] = 0
-     
-        #df_Blank = df.iloc[[0]]
-        #df_Blank.loc[:, ['CFU']] = 0
-        #df_Blank.loc[:, ['Weight']] = SCInputz.Partition_Weight
-        #df_Blank.loc[:, ['Accept']] = "All Rej"
-        #df = df_Blank
-    #else:
-        #df = df[~df[Test_Unit].isin(Reject)]
-    df.update(df_field_1)
-    return df
-
-#%%%
-#Basic Information
-Tomato_weight = 260/454 #for medium tomato #260g tomato
-Tomato_Sequence = int(132_000/Tomato_weight)
-Individual_Tomatoes = np.arange(1,Tomato_Sequence)
-Tomatoes_Per_Plant = 120
-Tomatoes_Per_Bucket = int(32/Tomato_weight)
-Bin_Weight = 1000
-Tomatoes_per_Bin = math.ceil(Bin_Weight/Tomato_weight)
-
-#total pick information
-N_Pick = 3
-Days_Between_Picks = 14
-Days = np.arange(1, (N_Pick*Days_Between_Picks)+1)
-Harvest_Days = [14,28,42] #This final Harvest Day has to be the final day as well. 
-PHS_Days = [11,25,39]
-
-#individual sequences for functions
-Individual_Plants = np.repeat(np.arange(1,int(np.ceil(Tomato_Sequence/Tomatoes_Per_Plant))),Tomatoes_Per_Plant+1)
-Pick_Sequence = list(range(1,N_Pick+1))*(int(np.ceil(Tomato_Sequence/3)))
-Pick_Random = random.sample(Pick_Sequence, len(Pick_Sequence))
-
-
-#Harvest information
-Total_Harvesters = 55
-Total_Bins = 44
-#Probabilities
-
-Pr_bird_drop = 0.2 #probability of bird contamination fields
-Pr_of_rain = 0.1 #probability that it will rain in a given day
-Pr_harvester_cont = 0.05 #probability that a harvester is contmainated
-Pr_bucket_cont = 0.05 #probability that a bucket is contaminated
-Pr_Bin_cont = 0.05 #probability that a bin is contaminated
-
-
-#Contamination Scenario
-    #Small Cluster
-Total_Hazard = 42_000
-
-
-#Processing Factors
-RH_Florida= 74.5
-#From the Field to the Shipping Center
-Temp_F_Sc = 25 #C need to parametrize
-Time_F_Sc = 0.5 #hr
-
-#Shipping Center Storage
-Temp_Sc = 25
-Time_Sc = 2 #hr
-
-#Shipping Center to packing
-Temp_Sc_Pack = 25
-Time_Sc_Pack = 2 #hr
-
-#Packer Storage
-Temp_Pack = 25
-Time_Pack = 4 #hr
-
-#Pot Packer Storage 
-Temp_Post_Pack = 25
-Time_Post_Pack = 6
-
-#In Field 
-Temp_In_Field = 25
-
-
-#Total Iterations
-Iteration_Number = 1
-Total_Iterations = list(range(0,Iteration_Number))
-
 #%%
-#Model
-#Creation of collection Data Frames.
-DC_Cont_Day = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Iteration_Number)
-DC_Exp = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Columns_Final_Outs, Niterations = Iteration_Number)
 
-DC_Cont_Day_Pick1 = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Iteration_Number)
-DC_Cont_Day_Pick2 = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Iteration_Number)
-DC_Cont_Day_Pick3 = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Iteration_Number)
+def Main_Loop():
+    
+    #Model
+    #Creation of collection Data Frames.
+    DC_Cont_Day = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Inputz_T.Iteration_Number)
+    DC_Exp = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Columns_Final_Outs, Niterations = Inputz_T.Iteration_Number)
 
-#%%
-Cont_Scenario = 1
-    #1 = Rainfall event  (uniform contamination)
-    #2 = Bird feces, 0.01 percent of fieldl contaminaated (point source contamination)
-    #3 = harvester / bucket contamination, small clusters spread throughout the field
-    #4 = Bins , medium size clusters spread across the field. 
+    DC_Cont_Day_Pick1 = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Inputz_T.Iteration_Number)
+    DC_Cont_Day_Pick2 = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Inputz_T.Iteration_Number)
+    DC_Cont_Day_Pick3 = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Inputz_T.Iteration_Number)
 
-#Sampling Plan
-Samp_Plan = 1
-    #PHS
-    #HS
-    #RS
-    #PPS
+    #Simulating Days
+    #reload(Inputz_T)
     
-Tomatoes_per_sample = 5
-
-    
-#Simulating Days
-
-start = time.time()
-print(time.time() - start)
-#Contaminated Bin
-for k in Total_Iterations:
-    print(k)
-    Field_df=pd.DataFrame({"Tomato_ID": Individual_Tomatoes,
-                           "Plant_ID": Individual_Plants[0:Individual_Tomatoes.size],
-                           "Pick_ID": Pick_Random[0:Individual_Tomatoes.size],
-                           "Weight": Tomato_weight,
-                           "Harvester" : 0,
-                           "Bucket":0,
-                           "Bin": 0,
-                           "Case_PH": 0,
-                           "CFU": 0,
-                           "CFU_BRej":"",
-                           "Location": 1,
-                           'PositiveSamples':"",
-                           "Rej_Acc" :"Acc"
-                      })
-    
-    Field_df.PositiveSamples = [list() for x in range(len(Field_df.index))]
-    
-    #Reseting to current pick
-    Current_Pick = 1
-    Current_Samp = 1
-    
-    ###Contamination Event Selection
-    Days_B_Pick1 = list(range(1,Days_Between_Picks+1))
-    Days_B_Pick2 = list(range(Days_Between_Picks+1,2*Days_Between_Picks+1))
-    Days_B_Pick3 = list(range(2*Days_Between_Picks+1,3*Days_Between_Picks+1))
-    
-    Cont_Event_1_Days = [random.sample(Days_B_Pick1,1)[0], random.sample(Days_B_Pick2,1)[0], random.sample(Days_B_Pick3,1)[0]]
-    Cont_Event_2_Days = [random.sample(Days_B_Pick1,1)[0], random.sample(Days_B_Pick2,1)[0], random.sample(Days_B_Pick3,1)[0]]
-    Cont_Event_3_Harvesters = random.sample(list(range(1,Total_Harvesters+1)),3)
-    
-    
-    for i in Days:
+    #Contaminated Bin
+    for k in DepInputz.Total_Iterations:
+        print(k)
         
-        #Contmaination Event Due to Rain'
+        #start_df = time.time()
+        Field_df=pd.DataFrame({"Tomato_ID": Inputz_T.Individual_Tomatoes,
+                               "Plant_ID": Inputz_T.Individual_Plants[0:Inputz_T.Individual_Tomatoes.size],
+                               "Pick_ID": Inputz_T.Pick_Random[0:Inputz_T.Individual_Tomatoes.size],
+                               "Weight": Inputz_T.Tomato_weight,
+                               "Harvester" : 0,
+                               "Bucket":0,
+                               "Bin": 0,
+                               "Case_PH": 0,
+                               "CFU": 0,
+                               "CFU_BRej":"",
+                               "Location": 1,
+                               'PositiveSamples':"",
+                               "Rej_Acc" :"Acc"
+                          })
         
-        if (Cont_Scenario == 1 and i in Cont_Event_1_Days):
-            #This function contaminated the field uniformly. 100% of the field cont. 
-            Field_df = field_cont_percetage(df = Field_df, 
-                                            percent_cont = 100,
-                                            Hazard_lvl = Total_Hazard, 
-                                            No_Cont_Clusters = 1)
-            #Contaminated field with Rain
-            print("Field Cont with Rain")
+        Field_df.PositiveSamples = [list() for x in range(len(Field_df.index))]
+        #print(time.time() - start_df, "df Creation")
         
-        #Contmaination Event Due to Animal Intrusion
-        #if (np.random.uniform(0,1)<Pr_bird_drop):
-        if (Cont_Scenario == 2 and i in Cont_Event_2_Days):   
-            #Contaminated field with 0.1% contamination, simulated bird droping. 
-            Field_df = field_cont_percetage(df = Field_df, 
-                                            percent_cont = 0.1,
-                                            Hazard_lvl = Total_Hazard, 
-                                            No_Cont_Clusters = 1)
-            print("Field Cont with Bird Dropping")
+        #Reseting to current pick
+        Current_Pick = 1
+        Current_Samp = 1
         
-        #Conduncting preharvest sampling.
+        ###Contamination Event Selection
+        Days_B_Pick1 = list(range(1,Inputz_T.Days_Between_Picks+1))
+        Days_B_Pick2 = list(range(Inputz_T.Days_Between_Picks+1,2*Inputz_T.Days_Between_Picks+1))
+        Days_B_Pick3 = list(range(2*Inputz_T.Days_Between_Picks+1,3*Inputz_T.Days_Between_Picks+1))
         
-        if Samp_Plan == 1:
-            #Collection of Outputs
-
-            if i in PHS_Days:
-                print(Current_Samp, "Pick No")
-                DC_Exp= Dictionariez_T.Output_Collection_Sampling(df = Field_df, 
-                                                  outputDF=DC_Exp,
-                                                  i = k, 
-                                                  SampType = "PHS", 
-                                                  PickNo = Current_Samp,
-                                                  Bef_Aft = "Bef")
-                DC_Exp = Dictionariez_T.Output_Collection_Sampling_Weight_R(df = Field_df, 
-                                                  outputDF=DC_Exp,
-                                                  i = k, 
-                                                  SampType = "PHS", 
-                                                  PickNo = Current_Samp,
-                                                  Bef_Aft = "Bef")
-
+        Cont_Event_1_Days = [random.sample(Days_B_Pick1,1)[0], random.sample(Days_B_Pick2,1)[0], random.sample(Days_B_Pick3,1)[0]]
+        Cont_Event_2_Days = [random.sample(Days_B_Pick1,1)[0], random.sample(Days_B_Pick2,1)[0], random.sample(Days_B_Pick3,1)[0]]
+        Cont_Event_3_Harvesters = random.sample(list(range(1,Inputz_T.Total_Harvesters+1)),3)
+        
+        
+        for i in Inputz_T.Days:
+            
+            #Contmaination Event Due to Rain'
+            
+            if (Scen_T.Cont_Scenario == 1 and i in Cont_Event_1_Days):
+                #start_ce = time.time()
+                #This function contaminated the field uniformly. 100% of the field cont. 
+                Field_df = Funz_T.field_cont_percetage(df = Field_df, 
+                                                percent_cont = 100,
+                                                Hazard_lvl = Inputz_T.Total_Hazard, 
+                                                No_Cont_Clusters = 1)
+                #Contaminated field with Rain
+                #print("Field Cont with Rain")
+                #print(time.time() - start_ce, "cont_event")
+            
+            #Contmaination Event Due to Animal Intrusion
+            #if (np.random.uniform(0,1)<Pr_bird_drop):
+            if (Scen_T.Cont_Scenario == 2 and i in Cont_Event_2_Days):   
+                #Contaminated field with 0.1% contamination, simulated bird droping. 
+                Field_df = Funz_T.field_cont_percetage(df = Field_df, 
+                                                percent_cont = 0.1,
+                                                Hazard_lvl = Inputz_T.Total_Hazard, 
+                                                No_Cont_Clusters = 1)
+                #print("Field Cont with Bird Dropping")
+            
+            #Conduncting preharvest sampling.
+            
+            if Scen_T.Samp_Plan == 1:
+                #Collection of Outputs
+    
+                if i in Inputz_T.PHS_Days:
+                    #print(Current_Samp, "Pick No")
+                    #start_OCS = time.time()
+                    DC_Exp= Dictionariez_T.Output_Collection_Sampling(df = Field_df, 
+                                                      outputDF=DC_Exp,
+                                                      i = k, 
+                                                      SampType = "PHS", 
+                                                      PickNo = Current_Samp,
+                                                      Bef_Aft = "Bef")
+                    #print(time.time() - start_OCS, "Output Collectin Sampling")
+                    
+                    #start_OCSWR = time.time()
+                    DC_Exp = Dictionariez_T.Output_Collection_Sampling_Weight_R(df = Field_df, 
+                                                      outputDF=DC_Exp,
+                                                      i = k, 
+                                                      SampType = "PHS", 
+                                                      PickNo = Current_Samp,
+                                                      Bef_Aft = "Bef")
+                    #print(time.time() - start_OCSWR, "Output Collectin Sampling WR")
+    
+                    #start_Samp = time.time()
+                    Field_df = Funz_T.F_Sampling_T (df= Field_df, 
+                                              Pick_No = Current_Pick, 
+                                              Location = 1, #Location is in field
+                                              NSamp_Unit = 1, 
+                                              NoGrab = Scen_T.Tomatoes_per_sample) 
+                    print(Scen_T.Tomatoes_per_sample)
+                    #print(time.time() - start_Samp, "Sampling")
+                    
+                    #Rejection rules, reject current pick plus any upcoming picks
+                    #start_RR = time.time()
+                    Field_df=Funz_T.F_Rejection_Rule_T (df = Field_df, 
+                                        Pick_No = Current_Samp, 
+                                        Av_Picks= list(range(Current_Pick,Inputz_T.N_Pick+1)), 
+                                        Test_Unit = "Pick_ID", 
+                                        limit = 0)
+                    #print(time.time() - start_RR, "Rejection")
+                    
+                    DC_Exp= Dictionariez_T.Output_Collection_Sampling(df = Field_df, 
+                                      outputDF=DC_Exp,
+                                      i = k, 
+                                      SampType = "PHS", 
+                                      PickNo = Current_Samp,
+                                      Bef_Aft = "Aft")
+                    
+                    DC_Exp = Dictionariez_T.Output_Collection_Sampling_Weight_R(df = Field_df, 
+                                                      outputDF=DC_Exp,
+                                                      i = k, 
+                                                      SampType = "PHS", 
+                                                      PickNo = Current_Samp,
+                                                      Bef_Aft = "Aft")
+                    Current_Samp=Current_Samp+1
                 
-                Field_df = F_Sampling_T (df= Field_df, 
-                                          Pick_No = Current_Pick, 
-                                          Location = 1, #Location is in field
-                                          NSamp_Unit = 1, 
-                                          NoGrab = Tomatoes_per_sample) 
-                #Rejection rules, reject current pick plus any upcoming picks
-                F_Rejection_Rule_T (df = Field_df, 
-                                    Pick_No = Current_Samp, 
-                                    Av_Picks= list(range(Current_Pick,N_Pick+1)), 
-                                    Test_Unit = "Pick_ID", 
-                                    limit = 0)
+            
                 
-                DC_Exp= Dictionariez_T.Output_Collection_Sampling(df = Field_df, 
-                                  outputDF=DC_Exp,
-                                  i = k, 
-                                  SampType = "PHS", 
-                                  PickNo = Current_Samp,
-                                  Bef_Aft = "Aft")
+            
+            #This is where process starts, along with simulated harvest. 
+            if i in Inputz_T.Harvest_Days:
+                print("The product was harvested")
+                #Location 2
+                #start_Harv = time.time()
+                Field_df = Funz_T.Harvesting_Function(df = Field_df, Total_Harvesters = Inputz_T.Total_Harvesters, 
+                                              Tomatoes_Per_Bucket = Inputz_T.Tomatoes_Per_Bucket,
+                                              Tomato_Sequence = Inputz_T.Tomato_Sequence, 
+                                              Pick_No = Current_Pick,
+                                              Tomatoes_per_Bin = Inputz_T.Tomatoes_per_Bin)
+                #print(time.time() - start_Harv, "Harvesting Function")
                 
-                DC_Exp = Dictionariez_T.Output_Collection_Sampling_Weight_R(df = Field_df, 
-                                                  outputDF=DC_Exp,
-                                                  i = k, 
-                                                  SampType = "PHS", 
-                                                  PickNo = Current_Samp,
-                                                  Bef_Aft = "Aft")
-                Current_Samp=Current_Samp+1
-            
-        
-            
-        
-        #This is where process starts, along with simulated harvest. 
-        if i in Harvest_Days:
-            print("The product was harvested")
-            #Location 2
-            Field_df = Harvesting_Function(df = Field_df, Total_Harvesters = Total_Harvesters, 
-                                          Tomatoes_Per_Bucket = Tomatoes_Per_Bucket,
-                                          Tomato_Sequence = Tomato_Sequence, 
-                                          Pick_No = Current_Pick)
-            #Harvester contmaination
-            #if (np.random.uniform(0,1)<Pr_harvester_cont):
-            if (Cont_Scenario == 3):
-                #Picking the contaminated harvester at random
-                Contam_Harvester = Cont_Event_3_Harvesters[N_Pick-1] #random.sample(list(range(1,Total_Harvesters+1)),1)[0]
-                #applying the contmainated harvester function to the Data. 
-                Field_df =Harvester_Cont_Function(df = Field_df,
-                                        Hazard_Level = Total_Hazard, 
-                                        Pick_No =Current_Pick  , 
-                                        Cont_Harvester_No =Contam_Harvester )
                 
-            #Bin Contmaination
-            #if (np.random.uniform(0,1)<Pr_Bin_cont):
-            if (Cont_Scenario == 4):
-                #Picking the contaminated harvester at random
-                Contam_Bin = random.sample(list(range(1,Total_Bins+1)),1)[0]
-                #applying the contmainated harvester function to the Data. 
-                Field_df =Bin_Cont_Function(df = Field_df,
-                                        Hazard_Level = Total_Hazard, 
-                                        Pick_No =Current_Pick  , 
-                                        Cont_Bin_No = Contam_Bin )
+                #Harvester contmaination
+                #if (np.random.uniform(0,1)<Pr_harvester_cont):
+                if (Scen_T.Cont_Scenario == 3):
+                    #Picking the contaminated harvester at random
+                    Contam_Harvester = Cont_Event_3_Harvesters[Inputz_T.N_Pick-1] #random.sample(list(range(1,Total_Harvesters+1)),1)[0]
+                    #applying the contmainated harvester function to the Data. 
+                    Field_df =Funz_T.Harvester_Cont_Function(df = Field_df,
+                                            Hazard_Level = Inputz_T.Total_Hazard, 
+                                            Pick_No =Current_Pick  , 
+                                            Cont_Harvester_No =Contam_Harvester )
+                    
+                #Bin Contmaination
+                #if (np.random.uniform(0,1)<Pr_Bin_cont):
+                if (Scen_T.Cont_Scenario == 4):
+                    #Picking the contaminated harvester at random
+                    Contam_Bin = random.sample(list(range(1,Inputz_T.Total_Bins+1)),1)[0]
+                    #applying the contmainated harvester function to the Data. 
+                    Field_df =Funz_T.Bin_Cont_Function(df = Field_df,
+                                            Hazard_Level = Inputz_T.Total_Hazard, 
+                                            Pick_No =Current_Pick  , 
+                                            Cont_Bin_No = Contam_Bin )
+                
+                #Establishing which pick we are in
+                Current_Pick = Current_Pick+1
+                
+                #Transportation from the field to the shipping center
+                #Here we need to caculate die-off for the tranportation of growth due to transportation. 
+                #start_surv = time.time()
+                Field_df = Funz_T.applying_survival_salmonella_cucum2(df = Field_df , 
+                                                              Time = Inputz_T.Time_F_Sc,
+                                                              RH = Inputz_T.RH_Florida,
+                                                              Temp = Inputz_T.Temp_F_Sc,
+                                                              Location = 2)
+                #print(time.time() - start_surv, "Survival")
+                
+                #Updates location from Harvest to Shipping Center
+                Field_df=Funz_T.Update_Location(df= Field_df, Previous = 2, NewLoc =3)
+                
+                #At Shipping center, temporary storage in open bins
+                Field_df = Funz_T.applying_survival_salmonella_cucum2(df = Field_df , 
+                                                              Time = Inputz_T.Time_Sc,
+                                                              RH = Inputz_T.RH_Florida,
+                                                              Temp = Inputz_T.Temp_Sc,
+                                                              Location = 3)
+                
+                #From shipping center to packing facility.
+                Field_df = Funz_T.applying_survival_salmonella_cucum2(df = Field_df , 
+                                                              Time = Inputz_T.Time_Sc_Pack,
+                                                              RH = Inputz_T.RH_Florida,
+                                                              Temp = Inputz_T.Temp_Sc_Pack,
+                                                              Location = 3)
+                
+                #Updates location from Shipping Center to Packing House
+                Field_df=Funz_T.Update_Location(df= Field_df, Previous = 3, NewLoc =4)
+                
+                #Temporary Storage in Packing Facility
+                Field_df = Funz_T.applying_survival_salmonella_cucum2(df = Field_df , 
+                                                              Time = Inputz_T.Time_Pack,
+                                                              RH = Inputz_T.RH_Florida,
+                                                              Temp = Inputz_T.Temp_Pack,
+                                                              Location = 4)
+                
+                #Processing
+                #Wasing. 
+                #Updates location from  Packing House to Washing
+                Field_df=Funz_T.Update_Location(df= Field_df, Previous = 4, NewLoc =5)
+                
+                Field_df=Funz_T.Tomato_Wash(df = Field_df, Location  = 5)
+                
+                #Cross Contamination Conveyor Belt
+                #Updates location from  Washing to Sorting
+                Field_df=Funz_T.Update_Location(df= Field_df, Previous = 5, NewLoc =6)
+                
+                Field_df=Funz_T.F_CrossContProLine_tom (df = Field_df, 
+                                                 Tr_P_S = 0.02, 
+                                                 Tr_S_P = 0.01,
+                                                 Location = 6,
+                                                 Sanitation_Freq_lb = 0, 
+                                                 StepEff = 0 , 
+                                                 compliance = 0 )
+                
+                #Drying Cross Contmination
+                #Updates location from  Conveyor Belt to Drying
+                Field_df=Funz_T.Update_Location(df= Field_df, Previous = 6, NewLoc =7)
+                
+                Field_df=Funz_T.F_CrossContProLine_tom (df = Field_df, 
+                                                 Tr_P_S = 0.02, 
+                                                 Tr_S_P = 0.01,
+                                                 Location = 7,
+                                                 Sanitation_Freq_lb = 0, 
+                                                 StepEff = 0 , 
+                                                 compliance = 0 )
+                
+                #Sorting2 cross contmaination
+                #Updates location from  Drying to Sorting
+                Field_df=Funz_T.Update_Location(df= Field_df, Previous = 7, NewLoc =8)
+                Field_df=Funz_T.F_CrossContProLine_tom (df = Field_df, 
+                                                 Tr_P_S = 0.02, 
+                                                 Tr_S_P = 0.01,
+                                                 Location = 8,
+                                                 Sanitation_Freq_lb = 0, 
+                                                 StepEff = 0 , 
+                                                 compliance = 0 )
+                
+                #Packing product into the cases at the Packing house. 
+                #Updates location from  Sorting to Packing
+                Field_df=Funz_T.Update_Location(df= Field_df, Previous = 8, NewLoc = 9)
+                
+                Field_df=Funz_T.Case_Packaging(df = Field_df,Case_Weight = 20,Tomato_Weight = 0.54, Location = 9)
+                
+                #Post Packaging Storage
+                Field_df = Funz_T.applying_survival_salmonella_cucum2(df = Field_df , 
+                                                              Time = Inputz_T.Time_Post_Pack,
+                                                              RH = Inputz_T.RH_Florida,
+                                                              Temp = Inputz_T.Temp_Post_Pack,
+                                                              Location = 9)
+                #Ripening: 
+                Field_df=Funz_T.Update_Location(df= Field_df, Previous = 9, NewLoc = 10)
+            #Adding Contmination to Every Day
             
-            #Establishing which pick we are in
-            Current_Pick = Current_Pick+1
+            #start_oed_outs = time.time()
+            DC_Cont_Day= Dictionariez_T.Output_Collection_Prog(df = Field_df , outputDF =DC_Cont_Day , Step_Column = i,i = k)
+            DC_Cont_Day_Pick1= Dictionariez_T.Output_Collection_Prog_Pick(df = Field_df , outputDF = DC_Cont_Day_Pick1 , Step_Column = i,i = k, PickNo = 1)
+            DC_Cont_Day_Pick2= Dictionariez_T.Output_Collection_Prog_Pick(df = Field_df , outputDF = DC_Cont_Day_Pick2 , Step_Column = i,i = k, PickNo = 2)
+            DC_Cont_Day_Pick3= Dictionariez_T.Output_Collection_Prog_Pick(df = Field_df , outputDF = DC_Cont_Day_Pick3 , Step_Column = i,i = k, PickNo = 3)
+            #print(time.time() - start_oed_outs, "outs eod")
+    
+                
+            #start_surv_eod = time.time()
+            #Dieoff for Items that stayed in the Field. 
+            Field_df = Funz_T.applying_survival_salmonella_cucum2(df = Field_df , 
+                                                          Time = 24, #hr
+                                                          RH = Inputz_T.RH_Florida,
+                                                          Temp = Inputz_T.Temp_In_Field,
+                                                          Location = 1)
+            #print(time.time() - start_surv_eod, "Survival eod")
             
-            #Transportation from the field to the shipping center
-            #Here we need to caculate die-off for the tranportation of growth due to transportation. 
-            Field_df = applying_survival_salmonella_cucum(df = Field_df , 
-                                                          Time = Time_F_Sc,
-                                                          RH = RH_Florida,
-                                                          Temp = Temp_F_Sc,
-                                                          Location = 2)
-            
-            #Updates location from Harvest to Shipping Center
-            Field_df=Update_Location(df= Field_df, Previous = 2, NewLoc =3)
-            
-            #At Shipping center, temporary storage in open bins
-            Field_df = applying_survival_salmonella_cucum(df = Field_df , 
-                                                          Time = Time_Sc,
-                                                          RH = RH_Florida,
-                                                          Temp = Temp_Sc,
-                                                          Location = 3)
-            
-            #From shipping center to packing facility.
-            Field_df = applying_survival_salmonella_cucum(df = Field_df , 
-                                                          Time = Time_Sc_Pack,
-                                                          RH = RH_Florida,
-                                                          Temp = Temp_Sc_Pack,
-                                                          Location = 3)
-            
-            #Updates location from Shipping Center to Packing House
-            Field_df=Update_Location(df= Field_df, Previous = 3, NewLoc =4)
-            
-            #Temporary Storage in Packing Facility
-            Field_df = applying_survival_salmonella_cucum(df = Field_df , 
-                                                          Time = Time_Pack,
-                                                          RH = RH_Florida,
-                                                          Temp = Temp_Pack,
-                                                          Location = 4)
-            
-            #Processing
-            #Wasing. 
-            #Updates location from  Packing House to Washing
-            Field_df=Update_Location(df= Field_df, Previous = 4, NewLoc =5)
-            
-            Field_df= Tomato_Wash(df = Field_df, Location  = 5)
-            
-            #Cross Contamination Conveyor Belt
-            #Updates location from  Washing to Sorting
-            Field_df=Update_Location(df= Field_df, Previous = 5, NewLoc =6)
-            
-            Field_df=F_CrossContProLine_tom (df = Field_df, 
-                                             Tr_P_S = 0.02, 
-                                             Tr_S_P = 0.01,
-                                             Location = 6,
-                                             Sanitation_Freq_lb = 0, 
-                                             StepEff = 0 , 
-                                             compliance = 0 )
-            
-            #Drying Cross Contmination
-            #Updates location from  Conveyor Belt to Drying
-            Field_df=Update_Location(df= Field_df, Previous = 6, NewLoc =7)
-            
-            Field_df=F_CrossContProLine_tom (df = Field_df, 
-                                             Tr_P_S = 0.02, 
-                                             Tr_S_P = 0.01,
-                                             Location = 7,
-                                             Sanitation_Freq_lb = 0, 
-                                             StepEff = 0 , 
-                                             compliance = 0 )
-            
-            #Sorting2 cross contmaination
-            #Updates location from  Drying to Sorting
-            Field_df=Update_Location(df= Field_df, Previous = 7, NewLoc =8)
-            Field_df=F_CrossContProLine_tom (df = Field_df, 
-                                             Tr_P_S = 0.02, 
-                                             Tr_S_P = 0.01,
-                                             Location = 8,
-                                             Sanitation_Freq_lb = 0, 
-                                             StepEff = 0 , 
-                                             compliance = 0 )
-            
-            #Packing product into the cases at the Packing house. 
-            #Updates location from  Sorting to Packing
-            Field_df=Update_Location(df= Field_df, Previous = 8, NewLoc = 9)
-            
-            Field_df=Case_Packaging(df = Field_df,Case_Weight = 20,Tomato_Weight = 0.54, Location = 9)
-            
-            #Post Packaging Storage
-            Field_df = applying_survival_salmonella_cucum(df = Field_df , 
-                                                          Time = Time_Post_Pack,
-                                                          RH = RH_Florida,
-                                                          Temp = Temp_Post_Pack,
-                                                          Location = 9)
-            #Ripening: 
-            Field_df=Update_Location(df= Field_df, Previous = 9, NewLoc = 10)
-        #Adding Contmination to Every Day
-        DC_Cont_Day= Dictionariez_T.Output_Collection_Prog(df = Field_df , outputDF =DC_Cont_Day , Step_Column = i,i = k)
-        DC_Cont_Day_Pick1= Dictionariez_T.Output_Collection_Prog_Pick(df = Field_df , outputDF = DC_Cont_Day_Pick1 , Step_Column = i,i = k, PickNo = 1)
-        DC_Cont_Day_Pick2= Dictionariez_T.Output_Collection_Prog_Pick(df = Field_df , outputDF = DC_Cont_Day_Pick2 , Step_Column = i,i = k, PickNo = 2)
-        DC_Cont_Day_Pick3= Dictionariez_T.Output_Collection_Prog_Pick(df = Field_df , outputDF = DC_Cont_Day_Pick3 , Step_Column = i,i = k, PickNo = 3)
-
-
-            
-
-        #Dieoff for Items that stayed in the Field. 
-        Field_df = applying_survival_salmonella_cucum(df = Field_df , 
-                                                      Time = 24, #hr
-                                                      RH = RH_Florida,
-                                                      Temp = Temp_In_Field,
-                                                      Location = 1)
+            #Total Consumer Exposure
+        DC_Exp= Dictionariez_T.Output_Collection_Exp(df = Field_df, outputDF =DC_Exp ,i = k)
+    return [DC_Exp,DC_Cont_Day,DC_Cont_Day_Pick2,DC_Cont_Day_Pick3]    
         
-        #Total Consumer Exposure
-    DC_Exp= Dictionariez_T.Output_Collection_Exp(df = Field_df, outputDF =DC_Exp ,i = k)
-        
-        
- #%%
-
-Field_df.loc[list(range(3,200)), "CFU" ] = 1000
-Field_df.loc[list(range(3,500)), "Location" ] = 2
-
-
-def F_CrossContProLine_tom (df, Tr_P_S, Tr_S_P, Sanitation_Freq_lb = 0, StepEff = 0 , compliance = 0 ):
-        df_field_1 =df.loc[df["Location"]==2].copy()
-        rateweight = 0.54
-        every_x_many = int(Sanitation_Freq_lb/rateweight)
-        ContS=0
-        vectorCFU = df_field_1["CFU"].copy()
-        newvector=[]
-        if every_x_many > 0:
-            Cleaning_steps = np.arange(0, len(vectorCFU) , every_x_many )
-        for i in list(vectorCFU.index):
-            if random.uniform(0,1)<compliance:
-                if every_x_many > 0:
-                    if i in Cleaning_steps:
-                        ContS = ContS*10**StepEff
-                        print ("cleaned")
-            ContP = vectorCFU[i] #Contamination product
-            TotTr_P_S= rng.binomial(ContP,Tr_P_S) #Transfer from Product to Surfaces
-            TotTr_S_P = rng.binomial(ContS,Tr_S_P) #Trasnfer from Surfaves to product
-            ContPNew = ContP-TotTr_P_S+TotTr_S_P #New Contmination on Product
-            ContS=ContS+TotTr_P_S-TotTr_S_P #Remiining Contamination in Surface for upcoming batches
-            newvector.append(ContPNew)
-        df_field_1.loc[:,"CFU"] = newvector
-        df.update(df_field_1)
-        return df
-    
-    
-        
-    
-def Case_Packaging(df,Case_Weight,Tomato_Weight):
-    
-    df_field_1 =df.loc[df["Location"]==2].copy()
-    
-    Tomatoes_Case = math.ceil(Case_Weight/Tomato_Weight)
-    Total_Packages = len(df_field_1.index)
-    Total_Cases = math.ceil(Total_Packages/Tomatoes_Case)
-    Case_Pattern = [i for i in range(1, int(Total_Cases)+1) for _ in range(Tomatoes_Case)]
-    Crop_No = len(df_field_1.index)
-    Case_Pattern=Case_Pattern[:Crop_No]
-    print(Case_Pattern)
-    df_field_1.loc[:,"Case_PH"] = Case_Pattern
-    
-    df.update(df_field_1)
-    return df
-
-df3 = Case_Packaging(df = Field_df,Case_Weight = 20,Tomato_Weight = 0.54)
-#%%
-#Experimenntal Plots
-DC_Cont_Day_Melted = DC_Cont_Day.melt()
-p=sns.pointplot(data=DC_Cont_Day_Melted, x="variable", y="value")
-p.set_xlabel("Days in System", fontsize = 12)
-p.set_ylabel("Total Adulterant Cells in System", fontsize = 12)
-
-Contam_Bin = random.sample(list(range(1,Total_Bins+1)),1)[0]
-
-
-DC_Cont_Day_Pick1_Melted = DC_Cont_Day_Pick1.melt()
-DC_Cont_Day_Pick1_Melted["Pick_ID"] = 1
-DC_Cont_Day_Pick2_Melted = DC_Cont_Day_Pick2.melt()
-DC_Cont_Day_Pick2_Melted["Pick_ID"] = 2
-DC_Cont_Day_Pick3_Melted = DC_Cont_Day_Pick3.melt()
-DC_Cont_Day_Pick3_Melted["Pick_ID"] = 3
-
-DC_Cont_Day_Combined=pd.concat([DC_Cont_Day_Pick1_Melted,DC_Cont_Day_Pick2_Melted,DC_Cont_Day_Pick3_Melted])
-DC_Cont_Day_Combined=DC_Cont_Day_Combined.reset_index()
-
-p=sns.lineplot(data=DC_Cont_Day_Combined, x="variable", y="value", hue = "Pick_ID")
-p.set_xlabel("Days in System", fontsize = 12)
-p.set_ylabel("Total Adulterant Cells in System", fontsize = 12)
-plt.xticks(rotation=90)
-plt.axvline(11, color='red', alpha = 0.5)
-plt.axvline(25, color='red', alpha = 0.5)
-plt.axvline(39, color='red', alpha = 0.5)
-
-
-######### Summary_Exposure
-#Power_PER_Pick
-
-
-def Get_Power(df, Weight_After, Weight_Before, CFU_avail): 
-  return  sum((df[Weight_After]-df[Weight_Before])>0 )/ (sum(df[ CFU_avail]>0))
-
-Total_Exposure = sum(DC_Exp["Total CFU"])
-
-Get_Power(df = DC_Exp, 
-          Weight_After = "PHS 3 Weight Rejected Aft", 
-          Weight_Before = "PHS 3 Weight Rejected Bef", 
-          CFU_avail = "CFU_Avail Pick 3"
-          )
-
-########
-
-
-
-
-
-
-Field_df.loc[(Field_df["Pick_ID"] ==1) & (Field_df["Harvester"] == 1 )]
-
-Field_df =Bin_Cont_Function(df = Field_df,
-                        Hazard_Level = 100_000, 
-                        Pick_No =1  , 
-                        Cont_Bin_No = Contam_Bin)
-
-#### Function Change Location
-def Update_Location(df, Previous, NewLoc):
-    df_field_1 =df.loc[df["Location"]==Previous].copy()
-    df_field_1.loc[:,"Location"] =NewLoc
-    df.update(df_field_1)
-    return df
-
-Update_Location(df= Field_df, Previous = 2, NewLoc =3)
-
-
-###
-
-def F_Sampling_T (df, Pick_No, Location, NSamp_Unit, NoGrab):
-    
-    df_field_1 =df.loc[(df["Pick_ID"]==Pick_No) & (df["Location"]==Location)].copy()
-    
-    #Unique_TestUnit = list(df[Test_Unit].unique())
-    #Grab_Weight = Partition_Weight #In lb
-    #for i in (Unique_TestUnit): #From sublot 1 to sublot n (same for pallet,lot,case etc)
-    for l in range (1, NSamp_Unit+1): #Number of samples per sublot or lot or pallet.
-        for j in range(NoGrab):
-            CFU_hh=df_field_1["CFU"]
-            List_Random=CFU_hh.sample(n=1)
-            CFU = List_Random
-            Index = List_Random.index[0]
-            CFU_grab = CFU#*(Grab_Weight/(Partition_Weight*454))
-            P_Detection=1-math.exp(-CFU_grab)
-            RandomUnif = random.uniform(0,1)
-            if RandomUnif < P_Detection:
-                df_field_1.at[Index, 'PositiveSamples'].append(l)
-    df.update(df_field_1)
-    return (df)
-
-
-def F_Rejection_Rule_T (df, Pick_No, Av_Picks, Test_Unit, limit):
-    #Unique_Test_Unit =list(df[Test_Unit].unique())
-    df_field_1 =df.loc[(df["Pick_ID"].isin(Av_Picks))].copy()
-    Reject = []
-    #for  i in Unique_Test_Unit:
-    df_Subset = df_field_1[df_field_1[Test_Unit] == Pick_No].copy()
-    List_of_grabs = df_Subset['PositiveSamples'].tolist()
-    flat_list = [item for sublist in  List_of_grabs for item in sublist]
-    Unique_Positives =list(np.unique(flat_list))
-    if len(Unique_Positives)>limit:
-        Reject.append(i)
-    df_field_1.PositiveSamples = [list() for x in range(len(df_field_1.index))] #this is in case everything gets rejected
-    if len(Reject)>0:
-     df_field_1.loc[:,"Rej_Acc"] = "REJ"
-        #df_Blank = df.iloc[[0]]
-        #df_Blank.loc[:, ['CFU']] = 0
-        #df_Blank.loc[:, ['Weight']] = SCInputz.Partition_Weight
-        #df_Blank.loc[:, ['Accept']] = "All Rej"
-        #df = df_Blank
-    #else:
-        #df = df[~df[Test_Unit].isin(Reject)]
-    df.update(df_field_1)
-    return df
-
-Field_df=pd.DataFrame({"Tomato_ID": Individual_Tomatoes,
-                       "Plant_ID": Individual_Plants[0:Individual_Tomatoes.size],
-                       "Pick_ID": Pick_Random[0:Individual_Tomatoes.size],
-                       "Weight": Tomato_weight,
-                       "Harvester" : 0,
-                       "Bucket":0,
-                       "Bin": 0,
-                       "Case_PH": 0,
-                       "CFU": 0,
-                       "Location": 1,
-                       'PositiveSamples':"",
-                       "Rej_Acc" :"Acc"
-                  })
-Field_df.PositiveSamples = [list() for x in range(len(Field_df.index))]
-
-Field_df.loc[1:2500:,"CFU"] =10
-
-F_Sampling_T (df= Field_df, 
-              Pick_No = 2, 
-              Location = 1, 
-              NSamp_Unit = 1, 
-              NoGrab =80 )
-
-F_Rejection_Rule_T (df = Field_df, 
-                    Pick_No = 2, Av_Picks= [2,3], 
-                    Test_Unit = "Pick_ID", 
-                    limit = 0)
-
-df_field_1 =Field_df.loc[(Field_df["Pick_ID"]==Pick_No) & (Field_df["Location"]==Location)].copy()
-
-df_field_1.index[4]
-
-CFU_hh.sample(n=1).index[0]
-
-list(range(1,3+1))
-
-Field_df.loc[(Field_df["Pick_ID"].isin([1,2]))]
-
-aaaa= Field_df.loc[(Field_df['Pick_ID']==1) & (Field_df['Rej_Acc']== "Acc") ].copy()
-aaaa["CFU"].sum()
-
-len([])
-
-P_Detection=1-math.exp(-2)
-len(aaaa)
