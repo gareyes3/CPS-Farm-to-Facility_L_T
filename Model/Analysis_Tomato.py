@@ -36,7 +36,18 @@ import ContScen
 import Dictionariez_T
 
 #%%
-Inputz_T.Iteration_Number = 10
+
+Inputz_T.Iteration_Number = 500
 Scen_T.Tomatoes_per_sample = 1
 reload(DepInputz)
-Main_Mod_Outs = MainModel.Main_Loop()
+Outs_S1_A = MainModel.Main_Loop()
+
+Inputz_T.Iteration_Number = 500
+Scen_T.Tomatoes_per_sample = 5
+reload(DepInputz)
+Outs_S1_B = MainModel.Main_Loop()
+
+Inputz_T.Iteration_Number = 500
+Scen_T.Tomatoes_per_sample = 100
+reload(DepInputz)
+Outs_S1_C = MainModel.Main_Loop()
