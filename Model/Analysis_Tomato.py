@@ -19,7 +19,6 @@ rng = Generator(PCG64())
 import matplotlib.pyplot as plt
 import seaborn as sns
 from importlib import reload 
-from importlib import reload 
 
 import time
 #Own Libraries
@@ -51,3 +50,60 @@ Inputz_T.Iteration_Number = 500
 Scen_T.Tomatoes_per_sample = 100
 reload(DepInputz)
 Outs_S1_C = MainModel.Main_Loop()
+
+#%%
+#Saving Dfs
+S1_A_MainOut = Outs_S1_A[0]
+S1_B_MainOut = Outs_S1_B[0]
+S1_C_MainOut = Outs_S1_C[0]
+
+
+#Analysis
+def Get_Power(df, Weight_After, Weight_Before, CFU_avail): 
+  return  sum((df[Weight_After]-df[Weight_Before])>0 )/ (sum(df[ CFU_avail]>0))
+
+#Getting contmaination at sampling points ======================================
+df_locations = pd.DataFrame({
+    "Pick 1": S1_A_MainOut["CFU_Bef_Pick1PHS"],
+    "Pick 2": S1_A_MainOut["CFU_Bef_Pick2PHS"],
+    "Pick 3": S1_A_MainOut["CFU_Bef_Pick3PHS"],
+    })
+
+df_locations_melted=df_locations.melt()
+
+sns.boxplot(data = df_locations_melted, 
+            x = "variable",
+            y = "value"
+            )
+
+df_powers = pd.DataFrame({
+    "PHS Pick 1": 0.02894736842105263,
+    "PHS Pick 2": 0.065439672801636,
+    "PHS Pick 3": 0.07439824945295405,
+    })
+
+#===============================================================================
+
+sns.boxplot(y=S1_A_MainOut["CFU_Bef_Pick3PHS"] ) 
+
+
+Total_Exposure = sum(S1_A_MainOut["Total CFU"])
+
+Get_Power(df = S1_A_MainOut, 
+          Weight_After = "PHS 1 Weight Rejected Aft", 
+          Weight_Before = "PHS 1 Weight Rejected Bef", 
+          CFU_avail = "CFU_Avail Pick 1"
+          )
+
+Get_Power(df = S1_A_MainOut, 
+          Weight_After = "PHS 2 Weight Rejected Aft", 
+          Weight_Before = "PHS 2 Weight Rejected Bef", 
+          CFU_avail = "CFU_Avail Pick 2"
+          )
+
+Get_Power(df = S1_A_MainOut, 
+          Weight_After = "PHS 3 Weight Rejected Aft", 
+          Weight_Before = "PHS 3 Weight Rejected Bef", 
+          CFU_avail = "CFU_Avail Pick 3"
+          )
+
