@@ -60,7 +60,10 @@ S1_C_MainOut = Outs_S1_C[0]
 
 #Analysis
 def Get_Power(df, Weight_After, Weight_Before, CFU_avail): 
-  return  sum((df[Weight_After]-df[Weight_Before])>0 )/ (sum(df[ CFU_avail]>0))
+    Total_Rej = sum((df[Weight_After]-df[Weight_Before])>0 )
+    Total_Avail = (sum(df[ CFU_avail]>0))
+    Power =  sum((df[Weight_After]-df[Weight_Before])>0 )/ (sum(df[ CFU_avail]>0))
+    return [Total_Rej,Total_Avail,Power]
 
 #Getting contmaination at sampling points ======================================
 df_locations = pd.DataFrame({
@@ -71,18 +74,28 @@ df_locations = pd.DataFrame({
 
 df_locations_melted=df_locations.melt()
 
-sns.boxplot(data = df_locations_melted, 
+p=sns.boxplot(data = df_locations_melted, 
             x = "variable",
             y = "value"
             )
+p.set_xlabel("PHS per Pick")
+p.set_ylabel("TAC available at sampling point")
 
 df_powers = pd.DataFrame({
-    "PHS Pick 1": 0.02894736842105263,
-    "PHS Pick 2": 0.065439672801636,
-    "PHS Pick 3": 0.07439824945295405,
+    "PHS Pick 1":[ 0.02894736842105263],
+    "PHS Pick 2": [0.065439672801636],
+    "PHS Pick 3": [0.07439824945295405],
     })
 
-#===============================================================================
+df_power_melted = df_powers.melt()
+
+
+sns.barplot(data = df_power_melted, 
+            x = "variable",
+            y = "value")
+
+
+#=================================
 
 sns.boxplot(y=S1_A_MainOut["CFU_Bef_Pick3PHS"] ) 
 
