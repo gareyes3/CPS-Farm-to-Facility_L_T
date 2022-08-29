@@ -179,7 +179,65 @@ def Main_Loop():
             
             #This is where process starts, along with simulated harvest. 
             if i in Inputz_T.Harvest_Days:
-                print("The product was harvested")
+                
+                #Harvest Sampling
+                if Scen_T.Samp_Plan == 2:
+                    print("2 samp plan")
+                    
+                    #Collection of Outputs
+
+                    DC_Exp= Dictionariez_T.Output_Collection_Sampling(df = Field_df, 
+                                                      outputDF=DC_Exp,
+                                                      i = k, 
+                                                      SampType = "PHS", 
+                                                      PickNo = Current_Samp,
+                                                      Bef_Aft = "Bef")
+                    #print(time.time() - start_OCS, "Output Collectin Sampling")
+                    
+                    #start_OCSWR = time.time()
+                    DC_Exp = Dictionariez_T.Output_Collection_Sampling_Weight_R(df = Field_df, 
+                                                      outputDF=DC_Exp,
+                                                      i = k, 
+                                                      SampType = "PHS", 
+                                                      PickNo = Current_Samp,
+                                                      Bef_Aft = "Bef")
+                    #print(time.time() - start_OCSWR, "Output Collectin Sampling WR")
+    
+                    #start_Samp = time.time()
+                    Field_df = Funz_T.F_Sampling_T (df= Field_df, 
+                                              Pick_No = Current_Pick, 
+                                              Location = 1, #Location is in field
+                                              NSamp_Unit = 1, 
+                                              NoGrab = Scen_T.Tomatoes_per_sample) 
+                    print(Scen_T.Tomatoes_per_sample)
+                    #print(time.time() - start_Samp, "Sampling")
+                    
+                    #Rejection rules, reject current pick plus any upcoming picks
+                    #start_RR = time.time()
+                    Field_df=Funz_T.F_Rejection_Rule_T (df = Field_df, 
+                                        Pick_No = Current_Samp, 
+                                        Av_Picks= list(range(Current_Pick,Inputz_T.N_Pick+1)), 
+                                        Test_Unit = "Pick_ID", 
+                                        limit = 0)
+                    #print(time.time() - start_RR, "Rejection")
+                    
+                    DC_Exp= Dictionariez_T.Output_Collection_Sampling(df = Field_df, 
+                                      outputDF=DC_Exp,
+                                      i = k, 
+                                      SampType = "PHS", 
+                                      PickNo = Current_Samp,
+                                      Bef_Aft = "Aft")
+                    
+                    DC_Exp = Dictionariez_T.Output_Collection_Sampling_Weight_R(df = Field_df, 
+                                                      outputDF=DC_Exp,
+                                                      i = k, 
+                                                      SampType = "PHS", 
+                                                      PickNo = Current_Samp,
+                                                      Bef_Aft = "Aft")
+                    Current_Samp=Current_Samp+1
+                
+                
+                
                 #Location 2
                 #start_Harv = time.time()
                 Field_df = Funz_T.Harvesting_Function(df = Field_df, Total_Harvesters = Inputz_T.Total_Harvesters, 
@@ -188,7 +246,7 @@ def Main_Loop():
                                               Pick_No = Current_Pick,
                                               Tomatoes_per_Bin = Inputz_T.Tomatoes_per_Bin)
                 #print(time.time() - start_Harv, "Harvesting Function")
-                
+                print("The product was harvested")
                 
                 #Harvester contmaination
                 #if (np.random.uniform(0,1)<Pr_harvester_cont):
@@ -227,6 +285,62 @@ def Main_Loop():
                 
                 #Updates location from Harvest to Shipping Center
                 Field_df=Funz_T.Update_Location(df= Field_df, Previous = 2, NewLoc =3)
+                
+                if Scen_T.Samp_Plan == 3:
+                    print("3 samp plan")
+                    
+                    #Collection of Outputs
+
+                    DC_Exp= Dictionariez_T.Output_Collection_Sampling(df = Field_df, 
+                                                      outputDF=DC_Exp,
+                                                      i = k, 
+                                                      SampType = "PHS", 
+                                                      PickNo = Current_Samp,
+                                                      Bef_Aft = "Bef")
+                    #print(time.time() - start_OCS, "Output Collectin Sampling")
+                    
+                    #start_OCSWR = time.time()
+                    DC_Exp = Dictionariez_T.Output_Collection_Sampling_Weight_R(df = Field_df, 
+                                                      outputDF=DC_Exp,
+                                                      i = k, 
+                                                      SampType = "PHS", 
+                                                      PickNo = Current_Samp,
+                                                      Bef_Aft = "Bef")
+                    #print(time.time() - start_OCSWR, "Output Collectin Sampling WR")
+    
+                    #start_Samp = time.time()
+                    Field_df = Funz_T.F_Sampling_T (df= Field_df, 
+                                              Pick_No = Current_Pick, 
+                                              Location = 3, #Location is in field
+                                              NSamp_Unit = 1, 
+                                              NoGrab = Scen_T.Tomatoes_per_sample) 
+                    print(Scen_T.Tomatoes_per_sample)
+                    #print(time.time() - start_Samp, "Sampling")
+                    
+                    #Rejection rules, reject current pick plus any upcoming picks
+                    #start_RR = time.time()
+                    Field_df=Funz_T.F_Rejection_Rule_T (df = Field_df, 
+                                        Pick_No = Current_Samp, 
+                                        Av_Picks= list(range(Current_Pick,Inputz_T.N_Pick+1)), 
+                                        Test_Unit = "Pick_ID", 
+                                        limit = 0)
+                    #print(time.time() - start_RR, "Rejection")
+                    
+                    DC_Exp= Dictionariez_T.Output_Collection_Sampling(df = Field_df, 
+                                      outputDF=DC_Exp,
+                                      i = k, 
+                                      SampType = "PHS", 
+                                      PickNo = Current_Samp,
+                                      Bef_Aft = "Aft")
+                    
+                    DC_Exp = Dictionariez_T.Output_Collection_Sampling_Weight_R(df = Field_df, 
+                                                      outputDF=DC_Exp,
+                                                      i = k, 
+                                                      SampType = "PHS", 
+                                                      PickNo = Current_Samp,
+                                                      Bef_Aft = "Aft")
+                    Current_Samp=Current_Samp+1
+                
                 
                 #At Shipping center, temporary storage in open bins
                 Field_df = Funz_T.applying_survival_salmonella_cucum2(df = Field_df , 

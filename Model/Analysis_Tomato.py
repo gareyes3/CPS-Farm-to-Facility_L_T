@@ -51,6 +51,27 @@ Scen_T.Tomatoes_per_sample = 100
 reload(DepInputz)
 Outs_S1_C = MainModel.Main_Loop()
 
+#HS
+
+Inputz_T.Iteration_Number = 500
+Scen_T.Tomatoes_per_sample = 1
+Scen_T.Samp_Plan = 2
+reload(DepInputz)
+Outs_S2_A = MainModel.Main_Loop()
+
+
+Inputz_T.Iteration_Number = 500
+Scen_T.Tomatoes_per_sample = 5
+Scen_T.Samp_Plan = 2
+reload(DepInputz)
+Outs_S2_B = MainModel.Main_Loop()
+
+Inputz_T.Iteration_Number = 500
+Scen_T.Tomatoes_per_sample = 100
+Scen_T.Samp_Plan = 2
+reload(DepInputz)
+Outs_S2_C = MainModel.Main_Loop()
+
 #%%
 #Saving Dfs
 S1_A_MainOut = Outs_S1_A[0]

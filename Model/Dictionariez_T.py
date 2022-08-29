@@ -86,6 +86,9 @@ def Output_Collection_Sampling(df, outputDF,i, SampType, PickNo, Bef_Aft):
                 outputDF.at[i,"CFU_Avail Pick 3"] = CFU_Avail
             elif Bef_Aft == "Aft":
                 outputDF.at[i,"CFU_Aft_Pick3PHS"] = Total_CFU 
+                       
+                
+                
     return outputDF
 
 def Output_Collection_Sampling_Weight_R(df, outputDF,i, SampType, PickNo, Bef_Aft):    
@@ -109,6 +112,8 @@ def Output_Collection_Sampling_Weight_R(df, outputDF,i, SampType, PickNo, Bef_Af
                 outputDF.at[i,"PHS 3 Weight Rejected Bef"] = Total_Weight
             elif Bef_Aft == "Aft":
                 outputDF.at[i,"PHS 3 Weight Rejected Aft"] = Total_Weight
+    
+    
     return outputDF     
     
 
