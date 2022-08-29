@@ -78,6 +78,11 @@ S1_A_MainOut = Outs_S1_A[0]
 S1_B_MainOut = Outs_S1_B[0]
 S1_C_MainOut = Outs_S1_C[0]
 
+S2_A_MainOut = Outs_S2_A[0]
+S2_B_MainOut = Outs_S2_B[0]
+S2_C_MainOut = Outs_S2_C[0]
+
+
 
 #Analysis
 def Get_Power(df, Weight_After, Weight_Before, CFU_avail): 
@@ -123,21 +128,47 @@ sns.boxplot(y=S1_A_MainOut["CFU_Bef_Pick3PHS"] )
 
 Total_Exposure = sum(S1_A_MainOut["Total CFU"])
 
-Get_Power(df = S1_A_MainOut, 
-          Weight_After = "PHS 1 Weight Rejected Aft", 
-          Weight_Before = "PHS 1 Weight Rejected Bef", 
-          CFU_avail = "CFU_Avail Pick 1"
-          )
+def get_powers_scenarios (df):
+    A=Get_Power(df = df, 
+              Weight_After = "PHS 1 Weight Rejected Aft", 
+              Weight_Before = "PHS 1 Weight Rejected Bef", 
+              CFU_avail = "CFU_Avail Pick 1"
+              )
 
-Get_Power(df = S1_A_MainOut, 
-          Weight_After = "PHS 2 Weight Rejected Aft", 
-          Weight_Before = "PHS 2 Weight Rejected Bef", 
-          CFU_avail = "CFU_Avail Pick 2"
-          )
+    B=Get_Power(df = df, 
+              Weight_After = "PHS 2 Weight Rejected Aft", 
+              Weight_Before = "PHS 2 Weight Rejected Bef", 
+              CFU_avail = "CFU_Avail Pick 2"
+              )
 
-Get_Power(df = S1_A_MainOut, 
-          Weight_After = "PHS 3 Weight Rejected Aft", 
-          Weight_Before = "PHS 3 Weight Rejected Bef", 
-          CFU_avail = "CFU_Avail Pick 3"
-          )
+    C= Get_Power(df = df, 
+              Weight_After = "PHS 3 Weight Rejected Aft", 
+              Weight_Before = "PHS 3 Weight Rejected Bef", 
+              CFU_avail = "CFU_Avail Pick 3"
+              )
+    return [A,B,C]
 
+    
+
+#Power For Scenario 1
+
+get_powers_scenarios (df=S1_A_MainOut)[0][2]
+
+#Power For Scenario 2
+get_powers_scenarios (df=S1_B_MainOut)
+
+#Power For Scenario 3
+get_powers_scenarios (df=S1_C_MainOut)
+
+#Power For Scenario 4
+
+get_powers_scenarios (df=S2_A_MainOut)
+
+#Power For Scenario 5
+get_powers_scenarios (df=S2_B_MainOut)
+
+#Power For Scenario 6
+get_powers_scenarios (df=S2_C_MainOut)
+
+
+Powers_Summary_DF = pd

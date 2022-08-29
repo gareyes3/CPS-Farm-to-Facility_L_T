@@ -286,6 +286,27 @@ def Main_Loop():
                 #Updates location from Harvest to Shipping Center
                 Field_df=Funz_T.Update_Location(df= Field_df, Previous = 2, NewLoc =3)
                 
+                
+                #At Shipping center, temporary storage in open bins
+                Field_df = Funz_T.applying_survival_salmonella_cucum2(df = Field_df , 
+                                                              Time = Inputz_T.Time_Sc,
+                                                              RH = Inputz_T.RH_Florida,
+                                                              Temp = Inputz_T.Temp_Sc,
+                                                              Location = 3)
+                
+                #From shipping center to packing facility.
+                Field_df = Funz_T.applying_survival_salmonella_cucum2(df = Field_df , 
+                                                              Time = Inputz_T.Time_Sc_Pack,
+                                                              RH = Inputz_T.RH_Florida,
+                                                              Temp = Inputz_T.Temp_Sc_Pack,
+                                                              Location = 3)
+                
+                #Updates location from Shipping Center to Packing House
+                Field_df=Funz_T.Update_Location(df= Field_df, Previous = 3, NewLoc =4)
+                
+                
+                #Receiving--------------------------------------------------------
+                #### Sampling Plan at Receiving ----------------------------------
                 if Scen_T.Samp_Plan == 3:
                     print("3 samp plan")
                     
@@ -341,23 +362,6 @@ def Main_Loop():
                                                       Bef_Aft = "Aft")
                     Current_Samp=Current_Samp+1
                 
-                
-                #At Shipping center, temporary storage in open bins
-                Field_df = Funz_T.applying_survival_salmonella_cucum2(df = Field_df , 
-                                                              Time = Inputz_T.Time_Sc,
-                                                              RH = Inputz_T.RH_Florida,
-                                                              Temp = Inputz_T.Temp_Sc,
-                                                              Location = 3)
-                
-                #From shipping center to packing facility.
-                Field_df = Funz_T.applying_survival_salmonella_cucum2(df = Field_df , 
-                                                              Time = Inputz_T.Time_Sc_Pack,
-                                                              RH = Inputz_T.RH_Florida,
-                                                              Temp = Inputz_T.Temp_Sc_Pack,
-                                                              Location = 3)
-                
-                #Updates location from Shipping Center to Packing House
-                Field_df=Funz_T.Update_Location(df= Field_df, Previous = 3, NewLoc =4)
                 
                 #Temporary Storage in Packing Facility
                 Field_df = Funz_T.applying_survival_salmonella_cucum2(df = Field_df , 
