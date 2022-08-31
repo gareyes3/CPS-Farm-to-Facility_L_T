@@ -27,6 +27,16 @@ def Output_Collection_Prog(df, outputDF, Step_Column,i):
     outputDF.at[i,Step_Column] = Total_CFU
     return outputDF
 
+
+def Output_Collection_Processing(df, outputDF, Step_Column,i):
+    #df= main model df
+    #outputDF = contprogdataframe
+    #Step_column = column for the step we are at
+    
+    Total_CFU = sum(df.CFU)
+    outputDF.at[i,Step_Column] = Total_CFU
+    return outputDF
+
 def Output_Collection_Exp(df, outputDF,i):
     #df= main model df
     #outputDF = contprogdataframe
@@ -134,7 +144,11 @@ def Output_Collection_Prog_Pick(df, outputDF, Step_Column,i, PickNo):
 
 Col_Days = list(np.arange(1, (14)+1))
 
-"H1_2 H1_3, H1_4 H1_5 H1_6, H1_7 H1_8, H1_9"
+Proc_Steps = ["Harvest_1", "Shipping Center_1", "Packinghouse_1", "Washing_1", "CB1_1", "Drying_1", "Sorting_1", "Packing_1", "PP_1",
+"Harvest_2", "Shipping Center_2", "Packinghouse_2", "Washing_2", "CB1_2", "Drying_2", "Sorting_2", "Packing_2", "PP_2",
+"Harvest_3", "Shipping Center_3", "Packinghouse_3", "Washing_3", "CB1_3", "Drying_3", "Sorting_3", "Packing_3", "PP_3"]
+
+"Harvest_"+str(1)
 
 Columns_Final_Outs = [
     "Total CFU",

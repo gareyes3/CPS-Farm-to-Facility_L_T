@@ -14,14 +14,43 @@ Power_data<-read_csv("Power_summary.csv")
 Power_data$Samp_Plan<-as.factor(Power_data$Samp_Plan)
 Power_data$Pick<-as.factor(Power_data$Pick)
 
+Power_data$Samp_Plan<-factor(Power_data$Samp_Plan,levels=c("PH", "HS", "RS", "PPS"))
+Power_data$Samp_Mass<-as.factor(Power_data$Samp_Mass)
+
 Power_data %>% 
   ggplot(aes(x = Samp_Plan, y = Power, group = Samp_Mass, shape = Samp_Mass, color = Pick)) +
-  geom_point(position=position_dodge(width=0.5), size = 2)+
-  scale_shape_discrete(labels = c("1 Tomato", "5 Tomatoes", "20 X 5 Tomatoes"), name= "Mass")+
+  geom_point(position=position_dodge(width=0.5))+
+  scale_shape_discrete(labels = c("1 Tomato", "5 Tomatoes", "100 Tomatoes"), name= "Mass")+
   xlab("Sampling Plan Number")+ ylab ("Sampling Plan Power")
+
+Power_data %>% 
+  ggplot(aes(x = Samp_Plan, y = Power,size = Samp_Mass, color = Pick,shape = Samp_Mass, group = interaction(Samp_Mass,Pick))) +
+  geom_point(stroke = 1.5)+
+  geom_line(size = 1,)+
+  scale_shape_manual(values = c(),name = "Tomatoes Sampled")+
+  scale_size_manual(values=c(2,3.5,4.5), name = "Tomatoes Sampled")+
+  xlab("Sampling Plan Number")+ ylab ("Sampling Plan Power")
+
+
+ggsave(filename=  "Powers.png")
 ```
 
 Main outcomes.
 - Higher sampling plan mass yields higher sampling plan power
 - Based on contamination scenarios sampling at later picks yoields higher power because contmaination tends to accumulate. 
+
+Contamination at sampling points
+```{r}
+Cont_data<-read_csv("Cont_Samp_Point.csv")
+Cont_data$Pick<-as.factor(Cont_data$Pick)
+Cont_data$Type<-as.factor(Cont_data$Type)
+Cont_data$Type<-factor( Cont_data$Type,levels=c("PH", "HS", "RS"))
+
+Cont_data %>% 
+  ggplot(aes(x = Type, y = Cont, fill = Pick)) +
+  geom_boxplot()+
+  stat_summary(fun=mean,aes(group=Pick), geom="point", shape=16, size=3, color="red", fill="red",position=position_dodge(.75)) +
+  xlab("Sampling Plan")+ ylab ("Total Adulteran Cells (TAC) at sampling point")
+  
+```
 

@@ -35,9 +35,17 @@ import ContScen
 import Dictionariez_T
 
 
+#%% Contamination progression thruhgout system No Sampling
 
-#%%
+Inputz_T.Iteration_Number = 5
+Scen_T.Tomatoes_per_sample = 1
+Scen_T.Samp_Plan = 0
+reload(DepInputz)
+Outs_S0 = MainModel.Main_Loop()
 
+
+#%% Sampling Scenarios
+ #Sampling Scenario
 Inputz_T.Iteration_Number = 500
 Scen_T.Tomatoes_per_sample = 1
 reload(DepInputz)
@@ -95,6 +103,27 @@ Scen_T.Samp_Plan = 3
 reload(DepInputz)
 Outs_S3_C = MainModel.Main_Loop()
 
+#FPS
+
+Inputz_T.Iteration_Number = 500
+Scen_T.Tomatoes_per_sample = 1
+Scen_T.Samp_Plan = 4
+reload(DepInputz)
+Outs_S4_A = MainModel.Main_Loop()
+
+
+Inputz_T.Iteration_Number = 500
+Scen_T.Tomatoes_per_sample = 5
+Scen_T.Samp_Plan = 4
+reload(DepInputz)
+Outs_S4_B = MainModel.Main_Loop()
+
+Inputz_T.Iteration_Number = 500
+Scen_T.Tomatoes_per_sample = 100
+Scen_T.Samp_Plan = 4
+reload(DepInputz)
+Outs_S4_C = MainModel.Main_Loop()
+
 #%%
 #Saving Dfs
 S1_A_MainOut = Outs_S1_A[0]
@@ -105,7 +134,11 @@ S2_A_MainOut = Outs_S2_A[0]
 S2_B_MainOut = Outs_S2_B[0]
 S2_C_MainOut = Outs_S2_C[0]
 
+S3_A_MainOut = Outs_S3_A[0]
+S3_B_MainOut = Outs_S3_B[0]
+S3_C_MainOut = Outs_S3_C[0]
 
+S4_A_MainOut = Outs_S4_A[0]
 
 #Analysis
 def Get_Power(df, Weight_After, Weight_Before, CFU_avail): 
@@ -193,11 +226,68 @@ get_powers_scenarios (df=S2_B_MainOut)
 #Power For Scenario 6
 get_powers_scenarios (df=S2_C_MainOut)
 
+#Power For Scenario 7
+
+get_powers_scenarios (df=S3_A_MainOut)
+
+#Power For Scenario 8
+get_powers_scenarios (df=S3_B_MainOut)
+
+#Power For Scenario 9
+get_powers_scenarios (df=S3_C_MainOut)
+
+#Power For Scenario 10
+
+get_powers_scenarios (df=S4_A_MainOut)
+
 
 Powers_Summary_DF = pd
 
 #%%
 ##Contamination at sampling points
 
-def Get_Contam_Sampling(df, Type):
-    S1_A_MainOut
+def Get_Contam_Sampling(df, Type, Mass):
+    A=pd.DataFrame({"Cont":df["CFU_Avail Pick 1"],
+                  "Pick": 1,
+                  "Type" : Type,
+                  "Mass": Mass
+                  })
+    B=pd.DataFrame({"Cont":df["CFU_Avail Pick 2"],
+                  "Pick": 2,
+                  "Type" : Type,
+                  "Mass": Mass
+                  })
+    C=pd.DataFrame({"Cont":df["CFU_Avail Pick 3"],
+                  "Pick": 3,
+                  "Type" : Type,
+                  "Mass": Mass
+                  })
+    Dfout = pd.concat([A,B,C])
+    return (Dfout)
+    
+S1_A_Contam=Get_Contam_Sampling(df = S1_A_MainOut, Type = "PH",Mass = "1 Tomato")
+S1_B_Contam=Get_Contam_Sampling(df = S1_B_MainOut, Type = "PH",Mass = "5 Tomato")
+S1_C_Contam=Get_Contam_Sampling(df = S1_C_MainOut, Type = "PH",Mass = "20 X 5 Tomato")
+
+S2_A_Contam=Get_Contam_Sampling(df = S2_A_MainOut, Type = "HS",Mass = "1 Tomato")
+S2_B_Contam=Get_Contam_Sampling(df = S2_B_MainOut, Type = "HS",Mass = "5 Tomato")
+S2_C_Contam=Get_Contam_Sampling(df = S2_C_MainOut, Type = "HS",Mass = "20 X 5 Tomato")
+
+S3_A_Contam=Get_Contam_Sampling(df = S3_A_MainOut, Type = "RS",Mass = "1 Tomato")
+S3_B_Contam=Get_Contam_Sampling(df = S3_B_MainOut, Type = "RS",Mass = "5 Tomato")
+S3_C_Contam=Get_Contam_Sampling(df = S3_C_MainOut, Type = "RS",Mass = "20 X 5 Tomato")
+
+Cont_Samp_Point = pd.concat([S1_A_Contam,S1_B_Contam,S1_C_Contam,
+                             S2_A_Contam,S2_B_Contam,S2_C_Contam,
+                             S3_A_Contam,S3_B_Contam,S3_C_Contam])
+
+Cont_Samp_Point.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Cont_Samp_Point.csv")
+
+#%% Contamination Progression. 
+Baseline_Melted = Outs_S0[1].melt()
+S1_A_Melted = Outs_S1_A[1].melt()
+S1_C_Melted = Outs_S1_C[1].melt()
+
+
+sns.lineplot(data = S1_C_Melted , x = "variable", y = "value")
+sns.lineplot(data = Baseline_Melted , x = "variable", y = "value")

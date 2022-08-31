@@ -45,6 +45,7 @@ def Main_Loop():
     #Model
     #Creation of collection Data Frames.
     DC_Cont_Day = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Inputz_T.Iteration_Number)
+    DC_Cont_Processing = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Proc_Steps, Niterations = Inputz_T.Iteration_Number)
     DC_Exp = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Columns_Final_Outs, Niterations = Inputz_T.Iteration_Number)
 
     DC_Cont_Day_Pick1 = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Inputz_T.Iteration_Number)
@@ -239,6 +240,11 @@ def Main_Loop():
                 
                 
                 #Location 2
+                #Collection contmaination at processing stages. 
+                DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
+                                                                          outputDF =DC_Cont_Processing , 
+                                                                          Step_Column = "Harvest_"+str(Current_Pick)
+                                                                          ,i = k)
                 #start_Harv = time.time()
                 Field_df = Funz_T.Harvesting_Function(df = Field_df, Total_Harvesters = Inputz_T.Total_Harvesters, 
                                               Tomatoes_Per_Bucket = Inputz_T.Tomatoes_Per_Bucket,
@@ -283,6 +289,13 @@ def Main_Loop():
                 #print(time.time() - start_surv, "Survival")
                 
                 #Updates location from Harvest to Shipping Center
+                #Updating Cont
+                DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
+                                                                          outputDF =DC_Cont_Processing , 
+                                                                          Step_Column = "Shipping Center_"+str(Current_Pick)
+                                                                          ,i = k)
+                
+                
                 Field_df=Funz_T.Update_Location(df= Field_df, Previous = 2, NewLoc =3)
                 
                 
@@ -303,6 +316,10 @@ def Main_Loop():
                 #Updates location from Shipping Center to Packing House
                 Field_df=Funz_T.Update_Location(df= Field_df, Previous = 3, NewLoc =4)
                 
+                DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
+                                                                          outputDF =DC_Cont_Processing , 
+                                                                          Step_Column = "Packinghouse_"+str(Current_Pick)
+                                                                          ,i = k)
                 
                 #Receiving--------------------------------------------------------
                 #### Sampling Plan at Receiving ----------------------------------
@@ -373,13 +390,26 @@ def Main_Loop():
                 #Processing
                 #Wasing. 
                 #Updates location from  Packing House to Washing
+                
+                
                 Field_df=Funz_T.Update_Location(df= Field_df, Previous = 4, NewLoc =5)
+                
+                DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
+                                                                          outputDF =DC_Cont_Processing , 
+                                                                          Step_Column = "Washing_"+str(Current_Pick)
+                                                                          ,i = k)
+                
                 
                 Field_df=Funz_T.Tomato_Wash(df = Field_df, Location  = 5)
                 
                 #Cross Contamination Conveyor Belt
                 #Updates location from  Washing to Sorting
                 Field_df=Funz_T.Update_Location(df= Field_df, Previous = 5, NewLoc =6)
+                
+                DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
+                                                                          outputDF =DC_Cont_Processing , 
+                                                                          Step_Column = "CB1_"+str(Current_Pick)
+                                                                          ,i = k)
                 
                 Field_df=Funz_T.F_CrossContProLine_tom (df = Field_df, 
                                                  Tr_P_S = 0.02, 
@@ -393,6 +423,11 @@ def Main_Loop():
                 #Updates location from  Conveyor Belt to Drying
                 Field_df=Funz_T.Update_Location(df= Field_df, Previous = 6, NewLoc =7)
                 
+                DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
+                                                                          outputDF =DC_Cont_Processing , 
+                                                                          Step_Column = "Drying_"+str(Current_Pick)
+                                                                          ,i = k)
+                
                 Field_df=Funz_T.F_CrossContProLine_tom (df = Field_df, 
                                                  Tr_P_S = 0.02, 
                                                  Tr_S_P = 0.01,
@@ -404,6 +439,12 @@ def Main_Loop():
                 #Sorting2 cross contmaination
                 #Updates location from  Drying to Sorting
                 Field_df=Funz_T.Update_Location(df= Field_df, Previous = 7, NewLoc =8)
+                
+                DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
+                                                                          outputDF =DC_Cont_Processing , 
+                                                                          Step_Column = "Sorting_"+str(Current_Pick)
+                                                                          ,i = k)
+                
                 Field_df=Funz_T.F_CrossContProLine_tom (df = Field_df, 
                                                  Tr_P_S = 0.02, 
                                                  Tr_S_P = 0.01,
@@ -417,6 +458,11 @@ def Main_Loop():
                 Field_df=Funz_T.Update_Location(df= Field_df, Previous = 8, NewLoc = 9)
                 
                 Field_df=Funz_T.Case_Packaging(df = Field_df,Case_Weight = 20,Tomato_Weight = 0.54, Location = 9)
+                
+                DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
+                                                                          outputDF =DC_Cont_Processing , 
+                                                                          Step_Column = "Packing_"+str(Current_Pick)
+                                                                          ,i = k)
                 
                 if Scen_T.Samp_Plan == 4:
                     print("3 samp plan")
@@ -483,6 +529,11 @@ def Main_Loop():
                 #Ripening: 
                 Field_df=Funz_T.Update_Location(df= Field_df, Previous = 9, NewLoc = 10)
                 
+                DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
+                                                                          outputDF =DC_Cont_Processing , 
+                                                                          Step_Column = "PP_"+str(Current_Pick)
+                                                                          ,i = k)
+                
                 #Establishing which pick we are in
                 Current_Pick = Current_Pick+1
                 
@@ -508,5 +559,5 @@ def Main_Loop():
             
             #Total Consumer Exposure
         DC_Exp= Dictionariez_T.Output_Collection_Exp(df = Field_df, outputDF =DC_Exp ,i = k)
-    return [DC_Exp,DC_Cont_Day,DC_Cont_Day_Pick2,DC_Cont_Day_Pick3]    
+    return [DC_Exp,DC_Cont_Day,DC_Cont_Day_Pick2,DC_Cont_Day_Pick3, DC_Cont_Processing]    
         

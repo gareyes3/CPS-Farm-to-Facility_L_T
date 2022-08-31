@@ -190,7 +190,7 @@ def applying_survival_salmonella_cucum(df, Time, RH, Temp, Location):
 
 def Tomato_Wash(df, Location):
 
-    FC_lvl = np.random.triangular(0,5,10)
+    FC_lvl = np.random.triangular(0,80,250)
     if FC_lvl<10:
         log_red_Wash_mean = (FC_lvl*0.04)+0.3
     elif FC_lvl>10:
