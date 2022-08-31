@@ -294,22 +294,25 @@ def Update_Location(df, Previous, NewLoc):
 def F_Sampling_T (df, Pick_No, Location, NSamp_Unit, NoGrab):
     
     df_field_1 =df.loc[(df["Pick_ID"]==Pick_No) & (df["Location"]==Location)].copy()
-    
-    #Unique_TestUnit = list(df[Test_Unit].unique())
-    #Grab_Weight = Partition_Weight #In lb
-    #for i in (Unique_TestUnit): #From sublot 1 to sublot n (same for pallet,lot,case etc)
-    for l in range (1, NSamp_Unit+1): #Number of samples per sublot or lot or pallet.
-        for j in range(NoGrab):
-            CFU_hh=df_field_1["CFU"]
-            List_Random=CFU_hh.sample(n=1)
-            CFU = List_Random
-            Index = List_Random.index[0]
-            CFU_grab = CFU#*(Grab_Weight/(Partition_Weight*454))
-            P_Detection=1-math.exp(-CFU_grab)
-            RandomUnif = random.uniform(0,1)
-            if RandomUnif < P_Detection:
-                df_field_1.at[Index, 'PositiveSamples'].append(l)
-    df.update(df_field_1)
+    if len(df_field_1)>0:
+        print(Location, "Location")
+        print(df["Location"])
+        #Unique_TestUnit = list(df[Test_Unit].unique())
+        #Grab_Weight = Partition_Weight #In lb
+        #for i in (Unique_TestUnit): #From sublot 1 to sublot n (same for pallet,lot,case etc)
+        for l in range (1, NSamp_Unit+1): #Number of samples per sublot or lot or pallet.
+            for j in range(NoGrab):
+                CFU_hh=df_field_1["CFU"]
+                print(len(CFU_hh),"Length")
+                List_Random=CFU_hh.sample(n=1)
+                CFU = List_Random
+                Index = List_Random.index[0]
+                CFU_grab = CFU#*(Grab_Weight/(Partition_Weight*454))
+                P_Detection=1-math.exp(-CFU_grab)
+                RandomUnif = random.uniform(0,1)
+                if RandomUnif < P_Detection:
+                    df_field_1.at[Index, 'PositiveSamples'].append(l)
+        df.update(df_field_1)
     return (df)
 
 def F_Rejection_Rule_T (df, Pick_No, Av_Picks, Test_Unit, limit):

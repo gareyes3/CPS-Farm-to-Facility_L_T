@@ -1,0 +1,27 @@
+---
+title: "Tomato Model analysis"
+author: "Gustavo Reyes"
+date: '2022-08-30'
+output: html_document
+---
+```{r}
+library(tidyverse)
+```
+
+```{r}
+Power_data<-read_csv("Power_summary.csv")
+
+Power_data$Samp_Plan<-as.factor(Power_data$Samp_Plan)
+Power_data$Pick<-as.factor(Power_data$Pick)
+
+Power_data %>% 
+  ggplot(aes(x = Samp_Plan, y = Power, group = Samp_Mass, shape = Samp_Mass, color = Pick)) +
+  geom_point(position=position_dodge(width=0.5), size = 2)+
+  scale_shape_discrete(labels = c("1 Tomato", "5 Tomatoes", "20 X 5 Tomatoes"), name= "Mass")+
+  xlab("Sampling Plan Number")+ ylab ("Sampling Plan Power")
+```
+
+Main outcomes.
+- Higher sampling plan mass yields higher sampling plan power
+- Based on contamination scenarios sampling at later picks yoields higher power because contmaination tends to accumulate. 
+

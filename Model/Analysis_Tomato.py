@@ -34,6 +34,8 @@ import InFunz
 import ContScen
 import Dictionariez_T
 
+
+
 #%%
 
 Inputz_T.Iteration_Number = 500
@@ -71,6 +73,27 @@ Scen_T.Tomatoes_per_sample = 100
 Scen_T.Samp_Plan = 2
 reload(DepInputz)
 Outs_S2_C = MainModel.Main_Loop()
+
+#RS
+
+Inputz_T.Iteration_Number = 500
+Scen_T.Tomatoes_per_sample = 1
+Scen_T.Samp_Plan = 3
+reload(DepInputz)
+Outs_S3_A = MainModel.Main_Loop()
+
+
+Inputz_T.Iteration_Number = 500
+Scen_T.Tomatoes_per_sample = 5
+Scen_T.Samp_Plan = 3
+reload(DepInputz)
+Outs_S3_B = MainModel.Main_Loop()
+
+Inputz_T.Iteration_Number = 500
+Scen_T.Tomatoes_per_sample = 100
+Scen_T.Samp_Plan = 3
+reload(DepInputz)
+Outs_S3_C = MainModel.Main_Loop()
 
 #%%
 #Saving Dfs
@@ -172,3 +195,9 @@ get_powers_scenarios (df=S2_C_MainOut)
 
 
 Powers_Summary_DF = pd
+
+#%%
+##Contamination at sampling points
+
+def Get_Contam_Sampling(df, Type):
+    S1_A_MainOut

@@ -270,8 +270,7 @@ def Main_Loop():
                                             Pick_No =Current_Pick  , 
                                             Cont_Bin_No = Contam_Bin )
                 
-                #Establishing which pick we are in
-                Current_Pick = Current_Pick+1
+                
                 
                 #Transportation from the field to the shipping center
                 #Here we need to caculate die-off for the tranportation of growth due to transportation. 
@@ -330,9 +329,10 @@ def Main_Loop():
                     #print(time.time() - start_OCSWR, "Output Collectin Sampling WR")
     
                     #start_Samp = time.time()
+                    print(Current_Samp, "Current_Samp")
                     Field_df = Funz_T.F_Sampling_T (df= Field_df, 
-                                              Pick_No = Current_Pick, 
-                                              Location = 3, #Location is in field
+                                              Pick_No = Current_Samp, 
+                                              Location = 4, #Location is in field
                                               NSamp_Unit = 1, 
                                               NoGrab = Scen_T.Tomatoes_per_sample) 
                     print(Scen_T.Tomatoes_per_sample)
@@ -418,6 +418,62 @@ def Main_Loop():
                 
                 Field_df=Funz_T.Case_Packaging(df = Field_df,Case_Weight = 20,Tomato_Weight = 0.54, Location = 9)
                 
+                if Scen_T.Samp_Plan == 4:
+                    print("3 samp plan")
+                    
+                    #Collection of Outputs
+
+                    DC_Exp= Dictionariez_T.Output_Collection_Sampling(df = Field_df, 
+                                                      outputDF=DC_Exp,
+                                                      i = k, 
+                                                      SampType = "PHS", 
+                                                      PickNo = Current_Samp,
+                                                      Bef_Aft = "Bef")
+                    #print(time.time() - start_OCS, "Output Collectin Sampling")
+                    
+                    #start_OCSWR = time.time()
+                    DC_Exp = Dictionariez_T.Output_Collection_Sampling_Weight_R(df = Field_df, 
+                                                      outputDF=DC_Exp,
+                                                      i = k, 
+                                                      SampType = "PHS", 
+                                                      PickNo = Current_Samp,
+                                                      Bef_Aft = "Bef")
+                    #print(time.time() - start_OCSWR, "Output Collectin Sampling WR")
+    
+                    #start_Samp = time.time()
+                    Field_df = Funz_T.F_Sampling_T (df= Field_df, 
+                                              Pick_No = Current_Pick, 
+                                              Location = 9, #Location is in field
+                                              NSamp_Unit = 1, 
+                                              NoGrab = Scen_T.Tomatoes_per_sample) 
+                    print(Scen_T.Tomatoes_per_sample)
+                    #print(time.time() - start_Samp, "Sampling")
+                    
+                    #Rejection rules, reject current pick plus any upcoming picks
+                    #start_RR = time.time()
+                    Field_df=Funz_T.F_Rejection_Rule_T (df = Field_df, 
+                                        Pick_No = Current_Samp, 
+                                        Av_Picks= list(range(Current_Pick,Inputz_T.N_Pick+1)), 
+                                        Test_Unit = "Pick_ID", 
+                                        limit = 0)
+                    #print(time.time() - start_RR, "Rejection")
+                    
+                    DC_Exp= Dictionariez_T.Output_Collection_Sampling(df = Field_df, 
+                                      outputDF=DC_Exp,
+                                      i = k, 
+                                      SampType = "PHS", 
+                                      PickNo = Current_Samp,
+                                      Bef_Aft = "Aft")
+                    
+                    DC_Exp = Dictionariez_T.Output_Collection_Sampling_Weight_R(df = Field_df, 
+                                                      outputDF=DC_Exp,
+                                                      i = k, 
+                                                      SampType = "PHS", 
+                                                      PickNo = Current_Samp,
+                                                      Bef_Aft = "Aft")
+                    Current_Samp=Current_Samp+1
+                
+                
                 #Post Packaging Storage
                 Field_df = Funz_T.applying_survival_salmonella_cucum2(df = Field_df , 
                                                               Time = Inputz_T.Time_Post_Pack,
@@ -426,6 +482,11 @@ def Main_Loop():
                                                               Location = 9)
                 #Ripening: 
                 Field_df=Funz_T.Update_Location(df= Field_df, Previous = 9, NewLoc = 10)
+                
+                #Establishing which pick we are in
+                Current_Pick = Current_Pick+1
+                
+                
             #Adding Contmination to Every Day
             
             #start_oed_outs = time.time()
