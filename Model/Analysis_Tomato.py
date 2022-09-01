@@ -126,6 +126,8 @@ Outs_S4_C = MainModel.Main_Loop()
 
 #%%
 #Saving Dfs
+S0_0_MainOut = Outs_S0[0]
+
 S1_A_MainOut = Outs_S1_A[0]
 S1_B_MainOut = Outs_S1_B[0]
 S1_C_MainOut = Outs_S1_C[0]
@@ -139,6 +141,8 @@ S3_B_MainOut = Outs_S3_B[0]
 S3_C_MainOut = Outs_S3_C[0]
 
 S4_A_MainOut = Outs_S4_A[0]
+S4_B_MainOut = Outs_S4_B[0]
+S4_C_MainOut = Outs_S4_C[0]
 
 #Analysis
 def Get_Power(df, Weight_After, Weight_Before, CFU_avail): 
@@ -208,8 +212,7 @@ def get_powers_scenarios (df):
 
 #Power For Scenario 1
 
-get_powers_scenarios (df=S1_A_MainOut)[0][2]
-
+get_powers_scenarios (df=S1_A_MainOut)
 #Power For Scenario 2
 get_powers_scenarios (df=S1_B_MainOut)
 
@@ -239,6 +242,14 @@ get_powers_scenarios (df=S3_C_MainOut)
 #Power For Scenario 10
 
 get_powers_scenarios (df=S4_A_MainOut)
+
+#Power For Scenario 11
+
+get_powers_scenarios (df=S4_B_MainOut)
+
+#Power For Scenario 12
+
+get_powers_scenarios (df=S4_C_MainOut)
 
 
 Powers_Summary_DF = pd
@@ -277,17 +288,80 @@ S3_A_Contam=Get_Contam_Sampling(df = S3_A_MainOut, Type = "RS",Mass = "1 Tomato"
 S3_B_Contam=Get_Contam_Sampling(df = S3_B_MainOut, Type = "RS",Mass = "5 Tomato")
 S3_C_Contam=Get_Contam_Sampling(df = S3_C_MainOut, Type = "RS",Mass = "20 X 5 Tomato")
 
+
+S4_A_Contam=Get_Contam_Sampling(df = S4_A_MainOut, Type = "PPS",Mass = "1 Tomato")
+S4_B_Contam=Get_Contam_Sampling(df = S4_B_MainOut, Type = "PPS",Mass = "5 Tomato")
+S4_C_Contam=Get_Contam_Sampling(df = S4_C_MainOut, Type = "PPS",Mass = "20 X 5 Tomato")
+
+
 Cont_Samp_Point = pd.concat([S1_A_Contam,S1_B_Contam,S1_C_Contam,
                              S2_A_Contam,S2_B_Contam,S2_C_Contam,
-                             S3_A_Contam,S3_B_Contam,S3_C_Contam])
+                             S3_A_Contam,S3_B_Contam,S3_C_Contam,
+                             S4_A_Contam,S4_B_Contam,S4_C_Contam])
 
 Cont_Samp_Point.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Cont_Samp_Point.csv")
 
 #%% Contamination Progression. 
 Baseline_Melted = Outs_S0[1].melt()
+
 S1_A_Melted = Outs_S1_A[1].melt()
+S1_B_Melted = Outs_S1_B[1].melt()
 S1_C_Melted = Outs_S1_C[1].melt()
 
+S2_A_Melted = Outs_S2_A[1].melt()
+S2_B_Melted = Outs_S2_B[1].melt()
+S2_C_Melted = Outs_S2_C[1].melt()
 
-sns.lineplot(data = S1_C_Melted , x = "variable", y = "value")
+S3_A_Melted = Outs_S3_A[1].melt()
+S3_B_Melted = Outs_S3_B[1].melt()
+S3_C_Melted = Outs_S3_C[1].melt()
+
+
+
 sns.lineplot(data = Baseline_Melted , x = "variable", y = "value")
+sns.lineplot(data = S1_C_Melted , x = "variable",y = "value")
+sns.lineplot(data = S2_C_Melted , x = "variable",y = "value")
+sns.lineplot(data = S3_C_Melted , x = "variable",y = "value")
+
+sns.lineplot(data = S1_A_Melted , x = "variable", y = "value")
+sns.lineplot(data = S1_B_Melted , x = "variable", y = "value")
+sns.lineplot(data = S1_C_Melted , x = "variable",y = "value")
+
+sns.lineplot(data = S2_A_Melted , x = "variable", y = "value")
+sns.lineplot(data = S2_B_Melted , x = "variable", y = "value")
+sns.lineplot(data = S2_C_Melted , x = "variable",y = "value")
+
+#%% Consumer Exposure
+
+S0_0_Exp = sum(S0_0_MainOut["Total CFU"])
+
+S1_A_Exp=sum(S1_A_MainOut["Total CFU"])
+S1_B_Exp=sum(S1_B_MainOut["Total CFU"])
+S1_C_Exp=sum(S1_C_MainOut["Total CFU"])
+
+S2_A_Exp=sum(S2_A_MainOut["Total CFU"])
+S2_B_Exp=sum(S2_B_MainOut["Total CFU"])
+S2_C_Exp=sum(S2_C_MainOut["Total CFU"])
+
+S3_A_Exp=sum(S3_A_MainOut["Total CFU"])
+S3_B_Exp=sum(S3_B_MainOut["Total CFU"])
+S3_C_Exp=sum(S3_C_MainOut["Total CFU"])
+
+S4_A_Exp=sum(S4_A_MainOut["Total CFU"])
+S4_B_Exp=sum(S4_B_MainOut["Total CFU"])
+S4_C_Exp=sum(S4_C_MainOut["Total CFU"])
+
+Exps = [S0_0_Exp,S1_A_Exp,S1_B_Exp,S1_C_Exp,S2_A_Exp,S2_B_Exp,S2_C_Exp,S3_A_Exp,S3_B_Exp,S3_C_Exp,S4_A_Exp,S4_B_Exp,S4_C_Exp]
+
+Exps_Emp=[]
+for i in range(0,len(Exps)):
+    A = Exps[i]/Exps[0]
+    Exps_Emp.append(A)
+Exps_Emp
+
+Exp_Main_Df =pd.DataFrame({
+    "Exposure": Exps,
+    "Relative": Exps_Emp
+    })
+
+

@@ -24,15 +24,16 @@ Power_data %>%
   xlab("Sampling Plan Number")+ ylab ("Sampling Plan Power")
 
 Power_data %>% 
-  ggplot(aes(x = Samp_Plan, y = Power,size = Samp_Mass, color = Pick,shape = Samp_Mass, group = interaction(Samp_Mass,Pick))) +
+  ggplot(aes(x = Samp_Plan, y = Power,size = Samp_Mass, color = Pick,shape = Pick, group = interaction(Samp_Mass,Pick))) +
   geom_point(stroke = 1.5)+
   geom_line(size = 1,)+
-  scale_shape_manual(values = c(),name = "Tomatoes Sampled")+
-  scale_size_manual(values=c(2,3.5,4.5), name = "Tomatoes Sampled")+
-  xlab("Sampling Plan Number")+ ylab ("Sampling Plan Power")
+  scale_shape_manual(values = c(15,16,17),name = "Pick")+
+  scale_size_manual(values=c(1.5,3,4), name = "Tomatoes Sampled")+
+  xlab("Sampling Plan Location")+ ylab ("Sampling Plan Power")+
+  scale_y_continuous(n.breaks = 10,labels = scales::percent_format(accuracy = 1))
 
 
-ggsave(filename=  "Powers.png")
+ggsave(filename=  "Powers.png",width = 25, height = 15, units = "cm", dpi = 600)
 ```
 
 Main outcomes.
@@ -44,7 +45,7 @@ Contamination at sampling points
 Cont_data<-read_csv("Cont_Samp_Point.csv")
 Cont_data$Pick<-as.factor(Cont_data$Pick)
 Cont_data$Type<-as.factor(Cont_data$Type)
-Cont_data$Type<-factor( Cont_data$Type,levels=c("PH", "HS", "RS"))
+Cont_data$Type<-factor( Cont_data$Type,levels=c("PH", "HS", "RS", "PPS"))
 
 Cont_data %>% 
   ggplot(aes(x = Type, y = Cont, fill = Pick)) +
