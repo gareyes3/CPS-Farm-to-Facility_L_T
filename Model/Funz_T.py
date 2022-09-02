@@ -31,7 +31,7 @@ def field_cont_percetage(df, percent_cont, Hazard_lvl, No_Cont_Clusters):
     Hazard_lvl = Hazard_lvl #CFUs in contaminated area total Cells
     No_Cont_Clusters = No_Cont_Clusters #in how many clusters will the percentage and cont be split into
     No_Cont_PartitionUnits = int((len(df[(df["Location"]==1) & (df["Rej_Acc"]=="Acc") ]))*Percent_D_Contaminatinated) #how many tomatoes are contmainated based on percentage
-    Field_df_1 =df.loc[(df["Location"]==1)& (df["Rej_Acc"]=="Acc")].copy() #filtering main df into only those that are in a field
+    Field_df_1 =df.loc[(df["Location"]==1) & (df["Rej_Acc"]=="Acc")].copy() #filtering main df into only those that are in a field
     
     if len(Field_df_1)>0: #The field is only contamiated if the Product is still in accepted condition
     #Determining the hazard level per cluster
