@@ -109,7 +109,8 @@ def Main_Loop():
             
             #Contmaination Event Due to Animal Intrusion
             #if (np.random.uniform(0,1)<Pr_bird_drop):
-            if (Scen_T.Cont_Scenario == 2 and i in Cont_Event_2_Days):   
+            if (Scen_T.Cont_Scenario == 2 and i in Cont_Event_2_Days): 
+                print("brid")
                 #Contaminated field with 0.1% contamination, simulated bird droping. 
                 Field_df = Funz_T.field_cont_percetage(df = Field_df, 
                                                 percent_cont = 0.1,
