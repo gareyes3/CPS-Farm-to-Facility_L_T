@@ -54,6 +54,11 @@ Cont_data %>%
   geom_boxplot()+
   stat_summary(fun=mean,aes(group=Pick), geom="point", shape=16, size=3, color="red", fill="red",position=position_dodge(.75)) +
   xlab("Sampling Plan")+ ylab ("Total Adulteran Cells (TAC) at sampling point")
+
+
+Cont_data %>% 
+  group_by(Type, Pick) %>% 
+  summarize(mean(Cont))
   
 ```
 

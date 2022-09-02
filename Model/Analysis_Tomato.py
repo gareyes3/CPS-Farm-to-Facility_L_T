@@ -338,34 +338,70 @@ Cont_Samp_Point = pd.concat([S1_A_Contam,S1_B_Contam,S1_C_Contam,
 Cont_Samp_Point.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Cont_Samp_Point.csv")
 
 #%% Contamination Progression. 
-Baseline_Melted = Outs_S0[1].melt()
-Baseline_Melted["Plan"] = "Baseline No Sampling"
+Baseline_Melted_A = Outs_S0[1].melt()
+Baseline_Melted_B = Outs_S0[1].melt()
+Baseline_Melted_C = Outs_S0[1].melt()
+Baseline_Melted_A["Plan"] = "Baseline No Sampling"
+Baseline_Melted_A["Plan Mass"] = "A"
+Baseline_Melted_B["Plan"] = "Baseline No Sampling"
+Baseline_Melted_B["Plan Mass"] = "B"
+Baseline_Melted_C["Plan"] = "Baseline No Sampling"
+Baseline_Melted_C["Plan Mass"] = "C"
+
 
 S1_A_Melted = Outs_S1_A[1].melt()
 S1_B_Melted = Outs_S1_B[1].melt()
 S1_C_Melted = Outs_S1_C[1].melt()
-S1_C_Melted["Plan"] = "PH 100T"
 
+S1_A_Melted["Plan"] = "PH"
+S1_A_Melted["Plan Mass"] = "A"
+S1_B_Melted["Plan"] = "PH"
+S1_B_Melted["Plan Mass"] = "B"
+S1_C_Melted["Plan"] = "PH"
+S1_C_Melted["Plan Mass"] = "C"
+#----
 S2_A_Melted = Outs_S2_A[1].melt()
 S2_B_Melted = Outs_S2_B[1].melt()
 S2_C_Melted = Outs_S2_C[1].melt()
-S2_C_Melted["Plan"] = "HS 100T"
+
+S2_A_Melted["Plan"] = "HS"
+S2_A_Melted["Plan Mass"] = "A"
+S2_B_Melted["Plan"] = "HS"
+S2_B_Melted["Plan Mass"] = "B"
+S2_C_Melted["Plan"] = "HS"
+S2_C_Melted["Plan Mass"] = "C"
+#---
 
 S3_A_Melted = Outs_S3_A[1].melt()
 S3_B_Melted = Outs_S3_B[1].melt()
 S3_C_Melted = Outs_S3_C[1].melt()
-S3_C_Melted["Plan"] = "RS 100T"
 
+S3_A_Melted["Plan"] = "RS"
+S3_A_Melted["Plan Mass"] = "A"
+S3_B_Melted["Plan"] = "RS"
+S3_B_Melted["Plan Mass"] = "B"
+S3_C_Melted["Plan"] = "RS"
+S3_C_Melted["Plan Mass"] = "C"
+#---
 S4_A_Melted = Outs_S4_A[1].melt()
 S4_B_Melted = Outs_S4_B[1].melt()
 S4_C_Melted = Outs_S4_C[1].melt()
-S4_C_Melted["Plan"] = "PPS 100T"
+
+S4_A_Melted["Plan"] = "PPS"
+S4_A_Melted["Plan Mass"] = "A"
+S4_B_Melted["Plan"] = "PPS"
+S4_B_Melted["Plan Mass"] = "B"
+S4_C_Melted["Plan"] = "PPS"
+S4_C_Melted["Plan Mass"] = "C"
 
 
-T100_Binded=pd.concat([Baseline_Melted,S1_C_Melted, S2_C_Melted,S3_C_Melted, S4_C_Melted])
+T100_Binded=pd.concat([
+    Baseline_Melted_A,S1_A_Melted, S2_A_Melted,S3_A_Melted, S4_A_Melted,
+    Baseline_Melted_B,S1_B_Melted, S2_B_Melted,S3_B_Melted, S4_B_Melted,
+    Baseline_Melted_C,S1_C_Melted, S2_C_Melted,S3_C_Melted, S4_C_Melted])
 T100_Binded.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Cont_Prog.csv")
 
-sns.lineplot(data = Baseline_Melted , x = "variable", y = "value")
+sns.lineplot(data = Baseline_Melted_A , x = "variable", y = "value")
 sns.lineplot(data = S1_C_Melted , x = "variable",y = "value")
 sns.lineplot(data = S2_C_Melted , x = "variable",y = "value")
 sns.lineplot(data = S3_C_Melted , x = "variable",y = "value")
