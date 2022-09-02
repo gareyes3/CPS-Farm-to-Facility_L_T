@@ -6,10 +6,12 @@ output: html_document
 ---
 ```{r}
 library(tidyverse)
+library(scales)
+library(forcats)
 ```
 
 ```{r}
-Power_data<-read_csv("Power_summary.csv")
+Power_data<-read_csv("Data_Tomato_Outputs/Power_summary.csv")
 
 Power_data$Samp_Plan<-as.factor(Power_data$Samp_Plan)
 Power_data$Pick<-as.factor(Power_data$Pick)
@@ -42,7 +44,7 @@ Main outcomes.
 
 Contamination at sampling points
 ```{r}
-Cont_data<-read_csv("Cont_Samp_Point.csv")
+Cont_data<-read_csv("Data_Tomato_Outputs/Cont_Samp_Point.csv")
 Cont_data$Pick<-as.factor(Cont_data$Pick)
 Cont_data$Type<-as.factor(Cont_data$Type)
 Cont_data$Type<-factor( Cont_data$Type,levels=c("PH", "HS", "RS", "PPS"))
@@ -53,5 +55,51 @@ Cont_data %>%
   stat_summary(fun=mean,aes(group=Pick), geom="point", shape=16, size=3, color="red", fill="red",position=position_dodge(.75)) +
   xlab("Sampling Plan")+ ylab ("Total Adulteran Cells (TAC) at sampling point")
   
+```
+
+## Contamination Progression
+
+```{r}
+Progression_data<-read_csv("Data_Tomato_Outputs/Cont_Prog.csv")
+
+Progression_data$Plan<-factor(Progression_data$Plan,levels=c("Baseline No Sampling","PH", "HS", "RS", "PPS"))
+
+margin_calc<-function(x){
+  margin <- qt(0.975,df=1000-1)*sd(x)/sqrt(1000)
+}
+
+Prog_Sum<-Progression_data %>% 
+  group_by(Plan,variable, `Plan Mass` ) %>% 
+  summarize(mean= mean(value),h95 =mean + margin_calc(value),l95 =mean - margin_calc(value)) 
+
+ggplot(data= Prog_Sum, aes(x= variable,y = mean, group= Plan, color = Plan, fill = Plan))+
+  geom_line(size = 1.0, alpha = 1)+
+  geom_point(data = Prog_Sum %>% filter(variable == 42), size = 4, alpha = 0.8)+
+  #geom_ribbon(aes(ymin = l95, ymax = h95), alpha = 0.05)+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  theme(text = element_text(size=24))+
+  scale_y_continuous(trans='log10',labels = trans_format("log10", math_format(10^.x)))+
+  labs(y= "Total Adulterant Cells in System", x="Process Stage")+
+  facet_wrap(~`Plan Mass`, labeller = labeller(`Plan Mass` = c("A" = "2 tomatoes", "B" = "6 Tomatoes", "C" = "20 X 5 Tomatoes")))
+  #ggtitle("1) Random Contamination")+
+
+ggsave(filename=  "PRogression.png",width = 50, height = 25, units = "cm", dpi = 600)
+
+Prog_Sum %>%
+  filter(variable ==42 && Plan == "Baseline No Sampling")
+###Relative
+Prog_Sum %>% 
+  filter(variable == 42 &&) %>% 
+  mutate(logchange= log10(mean/7245.672	),
+         logchange95l = log10(h95/7245.672	),
+         logchange95h = log10(l95/7245.672	)
+         )
+
+
+log10(0.4705123/1583.4578) #this to calculate the CI from the paper
+log10(65.7962957/1583.4578)
+log10(0.4705123/1583.4578) #this to calculate the CI from the paper
+log10(199.4115526/1583.4578)
+
 ```
 

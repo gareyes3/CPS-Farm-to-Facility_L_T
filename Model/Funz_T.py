@@ -295,15 +295,15 @@ def F_Sampling_T (df, Pick_No, Location, NSamp_Unit, NoGrab):
     
     df_field_1 =df.loc[(df["Pick_ID"]==Pick_No) & (df["Location"]==Location)].copy()
     if len(df_field_1)>0:
-        print(Location, "Location")
-        print(df["Location"])
+        #print(Location, "Location")
+        #print(df["Location"])
         #Unique_TestUnit = list(df[Test_Unit].unique())
         #Grab_Weight = Partition_Weight #In lb
         #for i in (Unique_TestUnit): #From sublot 1 to sublot n (same for pallet,lot,case etc)
         for l in range (1, NSamp_Unit+1): #Number of samples per sublot or lot or pallet.
             for j in range(NoGrab):
                 CFU_hh=df_field_1["CFU"]
-                print(len(CFU_hh),"Length")
+                #print(len(CFU_hh),"Length")
                 List_Random=CFU_hh.sample(n=1)
                 CFU = List_Random
                 Index = List_Random.index[0]

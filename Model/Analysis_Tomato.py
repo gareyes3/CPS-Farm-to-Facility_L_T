@@ -48,16 +48,19 @@ Outs_S0 = MainModel.Main_Loop()
  #Sampling Scenario
 Inputz_T.Iteration_Number = 500
 Scen_T.Tomatoes_per_sample = 2
+Scen_T.Samp_Plan = 1
 reload(DepInputz)
 Outs_S1_A = MainModel.Main_Loop()
 
 Inputz_T.Iteration_Number = 500
 Scen_T.Tomatoes_per_sample = 6
+Scen_T.Samp_Plan = 1
 reload(DepInputz)
 Outs_S1_B = MainModel.Main_Loop()
 
 Inputz_T.Iteration_Number = 500
 Scen_T.Tomatoes_per_sample = 100
+Scen_T.Samp_Plan = 1
 reload(DepInputz)
 Outs_S1_C = MainModel.Main_Loop()
 
@@ -159,6 +162,30 @@ def Get_Power(df, Weight_After, Weight_Before, CFU_avail):
     Total_Avail = (sum(df[ CFU_avail]>0))
     Power =  sum((df[Weight_After]-df[Weight_Before])>0 )/ (sum(df[ CFU_avail]>0))
     return [Total_Rej,Total_Avail,Power]
+
+
+def get_powers_scenarios (df):
+    A=Get_Power(df = df, 
+              Weight_After = "PHS 1 Weight Rejected Aft", 
+              Weight_Before = "PHS 1 Weight Rejected Bef", 
+              CFU_avail = "CFU_Avail Pick 1"
+              )
+
+    B=Get_Power(df = df, 
+              Weight_After = "PHS 2 Weight Rejected Aft", 
+              Weight_Before = "PHS 2 Weight Rejected Bef", 
+              CFU_avail = "CFU_Avail Pick 2"
+              )
+
+    C= Get_Power(df = df, 
+              Weight_After = "PHS 3 Weight Rejected Aft", 
+              Weight_Before = "PHS 3 Weight Rejected Bef", 
+              CFU_avail = "CFU_Avail Pick 3"
+              )
+    return [A,B,C]
+
+
+
 
 #Getting contmaination at sampling points ======================================
 df_locations = pd.DataFrame({
@@ -308,29 +335,42 @@ Cont_Samp_Point = pd.concat([S1_A_Contam,S1_B_Contam,S1_C_Contam,
                              S3_A_Contam,S3_B_Contam,S3_C_Contam,
                              S4_A_Contam,S4_B_Contam,S4_C_Contam])
 
-Cont_Samp_Point.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Cont_Samp_Point.csv")
+Cont_Samp_Point.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Cont_Samp_Point.csv")
 
 #%% Contamination Progression. 
 Baseline_Melted = Outs_S0[1].melt()
+Baseline_Melted["Plan"] = "Baseline No Sampling"
 
 S1_A_Melted = Outs_S1_A[1].melt()
 S1_B_Melted = Outs_S1_B[1].melt()
 S1_C_Melted = Outs_S1_C[1].melt()
+S1_C_Melted["Plan"] = "PH 100T"
 
 S2_A_Melted = Outs_S2_A[1].melt()
 S2_B_Melted = Outs_S2_B[1].melt()
 S2_C_Melted = Outs_S2_C[1].melt()
+S2_C_Melted["Plan"] = "HS 100T"
 
 S3_A_Melted = Outs_S3_A[1].melt()
 S3_B_Melted = Outs_S3_B[1].melt()
 S3_C_Melted = Outs_S3_C[1].melt()
+S3_C_Melted["Plan"] = "RS 100T"
+
+S4_A_Melted = Outs_S4_A[1].melt()
+S4_B_Melted = Outs_S4_B[1].melt()
+S4_C_Melted = Outs_S4_C[1].melt()
+S4_C_Melted["Plan"] = "PPS 100T"
 
 
+T100_Binded=pd.concat([Baseline_Melted,S1_C_Melted, S2_C_Melted,S3_C_Melted, S4_C_Melted])
+T100_Binded.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Cont_Prog.csv")
 
 sns.lineplot(data = Baseline_Melted , x = "variable", y = "value")
 sns.lineplot(data = S1_C_Melted , x = "variable",y = "value")
 sns.lineplot(data = S2_C_Melted , x = "variable",y = "value")
 sns.lineplot(data = S3_C_Melted , x = "variable",y = "value")
+sns.lineplot(data = S4_C_Melted , x = "variable",y = "value")
+
 
 sns.lineplot(data = S1_A_Melted , x = "variable", y = "value")
 sns.lineplot(data = S1_B_Melted , x = "variable", y = "value")
@@ -373,4 +413,9 @@ Exp_Main_Df =pd.DataFrame({
     "Relative": Exps_Emp
     })
 
+#%%
+Inproc_Prog_S0_0 = Outs_S0[4]
+Inproc_Prog_S0_0_M=Inproc_Prog_S0_0.melt()
 
+sns.lineplot(data = Inproc_Prog_S0_0_M , x = "variable", y = "value")
+plt.xticks(rotation=90)
