@@ -37,7 +37,7 @@ import Dictionariez_T
 
 #%% Contamination progression thruhgout system No Sampling
 
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 1000
 Scen_T.Tomatoes_per_sample = 1
 Scen_T.Samp_Plan = 0
 reload(DepInputz)
@@ -46,19 +46,19 @@ Outs_S0 = MainModel.Main_Loop()
 
 #%% Sampling Scenarios
  #Sampling Scenario
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 1000
 Scen_T.Tomatoes_per_sample = 2
 Scen_T.Samp_Plan = 1
 reload(DepInputz)
 Outs_S1_A = MainModel.Main_Loop()
 
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 1000
 Scen_T.Tomatoes_per_sample = 6
 Scen_T.Samp_Plan = 1
 reload(DepInputz)
 Outs_S1_B = MainModel.Main_Loop()
 
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 1000
 Scen_T.Tomatoes_per_sample = 100
 Scen_T.Samp_Plan = 1
 reload(DepInputz)
@@ -66,20 +66,20 @@ Outs_S1_C = MainModel.Main_Loop()
 
 #HS
 
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 1000
 Scen_T.Tomatoes_per_sample = 2
 Scen_T.Samp_Plan = 2
 reload(DepInputz)
 Outs_S2_A = MainModel.Main_Loop()
 
 
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 1000
 Scen_T.Tomatoes_per_sample = 6
 Scen_T.Samp_Plan = 2
 reload(DepInputz)
 Outs_S2_B = MainModel.Main_Loop()
 
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 1000
 Scen_T.Tomatoes_per_sample = 100
 Scen_T.Samp_Plan = 2
 reload(DepInputz)
@@ -87,20 +87,20 @@ Outs_S2_C = MainModel.Main_Loop()
 
 #RS
 
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 1000
 Scen_T.Tomatoes_per_sample = 2
 Scen_T.Samp_Plan = 3
 reload(DepInputz)
 Outs_S3_A = MainModel.Main_Loop()
 
 
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 1000
 Scen_T.Tomatoes_per_sample = 6
 Scen_T.Samp_Plan = 3
 reload(DepInputz)
 Outs_S3_B = MainModel.Main_Loop()
 
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 1000
 Scen_T.Tomatoes_per_sample = 100
 Scen_T.Samp_Plan = 3
 reload(DepInputz)
@@ -108,20 +108,20 @@ Outs_S3_C = MainModel.Main_Loop()
 
 #FPS
 
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 1000
 Scen_T.Tomatoes_per_sample = 2
 Scen_T.Samp_Plan = 4
 reload(DepInputz)
 Outs_S4_A = MainModel.Main_Loop()
 
 
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 1000
 Scen_T.Tomatoes_per_sample = 6
 Scen_T.Samp_Plan = 4
 reload(DepInputz)
 Outs_S4_B = MainModel.Main_Loop()
 
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 1000
 Scen_T.Tomatoes_per_sample = 100
 Scen_T.Samp_Plan = 4
 reload(DepInputz)
