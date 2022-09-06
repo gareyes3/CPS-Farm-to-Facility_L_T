@@ -16,6 +16,16 @@ import seaborn as sns
 import time
 
 #Inputz_T
+#%%
+def get_trasn_rate(mean,sd):
+    Signal = 0
+    A = np.random.normal(mean,sd)
+    if A<0:
+        while  A<0:
+             A = np.random.normal(mean,sd) 
+        print(A)
+    return A
+            
 
 #%%%
 #Basic Information
@@ -50,6 +60,18 @@ Pr_of_rain = 0.1 #probability that it will rain in a given day
 Pr_harvester_cont = 0.05 #probability that a harvester is contmainated
 Pr_bucket_cont = 0.05 #probability that a bucket is contaminated
 Pr_Bin_cont = 0.05 #probability that a bin is contaminated
+
+#Trasnfer Rates Conveyor Belt: 
+Tr_CB_P = get_trasn_rate(mean = 0.01,sd = 0.0045)
+Tr_P_CB = get_trasn_rate(mean = 0.02,sd = 0.0085)
+
+#Trasnfer Rates: 
+Tr_Dr_P = get_trasn_rate(mean = 0.01,sd = 0.0045)
+Tr_P_Dr = get_trasn_rate(mean = 0.02,sd = 0.0085)
+
+#Trasnfer Rates: 
+Tr_SRT_P = get_trasn_rate(mean = 0.01,sd = 0.0045)
+Tr_P_SRT = get_trasn_rate(mean = 0.02,sd = 0.0085)
 
 
 #Contamination Scenario

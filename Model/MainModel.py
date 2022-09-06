@@ -413,8 +413,8 @@ def Main_Loop():
                                                                           ,i = k)
                 
                 Field_df=Funz_T.F_CrossContProLine_tom (df = Field_df, 
-                                                 Tr_P_S = 0.02, 
-                                                 Tr_S_P = 0.01,
+                                                 Tr_P_S = Inputz_T.Tr_P_CB, 
+                                                 Tr_S_P = Inputz_T.Tr_CB_P,
                                                  Location = 6,
                                                  Sanitation_Freq_lb = 0, 
                                                  StepEff = 0 , 
@@ -430,8 +430,8 @@ def Main_Loop():
                                                                           ,i = k)
                 
                 Field_df=Funz_T.F_CrossContProLine_tom (df = Field_df, 
-                                                 Tr_P_S = 0.02, 
-                                                 Tr_S_P = 0.01,
+                                                 Tr_P_S = Inputz_T.Tr_P_Dr, 
+                                                 Tr_S_P = Inputz_T.Tr_Dr_P,
                                                  Location = 7,
                                                  Sanitation_Freq_lb = 0, 
                                                  StepEff = 0 , 
@@ -447,8 +447,8 @@ def Main_Loop():
                                                                           ,i = k)
                 
                 Field_df=Funz_T.F_CrossContProLine_tom (df = Field_df, 
-                                                 Tr_P_S = 0.02, 
-                                                 Tr_S_P = 0.01,
+                                                 Tr_P_S = Inputz_T.Tr_P_SRT, 
+                                                 Tr_S_P = Inputz_T.Tr_SRT_P,
                                                  Location = 8,
                                                  Sanitation_Freq_lb = 0, 
                                                  StepEff = 0 , 
