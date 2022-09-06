@@ -59,6 +59,7 @@ Total_Hazard = 42_000
 
 #Processing Factors
 RH_Florida= 74.5
+RH_Ripening = 90
 #From the Field to the Shipping Center
 Temp_F_Sc = 25 #C need to parametrize
 Time_F_Sc = 0.5 #hr
@@ -75,9 +76,9 @@ Time_Sc_Pack = 2 #hr
 Temp_Pack = 25
 Time_Pack = 4 #hr
 
-#Pot Packer Storage 
-Temp_Post_Pack = 25
-Time_Post_Pack = 6
+#Pot Packer Storage Ripening Room
+Temp_Post_Pack = 20
+Time_Post_Pack = random.uniform(24-48) #hr 
 
 #In Field 
 Temp_In_Field = 25

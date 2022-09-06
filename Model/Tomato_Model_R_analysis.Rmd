@@ -22,7 +22,7 @@ Power_data$Samp_Mass<-as.factor(Power_data$Samp_Mass)
 Power_data %>% 
   ggplot(aes(x = Samp_Plan, y = Power, group = Samp_Mass, shape = Samp_Mass, color = Pick)) +
   geom_point(position=position_dodge(width=0.5))+
-  scale_shape_discrete(labels = c("1 Tomato", "5 Tomatoes", "100 Tomatoes"), name= "Mass")+
+  scale_shape_discrete(labels = c("2 Tomatoes", "6 Tomatoes", "100 Tomatoes"), name= "Mass")+
   xlab("Sampling Plan Number")+ ylab ("Sampling Plan Power")
 
 Power_data %>% 
@@ -55,6 +55,7 @@ Cont_data %>%
   stat_summary(fun=mean,aes(group=Pick), geom="point", shape=16, size=3, color="red", fill="red",position=position_dodge(.75)) +
   xlab("Sampling Plan")+ ylab ("Total Adulteran Cells (TAC) at sampling point")
 
+ggsave(filename=  "Cont_Sampling_Point.png",width = 25, height = 15, units = "cm", dpi = 600)
 
 Cont_data %>% 
   group_by(Type, Pick) %>% 
@@ -94,7 +95,7 @@ Prog_Sum %>%
   filter(variable ==42 && Plan == "Baseline No Sampling")
 ###Relative
 Prog_Sum %>% 
-  filter(variable == 42 &&) %>% 
+  filter(variable == 42) %>% 
   mutate(logchange= log10(mean/7245.672	),
          logchange95l = log10(h95/7245.672	),
          logchange95h = log10(l95/7245.672	)

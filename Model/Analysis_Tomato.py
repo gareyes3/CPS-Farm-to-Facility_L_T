@@ -335,7 +335,7 @@ Cont_Samp_Point = pd.concat([S1_A_Contam,S1_B_Contam,S1_C_Contam,
                              S3_A_Contam,S3_B_Contam,S3_C_Contam,
                              S4_A_Contam,S4_B_Contam,S4_C_Contam])
 
-Cont_Samp_Point.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Cont_Samp_Point.csv")
+Cont_Samp_Point.to_csv(path_or_buf = "C:\\Users\\Gustavo Reyes\\Documents\\GitHubFiles\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Cont_Samp_Point.csv")
 
 #%% Contamination Progression. 
 Baseline_Melted_A = Outs_S0[1].melt()
@@ -399,7 +399,9 @@ T100_Binded=pd.concat([
     Baseline_Melted_A,S1_A_Melted, S2_A_Melted,S3_A_Melted, S4_A_Melted,
     Baseline_Melted_B,S1_B_Melted, S2_B_Melted,S3_B_Melted, S4_B_Melted,
     Baseline_Melted_C,S1_C_Melted, S2_C_Melted,S3_C_Melted, S4_C_Melted])
-T100_Binded.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Cont_Prog.csv")
+#T100_Binded.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Cont_Prog.csv")
+
+T100_Binded.to_csv(path_or_buf = "C:\\Users\\Gustavo Reyes\\Documents\\GitHubFiles\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Cont_Prog.csv")
 
 sns.lineplot(data = Baseline_Melted_A , x = "variable", y = "value")
 sns.lineplot(data = S1_C_Melted , x = "variable",y = "value")
@@ -453,5 +455,8 @@ Exp_Main_Df =pd.DataFrame({
 Inproc_Prog_S0_0 = Outs_S0[4]
 Inproc_Prog_S0_0_M=Inproc_Prog_S0_0.melt()
 
-sns.lineplot(data = Inproc_Prog_S0_0_M , x = "variable", y = "value")
+Inproc_Prog_S1_B = Outs_S1_B[4]
+Inproc_Prog_S1_B_M=Inproc_Prog_S1_B.melt()
+
+sns.lineplot(data = Inproc_Prog_S1_B_M , x = "variable", y = "value")
 plt.xticks(rotation=90)
