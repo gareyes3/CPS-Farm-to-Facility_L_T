@@ -83,6 +83,8 @@ def Main_Loop():
         Current_Samp = 1
         
         ###Contamination Event Selection
+        Cont_Day  = random.sample(list(Inputz_T.Days),1)
+        
         Days_B_Pick1 = list(range(1,Inputz_T.Days_Between_Picks+1))
         Days_B_Pick2 = list(range(Inputz_T.Days_Between_Picks+1,2*Inputz_T.Days_Between_Picks+1))
         Days_B_Pick3 = list(range(2*Inputz_T.Days_Between_Picks+1,3*Inputz_T.Days_Between_Picks+1))
@@ -96,7 +98,8 @@ def Main_Loop():
             
             #Contmaination Event Due to Rain'
             
-            if (Scen_T.Cont_Scenario == 1 and i in Cont_Event_1_Days):
+            if (Scen_T.Cont_Scenario == 1 and i in Cont_Day):
+                print("Product was cont", i)
                 #start_ce = time.time()
                 #This function contaminated the field uniformly. 100% of the field cont. 
                 Field_df = Funz_T.field_cont_percetage(df = Field_df, 
@@ -401,7 +404,7 @@ def Main_Loop():
                                                                           ,i = k)
                 
                 
-                Field_df=Funz_T.Tomato_Wash(df = Field_df, Location  = 5)
+                Field_df=Funz_T.Tomato_Wash(df = Field_df, Location  = 5, FC_lvl=Inputz_T.FC_lvl)
                 
                 #Cross Contamination Conveyor Belt
                 #Updates location from  Washing to Sorting

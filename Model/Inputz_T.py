@@ -76,7 +76,7 @@ Tr_P_SRT = get_trasn_rate(mean = 0.02,sd = 0.0085)
 
 #Contamination Scenario
     #Small Cluster
-Total_Hazard = 42_000
+Total_Hazard = 44_000
 
 
 #Processing Factors
@@ -100,11 +100,17 @@ Time_Pack = 4 #hr
 
 #Pot Packer Storage Ripening Room
 Temp_Post_Pack = 20
-Time_Post_Pack = random.uniform(24-48) #hr 
+Time_Post_Pack = random.uniform(24,48) #hr 
 
 #In Field 
 Temp_In_Field = 25
 
+#Washing FC_Level
+
+FC_lvl = np.random.triangular(25,100,200)
+
 
 #Total Iterations
 Iteration_Number = 1
+
+

@@ -58,7 +58,7 @@ Scen_T.Samp_Plan = 1
 reload(DepInputz)
 Outs_S1_B = MainModel.Main_Loop()
 
-Inputz_T.Iteration_Number = 1000
+Inputz_T.Iteration_Number = 25
 Scen_T.Tomatoes_per_sample = 100
 Scen_T.Samp_Plan = 1
 reload(DepInputz)
