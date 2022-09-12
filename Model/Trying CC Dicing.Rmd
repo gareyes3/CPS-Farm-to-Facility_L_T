@@ -16,7 +16,7 @@ tom_df<-data.frame(
 ```
 
 ```{r}
-tom_df[1,2] = 100000
+tom_df[1,2] = 627931
 ```
 
 ```{r}
@@ -24,24 +24,25 @@ calc_transfer<-function(Cont, Weight){
   Cont*exp(Weight/-8.31)
 }
 
-Blade_Cont = 0
-weight = 0.25
-conts_v = tom_df$Cont
-counter = 1
-for (i in conts_v){
-  Cont_Tom = i
-  Transfer_to_blande= rbinom(n = 1, size = Cont_Tom,prob = 0.025)
-  Blade_Cont = Blade_Cont+Transfer_to_blande
-  Tranfer_from_Blade = Blade_Cont*exp(weight/-8.31)
-
-  New_Cont_Tom = Cont_Tom -Transfer_to_blande
-  Blade_Cont = Blade_Cont-Tranfer_from_Blade
-  
-  conts_v[counter] = New_Cont_Tom
-  counter = counter+1
+Weight = 0.55
+Weight_kg = Weight*0.454
+V_conts<-tom_df$Cont
+count=1
+Trasnfer_V<-c()
+for (i in V_conts[-length(V_conts)]){
+  log_CFU<-log10(V_conts[count]/(Weight*454))
+  log_CFU_trans=log_CFU*exp(Weight_kg/-8.31)
+  CFU_trans = as.integer((10^log_CFU_trans)*(Weight*454))
+  Trasnfer_V= c(Trasnfer_V,CFU_trans)
+  V_conts[count] = V_conts[count]- CFU_trans
+  V_conts[count+1] = V_conts[count+1]+CFU_trans
+  count=count+1
 }
 
-plot(conts_v)
+
+plot(log10(Trasnfer_V/250))
+
+plot(V_conts)
 
 ```
 

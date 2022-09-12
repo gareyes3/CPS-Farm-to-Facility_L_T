@@ -130,7 +130,7 @@ Outs_S4_C = MainModel.Main_Loop()
 
 ### Bird Cont
 Inputz_T.Iteration_Number = 500
-Scen_T.Tomatoes_per_sample = 100
+Scen_T.Tomatoes_per_sample = 200
 Scen_T.Samp_Plan = 1
 Scen_T.Cont_Scenario = 2
 reload(DepInputz)

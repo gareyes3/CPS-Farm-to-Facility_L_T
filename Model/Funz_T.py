@@ -31,16 +31,19 @@ def field_cont_percetage(df, percent_cont, Hazard_lvl, No_Cont_Clusters):
     Hazard_lvl = Hazard_lvl #CFUs in contaminated area total Cells
     No_Cont_Clusters = No_Cont_Clusters #in how many clusters will the percentage and cont be split into
     No_Cont_PartitionUnits = int((len(df[(df["Location"]==1) & (df["Rej_Acc"]=="Acc") ]))*Percent_D_Contaminatinated) #how many tomatoes are contmainated based on percentage
+    print(No_Cont_PartitionUnits, "Number Cont Parts")
     Field_df_1 =df.loc[(df["Location"]==1) & (df["Rej_Acc"]=="Acc")].copy() #filtering main df into only those that are in a field
     
     if len(Field_df_1)>0: #The field is only contamiated if the Product is still in accepted condition
     #Determining the hazard level per cluster
         Hazard_lvl_percluster= Hazard_lvl / No_Cont_Clusters #(No_Cont_PartitionUnits*No_Cont_Clusters)
         for i in range(0,No_Cont_Clusters):
+            print(len(Field_df_1.index), "index len")
             random_Chunky = list(random_chunk(lst = Field_df_1.index, chunk_size = No_Cont_PartitionUnits)) #creating random chunk
             Contamination_Pattern = rng.multinomial(Hazard_lvl_percluster,[1/No_Cont_PartitionUnits]*No_Cont_PartitionUnits,1) #spliting cont into chunks length
+            print(len(random_Chunky), "lem chunk")
             Field_df_1.loc[random_Chunky, "CFU"] = Field_df_1.loc[random_Chunky, "CFU"] + Contamination_Pattern[0] #adding contmaination
-
+            
     df.update(Field_df_1)
     
     return df
