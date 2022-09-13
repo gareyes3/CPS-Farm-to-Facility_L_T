@@ -115,11 +115,10 @@ def Main_Loop():
             if (Scen_T.Cont_Scenario == 2 and i in Cont_Event_2_Days): 
                 print("brid")
                 #Contaminated field with 0.1% contamination, simulated bird droping. 
-                Field_df = Funz_T.field_cont_percetage(df = Field_df, 
-                                                percent_cont = 0.1,
-                                                Hazard_lvl = Inputz_T.Total_Hazard, 
-                                                No_Cont_Clusters = 1)
-                #print("Field Cont with Bird Dropping")
+                Field_df = Funz_T.field_cont_ntomatoes(df = Field_df, 
+                                                       ntomatoes_cont_pclust =  230,#(len(Field_df.index))*0.1, 
+                                                       Hazard_lvl=Inputz_T.Total_Hazard, 
+                                                       No_Cont_Clusters =1)
             
             #Conduncting preharvest sampling.
             
