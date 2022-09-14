@@ -31,6 +31,7 @@ def random_chunk2(lst, chunk_size):
     #print(choice)
     list_out= lst[choice*chunk_size:(choice+1)*chunk_size]
     while len(list_out)<chunk_size:
+        choice = random.randrange(nb_chunks)
         list_out= lst[choice*chunk_size:(choice+1)*chunk_size]
     return list_out
 

@@ -129,12 +129,28 @@ Outs_S4_C = MainModel.Main_Loop()
 
 
 ### Bird Cont
-Inputz_T.Iteration_Number = 500
-Scen_T.Tomatoes_per_sample = 400
+Inputz_T.Iteration_Number = 1000
+Scen_T.Tomatoes_per_sample = 2
 Scen_T.Samp_Plan = 1
 Scen_T.Cont_Scenario = 2
 reload(DepInputz)
-Outs_S4_C = MainModel.Main_Loop()
+Outs_S5_A = MainModel.Main_Loop()
+
+
+Inputz_T.Iteration_Number = 1000
+Scen_T.Tomatoes_per_sample = 6
+Scen_T.Samp_Plan = 1
+Scen_T.Cont_Scenario = 2
+reload(DepInputz)
+Outs_S5_B  = MainModel.Main_Loop()
+
+
+Inputz_T.Iteration_Number = 1000
+Scen_T.Tomatoes_per_sample = 100
+Scen_T.Samp_Plan = 1
+Scen_T.Cont_Scenario = 2
+reload(DepInputz)
+Outs_S5_C = MainModel.Main_Loop()
 
 #%%
 #Saving Dfs
