@@ -76,7 +76,7 @@ Tr_P_SRT = get_trasn_rate(mean = 0.02,sd = 0.0085)
 
 #Contamination Scenario
     #Small Cluster
-Total_Hazard = 44_000
+Total_Hazard = 132_000
 
 
 #Processing Factors

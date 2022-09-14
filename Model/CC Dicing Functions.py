@@ -16,6 +16,9 @@ import pandas as pd
 import numpy as np
 import math
 
+from numpy.random import Generator, PCG64
+rng = Generator(PCG64())
+
 #%%
 Field_df=pd.DataFrame({"Tomato_ID": Inputz_T.Individual_Tomatoes,
                        "Plant_ID": Inputz_T.Individual_Plants[0:Inputz_T.Individual_Tomatoes.size],
@@ -51,11 +54,36 @@ def F_CC_Dicing(df):
     return(df)
         
 df2 = Field_df.copy()
-df2.at[0,"CFU"] = 627971
+df2.at["CFU"] = 627971
 
 df3 = F_CC_Dicing(df= df2)
 
 sum(df3["CFU"])
+
+
+
+def F_Simple_Reduction(x, total_change):
+    if total_change>=0:
+        GrowthCeil = math.ceil(total_change)
+        Difference = total_change-GrowthCeil
+        MaxCont = x*10**GrowthCeil
+        Updated_CFUs = rng.binomial(MaxCont,10**Difference)
+    else:
+        Updated_CFUs= rng.binomial(x,10**total_change)
+    return Updated_CFUs
+
+def applying_reduction(df, total_change):
+    df.loc[:,"CFU"]=df["CFU"].apply(func=F_Simple_Reduction, total_change = total_change)
+    return df
+
+
+#Process Model Analysis 2: 
+    #Step 1 preliminary Rinse: 
+Field_df["CFU"] = 1000
+Field_df = applying_reduction(Field_df, -0.5)
+
+
+
 
 
 

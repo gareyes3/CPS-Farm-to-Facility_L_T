@@ -58,6 +58,7 @@ def Main_Loop():
     #Contaminated Bin
     for k in DepInputz.Total_Iterations:
         print(k)
+        np.random.seed(k)
         
         #start_df = time.time()
         Field_df=pd.DataFrame({"Tomato_ID": Inputz_T.Individual_Tomatoes,
@@ -112,7 +113,7 @@ def Main_Loop():
             
             #Contmaination Event Due to Animal Intrusion
             #if (np.random.uniform(0,1)<Pr_bird_drop):
-            if (Scen_T.Cont_Scenario == 2 and i in Cont_Event_2_Days): 
+            if (Scen_T.Cont_Scenario == 2 and i in Cont_Day): 
                 print("brid")
                 #Contaminated field with 0.1% contamination, simulated bird droping. 
                 Field_df = Funz_T.field_cont_ntomatoes(df = Field_df, 
