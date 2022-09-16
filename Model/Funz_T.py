@@ -256,22 +256,25 @@ def Tomato_Wash(df, Location, FC_lvl):
 
 def F_CrossContProLine_tom (df, Tr_P_S, Tr_S_P,  Location, Sanitation_Freq_lb = 0, StepEff = 0 , compliance = 0):
         df_field_1 =df.loc[df["Location"]==Location].copy()
-        rateweight = 0.54
+        rateweight = 0.57
         every_x_many = int(Sanitation_Freq_lb/rateweight)
         ContS=0
         vectorCFU = df_field_1["CFU"].copy()
+        index_vec = np.array(vectorCFU.index)
+        vectorCFU = np.array(vectorCFU)
         newvector=[]
         if every_x_many > 0:
             Cleaning_steps = np.arange(0, len(vectorCFU) , every_x_many )
-        for i in list(vectorCFU.index):
-            if random.uniform(0,1)<compliance:
-                if every_x_many > 0:
-                    if i in Cleaning_steps:
-                        ContS = ContS*10**StepEff
-                        print ("cleaned")
+        for i in index_vec:
+            if compliance>0: #to not run if there is no sanitation.
+                if random.uniform(0,1)<compliance:
+                    if every_x_many > 0:
+                        if i in Cleaning_steps:
+                            ContS = ContS*10**StepEff
+                            print ("cleaned")
             ContP = vectorCFU[i] #Contamination product
             TotTr_P_S= rng.binomial(ContP,Tr_P_S) #Transfer from Product to Surfaces
-            TotTr_S_P = rng.binomial(ContS,Tr_S_P) #Trasnfer from Surfaves to product
+            TotTr_S_P = rng.binomial(ContS,Tr_S_P) #Trasnfer from Surfaces to product
             ContPNew = ContP-TotTr_P_S+TotTr_S_P #New Contmination on Product
             ContS=ContS+TotTr_P_S-TotTr_S_P #Remiining Contamination in Surface for upcoming batches
             newvector.append(ContPNew)

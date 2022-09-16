@@ -47,7 +47,7 @@ Outs_S0 = MainModel.Main_Loop()
 
 #%% Sampling Scenarios
  #Sampling Scenario
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 1
 Scen_T.Tomatoes_per_sample = 2
 Scen_T.Samp_Plan = 1
 Scen_T.Cont_Scenario = 1
@@ -258,11 +258,31 @@ S4_A_MainOut = Outs_S4_A[0]
 S4_B_MainOut = Outs_S4_B[0]
 S4_C_MainOut = Outs_S4_C[0]
 
+#bird
+S0_0_0_MainOut = Outs_S0_0[0]
+
+S5_A_MainOut = Outs_S5_A[0]
+S5_B_MainOut = Outs_S5_B[0]
+S5_C_MainOut = Outs_S5_C[0]
+
+S6_A_MainOut = Outs_S6_A[0]
+S6_B_MainOut = Outs_S6_B[0]
+S6_C_MainOut = Outs_S6_C[0]
+
+S7_A_MainOut = Outs_S7_A[0]
+S7_B_MainOut = Outs_S7_B[0]
+S7_C_MainOut = Outs_S7_C[0]
+
+S8_A_MainOut = Outs_S8_A[0]
+S8_B_MainOut = Outs_S8_B[0]
+S8_C_MainOut = Outs_S8_C[0]
+
+
 #Analysis
 def Get_Power(df, Weight_After, Weight_Before, CFU_avail): 
     Total_Rej = sum((df[Weight_After]-df[Weight_Before])>0 )
     Total_Avail = (sum(df[ CFU_avail]>0))
-    Power =  sum((df[Weight_After]-df[Weight_Before])>0 )/ (sum(df[ CFU_avail]>0))
+    Power =  sum((df[Weight_After]-df[Weight_Before])>0 )/ 500
     return [Total_Rej,Total_Avail,Power]
 
 
@@ -286,6 +306,8 @@ def get_powers_scenarios (df):
               )
     return [A,B,C]
 
+#Other_Power
+#Analysis
 
 
 
@@ -353,91 +375,126 @@ def get_powers_scenarios (df):
 get_powers_scenarios (df=S1_A_MainOut)
 #Power For Scenario 2
 get_powers_scenarios (df=S1_B_MainOut)
-
 #Power For Scenario 3
 get_powers_scenarios (df=S1_C_MainOut)
-
 #Power For Scenario 4
-
 get_powers_scenarios (df=S2_A_MainOut)
-
 #Power For Scenario 5
 get_powers_scenarios (df=S2_B_MainOut)
-
 #Power For Scenario 6
 get_powers_scenarios (df=S2_C_MainOut)
-
 #Power For Scenario 7
-
 get_powers_scenarios (df=S3_A_MainOut)
-
 #Power For Scenario 8
 get_powers_scenarios (df=S3_B_MainOut)
-
 #Power For Scenario 9
 get_powers_scenarios (df=S3_C_MainOut)
-
 #Power For Scenario 10
-
 get_powers_scenarios (df=S4_A_MainOut)
-
 #Power For Scenario 11
-
 get_powers_scenarios (df=S4_B_MainOut)
-
 #Power For Scenario 12
-
 get_powers_scenarios (df=S4_C_MainOut)
 
+#Bid Feces
+get_powers_scenarios (df=S5_A_MainOut)
+#Power For Scenario 2
+get_powers_scenarios (df=S5_B_MainOut)
+#Power For Scenario 3
+get_powers_scenarios (df=S5_C_MainOut)
+#Power For Scenario 4
+get_powers_scenarios (df=S6_A_MainOut)
+#Power For Scenario 5
+get_powers_scenarios (df=S6_B_MainOut)
+#Power For Scenario 6
+get_powers_scenarios (df=S6_C_MainOut)
+#Power For Scenario 7
+get_powers_scenarios (df=S7_A_MainOut)
+#Power For Scenario 8
+get_powers_scenarios (df=S7_B_MainOut)
+#Power For Scenario 9
+get_powers_scenarios (df=S7_C_MainOut)
+#Power For Scenario 10
+get_powers_scenarios (df=S8_A_MainOut)
+#Power For Scenario 11
+get_powers_scenarios (df=S8_B_MainOut)
+#Power For Scenario 12
+get_powers_scenarios (df=S8_C_MainOut)
 
-Powers_Summary_DF = pd
+
+#Powers_Summary_DF = pd
 
 #%%
 ##Contamination at sampling points
 
-def Get_Contam_Sampling(df, Type, Mass):
+def Get_Contam_Sampling(df, Type, Mass, Spread):
     A=pd.DataFrame({"Cont":df["CFU_Avail Pick 1"],
                   "Pick": 1,
                   "Type" : Type,
-                  "Mass": Mass
+                  "Mass": Mass,
+                  "Cont Type": Spread
                   })
     B=pd.DataFrame({"Cont":df["CFU_Avail Pick 2"],
                   "Pick": 2,
                   "Type" : Type,
-                  "Mass": Mass
+                  "Mass": Mass,
+                  "Cont Type": Spread
                   })
     C=pd.DataFrame({"Cont":df["CFU_Avail Pick 3"],
                   "Pick": 3,
                   "Type" : Type,
-                  "Mass": Mass
+                  "Mass": Mass,
+                  "Cont Type": Spread
                   })
     Dfout = pd.concat([A,B,C])
     return (Dfout)
     
-S1_A_Contam=Get_Contam_Sampling(df = S1_A_MainOut, Type = "PH",Mass = "1 Tomato")
-S1_B_Contam=Get_Contam_Sampling(df = S1_B_MainOut, Type = "PH",Mass = "5 Tomato")
-S1_C_Contam=Get_Contam_Sampling(df = S1_C_MainOut, Type = "PH",Mass = "20 X 5 Tomato")
+S1_A_Contam=Get_Contam_Sampling(df = S1_A_MainOut, Type = "PH",Mass = "1 Tomato", Spread= "Uniform")
+S1_B_Contam=Get_Contam_Sampling(df = S1_B_MainOut, Type = "PH",Mass = "5 Tomato", Spread= "Uniform")
+S1_C_Contam=Get_Contam_Sampling(df = S1_C_MainOut, Type = "PH",Mass = "20 X 5 Tomato", Spread= "Uniform")
 
-S2_A_Contam=Get_Contam_Sampling(df = S2_A_MainOut, Type = "HS",Mass = "1 Tomato")
-S2_B_Contam=Get_Contam_Sampling(df = S2_B_MainOut, Type = "HS",Mass = "5 Tomato")
-S2_C_Contam=Get_Contam_Sampling(df = S2_C_MainOut, Type = "HS",Mass = "20 X 5 Tomato")
+S2_A_Contam=Get_Contam_Sampling(df = S2_A_MainOut, Type = "HS",Mass = "1 Tomato", Spread= "Uniform")
+S2_B_Contam=Get_Contam_Sampling(df = S2_B_MainOut, Type = "HS",Mass = "5 Tomato", Spread= "Uniform")
+S2_C_Contam=Get_Contam_Sampling(df = S2_C_MainOut, Type = "HS",Mass = "20 X 5 Tomato", Spread= "Uniform")
 
-S3_A_Contam=Get_Contam_Sampling(df = S3_A_MainOut, Type = "RS",Mass = "1 Tomato")
-S3_B_Contam=Get_Contam_Sampling(df = S3_B_MainOut, Type = "RS",Mass = "5 Tomato")
-S3_C_Contam=Get_Contam_Sampling(df = S3_C_MainOut, Type = "RS",Mass = "20 X 5 Tomato")
+S3_A_Contam=Get_Contam_Sampling(df = S3_A_MainOut, Type = "RS",Mass = "1 Tomato", Spread= "Uniform")
+S3_B_Contam=Get_Contam_Sampling(df = S3_B_MainOut, Type = "RS",Mass = "5 Tomato", Spread= "Uniform")
+S3_C_Contam=Get_Contam_Sampling(df = S3_C_MainOut, Type = "RS",Mass = "20 X 5 Tomato", Spread= "Uniform")
 
 
-S4_A_Contam=Get_Contam_Sampling(df = S4_A_MainOut, Type = "PPS",Mass = "1 Tomato")
-S4_B_Contam=Get_Contam_Sampling(df = S4_B_MainOut, Type = "PPS",Mass = "5 Tomato")
-S4_C_Contam=Get_Contam_Sampling(df = S4_C_MainOut, Type = "PPS",Mass = "20 X 5 Tomato")
+S4_A_Contam=Get_Contam_Sampling(df = S4_A_MainOut, Type = "PPS",Mass = "1 Tomato", Spread= "Uniform")
+S4_B_Contam=Get_Contam_Sampling(df = S4_B_MainOut, Type = "PPS",Mass = "5 Tomato", Spread= "Uniform")
+S4_C_Contam=Get_Contam_Sampling(df = S4_C_MainOut, Type = "PPS",Mass = "20 X 5 Tomato", Spread= "Uniform")
+
+#
+S5_A_Contam=Get_Contam_Sampling(df = S5_A_MainOut, Type = "PH",Mass = "1 Tomato", Spread= "0.1% Cluster")
+S5_B_Contam=Get_Contam_Sampling(df = S5_B_MainOut, Type = "PH",Mass = "5 Tomato",Spread= "0.1% Cluster")
+S5_C_Contam=Get_Contam_Sampling(df = S5_C_MainOut, Type = "PH",Mass = "20 X 5 Tomato",Spread= "0.1% Cluster")
+
+S6_A_Contam=Get_Contam_Sampling(df = S6_A_MainOut, Type = "HS",Mass = "1 Tomato",Spread= "0.1% Cluster")
+S6_B_Contam=Get_Contam_Sampling(df = S6_B_MainOut, Type = "HS",Mass = "5 Tomato",Spread= "0.1% Cluster")
+S6_C_Contam=Get_Contam_Sampling(df = S6_C_MainOut, Type = "HS",Mass = "20 X 5 Tomato",Spread= "0.1% Cluster")
+
+S7_A_Contam=Get_Contam_Sampling(df = S7_A_MainOut, Type = "RS",Mass = "1 Tomato",Spread= "0.1% Cluster")
+S7_B_Contam=Get_Contam_Sampling(df = S7_B_MainOut, Type = "RS",Mass = "5 Tomato",Spread= "0.1% Cluster")
+S7_C_Contam=Get_Contam_Sampling(df = S7_C_MainOut, Type = "RS",Mass = "20 X 5 Tomato",Spread= "0.1% Cluster")
+
+
+S8_A_Contam=Get_Contam_Sampling(df = S8_A_MainOut, Type = "PPS",Mass = "1 Tomato",Spread= "0.1% Cluster")
+S8_B_Contam=Get_Contam_Sampling(df = S8_B_MainOut, Type = "PPS",Mass = "5 Tomato",Spread= "0.1% Cluster")
+S8_C_Contam=Get_Contam_Sampling(df = S8_C_MainOut, Type = "PPS",Mass = "20 X 5 Tomato",Spread= "0.1% Cluster")
 
 
 Cont_Samp_Point = pd.concat([S1_A_Contam,S1_B_Contam,S1_C_Contam,
                              S2_A_Contam,S2_B_Contam,S2_C_Contam,
                              S3_A_Contam,S3_B_Contam,S3_C_Contam,
-                             S4_A_Contam,S4_B_Contam,S4_C_Contam])
+                             S4_A_Contam,S4_B_Contam,S4_C_Contam,
+                             S5_A_Contam,S5_B_Contam,S5_C_Contam,
+                            S6_A_Contam,S6_B_Contam,S6_C_Contam,
+                            S7_A_Contam,S7_B_Contam,S7_C_Contam,
+                            S8_A_Contam,S8_B_Contam,S8_C_Contam])
 
-Cont_Samp_Point.to_csv(path_or_buf = "C:\\Users\\Gustavo Reyes\\Documents\\GitHubFiles\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Cont_Samp_Point.csv")
+Cont_Samp_Point.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Cont_Samp_Point.csv")
 
 #%% Contamination Progression. 
 Baseline_Melted_A = Outs_S0[1].melt()
@@ -497,13 +554,83 @@ S4_C_Melted["Plan"] = "PPS"
 S4_C_Melted["Plan Mass"] = "C"
 
 
+#Bird scenario
+Baseline_Melted_A_2 = Outs_S0_0[1].melt()
+Baseline_Melted_B_2 = Outs_S0_0[1].melt()
+Baseline_Melted_C_2 = Outs_S0_0[1].melt()
+Baseline_Melted_A_2["Plan"] = "Baseline No Sampling"
+Baseline_Melted_A_2["Plan Mass"] = "A"
+Baseline_Melted_B_2["Plan"] = "Baseline No Sampling"
+Baseline_Melted_B_2["Plan Mass"] = "B"
+Baseline_Melted_C_2["Plan"] = "Baseline No Sampling"
+Baseline_Melted_C_2["Plan Mass"] = "C"
+
+
+S5_A_Melted = Outs_S5_A[1].melt()
+S5_B_Melted = Outs_S5_B[1].melt()
+S5_C_Melted = Outs_S5_C[1].melt()
+
+S5_A_Melted["Plan"] = "PH"
+S5_A_Melted["Plan Mass"] = "A"
+S5_B_Melted["Plan"] = "PH"
+S5_B_Melted["Plan Mass"] = "B"
+S5_C_Melted["Plan"] = "PH"
+S5_C_Melted["Plan Mass"] = "C"
+#----
+S6_A_Melted = Outs_S6_A[1].melt()
+S6_B_Melted = Outs_S6_B[1].melt()
+S6_C_Melted = Outs_S6_C[1].melt()
+
+S6_A_Melted["Plan"] = "HS"
+S6_A_Melted["Plan Mass"] = "A"
+S6_B_Melted["Plan"] = "HS"
+S6_B_Melted["Plan Mass"] = "B"
+S6_C_Melted["Plan"] = "HS"
+S6_C_Melted["Plan Mass"] = "C"
+#---
+
+S7_A_Melted = Outs_S7_A[1].melt()
+S7_B_Melted = Outs_S7_B[1].melt()
+S7_C_Melted = Outs_S7_C[1].melt()
+
+S7_A_Melted["Plan"] = "RS"
+S7_A_Melted["Plan Mass"] = "A"
+S7_B_Melted["Plan"] = "RS"
+S7_B_Melted["Plan Mass"] = "B"
+S7_C_Melted["Plan"] = "RS"
+S7_C_Melted["Plan Mass"] = "C"
+#---
+S8_A_Melted = Outs_S8_A[1].melt()
+S8_B_Melted = Outs_S8_B[1].melt()
+S8_C_Melted = Outs_S8_C[1].melt()
+
+S8_A_Melted["Plan"] = "PPS"
+S8_A_Melted["Plan Mass"] = "A"
+S8_B_Melted["Plan"] = "PPS"
+S8_B_Melted["Plan Mass"] = "B"
+S8_C_Melted["Plan"] = "PPS"
+S8_C_Melted["Plan Mass"] = "C"
+
+
 T100_Binded=pd.concat([
     Baseline_Melted_A,S1_A_Melted, S2_A_Melted,S3_A_Melted, S4_A_Melted,
     Baseline_Melted_B,S1_B_Melted, S2_B_Melted,S3_B_Melted, S4_B_Melted,
     Baseline_Melted_C,S1_C_Melted, S2_C_Melted,S3_C_Melted, S4_C_Melted])
-#T100_Binded.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Cont_Prog.csv")
 
-T100_Binded.to_csv(path_or_buf = "C:\\Users\\Gustavo Reyes\\Documents\\GitHubFiles\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Cont_Prog.csv")
+T100_Binded["Cont Type"] = "Uniform"
+
+T200_Binded=pd.concat([
+    Baseline_Melted_A_2,S5_A_Melted, S6_A_Melted,S7_A_Melted, S8_A_Melted,
+    Baseline_Melted_B,S5_B_Melted, S6_B_Melted,S7_B_Melted, S8_B_Melted,
+    Baseline_Melted_C,S5_C_Melted, S6_C_Melted,S7_C_Melted, S8_C_Melted])
+
+T200_Binded["Cont Type"] = "0.1% Cluster"
+
+All_Binded_Prog = pd.concat([T100_Binded,T200_Binded])
+
+All_Binded_Prog.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Cont_Prog.csv")
+
+#T100_Binded.to_csv(path_or_buf = "C:\\Users\\Gustavo Reyes\\Documents\\GitHubFiles\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Cont_Prog.csv")
 
 sns.lineplot(data = Baseline_Melted_A , x = "variable", y = "value")
 sns.lineplot(data = S1_C_Melted , x = "variable",y = "value")
