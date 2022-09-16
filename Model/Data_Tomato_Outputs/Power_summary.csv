@@ -1,37 +1,73 @@
-Samp_Plan,Samp_Mass,Pick,Power
-PH,2,1,0.0875
-PH,2,2,0.0826
-PH,2,3,0.152
-PH,6,1,0.197
-PH,6,2,0.193
-PH,6,3,0.4
-PH,100,1,0.8706
-PH,100,2,0.88
-PH,100,3,0.8955
-HS,2,1,0.065
-HS,2,2,0.1122
-HS,2,3,0.1891
-HS,6,1,0.167
-HS,6,2,0.2533
-HS,6,3,0.3778
-HS,100,1,0.786
-HS,100,2,0.8638
-HS,100,3,0.8965
-RS,2,1,0.072
-RS,2,2,0.094
-RS,2,3,0.169
-RS,6,1,0.178
-RS,6,2,0.249
-RS,6,3,0.408
-RS,100,1,0.758
-RS,100,2,0.856
-RS,100,3,0.941
-PPS,2,1,0.015
-PPS,2,2,0.036
-PPS,2,3,0.058
-PPS,6,1,0.064
-PPS,6,2,0.105
-PPS,6,3,0.164
-PPS,100,1,0.528
-PPS,100,2,0.6419
-PPS,100,3,0.7633
+Samp_Plan,Samp_Mass,Pick,Power,Cont Type
+Preharvest,2,1,0.054,Uniform
+Preharvest,2,2,0.07,Uniform
+Preharvest,2,3,0.136,Uniform
+Preharvest,6,1,0.144,Uniform
+Preharvest,6,2,0.158,Uniform
+Preharvest,6,3,0.21,Uniform
+Preharvest,100,1,0.276,Uniform
+Preharvest,100,2,0.294,Uniform
+Preharvest,100,3,0.324,Uniform
+Harvest,2,1,0.06,Uniform
+Harvest,2,2,0.078,Uniform
+Harvest,2,3,0.122,Uniform
+Harvest,6,1,0.15,Uniform
+Harvest,6,2,0.178,Uniform
+Harvest,6,3,0.204,Uniform
+Harvest,100,1,0.31,Uniform
+Harvest,100,2,0.308,Uniform
+Harvest,100,3,0.366,Uniform
+Receiving,2,1,0.042,Uniform
+Receiving,2,2,0.092,Uniform
+Receiving,2,3,0.11,Uniform
+Receiving,6,1,0.15,Uniform
+Receiving,6,2,0.15,Uniform
+Receiving,6,3,0.252,Uniform
+Receiving,100,1,0.334,Uniform
+Receiving,100,2,0.288,Uniform
+Receiving,100,3,0.35,Uniform
+Packed Product,2,1,0.004,Uniform
+Packed Product,2,2,0.01,Uniform
+Packed Product,2,3,0.034,Uniform
+Packed Product,6,1,0.014,Uniform
+Packed Product,6,2,0.026,Uniform
+Packed Product,6,3,0.052,Uniform
+Packed Product,100,1,0.174,Uniform
+Packed Product,100,2,0.192,Uniform
+Packed Product,100,3,0.282,Uniform
+Preharvest,2,1,0.002,0.1% Cluster
+Preharvest,2,2,0,0.1% Cluster
+Preharvest,2,3,0.004,0.1% Cluster
+Preharvest,6,1,0.004,0.1% Cluster
+Preharvest,6,2,0.002,0.1% Cluster
+Preharvest,6,3,0.014,0.1% Cluster
+Preharvest,100,1,0.026,0.1% Cluster
+Preharvest,100,2,0.076,0.1% Cluster
+Preharvest,100,3,0.078,0.1% Cluster
+Harvest,2,1,0,0.1% Cluster
+Harvest,2,2,0.002,0.1% Cluster
+Harvest,2,3,0.002,0.1% Cluster
+Harvest,6,1,0.002,0.1% Cluster
+Harvest,6,2,0.006,0.1% Cluster
+Harvest,6,3,0.01,0.1% Cluster
+Harvest,100,1,0.028,0.1% Cluster
+Harvest,100,2,0.068,0.1% Cluster
+Harvest,100,3,0.106,0.1% Cluster
+Receiving,2,1,0,0.1% Cluster
+Receiving,2,2,0.002,0.1% Cluster
+Receiving,2,3,0,0.1% Cluster
+Receiving,6,1,0,0.1% Cluster
+Receiving,6,2,0.006,0.1% Cluster
+Receiving,6,3,0.008,0.1% Cluster
+Receiving,100,1,0.038,0.1% Cluster
+Receiving,100,2,0.062,0.1% Cluster
+Receiving,100,3,0.14,0.1% Cluster
+Packed Product,2,1,0,0.1% Cluster
+Packed Product,2,2,0,0.1% Cluster
+Packed Product,2,3,0,0.1% Cluster
+Packed Product,6,1,0.002,0.1% Cluster
+Packed Product,6,2,0.002,0.1% Cluster
+Packed Product,6,3,0.002,0.1% Cluster
+Packed Product,100,1,0.028,0.1% Cluster
+Packed Product,100,2,0.058,0.1% Cluster
+Packed Product,100,3,0.1,0.1% Cluster

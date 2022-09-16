@@ -183,6 +183,7 @@ def Main_Loop():
                 
             
             #This is where process starts, along with simulated harvest. 
+            start_HD = time.time()
             if i in Inputz_T.Harvest_Days:
                 
                 #Harvest Sampling
@@ -403,8 +404,9 @@ def Main_Loop():
                                                                           Step_Column = "Washing_"+str(Current_Pick)
                                                                           ,i = k)
                 
-                
+                start_Wash = time.time()
                 Field_df=Funz_T.Tomato_Wash(df = Field_df, Location  = 5, FC_lvl=Inputz_T.FC_lvl)
+                print(time.time() - start_Wash, "Wash Time")
                 
                 #Cross Contamination Conveyor Belt
                 #Updates location from  Washing to Sorting
@@ -414,7 +416,7 @@ def Main_Loop():
                                                                           outputDF =DC_Cont_Processing , 
                                                                           Step_Column = "CB1_"+str(Current_Pick)
                                                                           ,i = k)
-                
+                start_CC = time.time()
                 Field_df=Funz_T.F_CrossContProLine_tom (df = Field_df, 
                                                  Tr_P_S = Inputz_T.Tr_P_CB, 
                                                  Tr_S_P = Inputz_T.Tr_CB_P,
@@ -422,6 +424,8 @@ def Main_Loop():
                                                  Sanitation_Freq_lb = 0, 
                                                  StepEff = 0 , 
                                                  compliance = 0 )
+                
+                print(time.time() - start_CC, "Cross Contamination")
                 
                 #Drying Cross Contmination
                 #Updates location from  Conveyor Belt to Drying
@@ -541,6 +545,7 @@ def Main_Loop():
                 
                 #Establishing which pick we are in
                 Current_Pick = Current_Pick+1
+                print(time.time() - start_HD, "HD Total Time")
                 
                 
             #Adding Contmination to Every Day
