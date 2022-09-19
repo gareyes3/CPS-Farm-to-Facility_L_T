@@ -183,7 +183,7 @@ def Main_Loop():
                 
             
             #This is where process starts, along with simulated harvest. 
-            start_HD = time.time()
+            #start_HD = time.time()
             if i in Inputz_T.Harvest_Days:
                 
                 #Harvest Sampling
@@ -246,18 +246,21 @@ def Main_Loop():
                 
                 #Location 2
                 #Collection contmaination at processing stages. 
+                start_Harv = time.time()
                 DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
                                                                           outputDF =DC_Cont_Processing , 
-                                                                          Step_Column = "Harvest_"+str(Current_Pick)
-                                                                          ,i = k)
-                #start_Harv = time.time()
+                                                                          Step_Column = "Harvest_"+str(Current_Pick) ,
+                                                                          i = k)
+                print(time.time() - start_Harv, "Out collection")
+                
+                start_Harv = time.time()
                 Field_df = Funz_T.Harvesting_Function(df = Field_df, Total_Harvesters = Inputz_T.Total_Harvesters, 
                                               Tomatoes_Per_Bucket = Inputz_T.Tomatoes_Per_Bucket,
                                               Tomato_Sequence = Inputz_T.Tomato_Sequence, 
                                               Pick_No = Current_Pick,
                                               Tomatoes_per_Bin = Inputz_T.Tomatoes_per_Bin)
-                #print(time.time() - start_Harv, "Harvesting Function")
-                print("The product was harvested")
+                print(time.time() - start_Harv, "Harvesting Function")
+                #print("The product was harvested")
                 
                 #Harvester contmaination
                 #if (np.random.uniform(0,1)<Pr_harvester_cont):
@@ -285,41 +288,43 @@ def Main_Loop():
                 
                 #Transportation from the field to the shipping center
                 #Here we need to caculate die-off for the tranportation of growth due to transportation. 
-                #start_surv = time.time()
-                Field_df = Funz_T.applying_survival_salmonella_cucum2(df = Field_df , 
+                start_surv = time.time()
+                Field_df = Funz_T.applying_survival_salmonella_cucum3(df = Field_df , 
                                                               Time = Inputz_T.Time_F_Sc,
                                                               RH = Inputz_T.RH_Florida,
                                                               Temp = Inputz_T.Temp_F_Sc,
                                                               Location = 2)
-                #print(time.time() - start_surv, "Survival")
+                print(time.time() - start_surv, "Survival")
                 
                 #Updates location from Harvest to Shipping Center
                 #Updating Cont
+                start_surv = time.time()
                 DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
                                                                           outputDF =DC_Cont_Processing , 
                                                                           Step_Column = "Shipping Center_"+str(Current_Pick)
                                                                           ,i = k)
+                print(time.time() - start_surv, "output collection 2")
                 
                 
-                Field_df=Funz_T.Update_Location(df= Field_df, Previous = 2, NewLoc =3)
+                Field_df=Funz_T.Update_Location2(df= Field_df, Previous = 2, NewLoc =3)
                 
                 
                 #At Shipping center, temporary storage in open bins
-                Field_df = Funz_T.applying_survival_salmonella_cucum2(df = Field_df , 
+                Field_df = Funz_T.applying_survival_salmonella_cucum3(df = Field_df , 
                                                               Time = Inputz_T.Time_Sc,
                                                               RH = Inputz_T.RH_Florida,
                                                               Temp = Inputz_T.Temp_Sc,
                                                               Location = 3)
                 
                 #From shipping center to packing facility.
-                Field_df = Funz_T.applying_survival_salmonella_cucum2(df = Field_df , 
+                Field_df = Funz_T.applying_survival_salmonella_cucum3(df = Field_df , 
                                                               Time = Inputz_T.Time_Sc_Pack,
                                                               RH = Inputz_T.RH_Florida,
                                                               Temp = Inputz_T.Temp_Sc_Pack,
                                                               Location = 3)
                 
                 #Updates location from Shipping Center to Packing House
-                Field_df=Funz_T.Update_Location(df= Field_df, Previous = 3, NewLoc =4)
+                Field_df=Funz_T.Update_Location2(df= Field_df, Previous = 3, NewLoc =4)
                 
                 DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
                                                                           outputDF =DC_Cont_Processing , 
@@ -386,7 +391,7 @@ def Main_Loop():
                 
                 
                 #Temporary Storage in Packing Facility
-                Field_df = Funz_T.applying_survival_salmonella_cucum2(df = Field_df , 
+                Field_df = Funz_T.applying_survival_salmonella_cucum3(df = Field_df , 
                                                               Time = Inputz_T.Time_Pack,
                                                               RH = Inputz_T.RH_Florida,
                                                               Temp = Inputz_T.Temp_Pack,
@@ -397,7 +402,7 @@ def Main_Loop():
                 #Updates location from  Packing House to Washing
                 
                 
-                Field_df=Funz_T.Update_Location(df= Field_df, Previous = 4, NewLoc =5)
+                Field_df=Funz_T.Update_Location2(df= Field_df, Previous = 4, NewLoc =5)
                 
                 DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
                                                                           outputDF =DC_Cont_Processing , 
@@ -410,14 +415,14 @@ def Main_Loop():
                 
                 #Cross Contamination Conveyor Belt
                 #Updates location from  Washing to Sorting
-                Field_df=Funz_T.Update_Location(df= Field_df, Previous = 5, NewLoc =6)
+                Field_df=Funz_T.Update_Location2(df= Field_df, Previous = 5, NewLoc =6)
                 
                 DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
                                                                           outputDF =DC_Cont_Processing , 
                                                                           Step_Column = "CB1_"+str(Current_Pick)
                                                                           ,i = k)
                 start_CC = time.time()
-                Field_df=Funz_T.F_CrossContProLine_tom (df = Field_df, 
+                Field_df=Funz_T.F_CrossContProLine_tom2 (df = Field_df, 
                                                  Tr_P_S = Inputz_T.Tr_P_CB, 
                                                  Tr_S_P = Inputz_T.Tr_CB_P,
                                                  Location = 6,
@@ -429,14 +434,14 @@ def Main_Loop():
                 
                 #Drying Cross Contmination
                 #Updates location from  Conveyor Belt to Drying
-                Field_df=Funz_T.Update_Location(df= Field_df, Previous = 6, NewLoc =7)
+                Field_df=Funz_T.Update_Location2(df= Field_df, Previous = 6, NewLoc =7)
                 
                 DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
                                                                           outputDF =DC_Cont_Processing , 
                                                                           Step_Column = "Drying_"+str(Current_Pick)
                                                                           ,i = k)
                 
-                Field_df=Funz_T.F_CrossContProLine_tom (df = Field_df, 
+                Field_df=Funz_T.F_CrossContProLine_tom2 (df = Field_df, 
                                                  Tr_P_S = Inputz_T.Tr_P_Dr, 
                                                  Tr_S_P = Inputz_T.Tr_Dr_P,
                                                  Location = 7,
@@ -446,14 +451,14 @@ def Main_Loop():
                 
                 #Sorting2 cross contmaination
                 #Updates location from  Drying to Sorting
-                Field_df=Funz_T.Update_Location(df= Field_df, Previous = 7, NewLoc =8)
+                Field_df=Funz_T.Update_Location2(df= Field_df, Previous = 7, NewLoc =8)
                 
                 DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
                                                                           outputDF =DC_Cont_Processing , 
                                                                           Step_Column = "Sorting_"+str(Current_Pick)
                                                                           ,i = k)
                 
-                Field_df=Funz_T.F_CrossContProLine_tom (df = Field_df, 
+                Field_df=Funz_T.F_CrossContProLine_tom2 (df = Field_df, 
                                                  Tr_P_S = Inputz_T.Tr_P_SRT, 
                                                  Tr_S_P = Inputz_T.Tr_SRT_P,
                                                  Location = 8,
@@ -463,9 +468,13 @@ def Main_Loop():
                 
                 #Packing product into the cases at the Packing house. 
                 #Updates location from  Sorting to Packing
-                Field_df=Funz_T.Update_Location(df= Field_df, Previous = 8, NewLoc = 9)
+                #start_CC = time.time()
+                Field_df=Funz_T.Update_Location2(df= Field_df, Previous = 8, NewLoc = 9)
+                #print(time.time() - start_CC, "update loc")
                 
+                start_CC = time.time()
                 Field_df=Funz_T.Case_Packaging(df = Field_df,Case_Weight = 20,Tomato_Weight = 0.54, Location = 9)
+                print(time.time() - start_CC, "Case Packing")
                 
                 DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
                                                                           outputDF =DC_Cont_Processing , 
@@ -473,7 +482,7 @@ def Main_Loop():
                                                                           ,i = k)
                 
                 if Scen_T.Samp_Plan == 4:
-                    print("3 samp plan")
+                    print("4 samp plan")
                     
                     #Collection of Outputs
 
@@ -529,13 +538,13 @@ def Main_Loop():
                 
                 
                 #Post Packaging Storage
-                Field_df = Funz_T.applying_survival_salmonella_cucum2(df = Field_df , 
+                Field_df = Funz_T.applying_survival_salmonella_cucum3(df = Field_df , 
                                                               Time = Inputz_T.Time_Post_Pack,
                                                               RH = Inputz_T.RH_Florida,
                                                               Temp = Inputz_T.Temp_Post_Pack,
                                                               Location = 9)
                 #Ripening: 
-                Field_df=Funz_T.Update_Location(df= Field_df, Previous = 9, NewLoc = 10)
+                Field_df=Funz_T.Update_Location2(df= Field_df, Previous = 9, NewLoc = 10)
                 
                 
                 DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
@@ -545,29 +554,29 @@ def Main_Loop():
                 
                 #Establishing which pick we are in
                 Current_Pick = Current_Pick+1
-                print(time.time() - start_HD, "HD Total Time")
+                #print(time.time() - start_HD, "HD Total Time")
                 
                 
             #Adding Contmination to Every Day
             
             #start_oed_outs = time.time()
             DC_Cont_Day= Dictionariez_T.Output_Collection_Prog(df = Field_df , outputDF =DC_Cont_Day , Step_Column = i,i = k)
-            DC_Cont_Day_Pick1= Dictionariez_T.Output_Collection_Prog_Pick(df = Field_df , outputDF = DC_Cont_Day_Pick1 , Step_Column = i,i = k, PickNo = 1)
-            DC_Cont_Day_Pick2= Dictionariez_T.Output_Collection_Prog_Pick(df = Field_df , outputDF = DC_Cont_Day_Pick2 , Step_Column = i,i = k, PickNo = 2)
-            DC_Cont_Day_Pick3= Dictionariez_T.Output_Collection_Prog_Pick(df = Field_df , outputDF = DC_Cont_Day_Pick3 , Step_Column = i,i = k, PickNo = 3)
+            #DC_Cont_Day_Pick1= Dictionariez_T.Output_Collection_Prog_Pick(df = Field_df , outputDF = DC_Cont_Day_Pick1 , Step_Column = i,i = k, PickNo = 1)
+            #DC_Cont_Day_Pick2= Dictionariez_T.Output_Collection_Prog_Pick(df = Field_df , outputDF = DC_Cont_Day_Pick2 , Step_Column = i,i = k, PickNo = 2)
+            #DC_Cont_Day_Pick3= Dictionariez_T.Output_Collection_Prog_Pick(df = Field_df , outputDF = DC_Cont_Day_Pick3 , Step_Column = i,i = k, PickNo = 3)
             #print(time.time() - start_oed_outs, "outs eod")
     
                 
-            #start_surv_eod = time.time()
+            start_surv_eod = time.time()
             #Dieoff for Items that stayed in the Field. 
-            Field_df = Funz_T.applying_survival_salmonella_cucum2(df = Field_df , 
+            Field_df = Funz_T.applying_survival_salmonella_cucum3(df = Field_df , 
                                                           Time = 24, #hr
                                                           RH = Inputz_T.RH_Florida,
                                                           Temp = Inputz_T.Temp_In_Field,
                                                           Location = 1)
-            #print(time.time() - start_surv_eod, "Survival eod")
+            print(time.time() - start_surv_eod, "Survival eod")
             
             #Total Consumer Exposure
         DC_Exp= Dictionariez_T.Output_Collection_Exp(df = Field_df, outputDF =DC_Exp ,i = k)
-    return [DC_Exp,DC_Cont_Day,DC_Cont_Day_Pick2,DC_Cont_Day_Pick3, DC_Cont_Processing]    
+    return [DC_Exp,DC_Cont_Day,DC_Cont_Processing]    
         

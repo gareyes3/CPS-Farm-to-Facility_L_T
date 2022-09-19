@@ -40,7 +40,7 @@ Tomatoes_per_Bin = math.ceil(Bin_Weight/Tomato_weight)
 #total pick information
 N_Pick = 3
 Days_Between_Picks = 14
-Days = np.arange(1, (N_Pick*Days_Between_Picks)+1)
+Days = range(1, (N_Pick*Days_Between_Picks)+1)
 Harvest_Days = [14,28,42] #This final Harvest Day has to be the final day as well. 
 PHS_Days = [11,25,39]
 
@@ -108,6 +108,8 @@ Temp_In_Field = 25
 #Washing FC_Level
 
 FC_lvl = np.random.triangular(25,100,200)
+
+
 
 
 #Total Iterations

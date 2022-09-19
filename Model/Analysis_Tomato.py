@@ -47,12 +47,16 @@ Outs_S0 = MainModel.Main_Loop()
 
 #%% Sampling Scenarios
  #Sampling Scenario
+start_surv_eod = time.time()
 Inputz_T.Iteration_Number = 1
 Scen_T.Tomatoes_per_sample = 2
 Scen_T.Samp_Plan = 1
 Scen_T.Cont_Scenario = 1
 reload(DepInputz)
 Outs_S1_A = MainModel.Main_Loop()
+print(time.time() - start_surv_eod, "Survival eod")
+
+(10.79*10000)/3600
 
 Inputz_T.Iteration_Number = 500
 Scen_T.Tomatoes_per_sample = 6

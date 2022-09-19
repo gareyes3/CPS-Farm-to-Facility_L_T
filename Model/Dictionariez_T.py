@@ -22,9 +22,7 @@ def Output_Collection_Prog(df, outputDF, Step_Column,i):
     #df= main model df
     #outputDF = contprogdataframe
     #Step_column = column for the step we are at
-    
-    Total_CFU = sum(df.CFU)
-    outputDF.at[i,Step_Column] = Total_CFU
+    outputDF.at[i,Step_Column] =np.array(df["CFU"]).sum()
     return outputDF
 
 
@@ -32,9 +30,7 @@ def Output_Collection_Processing(df, outputDF, Step_Column,i):
     #df= main model df
     #outputDF = contprogdataframe
     #Step_column = column for the step we are at
-    
-    Total_CFU = sum(df.CFU)
-    outputDF.at[i,Step_Column] = Total_CFU
+    outputDF.at[i,Step_Column] =np.array(df["CFU"]).sum()
     return outputDF
 
 def Output_Collection_Exp(df, outputDF,i):
@@ -42,36 +38,33 @@ def Output_Collection_Exp(df, outputDF,i):
     #outputDF = contprogdataframe
     #Step_column = column for the step we are at
     
-    Total_CFU = sum(df.CFU)
-    outputDF.at[i,"Total CFU"] = Total_CFU
+    outputDF.at[i,"Total CFU"] = np.array(df["CFU"]).sum()
     
     df_Acc = df.loc[(df["Rej_Acc"]=="Acc")].copy()
-    Total_CFU_Acc = sum(df_Acc.CFU)
-    outputDF.at[i,"Total CFU_ACC"] = Total_CFU_Acc
+  
+    outputDF.at[i,"Total CFU_ACC"] =np.array(df_Acc["CFU"]).sum()
     
-    Total_Weight_Acc = sum(df_Acc.Weight)
-    outputDF.at[i,"Total_Weight_Harvested"] = Total_Weight_Acc
+    outputDF.at[i,"Total_Weight_Harvested"] = np.array(df_Acc["Weight"]).sum()
     
-    Fiedl_df_1 = df.loc[df["Pick_ID"] == 1].copy()
-    Total_CFU_Acc_Pick1 = sum(Fiedl_df_1.CFU)
-    outputDF.at[i,"Total CFU_ACC_Pick1"] = Total_CFU_Acc_Pick1
+    Fiedl_df_1= df.loc[df["Pick_ID"] == 1].copy()
+    outputDF.at[i,"Total CFU_ACC_Pick1"] = np.array(Fiedl_df_1 ["CFU"]).sum()
     
-    Fiedl_df_2 = df.loc[df["Pick_ID"] == 2].copy()
-    Total_CFU_Acc_Pick2 = sum(Fiedl_df_2.CFU)
-    outputDF.at[i,"Total CFU_ACC_Pick2"] = Total_CFU_Acc_Pick2
+    Fiedl_df_2 = df.loc[df["Pick_ID"] == 2].copy()    
+    outputDF.at[i,"Total CFU_ACC_Pick2"] = np.array(Fiedl_df_2["CFU"]).sum()
+    
     Fiedl_df_3 = df.loc[df["Pick_ID"] == 3].copy()
-    Total_CFU_Acc_Pick3 = sum(Fiedl_df_3.CFU)
-    outputDF.at[i,"Total CFU_ACC_Pick3"] = Total_CFU_Acc_Pick3
+
+    outputDF.at[i,"Total CFU_ACC_Pick3"] = np.array(Fiedl_df_3["CFU"]).sum()
     
     
     
     return outputDF
 
 def Output_Collection_Sampling(df, outputDF,i, SampType, PickNo, Bef_Aft):
-    Total_CFU = sum(df.CFU)
+    Total_CFU = np.array(df["CFU"]).sum()
     
     Fiedl_df_1 = df.loc[df["Pick_ID"] == PickNo].copy()
-    CFU_Avail = sum(Fiedl_df_1["CFU"])
+    CFU_Avail = np.array(Fiedl_df_1["CFU"]).sum()
     
     if SampType == "PHS":
         if PickNo == 1:
@@ -135,8 +128,7 @@ def Output_Collection_Prog_Pick(df, outputDF, Step_Column,i, PickNo):
     #outputDF = contprogdataframe
     #Step_column = column for the step we are at
     df2 =df.loc[df["Pick_ID"]==PickNo].copy()
-    Total_CFU = sum(df2.CFU)
-    outputDF.at[i,Step_Column] = Total_CFU
+    outputDF.at[i,Step_Column] = np.array(df2["CFU"]).sum()
     return outputDF
 
 #%%
