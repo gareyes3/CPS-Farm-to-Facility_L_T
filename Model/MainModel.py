@@ -57,7 +57,7 @@ def Main_Loop():
     
     #Contaminated Bin
     for k in DepInputz.Total_Iterations:
-        print(k)
+        print(k, "Iteration")
         np.random.seed(k)
         
         #start_df = time.time()
@@ -100,7 +100,7 @@ def Main_Loop():
             #Contmaination Event Due to Rain'
             
             if (Scen_T.Cont_Scenario == 1 and i in Cont_Day):
-                print("Product was cont", i)
+                #print("Product was cont", i)
                 #start_ce = time.time()
                 #This function contaminated the field uniformly. 100% of the field cont. 
                 Field_df = Funz_T.field_cont_percetage(df = Field_df, 
@@ -114,7 +114,7 @@ def Main_Loop():
             #Contmaination Event Due to Animal Intrusion
             #if (np.random.uniform(0,1)<Pr_bird_drop):
             if (Scen_T.Cont_Scenario == 2 and i in Cont_Day): 
-                print("brid")
+                #print("brid")
                 #Contaminated field with 0.1% contamination, simulated bird droping. 
                 Field_df = Funz_T.field_cont_ntomatoes(df = Field_df, 
                                                        ntomatoes_cont_pclust =  230,#(len(Field_df.index))*0.1, 
@@ -146,14 +146,14 @@ def Main_Loop():
                                                       Bef_Aft = "Bef")
                     #print(time.time() - start_OCSWR, "Output Collectin Sampling WR")
     
-                    #start_Samp = time.time()
+                    start_Samp = time.time()
                     Field_df = Funz_T.F_Sampling_T (df= Field_df, 
                                               Pick_No = Current_Pick, 
                                               Location = 1, #Location is in field
                                               NSamp_Unit = 1, 
                                               NoGrab = Scen_T.Tomatoes_per_sample) 
                     print(Scen_T.Tomatoes_per_sample)
-                    #print(time.time() - start_Samp, "Sampling")
+                    print(time.time() - start_Samp, "Sampling")
                     
                     #Rejection rules, reject current pick plus any upcoming picks
                     #start_RR = time.time()
@@ -188,7 +188,7 @@ def Main_Loop():
                 
                 #Harvest Sampling
                 if Scen_T.Samp_Plan == 2:
-                    print("2 samp plan")
+                    #print("2 samp plan")
                     
                     #Collection of Outputs
 
@@ -246,20 +246,20 @@ def Main_Loop():
                 
                 #Location 2
                 #Collection contmaination at processing stages. 
-                start_Harv = time.time()
+                #start_Harv = time.time()
                 DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
                                                                           outputDF =DC_Cont_Processing , 
                                                                           Step_Column = "Harvest_"+str(Current_Pick) ,
                                                                           i = k)
-                print(time.time() - start_Harv, "Out collection")
+                #print(time.time() - start_Harv, "Out collection")
                 
-                start_Harv = time.time()
+                #start_Harv = time.time()
                 Field_df = Funz_T.Harvesting_Function(df = Field_df, Total_Harvesters = Inputz_T.Total_Harvesters, 
                                               Tomatoes_Per_Bucket = Inputz_T.Tomatoes_Per_Bucket,
                                               Tomato_Sequence = Inputz_T.Tomato_Sequence, 
                                               Pick_No = Current_Pick,
                                               Tomatoes_per_Bin = Inputz_T.Tomatoes_per_Bin)
-                print(time.time() - start_Harv, "Harvesting Function")
+                #print(time.time() - start_Harv, "Harvesting Function")
                 #print("The product was harvested")
                 
                 #Harvester contmaination
@@ -288,22 +288,22 @@ def Main_Loop():
                 
                 #Transportation from the field to the shipping center
                 #Here we need to caculate die-off for the tranportation of growth due to transportation. 
-                start_surv = time.time()
+                #start_surv = time.time()
                 Field_df = Funz_T.applying_survival_salmonella_cucum3(df = Field_df , 
                                                               Time = Inputz_T.Time_F_Sc,
                                                               RH = Inputz_T.RH_Florida,
                                                               Temp = Inputz_T.Temp_F_Sc,
                                                               Location = 2)
-                print(time.time() - start_surv, "Survival")
+                #print(time.time() - start_surv, "Survival")
                 
                 #Updates location from Harvest to Shipping Center
                 #Updating Cont
-                start_surv = time.time()
+                #start_surv = time.time()
                 DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
                                                                           outputDF =DC_Cont_Processing , 
                                                                           Step_Column = "Shipping Center_"+str(Current_Pick)
                                                                           ,i = k)
-                print(time.time() - start_surv, "output collection 2")
+                #print(time.time() - start_surv, "output collection 2")
                 
                 
                 Field_df=Funz_T.Update_Location2(df= Field_df, Previous = 2, NewLoc =3)
@@ -334,7 +334,7 @@ def Main_Loop():
                 #Receiving--------------------------------------------------------
                 #### Sampling Plan at Receiving ----------------------------------
                 if Scen_T.Samp_Plan == 3:
-                    print("3 samp plan")
+                    #print("3 samp plan")
                     
                     #Collection of Outputs
 
@@ -356,13 +356,13 @@ def Main_Loop():
                     #print(time.time() - start_OCSWR, "Output Collectin Sampling WR")
     
                     #start_Samp = time.time()
-                    print(Current_Samp, "Current_Samp")
+                    #print(Current_Samp, "Current_Samp")
                     Field_df = Funz_T.F_Sampling_T (df= Field_df, 
                                               Pick_No = Current_Samp, 
                                               Location = 4, #Location is in field
                                               NSamp_Unit = 1, 
                                               NoGrab = Scen_T.Tomatoes_per_sample) 
-                    print(Scen_T.Tomatoes_per_sample)
+                    #print(Scen_T.Tomatoes_per_sample)
                     #print(time.time() - start_Samp, "Sampling")
                     
                     #Rejection rules, reject current pick plus any upcoming picks
@@ -409,9 +409,9 @@ def Main_Loop():
                                                                           Step_Column = "Washing_"+str(Current_Pick)
                                                                           ,i = k)
                 
-                start_Wash = time.time()
+                #start_Wash = time.time()
                 Field_df=Funz_T.Tomato_Wash(df = Field_df, Location  = 5, FC_lvl=Inputz_T.FC_lvl)
-                print(time.time() - start_Wash, "Wash Time")
+                #print(time.time() - start_Wash, "Wash Time")
                 
                 #Cross Contamination Conveyor Belt
                 #Updates location from  Washing to Sorting
@@ -421,7 +421,7 @@ def Main_Loop():
                                                                           outputDF =DC_Cont_Processing , 
                                                                           Step_Column = "CB1_"+str(Current_Pick)
                                                                           ,i = k)
-                start_CC = time.time()
+                #start_CC = time.time()
                 Field_df=Funz_T.F_CrossContProLine_tom2 (df = Field_df, 
                                                  Tr_P_S = Inputz_T.Tr_P_CB, 
                                                  Tr_S_P = Inputz_T.Tr_CB_P,
@@ -430,7 +430,7 @@ def Main_Loop():
                                                  StepEff = 0 , 
                                                  compliance = 0 )
                 
-                print(time.time() - start_CC, "Cross Contamination")
+                #print(time.time() - start_CC, "Cross Contamination")
                 
                 #Drying Cross Contmination
                 #Updates location from  Conveyor Belt to Drying
@@ -472,9 +472,9 @@ def Main_Loop():
                 Field_df=Funz_T.Update_Location2(df= Field_df, Previous = 8, NewLoc = 9)
                 #print(time.time() - start_CC, "update loc")
                 
-                start_CC = time.time()
+                #start_CC = time.time()
                 Field_df=Funz_T.Case_Packaging(df = Field_df,Case_Weight = 20,Tomato_Weight = 0.54, Location = 9)
-                print(time.time() - start_CC, "Case Packing")
+                #print(time.time() - start_CC, "Case Packing")
                 
                 DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
                                                                           outputDF =DC_Cont_Processing , 
@@ -482,7 +482,7 @@ def Main_Loop():
                                                                           ,i = k)
                 
                 if Scen_T.Samp_Plan == 4:
-                    print("4 samp plan")
+                    #print("4 samp plan")
                     
                     #Collection of Outputs
 
@@ -567,14 +567,14 @@ def Main_Loop():
             #print(time.time() - start_oed_outs, "outs eod")
     
                 
-            start_surv_eod = time.time()
+            #start_surv_eod = time.time()
             #Dieoff for Items that stayed in the Field. 
             Field_df = Funz_T.applying_survival_salmonella_cucum3(df = Field_df , 
                                                           Time = 24, #hr
                                                           RH = Inputz_T.RH_Florida,
                                                           Temp = Inputz_T.Temp_In_Field,
                                                           Location = 1)
-            print(time.time() - start_surv_eod, "Survival eod")
+            #print(time.time() - start_surv_eod, "Survival eod")
             
             #Total Consumer Exposure
         DC_Exp= Dictionariez_T.Output_Collection_Exp(df = Field_df, outputDF =DC_Exp ,i = k)

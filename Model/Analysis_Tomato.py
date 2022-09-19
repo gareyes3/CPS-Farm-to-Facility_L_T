@@ -56,7 +56,6 @@ reload(DepInputz)
 Outs_S1_A = MainModel.Main_Loop()
 print(time.time() - start_surv_eod, "Survival eod")
 
-(10.79*10000)/3600
 
 Inputz_T.Iteration_Number = 500
 Scen_T.Tomatoes_per_sample = 6
