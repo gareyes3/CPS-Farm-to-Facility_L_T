@@ -34,8 +34,10 @@ Field_df=pd.DataFrame({"Tomato_ID": Inputz_T.Individual_Tomatoes,
                        "Rej_Acc" :"Acc"
                   })
 
-Field_df["CFU"] = 1000
-Field_df.loc[1:30,"Location"] = 2
+Field_df["CFU"] = 0
+Field_df.loc[1:30,"CFU"] = 1000
+
+sum(Field_df["CFU"]>0)/len(Field_df)
 
 
 def F_CrossContProLine_tom (df, Tr_P_S, Tr_S_P,  Location, Sanitation_Freq_lb = 0, StepEff = 0 , compliance = 0):
