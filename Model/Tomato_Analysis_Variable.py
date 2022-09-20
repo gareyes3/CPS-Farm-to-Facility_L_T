@@ -310,6 +310,156 @@ Outs_4C= Analysis_Loop(HA_Iterations = 50,
               Spread  = "Uniform" )
 
 
+###
+#Single Cont
+Outs_0_01= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 0, 
+              Tom_Per_Sample = 2, 
+              Cont_Scen =2, 
+              Type ="PH", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+
+Outs_1A_01= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 1, 
+              Tom_Per_Sample = 2, 
+              Cont_Scen =2, 
+              Type ="PH", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+
+Outs_1B_01= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 1, 
+              Tom_Per_Sample = 6, 
+              Cont_Scen =2, 
+              Type ="PH", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+Outs_1C_01= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 1, 
+              Tom_Per_Sample = 100, 
+              Cont_Scen =2, 
+              Type ="PH", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+Outs_2A_01= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 2, 
+              Tom_Per_Sample = 2, 
+              Cont_Scen =2, 
+              Type ="H", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+
+Outs_2B_01= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 2, 
+              Tom_Per_Sample = 6, 
+              Cont_Scen =2, 
+              Type ="H", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+Outs_2C_01= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 2, 
+              Tom_Per_Sample = 100, 
+              Cont_Scen =2, 
+              Type ="H", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+Outs_3A_01= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 3, 
+              Tom_Per_Sample = 2, 
+              Cont_Scen =2, 
+              Type ="RS", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+
+Outs_3B_01= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 3, 
+              Tom_Per_Sample = 6, 
+              Cont_Scen =2, 
+              Type ="RS", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+Outs_3C_01= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 3, 
+              Tom_Per_Sample = 100, 
+              Cont_Scen =2, 
+              Type ="RS", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+Outs_4A_01= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 4, 
+              Tom_Per_Sample = 2, 
+              Cont_Scen =2, 
+              Type ="PPS", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+
+Outs_4B_01= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 4, 
+              Tom_Per_Sample = 6, 
+              Cont_Scen =2, 
+              Type ="PPS", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+Outs_4C_01= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 4, 
+              Tom_Per_Sample = 100, 
+              Cont_Scen =2, 
+              Type ="PPS", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
 #%% Sampling Plan Power Analysis
 def get_Powers(df,Mass,Type):
     a=df.melt()
