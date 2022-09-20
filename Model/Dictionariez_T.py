@@ -25,6 +25,13 @@ def Output_Collection_Prog(df, outputDF, Step_Column,i):
     outputDF.at[i,Step_Column] =np.array(df["CFU"]).sum()
     return outputDF
 
+def Output_Collection_Prog_Prev(df, outputDF, Step_Column,i):
+    #df= main model df
+    #outputDF = contprogdataframe
+    #Step_column = column for the step we are at
+    outputDF.at[i,Step_Column] =sum(df["CFU"]>0)/len(df)
+    return outputDF
+
 
 def Output_Collection_Processing(df, outputDF, Step_Column,i):
     #df= main model df

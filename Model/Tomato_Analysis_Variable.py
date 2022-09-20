@@ -36,6 +36,9 @@ import T_Inputz
 import InFunz
 import ContScen
 import Dictionariez_T
+
+from multiprocessing import Process
+from multiprocessing import Pool
 #%%
 def Get_Power(df, Weight_After, Weight_Before, CFU_avail, Tot_Iter): 
     Total_Rej = sum((df[Weight_After]-df[Weight_Before])>0 )
@@ -48,19 +51,22 @@ def get_powers_scenarios (df, Tot_Iter):
     A=Get_Power(df = df, 
               Weight_After = "PHS 1 Weight Rejected Aft", 
               Weight_Before = "PHS 1 Weight Rejected Bef", 
-              CFU_avail = "CFU_Avail Pick 1"
+              CFU_avail = "CFU_Avail Pick 1",
+              Tot_Iter = Tot_Iter
               )
 
     B=Get_Power(df = df, 
               Weight_After = "PHS 2 Weight Rejected Aft", 
               Weight_Before = "PHS 2 Weight Rejected Bef", 
-              CFU_avail = "CFU_Avail Pick 2"
+              CFU_avail = "CFU_Avail Pick 2",
+              Tot_Iter = Tot_Iter
               )
 
     C= Get_Power(df = df, 
               Weight_After = "PHS 3 Weight Rejected Aft", 
               Weight_Before = "PHS 3 Weight Rejected Bef", 
-              CFU_avail = "CFU_Avail Pick 3"
+              CFU_avail = "CFU_Avail Pick 3",
+              Tot_Iter = Tot_Iter
               )
     return [A,B,C]
 
@@ -90,8 +96,264 @@ def Get_Contam_Sampling(df, Type, Mass, Spread):
     Dfout = pd.concat([A,B,C])
     return (Dfout)
 
-#%%
+
 #%% Contamination progression thruhgout system No Sampling
+
+    
+def Analysis_Loop(HA_Iterations,Loop_Iterations,Hazard_Mean, Hazard_SD, Samp_Plan, Tom_Per_Sample, Cont_Scen, Type, Mass, Spread  ):
+    Hazard_Iterations = HA_Iterations
+
+    Powers_df = Power_DF_Creation(Column_Names = ["Power_Pick_1", "Power_Pick_2", "Power_Pick_3"],
+                                  Niterations = Hazard_Iterations )
+    Progression_df = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, 
+                                                       Niterations = 0)
+    Progression_df["HI"] = np.nan
+
+    Samp_Point_df = Power_DF_Creation(Column_Names = ["Cont", "Pick", "Type", "Mass", "Cont Type", "HI"],
+                                  Niterations = 0)
+    
+    #Progression Days
+    Progression_df_Prev = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, 
+                                                       Niterations = 0)
+    Progression_df_Prev["HI"] = np.nan
+    
+    Progression_df_Prev_Proc = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Proc_Steps, 
+                                                                                Niterations = 0)
+    Progression_df_Prev_Proc["HI"] = np.nan
+    
+    
+    
+    for i in range(Hazard_Iterations):
+        Random_Haz = int(rng.normal(Hazard_Mean,Hazard_SD))
+        Inputz_T.Iteration_Number = Loop_Iterations
+        Inputz_T.Total_Hazard= Random_Haz
+        Scen_T.Tomatoes_per_sample = Tom_Per_Sample
+        Scen_T.Samp_Plan = Samp_Plan
+        Scen_T.Cont_Scenario = Cont_Scen
+        reload(DepInputz)
+        Outs = MainModel.Main_Loop()
+        #powers
+        Powers_df.at[i,"Power_Pick_1"]=get_powers_scenarios(Outs[0],Tot_Iter = Inputz_T.Iteration_Number)[0][2]
+        Powers_df.at[i,"Power_Pick_2"]=get_powers_scenarios(Outs[0],Tot_Iter = Inputz_T.Iteration_Number)[1][2]
+        Powers_df.at[i,"Power_Pick_3"]=get_powers_scenarios(Outs[0],Tot_Iter = Inputz_T.Iteration_Number)[2][2]
+        
+        #progression
+        Progression_Temp = Outs[1]
+        Progression_Temp["HI"] = Random_Haz 
+        Progression_df=pd.concat([Progression_df,Progression_Temp]) 
+        
+        #
+        Samp_Point = Get_Contam_Sampling(df = Outs[0], Type = Type,Mass = Mass, Spread= Spread)
+        Samp_Point["HI"] = Random_Haz
+        Samp_Point_df = pd.concat([Samp_Point_df,Samp_Point])
+        
+        #Prevprog
+        Progression_Prev = Outs[4]
+        Progression_Prev["HI"] = Random_Haz 
+        Progression_df_Prev=pd.concat([Progression_df_Prev,Progression_Prev]) 
+        
+        #Prevprog
+        Progression_Prev_Prog = Outs[3]
+        Progression_Prev_Prog["HI"] = Random_Haz 
+        Progression_df_Prev_Proc=pd.concat([Progression_df_Prev_Proc,Progression_Prev_Prog]) 
+        
+        
+    return [Powers_df,Progression_df,Samp_Point_df,Progression_df_Prev,Progression_df_Prev_Proc]
+
+#%%
+Outs_0= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 0, 
+              Tom_Per_Sample = 2, 
+              Cont_Scen =1, 
+              Type ="PH", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+
+Outs_1A= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 1, 
+              Tom_Per_Sample = 2, 
+              Cont_Scen =1, 
+              Type ="PH", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+
+Outs_1B= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 1, 
+              Tom_Per_Sample = 6, 
+              Cont_Scen =1, 
+              Type ="PH", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+Outs_1C= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 1, 
+              Tom_Per_Sample = 100, 
+              Cont_Scen =1, 
+              Type ="PH", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+Outs_2A= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 2, 
+              Tom_Per_Sample = 2, 
+              Cont_Scen =1, 
+              Type ="H", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+
+Outs_2B= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 2, 
+              Tom_Per_Sample = 6, 
+              Cont_Scen =1, 
+              Type ="H", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+Outs_2C= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 2, 
+              Tom_Per_Sample = 100, 
+              Cont_Scen =1, 
+              Type ="H", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+Outs_3A= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 3, 
+              Tom_Per_Sample = 2, 
+              Cont_Scen =1, 
+              Type ="RS", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+
+Outs_3B= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 3, 
+              Tom_Per_Sample = 6, 
+              Cont_Scen =1, 
+              Type ="RS", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+Outs_3C= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 3, 
+              Tom_Per_Sample = 100, 
+              Cont_Scen =1, 
+              Type ="RS", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+Outs_4A= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 4, 
+              Tom_Per_Sample = 2, 
+              Cont_Scen =1, 
+              Type ="PPS", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+
+Outs_4B= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 4, 
+              Tom_Per_Sample = 6, 
+              Cont_Scen =1, 
+              Type ="PPS", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+Outs_4C= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 20_000,
+              Samp_Plan = 4, 
+              Tom_Per_Sample = 100, 
+              Cont_Scen =1, 
+              Type ="PPS", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" )
+
+
+#%% Sampling Plan Power Analysis
+def get_Powers(df,Mass,Type):
+    a=df.melt()
+    a["Type"] = Type
+    a["Mass"] = Mass
+    return a 
+
+Power_1A =get_Powers(df = Outs_1A[0], Mass = "2 tomatoes",Type =  "PHS")
+Power_1B =get_Powers(df = Outs_1B[0], Mass = "6 tomatoes",Type =  "PHS")
+Power_1C =get_Powers(df = Outs_1C[0], Mass = "20 x 5 tomatoes",Type =  "PHS")
+
+Power_2A =get_Powers(df = Outs_2A[0], Mass = "2 tomatoes",Type =  "HS")
+Power_2B =get_Powers(df = Outs_2B[0], Mass = "6 tomatoes",Type =  "HS")
+Power_2C =get_Powers(df = Outs_2C[0], Mass = "20 x 5 tomatoes",Type =  "HS")
+
+Power_3A =get_Powers(df = Outs_3A[0], Mass = "2 tomatoes",Type =  "RS")
+Power_3B =get_Powers(df = Outs_3B[0], Mass = "6 tomatoes",Type =  "RS")
+Power_3C =get_Powers(df = Outs_3C[0], Mass = "20 x 5 tomatoes",Type =  "RS")
+
+Power_4A =get_Powers(df = Outs_4A[0], Mass = "2 tomatoes",Type =  "PPS")
+Power_4B =get_Powers(df = Outs_4B[0], Mass = "6 tomatoes",Type =  "PPS")
+Power_4C =get_Powers(df = Outs_4C[0], Mass = "20 x 5 tomatoes",Type =  "PPS")
+
+Powers_Out = pd.concat([Power_1A, Power_1B, Power_1C,
+                        Power_2A, Power_2B, Power_2C,
+                        Power_3A, Power_3B, Power_3C,
+                        Power_4A, Power_4B, Power_4C])
+
+Powers_Out.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Powers_Out.csv")
+
+#%%
+#Get Contmaination at sampling points
+Contam_Samp_Out = pd.concat([Outs_1A[2], Outs_1B[2], Outs_1C[2],
+                        Outs_2A[2], Outs_2B[2], Outs_2C[2],
+                        Outs_3A[2], Outs_3B[2], Outs_3C[2],
+                        Outs_4A[2], Outs_4B[2], Outs_4C[2]])
+
+
+
+Contam_Samp_Out.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Contam_Samp_Out.csv")
+
+
+
+#%%
 Hazard_Iterations = 10
 
 Powers_df = Power_DF_Creation(Column_Names = ["Power_Pick_1", "Power_Pick_2", "Power_Pick_3"],
@@ -125,12 +387,35 @@ for i in range(Hazard_Iterations):
     Samp_Point = Get_Contam_Sampling(df = Outs[0], Type = "PH",Mass = "1 Tomato", Spread= "Uniform")
     Samp_Point["HI"] = Random_Haz
     Samp_Point_df = pd.concat([Samp_Point_df,Samp_Point])
-    
-
-    
-    
-    
-    
 
 
+def print_range(lrange):
+    print('First is {} and last is {}'.format(lrange[0], lrange[1]))
+
+
+def run_in_parallel():
+    ranges = [[0, 10], [10, 20], [20, 30]]
+    pool = Pool(processes=len(ranges))
+    pool.map(print_range, ranges)
+
+
+if __name__ == '__main__':
+    run_in_parallel()
+
+
+Hazard_lvl = [32000, 15000]
+
+outs = map(MainModel.Main_Loop,Hazard_lvl)
+
+from multiprocessing.pool import ThreadPool
+
+
+
+
+start_surv_eod = time.time()
+pool = ThreadPool()
+Scen_T.Tomatoes_per_sample = 8
+images = [32_000,2_000, 132_000]
+results = pool.map(MainModel.Main_Loop, images)
+print(time.time() - start_surv_eod, "Survival eod")
 

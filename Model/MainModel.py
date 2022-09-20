@@ -45,7 +45,9 @@ def Main_Loop():
     #Model
     #Creation of collection Data Frames.
     DC_Cont_Day = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Inputz_T.Iteration_Number)
+    DC_Prev_Day = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Inputz_T.Iteration_Number)
     DC_Cont_Processing = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Proc_Steps, Niterations = Inputz_T.Iteration_Number)
+    DC_Cont_Processing_Prev = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Proc_Steps, Niterations = Inputz_T.Iteration_Number)
     DC_Exp = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Columns_Final_Outs, Niterations = Inputz_T.Iteration_Number)
 
     DC_Cont_Day_Pick1 = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Inputz_T.Iteration_Number)
@@ -251,6 +253,11 @@ def Main_Loop():
                                                                           outputDF =DC_Cont_Processing , 
                                                                           Step_Column = "Harvest_"+str(Current_Pick) ,
                                                                           i = k)
+                
+                DC_Cont_Processing_Prev= Dictionariez_T.Output_Collection_Prog_Prev(df = Field_df, 
+                                                                          outputDF =DC_Cont_Processing , 
+                                                                          Step_Column = "Harvest_"+str(Current_Pick) ,
+                                                                          i = k)
                 #print(time.time() - start_Harv, "Out collection")
                 
                 #start_Harv = time.time()
@@ -303,6 +310,11 @@ def Main_Loop():
                                                                           outputDF =DC_Cont_Processing , 
                                                                           Step_Column = "Shipping Center_"+str(Current_Pick)
                                                                           ,i = k)
+                
+                DC_Cont_Processing_Prev= Dictionariez_T.Output_Collection_Prog_Prev(df = Field_df, 
+                                                                          outputDF =DC_Cont_Processing , 
+                                                                          Step_Column = "Shipping Center_"+str(Current_Pick) ,
+                                                                          i = k)
                 #print(time.time() - start_surv, "output collection 2")
                 
                 
@@ -330,6 +342,11 @@ def Main_Loop():
                                                                           outputDF =DC_Cont_Processing , 
                                                                           Step_Column = "Packinghouse_"+str(Current_Pick)
                                                                           ,i = k)
+                
+                DC_Cont_Processing_Prev= Dictionariez_T.Output_Collection_Prog_Prev(df = Field_df, 
+                                                                          outputDF =DC_Cont_Processing , 
+                                                                          Step_Column = "Packinghouse_"+str(Current_Pick) ,
+                                                                          i = k)
                 
                 #Receiving--------------------------------------------------------
                 #### Sampling Plan at Receiving ----------------------------------
@@ -409,6 +426,11 @@ def Main_Loop():
                                                                           Step_Column = "Washing_"+str(Current_Pick)
                                                                           ,i = k)
                 
+                DC_Cont_Processing_Prev= Dictionariez_T.Output_Collection_Prog_Prev(df = Field_df, 
+                                                                          outputDF =DC_Cont_Processing , 
+                                                                          Step_Column = "Washing_"+str(Current_Pick) ,
+                                                                          i = k)
+                
                 #start_Wash = time.time()
                 Field_df=Funz_T.Tomato_Wash(df = Field_df, Location  = 5, FC_lvl=Inputz_T.FC_lvl)
                 #print(time.time() - start_Wash, "Wash Time")
@@ -441,6 +463,12 @@ def Main_Loop():
                                                                           Step_Column = "Drying_"+str(Current_Pick)
                                                                           ,i = k)
                 
+                DC_Cont_Processing_Prev= Dictionariez_T.Output_Collection_Prog_Prev(df = Field_df, 
+                                                                          outputDF =DC_Cont_Processing , 
+                                                                          Step_Column = "Drying_"+str(Current_Pick) ,
+                                                                          i = k)
+                
+                
                 Field_df=Funz_T.F_CrossContProLine_tom2 (df = Field_df, 
                                                  Tr_P_S = Inputz_T.Tr_P_Dr, 
                                                  Tr_S_P = Inputz_T.Tr_Dr_P,
@@ -457,6 +485,11 @@ def Main_Loop():
                                                                           outputDF =DC_Cont_Processing , 
                                                                           Step_Column = "Sorting_"+str(Current_Pick)
                                                                           ,i = k)
+                
+                DC_Cont_Processing_Prev= Dictionariez_T.Output_Collection_Prog_Prev(df = Field_df, 
+                                                                          outputDF =DC_Cont_Processing , 
+                                                                          Step_Column = "Sorting_"+str(Current_Pick) ,
+                                                                          i = k)
                 
                 Field_df=Funz_T.F_CrossContProLine_tom2 (df = Field_df, 
                                                  Tr_P_S = Inputz_T.Tr_P_SRT, 
@@ -480,6 +513,11 @@ def Main_Loop():
                                                                           outputDF =DC_Cont_Processing , 
                                                                           Step_Column = "Packing_"+str(Current_Pick)
                                                                           ,i = k)
+                
+                DC_Cont_Processing_Prev= Dictionariez_T.Output_Collection_Prog_Prev(df = Field_df, 
+                                                                          outputDF =DC_Cont_Processing , 
+                                                                          Step_Column = "Packing_"+str(Current_Pick) ,
+                                                                          i = k)
                 
                 if Scen_T.Samp_Plan == 4:
                     #print("4 samp plan")
@@ -560,7 +598,8 @@ def Main_Loop():
             #Adding Contmination to Every Day
             
             #start_oed_outs = time.time()
-            DC_Cont_Day= Dictionariez_T.Output_Collection_Prog(df = Field_df , outputDF =DC_Cont_Day , Step_Column = i,i = k)
+            DC_Cont_Day=Dictionariez_T.Output_Collection_Prog(df = Field_df , outputDF =DC_Cont_Day , Step_Column = i,i = k)
+            DC_Prev_Day=Dictionariez_T.Output_Collection_Prog_Prev(df = Field_df , outputDF =DC_Cont_Day , Step_Column = i,i = k)
             #DC_Cont_Day_Pick1= Dictionariez_T.Output_Collection_Prog_Pick(df = Field_df , outputDF = DC_Cont_Day_Pick1 , Step_Column = i,i = k, PickNo = 1)
             #DC_Cont_Day_Pick2= Dictionariez_T.Output_Collection_Prog_Pick(df = Field_df , outputDF = DC_Cont_Day_Pick2 , Step_Column = i,i = k, PickNo = 2)
             #DC_Cont_Day_Pick3= Dictionariez_T.Output_Collection_Prog_Pick(df = Field_df , outputDF = DC_Cont_Day_Pick3 , Step_Column = i,i = k, PickNo = 3)
@@ -578,5 +617,5 @@ def Main_Loop():
             
             #Total Consumer Exposure
         DC_Exp= Dictionariez_T.Output_Collection_Exp(df = Field_df, outputDF =DC_Exp ,i = k)
-    return [DC_Exp,DC_Cont_Day,DC_Cont_Processing]    
+    return [DC_Exp,DC_Cont_Day,DC_Cont_Processing,DC_Cont_Processing_Prev,DC_Prev_Day]    
         
