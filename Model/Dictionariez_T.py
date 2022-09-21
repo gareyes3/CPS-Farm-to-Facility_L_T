@@ -70,14 +70,17 @@ def Output_Collection_Exp(df, outputDF,i):
 def Output_Collection_Sampling(df, outputDF,i, SampType, PickNo, Bef_Aft):
     Total_CFU = np.array(df["CFU"]).sum()
     
+    
     Fiedl_df_1 = df.loc[df["Pick_ID"] == PickNo].copy()
     CFU_Avail = np.array(Fiedl_df_1["CFU"]).sum()
+    Total_Prev = sum(Fiedl_df_1["CFU"]>0)/len(Fiedl_df_1)
     
     if SampType == "PHS":
         if PickNo == 1:
             if Bef_Aft == "Bef":
                 outputDF.at[i,"CFU_Bef_Pick1PHS"] = Total_CFU
                 outputDF.at[i,"CFU_Avail Pick 1"] = CFU_Avail
+                outputDF.at[i,"Prev_Avail Pick 1"] = Total_Prev
             elif Bef_Aft == "Aft":
                 outputDF.at[i,"CFU_Aft_Pick1PHS"] = Total_CFU 
             
@@ -86,6 +89,7 @@ def Output_Collection_Sampling(df, outputDF,i, SampType, PickNo, Bef_Aft):
             if Bef_Aft == "Bef":
                 outputDF.at[i,"CFU_Bef_Pick2PHS"] = Total_CFU
                 outputDF.at[i,"CFU_Avail Pick 2"] = CFU_Avail
+                outputDF.at[i,"Prev_Avail Pick 2"] = Total_Prev
 
             elif Bef_Aft == "Aft":
                 outputDF.at[i,"CFU_Aft_Pick2PHS"] = Total_CFU 
@@ -94,6 +98,7 @@ def Output_Collection_Sampling(df, outputDF,i, SampType, PickNo, Bef_Aft):
             if Bef_Aft == "Bef":
                 outputDF.at[i,"CFU_Bef_Pick3PHS"] = Total_CFU
                 outputDF.at[i,"CFU_Avail Pick 3"] = CFU_Avail
+                outputDF.at[i,"Prev_Avail Pick 3"] = Total_Prev
             elif Bef_Aft == "Aft":
                 outputDF.at[i,"CFU_Aft_Pick3PHS"] = Total_CFU 
                        
@@ -161,16 +166,19 @@ Columns_Final_Outs = [
     "PHS 1 Weight Rejected Bef",
     "PHS 1 Weight Rejected Aft",
     "CFU_Avail Pick 1",
+    "Prev_Avail Pick 1",
     "CFU_Bef_Pick2PHS",
     "CFU_Aft_Pick2PHS",
     "PHS 2 Weight Rejected Bef",
     "PHS 2 Weight Rejected Aft",
     "CFU_Avail Pick 2",
+    "Prev_Avail Pick 2",
     "CFU_Bef_Pick3PHS",
     "CFU_Aft_Pick3PHS",
     "PHS 3 Weight Rejected Bef",
     "PHS 3 Weight Rejected Aft",
     "CFU_Avail Pick 3",
+    "Prev_Avail Pick 3"
     ]
 
 

@@ -255,7 +255,7 @@ def Main_Loop():
                                                                           i = k)
                 
                 DC_Cont_Processing_Prev= Dictionariez_T.Output_Collection_Prog_Prev(df = Field_df, 
-                                                                          outputDF =DC_Cont_Processing , 
+                                                                          outputDF =DC_Cont_Processing_Prev , 
                                                                           Step_Column = "Harvest_"+str(Current_Pick) ,
                                                                           i = k)
                 #print(time.time() - start_Harv, "Out collection")
@@ -312,7 +312,7 @@ def Main_Loop():
                                                                           ,i = k)
                 
                 DC_Cont_Processing_Prev= Dictionariez_T.Output_Collection_Prog_Prev(df = Field_df, 
-                                                                          outputDF =DC_Cont_Processing , 
+                                                                          outputDF =DC_Cont_Processing_Prev , 
                                                                           Step_Column = "Shipping Center_"+str(Current_Pick) ,
                                                                           i = k)
                 #print(time.time() - start_surv, "output collection 2")
@@ -344,7 +344,7 @@ def Main_Loop():
                                                                           ,i = k)
                 
                 DC_Cont_Processing_Prev= Dictionariez_T.Output_Collection_Prog_Prev(df = Field_df, 
-                                                                          outputDF =DC_Cont_Processing , 
+                                                                          outputDF =DC_Cont_Processing_Prev , 
                                                                           Step_Column = "Packinghouse_"+str(Current_Pick) ,
                                                                           i = k)
                 
@@ -427,7 +427,7 @@ def Main_Loop():
                                                                           ,i = k)
                 
                 DC_Cont_Processing_Prev= Dictionariez_T.Output_Collection_Prog_Prev(df = Field_df, 
-                                                                          outputDF =DC_Cont_Processing , 
+                                                                          outputDF =DC_Cont_Processing_Prev , 
                                                                           Step_Column = "Washing_"+str(Current_Pick) ,
                                                                           i = k)
                 
@@ -464,7 +464,7 @@ def Main_Loop():
                                                                           ,i = k)
                 
                 DC_Cont_Processing_Prev= Dictionariez_T.Output_Collection_Prog_Prev(df = Field_df, 
-                                                                          outputDF =DC_Cont_Processing , 
+                                                                          outputDF =DC_Cont_Processing_Prev , 
                                                                           Step_Column = "Drying_"+str(Current_Pick) ,
                                                                           i = k)
                 
@@ -487,7 +487,7 @@ def Main_Loop():
                                                                           ,i = k)
                 
                 DC_Cont_Processing_Prev= Dictionariez_T.Output_Collection_Prog_Prev(df = Field_df, 
-                                                                          outputDF =DC_Cont_Processing , 
+                                                                          outputDF =DC_Cont_Processing_Prev , 
                                                                           Step_Column = "Sorting_"+str(Current_Pick) ,
                                                                           i = k)
                 
@@ -515,7 +515,7 @@ def Main_Loop():
                                                                           ,i = k)
                 
                 DC_Cont_Processing_Prev= Dictionariez_T.Output_Collection_Prog_Prev(df = Field_df, 
-                                                                          outputDF =DC_Cont_Processing , 
+                                                                          outputDF =DC_Cont_Processing_Prev , 
                                                                           Step_Column = "Packing_"+str(Current_Pick) ,
                                                                           i = k)
                 

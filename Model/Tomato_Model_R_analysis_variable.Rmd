@@ -14,15 +14,21 @@ library(forcats)
 Reading in the data
 ```{r}
 Powers<-read.csv("Data_Tomato_Outputs/Powers_Out.csv")
+Powers_PS<-read.csv("Data_Tomato_Outputs/Powers_Out_PS.csv")
 ```
 
 ```{r}
+
+Powers$ContType<-"Uniform"
+Powers_PS$ContType<-"PointSource"
+
+Powers<-rbind(Powers,Powers_PS)
 
 Powers$Mass<-as.factor(Powers$Mass)
 Powers$variable<-as.factor(Powers$variable)
 Powers$Type<-as.factor(Powers$Type)
 
-Powers$Type<-factor(Powers$Type,levels=c("PHS", "HS", "RS", "PPS"))
+Powers$Type<-factor(Powers$Type,levels=c("Preharvest", "Harvest", "Receiving", "Packed Product"))
 Powers$Mass<-factor(Powers$Mass,levels=c("2 tomatoes", "6 tomatoes", "20 x 5 tomatoes"))
 #Power_data$Samp_Plan<-factor(Power_data$Samp_Plan,levels=c("Preharvest", "Harvest", "Receiving", "Packed Product"))
 #Power_data$`Cont Type`<-factor(Power_data$`Cont Type`,levels=c("Uniform", "0.1% Cluster"))
@@ -33,22 +39,28 @@ margin_calc<-function(x){
 
 
 Powers_Summary = Powers %>% 
-  group_by(Type, Mass, variable) %>% 
-  summarise(mean = mean(value), CI_95 = mean + margin_calc(value),CI_05 = mean - margin_calc(value)) 
+  group_by(Type, Mass, variable, ContType) %>% 
+  #summarise(mean = median(value), CI_95 = mean + margin_calc(value),CI_05 = mean - margin_calc(value))
+  summarise(mean = median(value), CI_95 = quantile(value, 0.90),CI_05 = quantile(value, 0.1)) 
+
 
 Powers_Summary %>% 
 ggplot(aes(x = Type, y = mean, color = Mass,shape = variable ,group = interaction(Mass, variable)))+
   #geom_point(stroke = 4,position = position_dodge(0.3))+
-  geom_line(aes(linetype= variable),size = 0.5,position = position_dodge(0.3))+
-  geom_pointrange(aes(ymin=CI_05, ymax=CI_95),position = position_dodge(0.3), size = 1)+
-  geom_errorbar(aes(ymin=CI_05, ymax=CI_95),width = 0.5, size =1,position = position_dodge(0.3))+
+  #geom_line(aes(linetype= variable),size = 0.3,position = position_dodge(0.3))+
+  geom_pointrange(aes(ymin=CI_05, ymax=CI_95),position = position_dodge(0.6), size = 0.6)+
+  geom_errorbar(aes(ymin=CI_05, ymax=CI_95),width = 0.5, size =0.5,position = position_dodge(0.6))+
   ylab("Sampling Plan Power")+
   xlab("Sampling at Process Step")+
   #scale_size_manual(name = "Tomatoes Sampled")+
   scale_color_discrete(name="Sampling Plan Mass")+
-  scale_shape_discrete(name="Pick Number")+
-  scale_linetype_discrete(name="Pick Number")+
+  scale_shape_discrete(name="Pick Number",labels = c("Power_Pick_1" ="Pick 1", "Power_Pick_2" ="Pick 2", "Power_Pick_3" ="Pick 3") )+
+  scale_linetype_discrete(name="Pick Number",labels = c("Power_Pick_1" ="Pick 1", "Power_Pick_2" ="Pick 2", "Power_Pick_3" ="Pick 3"))+
+  facet_grid(~ContType)+
   theme_bw()
+
+ggsave(filename=  "Plot Outputs/Powers.png",width = 25, height = 15, units = "cm", dpi = 600)
+
 
 Powers%>% 
 ggplot(aes(x = Type, y = value, color = Mass))+
@@ -57,6 +69,7 @@ geom_boxplot(alpha = 0.5, outlier.shape=NA, size = 1)+
   scale_color_discrete(name="Sampling Plan Mass")+
   ylab("Sampling Plan Power")+
   xlab("Sampling at Process Step")+
+  facet_wrap(~ContType)+
   theme_bw()
 
 Powers%>% 
@@ -81,6 +94,13 @@ facet_grid(~variable, labeller = labeller(variable = c("Power_Pick_1" ="Pick 1",
 
 ```{r}
 Cont_Prog<-read.csv("Data_Tomato_Outputs/Contam_Samp_Out.csv")
+Cont_Prog_PS<-read.csv("Data_Tomato_Outputs/Contam_Samp_Out_PS.csv")
+
+Cont_Prog$ContType<-"Uniform"
+Cont_Prog_PS$ContType<-"Point Source"
+
+Cont_Prog<-rbind(Cont_Prog, Cont_Prog_PS)
+
 ```
 
 ```{r}
@@ -94,8 +114,10 @@ ggplot(aes(x = Type, y = Cont,color = Pick))+
 #geom_point(position=position_jitterdodge(), alpha = 0.3, size = 1)+
 geom_boxplot()+
 xlab("Sampling Plan")+ ylab ("Total Adulteran Cells (TAC) at sampling point")+
-#facet_wrap(~`Cont Type`)+
+facet_wrap(~`ContType`)+
 scale_y_continuous(labels = scales::comma)
 
 ```
+# Contmaination Spread
+
 
