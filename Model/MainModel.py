@@ -599,7 +599,7 @@ def Main_Loop():
             
             #start_oed_outs = time.time()
             DC_Cont_Day=Dictionariez_T.Output_Collection_Prog(df = Field_df , outputDF =DC_Cont_Day , Step_Column = i,i = k)
-            DC_Prev_Day=Dictionariez_T.Output_Collection_Prog_Prev(df = Field_df , outputDF =DC_Cont_Day , Step_Column = i,i = k)
+            DC_Prev_Day=Dictionariez_T.Output_Collection_Prog_Prev(df = Field_df , outputDF =DC_Prev_Day, Step_Column = i,i = k)
             #DC_Cont_Day_Pick1= Dictionariez_T.Output_Collection_Prog_Pick(df = Field_df , outputDF = DC_Cont_Day_Pick1 , Step_Column = i,i = k, PickNo = 1)
             #DC_Cont_Day_Pick2= Dictionariez_T.Output_Collection_Prog_Pick(df = Field_df , outputDF = DC_Cont_Day_Pick2 , Step_Column = i,i = k, PickNo = 2)
             #DC_Cont_Day_Pick3= Dictionariez_T.Output_Collection_Prog_Pick(df = Field_df , outputDF = DC_Cont_Day_Pick3 , Step_Column = i,i = k, PickNo = 3)
