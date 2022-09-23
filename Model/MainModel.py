@@ -421,6 +421,8 @@ def Main_Loop():
                 
                 Field_df=Funz_T.Update_Location2(df= Field_df, Previous = 4, NewLoc =5)
                 
+
+                
                 DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
                                                                           outputDF =DC_Cont_Processing , 
                                                                           Step_Column = "Washing_"+str(Current_Pick)
@@ -435,6 +437,8 @@ def Main_Loop():
                 Field_df=Funz_T.Tomato_Wash(df = Field_df, Location  = 5, FC_lvl=Inputz_T.FC_lvl)
                 #print(time.time() - start_Wash, "Wash Time")
                 
+
+                
                 #Cross Contamination Conveyor Belt
                 #Updates location from  Washing to Sorting
                 Field_df=Funz_T.Update_Location2(df= Field_df, Previous = 5, NewLoc =6)
@@ -443,8 +447,13 @@ def Main_Loop():
                                                                           outputDF =DC_Cont_Processing , 
                                                                           Step_Column = "CB1_"+str(Current_Pick)
                                                                           ,i = k)
+                
+                DC_Cont_Processing_Prev= Dictionariez_T.Output_Collection_Prog_Prev(df = Field_df, 
+                                                                          outputDF =DC_Cont_Processing_Prev , 
+                                                                          Step_Column = "CB1_"+str(Current_Pick) ,
+                                                                          i = k)
                 #start_CC = time.time()
-                Field_df=Funz_T.F_CrossContProLine_tom2 (df = Field_df, 
+                Field_df=Funz_T.F_CrossContProLine_tom (df = Field_df, 
                                                  Tr_P_S = Inputz_T.Tr_P_CB, 
                                                  Tr_S_P = Inputz_T.Tr_CB_P,
                                                  Location = 6,
@@ -452,6 +461,7 @@ def Main_Loop():
                                                  StepEff = 0 , 
                                                  compliance = 0 )
                 
+
                 #print(time.time() - start_CC, "Cross Contamination")
                 
                 #Drying Cross Contmination
@@ -469,7 +479,7 @@ def Main_Loop():
                                                                           i = k)
                 
                 
-                Field_df=Funz_T.F_CrossContProLine_tom2 (df = Field_df, 
+                Field_df=Funz_T.F_CrossContProLine_tom (df = Field_df, 
                                                  Tr_P_S = Inputz_T.Tr_P_Dr, 
                                                  Tr_S_P = Inputz_T.Tr_Dr_P,
                                                  Location = 7,
@@ -491,7 +501,7 @@ def Main_Loop():
                                                                           Step_Column = "Sorting_"+str(Current_Pick) ,
                                                                           i = k)
                 
-                Field_df=Funz_T.F_CrossContProLine_tom2 (df = Field_df, 
+                Field_df=Funz_T.F_CrossContProLine_tom(df = Field_df, 
                                                  Tr_P_S = Inputz_T.Tr_P_SRT, 
                                                  Tr_S_P = Inputz_T.Tr_SRT_P,
                                                  Location = 8,
@@ -518,6 +528,7 @@ def Main_Loop():
                                                                           outputDF =DC_Cont_Processing_Prev , 
                                                                           Step_Column = "Packing_"+str(Current_Pick) ,
                                                                           i = k)
+                
                 
                 if Scen_T.Samp_Plan == 4:
                     #print("4 samp plan")
@@ -589,6 +600,11 @@ def Main_Loop():
                                                                           outputDF =DC_Cont_Processing , 
                                                                           Step_Column = "PP_"+str(Current_Pick)
                                                                           ,i = k)
+                
+                DC_Cont_Processing_Prev= Dictionariez_T.Output_Collection_Prog_Prev(df = Field_df, 
+                                                                          outputDF =DC_Cont_Processing_Prev , 
+                                                                          Step_Column = "PP_"+str(Current_Pick) ,
+                                                                          i = k)
                 
                 #Establishing which pick we are in
                 Current_Pick = Current_Pick+1

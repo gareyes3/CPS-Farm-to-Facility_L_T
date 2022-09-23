@@ -121,7 +121,7 @@ Outs_S3_C = MainModel.Main_Loop()
 
 #FPS
 
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 2
 Scen_T.Tomatoes_per_sample = 2
 Scen_T.Samp_Plan = 4
 Scen_T.Cont_Scenario = 1

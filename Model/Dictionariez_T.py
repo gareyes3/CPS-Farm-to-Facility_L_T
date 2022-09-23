@@ -60,7 +60,6 @@ def Output_Collection_Exp(df, outputDF,i):
     outputDF.at[i,"Total CFU_ACC_Pick2"] = np.array(Fiedl_df_2["CFU"]).sum()
     
     Fiedl_df_3 = df.loc[df["Pick_ID"] == 3].copy()
-
     outputDF.at[i,"Total CFU_ACC_Pick3"] = np.array(Fiedl_df_3["CFU"]).sum()
     
     

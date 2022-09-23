@@ -30,6 +30,7 @@ Powers$Type<-as.factor(Powers$Type)
 
 Powers$Type<-factor(Powers$Type,levels=c("Preharvest", "Harvest", "Receiving", "Packed Product"))
 Powers$Mass<-factor(Powers$Mass,levels=c("2 tomatoes", "6 tomatoes", "20 x 5 tomatoes"))
+Powers$ContType<-factor(Powers$ContType,levels=c("Uniform", "PointSource"))
 #Power_data$Samp_Plan<-factor(Power_data$Samp_Plan,levels=c("Preharvest", "Harvest", "Receiving", "Packed Product"))
 #Power_data$`Cont Type`<-factor(Power_data$`Cont Type`,levels=c("Uniform", "0.1% Cluster"))
 #Power_data$Samp_Mass<-as.factor(Power_data$Samp_Mass)
@@ -101,13 +102,23 @@ Cont_Prog_PS$ContType<-"Point Source"
 
 Cont_Prog<-rbind(Cont_Prog, Cont_Prog_PS)
 
+Cont_Prog$Type[Cont_Prog$Type == "PH"] <- "Preharvest"
+Cont_Prog$Type[Cont_Prog$Type == "H"] <- "Harvest"
+Cont_Prog$Type[Cont_Prog$Type == "RS"] <- "Receiving"
+Cont_Prog$Type[Cont_Prog$Type == "PPS"] <- "Packed Product"
+
 ```
 
 ```{r}
 #Cont_Prog$Mass<-factor(Cont_Prog$Mass,levels=c("2 tomatoes", "6 tomatoes", "20 x 5 tomatoes"))
 Cont_Prog$Type<-as.factor(Cont_Prog$Type)
 Cont_Prog$Pick<-as.factor(Cont_Prog$Pick)
-Cont_Prog$Type<-factor(Cont_Prog$Type,levels=c("PH", "H", "RS", "PPS"))
+
+Cont_Prog$Type<-factor(Cont_Prog$Type,levels=c("Preharvest", "Harvest", "Receiving", "Packed Product"))
+
+Cont_Prog %>% 
+  group_by(Type,Pick) %>% 
+  summarise(max(Cont))
 
 Cont_Prog %>% 
 ggplot(aes(x = Type, y = Cont,color = Pick))+
@@ -117,7 +128,41 @@ xlab("Sampling Plan")+ ylab ("Total Adulteran Cells (TAC) at sampling point")+
 facet_wrap(~`ContType`)+
 scale_y_continuous(labels = scales::comma)
 
+ggsave(filename=  "Plot Outputs/Cont_Sampling_Point.png",width = 25, height = 15, units = "cm", dpi = 600)
 ```
 # Contmaination Spread
 
+```{r}
+Prev_Prog<-read.csv("Data_Tomato_Outputs/Prev_Samp_Out.csv")
+Prev_Prog_PS<-read.csv("Data_Tomato_Outputs/Prev_Samp_Out_PS.csv")
 
+Prev_Prog$PrevType<-"Uniform"
+Prev_Prog_PS$PrevType<-"Point Source"
+
+Prev_Prog<-rbind(Prev_Prog, Prev_Prog_PS)
+
+Prev_Prog$Type[Prev_Prog$Type == "PH"] <- "Preharvest"
+Prev_Prog$Type[Prev_Prog$Type == "H"] <- "Harvest"
+Prev_Prog$Type[Prev_Prog$Type == "RS"] <- "Receiving"
+Prev_Prog$Type[Prev_Prog$Type == "PPS"] <- "Packed Product"
+
+```
+
+```{r}
+#Prev_Prog$Mass<-factor(Prev_Prog$Mass,levels=c("2 tomatoes", "6 tomatoes", "20 x 5 tomatoes"))
+Prev_Prog$Type<-as.factor(Prev_Prog$Type)
+Prev_Prog$Pick<-as.factor(Prev_Prog$Pick)
+
+Prev_Prog$Type<-factor(Prev_Prog$Type,levels=c("Preharvest", "Harvest", "Receiving", "Packed Product"))
+
+
+Prev_Prog %>% 
+ggplot(aes(x = Type, y = Cont,color = Pick))+
+#geom_point(position=position_jitterdodge(), alpha = 0.3, size = 1)+
+geom_boxplot()+
+xlab("Sampling Plan")+ ylab ("Total Adulteran Cells (TAC) at sampling point")+
+facet_wrap(~`PrevType`)+
+scale_y_continuous(labels = scales::percent)
+
+ggsave(filename=  "Plot Outputs/Cont_Sampling_Point.png",width = 25, height = 15, units = "cm", dpi = 600)
+```

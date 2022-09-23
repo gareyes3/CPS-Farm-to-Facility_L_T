@@ -579,7 +579,7 @@ Prev_Samp_OutPS = pd.concat([Outs_1A_01[5], Outs_1B_01[5], Outs_1C_01[5],
                         Outs_2A_01[5], Outs_2B_01[5], Outs_2C_01[5],
                         Outs_3A_01[5], Outs_3B_01[5], Outs_3C_01[5],
                         Outs_4A_01[5], Outs_4B_01[5], Outs_4C_01[5]])
-Prev_Samp_Out.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Prev_Samp_Out_PS.csv")
+Prev_Samp_OutPS.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Prev_Samp_Out_PS.csv")
 
 
 
