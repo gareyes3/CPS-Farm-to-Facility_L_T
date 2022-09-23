@@ -160,9 +160,9 @@ Prev_Prog %>%
 ggplot(aes(x = Type, y = Cont,color = Pick))+
 #geom_point(position=position_jitterdodge(), alpha = 0.3, size = 1)+
 geom_boxplot()+
-xlab("Sampling Plan")+ ylab ("Total Adulteran Cells (TAC) at sampling point")+
-facet_wrap(~`PrevType`)+
-scale_y_continuous(labels = scales::percent)
+xlab("Sampling Plan")+ ylab ("Prevalence of contmaination at each sampling point")+
+facet_wrap(~`PrevType`,scales="free_y")+
+scale_y_continuous(labels = scales::percent )
 
-ggsave(filename=  "Plot Outputs/Cont_Sampling_Point.png",width = 25, height = 15, units = "cm", dpi = 600)
+ggsave(filename=  "Plot Outputs/Prev_Sampling_Point.png",width = 25, height = 15, units = "cm", dpi = 600)
 ```
