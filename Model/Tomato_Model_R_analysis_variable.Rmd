@@ -166,3 +166,18 @@ scale_y_continuous(labels = scales::percent )
 
 ggsave(filename=  "Plot Outputs/Prev_Sampling_Point.png",width = 25, height = 15, units = "cm", dpi = 600)
 ```
+#Exposure. 
+```{r}
+Exps<-read.csv("Data_Tomato_Outputs/Exps.csv")
+ExpsPS<-read.csv("Data_Tomato_Outputs/ExpsPS.csv")
+
+Exps<-rbind(Exps, ExpsPS)
+
+Exps %>% 
+  filter(ContType == "Point Source") %>% 
+  group_by(Type, ContType) %>% 
+  summarise(median =sum(X42), CI_95 = max(X42),CI_05 = quantile(X42, 0.1)) %>% 
+  mutate(Relative = median/3462875	)
+
+```
+

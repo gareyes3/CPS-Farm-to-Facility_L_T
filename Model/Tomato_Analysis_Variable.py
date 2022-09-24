@@ -191,8 +191,8 @@ def Analysis_Loop(HA_Iterations,Loop_Iterations,Hazard_Mean, Hazard_SD, Samp_Pla
     return [Powers_df,Progression_df,Samp_Point_df,Progression_df_Prev,Progression_df_Prev_Proc,Prev_Point_df]
 
 #%%
-Outs_0= Analysis_Loop(HA_Iterations = 50,
-              Loop_Iterations = 50,
+Outs_0= Analysis_Loop(HA_Iterations = 1,
+              Loop_Iterations = 1,
               Hazard_Mean = 132_000, 
               Hazard_SD = 16_000,
               Samp_Plan = 0, 
@@ -582,6 +582,79 @@ Prev_Samp_OutPS = pd.concat([Outs_1A_01[5], Outs_1B_01[5], Outs_1C_01[5],
 Prev_Samp_OutPS.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Prev_Samp_Out_PS.csv")
 
 
+#%% Consumer Exposure
+def get_exps(df,Type,ContType):
+    A0U = df[1].loc[:,[42, "HI"]]
+    A0U["Type"] = Type
+    A0U["ContType"] = ContType
+    return A0U
+
+Exp_0 = get_exps(Outs_0, "Baseline", "Uniform")
+Exp_1A = get_exps(Outs_1A, "PH 2 tomatoes", "Uniform")
+Exp_1B = get_exps(Outs_1B, "PH 6 tomatoes", "Uniform")
+Exp_1C = get_exps(Outs_1C, "PH 5 X 20 tomatoes", "Uniform")
+
+Exp_2A = get_exps(Outs_2A, "H 2 tomatoes", "Uniform")
+Exp_2B = get_exps(Outs_2B, "H 6 tomatoes", "Uniform")
+Exp_2C = get_exps(Outs_2C, "H 5 X 20 tomatoes", "Uniform")
+
+Exp_3A = get_exps(Outs_3A, "R 2 tomatoes", "Uniform")
+Exp_3B = get_exps(Outs_3B, "R 6 tomatoes", "Uniform")
+Exp_3C = get_exps(Outs_3C, "R 5 X 20 tomatoes", "Uniform")
+
+Exp_4A = get_exps(Outs_4A, "PP 2 tomatoes", "Uniform")
+Exp_4B = get_exps(Outs_4B, "PP 6 tomatoes", "Uniform")
+Exp_4C = get_exps(Outs_4C, "PP 5 X 20 tomatoes", "Uniform")
+
+
+Exp_0_01 = get_exps(Outs_0_01, "Baseline", "Point Source")
+Exp_1A_01 = get_exps(Outs_1A_01, "PH 2 tomatoes", "Point Source")
+Exp_1B_01 = get_exps(Outs_1B_01, "PH 6 tomatoes", "Point Source")
+Exp_1C_01 = get_exps(Outs_1C_01, "PH 5 X 20 tomatoes", "Point Source")
+
+Exp_2A_01 = get_exps(Outs_2A_01, "H 2 tomatoes", "Point Source")
+Exp_2B_01 = get_exps(Outs_2B_01, "H 6 tomatoes", "Point Source")
+Exp_2C_01 = get_exps(Outs_2C_01, "H 5 X 20 tomatoes", "Point Source")
+
+Exp_3A_01 = get_exps(Outs_3A_01, "R 2 tomatoes", "Point Source")
+Exp_3B_01 = get_exps(Outs_3B_01, "R 6 tomatoes", "Point Source")
+Exp_3C_01 = get_exps(Outs_3C_01, "R 5 X 20 tomatoes", "Point Source")
+
+Exp_4A_01 = get_exps(Outs_4A_01, "PP 2 tomatoes", "Point Source")
+Exp_4B_01 = get_exps(Outs_4B_01, "PP 6 tomatoes", "Point Source")
+Exp_4C_01 = get_exps(Outs_4C_01, "PP 5 X 20 tomatoes", "Point Source")
+
+
+Exps = pd.concat([Exp_0,
+                  Exp_1A,Exp_1B,Exp_1C,
+                  Exp_2A,Exp_2B,Exp_2C,
+                  Exp_3A,Exp_3B,Exp_3C,
+                  Exp_4A,Exp_4B,Exp_4C])
+
+
+
+Exps.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Exps.csv")
+
+ExpsPS = pd.concat([Exp_0_01,
+                  Exp_1A_01,Exp_1B_01,Exp_1C_01,
+                  Exp_2A_01,Exp_2B_01,Exp_2C_01,
+                  Exp_3A_01,Exp_3B_01,Exp_3C_01,
+                  Exp_4A_01,Exp_4B_01,Exp_4C_01])
+
+ExpsPS.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\ExpsPS.csv")
+
+
+
+
+
+
+
+
+
+
+
+
+#%%
 
 
 
