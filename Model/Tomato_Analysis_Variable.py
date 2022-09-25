@@ -193,8 +193,8 @@ def Analysis_Loop(HA_Iterations,Loop_Iterations,Hazard_Mean, Hazard_SD, Samp_Pla
     return [Powers_df,Progression_df,Samp_Point_df,Progression_df_Prev,Progression_df_Prev_Proc,Prev_Point_df]
 
 #%%
-Outs_0= Analysis_Loop(HA_Iterations = 2,
-              Loop_Iterations = 1,
+Outs_0= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
               Hazard_Mean = 132_000, 
               Hazard_SD = 16_000,
               Samp_Plan = 0, 
@@ -205,8 +205,8 @@ Outs_0= Analysis_Loop(HA_Iterations = 2,
               Spread  = "Uniform" )
 
 
-Outs_1A= Analysis_Loop(HA_Iterations = 2,
-              Loop_Iterations = 1,
+Outs_1A= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
               Hazard_Mean = 132_000, 
               Hazard_SD = 16_000,
               Samp_Plan = 1, 
