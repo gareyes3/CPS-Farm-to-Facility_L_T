@@ -28,6 +28,7 @@ def get_trasn_rate(mean,sd):
             
 
 #%%%
+
 #Basic Information
 Tomato_weight = 260/454 #for medium tomato #260g tomato
 Tomato_Sequence = int(132_000/Tomato_weight)

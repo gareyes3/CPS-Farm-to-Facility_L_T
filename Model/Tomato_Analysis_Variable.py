@@ -120,8 +120,7 @@ def Get_Prev_Sampling(df, Type, Mass, Spread):
 
 
 #%% Contamination progression thruhgout system No Sampling
-
-    
+ 
 def Analysis_Loop(HA_Iterations,Loop_Iterations,Hazard_Mean, Hazard_SD, Samp_Plan, Tom_Per_Sample, Cont_Scen, Type, Mass, Spread  ):
     Hazard_Iterations = HA_Iterations
 
@@ -149,7 +148,10 @@ def Analysis_Loop(HA_Iterations,Loop_Iterations,Hazard_Mean, Hazard_SD, Samp_Pla
     
     
     for i in range(Hazard_Iterations):
-        Random_Haz = int(rng.normal(Hazard_Mean,Hazard_SD))
+        np.random.seed(100+i)
+        random.seed(100+i)
+        Random_Haz = int(np.random.normal(Hazard_Mean,Hazard_SD))
+        print(Random_Haz)
         Inputz_T.Iteration_Number = Loop_Iterations
         Inputz_T.Total_Hazard= Random_Haz
         Scen_T.Tomatoes_per_sample = Tom_Per_Sample
@@ -191,7 +193,7 @@ def Analysis_Loop(HA_Iterations,Loop_Iterations,Hazard_Mean, Hazard_SD, Samp_Pla
     return [Powers_df,Progression_df,Samp_Point_df,Progression_df_Prev,Progression_df_Prev_Proc,Prev_Point_df]
 
 #%%
-Outs_0= Analysis_Loop(HA_Iterations = 1,
+Outs_0= Analysis_Loop(HA_Iterations = 2,
               Loop_Iterations = 1,
               Hazard_Mean = 132_000, 
               Hazard_SD = 16_000,
@@ -203,8 +205,8 @@ Outs_0= Analysis_Loop(HA_Iterations = 1,
               Spread  = "Uniform" )
 
 
-Outs_1A= Analysis_Loop(HA_Iterations = 50,
-              Loop_Iterations = 50,
+Outs_1A= Analysis_Loop(HA_Iterations = 2,
+              Loop_Iterations = 1,
               Hazard_Mean = 132_000, 
               Hazard_SD = 16_000,
               Samp_Plan = 1, 

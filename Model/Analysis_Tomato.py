@@ -120,7 +120,7 @@ Outs_S3_C = MainModel.Main_Loop()
 
 #FPS
 
-Inputz_T.Iteration_Number = 2
+Inputz_T.Iteration_Number = 500
 Scen_T.Tomatoes_per_sample = 2
 Scen_T.Samp_Plan = 4
 Scen_T.Cont_Scenario = 1
@@ -245,7 +245,7 @@ Outs_S8_C = MainModel.Main_Loop()
 S0_0_MainOut = Outs_S0[0]
 
 S1_A_MainOut = Outs_S1_A[0]
-S1_B_MainOut = Outs_S1_B[0]
+S1_B_MainOut = Outs_S2_B[0]
 S1_C_MainOut = Outs_S1_C[0]
 
 S2_A_MainOut = Outs_S2_A[0]
@@ -671,6 +671,8 @@ S4_C_Exp=sum(S4_C_MainOut["Total CFU"])
 
 Exps = [S0_0_Exp,S1_A_Exp,S1_B_Exp,S1_C_Exp,S2_A_Exp,S2_B_Exp,S2_C_Exp,S3_A_Exp,S3_B_Exp,S3_C_Exp,S4_A_Exp,S4_B_Exp,S4_C_Exp]
 
+
+
 Exps_Emp=[]
 for i in range(0,len(Exps)):
     A = Exps[i]/Exps[0]
@@ -681,6 +683,40 @@ Exp_Main_Df =pd.DataFrame({
     "Exposure": Exps,
     "Relative": Exps_Emp
     })
+
+
+
+S0_0_ExpPS = sum(S0_0_0_MainOut["Total CFU"])
+
+S5_A_Exp=sum(S5_A_MainOut["Total CFU"])
+S5_B_Exp=sum(S5_B_MainOut["Total CFU"])
+S5_C_Exp=sum(S5_C_MainOut["Total CFU"])
+
+S6_A_Exp=sum(S6_A_MainOut["Total CFU"])
+S6_B_Exp=sum(S6_B_MainOut["Total CFU"])
+S6_C_Exp=sum(S6_C_MainOut["Total CFU"])
+
+S7_A_Exp=sum(S7_A_MainOut["Total CFU"])
+S7_B_Exp=sum(S7_B_MainOut["Total CFU"])
+S7_C_Exp=sum(S7_C_MainOut["Total CFU"])
+
+S8_A_Exp=sum(S8_A_MainOut["Total CFU"])
+S8_B_Exp=sum(S8_B_MainOut["Total CFU"])
+S8_C_Exp=sum(S8_C_MainOut["Total CFU"])
+
+ExpsPS = [S0_0_ExpPS,S5_A_Exp,S5_B_Exp,S5_C_Exp,S6_A_Exp,S6_B_Exp,S6_C_Exp,S7_A_Exp,S7_B_Exp,S7_C_Exp,S8_A_Exp,S8_B_Exp,S8_C_Exp]
+
+Exps_Emp=[]
+for i in range(0,len(ExpsPS)):
+    A = ExpsPS[i]/ExpsPS[0]
+    Exps_Emp.append(A)
+Exps_Emp
+
+Exp_Main_Df_PS =pd.DataFrame({
+    "Exposure": ExpsPS,
+    "Relative": Exps_Emp
+    })
+
 
 #%%
 Inproc_Prog_S0_0 = Outs_S0[4]

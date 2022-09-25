@@ -60,6 +60,7 @@ def Main_Loop():
     #Contaminated Bin
     for k in DepInputz.Total_Iterations:
         print(k, "Iteration")
+        random.seed(k)
         np.random.seed(k)
         
         #start_df = time.time()
@@ -87,6 +88,7 @@ def Main_Loop():
         
         ###Contamination Event Selection
         Cont_Day  = random.sample(list(Inputz_T.Days),1)
+        print(Cont_Day)
         
         Days_B_Pick1 = list(range(1,Inputz_T.Days_Between_Picks+1))
         Days_B_Pick2 = list(range(Inputz_T.Days_Between_Picks+1,2*Inputz_T.Days_Between_Picks+1))
