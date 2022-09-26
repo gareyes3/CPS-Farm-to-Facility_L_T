@@ -62,6 +62,7 @@ def Main_Loop():
         print(k, "Iteration")
         random.seed(k)
         np.random.seed(k)
+        reload(Inputz_T)
         
         #start_df = time.time()
         Field_df=pd.DataFrame({"Tomato_ID": Inputz_T.Individual_Tomatoes,
@@ -436,6 +437,7 @@ def Main_Loop():
                                                                           i = k)
                 
                 #start_Wash = time.time()
+                print(Inputz_T.FC_lvl)
                 Field_df=Funz_T.Tomato_Wash(df = Field_df, Location  = 5, FC_lvl=Inputz_T.FC_lvl)
                 #print(time.time() - start_Wash, "Wash Time")
                 
