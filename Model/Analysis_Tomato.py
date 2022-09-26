@@ -143,7 +143,7 @@ reload(DepInputz)
 Outs_S4_C = MainModel.Main_Loop()
 
 #%%
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 100
 Scen_T.Tomatoes_per_sample = 1
 Scen_T.Samp_Plan = 0
 Scen_T.Cont_Scenario = 2
@@ -151,21 +151,21 @@ reload(DepInputz)
 Outs_S0_0 = MainModel.Main_Loop()
 
 ### Bird Cont
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 100
 Scen_T.Tomatoes_per_sample = 2
 Scen_T.Samp_Plan = 1
 Scen_T.Cont_Scenario = 2
 reload(DepInputz)
 Outs_S5_A = MainModel.Main_Loop()
 
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 100
 Scen_T.Tomatoes_per_sample = 6
 Scen_T.Samp_Plan = 1
 Scen_T.Cont_Scenario = 2
 reload(DepInputz)
 Outs_S5_B  = MainModel.Main_Loop()
 
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 100
 Scen_T.Tomatoes_per_sample = 100
 Scen_T.Samp_Plan = 1
 Scen_T.Cont_Scenario = 2
@@ -174,21 +174,21 @@ Outs_S5_C = MainModel.Main_Loop()
 
 
 #HArvest
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 100
 Scen_T.Tomatoes_per_sample = 2
 Scen_T.Samp_Plan = 2
 Scen_T.Cont_Scenario = 2
 reload(DepInputz)
 Outs_S6_A = MainModel.Main_Loop()
 
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 100
 Scen_T.Tomatoes_per_sample = 6
 Scen_T.Samp_Plan = 2
 Scen_T.Cont_Scenario = 2
 reload(DepInputz)
 Outs_S6_B  = MainModel.Main_Loop()
 
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 100
 Scen_T.Tomatoes_per_sample = 100
 Scen_T.Samp_Plan = 2
 Scen_T.Cont_Scenario = 2
@@ -196,21 +196,21 @@ reload(DepInputz)
 Outs_S6_C = MainModel.Main_Loop()
 
 #Receiving
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 100
 Scen_T.Tomatoes_per_sample = 2
 Scen_T.Samp_Plan = 3
 Scen_T.Cont_Scenario = 2
 reload(DepInputz)
 Outs_S7_A = MainModel.Main_Loop()
 
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 100
 Scen_T.Tomatoes_per_sample = 6
 Scen_T.Samp_Plan = 3
 Scen_T.Cont_Scenario = 2
 reload(DepInputz)
 Outs_S7_B  = MainModel.Main_Loop()
 
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 100
 Scen_T.Tomatoes_per_sample = 100
 Scen_T.Samp_Plan = 3
 Scen_T.Cont_Scenario = 2
@@ -219,21 +219,21 @@ Outs_S7_C = MainModel.Main_Loop()
 
 
 #PPS
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 100
 Scen_T.Tomatoes_per_sample = 2
 Scen_T.Samp_Plan = 4
 Scen_T.Cont_Scenario = 2
 reload(DepInputz)
 Outs_S8_A = MainModel.Main_Loop()
 
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 100
 Scen_T.Tomatoes_per_sample = 6
 Scen_T.Samp_Plan = 4
 Scen_T.Cont_Scenario = 2
 reload(DepInputz)
 Outs_S8_B  = MainModel.Main_Loop()
 
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 100
 Scen_T.Tomatoes_per_sample = 100
 Scen_T.Samp_Plan = 4
 Scen_T.Cont_Scenario = 2
@@ -651,6 +651,16 @@ sns.lineplot(data = S2_C_Melted , x = "variable",y = "value")
 
 #%% Consumer Exposure
 
+Levels_SP= ["Baseline", "Preharvest", "Preharvest", "Preharvest", 
+         "Harvest", "Harvest", "Harvest", 
+         "Receiving", "Receiving", "Receiving", 
+         "Packed Product", "Packed Product", "Packed Product"]
+
+SPs_SP= ["Baseline", "2 Tomatoes", "6 Tomatoes", "5 X 20 Tomatoes", 
+         "2 Tomatoes", "6 Tomatoes", "5 X 20 Tomatoes",
+         "2 Tomatoes", "6 Tomatoes", "5 X 20 Tomatoes",
+         "2 Tomatoes", "6 Tomatoes", "5 X 20 Tomatoes"]
+
 S0_0_Exp = sum(S0_0_MainOut["Total CFU"])
 
 S1_A_Exp=sum(S1_A_MainOut["Total CFU"])
@@ -681,9 +691,14 @@ Exps_Emp
 
 Exp_Main_Df =pd.DataFrame({
     "Exposure": Exps,
-    "Relative": Exps_Emp
+    "Relative": Exps_Emp,
+    "Cont": "Uniform",
+    "Sampling Point": Levels_SP,
+    "Sampling Mass": SPs_SP
+    
     })
 
+Exp_Main_Df.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Exps_U.csv")
 
 
 S0_0_ExpPS = sum(S0_0_0_MainOut["Total CFU"])
@@ -706,6 +721,7 @@ S8_C_Exp=sum(S8_C_MainOut["Total CFU"])
 
 ExpsPS = [S0_0_ExpPS,S5_A_Exp,S5_B_Exp,S5_C_Exp,S6_A_Exp,S6_B_Exp,S6_C_Exp,S7_A_Exp,S7_B_Exp,S7_C_Exp,S8_A_Exp,S8_B_Exp,S8_C_Exp]
 
+
 Exps_Emp=[]
 for i in range(0,len(ExpsPS)):
     A = ExpsPS[i]/ExpsPS[0]
@@ -714,8 +730,13 @@ Exps_Emp
 
 Exp_Main_Df_PS =pd.DataFrame({
     "Exposure": ExpsPS,
-    "Relative": Exps_Emp
+    "Relative": Exps_Emp,
+    "Cont": "Point Source",
+    "Sampling Point": Levels_SP,
+    "Sampling Mass": SPs_SP
     })
+
+Exp_Main_Df_PS.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Exps_PS.csv")
 
 
 #%%

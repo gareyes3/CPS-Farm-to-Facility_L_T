@@ -222,7 +222,7 @@ def applying_survival_salmonella_cucum3(df, Time, RH, Temp, Location):
     
 
 
-def Tomato_Wash(df, Location, FC_lvl):
+def Tomato_Wash(df, Location, FC_lvl,i):
     #Parameters from https://www.sciencedirect.com/science/article/pii/S0963996916306081#f0010
     #Maffei. 
     #Backup https://www.sciencedirect.com/science/article/pii/S0740002019309694?casa_token=dt-V4Cbh89YAAAAA:FoQTt7f3Hly2-k9lJjUXPqkZ-W5tJChevsm2XIz3UTimqrYdUT9zAoqZUQlZWx1OhENvX3zqpqw
@@ -234,14 +234,16 @@ def Tomato_Wash(df, Location, FC_lvl):
         
     logred_sd = 0.175
     
-    logred_cont = -rng.normal(log_red_Wash_mean, logred_sd)
-
+    np.random.seed(i)
+    logred_cont = -np.random.normal(log_red_Wash_mean, logred_sd)
+    print(logred_cont, "logredcont")
     
     #Transfer to uncontaminated pieces. 
     Log_Trans_Upper = (-0.6798*FC_lvl)-0.6003
     Log_Trans_Lower = (-1.3596*FC_lvl)-0.6
     
-    transfer_cont = rng.uniform(Log_Trans_Lower,Log_Trans_Upper)
+    np.random.seed(i)
+    transfer_cont = np.random.uniform(Log_Trans_Lower,Log_Trans_Upper)
     
     Field_df_1 =df.loc[df["Location"]==Location].copy() #location 4 is wash water
     Field_df_1_conts = np.array(Field_df_1["CFU"].copy())

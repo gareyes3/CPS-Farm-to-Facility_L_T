@@ -40,7 +40,7 @@ import Dictionariez_T
 
 #%%
 
-def Main_Loop():
+def Main_Loop(random_seed =1000):
     
     #Model
     #Creation of collection Data Frames.
@@ -60,8 +60,8 @@ def Main_Loop():
     #Contaminated Bin
     for k in DepInputz.Total_Iterations:
         print(k, "Iteration")
-        random.seed(k)
-        np.random.seed(k)
+        random.seed(random_seed+k)
+        np.random.seed(random_seed+k)
         reload(Inputz_T)
         
         #start_df = time.time()
@@ -438,7 +438,7 @@ def Main_Loop():
                 
                 #start_Wash = time.time()
                 print(Inputz_T.FC_lvl)
-                Field_df=Funz_T.Tomato_Wash(df = Field_df, Location  = 5, FC_lvl=Inputz_T.FC_lvl)
+                Field_df=Funz_T.Tomato_Wash(df = Field_df, Location  = 5, FC_lvl=Inputz_T.FC_lvl, i = random_seed+k)
                 #print(time.time() - start_Wash, "Wash Time")
                 
 
