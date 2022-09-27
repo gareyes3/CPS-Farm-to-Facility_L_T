@@ -201,8 +201,45 @@ Exps %>%
 
 
 
+Exps %>%
+  filter(ContType == "Uniform") %>% 
+  group_by(Type, ContType) %>% 
+  ggplot(aes(x = Type, y = X42))+
+  geom_boxplot()
 
 
+
+```
+
+
+```{r}
+Exps_U<-read.csv("Data_Tomato_Outputs/Exps_U.csv")
+Exps_PS<-read.csv("Data_Tomato_Outputs/Exps_PS.csv")
+
+Exps_U<-Exps_U %>% 
+  mutate(FS = log10(Exposure/413894))
+
+Exps_PS<-Exps_PS %>% 
+  mutate(FS = log10(Exposure/81433))
+
+Exps_Binded<-rbind(Exps_U,Exps_PS)
+
+
+
+Exps_Binded$Cont<-factor(Exps_Binded$Cont,levels=c("Uniform","Point Source"))
+Exps_Binded$Sampling.Point<-factor(Exps_Binded$Sampling.Point,levels=c("Baseline","Preharvest", "Harvest", "Receiving", "Packed Product"))
+Exps_Binded$Sampling.Mass<-factor(Exps_Binded$Sampling.Mass,levels=c("2 Tomatoes","6 Tomatoes", "5 X 20 Tomatoes","Baseline"))
+
+
+Exps_Binded %>%   
+  ggplot(aes(x = fct_reorder(Sampling.Point, abs(FS)), y = FS, fill = Sampling.Mass))+
+  geom_col(position = "dodge")+
+  coord_flip()+
+  facet_wrap(~Cont)+
+  xlab("Sampling Stage")+
+  ylab("Factor Sensitivity log10(Scenario TAC/BAseline TAC)")
+  
+ggsave(filename=  "Plot Outputs/FS2.png",width = 25, height = 15, units = "cm", dpi = 600)
 
 
 ```
