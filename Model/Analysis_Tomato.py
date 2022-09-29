@@ -37,7 +37,7 @@ import Dictionariez_T
 
 #%% Contamination progression thruhgout system No Sampling
 
-Inputz_T.Iteration_Number = 500
+Inputz_T.Iteration_Number = 2
 Scen_T.Tomatoes_per_sample = 1
 Scen_T.Samp_Plan = 0
 Scen_T.Cont_Scenario = 1

@@ -124,6 +124,7 @@ def Get_Prev_Sampling(df, Type, Mass, Spread):
 def Analysis_Loop(HA_Iterations,Loop_Iterations,Hazard_Mean, Hazard_SD, Samp_Plan, Tom_Per_Sample, Cont_Scen, Type, Mass, Spread  ):
     Hazard_Iterations = HA_Iterations
 
+
     Powers_df = Power_DF_Creation(Column_Names = ["Power_Pick_1", "Power_Pick_2", "Power_Pick_3"],
                                   Niterations = Hazard_Iterations )
     Progression_df = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, 
@@ -145,7 +146,8 @@ def Analysis_Loop(HA_Iterations,Loop_Iterations,Hazard_Mean, Hazard_SD, Samp_Pla
     Prev_Point_df = Power_DF_Creation(Column_Names = ["Cont", "Pick", "Type", "Mass", "Cont Type", "HI"],
                                   Niterations = 0)
     
-    
+    Exposure_df = Power_DF_Creation(Column_Names = ["Total CFU"],Niterations = 0 )
+    Exposure_df["HI"] = np.nan
     
     for i in range(Hazard_Iterations):
         np.random.seed(100+i)
@@ -166,31 +168,38 @@ def Analysis_Loop(HA_Iterations,Loop_Iterations,Hazard_Mean, Hazard_SD, Samp_Pla
         
         #progression
         Progression_Temp = Outs[1]
-        Progression_Temp["HI"] = Random_Haz 
+        Progression_Temp["HI"] =i
         Progression_df=pd.concat([Progression_df,Progression_Temp]) 
         
         #
         Samp_Point = Get_Contam_Sampling(df = Outs[0], Type = Type,Mass = Mass, Spread= Spread)
-        Samp_Point["HI"] = Random_Haz
+        Samp_Point["HI"] = i
         Samp_Point_df = pd.concat([Samp_Point_df,Samp_Point])
         
         #Prevprog
         Progression_Prev = Outs[4]
-        Progression_Prev["HI"] = Random_Haz 
+        Progression_Prev["HI"] = i
         Progression_df_Prev=pd.concat([Progression_df_Prev,Progression_Prev]) 
         
         #Prevprog
         Progression_Prev_Prog = Outs[3]
-        Progression_Prev_Prog["HI"] = Random_Haz 
+        Progression_Prev_Prog["HI"] = i 
         Progression_df_Prev_Proc=pd.concat([Progression_df_Prev_Proc,Progression_Prev_Prog]) 
 
         #PrevSampling
         Prev_Point = Get_Prev_Sampling(df = Outs[0], Type = Type,Mass = Mass, Spread= Spread)
-        Prev_Point["HI"] = Random_Haz
+        Prev_Point["HI"] = i
         Prev_Point_df = pd.concat([Prev_Point_df,Prev_Point])
         
+        Expa =pd.DataFrame({
+            "Total CFU": Outs[0]["Total CFU"],
+            "HI": i})
+
         
-    return [Powers_df,Progression_df,Samp_Point_df,Progression_df_Prev,Progression_df_Prev_Proc,Prev_Point_df]
+        Exposure_df=pd.concat([Exposure_df,Expa])
+        
+        
+    return [Powers_df,Progression_df,Samp_Point_df,Progression_df_Prev,Progression_df_Prev_Proc,Prev_Point_df,Exposure_df]
 
 #%%
 Outs_0= Analysis_Loop(HA_Iterations = 50,

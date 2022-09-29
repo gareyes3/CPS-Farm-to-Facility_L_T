@@ -95,6 +95,8 @@ Field_df.PositiveSamples = [list() for x in range(len(Field_df.index))]
 #print(time.time() - start_df, "df Creation")
         
 
+Field_df["CFU"] = 1000
+
 
 Field_df['Location'] = np.random.choice(list([1,2,3]), len(Field_df))
 
@@ -125,3 +127,34 @@ def field_cont_percetage2(df, percent_cont, Hazard_lvl,No_Cont_Clusters):
 Field_df2=field_cont_percetage2(df= Field_df, percent_cont = 1, Hazard_lvl = 100_000,No_Cont_Clusters =2)
 
 Field_df2["CFU"].sum()
+
+
+###%% New Sampling Plans
+
+##Composite Mash. 
+#def F_Sampling_T (df, Pick_No, Location, NSamp_Unit, NoGrab):
+    
+df_field_1 =Field_df.loc[(Field_df["Pick_ID"]==1) & (Field_df["Location"]==1)].copy()
+if len(df_field_1)>0:
+    #print(Location, "Location")
+    #print(df["Location"])
+    #Unique_TestUnit = list(df[Test_Unit].unique())
+    #Grab_Weight = Partition_Weight #In lb
+    #for i in (Unique_TestUnit): #From sublot 1 to sublot n (same for pallet,lot,case etc)
+    for l in range (1, NSamp_Unit+1): #Number of samples per sublot or lot or pallet.
+        CFU_hh=df_field_1["CFU"]
+        #print(len(CFU_hh),"Length")
+        List_Random=CFU_hh.sample(n=20)
+        Total_Cells_Mash = sum(List_Random)
+        Total_Weight_Mash = 0.54*20*454
+        Cont_Mash=Total_Cells_Mash/Total_Weight_Mash
+        25/Total_Weight_Mash 
+        
+        #CFU_grab=np.random.binomial(Total_Cells_Mash,0.0050987)
+
+        P_Detection=1-math.exp(-(Cont_Mash*25))
+        RandomUnif = random.uniform(0,1)
+        if RandomUnif < P_Detection:
+            df_field_1.at[Index, 'PositiveSamples'].append(l)
+df.update(df_field_1)
+    return (df)
