@@ -20,3 +20,5 @@ Samp_Plan = 1
     #PPS
     
 Tomatoes_per_sample = 5
+
+Samp_Method = 1

@@ -121,7 +121,7 @@ def Get_Prev_Sampling(df, Type, Mass, Spread):
 
 #%% Contamination progression thruhgout system No Sampling
  
-def Analysis_Loop(HA_Iterations,Loop_Iterations,Hazard_Mean, Hazard_SD, Samp_Plan, Tom_Per_Sample, Cont_Scen, Type, Mass, Spread  ):
+def Analysis_Loop(HA_Iterations,Loop_Iterations,Hazard_Mean, Hazard_SD, Samp_Plan, Tom_Per_Sample, Cont_Scen, Type, Mass, Spread , Samp_Method ):
     Hazard_Iterations = HA_Iterations
 
 
@@ -159,6 +159,7 @@ def Analysis_Loop(HA_Iterations,Loop_Iterations,Hazard_Mean, Hazard_SD, Samp_Pla
         Scen_T.Tomatoes_per_sample = Tom_Per_Sample
         Scen_T.Samp_Plan = Samp_Plan
         Scen_T.Cont_Scenario = Cont_Scen
+        Scen_T.Samp_Method = Samp_Method
         reload(DepInputz)
         Outs = MainModel.Main_Loop(random_seed=i*20)
         #powers
@@ -248,6 +249,19 @@ Outs_1C= Analysis_Loop(HA_Iterations = 50,
               Mass = "1 Tomato", 
               Spread  = "Uniform" )
 
+Outs_1D= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 1, 
+              Tom_Per_Sample = 20, 
+              Cont_Scen =1, 
+              Type ="PH", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform",
+              Samp_Method  = 2
+              )
+
 Outs_2A= Analysis_Loop(HA_Iterations = 50,
               Loop_Iterations = 50,
               Hazard_Mean = 132_000, 
@@ -281,6 +295,19 @@ Outs_2C= Analysis_Loop(HA_Iterations = 50,
               Type ="H", 
               Mass = "1 Tomato", 
               Spread  = "Uniform" )
+
+Outs_2D= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 2, 
+              Tom_Per_Sample = 20, 
+              Cont_Scen =1, 
+              Type ="PH", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform",
+              Samp_Method  = 2
+              )
 
 Outs_3A= Analysis_Loop(HA_Iterations = 50,
               Loop_Iterations = 50,
@@ -316,6 +343,19 @@ Outs_3C= Analysis_Loop(HA_Iterations = 50,
               Mass = "1 Tomato", 
               Spread  = "Uniform" )
 
+Outs_3D= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 3, 
+              Tom_Per_Sample = 20, 
+              Cont_Scen =1, 
+              Type ="PH", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform",
+              Samp_Method  = 2
+              )
+
 Outs_4A= Analysis_Loop(HA_Iterations = 50,
               Loop_Iterations = 50,
               Hazard_Mean = 132_000, 
@@ -349,6 +389,19 @@ Outs_4C= Analysis_Loop(HA_Iterations = 50,
               Type ="PPS", 
               Mass = "1 Tomato", 
               Spread  = "Uniform" )
+
+Outs_4D= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 4, 
+              Tom_Per_Sample = 20, 
+              Cont_Scen =1, 
+              Type ="PH", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform",
+              Samp_Method  = 2
+              )
 
 
 ###
@@ -399,6 +452,21 @@ Outs_1C_01= Analysis_Loop(HA_Iterations = 50,
               Mass = "1 Tomato", 
               Spread  = "Uniform" )
 
+
+Outs_1D_01= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 1, 
+              Tom_Per_Sample = 20, 
+              Cont_Scen =2, 
+              Type ="PH", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" ,
+              Samp_Method  = 2)
+
+
+
 Outs_2A_01= Analysis_Loop(HA_Iterations = 50,
               Loop_Iterations = 50,
               Hazard_Mean = 132_000, 
@@ -432,6 +500,18 @@ Outs_2C_01= Analysis_Loop(HA_Iterations = 50,
               Type ="H", 
               Mass = "1 Tomato", 
               Spread  = "Uniform" )
+
+Outs_2D_01= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 2, 
+              Tom_Per_Sample = 20, 
+              Cont_Scen =2, 
+              Type ="PH", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" ,
+              Samp_Method  = 2)
 
 Outs_3A_01= Analysis_Loop(HA_Iterations = 50,
               Loop_Iterations = 50,
@@ -467,6 +547,18 @@ Outs_3C_01= Analysis_Loop(HA_Iterations = 50,
               Mass = "1 Tomato", 
               Spread  = "Uniform" )
 
+Outs_3D_01= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 3, 
+              Tom_Per_Sample = 20, 
+              Cont_Scen =2, 
+              Type ="PH", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" ,
+              Samp_Method  = 2)
+
 Outs_4A_01= Analysis_Loop(HA_Iterations = 50,
               Loop_Iterations = 50,
               Hazard_Mean = 132_000, 
@@ -500,6 +592,18 @@ Outs_4C_01= Analysis_Loop(HA_Iterations = 50,
               Type ="PPS", 
               Mass = "1 Tomato", 
               Spread  = "Uniform" )
+
+Outs_4D_01= Analysis_Loop(HA_Iterations = 50,
+              Loop_Iterations = 50,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 4, 
+              Tom_Per_Sample = 20, 
+              Cont_Scen =2, 
+              Type ="PH", 
+              Mass = "1 Tomato", 
+              Spread  = "Uniform" ,
+              Samp_Method  = 2)
 
 #%% Sampling Plan Power Analysis
 def get_Powers(df,Mass,Type):

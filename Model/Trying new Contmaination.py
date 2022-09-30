@@ -132,29 +132,34 @@ Field_df2["CFU"].sum()
 ###%% New Sampling Plans
 
 ##Composite Mash. 
-#def F_Sampling_T (df, Pick_No, Location, NSamp_Unit, NoGrab):
+def F_Sampling_T_Mash (df, Pick_No, Location, NSamp_Unit, NoGrab, Subsample_Mass):
     
-df_field_1 =Field_df.loc[(Field_df["Pick_ID"]==1) & (Field_df["Location"]==1)].copy()
-if len(df_field_1)>0:
-    #print(Location, "Location")
-    #print(df["Location"])
-    #Unique_TestUnit = list(df[Test_Unit].unique())
-    #Grab_Weight = Partition_Weight #In lb
-    #for i in (Unique_TestUnit): #From sublot 1 to sublot n (same for pallet,lot,case etc)
-    for l in range (1, NSamp_Unit+1): #Number of samples per sublot or lot or pallet.
-        CFU_hh=df_field_1["CFU"]
-        #print(len(CFU_hh),"Length")
-        List_Random=CFU_hh.sample(n=20)
-        Total_Cells_Mash = sum(List_Random)
-        Total_Weight_Mash = 0.54*20*454
-        Cont_Mash=Total_Cells_Mash/Total_Weight_Mash
-        25/Total_Weight_Mash 
-        
-        #CFU_grab=np.random.binomial(Total_Cells_Mash,0.0050987)
-
-        P_Detection=1-math.exp(-(Cont_Mash*25))
-        RandomUnif = random.uniform(0,1)
-        if RandomUnif < P_Detection:
-            df_field_1.at[Index, 'PositiveSamples'].append(l)
-df.update(df_field_1)
+    df_field_1 =df.loc[(Field_df["Pick_ID"]==1) & (df["Location"]==1)].copy()
+    if len(df_field_1)>0:
+        #print(Location, "Location")
+        #print(df["Location"])
+        #Unique_TestUnit = list(df[Test_Unit].unique())
+        #Grab_Weight = Partition_Weight #In lb
+        #for i in (Unique_TestUnit): #From sublot 1 to sublot n (same for pallet,lot,case etc)
+        for l in range (1, NSamp_Unit+1): #Number of samples per sublot or lot or pallet.
+            CFU_hh=df_field_1["CFU"]
+            #print(len(CFU_hh),"Length")
+            List_Random=CFU_hh.sample(n=NoGrab)
+            Total_Cells_Mash = sum(List_Random)
+            Total_Weight_Mash = Inputz_T.Tomato_weight*NoGrab*454
+            Cont_Mash=Total_Cells_Mash/Total_Weight_Mash
+            #CFU_grab=np.random.binomial(Total_Cells_Mash,0.0050987)
+            
+            P_Detection=1-math.exp(-(Cont_Mash*Subsample_Mass))
+            RandomUnif = random.uniform(0,1)
+            if RandomUnif < P_Detection:
+                for i in list(List_Random.index):
+                    df_field_1.at[i, 'PositiveSamples'].append(l)
+    df.update(df)
     return (df)
+
+Field_df3=F_Sampling_T_Mash (df = Field_df, Pick_No = 1, Location = 1, NSamp_Unit = 1, NoGrab = 20, Subsample_Mass = 25)
+
+
+
+

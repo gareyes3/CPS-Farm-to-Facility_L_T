@@ -152,12 +152,21 @@ def Main_Loop(random_seed =1000):
                     #print(time.time() - start_OCSWR, "Output Collectin Sampling WR")
     
                     start_Samp = time.time()
-                    Field_df = Funz_T.F_Sampling_T (df= Field_df, 
-                                              Pick_No = Current_Pick, 
-                                              Location = 1, #Location is in field
-                                              NSamp_Unit = 1, 
-                                              NoGrab = Scen_T.Tomatoes_per_sample) 
-                    print(Scen_T.Tomatoes_per_sample)
+                    if Scen_T.Samp_Method == 1:
+                        Field_df = Funz_T.F_Sampling_T (df= Field_df, 
+                                                  Pick_No = Current_Pick, 
+                                                  Location = 1, #Location is in field
+                                                  NSamp_Unit = 1, 
+                                                  NoGrab = Scen_T.Tomatoes_per_sample) 
+                        print(Scen_T.Tomatoes_per_sample)
+                    elif  Scen_T.Samp_Method == 2:
+                        print("Mash Sampling")
+                        Field_df =  Funz_T.F_Sampling_T_Mash (df= Field_df, 
+                                                              Pick_No= Current_Pick, 
+                                                              Location =1,
+                                                              NSamp_Unit =1, 
+                                                              NoGrab= Scen_T.Tomatoes_per_sample, 
+                                                              Subsample_Mass=25)
                     print(time.time() - start_Samp, "Sampling")
                     
                     #Rejection rules, reject current pick plus any upcoming picks
@@ -215,12 +224,21 @@ def Main_Loop(random_seed =1000):
                     #print(time.time() - start_OCSWR, "Output Collectin Sampling WR")
     
                     #start_Samp = time.time()
-                    Field_df = Funz_T.F_Sampling_T (df= Field_df, 
-                                              Pick_No = Current_Pick, 
-                                              Location = 1, #Location is in field
-                                              NSamp_Unit = 1, 
-                                              NoGrab = Scen_T.Tomatoes_per_sample) 
-                    print(Scen_T.Tomatoes_per_sample)
+                    if Scen_T.Samp_Method == 1:
+                        Field_df = Funz_T.F_Sampling_T (df= Field_df, 
+                                                  Pick_No = Current_Pick, 
+                                                  Location = 1, #Location is in field
+                                                  NSamp_Unit = 1, 
+                                                  NoGrab = Scen_T.Tomatoes_per_sample) 
+                        print(Scen_T.Tomatoes_per_sample)
+                    elif  Scen_T.Samp_Method == 2:
+                        print("Mash Sampling 2")
+                        Field_df =  Funz_T.F_Sampling_T_Mash (df= Field_df, 
+                                                              Pick_No= Current_Pick, 
+                                                              Location =1,
+                                                              NSamp_Unit =1, 
+                                                              NoGrab= Scen_T.Tomatoes_per_sample, 
+                                                              Subsample_Mass=25)
                     #print(time.time() - start_Samp, "Sampling")
                     
                     #Rejection rules, reject current pick plus any upcoming picks
@@ -377,11 +395,21 @@ def Main_Loop(random_seed =1000):
     
                     #start_Samp = time.time()
                     #print(Current_Samp, "Current_Samp")
-                    Field_df = Funz_T.F_Sampling_T (df= Field_df, 
-                                              Pick_No = Current_Samp, 
-                                              Location = 4, #Location is in field
-                                              NSamp_Unit = 1, 
-                                              NoGrab = Scen_T.Tomatoes_per_sample) 
+                    if Scen_T.Samp_Method == 1:
+                        Field_df = Funz_T.F_Sampling_T (df= Field_df, 
+                                                  Pick_No = Current_Pick, 
+                                                  Location = 4, #Location is in field
+                                                  NSamp_Unit = 1, 
+                                                  NoGrab = Scen_T.Tomatoes_per_sample) 
+                        print(Scen_T.Tomatoes_per_sample)
+                    elif  Scen_T.Samp_Method == 2:
+                        print("Mash Sampling R")
+                        Field_df =  Funz_T.F_Sampling_T_Mash (df= Field_df, 
+                                                              Pick_No= Current_Pick, 
+                                                              Location =4,
+                                                              NSamp_Unit =1, 
+                                                              NoGrab= Scen_T.Tomatoes_per_sample, 
+                                                              Subsample_Mass=25)
                     #print(Scen_T.Tomatoes_per_sample)
                     #print(time.time() - start_Samp, "Sampling")
                     
@@ -557,12 +585,21 @@ def Main_Loop(random_seed =1000):
                     #print(time.time() - start_OCSWR, "Output Collectin Sampling WR")
     
                     #start_Samp = time.time()
-                    Field_df = Funz_T.F_Sampling_T (df= Field_df, 
-                                              Pick_No = Current_Pick, 
-                                              Location = 9, #Location is in field
-                                              NSamp_Unit = 1, 
-                                              NoGrab = Scen_T.Tomatoes_per_sample) 
-                    print(Scen_T.Tomatoes_per_sample)
+                    if Scen_T.Samp_Method == 1:
+                        Field_df = Funz_T.F_Sampling_T (df= Field_df, 
+                                                  Pick_No = Current_Pick, 
+                                                  Location = 9, #Location is in field
+                                                  NSamp_Unit = 1, 
+                                                  NoGrab = Scen_T.Tomatoes_per_sample) 
+                        print(Scen_T.Tomatoes_per_sample)
+                    elif  Scen_T.Samp_Method == 2:
+                        print("Mash Sampling pps")
+                        Field_df =  Funz_T.F_Sampling_T_Mash (df= Field_df, 
+                                                              Pick_No= Current_Pick, 
+                                                              Location =9,
+                                                              NSamp_Unit =1, 
+                                                              NoGrab= Scen_T.Tomatoes_per_sample, 
+                                                              Subsample_Mass=25)
                     #print(time.time() - start_Samp, "Sampling")
                     
                     #Rejection rules, reject current pick plus any upcoming picks
