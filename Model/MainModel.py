@@ -166,7 +166,8 @@ def Main_Loop(random_seed =1000):
                                                               Location =1,
                                                               NSamp_Unit =1, 
                                                               NoGrab= Scen_T.Tomatoes_per_sample, 
-                                                              Subsample_Mass=25)
+                                                              Subsample_Mass=25,
+                                                              N_replicates = Scen_T.N_Replicates)
                     print(time.time() - start_Samp, "Sampling")
                     
                     #Rejection rules, reject current pick plus any upcoming picks
@@ -238,7 +239,8 @@ def Main_Loop(random_seed =1000):
                                                               Location =1,
                                                               NSamp_Unit =1, 
                                                               NoGrab= Scen_T.Tomatoes_per_sample, 
-                                                              Subsample_Mass=25)
+                                                              Subsample_Mass=25,
+                                                              N_replicates = Scen_T.N_Replicates)
                     #print(time.time() - start_Samp, "Sampling")
                     
                     #Rejection rules, reject current pick plus any upcoming picks
@@ -409,7 +411,8 @@ def Main_Loop(random_seed =1000):
                                                               Location =4,
                                                               NSamp_Unit =1, 
                                                               NoGrab= Scen_T.Tomatoes_per_sample, 
-                                                              Subsample_Mass=25)
+                                                              Subsample_Mass=25,
+                                                              N_replicates = Scen_T.N_Replicates)
                     #print(Scen_T.Tomatoes_per_sample)
                     #print(time.time() - start_Samp, "Sampling")
                     
@@ -599,7 +602,8 @@ def Main_Loop(random_seed =1000):
                                                               Location =9,
                                                               NSamp_Unit =1, 
                                                               NoGrab= Scen_T.Tomatoes_per_sample, 
-                                                              Subsample_Mass=25)
+                                                              Subsample_Mass=25,
+                                                              N_replicates = Scen_T.N_Replicates)
                     #print(time.time() - start_Samp, "Sampling")
                     
                     #Rejection rules, reject current pick plus any upcoming picks

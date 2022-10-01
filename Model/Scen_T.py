@@ -22,3 +22,4 @@ Samp_Plan = 1
 Tomatoes_per_sample = 5
 
 Samp_Method = 1
+N_Replicates = 25

@@ -403,12 +403,11 @@ def F_Sampling_T (df, Pick_No, Location, NSamp_Unit, NoGrab):
         df.update(df_field_1)
     return (df)
 
-
-def F_Sampling_T_Mash (df, Pick_No, Location, NSamp_Unit, NoGrab, Subsample_Mass):
+    
+def F_Sampling_T_Mash (df, Pick_No, Location, NSamp_Unit, NoGrab, Subsample_Mass, N_replicates):
     tom_weight = df.loc[1,"Weight"]
     df_field_1 =df.loc[(df["Pick_ID"]==1) & (df["Location"]==1)].copy()
     if len(df_field_1)>0:
-        
         #print(Location, "Location")
         #print(df["Location"])
         #Unique_TestUnit = list(df[Test_Unit].unique())
@@ -422,12 +421,12 @@ def F_Sampling_T_Mash (df, Pick_No, Location, NSamp_Unit, NoGrab, Subsample_Mass
             Total_Weight_Mash = tom_weight*NoGrab*454
             Cont_Mash=Total_Cells_Mash/Total_Weight_Mash
             #CFU_grab=np.random.binomial(Total_Cells_Mash,0.0050987)
-            
-            P_Detection=1-math.exp(-(Cont_Mash*Subsample_Mass))
-            RandomUnif = random.uniform(0,1)
-            if RandomUnif < P_Detection:
-                for i in list(List_Random.index):
-                    df_field_1.at[i, 'PositiveSamples'].append(l)
+            for k in range(N_replicates):
+                P_Detection=1-math.exp(-(Cont_Mash*Subsample_Mass))
+                RandomUnif = random.uniform(0,1)
+                if RandomUnif < P_Detection:
+                    for i in list(List_Random.index):
+                        df_field_1.at[i, 'PositiveSamples'].append(k)
     df.update(df)
     return (df)
 

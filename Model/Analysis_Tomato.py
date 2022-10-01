@@ -48,10 +48,11 @@ Outs_S0 = MainModel.Main_Loop()
 #%% Sampling Scenarios
  #Sampling Scenario
 
-Inputz_T.Iteration_Number = 500
-Scen_T.Tomatoes_per_sample = 2
+Inputz_T.Iteration_Number = 10
+Scen_T.Tomatoes_per_sample = 20
 Scen_T.Samp_Plan = 1
 Scen_T.Cont_Scenario = 1
+Scen_T.Samp_Method = 1
 reload(DepInputz)
 Outs_S1_A = MainModel.Main_Loop()
 
@@ -281,10 +282,10 @@ S8_C_MainOut = Outs_S8_C[0]
 
 
 #Analysis
-def Get_Power(df, Weight_After, Weight_Before, CFU_avail): 
+def Get_Power(df, Weight_After, Weight_Before, CFU_avail, Tot_Iter): 
     Total_Rej = sum((df[Weight_After]-df[Weight_Before])>0 )
     Total_Avail = (sum(df[ CFU_avail]>0))
-    Power =  sum((df[Weight_After]-df[Weight_Before])>0 )/ 500
+    Power =  sum((df[Weight_After]-df[Weight_Before])>0 )/ Tot_Iter
     return [Total_Rej,Total_Avail,Power]
 
 
@@ -292,19 +293,22 @@ def get_powers_scenarios (df):
     A=Get_Power(df = df, 
               Weight_After = "PHS 1 Weight Rejected Aft", 
               Weight_Before = "PHS 1 Weight Rejected Bef", 
-              CFU_avail = "CFU_Avail Pick 1"
+              CFU_avail = "CFU_Avail Pick 1",
+              Tot_Iter = 10
               )
 
     B=Get_Power(df = df, 
               Weight_After = "PHS 2 Weight Rejected Aft", 
               Weight_Before = "PHS 2 Weight Rejected Bef", 
-              CFU_avail = "CFU_Avail Pick 2"
+              CFU_avail = "CFU_Avail Pick 2",
+              Tot_Iter = 10
               )
 
     C= Get_Power(df = df, 
               Weight_After = "PHS 3 Weight Rejected Aft", 
               Weight_Before = "PHS 3 Weight Rejected Bef", 
-              CFU_avail = "CFU_Avail Pick 3"
+              CFU_avail = "CFU_Avail Pick 3",
+              Tot_Iter = 10
               )
     return [A,B,C]
 

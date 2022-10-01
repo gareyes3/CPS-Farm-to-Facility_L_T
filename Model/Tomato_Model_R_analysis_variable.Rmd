@@ -13,8 +13,8 @@ library(forcats)
 
 Reading in the data
 ```{r}
-Powers<-read.csv("Data_Tomato_Outputs/Powers_Out1.csv")
-Powers_PS<-read.csv("Data_Tomato_Outputs/Powers_Out_PS1.csv")
+Powers<-read.csv("Data_Tomato_Outputs/Powers_Out2.csv")
+Powers_PS<-read.csv("Data_Tomato_Outputs/Powers_Out_PS2.csv")
 ```
 
 ```{r}
@@ -28,7 +28,7 @@ Powers$variable<-as.factor(Powers$variable)
 Powers$Type<-as.factor(Powers$Type)
 
 Powers$Type<-factor(Powers$Type,levels=c("Preharvest", "Harvest", "Receiving", "Packed Product"))
-Powers$Mass<-factor(Powers$Mass,levels=c("2 tomatoes", "6 tomatoes", "20 x 5 tomatoes"))
+Powers$Mass<-factor(Powers$Mass,levels=c("2 tomatoes", "6 tomatoes", "20 x 5 tomatoes", "20 Tomato Mash"))
 Powers$ContType<-factor(Powers$ContType,levels=c("Uniform", "PointSource"))
 #Power_data$Samp_Plan<-factor(Power_data$Samp_Plan,levels=c("Preharvest", "Harvest", "Receiving", "Packed Product"))
 #Power_data$`Cont Type`<-factor(Power_data$`Cont Type`,levels=c("Uniform", "0.1% Cluster"))
@@ -41,17 +41,17 @@ margin_calc<-function(x){
 Powers_Summary = Powers %>% 
   group_by(Type, Mass, variable, ContType) %>% 
   #summarise(mean = median(value), CI_95 = mean + margin_calc(value),CI_05 = mean - margin_calc(value))
-  summarise(mean = mean(value), CI_95 = quantile(value, 0.90),CI_05 = quantile(value, 0.1)) 
-write.csv(Powers_Summary, file = "Data_Tomato_Outputs/Powers_Summary.csv")
+  summarise(mean = median(value), CI_95 = quantile(value, 0.90),CI_05 = quantile(value, 0.1)) 
+#write.csv(Powers_Summary, file = "Data_Tomato_Outputs/Powers_Summary.csv")
 
-Powers_Summary=read.csv("Data_Tomato_Outputs/Powers_Summary.csv")
-Powers_Summary$Mass<-as.factor(Powers_Summary$Mass)
-Powers_Summary$variable<-as.factor(Powers_Summary$variable)
-Powers_Summary$Type<-as.factor(Powers_Summary$Type)
+#Powers_Summary=read.csv("Data_Tomato_Outputs/Powers_Summary.csv")
+#Powers_Summary$Mass<-as.factor(Powers_Summary$Mass)
+#Powers_Summary$variable<-as.factor(Powers_Summary$variable)
+#Powers_Summary$Type<-as.factor(Powers_Summary$Type)
 
-Powers_Summary$Type<-factor(Powers_Summary$Type,levels=c("Preharvest", "Harvest", "Receiving", "Packed Product"))
-Powers_Summary$Mass<-factor(Powers_Summary$Mass,levels=c("2 tomatoes", "6 tomatoes", "20 x 5 tomatoes"))
-Powers_Summary$ContType<-factor(Powers_Summary$ContType,levels=c("Uniform", "PointSource"))
+#Powers_Summary$Type<-factor(Powers_Summary$Type,levels=c("Preharvest", "Harvest", "Receiving", "Packed Product"))
+#Powers_Summary$Mass<-factor(Powers_Summary$Mass,levels=c("2 tomatoes", "6 tomatoes", "20 x 5 tomatoes"))
+#Powers_Summary$ContType<-factor(Powers_Summary$ContType,levels=c("Uniform", "PointSource"))
 
 Powers_Summary %>% 
 ggplot(aes(x = Type, y = mean, color = Mass,shape = variable ,group = interaction(Mass, variable)))+
@@ -102,8 +102,8 @@ facet_grid(~variable, labeller = labeller(variable = c("Power_Pick_1" ="Pick 1",
 #Contmaination at sampling point
 
 ```{r}
-Cont_Prog<-read.csv("Data_Tomato_Outputs/Contam_Samp_Out1.csv")
-Cont_Prog_PS<-read.csv("Data_Tomato_Outputs/Contam_Samp_Out_PS1.csv")
+Cont_Prog<-read.csv("Data_Tomato_Outputs/Contam_Samp_Out2.csv")
+Cont_Prog_PS<-read.csv("Data_Tomato_Outputs/Contam_Samp_Out_PS2.csv")
 
 Cont_Prog$ContType<-"Uniform"
 Cont_Prog_PS$ContType<-"Point Source"
@@ -179,34 +179,35 @@ ggsave(filename=  "Plot Outputs/Prev_Sampling_Point1.png",width = 25, height = 1
 Exps<-read.csv("Data_Tomato_Outputs/Exps.csv")
 ExpsPS<-read.csv("Data_Tomato_Outputs/ExpsPS.csv")
 
-Exps<-rbind(Exps, ExpsPS)
+Exps<-Exps %>% 
+  group_by(Type,ContType, Mass) %>% 
+  summarise(Texps =sum(Total.CFU)) %>% 
+  mutate(FS = log10(Texps/1175641))
 
-Exps %>%
-  filter(ContType == "Uniform") %>% 
-  group_by(Type, ContType) %>% 
-  summarise(median =sum(X42), CI_95 = max(X42),CI_05 = quantile(X42, 0.1)) %>% 
-  mutate(FS = log10(median/2504775)) %>% 
-  ggplot(aes(x = fct_reorder(Type, abs(FS)), y = FS))+
-  geom_col()+
-  coord_flip()
+ExpsPS<-ExpsPS %>% 
+  group_by(Type,ContType, Mass) %>% 
+  summarise(Texps =sum(Total.CFU)) %>% 
+  mutate(FS = log10(Texps/1172513	))
 
-Exps %>%
-  filter(ContType == "Point Source") %>% 
-  group_by(Type, ContType) %>% 
-  summarise(median =sum(X42), CI_95 = max(X42),CI_05 = quantile(X42, 0.1)) %>% 
-  mutate(FS = log10(median/2662890)) %>% 
-  ggplot(aes(x = fct_reorder(Type, abs(FS)), y = FS))+
-  geom_col()+
-  coord_flip()
+ExpsB<-rbind(Exps, ExpsPS)
 
 
+ExpsB %>%   
+  ggplot(aes(x = fct_reorder(Type, abs(FS)), y = FS, fill = Mass))+
+  geom_col(position = "dodge")+
+  coord_flip()+
+  facet_wrap(~ContType)+
+  xlab("Sampling Stage")+
+  ylab("Factor Sensitivity log10(Scenario TAC/BAseline TAC)")
 
-Exps %>%
-  filter(ContType == "Uniform") %>% 
-  group_by(Type, ContType) %>% 
-  ggplot(aes(x = Type, y = X42))+
-  geom_boxplot()
 
+ExpsB %>%   
+  ggplot(aes(x = fct_reorder(Type, abs(FS)), y = FS, fill = Mass))+
+  geom_col(position = "dodge")+
+  coord_flip()+
+  facet_wrap(~ContType, scales = "free_x")+
+  xlab("Sampling Stage")+
+  ylab("Factor Sensitivity log10(Scenario TAC/BAseline TAC)")
 
 
 ```

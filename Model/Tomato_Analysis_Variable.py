@@ -121,7 +121,7 @@ def Get_Prev_Sampling(df, Type, Mass, Spread):
 
 #%% Contamination progression thruhgout system No Sampling
  
-def Analysis_Loop(HA_Iterations,Loop_Iterations,Hazard_Mean, Hazard_SD, Samp_Plan, Tom_Per_Sample, Cont_Scen, Type, Mass, Spread , Samp_Method ):
+def Analysis_Loop(HA_Iterations,Loop_Iterations,Hazard_Mean, Hazard_SD, Samp_Plan, Tom_Per_Sample, Cont_Scen, Type, Mass, Spread , Samp_Method, N_Replicates ):
     Hazard_Iterations = HA_Iterations
 
 
@@ -160,12 +160,13 @@ def Analysis_Loop(HA_Iterations,Loop_Iterations,Hazard_Mean, Hazard_SD, Samp_Pla
         Scen_T.Samp_Plan = Samp_Plan
         Scen_T.Cont_Scenario = Cont_Scen
         Scen_T.Samp_Method = Samp_Method
+        Scen_T.N_Replicates = N_Replicates
         reload(DepInputz)
         Outs = MainModel.Main_Loop(random_seed=i*20)
         #powers
-        Powers_df.at[i,"Power_Pick_1"]=get_powers_scenarios(Outs[0],Tot_Iter = Inputz_T.Iteration_Number)[0][2]
-        Powers_df.at[i,"Power_Pick_2"]=get_powers_scenarios(Outs[0],Tot_Iter = Inputz_T.Iteration_Number)[1][2]
-        Powers_df.at[i,"Power_Pick_3"]=get_powers_scenarios(Outs[0],Tot_Iter = Inputz_T.Iteration_Number)[2][2]
+        Powers_df.at[i,"Power_Pick_1"]=get_powers_scenarios(Outs[0],Tot_Iter = Loop_Iterations)[0][2]
+        Powers_df.at[i,"Power_Pick_2"]=get_powers_scenarios(Outs[0],Tot_Iter = Loop_Iterations)[1][2]
+        Powers_df.at[i,"Power_Pick_3"]=get_powers_scenarios(Outs[0],Tot_Iter = Loop_Iterations)[2][2]
         
         #progression
         Progression_Temp = Outs[1]
@@ -204,7 +205,7 @@ def Analysis_Loop(HA_Iterations,Loop_Iterations,Hazard_Mean, Hazard_SD, Samp_Pla
 
 #%%
 Outs_0= Analysis_Loop(HA_Iterations = 50,
-              Loop_Iterations =50 ,
+              Loop_Iterations = 50 ,
               Hazard_Mean = 132_000, 
               Hazard_SD = 0,
               Samp_Plan = 0, 
@@ -212,7 +213,9 @@ Outs_0= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =1, 
               Type ="PH", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform" ,
+              Samp_Method  = 1,
+              N_Replicates = 0)
 
 
 Outs_1A= Analysis_Loop(HA_Iterations = 50,
@@ -224,7 +227,9 @@ Outs_1A= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =1, 
               Type ="PH", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform",
+              Samp_Method  = 1,
+              N_Replicates = 0 )
 
 
 Outs_1B= Analysis_Loop(HA_Iterations = 50,
@@ -236,7 +241,9 @@ Outs_1B= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =1, 
               Type ="PH", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform" ,
+              Samp_Method  = 1,
+              N_Replicates = 0)
 
 Outs_1C= Analysis_Loop(HA_Iterations = 50,
               Loop_Iterations = 50,
@@ -247,7 +254,9 @@ Outs_1C= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =1, 
               Type ="PH", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform",
+              Samp_Method  = 1,
+              N_Replicates = 0 )
 
 Outs_1D= Analysis_Loop(HA_Iterations = 50,
               Loop_Iterations = 50,
@@ -259,7 +268,8 @@ Outs_1D= Analysis_Loop(HA_Iterations = 50,
               Type ="PH", 
               Mass = "1 Tomato", 
               Spread  = "Uniform",
-              Samp_Method  = 2
+              Samp_Method  = 2,
+              N_Replicates = 20
               )
 
 Outs_2A= Analysis_Loop(HA_Iterations = 50,
@@ -271,7 +281,9 @@ Outs_2A= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =1, 
               Type ="H", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform",
+              Samp_Method  = 1,
+              N_Replicates = 0 )
 
 
 Outs_2B= Analysis_Loop(HA_Iterations = 50,
@@ -283,7 +295,9 @@ Outs_2B= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =1, 
               Type ="H", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform",
+              Samp_Method  = 1 ,
+              N_Replicates = 0)
 
 Outs_2C= Analysis_Loop(HA_Iterations = 50,
               Loop_Iterations = 50,
@@ -294,7 +308,9 @@ Outs_2C= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =1, 
               Type ="H", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform" ,
+              Samp_Method  = 1,
+              N_Replicates = 0)
 
 Outs_2D= Analysis_Loop(HA_Iterations = 50,
               Loop_Iterations = 50,
@@ -306,7 +322,8 @@ Outs_2D= Analysis_Loop(HA_Iterations = 50,
               Type ="PH", 
               Mass = "1 Tomato", 
               Spread  = "Uniform",
-              Samp_Method  = 2
+              Samp_Method  = 2,
+              N_Replicates = 20
               )
 
 Outs_3A= Analysis_Loop(HA_Iterations = 50,
@@ -318,7 +335,9 @@ Outs_3A= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =1, 
               Type ="RS", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform",
+              Samp_Method  = 1,
+              N_Replicates = 0 )
 
 
 Outs_3B= Analysis_Loop(HA_Iterations = 50,
@@ -330,7 +349,9 @@ Outs_3B= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =1, 
               Type ="RS", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform" ,
+              Samp_Method  = 1,
+              N_Replicates = 0)
 
 Outs_3C= Analysis_Loop(HA_Iterations = 50,
               Loop_Iterations = 50,
@@ -341,7 +362,9 @@ Outs_3C= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =1, 
               Type ="RS", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform" ,
+              Samp_Method  = 1,
+              N_Replicates = 0)
 
 Outs_3D= Analysis_Loop(HA_Iterations = 50,
               Loop_Iterations = 50,
@@ -353,7 +376,8 @@ Outs_3D= Analysis_Loop(HA_Iterations = 50,
               Type ="PH", 
               Mass = "1 Tomato", 
               Spread  = "Uniform",
-              Samp_Method  = 2
+              Samp_Method  = 2,
+              N_Replicates = 20
               )
 
 Outs_4A= Analysis_Loop(HA_Iterations = 50,
@@ -365,7 +389,9 @@ Outs_4A= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =1, 
               Type ="PPS", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform",
+              Samp_Method  = 1,
+              N_Replicates = 0 )
 
 
 Outs_4B= Analysis_Loop(HA_Iterations = 50,
@@ -377,7 +403,9 @@ Outs_4B= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =1, 
               Type ="PPS", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform",
+              Samp_Method  = 1 ,
+              N_Replicates = 0)
 
 Outs_4C= Analysis_Loop(HA_Iterations = 50,
               Loop_Iterations = 50,
@@ -388,7 +416,9 @@ Outs_4C= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =1, 
               Type ="PPS", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform",
+              Samp_Method  = 1,
+              N_Replicates = 0 )
 
 Outs_4D= Analysis_Loop(HA_Iterations = 50,
               Loop_Iterations = 50,
@@ -400,7 +430,8 @@ Outs_4D= Analysis_Loop(HA_Iterations = 50,
               Type ="PH", 
               Mass = "1 Tomato", 
               Spread  = "Uniform",
-              Samp_Method  = 2
+              Samp_Method  = 2,
+              N_Replicates = 20
               )
 
 
@@ -415,7 +446,9 @@ Outs_0_01= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =2, 
               Type ="PH", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform",
+              Samp_Method  = 1 ,
+              N_Replicates = 0)
 
 
 Outs_1A_01= Analysis_Loop(HA_Iterations = 50,
@@ -427,7 +460,9 @@ Outs_1A_01= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =2, 
               Type ="PH", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform",
+              Samp_Method  = 1 ,
+              N_Replicates = 0)
 
 
 Outs_1B_01= Analysis_Loop(HA_Iterations = 50,
@@ -439,7 +474,9 @@ Outs_1B_01= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =2, 
               Type ="PH", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform",
+              Samp_Method  = 1 ,
+              N_Replicates = 0)
 
 Outs_1C_01= Analysis_Loop(HA_Iterations = 50,
               Loop_Iterations = 50,
@@ -450,7 +487,9 @@ Outs_1C_01= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =2, 
               Type ="PH", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform",
+              Samp_Method  = 1,
+              N_Replicates = 0 )
 
 
 Outs_1D_01= Analysis_Loop(HA_Iterations = 50,
@@ -463,7 +502,8 @@ Outs_1D_01= Analysis_Loop(HA_Iterations = 50,
               Type ="PH", 
               Mass = "1 Tomato", 
               Spread  = "Uniform" ,
-              Samp_Method  = 2)
+              Samp_Method  = 2,
+              N_Replicates = 20)
 
 
 
@@ -476,7 +516,9 @@ Outs_2A_01= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =2, 
               Type ="H", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform" ,
+              Samp_Method  = 1,
+              N_Replicates = 0)
 
 
 Outs_2B_01= Analysis_Loop(HA_Iterations = 50,
@@ -488,7 +530,9 @@ Outs_2B_01= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =2, 
               Type ="H", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform" ,
+              Samp_Method  = 1,
+              N_Replicates = 0)
 
 Outs_2C_01= Analysis_Loop(HA_Iterations = 50,
               Loop_Iterations = 50,
@@ -499,7 +543,9 @@ Outs_2C_01= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =2, 
               Type ="H", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform" ,
+              Samp_Method  = 1,
+              N_Replicates = 0)
 
 Outs_2D_01= Analysis_Loop(HA_Iterations = 50,
               Loop_Iterations = 50,
@@ -511,7 +557,8 @@ Outs_2D_01= Analysis_Loop(HA_Iterations = 50,
               Type ="PH", 
               Mass = "1 Tomato", 
               Spread  = "Uniform" ,
-              Samp_Method  = 2)
+              Samp_Method  = 2,
+              N_Replicates = 20)
 
 Outs_3A_01= Analysis_Loop(HA_Iterations = 50,
               Loop_Iterations = 50,
@@ -522,7 +569,9 @@ Outs_3A_01= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =2, 
               Type ="RS", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform",
+              Samp_Method  = 1, 
+              N_Replicates = 0 )
 
 
 Outs_3B_01= Analysis_Loop(HA_Iterations = 50,
@@ -534,7 +583,9 @@ Outs_3B_01= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =2, 
               Type ="RS", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform",
+              Samp_Method  = 1 , 
+              N_Replicates = 0)
 
 Outs_3C_01= Analysis_Loop(HA_Iterations = 50,
               Loop_Iterations = 50,
@@ -545,7 +596,9 @@ Outs_3C_01= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =2, 
               Type ="RS", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform",
+              Samp_Method  = 1, 
+              N_Replicates = 0 )
 
 Outs_3D_01= Analysis_Loop(HA_Iterations = 50,
               Loop_Iterations = 50,
@@ -557,7 +610,8 @@ Outs_3D_01= Analysis_Loop(HA_Iterations = 50,
               Type ="PH", 
               Mass = "1 Tomato", 
               Spread  = "Uniform" ,
-              Samp_Method  = 2)
+              Samp_Method  = 2, 
+              N_Replicates = 20)
 
 Outs_4A_01= Analysis_Loop(HA_Iterations = 50,
               Loop_Iterations = 50,
@@ -568,7 +622,9 @@ Outs_4A_01= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =2, 
               Type ="PPS", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform",
+              Samp_Method  = 1 , 
+              N_Replicates = 0)
 
 
 Outs_4B_01= Analysis_Loop(HA_Iterations = 50,
@@ -580,7 +636,9 @@ Outs_4B_01= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =2, 
               Type ="PPS", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform",
+              Samp_Method  = 1 , 
+              N_Replicates = 0)
 
 Outs_4C_01= Analysis_Loop(HA_Iterations = 50,
               Loop_Iterations = 50,
@@ -591,7 +649,9 @@ Outs_4C_01= Analysis_Loop(HA_Iterations = 50,
               Cont_Scen =2, 
               Type ="PPS", 
               Mass = "1 Tomato", 
-              Spread  = "Uniform" )
+              Spread  = "Uniform",
+              Samp_Method  = 1 , 
+              N_Replicates = 0)
 
 Outs_4D_01= Analysis_Loop(HA_Iterations = 50,
               Loop_Iterations = 50,
@@ -603,7 +663,8 @@ Outs_4D_01= Analysis_Loop(HA_Iterations = 50,
               Type ="PH", 
               Mass = "1 Tomato", 
               Spread  = "Uniform" ,
-              Samp_Method  = 2)
+              Samp_Method  = 2, 
+              N_Replicates = 20)
 
 #%% Sampling Plan Power Analysis
 def get_Powers(df,Mass,Type):
@@ -615,146 +676,166 @@ def get_Powers(df,Mass,Type):
 Power_1A =get_Powers(df = Outs_1A[0], Mass = "2 tomatoes",Type =  "Preharvest")
 Power_1B =get_Powers(df = Outs_1B[0], Mass = "6 tomatoes",Type =   "Preharvest")
 Power_1C =get_Powers(df = Outs_1C[0], Mass = "20 x 5 tomatoes",Type =   "Preharvest")
+Power_1D =get_Powers(df = Outs_1D[0], Mass = "20 Tomato Mash",Type =   "Preharvest")
 
 Power_2A =get_Powers(df = Outs_2A[0], Mass = "2 tomatoes",Type =  "Harvest")
 Power_2B =get_Powers(df = Outs_2B[0], Mass = "6 tomatoes",Type =  "Harvest")
 Power_2C =get_Powers(df = Outs_2C[0], Mass = "20 x 5 tomatoes",Type =  "Harvest")
+Power_2D =get_Powers(df = Outs_2D[0], Mass = "20 Tomato Mash",Type =   "Harvest")
 
 Power_3A =get_Powers(df = Outs_3A[0], Mass = "2 tomatoes",Type =  "Receiving")
 Power_3B =get_Powers(df = Outs_3B[0], Mass = "6 tomatoes",Type =  "Receiving")
 Power_3C =get_Powers(df = Outs_3C[0], Mass = "20 x 5 tomatoes",Type =  "Receiving")
+Power_3D =get_Powers(df = Outs_3D[0], Mass = "20 Tomato Mash",Type =   "Receiving")
+
 
 Power_4A =get_Powers(df = Outs_4A[0], Mass = "2 tomatoes",Type =  "Packed Product")
 Power_4B =get_Powers(df = Outs_4B[0], Mass = "6 tomatoes",Type =   "Packed Product")
 Power_4C =get_Powers(df = Outs_4C[0], Mass = "20 x 5 tomatoes",Type =   "Packed Product")
+Power_4D =get_Powers(df = Outs_4D[0], Mass = "20 Tomato Mash",Type =   "Packed Product")
 
-Powers_Out = pd.concat([Power_1A, Power_1B, Power_1C,
-                        Power_2A, Power_2B, Power_2C,
-                        Power_3A, Power_3B, Power_3C,
-                        Power_4A, Power_4B, Power_4C])
 
-Powers_Out.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Powers_Out1.csv")
+Powers_Out = pd.concat([Power_1A, Power_1B, Power_1C,Power_1D,
+                        Power_2A, Power_2B, Power_2C,Power_2D,
+                        Power_3A, Power_3B, Power_3C,Power_3D,
+                        Power_4A, Power_4B, Power_4C,Power_4D])
+
+Powers_Out.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Powers_Out2.csv")
 ###########################################################################
 
 Power_1A_01 =get_Powers(df = Outs_1A_01[0], Mass = "2 tomatoes",Type =   "Preharvest")
 Power_1B_01 =get_Powers(df = Outs_1B_01[0], Mass = "6 tomatoes",Type =   "Preharvest")
 Power_1C_01 =get_Powers(df = Outs_1C_01[0], Mass = "20 x 5 tomatoes",Type =   "Preharvest")
+Power_1D_01 =get_Powers(df = Outs_1D_01[0], Mass = "20 Tomato Mash",Type =   "Preharvest")
 
 Power_2A_01 =get_Powers(df = Outs_2A_01[0], Mass = "2 tomatoes",Type =  "Harvest")
 Power_2B_01 =get_Powers(df = Outs_2B_01[0], Mass = "6 tomatoes",Type =  "Harvest")
 Power_2C_01 =get_Powers(df = Outs_2C_01[0], Mass = "20 x 5 tomatoes",Type =  "Harvest")
+Power_2D_01 =get_Powers(df = Outs_2D_01[0], Mass = "20 Tomato Mash",Type =   "Harvest")
 
 Power_3A_01 =get_Powers(df = Outs_3A_01[0], Mass = "2 tomatoes",Type =  "Receiving")
 Power_3B_01 =get_Powers(df = Outs_3B_01[0], Mass = "6 tomatoes",Type =  "Receiving")
 Power_3C_01 =get_Powers(df = Outs_3C_01[0], Mass = "20 x 5 tomatoes",Type =  "Receiving")
+Power_3D_01 =get_Powers(df = Outs_3D_01[0], Mass = "20 Tomato Mash",Type =   "Receiving")
 
 Power_4A_01 =get_Powers(df = Outs_4A_01[0], Mass = "2 tomatoes",Type =   "Packed Product")
 Power_4B_01 =get_Powers(df = Outs_4B_01[0], Mass = "6 tomatoes",Type =   "Packed Product")
 Power_4C_01 =get_Powers(df = Outs_4C_01[0], Mass = "20 x 5 tomatoes",Type =   "Packed Product")
+Power_4D_01 =get_Powers(df = Outs_4D_01[0], Mass = "20 Tomato Mash",Type =   "Packed Product")
 
-Powers_Out = pd.concat([Power_1A_01, Power_1B_01, Power_1C_01,
-                        Power_2A_01, Power_2B_01, Power_2C_01,
-                        Power_3A_01, Power_3B_01, Power_3C_01,
-                        Power_4A_01, Power_4B_01, Power_4C_01])
+Powers_Out = pd.concat([Power_1A_01, Power_1B_01, Power_1C_01,Power_1D_01,
+                        Power_2A_01, Power_2B_01, Power_2C_01,Power_2D_01,
+                        Power_3A_01, Power_3B_01, Power_3C_01,Power_3D_01,
+                        Power_4A_01, Power_4B_01, Power_4C_01,Power_4D_01,])
 
-Powers_Out.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Powers_Out_PS1.csv")
+Powers_Out.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Powers_Out_PS2.csv")
 
 
 
 
 #%%
 #Get Contmaination at sampling points
-Contam_Samp_Out = pd.concat([Outs_1A[2], Outs_1B[2], Outs_1C[2],
-                        Outs_2A[2], Outs_2B[2], Outs_2C[2],
-                        Outs_3A[2], Outs_3B[2], Outs_3C[2],
-                        Outs_4A[2], Outs_4B[2], Outs_4C[2]])
+Contam_Samp_Out = pd.concat([Outs_1A[2], Outs_1B[2], Outs_1C[2],Outs_1D[2],
+                        Outs_2A[2], Outs_2B[2], Outs_2C[2],Outs_2D[2],
+                        Outs_3A[2], Outs_3B[2], Outs_3C[2],Outs_3D[2],
+                        Outs_4A[2], Outs_4B[2], Outs_4C[2],Outs_4D[2]])
 
 
 
-Contam_Samp_Out.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Contam_Samp_Out1.csv")
+Contam_Samp_Out.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Contam_Samp_Out2.csv")
 
-Contam_Samp_OutPS = pd.concat([Outs_1A_01[2], Outs_1B_01[2], Outs_1C_01[2],
-                        Outs_2A_01[2], Outs_2B_01[2], Outs_2C_01[2],
-                        Outs_3A_01[2], Outs_3B_01[2], Outs_3C_01[2],
-                        Outs_4A_01[2], Outs_4B_01[2], Outs_4C_01[2]])
+Contam_Samp_OutPS = pd.concat([Outs_1A_01[2], Outs_1B_01[2], Outs_1C_01[2],Outs_1D_01[2],
+                        Outs_2A_01[2], Outs_2B_01[2], Outs_2C_01[2],Outs_2D_01[2],
+                        Outs_3A_01[2], Outs_3B_01[2], Outs_3C_01[2],Outs_3D_01[2],
+                        Outs_4A_01[2], Outs_4B_01[2], Outs_4C_01[2],Outs_4D_01[2]])
 
-Contam_Samp_Out.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Contam_Samp_Out_PS1.csv")
+Contam_Samp_Out.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Contam_Samp_Out_PS2.csv")
 
-#%% Contmaination Progression: 
-Prev_Samp_Out = pd.concat([Outs_1A[5], Outs_1B[5], Outs_1C[5],
-                        Outs_2A[5], Outs_2B[5], Outs_2C[5],
-                        Outs_3A[5], Outs_3B[5], Outs_3C[5],
-                        Outs_4A[5], Outs_4B[5], Outs_4C[5]])
+#%% Prevalence Progression: 
+Prev_Samp_Out = pd.concat([Outs_1A[5], Outs_1B[5], Outs_1C[5],Outs_1D[5],
+                        Outs_2A[5], Outs_2B[5], Outs_2C[5],Outs_2D[5],
+                        Outs_3A[5], Outs_3B[5], Outs_3C[5],Outs_3D[5],
+                        Outs_4A[5], Outs_4B[5], Outs_4C[5],Outs_4D[5]])
 
 
 
 Prev_Samp_Out.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Prev_Samp_Out1.csv")
 
-Prev_Samp_OutPS = pd.concat([Outs_1A_01[5], Outs_1B_01[5], Outs_1C_01[5],
-                        Outs_2A_01[5], Outs_2B_01[5], Outs_2C_01[5],
-                        Outs_3A_01[5], Outs_3B_01[5], Outs_3C_01[5],
-                        Outs_4A_01[5], Outs_4B_01[5], Outs_4C_01[5]])
+Prev_Samp_OutPS = pd.concat([Outs_1A_01[5], Outs_1B_01[5], Outs_1C_01[5],Outs_1D_01[5],
+                        Outs_2A_01[5], Outs_2B_01[5], Outs_2C_01[5],Outs_2D_01[5],
+                        Outs_3A_01[5], Outs_3B_01[5], Outs_3C_01[5],Outs_3D_01[5],
+                        Outs_4A_01[5], Outs_4B_01[5], Outs_4C_01[5],Outs_4D_01[5]])
 Prev_Samp_OutPS.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Prev_Samp_Out_PS1.csv")
 
 
 #%% Consumer Exposure
-def get_exps(df,Type,ContType):
-    A0U = df[1].loc[:,[42, "HI"]]
-    A0U["Type"] = Type
-    A0U["ContType"] = ContType
-    return A0U
-
-Exp_0 = get_exps(Outs_0, "Baseline", "Uniform")
-Exp_1A = get_exps(Outs_1A, "PH 2 tomatoes", "Uniform")
-Exp_1B = get_exps(Outs_1B, "PH 6 tomatoes", "Uniform")
-Exp_1C = get_exps(Outs_1C, "PH 5 X 20 tomatoes", "Uniform")
-
-Exp_2A = get_exps(Outs_2A, "H 2 tomatoes", "Uniform")
-Exp_2B = get_exps(Outs_2B, "H 6 tomatoes", "Uniform")
-Exp_2C = get_exps(Outs_2C, "H 5 X 20 tomatoes", "Uniform")
-
-Exp_3A = get_exps(Outs_3A, "R 2 tomatoes", "Uniform")
-Exp_3B = get_exps(Outs_3B, "R 6 tomatoes", "Uniform")
-Exp_3C = get_exps(Outs_3C, "R 5 X 20 tomatoes", "Uniform")
-
-Exp_4A = get_exps(Outs_4A, "PP 2 tomatoes", "Uniform")
-Exp_4B = get_exps(Outs_4B, "PP 6 tomatoes", "Uniform")
-Exp_4C = get_exps(Outs_4C, "PP 5 X 20 tomatoes", "Uniform")
+def get_exps(df,Type,ContType, Mass):
+    AU= df[6].copy()
+    AU["Type"] = Type
+    AU["ContType"] = ContType
+    AU["Mass"] = Mass
+    return AU
 
 
-Exp_0_01 = get_exps(Outs_0_01, "Baseline", "Point Source")
-Exp_1A_01 = get_exps(Outs_1A_01, "PH 2 tomatoes", "Point Source")
-Exp_1B_01 = get_exps(Outs_1B_01, "PH 6 tomatoes", "Point Source")
-Exp_1C_01 = get_exps(Outs_1C_01, "PH 5 X 20 tomatoes", "Point Source")
 
-Exp_2A_01 = get_exps(Outs_2A_01, "H 2 tomatoes", "Point Source")
-Exp_2B_01 = get_exps(Outs_2B_01, "H 6 tomatoes", "Point Source")
-Exp_2C_01 = get_exps(Outs_2C_01, "H 5 X 20 tomatoes", "Point Source")
+Exp_0 = get_exps(Outs_0, "Baseline", "Uniform", "Baseline")
+Exp_1A = get_exps(Outs_1A, "Preharvest", "Uniform", "2 Tomatoes")
+Exp_1B = get_exps(Outs_1B, "Preharvest", "Uniform", "6 Tomatoes")
+Exp_1C = get_exps(Outs_1C, "Preharvest", "Uniform","5 X 20 tomatoes")
+Exp_1D = get_exps(Outs_1D, "Preharvest", "Uniform","20 Tomato Mash 20R")
 
-Exp_3A_01 = get_exps(Outs_3A_01, "R 2 tomatoes", "Point Source")
-Exp_3B_01 = get_exps(Outs_3B_01, "R 6 tomatoes", "Point Source")
-Exp_3C_01 = get_exps(Outs_3C_01, "R 5 X 20 tomatoes", "Point Source")
+Exp_2A = get_exps(Outs_2A, "Harvest", "Uniform","2 Tomatoes")
+Exp_2B = get_exps(Outs_2B, "Harvest", "Uniform","6 Tomatoes")
+Exp_2C = get_exps(Outs_2C, "Harvest", "Uniform","5 X 20 tomatoes")
+Exp_2D = get_exps(Outs_2D, "Harvest", "Uniform","20 Tomato Mash 20R")
 
-Exp_4A_01 = get_exps(Outs_4A_01, "PP 2 tomatoes", "Point Source")
-Exp_4B_01 = get_exps(Outs_4B_01, "PP 6 tomatoes", "Point Source")
-Exp_4C_01 = get_exps(Outs_4C_01, "PP 5 X 20 tomatoes", "Point Source")
+Exp_3A = get_exps(Outs_3A, "Receiving", "Uniform","2 Tomatoes")
+Exp_3B = get_exps(Outs_3B, "Receiving", "Uniform","6 Tomatoes")
+Exp_3C = get_exps(Outs_3C, "Receiving", "Uniform","5 X 20 tomatoes")
+Exp_3D = get_exps(Outs_3D, "Receiving", "Uniform","20 Tomato Mash 20R")
 
+Exp_4A = get_exps(Outs_4A, "Packed Product", "Uniform","2 Tomatoes")
+Exp_4B = get_exps(Outs_4B, "Packed Product", "Uniform","6 Tomatoes")
+Exp_4C = get_exps(Outs_4C, "Packed Product", "Uniform","5 X 20 tomatoes")
+Exp_4D = get_exps(Outs_4D, "Packed Product", "Uniform","20 Tomato Mash 20R")
+
+
+Exp_0_01 = get_exps(Outs_0_01, "Baseline", "Point Source", "Baseline")
+Exp_1A_01 = get_exps(Outs_1A_01, "Preharvest", "Point Source", "2 Tomatoes")
+Exp_1B_01 = get_exps(Outs_1B_01, "Preharvest", "Point Source", "6 Tomatoes")
+Exp_1C_01 = get_exps(Outs_1C_01, "Preharvest", "Point Source","5 X 20 tomatoes")
+Exp_1D_01 = get_exps(Outs_1D_01, "Preharvest", "Point Source","20 Tomato Mash 20R")
+
+Exp_2A_01 = get_exps(Outs_2A_01, "Harvest", "Point Source","2 Tomatoes")
+Exp_2B_01 = get_exps(Outs_2B_01, "Harvest", "Point Source","6 Tomatoes")
+Exp_2C_01 = get_exps(Outs_2C_01, "Harvest", "Point Source","5 X 20 tomatoes")
+Exp_2D_01 = get_exps(Outs_2D_01, "Harvest", "Point Source","20 Tomato Mash 20R")
+
+Exp_3A_01 = get_exps(Outs_3A_01, "Receiving", "Point Source","2 Tomatoes")
+Exp_3B_01 = get_exps(Outs_3B_01, "Receiving", "Point Source","6 Tomatoes")
+Exp_3C_01 = get_exps(Outs_3C_01, "Receiving", "Point Source","5 X 20 tomatoes")
+Exp_3D_01 = get_exps(Outs_3D_01, "Receiving", "Point Source","20 Tomato Mash 20R")
+
+Exp_4A_01 = get_exps(Outs_4A_01, "Packed Product", "Point Source","2 Tomatoes")
+Exp_4B_01 = get_exps(Outs_4B_01, "Packed Product", "Point Source","6 Tomatoes")
+Exp_4C_01 = get_exps(Outs_4C_01, "Packed Product", "Point Source","5 X 20 tomatoes")
+Exp_4D_01 = get_exps(Outs_4D_01, "Packed Product", "Point Source","20 Tomato Mash 20R")
 
 Exps = pd.concat([Exp_0,
-                  Exp_1A,Exp_1B,Exp_1C,
-                  Exp_2A,Exp_2B,Exp_2C,
-                  Exp_3A,Exp_3B,Exp_3C,
-                  Exp_4A,Exp_4B,Exp_4C])
+                  Exp_1A,Exp_1B,Exp_1C,Exp_1D,
+                  Exp_2A,Exp_2B,Exp_2C,Exp_1D,
+                  Exp_3A,Exp_3B,Exp_3C,Exp_1D,
+                  Exp_4A,Exp_4B,Exp_4C,Exp_1D])
 
 
 
 Exps.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Exps.csv")
 
 ExpsPS = pd.concat([Exp_0_01,
-                  Exp_1A_01,Exp_1B_01,Exp_1C_01,
-                  Exp_2A_01,Exp_2B_01,Exp_2C_01,
-                  Exp_3A_01,Exp_3B_01,Exp_3C_01,
-                  Exp_4A_01,Exp_4B_01,Exp_4C_01])
+                  Exp_1A_01,Exp_1B_01,Exp_1C_01,Exp_1D_01,
+                  Exp_2A_01,Exp_2B_01,Exp_2C_01,Exp_2D_01,
+                  Exp_3A_01,Exp_3B_01,Exp_3C_01,Exp_3D_01,
+                  Exp_4A_01,Exp_4B_01,Exp_4C_01,Exp_4D_01])
 
 ExpsPS.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\ExpsPS.csv")
 

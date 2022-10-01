@@ -114,6 +114,6 @@ FC_lvl = np.random.triangular(25,100,200)
 
 
 #Total Iterations
-Iteration_Number = 1
+Iteration_Number = 50
 
 
