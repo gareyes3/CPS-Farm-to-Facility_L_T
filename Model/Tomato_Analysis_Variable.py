@@ -31,10 +31,7 @@ import Scen_T
 import MainModel
 import DepInputz
 
-import Funz
 import T_Inputz
-import InFunz
-import ContScen
 import Dictionariez_T
 
 from multiprocessing import Process

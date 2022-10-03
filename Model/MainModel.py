@@ -28,11 +28,7 @@ import Funz_T
 import Inputz_T
 import Scen_T
 import DepInputz
-
-import Funz
 import T_Inputz
-import InFunz
-import ContScen
 import Dictionariez_T
 
 

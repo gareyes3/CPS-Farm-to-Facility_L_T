@@ -52,9 +52,10 @@ def F_CC_Dicing(df):
         count = count+1
     df["CFU"] = V_conts
     return(df)
+
         
 df2 = Field_df.copy()
-df2.at["CFU"] = 627971
+df2.loc[0,"CFU"] = 627971
 
 df3 = F_CC_Dicing(df= df2)
 
@@ -82,6 +83,8 @@ def applying_reduction(df, total_change):
 Field_df["CFU"] = 1000
 Field_df = applying_reduction(Field_df, -0.5)
 
+#Dicing
+Field_df = F_CC_Dicing(Field_df)
 
 
 
