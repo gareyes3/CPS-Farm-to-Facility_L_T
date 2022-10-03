@@ -201,6 +201,7 @@ ExpsPS<-ExpsPS %>%
 ExpsB<-rbind(Exps, ExpsPS)
 
 ExpsB$ContType<-factor(ExpsB$ContType,levels=c("Uniform", "Point Source"))
+ExpsB$Mass<-factor(ExpsB$Mass,levels=c("Baseline","2 Tomatoes", "6 Tomatoes", "5 X 20 tomatoes", "20 Tomato Mash 20R","20 Tomatoes"))
 
 ExpsB %>%   
   ggplot(aes(x = fct_reorder(Type, abs(FS)), y = FS, fill = Mass))+
