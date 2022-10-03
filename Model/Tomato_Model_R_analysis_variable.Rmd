@@ -23,12 +23,14 @@ Powers_PS$ContType<-"PointSource"
 
 Powers<-rbind(Powers,Powers_PS)
 
+Powers$value<-ifelse(Powers$value>0.99,Powers$value/50, Powers$value)
+
 Powers$Mass<-as.factor(Powers$Mass)
 Powers$variable<-as.factor(Powers$variable)
 Powers$Type<-as.factor(Powers$Type)
 
 Powers$Type<-factor(Powers$Type,levels=c("Preharvest", "Harvest", "Receiving", "Packed Product"))
-Powers$Mass<-factor(Powers$Mass,levels=c("2 tomatoes", "6 tomatoes", "20 x 5 tomatoes", "20 Tomato Mash"))
+Powers$Mass<-factor(Powers$Mass,levels=c("2 tomatoes", "6 tomatoes", "20 x 5 tomatoes", "20 Tomato Mash", "20 Tomatoes"))
 Powers$ContType<-factor(Powers$ContType,levels=c("Uniform", "PointSource"))
 #Power_data$Samp_Plan<-factor(Power_data$Samp_Plan,levels=c("Preharvest", "Harvest", "Receiving", "Packed Product"))
 #Power_data$`Cont Type`<-factor(Power_data$`Cont Type`,levels=c("Uniform", "0.1% Cluster"))
@@ -65,10 +67,10 @@ ggplot(aes(x = Type, y = mean, color = Mass,shape = variable ,group = interactio
   scale_color_discrete(name="Sampling Plan Mass")+
   scale_shape_discrete(name="Pick Number",labels = c("Power_Pick_1" ="Pick 1", "Power_Pick_2" ="Pick 2", "Power_Pick_3" ="Pick 3") )+
   scale_linetype_discrete(name="Pick Number",labels = c("Power_Pick_1" ="Pick 1", "Power_Pick_2" ="Pick 2", "Power_Pick_3" ="Pick 3"))+
-  facet_grid(~ContType)+
+  facet_grid(~ContType, scales = "free_y")+
   theme_bw()
 
-ggsave(filename=  "Plot Outputs/Powers925.png",width = 25, height = 15, units = "cm", dpi = 600)
+ggsave(filename=  "Plot Outputs/Powers930.png",width = 25, height = 15, units = "cm", dpi = 600)
 
 
 Powers%>% 
@@ -122,6 +124,7 @@ Cont_Prog$Type[Cont_Prog$Type == "PPS"] <- "Packed Product"
 Cont_Prog$Type<-as.factor(Cont_Prog$Type)
 Cont_Prog$Pick<-as.factor(Cont_Prog$Pick)
 
+Cont_Prog$`ContType`<-factor(Cont_Prog$`ContType`,levels=c("Uniform", "Point Source"))
 Cont_Prog$Type<-factor(Cont_Prog$Type,levels=c("Preharvest", "Harvest", "Receiving", "Packed Product"))
 
 Cont_Prog %>% 
@@ -134,9 +137,10 @@ ggplot(aes(x = Type, y = Cont,color = Pick))+
 geom_boxplot()+
 xlab("Sampling Plan")+ ylab ("Total Adulteran Cells (TAC) at sampling point")+
 facet_wrap(~`ContType`)+
-scale_y_continuous(labels = scales::comma)
+scale_y_continuous(labels = scales::comma)+
+  theme_bw()
 
-ggsave(filename=  "Plot Outputs/Cont_Sampling_Point1.png",width = 25, height = 15, units = "cm", dpi = 600)
+ggsave(filename=  "Plot Outputs/Cont_Sampling_Point930.png",width = 25, height = 15, units = "cm", dpi = 600)
 ```
 # Contmaination Spread
 
@@ -146,6 +150,9 @@ Prev_Prog_PS<-read.csv("Data_Tomato_Outputs/Prev_Samp_Out_PS1.csv")
 
 Prev_Prog$PrevType<-"Uniform"
 Prev_Prog_PS$PrevType<-"Point Source"
+
+
+
 
 Prev_Prog<-rbind(Prev_Prog, Prev_Prog_PS)
 
@@ -160,6 +167,7 @@ Prev_Prog$Type[Prev_Prog$Type == "PPS"] <- "Packed Product"
 #Prev_Prog$Mass<-factor(Prev_Prog$Mass,levels=c("2 tomatoes", "6 tomatoes", "20 x 5 tomatoes"))
 Prev_Prog$Type<-as.factor(Prev_Prog$Type)
 Prev_Prog$Pick<-as.factor(Prev_Prog$Pick)
+Prev_Prog$PrevType<-factor(Prev_Prog$PrevType,levels=c("Uniform", "Point Source"))
 
 Prev_Prog$Type<-factor(Prev_Prog$Type,levels=c("Preharvest", "Harvest", "Receiving", "Packed Product"))
 
@@ -170,9 +178,10 @@ ggplot(aes(x = Type, y = Cont,color = Pick))+
 geom_boxplot()+
 xlab("Sampling Plan")+ ylab ("Prevalence of contmaination at each sampling point")+
 facet_wrap(~`PrevType`,scales="free_y")+
-scale_y_continuous(labels = scales::percent )
+scale_y_continuous(labels = scales::percent )+
+  theme_bw()
 
-ggsave(filename=  "Plot Outputs/Prev_Sampling_Point1.png",width = 25, height = 15, units = "cm", dpi = 600)
+ggsave(filename=  "Plot Outputs/Prev_Sampling_Point930.png",width = 25, height = 15, units = "cm", dpi = 600)
 ```
 #Exposure. 
 ```{r}
@@ -191,6 +200,7 @@ ExpsPS<-ExpsPS %>%
 
 ExpsB<-rbind(Exps, ExpsPS)
 
+ExpsB$ContType<-factor(ExpsB$ContType,levels=c("Uniform", "Point Source"))
 
 ExpsB %>%   
   ggplot(aes(x = fct_reorder(Type, abs(FS)), y = FS, fill = Mass))+
@@ -208,6 +218,9 @@ ExpsB %>%
   facet_wrap(~ContType, scales = "free_x")+
   xlab("Sampling Stage")+
   ylab("Factor Sensitivity log10(Scenario TAC/BAseline TAC)")
+
+ggsave(filename=  "Plot Outputs/Exps930.png",width = 25, height = 17, units = "cm", dpi = 600)
+
 
 
 ```

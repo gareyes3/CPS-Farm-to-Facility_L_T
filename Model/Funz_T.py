@@ -406,10 +406,10 @@ def F_Sampling_T (df, Pick_No, Location, NSamp_Unit, NoGrab):
     
 def F_Sampling_T_Mash (df, Pick_No, Location, NSamp_Unit, NoGrab, Subsample_Mass, N_replicates):
     tom_weight = df.loc[1,"Weight"]
-    df_field_1 =df.loc[(df["Pick_ID"]==1) & (df["Location"]==1)].copy()
+    df_field_1 =df.loc[(df["Pick_ID"]==Pick_No) & (df["Location"]==Location)].copy()
     if len(df_field_1)>0:
         #print(Location, "Location")
-        #print(df["Location"])
+        #print(df["Location"])e
         #Unique_TestUnit = list(df[Test_Unit].unique())
         #Grab_Weight = Partition_Weight #In lb
         #for i in (Unique_TestUnit): #From sublot 1 to sublot n (same for pallet,lot,case etc)
