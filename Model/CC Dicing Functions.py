@@ -77,7 +77,7 @@ def applying_reduction(df, total_change):
     df.loc[:,"CFU"]=df["CFU"].apply(func=F_Simple_Reduction, total_change = total_change)
     return df
 
-
+#%%
 #Process Model Analysis 2: 
     #Step 1 preliminary Rinse: 
 Field_df["CFU"] = 1000
@@ -85,6 +85,8 @@ Field_df = applying_reduction(Field_df, -0.5)
 
 #Dicing
 Field_df = F_CC_Dicing(Field_df)
+
+
 
 
 

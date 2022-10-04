@@ -74,14 +74,18 @@ ggsave(filename=  "Plot Outputs/Powers930.png",width = 25, height = 15, units = 
 
 
 Powers%>% 
-ggplot(aes(x = Type, y = value, color = Mass))+
-geom_point(position=position_jitterdodge(), alpha = 0.3, size = 1)+
-geom_boxplot(alpha = 0.5, outlier.shape=NA, size = 1)+
+ggplot(aes(x = Type, y = value, color = Mass, fill = Mass))+
+#geom_point(position=position_jitterdodge(), alpha = 0.3, size = 1)+
+geom_boxplot(alpha = 0.5, outlier.shape=NA)+
   scale_color_discrete(name="Sampling Plan Mass")+
+  scale_fill_discrete(name="Sampling Plan Mass")+
   ylab("Sampling Plan Power")+
   xlab("Sampling at Process Step")+
   facet_wrap(~ContType)+
   theme_bw()
+
+ggsave(filename=  "Plot Outputs/Powers930Comb.png",width = 25, height = 15, units = "cm", dpi = 600)
+
 
 Powers%>% 
 ggplot(aes(x = Type, y = value, color = Mass))+
