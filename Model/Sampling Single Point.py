@@ -34,7 +34,7 @@ Field_df=pd.DataFrame({"Tomato_ID": Inputz_T.Individual_Tomatoes,
                        "CFU": 0,
                        "CFU_BRej":"",
                        "Location": 1,
-                       'PositiveSamples':"",
+                       'PositiveSamples':0,
                        "Rej_Acc" :"Acc"
                   })
 
@@ -91,7 +91,8 @@ def F_Sampling_T (df, Pick_No, Location, NSamp_Unit, NoGrab):
                 P_Detection=1-math.exp(-CFU_grab)
                 RandomUnif = random.uniform(0,1)
                 if RandomUnif < P_Detection:
-                    df_field_1.at[Index, 'PositiveSamples'].append(l)
+                    #df_field_1.at[Index, 'PositiveSamples'].append(l)
+                    df_field_1.at[Index, 'PositiveSamples'] = df_field_1.at[Index, 'PositiveSamples'] + 1
         df.update(df_field_1)
     return (df)
 
@@ -102,12 +103,13 @@ def F_Rejection_Rule_T (df, Pick_No, Av_Picks, Test_Unit, limit):
     Reject = []
     #for  i in Unique_Test_Unit:
     df_Subset = df_field_1[df_field_1[Test_Unit] == Pick_No].copy()
-    List_of_grabs = df_Subset['PositiveSamples'].tolist()
-    flat_list = [item for sublist in  List_of_grabs for item in sublist]
-    Unique_Positives =list(np.unique(flat_list))
-    if len(Unique_Positives)>limit:
+    #List_of_grabs = df_Subset['PositiveSamples'].tolist()
+    #flat_list = [item for sublist in  List_of_grabs for item in sublist]
+    #Unique_Positives =list(np.unique(flat_list))
+    Postives = sum(df_Subset['PositiveSamples'] >0)
+    if Postives>limit:
         Reject.append(Test_Unit)
-    df_field_1.PositiveSamples = [list() for x in range(len(df_field_1.index))] #this is in case everything gets rejected
+    df_field_1.PositiveSamples = 0 #this is in case everything gets rejected
     if len(Reject)>0:
      df_field_1.loc[:,"Rej_Acc"] = "REJ"
      df_field_1.loc[:,"CFU_BRej"] = df_field_1["CFU"]
@@ -124,34 +126,35 @@ def F_Rejection_Rule_T (df, Pick_No, Av_Picks, Test_Unit, limit):
     return df
 
 
-Field_df = field_cont_percetage2(df = Field_df, percent_cont = 10, Hazard_lvl = 132000,No_Cont_Clusters = 1)
+Field_df = field_cont_percetage2(df = Field_df, percent_cont = 10, Hazard_lvl = 13200,No_Cont_Clusters = 1)
 
 start_RR = time.time()
 
+Field_df['PositiveSamples']
+
 def Sampling_Multiple(df, iters): 
-    collectdf = pd.DataFrame({ "Iterations": list(range(iters)),
-                              "Acc_Rej": ""
-        })
-    
+    collectdf = []
     for i in range(iters):
-        start_RR = time.time()
+        
         df2= df.copy()
+        
         df2 =F_Sampling_T (df = df2, Pick_No = 1, Location = 1, NSamp_Unit = 1, NoGrab = 60)
+        start_RR = time.time()
+
         df2 =F_Rejection_Rule_T (df=df2, Pick_No =1, Av_Picks =[1,2,3], Test_Unit ="Pick_ID", limit = 0)
         print(time.time() - start_RR, "Rejection")
         if sum(df2["Rej_Acc"] == "REJ") > 0:
-            collectdf.loc[i,"Acc_Rej"] = 1
+            collectdf.append(1)
         else:
-            collectdf.loc[i,"Acc_Rej"] = 0
+            collectdf.append(0)
     
-    pr_rej = sum(collectdf["Acc_Rej"])/iters
+    pr_rej = sum(collectdf)/iters
     return pr_rej
     
 Sampling_Multiple(df=Field_df, iters = 50)    
 
-print(time.time() - start_RR, "Rejection")
 
-(18+6)*100
-
-0.07*50
+df5 =F_Sampling_T (df = Field_df, Pick_No = 1, Location =1, NSamp_Unit = 1, NoGrab = 60)
+df6 =F_Rejection_Rule_T (df = df5, Pick_No = 1, Av_Picks = [1,2,3], Test_Unit = "Pick_ID", limit = 0)
+sum(df6["Rej_Acc"] == "REJ") 
 

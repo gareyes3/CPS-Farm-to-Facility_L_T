@@ -260,7 +260,6 @@ def Tomato_Wash(df, Location, FC_lvl,i):
     
     np.random.seed(i)
     logred_cont = -np.random.normal(log_red_Wash_mean, logred_sd)
-    print(logred_cont, "logredcont")
     
     #Transfer to uncontaminated pieces. 
     Log_Trans_Upper = (-0.6798*FC_lvl)-0.6003
@@ -379,7 +378,7 @@ def Update_Location2(df, Previous, NewLoc):
 
 #Sampling Function
 
-def F_Sampling_T (df, Pick_No, Location, NSamp_Unit, NoGrab):
+def F_Sampling_T_v1 (df, Pick_No, Location, NSamp_Unit, NoGrab):
     
     df_field_1 =df.loc[(df["Pick_ID"]==Pick_No) & (df["Location"]==Location)].copy()
     if len(df_field_1)>0:
@@ -400,6 +399,31 @@ def F_Sampling_T (df, Pick_No, Location, NSamp_Unit, NoGrab):
                 RandomUnif = random.uniform(0,1)
                 if RandomUnif < P_Detection:
                     df_field_1.at[Index, 'PositiveSamples'].append(l)
+        df.update(df_field_1)
+    return (df)
+
+def F_Sampling_T (df, Pick_No, Location, NSamp_Unit, NoGrab):
+    
+    df_field_1 =df.loc[(df["Pick_ID"]==Pick_No) & (df["Location"]==Location)].copy()
+    if len(df_field_1)>0:
+        #print(Location, "Location")
+        #print(df["Location"])
+        #Unique_TestUnit = list(df[Test_Unit].unique())
+        #Grab_Weight = Partition_Weight #In lb
+        #for i in (Unique_TestUnit): #From sublot 1 to sublot n (same for pallet,lot,case etc)
+        for l in range (1, NSamp_Unit+1): #Number of samples per sublot or lot or pallet.
+            for j in range(NoGrab):
+                CFU_hh=df_field_1["CFU"]
+                #print(len(CFU_hh),"Length")
+                List_Random=CFU_hh.sample(n=1)
+                CFU = List_Random
+                Index = List_Random.index[0]
+                CFU_grab = CFU#*(Grab_Weight/(Partition_Weight*454))
+                P_Detection=1-math.exp(-CFU_grab)
+                RandomUnif = random.uniform(0,1)
+                if RandomUnif < P_Detection:
+                    #df_field_1.at[Index, 'PositiveSamples'].append(l)
+                    df_field_1.at[Index, 'PositiveSamples'] = df_field_1.at[Index, 'PositiveSamples'] + 1
         df.update(df_field_1)
     return (df)
 
@@ -426,11 +450,12 @@ def F_Sampling_T_Mash (df, Pick_No, Location, NSamp_Unit, NoGrab, Subsample_Mass
                 RandomUnif = random.uniform(0,1)
                 if RandomUnif < P_Detection:
                     for i in list(List_Random.index):
-                        df_field_1.at[i, 'PositiveSamples'].append(k)
+                        #df_field_1.at[i, 'PositiveSamples'].append(k)
+                        df_field_1.at[i, 'PositiveSamples'] = df_field_1.at[i, 'PositiveSamples'] + 1
     df.update(df)
     return (df)
 
-def F_Rejection_Rule_T (df, Pick_No, Av_Picks, Test_Unit, limit):
+def F_Rejection_Rule_T_v1 (df, Pick_No, Av_Picks, Test_Unit, limit):
     #Unique_Test_Unit =list(df[Test_Unit].unique())
     df_field_1 =df.loc[(df["Pick_ID"].isin(Av_Picks))].copy()
     Reject = []
@@ -442,6 +467,34 @@ def F_Rejection_Rule_T (df, Pick_No, Av_Picks, Test_Unit, limit):
     if len(Unique_Positives)>limit:
         Reject.append(Test_Unit)
     df_field_1.PositiveSamples = [list() for x in range(len(df_field_1.index))] #this is in case everything gets rejected
+    if len(Reject)>0:
+     df_field_1.loc[:,"Rej_Acc"] = "REJ"
+     df_field_1.loc[:,"CFU_BRej"] = df_field_1["CFU"]
+     df_field_1.loc[:,"CFU"] = 0
+     
+        #df_Blank = df.iloc[[0]]
+        #df_Blank.loc[:, ['CFU']] = 0
+        #df_Blank.loc[:, ['Weight']] = SCInputz.Partition_Weight
+        #df_Blank.loc[:, ['Accept']] = "All Rej"
+        #df = df_Blank
+    #else:
+        #df = df[~df[Test_Unit].isin(Reject)]
+    df.update(df_field_1)
+    return df
+
+def F_Rejection_Rule_T (df, Pick_No, Av_Picks, Test_Unit, limit):
+    #Unique_Test_Unit =list(df[Test_Unit].unique())
+    df_field_1 =df.loc[(df["Pick_ID"].isin(Av_Picks))].copy()
+    Reject = []
+    #for  i in Unique_Test_Unit:
+    df_Subset = df_field_1[df_field_1[Test_Unit] == Pick_No].copy()
+    #List_of_grabs = df_Subset['PositiveSamples'].tolist()
+    #flat_list = [item for sublist in  List_of_grabs for item in sublist]
+    #Unique_Positives =list(np.unique(flat_list))
+    Postives = sum(df_Subset['PositiveSamples'] >0)
+    if Postives>limit:
+        Reject.append(Test_Unit)
+    df_field_1.PositiveSamples = 0 #this is in case everything gets rejected
     if len(Reject)>0:
      df_field_1.loc[:,"Rej_Acc"] = "REJ"
      df_field_1.loc[:,"CFU_BRej"] = df_field_1["CFU"]

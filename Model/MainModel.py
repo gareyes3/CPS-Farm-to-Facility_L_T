@@ -72,11 +72,11 @@ def Main_Loop(random_seed =1000):
                                "CFU": 0,
                                "CFU_BRej":"",
                                "Location": 1,
-                               'PositiveSamples':"",
+                               'PositiveSamples':0,
                                "Rej_Acc" :"Acc"
                           })
         
-        Field_df.PositiveSamples = [list() for x in range(len(Field_df.index))]
+        #Field_df.PositiveSamples = [list() for x in range(len(Field_df.index))]
         #print(time.time() - start_df, "df Creation")
         
         #Reseting to current pick
@@ -118,6 +118,22 @@ def Main_Loop(random_seed =1000):
                 #print("brid")
                 #Contaminated field with 0.1% contamination, simulated bird droping. 
                 Field_df = Funz_T.field_cont_percetage2(df = Field_df, 
+                                                percent_cont = 10,
+                                                Hazard_lvl = Inputz_T.Total_Hazard, 
+                                                No_Cont_Clusters = 1)
+                
+            if (Scen_T.Cont_Scenario == 3 and i in Cont_Day): 
+                #print("brid")
+                #Contaminated field with 0.1% contamination, simulated bird droping. 
+                Field_df = Funz_T.field_cont_percetage2(df = Field_df, 
+                                                percent_cont = 1,
+                                                Hazard_lvl = Inputz_T.Total_Hazard, 
+                                                No_Cont_Clusters = 1)
+                
+            if (Scen_T.Cont_Scenario == 4 and i in Cont_Day): 
+                #print("brid")
+                #Contaminated field with 0.1% contamination, simulated bird droping. 
+                Field_df = Funz_T.field_cont_percetage2(df = Field_df, 
                                                 percent_cont = 0.1,
                                                 Hazard_lvl = Inputz_T.Total_Hazard, 
                                                 No_Cont_Clusters = 1)
@@ -147,7 +163,6 @@ def Main_Loop(random_seed =1000):
                                                       Bef_Aft = "Bef")
                     #print(time.time() - start_OCSWR, "Output Collectin Sampling WR")
     
-                    start_Samp = time.time()
                     if Scen_T.Samp_Method == 1:
                         Field_df = Funz_T.F_Sampling_T (df= Field_df, 
                                                   Pick_No = Current_Pick, 
@@ -156,7 +171,6 @@ def Main_Loop(random_seed =1000):
                                                   NoGrab = Scen_T.Tomatoes_per_sample) 
                         print(Scen_T.Tomatoes_per_sample)
                     elif  Scen_T.Samp_Method == 2:
-                        print("Mash Sampling")
                         Field_df =  Funz_T.F_Sampling_T_Mash (df= Field_df, 
                                                               Pick_No= Current_Pick, 
                                                               Location =1,
@@ -164,7 +178,6 @@ def Main_Loop(random_seed =1000):
                                                               NoGrab= Scen_T.Tomatoes_per_sample, 
                                                               Subsample_Mass=25,
                                                               N_replicates = Scen_T.N_Replicates)
-                    print(time.time() - start_Samp, "Sampling")
                     
                     #Rejection rules, reject current pick plus any upcoming picks
                     #start_RR = time.time()
@@ -290,7 +303,7 @@ def Main_Loop(random_seed =1000):
                 
                 #Harvester contmaination
                 #if (np.random.uniform(0,1)<Pr_harvester_cont):
-                if (Scen_T.Cont_Scenario == 3):
+                if (Scen_T.Cont_Scenario == 5):
                     #Picking the contaminated harvester at random
                     Contam_Harvester = Cont_Event_3_Harvesters[Inputz_T.N_Pick-1] #random.sample(list(range(1,Total_Harvesters+1)),1)[0]
                     #applying the contmainated harvester function to the Data. 
@@ -301,7 +314,7 @@ def Main_Loop(random_seed =1000):
                     
                 #Bin Contmaination
                 #if (np.random.uniform(0,1)<Pr_Bin_cont):
-                if (Scen_T.Cont_Scenario == 4):
+                if (Scen_T.Cont_Scenario == 6):
                     #Picking the contaminated harvester at random
                     Contam_Bin = random.sample(list(range(1,Inputz_T.Total_Bins+1)),1)[0]
                     #applying the contmainated harvester function to the Data. 
@@ -464,7 +477,7 @@ def Main_Loop(random_seed =1000):
                                                                           i = k)
                 
                 #start_Wash = time.time()
-                print(Inputz_T.FC_lvl)
+                #print(Inputz_T.FC_lvl)
                 Field_df=Funz_T.Tomato_Wash(df = Field_df, Location  = 5, FC_lvl=Inputz_T.FC_lvl, i = random_seed+k)
                 #print(time.time() - start_Wash, "Wash Time")
                 
