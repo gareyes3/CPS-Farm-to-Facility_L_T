@@ -28,16 +28,13 @@ import Scen_T
 import MainModel
 import DepInputz
 
-import Funz
 import T_Inputz
-import InFunz
-import ContScen
 import Dictionariez_T
 
 
 #%% Contamination progression thruhgout system No Sampling
 
-Inputz_T.Iteration_Number = 2
+Inputz_T.Iteration_Number = 10
 Scen_T.Tomatoes_per_sample = 1
 Scen_T.Samp_Plan = 0
 Scen_T.Cont_Scenario = 1
@@ -47,7 +44,7 @@ Outs_S0 = MainModel.Main_Loop()
 
 #%% Sampling Scenarios
  #Sampling Scenario
-
+time_s = time.time()
 Inputz_T.Iteration_Number = 10
 Scen_T.Tomatoes_per_sample = 20
 Scen_T.Samp_Plan = 1
@@ -55,6 +52,7 @@ Scen_T.Cont_Scenario = 1
 Scen_T.Samp_Method = 1
 reload(DepInputz)
 Outs_S1_A = MainModel.Main_Loop()
+print(time.time() - time_s, "CC")
 
 
 Inputz_T.Iteration_Number = 500

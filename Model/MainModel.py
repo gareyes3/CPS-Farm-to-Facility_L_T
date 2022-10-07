@@ -164,12 +164,14 @@ def Main_Loop(random_seed =1000):
                     #print(time.time() - start_OCSWR, "Output Collectin Sampling WR")
     
                     if Scen_T.Samp_Method == 1:
+                        #start_sampl = time.time()
                         Field_df = Funz_T.F_Sampling_T (df= Field_df, 
                                                   Pick_No = Current_Pick, 
                                                   Location = 1, #Location is in field
                                                   NSamp_Unit = 1, 
                                                   NoGrab = Scen_T.Tomatoes_per_sample) 
                         print(Scen_T.Tomatoes_per_sample)
+                        #print(time.time() - start_sampl, "sampling")
                     elif  Scen_T.Samp_Method == 2:
                         Field_df =  Funz_T.F_Sampling_T_Mash (df= Field_df, 
                                                               Pick_No= Current_Pick, 
@@ -476,10 +478,10 @@ def Main_Loop(random_seed =1000):
                                                                           Step_Column = "Washing_"+str(Current_Pick) ,
                                                                           i = k)
                 
-                #start_Wash = time.time()
+                start_Wash = time.time()
                 #print(Inputz_T.FC_lvl)
                 Field_df=Funz_T.Tomato_Wash(df = Field_df, Location  = 5, FC_lvl=Inputz_T.FC_lvl, i = random_seed+k)
-                #print(time.time() - start_Wash, "Wash Time")
+                print(time.time() - start_Wash, "Wash Time")
                 
 
                 
@@ -496,17 +498,14 @@ def Main_Loop(random_seed =1000):
                                                                           outputDF =DC_Cont_Processing_Prev , 
                                                                           Step_Column = "CB1_"+str(Current_Pick) ,
                                                                           i = k)
-                #start_CC = time.time()
+                start_CC = time.time()
                 Field_df=Funz_T.F_CrossContProLine_tom (df = Field_df, 
                                                  Tr_P_S = Inputz_T.Tr_P_CB, 
                                                  Tr_S_P = Inputz_T.Tr_CB_P,
-                                                 Location = 6,
-                                                 Sanitation_Freq_lb = 0, 
-                                                 StepEff = 0 , 
-                                                 compliance = 0 )
+                                                 Location = 6)
                 
 
-                #print(time.time() - start_CC, "Cross Contamination")
+                print(time.time() - start_CC, "Cross Contamination")
                 
                 #Drying Cross Contmination
                 #Updates location from  Conveyor Belt to Drying
@@ -526,10 +525,7 @@ def Main_Loop(random_seed =1000):
                 Field_df=Funz_T.F_CrossContProLine_tom (df = Field_df, 
                                                  Tr_P_S = Inputz_T.Tr_P_Dr, 
                                                  Tr_S_P = Inputz_T.Tr_Dr_P,
-                                                 Location = 7,
-                                                 Sanitation_Freq_lb = 0, 
-                                                 StepEff = 0 , 
-                                                 compliance = 0 )
+                                                 Location = 7 )
                 
                 #Sorting2 cross contmaination
                 #Updates location from  Drying to Sorting
@@ -548,10 +544,7 @@ def Main_Loop(random_seed =1000):
                 Field_df=Funz_T.F_CrossContProLine_tom(df = Field_df, 
                                                  Tr_P_S = Inputz_T.Tr_P_SRT, 
                                                  Tr_S_P = Inputz_T.Tr_SRT_P,
-                                                 Location = 8,
-                                                 Sanitation_Freq_lb = 0, 
-                                                 StepEff = 0 , 
-                                                 compliance = 0 )
+                                                 Location = 8 )
                 
                 #Packing product into the cases at the Packing house. 
                 #Updates location from  Sorting to Packing
@@ -559,9 +552,9 @@ def Main_Loop(random_seed =1000):
                 Field_df=Funz_T.Update_Location2(df= Field_df, Previous = 8, NewLoc = 9)
                 #print(time.time() - start_CC, "update loc")
                 
-                #start_CC = time.time()
+                start_CC = time.time()
                 Field_df=Funz_T.Case_Packaging(df = Field_df,Case_Weight = 20,Tomato_Weight = 0.54, Location = 9)
-                #print(time.time() - start_CC, "Case Packing")
+                print(time.time() - start_CC, "Case Packing")
                 
                 DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
                                                                           outputDF =DC_Cont_Processing , 
