@@ -101,21 +101,15 @@ def Main_Loop(random_seed =1000):
             #Contmaination Event Due to Rain'
             
             if (Scen_T.Cont_Scenario == 1 and i in Cont_Day):
-                #print("Product was cont", i)
-                #start_ce = time.time()
                 #This function contaminated the field uniformly. 100% of the field cont. 
                 Field_df = Funz_T.field_cont_percetage2(df = Field_df, 
                                                 percent_cont = 100,
                                                 Hazard_lvl = Inputz_T.Total_Hazard, 
                                                 No_Cont_Clusters = 1)
-                #Contaminated field with Rain
-                #print("Field Cont with Rain")
-                #print(time.time() - start_ce, "cont_event")
+
             
             #Contmaination Event Due to Animal Intrusion
-            #if (np.random.uniform(0,1)<Pr_bird_drop):
             if (Scen_T.Cont_Scenario == 2 and i in Cont_Day): 
-                #print("brid")
                 #Contaminated field with 0.1% contamination, simulated bird droping. 
                 Field_df = Funz_T.field_cont_percetage2(df = Field_df, 
                                                 percent_cont = 10,
@@ -131,7 +125,6 @@ def Main_Loop(random_seed =1000):
                                                 No_Cont_Clusters = 1)
                 
             if (Scen_T.Cont_Scenario == 4 and i in Cont_Day): 
-                #print("brid")
                 #Contaminated field with 0.1% contamination, simulated bird droping. 
                 Field_df = Funz_T.field_cont_percetage2(df = Field_df, 
                                                 percent_cont = 0.1,
@@ -170,7 +163,6 @@ def Main_Loop(random_seed =1000):
                                                   Location = 1, #Location is in field
                                                   NSamp_Unit = 1, 
                                                   NoGrab = Scen_T.Tomatoes_per_sample) 
-                        print(Scen_T.Tomatoes_per_sample)
                         #print(time.time() - start_sampl, "sampling")
                     elif  Scen_T.Samp_Method == 2:
                         Field_df =  Funz_T.F_Sampling_T_Mash (df= Field_df, 
@@ -209,7 +201,7 @@ def Main_Loop(random_seed =1000):
                 
             
             #This is where process starts, along with simulated harvest. 
-            #start_HD = time.time()
+            start_HD = time.time()
             if i in Inputz_T.Harvest_Days:
                 
                 #Harvest Sampling
@@ -242,7 +234,6 @@ def Main_Loop(random_seed =1000):
                                                   Location = 1, #Location is in field
                                                   NSamp_Unit = 1, 
                                                   NoGrab = Scen_T.Tomatoes_per_sample) 
-                        print(Scen_T.Tomatoes_per_sample)
                     elif  Scen_T.Samp_Method == 2:
                         print("Mash Sampling 2")
                         Field_df =  Funz_T.F_Sampling_T_Mash (df= Field_df, 
@@ -414,7 +405,6 @@ def Main_Loop(random_seed =1000):
                                                   Location = 4, #Location is in field
                                                   NSamp_Unit = 1, 
                                                   NoGrab = Scen_T.Tomatoes_per_sample) 
-                        print(Scen_T.Tomatoes_per_sample)
                     elif  Scen_T.Samp_Method == 2:
                         print("Mash Sampling R")
                         Field_df =  Funz_T.F_Sampling_T_Mash (df= Field_df, 
@@ -478,10 +468,10 @@ def Main_Loop(random_seed =1000):
                                                                           Step_Column = "Washing_"+str(Current_Pick) ,
                                                                           i = k)
                 
-                start_Wash = time.time()
+                #start_Wash = time.time()
                 #print(Inputz_T.FC_lvl)
                 Field_df=Funz_T.Tomato_Wash(df = Field_df, Location  = 5, FC_lvl=Inputz_T.FC_lvl, i = random_seed+k)
-                print(time.time() - start_Wash, "Wash Time")
+                #print(time.time() - start_Wash, "Wash Time")
                 
 
                 
@@ -498,14 +488,14 @@ def Main_Loop(random_seed =1000):
                                                                           outputDF =DC_Cont_Processing_Prev , 
                                                                           Step_Column = "CB1_"+str(Current_Pick) ,
                                                                           i = k)
-                start_CC = time.time()
+                #start_CC = time.time()
                 Field_df=Funz_T.F_CrossContProLine_tom (df = Field_df, 
                                                  Tr_P_S = Inputz_T.Tr_P_CB, 
                                                  Tr_S_P = Inputz_T.Tr_CB_P,
                                                  Location = 6)
                 
 
-                print(time.time() - start_CC, "Cross Contamination")
+                #print(time.time() - start_CC, "Cross Contamination")
                 
                 #Drying Cross Contmination
                 #Updates location from  Conveyor Belt to Drying
@@ -552,9 +542,9 @@ def Main_Loop(random_seed =1000):
                 Field_df=Funz_T.Update_Location2(df= Field_df, Previous = 8, NewLoc = 9)
                 #print(time.time() - start_CC, "update loc")
                 
-                start_CC = time.time()
+                #start_CC = time.time()
                 Field_df=Funz_T.Case_Packaging(df = Field_df,Case_Weight = 20,Tomato_Weight = 0.54, Location = 9)
-                print(time.time() - start_CC, "Case Packing")
+                #print(time.time() - start_CC, "Case Packing")
                 
                 DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
                                                                           outputDF =DC_Cont_Processing , 
@@ -596,7 +586,6 @@ def Main_Loop(random_seed =1000):
                                                   Location = 9, #Location is in field
                                                   NSamp_Unit = 1, 
                                                   NoGrab = Scen_T.Tomatoes_per_sample) 
-                        print(Scen_T.Tomatoes_per_sample)
                     elif  Scen_T.Samp_Method == 2:
                         print("Mash Sampling pps")
                         Field_df =  Funz_T.F_Sampling_T_Mash (df= Field_df, 
@@ -642,7 +631,6 @@ def Main_Loop(random_seed =1000):
                 #Ripening: 
                 Field_df=Funz_T.Update_Location2(df= Field_df, Previous = 9, NewLoc = 10)
                 
-                
                 DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
                                                                           outputDF =DC_Cont_Processing , 
                                                                           Step_Column = "PP_"+str(Current_Pick)
@@ -652,10 +640,9 @@ def Main_Loop(random_seed =1000):
                                                                           outputDF =DC_Cont_Processing_Prev , 
                                                                           Step_Column = "PP_"+str(Current_Pick) ,
                                                                           i = k)
-                
                 #Establishing which pick we are in
                 Current_Pick = Current_Pick+1
-                #print(time.time() - start_HD, "HD Total Time")
+                print(time.time() - start_HD, "HD Total Time")
                 
                 
             #Adding Contmination to Every Day

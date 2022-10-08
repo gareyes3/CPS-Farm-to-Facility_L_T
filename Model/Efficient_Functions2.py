@@ -151,23 +151,26 @@ print(time.time() - start_df, "CC")
 
 ##WashiNG
 @jit(nopython =True)
-def Wash_CC(Cont,i,logred_cont, Tras_old,transfer_cont):
-    #logred_cont = -rng.normal(log_red_Wash_mean, logred_sd)
-    if logred_cont>=0:
-        GrowthCeil = math.ceil(logred_cont)
-        Difference = logred_cont-GrowthCeil
-        MaxCont = Cont*10**GrowthCeil
-        Updated_CFUs = np.random.binomial(MaxCont,10**Difference)
-    else:
-        Updated_CFUs= np.random.binomial(Cont,10**logred_cont)
-
-    if i == 0:
-        upconts = Updated_CFUs
-    if i >0:
-        upconts = Updated_CFUs + Tras_old
-    Transfer = np.random.binomial(Cont,10**transfer_cont)
-    Tras_old = Transfer
-    return (upconts, Tras_old)
+def Wash_CC(Field_df_1_conts,logred_cont, Tras_old,transfer_cont):
+    for i in range(len(Field_df_1_conts)):
+        #logred_cont = -rng.normal(log_red_Wash_mean, logred_sd)
+        Cont = Field_df_1_conts[i]
+        if logred_cont>=0:
+            GrowthCeil = math.ceil(logred_cont)
+            Difference = logred_cont-GrowthCeil
+            MaxCont = Cont*10**GrowthCeil
+            Updated_CFUs = np.random.binomial(MaxCont,10**Difference)
+        else:
+            Updated_CFUs= np.random.binomial(Cont,10**logred_cont)
+    
+        if i == 0:
+            upconts = Updated_CFUs
+        if i >0:
+            upconts = Updated_CFUs + Tras_old
+        Transfer = np.random.binomial(Cont,10**transfer_cont)
+        Tras_old = Transfer
+        Field_df_1_conts[i] =upconts
+    return (Field_df_1_conts)
     
 
 def Tomato_Wash(df, Location, FC_lvl,i):
@@ -189,22 +192,16 @@ def Tomato_Wash(df, Location, FC_lvl,i):
     
     transfer_cont = np.random.uniform(Log_Trans_Lower,Log_Trans_Upper)
     
-    Field_df_1 =df.loc[df["Location"]==Location].copy() #location 4 is wash water
-    Field_df_1_conts = np.array(Field_df_1["CFU"].copy())
+    #Field_df_1 =df[df["Location"]==Location].copy() #location 4 is wash water
+    Field_df_1_conts = np.array(df.loc[df["Location"]==Location, "CFU"].copy())
     Tras_old= 0
-
-    for i in range(len(Field_df_1_conts)):
-        Cont = Field_df_1_conts[i]
-        Outs= Wash_CC(Cont,i,logred_cont, Tras_old,transfer_cont)
-        Field_df_1_conts[i] = Outs[0]
-        Tras_old= Outs[1]
-    Field_df_1.loc[:, "CFU"] = Field_df_1_conts
-    df.update(Field_df_1)
+    df.loc[df["Location"]==Location, "CFU"] = Wash_CC(Field_df_1_conts,logred_cont, Tras_old,transfer_cont)
+    #df.update(Field_df_1)
     return df
 
 
 start_df = time.time()
-Tomato_Wash(df= Field_df, Location = 1, FC_lvl = 10, i = 20)
+Field_df2=Tomato_Wash(df= Field_df, Location = 1, FC_lvl = 10, i = 20)
 print(time.time() - start_df, "Wash")
 
 
@@ -332,4 +329,94 @@ print(time.time() - start_df, "Wash")
 
 start_df = time.time()
 df3 =Update_Location(df = Field_df, Previous =2, NewLoc =3)
+print(time.time() - start_df, "Wash")
+
+#%%
+Field_df=pd.DataFrame({"Tomato_ID": Inputz_T.Individual_Tomatoes,
+                       "Plant_ID": Inputz_T.Individual_Plants[0:Inputz_T.Individual_Tomatoes.size],
+                       "Pick_ID": Inputz_T.Pick_Random[0:Inputz_T.Individual_Tomatoes.size],
+                       "Weight": Inputz_T.Tomato_weight,
+                       "Harvester" : 0,
+                       "Bucket":0,
+                       "Bin": 0,
+                       "Case_PH": 0,
+                       "CFU": 0,
+                       "CFU_BRej":"",
+                       "Location": 1,
+                       'PositiveSamples':0,
+                       "Rej_Acc" :"Acc"
+                  })
+
+Field_df["CFU"] = 0
+Field_df.loc[1:1000,"CFU"] = 1000
+
+
+
+
+
+def F_Sampling_T (df, Pick_No, Location, NSamp_Unit, NoGrab):
+    df2= df.copy()
+    if len(df2.loc[(df2["Pick_ID"]==Pick_No) & (df2["Location"]==Location)])>0:
+        #print(Location, "Location")
+        #print(df["Location"])
+        #Unique_TestUnit = list(df[Test_Unit].unique())
+        #Grab_Weight = Partition_Weight #In lb
+        #for i in (Unique_TestUnit): #From sublot 1 to sublot n (same for pallet,lot,case etc)
+        CFU_hh=df.loc[(df2["Pick_ID"]==Pick_No) & (df2["Location"]==Location), "CFU"]
+        for l in range (1, NSamp_Unit+1): #Number of samples per sublot or lot or pallet.
+            for j in range(NoGrab):
+                #print(len(CFU_hh),"Length")
+                List_Random=CFU_hh.sample(n=1)
+                CFU = List_Random
+                Index = List_Random.index[0]
+                CFU_grab = CFU#*(Grab_Weight/(Partition_Weight*454))
+                P_Detection=1-math.exp(-CFU_grab)
+                RandomUnif = random.uniform(0,1)
+                if RandomUnif < P_Detection:
+                    #df_field_1.at[Index, 'PositiveSamples'].append(l)
+                    df2.at[Index, 'PositiveSamples'] = df2.at[Index, 'PositiveSamples'] + 1
+                    print("positive")
+        #df.update(df_field_1)
+    return (df2)
+
+
+
+start_df = time.time()
+df22=F_Sampling_T (df= Field_df, Pick_No = 1, Location = 1, NSamp_Unit = 1, NoGrab= 60)
+print(time.time() - start_df, "Wash")
+
+
+
+def F_Rejection_Rule_T (df, Pick_No, Av_Picks, Test_Unit, limit):
+    #Unique_Test_Unit =list(df[Test_Unit].unique())
+    df_field_1 =df.loc[(df["Pick_ID"].isin(Av_Picks))].copy()
+    Reject = []
+    #for  i in Unique_Test_Unit:
+    df_Subset = df_field_1[df_field_1[Test_Unit] == Pick_No].copy()
+    #List_of_grabs = df_Subset['PositiveSamples'].tolist()
+    #flat_list = [item for sublist in  List_of_grabs for item in sublist]
+    #Unique_Positives =list(np.unique(flat_list))
+    Postives = sum(df_Subset['PositiveSamples'] >0)
+    if Postives>limit:
+        Reject.append(Test_Unit)
+    df_field_1.PositiveSamples = 0 #this is in case everything gets rejected
+    if len(Reject)>0:
+     df_field_1.loc[:,"Rej_Acc"] = "REJ"
+     df_field_1.loc[:,"CFU_BRej"] = df_field_1["CFU"]
+     df_field_1.loc[:,"CFU"] = 0
+     
+        #df_Blank = df.iloc[[0]]
+        #df_Blank.loc[:, ['CFU']] = 0
+        #df_Blank.loc[:, ['Weight']] = SCInputz.Partition_Weight
+        #df_Blank.loc[:, ['Accept']] = "All Rej"
+        #df = df_Blank
+    #else:
+        #df = df[~df[Test_Unit].isin(Reject)]
+    df.update(df_field_1)
+    return df
+
+
+
+start_df = time.time()
+F_Rejection_Rule_T (df = Field_df, Pick_No = 1, Av_Picks = [1,2,3], Test_Unit ="Pick_ID", limit = 0)
 print(time.time() - start_df, "Wash")

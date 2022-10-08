@@ -289,11 +289,11 @@ def Tomato_Wash(df, Location, FC_lvl,i):
     
     transfer_cont = np.random.uniform(Log_Trans_Lower,Log_Trans_Upper)
     
-    Field_df_1 =df[df["Location"]==Location].copy() #location 4 is wash water
-    Field_df_1_conts = np.array(Field_df_1["CFU"].copy())
+    #Field_df_1 =df[df["Location"]==Location].copy() #location 4 is wash water
+    Field_df_1_conts = np.array(df.loc[df["Location"]==Location, "CFU"].copy())
     Tras_old= 0
-    Field_df_1.loc[:, "CFU"] = Wash_CC(Field_df_1_conts,logred_cont, Tras_old,transfer_cont)
-    df.update(Field_df_1)
+    df.loc[df["Location"]==Location, "CFU"] = Wash_CC(Field_df_1_conts,logred_cont, Tras_old,transfer_cont)
+    #df.update(Field_df_1)
     return df
 
 
@@ -352,19 +352,16 @@ def F_CrossContProLine_tom2 (df, Tr_P_S, Tr_S_P,  Location, Sanitation_Freq_lb =
  
 
 def Case_Packaging(df,Case_Weight,Tomato_Weight, Location):
-    
-    df_field_1 =df.loc[df["Location"]==Location].copy()
-    
     Tomatoes_Case = math.ceil(Case_Weight/Tomato_Weight)
-    Total_Packages = len(df_field_1.index)
+    Total_Packages = len(df.loc[df["Location"]==Location])
     Total_Cases = math.ceil(Total_Packages/Tomatoes_Case)
     
     Case_Pattern = [i for i in range(1, int(Total_Cases)+1) for _ in range(Tomatoes_Case)]
-    Crop_No = len(df_field_1.index)
-    Case_Pattern=Case_Pattern[:Crop_No]
-    df_field_1.loc[:,"Case_PH"] = Case_Pattern
-    
-    df.update(df_field_1)
+    #Crop_No = len(df.loc[df["Location"]==Location])
+    Case_Pattern=Case_Pattern[:Total_Packages]
+    #df_field_1.loc[:,"Case_PH"] = Case_Pattern
+    df.loc[df["Location"]==Location, "Case_PH"] = Case_Pattern
+    #df.update(df_field_1)
     return df
 
 def Update_Location(df, Previous, NewLoc):
@@ -421,14 +418,14 @@ def Samp_Assay():
         df_field_1.at[Index, 'PositiveSamples'] = df_field_1.at[Index, 'PositiveSamples'] + 1
 '''
 def F_Sampling_T (df, Pick_No, Location, NSamp_Unit, NoGrab):
-    df_field_1 =df.loc[(df["Pick_ID"]==Pick_No) & (df["Location"]==Location)].copy()
-    if len(df_field_1)>0:
+    df2= df.copy()
+    if len(df2.loc[(df2["Pick_ID"]==Pick_No) & (df2["Location"]==Location)])>0:
         #print(Location, "Location")
         #print(df["Location"])
         #Unique_TestUnit = list(df[Test_Unit].unique())
         #Grab_Weight = Partition_Weight #In lb
         #for i in (Unique_TestUnit): #From sublot 1 to sublot n (same for pallet,lot,case etc)
-        CFU_hh=df_field_1["CFU"]
+        CFU_hh=df.loc[(df2["Pick_ID"]==Pick_No) & (df2["Location"]==Location), "CFU"]
         for l in range (1, NSamp_Unit+1): #Number of samples per sublot or lot or pallet.
             for j in range(NoGrab):
                 #print(len(CFU_hh),"Length")
@@ -440,9 +437,9 @@ def F_Sampling_T (df, Pick_No, Location, NSamp_Unit, NoGrab):
                 RandomUnif = random.uniform(0,1)
                 if RandomUnif < P_Detection:
                     #df_field_1.at[Index, 'PositiveSamples'].append(l)
-                    df_field_1.at[Index, 'PositiveSamples'] = df_field_1.at[Index, 'PositiveSamples'] + 1
-        df.update(df_field_1)
-    return (df)
+                    df2.at[Index, 'PositiveSamples'] = df2.at[Index, 'PositiveSamples'] + 1
+        #df.update(df_field_1)
+    return (df2)
 
     
 def F_Sampling_T_Mash (df, Pick_No, Location, NSamp_Unit, NoGrab, Subsample_Mass, N_replicates):
