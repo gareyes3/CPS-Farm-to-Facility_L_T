@@ -77,6 +77,7 @@ Cont_Prog$Pick<-as.factor(Cont_Prog$Pick)
 
 Cont_Prog$Type<-factor(Cont_Prog$Type,levels=c("Preharvest", "Harvest", "Receiving", "Packed Product"))
 
+Cont_Prog$`Cont.Type`<-factor(Cont_Prog$`Cont.Type`,levels=c("100%", "10%", "1%", "0.1%"))
 
 Cont_Prog %>% 
 ggplot(aes(x = Type, y = Cont,color = Pick))+
@@ -89,4 +90,110 @@ scale_y_continuous(labels = scales::comma)+
 
 ```
 
+#Prevalence at sampling point
+
+```{r}
+Cont_Prog<-read.csv("Data_Tomato_Outputs/PrevSampPoint10.csv")
+
+Cont_Prog$Type[Cont_Prog$Type == "PH"] <- "Preharvest"
+Cont_Prog$Type[Cont_Prog$Type == "H"] <- "Harvest"
+Cont_Prog$Type[Cont_Prog$Type == "R"] <- "Receiving"
+Cont_Prog$Type[Cont_Prog$Type == "PP"] <- "Packed Product"
+
+Cont_Prog$Type<-as.factor(Cont_Prog$Type)
+Cont_Prog$Pick<-as.factor(Cont_Prog$Pick)
+
+Cont_Prog$Type<-factor(Cont_Prog$Type,levels=c("Preharvest", "Harvest", "Receiving", "Packed Product"))
+
+Cont_Prog$`Cont.Type`<-factor(Cont_Prog$`Cont.Type`,levels=c("100%", "10%", "1%", "0.1%"))
+
+
+Cont_Prog %>% 
+ggplot(aes(x = Type, y = Cont,color = Pick))+
+#geom_point(position=position_jitterdodge(), alpha = 0.3, size = 1)+
+geom_boxplot()+
+xlab("Sampling Plan")+ ylab ("Total Adulteran Cells (TAC) at sampling point")+
+facet_wrap(~`Cont.Type`, scales = "free_y")+
+scale_y_continuous(labels = scales::comma)+
+  theme_bw()
+
+```
+
+#Consumer Exposure
+```{r}
+Exps_all<-read.csv("Data_Tomato_Outputs/Exps10.csv")
+
+Exps_all$Mass<-factor(Exps_all$Mass,levels=c("Baseline","2 Tomatoes", "6 Tomatoes", "20 Tomatoes", "60 Tomatoes","20 Tomato Mash", "60 Tomato Mash"))
+
+
+Exps_all %>% 
+  ggplot(aes(x = Type, y = Total_CFU, fill = Mass))+
+  geom_col(position = position_dodge())+
+  facet_wrap(~Cont)+
+  scale_y_continuous(labels = scales::comma)+
+  ylab("Total CFU that reached the consumer")
+```
+
+#Factor Sensitivity
+log10(Scenario/Baseline)
+
+```{r}
+Exps_all$Cont<-factor(Exps_all$Cont,levels=c("Baseline", "100%", "10%", "1%", "0.1%"))
+Exps_all$Type<-factor(Exps_all $Type,levels=c("Baseline","Preharvest", "Harvest", "Receiving", "Packed Product"))
+
+Exps_FS<-Exps_all %>% 
+  group_by(Cont) %>% 
+  summarize(FS = log10(Total_CFU/Total_CFU[Type=="Baseline"]))
+
+Exps_Other<-Exps_all %>% 
+  select(Mass, Type, Total_CFU) %>% 
+  bind_cols(Exps_FS)
+
+Exps_Other %>% 
+  ggplot(aes(x = Type, y = FS, fill = Mass))+
+  geom_col(position = position_dodge())+
+  coord_flip()+
+  facet_wrap(~Cont)
+
+```
+#PP
+
+Protective Power
+
+```{r}
+PP<-read.csv("Data_Tomato_Outputs/PP10.csv")
+
+PP %>% 
+  filter(X1 == "No") %>% 
+  group_by(X6) %>% 
+  summarize(total =sum(X0)) %>% 
+  ggplot(aes(x = X6, y = total))+
+  geom_col()+
+  scale_y_continuous(labels = scales::comma)
+
+  PP %>% 
+  filter(X3 == "No") %>% 
+  group_by(X6) %>% 
+  summarize(total =sum(X2)) %>% 
+  ggplot(aes(x = X6, y = total))+
+  geom_col()+
+  scale_y_continuous(labels = scales::comma)
+  
+  PP %>% 
+  filter(X5 == "No") %>% 
+  group_by(X6) %>% 
+  summarize(total =sum(X4)) %>% 
+  bind_rows(PP %>% 
+  filter(X1 == "No") %>% 
+  group_by(X6) %>% 
+  summarize(total =sum(X0))) %>% 
+    bind_rows(  PP %>% 
+  filter(X3 == "No") %>% 
+  group_by(X6) %>% 
+  summarize(total =sum(X2))) %>% 
+  ggplot(aes(x = X6, y = total))+
+  geom_col()+
+  scale_y_continuous(labels = scales::comma)
+
+```
 

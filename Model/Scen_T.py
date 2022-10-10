@@ -23,3 +23,6 @@ Tomatoes_per_sample = 5
 
 Samp_Method = 1
 N_Replicates = 25
+
+Chosen_cont_day = 0
+Contamination_Day = 0

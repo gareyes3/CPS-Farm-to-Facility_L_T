@@ -50,6 +50,7 @@ def Main_Loop(random_seed =1000):
     DC_Cont_Day_Pick2 = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Inputz_T.Iteration_Number)
     DC_Cont_Day_Pick3 = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Inputz_T.Iteration_Number)
 
+    Cont_Day_List = []
     #Simulating Days
     #reload(Inputz_T)
     
@@ -84,9 +85,14 @@ def Main_Loop(random_seed =1000):
         Current_Samp = 1
         
         ###Contamination Event Selection
-        Cont_Day  = random.sample(list(Inputz_T.Days),1)
-        print(Cont_Day)
-        
+        if Scen_T.Chosen_cont_day == 0:
+            Cont_Day  = random.sample(list(Inputz_T.Days),1)
+            print(Cont_Day[0])
+        if Scen_T.Chosen_cont_day == 1:
+            Cont_Day  = [Scen_T.Contamination_Day ]
+            print(Cont_Day)
+            
+        Cont_Day_List.append(Cont_Day[0])        
         Days_B_Pick1 = list(range(1,Inputz_T.Days_Between_Picks+1))
         Days_B_Pick2 = list(range(Inputz_T.Days_Between_Picks+1,2*Inputz_T.Days_Between_Picks+1))
         Days_B_Pick3 = list(range(2*Inputz_T.Days_Between_Picks+1,3*Inputz_T.Days_Between_Picks+1))
@@ -94,6 +100,7 @@ def Main_Loop(random_seed =1000):
         Cont_Event_1_Days = [random.sample(Days_B_Pick1,1)[0], random.sample(Days_B_Pick2,1)[0], random.sample(Days_B_Pick3,1)[0]]
         Cont_Event_2_Days = [random.sample(Days_B_Pick1,1)[0], random.sample(Days_B_Pick2,1)[0], random.sample(Days_B_Pick3,1)[0]]
         Cont_Event_3_Harvesters = random.sample(list(range(1,Inputz_T.Total_Harvesters+1)),3)
+        
         
         
         for i in Inputz_T.Days:
@@ -667,5 +674,5 @@ def Main_Loop(random_seed =1000):
             
             #Total Consumer Exposure
         DC_Exp= Dictionariez_T.Output_Collection_Exp(df = Field_df, outputDF =DC_Exp ,i = k)
-    return [DC_Exp,DC_Cont_Day,DC_Cont_Processing,DC_Cont_Processing_Prev,DC_Prev_Day]    
+    return [DC_Exp,DC_Cont_Day,DC_Cont_Processing,DC_Cont_Processing_Prev,DC_Prev_Day, Cont_Day_List]    
         

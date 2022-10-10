@@ -12,6 +12,8 @@ import sys
 sys.path
 sys.path.append('C:\\Users\Gustavo Reyes\Documents\GitHubFiles\CPS-Farm-to-Facility_L_T\Model')
 sys.path.append('C:\\Users\gareyes3\Documents\GitHub\CPS-Farm-to-Facility_L_T\Model')
+sys.path.append('C:\\Users\\reyes\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\Model')
+
 
 import numpy as np
 import pandas as pd
@@ -1599,8 +1601,6 @@ Outs_0001_4_F= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 60 )
 
 #%%
-
-
 Outputs_100 = [
                Outs_100_1_A,Outs_100_1_B, Outs_100_1_C, Outs_100_1_D, Outs_100_1_E, Outs_100_1_F,
                Outs_100_2_A,Outs_100_2_B, Outs_100_2_C, Outs_100_2_D, Outs_100_2_E, Outs_100_2_F,
@@ -1664,8 +1664,6 @@ Powers_all = pd.concat([ger_powers_fromlist(powers_list =Outputs_100 , Clusterin
 Powers_all.to_csv(path_or_buf = "C:\\Users\\Gustavo Reyes\\Documents\\GitHubFiles\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Powers_Out10.csv")
 
 #%%
-
-
 def get_cont_samp(Outs):
     emptylist =[]
     for i in Outs:
@@ -1680,3 +1678,82 @@ Samp_Point = pd.concat([
     ])
 
 Samp_Point.to_csv(path_or_buf = "C:\\Users\\Gustavo Reyes\\Documents\\GitHubFiles\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\SampPoint10.csv")
+
+#%%
+def get_Prev_samp(Outs):
+    emptylist =[]
+    for i in Outs:
+       emptylist.append(i[5])
+    return pd.concat(emptylist)
+   
+Samp_Point_Prev = pd.concat([
+     get_Prev_samp(Outs = Outputs_100),
+     get_Prev_samp(Outs = Outputs_010),
+     get_Prev_samp(Outs = Outputs_001),
+     get_Prev_samp(Outs = Outputs_0001)
+    ])
+
+Samp_Point_Prev.to_csv(path_or_buf = "C:\\Users\\reyes\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PrevSampPoint10.csv")
+
+#%% Consumer Exposure
+Outputs_100 = [Outs_100_0_0,
+               Outs_100_1_A,Outs_100_1_B, Outs_100_1_C, Outs_100_1_D, Outs_100_1_E, Outs_100_1_F,
+               Outs_100_2_A,Outs_100_2_B, Outs_100_2_C, Outs_100_2_D, Outs_100_2_E, Outs_100_2_F,
+               Outs_100_3_A,Outs_100_3_B, Outs_100_3_C, Outs_100_3_D, Outs_100_3_E, Outs_100_3_F,
+               Outs_100_4_A,Outs_100_4_B, Outs_100_4_C, Outs_100_4_D, Outs_100_4_E, Outs_100_4_F]
+
+Outputs_010 = [Outs_010_0_0,
+               Outs_010_1_A,Outs_010_1_B, Outs_010_1_C, Outs_010_1_D, Outs_010_1_E, Outs_010_1_F,
+               Outs_010_2_A,Outs_010_2_B, Outs_010_2_C, Outs_010_2_D, Outs_010_2_E, Outs_010_2_F,
+               Outs_010_3_A,Outs_010_3_B, Outs_010_3_C, Outs_010_3_D, Outs_010_3_E, Outs_010_3_F,
+               Outs_010_4_A,Outs_010_4_B, Outs_010_4_C, Outs_010_4_D, Outs_010_4_E, Outs_010_4_F]
+
+Outputs_001 = [Outs_001_0_0,
+               Outs_001_1_A,Outs_001_1_B, Outs_001_1_C, Outs_001_1_D, Outs_001_1_E, Outs_001_1_F,
+               Outs_001_2_A,Outs_001_2_B, Outs_001_2_C, Outs_001_2_D, Outs_001_2_E, Outs_001_2_F,
+               Outs_001_3_A,Outs_001_3_B, Outs_001_3_C, Outs_001_3_D, Outs_001_3_E, Outs_001_3_F,
+               Outs_001_4_A,Outs_001_4_B, Outs_001_4_C, Outs_001_4_D, Outs_001_4_E, Outs_001_4_F]
+
+Outputs_0001 = [Outs_0001_0_0,
+               Outs_0001_1_A,Outs_0001_1_B, Outs_0001_1_C, Outs_0001_1_D, Outs_0001_1_E, Outs_0001_1_F,
+               Outs_0001_2_A,Outs_0001_2_B, Outs_0001_2_C, Outs_0001_2_D, Outs_0001_2_E, Outs_0001_2_F,
+               Outs_0001_3_A,Outs_0001_3_B, Outs_0001_3_C, Outs_0001_3_D, Outs_0001_3_E, Outs_0001_3_F,
+               Outs_0001_4_A,Outs_0001_4_B, Outs_0001_4_C, Outs_0001_4_D, Outs_0001_4_E, Outs_0001_4_F]
+
+Types_L2 = ["Baseline","Preharvest","Preharvest","Preharvest","Preharvest","Preharvest","Preharvest",
+           "Harvest", "Harvest","Harvest","Harvest","Harvest","Harvest","Harvest",
+           "Receiving","Receiving","Receiving","Receiving","Receiving","Receiving",
+           "Packed Product", "Packed Product","Packed Product","Packed Product","Packed Product","Packed Product"]
+Mass_L2 = ["Baseline",
+          "2 Tomatoes", "6 Tomatoes", "20 Tomatoes", "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash",
+          "2 Tomatoes", "6 Tomatoes", "20 Tomatoes", "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash",
+          "2 Tomatoes", "6 Tomatoes", "20 Tomatoes", "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash",
+          "2 Tomatoes", "6 Tomatoes", "20 Tomatoes", "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash"]
+
+
+def get_Exps(df,Mass,Type):
+    a=sum(df["Total CFU"])
+    b= pd.DataFrame({
+        "Total_CFU": a,
+        "Type":Type,
+        "Mass":Mass},index=[0])
+    return b 
+
+def ger_exps_fromlist(exps_list, Clustering):
+    counter_1 = 0
+    list_df_powers= []
+    for i in exps_list:
+        df_out = get_Exps(df =i[6],Mass =Mass_L2[counter_1] ,Type = Types_L2[counter_1])
+        list_df_powers.append(df_out)
+        counter_1= counter_1+1
+    Powers_df = pd.concat(list_df_powers)
+    Powers_df['Cont'] = Clustering
+    return Powers_df
+
+Exps_all = pd.concat([ger_exps_fromlist(exps_list =Outputs_100 , Clustering = "100%"),
+                        ger_exps_fromlist(exps_list =Outputs_010 , Clustering = "10%"),
+                        ger_exps_fromlist(exps_list =Outputs_001 , Clustering = "1%"),
+                        ger_exps_fromlist(exps_list =Outputs_0001 , Clustering = "0.1%")])
+
+Exps_all.to_csv(path_or_buf = "C:\\Users\\reyes\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Exps10.csv")
+#%%
