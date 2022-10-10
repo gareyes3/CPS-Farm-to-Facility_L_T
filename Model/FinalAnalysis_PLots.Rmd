@@ -1,0 +1,92 @@
+---
+title: "Untitled"
+author: "Gustavo Reyes"
+date: '2022-10-09'
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(scales)
+library(forcats)
+```
+# Power Analysis
+Reading in the data
+```{r}
+Powers<-read.csv("Data_Tomato_Outputs/Powers_Out10.csv")
+```
+
+```{r}
+Powers$Mass<-as.factor(Powers$Mass)
+Powers$variable<-as.factor(Powers$variable)
+Powers$Type<-as.factor(Powers$Type)
+
+Powers$Type<-factor(Powers$Type,levels=c("Preharvest", "Harvest", "Receiving", "Packed Product"))
+Powers$Mass<-factor(Powers$Mass,levels=c("2 Tomatoes", "6 Tomatoes", "20 Tomatoes", "60 Tomatoes","20 Tomato Mash", "60 Tomato Mash"))
+Powers$Cont<-factor(Powers$Cont,levels=c("100%", "10%", "1%", "0.1%"))
+```
+
+```{r}
+Powers_Summary = Powers %>% 
+  group_by(Type, Mass, variable, Cont) %>% 
+  #summarise(mean = median(value), CI_95 = mean + margin_calc(value),CI_05 = mean - margin_calc(value))
+  summarise(mean = median(value), CI_95 = quantile(value, 0.90),CI_05 = quantile(value, 0.1)) 
+
+Powers_Summary$Cont<-factor(Powers_Summary$Cont,levels=c("100%", "10%", "1%", "0.1%"))
+
+Powers_Summary %>% 
+ggplot(aes(x = Type, y = mean, color = Mass,shape = variable ,group = interaction(Mass, variable)))+
+  #geom_point(stroke = 4,position = position_dodge(0.3))+
+  #geom_line(aes(linetype= variable),size = 0.3,position = position_dodge(0.3))+
+  geom_pointrange(aes(ymin=CI_05, ymax=CI_95),position = position_dodge(0.6), size = 0.6)+
+  geom_errorbar(aes(ymin=CI_05, ymax=CI_95),width = 0.5, size =0.5,position = position_dodge(0.6))+
+  ylab("Sampling Plan Power")+
+  xlab("Sampling at Process Step")+
+  #scale_size_manual(name = "Tomatoes Sampled")+
+  scale_color_discrete(name="Sampling Plan Mass")+
+  scale_shape_discrete(name="Pick Number",labels = c("Power_Pick_1" ="Pick 1", "Power_Pick_2" ="Pick 2", "Power_Pick_3" ="Pick 3") )+
+  scale_linetype_discrete(name="Pick Number",labels = c("Power_Pick_1" ="Pick 1", "Power_Pick_2" ="Pick 2", "Power_Pick_3" ="Pick 3"))+
+  facet_wrap(~Cont,nrow = 2)+
+  theme_bw()
+
+#Boxplot
+Powers%>% 
+ggplot(aes(x = Type, y = value, color = Mass, fill = Mass))+
+#geom_point(position=position_jitterdodge(), alpha = 0.3, size = 1)+
+geom_boxplot(alpha = 0.5, outlier.shape=NA)+
+  scale_color_discrete(name="Sampling Plan Mass")+
+  scale_fill_discrete(name="Sampling Plan Mass")+
+  ylab("Sampling Plan Power")+
+  xlab("Sampling at Process Step")+
+  facet_wrap(~Cont, nrow =2)+
+  theme_bw()
+```
+
+#Contamination at sampling point
+
+```{r}
+Cont_Prog<-read.csv("Data_Tomato_Outputs/SampPoint10.csv")
+
+Cont_Prog$Type[Cont_Prog$Type == "PH"] <- "Preharvest"
+Cont_Prog$Type[Cont_Prog$Type == "H"] <- "Harvest"
+Cont_Prog$Type[Cont_Prog$Type == "R"] <- "Receiving"
+Cont_Prog$Type[Cont_Prog$Type == "PP"] <- "Packed Product"
+
+Cont_Prog$Type<-as.factor(Cont_Prog$Type)
+Cont_Prog$Pick<-as.factor(Cont_Prog$Pick)
+
+Cont_Prog$Type<-factor(Cont_Prog$Type,levels=c("Preharvest", "Harvest", "Receiving", "Packed Product"))
+
+
+Cont_Prog %>% 
+ggplot(aes(x = Type, y = Cont,color = Pick))+
+#geom_point(position=position_jitterdodge(), alpha = 0.3, size = 1)+
+geom_boxplot()+
+xlab("Sampling Plan")+ ylab ("Total Adulteran Cells (TAC) at sampling point")+
+facet_wrap(~`Cont.Type`)+
+scale_y_continuous(labels = scales::comma)+
+  theme_bw()
+
+```
+
+
