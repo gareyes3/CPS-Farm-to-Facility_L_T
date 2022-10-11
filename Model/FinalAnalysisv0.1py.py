@@ -1627,7 +1627,7 @@ Outputs_0001 = [
 
 #%%
 Types_L = ["Preharvest","Preharvest","Preharvest","Preharvest","Preharvest","Preharvest",
-           "Harvest", "Harvest","Harvest","Harvest","Harvest","Harvest","Harvest",
+           "Harvest", "Harvest","Harvest","Harvest","Harvest","Harvest",
            "Receiving","Receiving","Receiving","Receiving","Receiving","Receiving",
            "Packed Product", "Packed Product","Packed Product","Packed Product","Packed Product","Packed Product"]
 Mass_L = [
@@ -1636,7 +1636,6 @@ Mass_L = [
           "2 Tomatoes", "6 Tomatoes", "20 Tomatoes", "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash",
           "2 Tomatoes", "6 Tomatoes", "20 Tomatoes", "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash"]
 
-"Baseline"
 
 def get_Powers(df,Mass,Type):
     a=df.melt()
@@ -1661,7 +1660,7 @@ Powers_all = pd.concat([ger_powers_fromlist(powers_list =Outputs_100 , Clusterin
                         ger_powers_fromlist(powers_list =Outputs_001 , Clustering = "1%"),
                         ger_powers_fromlist(powers_list =Outputs_0001 , Clustering = "0.1%")])
 
-Powers_all.to_csv(path_or_buf = "C:\\Users\\Gustavo Reyes\\Documents\\GitHubFiles\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Powers_Out10.csv")
+Powers_all.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Powers_Out11.csv")
 
 #%%
 def get_cont_samp(Outs):
@@ -1677,7 +1676,7 @@ Samp_Point = pd.concat([
      get_cont_samp(Outs = Outputs_0001)
     ])
 
-Samp_Point.to_csv(path_or_buf = "C:\\Users\\Gustavo Reyes\\Documents\\GitHubFiles\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\SampPoint10.csv")
+Samp_Point.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\SampPoint11.csv")
 
 #%%
 def get_Prev_samp(Outs):
@@ -1693,7 +1692,7 @@ Samp_Point_Prev = pd.concat([
      get_Prev_samp(Outs = Outputs_0001)
     ])
 
-Samp_Point_Prev.to_csv(path_or_buf = "C:\\Users\\reyes\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PrevSampPoint10.csv")
+Samp_Point_Prev.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PrevSampPoint11.csv")
 
 #%% Consumer Exposure
 Outputs_100 = [Outs_100_0_0,
@@ -1721,7 +1720,7 @@ Outputs_0001 = [Outs_0001_0_0,
                Outs_0001_4_A,Outs_0001_4_B, Outs_0001_4_C, Outs_0001_4_D, Outs_0001_4_E, Outs_0001_4_F]
 
 Types_L2 = ["Baseline","Preharvest","Preharvest","Preharvest","Preharvest","Preharvest","Preharvest",
-           "Harvest", "Harvest","Harvest","Harvest","Harvest","Harvest","Harvest",
+           "Harvest", "Harvest","Harvest","Harvest","Harvest","Harvest",
            "Receiving","Receiving","Receiving","Receiving","Receiving","Receiving",
            "Packed Product", "Packed Product","Packed Product","Packed Product","Packed Product","Packed Product"]
 Mass_L2 = ["Baseline",
@@ -1755,5 +1754,5 @@ Exps_all = pd.concat([ger_exps_fromlist(exps_list =Outputs_100 , Clustering = "1
                         ger_exps_fromlist(exps_list =Outputs_001 , Clustering = "1%"),
                         ger_exps_fromlist(exps_list =Outputs_0001 , Clustering = "0.1%")])
 
-Exps_all.to_csv(path_or_buf = "C:\\Users\\reyes\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Exps10.csv")
+Exps_all.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Exps11.csv")
 #%%

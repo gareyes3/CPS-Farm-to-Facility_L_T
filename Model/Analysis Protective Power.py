@@ -79,7 +79,7 @@ Pick_3PP = (sum(Pick_3PP[4]))/sum(Pick_3PP["CFU_Bef_Pick3PHS"])
 List_Outputs = []
 List_of_cont_day = list(range(1,43))
 for i in List_of_cont_day:
-    Inputz_T.Iteration_Number = 10
+    Inputz_T.Iteration_Number = 20
     Scen_T.Tomatoes_per_sample = 2
     Scen_T.Samp_Plan = 1
     Scen_T.Cont_Scenario = 1
@@ -110,7 +110,7 @@ for i in List_of_cont_day:
     
 Final_DF_ProtectiveP = pd.concat(List_Outputs)
 
-Final_DF_ProtectiveP.to_csv(path_or_buf = "C:\\Users\\Gustavo Reyes\\Documents\\GitHubFiles\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP10.csv")
+Final_DF_ProtectiveP.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP10.csv")
 ##############################################
 List_Outputs = []
 List_of_cont_day = list(range(1,43))
