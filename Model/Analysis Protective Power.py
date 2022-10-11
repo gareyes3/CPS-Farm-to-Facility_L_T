@@ -79,8 +79,8 @@ Pick_3PP = (sum(Pick_3PP[4]))/sum(Pick_3PP["CFU_Bef_Pick3PHS"])
 List_Outputs = []
 List_of_cont_day = list(range(1,43))
 for i in List_of_cont_day:
-    Inputz_T.Iteration_Number = 5
-    Scen_T.Tomatoes_per_sample = 20
+    Inputz_T.Iteration_Number = 10
+    Scen_T.Tomatoes_per_sample = 2
     Scen_T.Samp_Plan = 1
     Scen_T.Cont_Scenario = 1
     Scen_T.Samp_Method = 1
@@ -110,4 +110,40 @@ for i in List_of_cont_day:
     
 Final_DF_ProtectiveP = pd.concat(List_Outputs)
 
-Final_DF_ProtectiveP.to_csv(path_or_buf = "C:\\Users\\reyes\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP10.csv")
+Final_DF_ProtectiveP.to_csv(path_or_buf = "C:\\Users\\Gustavo Reyes\\Documents\\GitHubFiles\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP10.csv")
+##############################################
+List_Outputs = []
+List_of_cont_day = list(range(1,43))
+for i in List_of_cont_day:
+    Inputz_T.Iteration_Number = 20
+    Scen_T.Tomatoes_per_sample = 20
+    Scen_T.Samp_Plan = 1
+    Scen_T.Cont_Scenario = 1
+    Scen_T.Samp_Method = 1
+    Scen_T.Chosen_cont_day = 1
+    Scen_T.Contamination_Day = i
+    reload(DepInputz)
+    Outs_S1_A = MainModel.Main_Loop()
+    
+    Rejected_Pick1 = Outs_S1_A[0]["CFU_Bef_Pick1PHS"] - Outs_S1_A[0]["CFU_Aft_Pick1PHS"]
+    Cont_Avail_Pick1 = pd.Series(np.where(Outs_S1_A[0]["CFU_Bef_Pick1PHS"]==0, "Yes", "No"))
+    
+    Rejected_Pick2 = Outs_S1_A[0]["CFU_Bef_Pick2PHS"] - Outs_S1_A[0]["CFU_Aft_Pick2PHS"]
+    Cont_Avail_Pick2 = pd.Series(np.where(Outs_S1_A[0]["CFU_Bef_Pick2PHS"]==0, "Yes", "No"))
+    
+    Rejected_Pick3 = Outs_S1_A[0]["CFU_Bef_Pick3PHS"] - Outs_S1_A[0]["CFU_Aft_Pick3PHS"]
+    Cont_Avail_Pick3 = pd.Series(np.where(Outs_S1_A[0]["CFU_Bef_Pick3PHS"]==0, "Yes", "No"))
+    
+    Total_Exposure = Outs_S1_A[0]["Total CFU"]
+    
+    Prot_Power=pd.concat(
+               [Outs_S1_A[0]["CFU_Bef_Pick1PHS"],Rejected_Pick1,Cont_Avail_Pick1,
+               Outs_S1_A[0]["CFU_Bef_Pick2PHS"],Rejected_Pick2,Cont_Avail_Pick2,
+               Outs_S1_A[0]["CFU_Bef_Pick3PHS"],Rejected_Pick3,Cont_Avail_Pick3,
+               Total_Exposure,pd.Series(Outs_S1_A[5])], axis = 1)
+    
+    List_Outputs.append(Prot_Power)
+    
+Final_DF_ProtectiveP2 = pd.concat(List_Outputs)
+
+Final_DF_ProtectiveP2.to_csv(path_or_buf = "C:\\Users\\Gustavo Reyes\\Documents\\GitHubFiles\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP210.csv")

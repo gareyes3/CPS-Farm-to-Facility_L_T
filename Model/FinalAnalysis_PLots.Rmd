@@ -162,23 +162,83 @@ Protective Power
 
 ```{r}
 PP<-read.csv("Data_Tomato_Outputs/PP10.csv")
+PP2<-read.csv("Data_Tomato_Outputs/PP210.csv")
 
-PP %>% 
+R1<-PP %>% 
   filter(X1 == "No") %>% 
   group_by(X6) %>% 
   summarize(total =sum(X0)) %>% 
-  ggplot(aes(x = X6, y = total))+
-  geom_col()+
+  mutate(class= "Total Rejected")
+
+T1<-PP %>% 
+  filter(X1 == "No") %>% 
+  group_by(X6) %>% 
+  summarize(total =sum(CFU_Bef_Pick1PHS),Prot_Rate = sum(X0)/sum(CFU_Bef_Pick1PHS)) %>% 
+  mutate(class= "Total Available") 
+
+T1%>%
+  bind_rows(R1) %>% 
+  ggplot()+
+  geom_col(aes(x = X6, y = total, fill = class),position = position_identity(), alpha = 0.9)+
   scale_y_continuous(labels = scales::comma)
 
-  PP %>% 
-  filter(X3 == "No") %>% 
-  group_by(X6) %>% 
-  summarize(total =sum(X2)) %>% 
-  ggplot(aes(x = X6, y = total))+
-  geom_col()+
-  scale_y_continuous(labels = scales::comma)
-  
+T1 %>% 
+  ggplot(aes(x = X6, y =Prot_Rate))+
+  geom_point()+
+  geom_line()
+
+
+R2<-PP %>% 
+filter(X3 == "No") %>% 
+group_by(X6) %>% 
+summarize(total =sum(X2))%>% 
+mutate(class= "Total Rejected")
+
+T2<-PP %>% 
+filter(X3 == "No") %>% 
+group_by(X6) %>% 
+  summarize(total =sum(CFU_Bef_Pick2PHS),Prot_Rate = sum(X2)/sum(CFU_Bef_Pick2PHS)) %>% 
+mutate(class= "Total Available")
+
+T2 %>% 
+  ggplot(aes(x = X6, y =Prot_Rate))+
+  geom_point()+
+  geom_line()
+
+
+T2%>%
+bind_rows(R2) %>% 
+ggplot(aes(x = X6, y = total,fill = class))+
+geom_col(position = position_identity(), alpha = 0.9)+
+scale_y_continuous(labels = scales::comma)
+
+
+
+R3<-PP2 %>% 
+filter(X5 == "No") %>% 
+group_by(X6) %>% 
+summarize(total =sum(X4))%>% 
+mutate(class= "Total Rejected")
+
+T3<-PP2 %>% 
+filter(X5 == "No") %>% 
+group_by(X6) %>% 
+summarize(total =sum(CFU_Bef_Pick3PHS),Prot_Rate = sum(X4)/sum(CFU_Bef_Pick3PHS)) %>% 
+mutate(class= "Total Available")
+
+T3%>%
+bind_rows(R3) %>% 
+ggplot(aes(x = X6, y = total,fill = class))+
+geom_col(position = position_identity(), alpha = 0.9)+
+scale_y_continuous(labels = scales::comma)
+
+T3 %>% 
+  ggplot(aes(x = X6, y =Prot_Rate))+
+  geom_point()+
+  geom_smooth()
+
+
+####### 
   PP %>% 
   filter(X5 == "No") %>% 
   group_by(X6) %>% 
