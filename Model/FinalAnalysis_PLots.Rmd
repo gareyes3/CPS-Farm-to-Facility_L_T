@@ -38,8 +38,8 @@ Powers_Summary %>%
 ggplot(aes(x = Type, y = mean, color = Mass,shape = variable ,group = interaction(Mass, variable)))+
   #geom_point(stroke = 4,position = position_dodge(0.3))+
   #geom_line(aes(linetype= variable),size = 0.3,position = position_dodge(0.3))+
-  geom_pointrange(aes(ymin=CI_05, ymax=CI_95),position = position_dodge(0.6), size = 0.6)+
-  geom_errorbar(aes(ymin=CI_05, ymax=CI_95),width = 0.5, size =0.5,position = position_dodge(0.6))+
+  geom_pointrange(aes(ymin=CI_05, ymax=CI_95),position = position_dodge(0.5), size = 0.5)+
+  geom_errorbar(aes(ymin=CI_05, ymax=CI_95),width = 0.5, size =0.5,position = position_dodge(0.5))+
   ylab("Sampling Plan Power")+
   xlab("Sampling at Process Step")+
   #scale_size_manual(name = "Tomatoes Sampled")+
@@ -53,7 +53,7 @@ ggplot(aes(x = Type, y = mean, color = Mass,shape = variable ,group = interactio
 Powers%>% 
 ggplot(aes(x = Type, y = value, color = Mass, fill = Mass))+
 #geom_point(position=position_jitterdodge(), alpha = 0.3, size = 1)+
-geom_boxplot(alpha = 0.5, outlier.shape=NA)+
+geom_boxplot(alpha = 0.5, outlier.shape=NA,position = position_dodge(0.6))+
   scale_color_discrete(name="Sampling Plan Mass")+
   scale_fill_discrete(name="Sampling Plan Mass")+
   ylab("Sampling Plan Power")+
@@ -226,8 +226,13 @@ Exps_Other %>%
 Protective Power
 
 ```{r}
-PP<-read.csv("Data_Tomato_Outputs/PP10.csv")
-PP2<-read.csv("Data_Tomato_Outputs/PP210.csv")
+PP<-read.csv("Data_Tomato_Outputs/PP11.csv")
+PP2<-read.csv("Data_Tomato_Outputs/PP211.csv")
+PP6<-read.csv("Data_Tomato_Outputs/PP311.csv")
+PP60<-read.csv("Data_Tomato_Outputs/PP411.csv")
+
+PP20M<-read.csv("Data_Tomato_Outputs/PP511.csv")
+PP60M<-read.csv("Data_Tomato_Outputs/PP611.csv")
 
 Get_PP_df<-function(PP2){
   R1<-PP2 %>% 
@@ -263,7 +268,6 @@ Get_PP_df<-function(PP2){
   mutate(Pick = "PH sampling Pick 2")
   
   
-  
   R3<-PP2 %>% 
   filter(X5 == "No") %>% 
   group_by(X6) %>% 
@@ -289,25 +293,42 @@ TR20T<-Get_PP_df(PP2= PP2)
 TR20T$Sampling<-"20 Tomatoes"
 TR2T<-Get_PP_df(PP2= PP)
 TR2T$Sampling<-"2 Tomatoes"
+TR6T<-Get_PP_df(PP= PP6)
+TR6T$Sampling<-"6 Tomatoes"
+TR60T<-Get_PP_df(PP= PP60)
+TR60T$Sampling<-"60 Tomatoes"
 
-TR_All<-rbind(TR20T,TR2T)
+TR20TM<-Get_PP_df(PP= PP20M)
+TR20TM$Sampling<-"20 Tomato Mash"
+TR60TM<-Get_PP_df(PP= PP60M)
+TR60TM$Sampling<-"60 Tomato Mash"
+TR_All<-rbind(TR2T,TR6T,TR20T,TR60T,TR20TM,TR60TM)
+
+TR_All$Sampling<-factor(TR_All$Sampling, levels=c("2 Tomatoes", "20 Tomatoes", "6 Tomatoes", "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash"))
+
 
 TR_All%>% 
 ggplot()+
 geom_col(aes(x = X6, y = total,fill = class),position = position_identity(), alpha = 0.9)+
-geom_point(aes(x = X6, y =Prot_Rate*2000000), alpha = 0.5, size = 1)+
-geom_smooth(aes(x = X6, y =Prot_Rate*2000000), alpha = 0.1,span = 0.3, size = 0.7)+
-scale_y_continuous(labels = scales::comma,sec.axis = sec_axis(~./2000000, name = 'Protection Power'))+
+geom_point(aes(x = X6, y =Prot_Rate*10000000), alpha = 0.5, size = 1)+
+geom_smooth(aes(x = X6, y =Prot_Rate*10000000), alpha = 0.1,span = 0.9, size = 0.7, se=F )+
+scale_y_continuous(labels = scales::comma,sec.axis = sec_axis(~./10000000, name = 'Protection Power'))+
   xlab("Day where contamination event happened")+
   ylab("Tota Adulterant Cells (TAC)")+
   facet_grid(Sampling~Pick, scales = "free_x")+
   scale_fill_discrete("Contamination Outcome")
 
-ggsave(filename="Plot Outputs/PP0101.tiff",width = 30, height = 20, units = "cm", dpi = 600)
+ggsave(filename="Plot Outputs/PP0111.tiff",width = 30, height = 30, units = "cm", dpi = 600)
 
 
 
-
+TR_All %>% 
+  group_by(Pick, Sampling) %>% 
+  summarize(PP = sum(total[class=="Total Rejected"])/sum(total[class=="Total Available"])) %>% 
+  ggplot(aes(x = Pick, y = PP, fill = Sampling))+
+  geom_col(position = position_dodge())+
+  ylab("Protection power per pick")
+  
 
 ```
 
