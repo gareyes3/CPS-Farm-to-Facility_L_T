@@ -63,6 +63,13 @@ geom_boxplot(alpha = 0.5, outlier.shape=NA,position = position_dodge(0.6))+
 
 ggsave(filename="Plot Outputs/Powers1011.tiff",width = 25, height = 15, units = "cm", dpi = 600)
 
+
+#Summary for Paper
+Powers %>% 
+  group_by(Type, Mass,Cont) %>% 
+  summarise(mean = mean(value)) %>% 
+  filter(Mass == "6 Tomatoes")
+
 ```
 
 #Contamination at sampling point
@@ -162,6 +169,9 @@ Exps_RE<-Exps_all %>%
 
 Exps_RE$Type<-factor(Exps_RE$Type,levels=c("Baseline","Preharvest", "Harvest", "Receiving", "Packed Product"))
 
+Exps_RE$RE<-1-Exps_RE$RE
+
+
 Exps_RE %>% 
   ggplot(aes(x = Type, y = RE, shape = Mass, color = Mass))+
   #geom_col(position = position_dodge())+
@@ -169,11 +179,12 @@ Exps_RE %>%
   #coord_flip()+
   facet_wrap(~Cont)+
   xlab("Sampling Location")+
-  ylab("Relative Exposure")+
+  ylab("Relative Efficacy Endpoint TAC")+
   theme_bw()+
   scale_shape_manual(values = c(4,8,15,16,17,18,21)) 
 
-ggsave(filename="Plot Outputs/REExps1011.tiff",width = 25, height = 15, units = "cm", dpi = 600)
+ggsave(filename="Plot Outputs/Relative Efficacy.tiff",width = 25, height = 15, units = "cm", dpi = 600)
+ggsave(filename="Plot Outputs/Relative Efficacy.jpeg",width = 25, height = 15, units = "cm", dpi = 600)
 
 ```
 
