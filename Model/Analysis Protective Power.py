@@ -76,6 +76,9 @@ Pick_3PP = Prot_Power[Prot_Power[5]=="No"]
 Pick_3PP = (sum(Pick_3PP[4]))/sum(Pick_3PP["CFU_Bef_Pick3PHS"])
 
 #%%
+###############################################################################PREHARVEST#########################################################
+
+#%% 
 List_Outputs = []
 List_of_cont_day = list(range(1,43))
 for i in List_of_cont_day:
@@ -557,7 +560,7 @@ for i in List_of_cont_day:
     
 Final_DF_ProtectiveP = pd.concat(List_Outputs)
 
-Final_DF_ProtectiveP.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP10_1.csv")
+Final_DF_ProtectiveP.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP01_1.csv")
 ##############################################
 List_Outputs = []
 List_of_cont_day = list(range(1,43))
@@ -593,7 +596,7 @@ for i in List_of_cont_day:
     
 Final_DF_ProtectiveP2 = pd.concat(List_Outputs)
 
-Final_DF_ProtectiveP2.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP10_2.csv")
+Final_DF_ProtectiveP2.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP01_2.csv")
 
 #%%
 List_Outputs = []
@@ -630,7 +633,7 @@ for i in List_of_cont_day:
     
 Final_DF_ProtectiveP3 = pd.concat(List_Outputs)
 
-Final_DF_ProtectiveP3.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP10_3.csv")
+Final_DF_ProtectiveP3.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP01_3.csv")
 ##############################################
 List_Outputs = []
 List_of_cont_day = list(range(1,43))
@@ -666,7 +669,7 @@ for i in List_of_cont_day:
     
 Final_DF_ProtectiveP4 = pd.concat(List_Outputs)
 
-Final_DF_ProtectiveP4.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP10_4.csv")
+Final_DF_ProtectiveP4.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP01_4.csv")
 
 #%%
 List_Outputs = []
@@ -704,7 +707,7 @@ for i in List_of_cont_day:
     
 Final_DF_ProtectiveP5 = pd.concat(List_Outputs)
 
-Final_DF_ProtectiveP5.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP10_5.csv")
+Final_DF_ProtectiveP5.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP01_5.csv")
 ##############################################
 List_Outputs = []
 List_of_cont_day = list(range(1,43))
@@ -741,7 +744,7 @@ for i in List_of_cont_day:
     
 Final_DF_ProtectiveP6 = pd.concat(List_Outputs)
 
-Final_DF_ProtectiveP6.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP10_6.csv")
+Final_DF_ProtectiveP6.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP01_6.csv")
 
 #%% 0.1%
     
@@ -780,7 +783,7 @@ for i in List_of_cont_day:
     
 Final_DF_ProtectiveP = pd.concat(List_Outputs)
 
-Final_DF_ProtectiveP.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP10_1.csv")
+Final_DF_ProtectiveP.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP001_1.csv")
 ##############################################
 List_Outputs = []
 List_of_cont_day = list(range(1,43))
@@ -816,7 +819,7 @@ for i in List_of_cont_day:
     
 Final_DF_ProtectiveP2 = pd.concat(List_Outputs)
 
-Final_DF_ProtectiveP2.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP10_2.csv")
+Final_DF_ProtectiveP2.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP001_2.csv")
 
 #%%
 List_Outputs = []
@@ -853,7 +856,7 @@ for i in List_of_cont_day:
     
 Final_DF_ProtectiveP3 = pd.concat(List_Outputs)
 
-Final_DF_ProtectiveP3.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP10_3.csv")
+Final_DF_ProtectiveP3.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP001_3.csv")
 ##############################################
 List_Outputs = []
 List_of_cont_day = list(range(1,43))
@@ -889,7 +892,7 @@ for i in List_of_cont_day:
     
 Final_DF_ProtectiveP4 = pd.concat(List_Outputs)
 
-Final_DF_ProtectiveP4.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP10_4.csv")
+Final_DF_ProtectiveP4.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP001_4.csv")
 
 #%%
 List_Outputs = []
@@ -927,7 +930,7 @@ for i in List_of_cont_day:
     
 Final_DF_ProtectiveP5 = pd.concat(List_Outputs)
 
-Final_DF_ProtectiveP5.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP10_5.csv")
+Final_DF_ProtectiveP5.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP001_5.csv")
 ##############################################
 List_Outputs = []
 List_of_cont_day = list(range(1,43))
@@ -964,4 +967,4 @@ for i in List_of_cont_day:
     
 Final_DF_ProtectiveP6 = pd.concat(List_Outputs)
 
-Final_DF_ProtectiveP6.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP10_6.csv")
+Final_DF_ProtectiveP6.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PP001_6.csv")

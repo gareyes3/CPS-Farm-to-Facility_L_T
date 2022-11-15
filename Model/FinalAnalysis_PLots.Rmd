@@ -317,6 +317,8 @@ TR_All<-rbind(TR2T,TR6T,TR20T,TR60T,TR20TM,TR60TM)
 
 TR_All$Sampling<-factor(TR_All$Sampling, levels=c("2 Tomatoes", "20 Tomatoes", "6 Tomatoes", "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash"))
 
+TR_All$ContSpread<-"Unclustered Widespread"
+
 
 TR_All%>% 
 ggplot()+
@@ -325,11 +327,11 @@ geom_point(aes(x = X6, y =Prot_Rate*10000000), alpha = 0.5, size = 1)+
 geom_smooth(aes(x = X6, y =Prot_Rate*10000000), alpha = 0.1,span = 0.9, size = 0.7, se=F )+
 scale_y_continuous(labels = scales::comma,sec.axis = sec_axis(~./10000000, name = 'Protection Power'))+
   xlab("Day where contamination event happened")+
-  ylab("Tota Adulterant Cells (TAC)")+
+  ylab("Tota Adulterant Cells (TAC) @ sampling point")+
   facet_grid(Sampling~Pick, scales = "free_x")+
   scale_fill_discrete("Contamination Outcome")
 
-ggsave(filename="Plot Outputs/PP0111.tiff",width = 30, height = 30, units = "cm", dpi = 600)
+ggsave(filename="Plot Outputs/PP.jpeg",width = 20, height = 20, units = "cm", dpi = 600)
 
 
 
@@ -339,7 +341,161 @@ TR_All %>%
   ggplot(aes(x = Pick, y = PP, fill = Sampling))+
   geom_col(position = position_dodge())+
   ylab("Protection power per pick")
+
+TR_All %>% 
+  group_by(Pick, Sampling) %>% 
+  summarise(Total_PP = sum(total[class=="Total Rejected"])/sum(total[class=="Total Available"]))
   
+
+```
+
+
+### Loading 10% Cluster
+```{r}
+PP_10<-read.csv("Data_Tomato_Outputs/PP10_1.csv")
+PP2_10<-read.csv("Data_Tomato_Outputs/PP10_2.csv")
+PP6_10<-read.csv("Data_Tomato_Outputs/PP10_3.csv")
+PP60_10<-read.csv("Data_Tomato_Outputs/PP10_4.csv")
+
+PP20M_10<-read.csv("Data_Tomato_Outputs/PP10_5.csv")
+PP60M_10<-read.csv("Data_Tomato_Outputs/PP10_6.csv")
+
+
+TR20T_10<-Get_PP_df(PP2= PP2_10)
+TR20T_10$Sampling<-"20 Tomatoes"
+TR2T_10<-Get_PP_df(PP2= PP_10)
+TR2T_10$Sampling<-"2 Tomatoes"
+TR6T_10<-Get_PP_df(PP= PP6_10)
+TR6T_10$Sampling<-"6 Tomatoes"
+TR60T_10<-Get_PP_df(PP= PP60_10)
+TR60T_10$Sampling<-"60 Tomatoes"
+
+TR20TM_10<-Get_PP_df(PP= PP20M_10)
+TR20TM_10$Sampling<-"20 Tomato Mash"
+TR60TM_10<-Get_PP_df(PP= PP60M_10)
+TR60TM_10$Sampling<-"60 Tomato Mash"
+TR_All_10<-rbind(TR2T_10,TR6T_10,TR20T_10,TR60T_10,TR20TM_10,TR60TM_10)
+
+TR_All_10$Sampling<-factor(TR_All_10$Sampling, levels=c("2 Tomatoes", "20 Tomatoes", "6 Tomatoes", "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash"))
+
+TR_All_10$ContSpread<-"10% Cluster"
+
+TR_All_10%>% 
+ggplot()+
+geom_col(aes(x = X6, y = total,fill = class),position = position_identity(), alpha = 0.9)+
+geom_point(aes(x = X6, y =Prot_Rate*12000000), alpha = 0.5, size = 1)+
+geom_smooth(aes(x = X6, y =Prot_Rate*12000000), alpha = 0.1,span = 0.9, size = 0.7, se=F )+
+scale_y_continuous(labels = scales::comma,sec.axis = sec_axis(~./12000000, name = 'Protection Power'))+
+  xlab("Day where contamination event happened")+
+  ylab("Tota Adulterant Cells (TAC) @ sampling point")+
+  facet_grid(Sampling~Pick, scales = "free_x")+
+  scale_fill_discrete("Contamination Outcome")
+
+ggsave(filename="Plot Outputs/PP_10.jpeg",width = 20, height = 20, units = "cm", dpi = 600)
+
+
+```
+
+### Loading 1% Cluster
+```{r}
+PP_01<-read.csv("Data_Tomato_Outputs/PP01_1.csv")
+PP2_01<-read.csv("Data_Tomato_Outputs/PP01_2.csv")
+PP6_01<-read.csv("Data_Tomato_Outputs/PP01_3.csv")
+PP60_01<-read.csv("Data_Tomato_Outputs/PP01_4.csv")
+
+PP20M_01<-read.csv("Data_Tomato_Outputs/PP01_5.csv")
+PP60M_01<-read.csv("Data_Tomato_Outputs/PP01_6.csv")
+
+
+TR20T_01<-Get_PP_df(PP2= PP2_01)
+TR20T_01$Sampling<-"20 Tomatoes"
+TR2T_01<-Get_PP_df(PP2= PP_01)
+TR2T_01$Sampling<-"2 Tomatoes"
+TR6T_01<-Get_PP_df(PP= PP6_01)
+TR6T_01$Sampling<-"6 Tomatoes"
+TR60T_01<-Get_PP_df(PP= PP60_01)
+TR60T_01$Sampling<-"60 Tomatoes"
+
+TR20TM_01<-Get_PP_df(PP= PP20M_01)
+TR20TM_01$Sampling<-"20 Tomato Mash"
+TR60TM_01<-Get_PP_df(PP= PP60M_01)
+TR60TM_01$Sampling<-"60 Tomato Mash"
+TR_All_01<-rbind(TR2T_01,TR6T_01,TR20T_01,TR60T_01,TR20TM_01,TR60TM_01)
+
+TR_All_01$Sampling<-factor(TR_All_01$Sampling, levels=c("2 Tomatoes", "20 Tomatoes", "6 Tomatoes", "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash"))
+
+TR_All_01$ContSpread<-"1% Cluster"
+
+TR_All_01%>% 
+ggplot()+
+geom_col(aes(x = X6, y = total,fill = class),position = position_identity(), alpha = 0.9)+
+geom_point(aes(x = X6, y =Prot_Rate*12000000), alpha = 0.5, size = 1)+
+geom_smooth(aes(x = X6, y =Prot_Rate*12000000), alpha = 0.1,span = 0.9, size = 0.7, se=F )+
+scale_y_continuous(labels = scales::comma,sec.axis = sec_axis(~./12000000, name = 'Protection Power'))+
+  xlab("Day where contamination event happened")+
+  ylab("Tota Adulterant Cells (TAC) @ sampling point")+
+  facet_grid(Sampling~Pick, scales = "free_x")+
+  scale_fill_discrete("Contamination Outcome")
+
+ggsave(filename="Plot Outputs/PP_01.jpeg",width = 20, height = 20, units = "cm", dpi = 600)
+
+
+```
+
+
+### Loading .1% Cluster
+```{r}
+PP_001<-read.csv("Data_Tomato_Outputs/PP001_1.csv")
+PP2_001<-read.csv("Data_Tomato_Outputs/PP001_2.csv")
+PP6_001<-read.csv("Data_Tomato_Outputs/PP001_3.csv")
+PP60_001<-read.csv("Data_Tomato_Outputs/PP001_4.csv")
+
+PP20M_001<-read.csv("Data_Tomato_Outputs/PP001_5.csv")
+PP60M_001<-read.csv("Data_Tomato_Outputs/PP001_6.csv")
+
+
+TR20T_001<-Get_PP_df(PP2= PP2_001)
+TR20T_001$Sampling<-"20 Tomatoes"
+TR2T_001<-Get_PP_df(PP2= PP_001)
+TR2T_001$Sampling<-"2 Tomatoes"
+TR6T_001<-Get_PP_df(PP= PP6_001)
+TR6T_001$Sampling<-"6 Tomatoes"
+TR60T_001<-Get_PP_df(PP= PP60_001)
+TR60T_001$Sampling<-"60 Tomatoes"
+
+TR20TM_001<-Get_PP_df(PP= PP20M_001)
+TR20TM_001$Sampling<-"20 Tomato Mash"
+TR60TM_001<-Get_PP_df(PP= PP60M_001)
+TR60TM_001$Sampling<-"60 Tomato Mash"
+TR_All_001<-rbind(TR2T_001,TR6T_001,TR20T_001,TR60T_001,TR20TM_001,TR60TM_001)
+
+TR_All_001$Sampling<-factor(TR_All_001$Sampling, levels=c("2 Tomatoes", "20 Tomatoes", "6 Tomatoes", "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash"))
+
+TR_All_001$ContSpread<-"0.1% Cluster"
+
+```
+
+
+
+
+### Plotting Protective Power
+```{r}
+PP_ALL_Combined<-rbind(TR_All, TR_All_10,TR_All_01,TR_All_001)
+
+PP_ALL_Combined$ContSpread<-factor(PP_ALL_Combined$ContSpread, levels = c("Unclustered Widespread", "10% Cluster", "1% Cluster", "0.1% Cluster"))
+
+PP_ALL_Combined %>% 
+  group_by(Pick, Sampling, ContSpread) %>% 
+  summarize(PP = sum(total[class=="Total Rejected"])/sum(total[class=="Total Available"])) %>% 
+  ggplot(aes(x = Pick, y = PP, fill = Sampling))+
+  geom_col(position = position_dodge())+
+  facet_wrap(~ContSpread)+
+  ylab("Protection power per pick")+
+  theme_bw()+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+ggsave(filename="Plot Outputs/PP_all.jpeg",width = 20, height = 20, units = "cm", dpi = 600)
+
 
 ```
 
