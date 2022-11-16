@@ -463,9 +463,9 @@ def F_Sampling_T_Mash (df, Pick_No, Location, NSamp_Unit, NoGrab, Subsample_Mass
                 P_Detection=1-math.exp(-(Cont_Mash*Subsample_Mass))
                 RandomUnif = random.uniform(0,1)
                 if RandomUnif < P_Detection:
-                    print("positive")
+                    #print("positive")
                     for i in list(List_Random.index):
-                        print("updating")
+                        #print("updating")
                         #df_field_1.at[i, 'PositiveSamples'].append(k)
                         df_field_1.at[i, 'PositiveSamples'] = df_field_1.at[i, 'PositiveSamples'] + 1
     df.update(df_field_1)
