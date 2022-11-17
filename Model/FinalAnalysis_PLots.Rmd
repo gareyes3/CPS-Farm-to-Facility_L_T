@@ -315,7 +315,7 @@ TR60TM<-Get_PP_df(PP= PP60M)
 TR60TM$Sampling<-"60 Tomato Mash"
 TR_All<-rbind(TR2T,TR6T,TR20T,TR60T,TR20TM,TR60TM)
 
-TR_All$Sampling<-factor(TR_All$Sampling, levels=c("2 Tomatoes", "20 Tomatoes", "6 Tomatoes", "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash"))
+TR_All$Sampling<-factor(TR_All$Sampling,levels=c("2 Tomatoes", "6 Tomatoes", "20 Tomatoes" , "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash"))
 
 TR_All$ContSpread<-"Unclustered Widespread"
 
@@ -325,7 +325,7 @@ ggplot()+
 geom_col(aes(x = X6, y = total,fill = class),position = position_identity(), alpha = 0.9)+
 geom_point(aes(x = X6, y =Prot_Rate*10000000), alpha = 0.5, size = 1)+
 geom_smooth(aes(x = X6, y =Prot_Rate*10000000), alpha = 0.1,span = 0.9, size = 0.7, se=F )+
-scale_y_continuous(labels = scales::comma,sec.axis = sec_axis(~./10000000, name = 'Protection Power'))+
+scale_y_continuous(labels = scales::comma,sec.axis = sec_axis(~./10000000, name = 'Risk Mitigation Power'))+
   xlab("Day where contamination event happened")+
   ylab("Tota Adulterant Cells (TAC) @ sampling point")+
   facet_grid(Sampling~Pick, scales = "free_x")+
@@ -376,7 +376,7 @@ TR60TM_10<-Get_PP_df(PP= PP60M_10)
 TR60TM_10$Sampling<-"60 Tomato Mash"
 TR_All_10<-rbind(TR2T_10,TR6T_10,TR20T_10,TR60T_10,TR20TM_10,TR60TM_10)
 
-TR_All_10$Sampling<-factor(TR_All_10$Sampling, levels=c("2 Tomatoes", "20 Tomatoes", "6 Tomatoes", "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash"))
+TR_All_10$Sampling<-factor(TR_All_10$Sampling, levels=c("2 Tomatoes", "6 Tomatoes", "20 Tomatoes" , "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash"))
 
 TR_All_10$ContSpread<-"10% Cluster"
 
@@ -385,7 +385,7 @@ ggplot()+
 geom_col(aes(x = X6, y = total,fill = class),position = position_identity(), alpha = 0.9)+
 geom_point(aes(x = X6, y =Prot_Rate*12000000), alpha = 0.5, size = 1)+
 geom_smooth(aes(x = X6, y =Prot_Rate*12000000), alpha = 0.1,span = 0.9, size = 0.7, se=F )+
-scale_y_continuous(labels = scales::comma,sec.axis = sec_axis(~./12000000, name = 'Protection Power'))+
+scale_y_continuous(labels = scales::comma,sec.axis = sec_axis(~./12000000, name = 'Risk Mitigation Power'))+
   xlab("Day where contamination event happened")+
   ylab("Tota Adulterant Cells (TAC) @ sampling point")+
   facet_grid(Sampling~Pick, scales = "free_x")+
@@ -422,7 +422,7 @@ TR60TM_01<-Get_PP_df(PP= PP60M_01)
 TR60TM_01$Sampling<-"60 Tomato Mash"
 TR_All_01<-rbind(TR2T_01,TR6T_01,TR20T_01,TR60T_01,TR20TM_01,TR60TM_01)
 
-TR_All_01$Sampling<-factor(TR_All_01$Sampling, levels=c("2 Tomatoes", "20 Tomatoes", "6 Tomatoes", "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash"))
+TR_All_01$Sampling<-factor(TR_All_01$Sampling, levels=c("2 Tomatoes", "6 Tomatoes", "20 Tomatoes" , "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash"))
 
 TR_All_01$ContSpread<-"1% Cluster"
 
@@ -431,7 +431,7 @@ ggplot()+
 geom_col(aes(x = X6, y = total,fill = class),position = position_identity(), alpha = 0.9)+
 geom_point(aes(x = X6, y =Prot_Rate*12000000), alpha = 0.5, size = 1)+
 geom_smooth(aes(x = X6, y =Prot_Rate*12000000), alpha = 0.1,span = 0.9, size = 0.7, se=F )+
-scale_y_continuous(labels = scales::comma,sec.axis = sec_axis(~./12000000, name = 'Protection Power'))+
+scale_y_continuous(labels = scales::comma,sec.axis = sec_axis(~./12000000, name = 'Risk Mitigation Power'))+
   xlab("Day where contamination event happened")+
   ylab("Tota Adulterant Cells (TAC) @ sampling point")+
   facet_grid(Sampling~Pick, scales = "free_x")+
@@ -469,9 +469,23 @@ TR60TM_001<-Get_PP_df(PP= PP60M_001)
 TR60TM_001$Sampling<-"60 Tomato Mash"
 TR_All_001<-rbind(TR2T_001,TR6T_001,TR20T_001,TR60T_001,TR20TM_001,TR60TM_001)
 
-TR_All_001$Sampling<-factor(TR_All_001$Sampling, levels=c("2 Tomatoes", "20 Tomatoes", "6 Tomatoes", "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash"))
+TR_All_001$Sampling<-factor(TR_All_001$Sampling,levels=c("2 Tomatoes", "6 Tomatoes", "20 Tomatoes" , "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash"))
 
 TR_All_001$ContSpread<-"0.1% Cluster"
+
+TR_All_001%>% 
+ggplot()+
+geom_col(aes(x = X6, y = total,fill = class),position = position_identity(), alpha = 0.9)+
+geom_point(aes(x = X6, y =Prot_Rate*12000000), alpha = 0.5, size = 1)+
+geom_smooth(aes(x = X6, y =Prot_Rate*12000000), alpha = 0.1,span = 0.9, size = 0.7, se=F )+
+scale_y_continuous(labels = scales::comma,sec.axis = sec_axis(~./12000000, name = 'Risk Mitigation Power'))+
+  xlab("Day where contamination event happened")+
+  ylab("Tota Adulterant Cells (TAC) @ sampling point")+
+  facet_grid(Sampling~Pick, scales = "free_x")+
+  scale_fill_discrete("Contamination Outcome")
+
+ggsave(filename="Plot Outputs/PP_001.jpeg",width = 20, height = 20, units = "cm", dpi = 600)
+
 
 ```
 

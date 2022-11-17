@@ -37,7 +37,7 @@ import Dictionariez_T
 
 def PP_Function(Iter_p_day, Tom_Sample, Samp_Plan, Cont_Scenario, Samp_Method, N_Reps = 20 ):
     List_Outputs = []
-    List_of_cont_day = list(range(1,43))
+    List_of_cont_day = list(range(1,3))
     for i in List_of_cont_day:
         Inputz_T.Iteration_Number = Iter_p_day
         Scen_T.Tomatoes_per_sample = Tom_Sample
@@ -74,33 +74,33 @@ def PP_Function(Iter_p_day, Tom_Sample, Samp_Plan, Cont_Scenario, Samp_Method, N
 
 #%%
 #Harvest 100%
-PP_HS_1_100 = PP_Function(Iter_p_day =100, Tom_Sample = 2, Samp_Plan =2, Cont_Scenario =1, Samp_Method =1 )
-PP_HS_2_100 = PP_Function(Iter_p_day =100, Tom_Sample = 6, Samp_Plan =2, Cont_Scenario =1, Samp_Method =1 )
-PP_HS_3_100 = PP_Function(Iter_p_day =100, Tom_Sample = 20, Samp_Plan =2, Cont_Scenario =1, Samp_Method =1 )
-PP_HS_4_100 = PP_Function(Iter_p_day =100, Tom_Sample = 60, Samp_Plan =2, Cont_Scenario =1, Samp_Method =1 )
-PP_HS_5_100 = PP_Function(Iter_p_day =100, Tom_Sample = 20, Samp_Plan =2, Cont_Scenario =1, Samp_Method =2,N_Reps=20)
-PP_HS_6_100 = PP_Function(Iter_p_day =100, Tom_Sample = 60, Samp_Plan =2, Cont_Scenario =1, Samp_Method =2, N_Reps=60)
+pp_hs_1_100 = PP_Function(Iter_p_day =100, Tom_Sample = 2, Samp_Plan =2, Cont_Scenario =1, Samp_Method =1 )
+pp_hs_2_100 = PP_Function(Iter_p_day =100, Tom_Sample = 6, Samp_Plan =2, Cont_Scenario =1, Samp_Method =1 )
+pp_hs_3_100 = PP_Function(Iter_p_day =100, Tom_Sample = 20, Samp_Plan =2, Cont_Scenario =1, Samp_Method =1 )
+pp_hs_4_100 = PP_Function(Iter_p_day =100, Tom_Sample = 60, Samp_Plan =2, Cont_Scenario =1, Samp_Method =1 )
+pp_hs_5_100 = PP_Function(Iter_p_day =100, Tom_Sample = 20, Samp_Plan =2, Cont_Scenario =1, Samp_Method =2,N_Reps=20)
+pp_hs_6_100 = PP_Function(Iter_p_day =100, Tom_Sample = 60, Samp_Plan =2, Cont_Scenario =1, Samp_Method =2, N_Reps=60)
 
 #Harvest 10%
-PP_HS_1_010 = PP_Function(Iter_p_day =100, Tom_Sample = 2, Samp_Plan =2, Cont_Scenario =2, Samp_Method =1 )
-PP_HS_2_010= PP_Function(Iter_p_day =100, Tom_Sample = 6, Samp_Plan =2, Cont_Scenario =2, Samp_Method =1 )
-PP_HS_3_010 = PP_Function(Iter_p_day =100, Tom_Sample = 20, Samp_Plan =2, Cont_Scenario =2, Samp_Method =1 )
-PP_HS_4_010 = PP_Function(Iter_p_day =100, Tom_Sample = 60, Samp_Plan =2, Cont_Scenario =2, Samp_Method =1 )
-PP_HS_5_010= PP_Function(Iter_p_day =100, Tom_Sample = 20, Samp_Plan =2, Cont_Scenario =2, Samp_Method =2,N_Reps=20)
-PP_HS_6_010 = PP_Function(Iter_p_day =100, Tom_Sample = 60, Samp_Plan =2, Cont_Scenario =2, Samp_Method =2, N_Reps=60)
+pp_hs_1_010 = PP_Function(Iter_p_day =1, Tom_Sample = 2, Samp_Plan =2, Cont_Scenario =2, Samp_Method =1 )
+pp_hs_2_010= PP_Function(Iter_p_day =100, Tom_Sample = 6, Samp_Plan =2, Cont_Scenario =2, Samp_Method =1 )
+pp_hs_3_010 = PP_Function(Iter_p_day =100, Tom_Sample = 20, Samp_Plan =2, Cont_Scenario =2, Samp_Method =1 )
+pp_hs_4_010 = PP_Function(Iter_p_day =100, Tom_Sample = 60, Samp_Plan =2, Cont_Scenario =2, Samp_Method =1 )
+pp_hs_5_010= PP_Function(Iter_p_day =100, Tom_Sample = 20, Samp_Plan =2, Cont_Scenario =2, Samp_Method =2,N_Reps=20)
+pp_hs_6_010 = PP_Function(Iter_p_day =100, Tom_Sample = 60, Samp_Plan =2, Cont_Scenario =2, Samp_Method =2, N_Reps=60)
 
 #Harvest 1%
-PP_HS_1_001 = PP_Function(Iter_p_day =100, Tom_Sample = 2, Samp_Plan =2, Cont_Scenario =3, Samp_Method =1 )
-PP_HS_2_001 = PP_Function(Iter_p_day =100, Tom_Sample = 6, Samp_Plan =2, Cont_Scenario =3, Samp_Method =1 )
-PP_HS_3_001= PP_Function(Iter_p_day =100, Tom_Sample = 20, Samp_Plan =2, Cont_Scenario =3, Samp_Method =1 )
-PP_HS_4_001 = PP_Function(Iter_p_day =100, Tom_Sample = 60, Samp_Plan =2, Cont_Scenario =3, Samp_Method =1 )
-PP_HS_5_001 = PP_Function(Iter_p_day =100, Tom_Sample = 20, Samp_Plan =2, Cont_Scenario =3, Samp_Method =2,N_Reps=20)
-PP_HS_6_001 = PP_Function(Iter_p_day =100, Tom_Sample = 60, Samp_Plan =2, Cont_Scenario =3, Samp_Method =2, N_Reps=60)
+pp_hs_1_001 = PP_Function(Iter_p_day =100, Tom_Sample = 2, Samp_Plan =2, Cont_Scenario =3, Samp_Method =1 )
+pp_hs_2_001 = PP_Function(Iter_p_day =100, Tom_Sample = 6, Samp_Plan =2, Cont_Scenario =3, Samp_Method =1 )
+pp_hs_3_001= PP_Function(Iter_p_day =100, Tom_Sample = 20, Samp_Plan =2, Cont_Scenario =3, Samp_Method =1 )
+pp_hs_4_001 = PP_Function(Iter_p_day =100, Tom_Sample = 60, Samp_Plan =2, Cont_Scenario =3, Samp_Method =1 )
+pp_hs_5_001 = PP_Function(Iter_p_day =100, Tom_Sample = 20, Samp_Plan =2, Cont_Scenario =3, Samp_Method =2,N_Reps=20)
+pp_hs_6_001 = PP_Function(Iter_p_day =100, Tom_Sample = 60, Samp_Plan =2, Cont_Scenario =3, Samp_Method =2, N_Reps=60)
 
 #Harvest 0.1%
-PP_HS_1_0001 = PP_Function(Iter_p_day =100, Tom_Sample = 2, Samp_Plan =2, Cont_Scenario =4, Samp_Method =1 )
-PP_HS_2_0001 = PP_Function(Iter_p_day =100, Tom_Sample = 6, Samp_Plan =2, Cont_Scenario =4, Samp_Method =1 )
-PP_HS_3_0001= PP_Function(Iter_p_day =100, Tom_Sample = 20, Samp_Plan =2, Cont_Scenario =4, Samp_Method =1 )
-PP_HS_4_0001 = PP_Function(Iter_p_day =100, Tom_Sample = 60, Samp_Plan =2, Cont_Scenario =4, Samp_Method =1 )
-PP_HS_5_0001 = PP_Function(Iter_p_day =100, Tom_Sample = 20, Samp_Plan =2, Cont_Scenario =4, Samp_Method =2,N_Reps=20)
-PP_HS_6_0001 = PP_Function(Iter_p_day =100, Tom_Sample = 60, Samp_Plan =2, Cont_Scenario =4, Samp_Method =2, N_Reps=60)
+pp_hs_1_0001 = PP_Function(Iter_p_day =100, Tom_Sample = 2, Samp_Plan =2, Cont_Scenario =4, Samp_Method =1 )
+pp_hs_2_0001 = PP_Function(Iter_p_day =100, Tom_Sample = 6, Samp_Plan =2, Cont_Scenario =4, Samp_Method =1 )
+pp_hs_3_0001= PP_Function(Iter_p_day =100, Tom_Sample = 20, Samp_Plan =2, Cont_Scenario =4, Samp_Method =1 )
+pp_hs_4_0001 = PP_Function(Iter_p_day =100, Tom_Sample = 60, Samp_Plan =2, Cont_Scenario =4, Samp_Method =1 )
+pp_hs_5_0001 = PP_Function(Iter_p_day =100, Tom_Sample = 20, Samp_Plan =2, Cont_Scenario =4, Samp_Method =2,N_Reps=20)
+pp_hs_6_0001 = PP_Function(Iter_p_day =100, Tom_Sample = 60, Samp_Plan =2, Cont_Scenario =4, Samp_Method =2, N_Reps=60)
