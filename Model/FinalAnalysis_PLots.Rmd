@@ -234,17 +234,9 @@ Exps_Other %>%
 ```
 #PP
 
-Protective Power
+Protective Power PH
 
 ```{r}
-PP<-read.csv("Data_Tomato_Outputs/PP11.csv")
-PP2<-read.csv("Data_Tomato_Outputs/PP211.csv")
-PP6<-read.csv("Data_Tomato_Outputs/PP311.csv")
-PP60<-read.csv("Data_Tomato_Outputs/PP411.csv")
-
-PP20M<-read.csv("Data_Tomato_Outputs/PP511.csv")
-PP60M<-read.csv("Data_Tomato_Outputs/PP611.csv")
-
 Get_PP_df<-function(PP2){
   R1<-PP2 %>% 
     filter(X1 == "No") %>% 
@@ -298,7 +290,17 @@ Get_PP_df<-function(PP2){
   TR_Tog<-rbind(TR1,TR2,TR3)
   return (TR_Tog)
 }
+```
 
+
+```{r}
+PP<-read.csv("Data_Tomato_Outputs/PP11.csv")
+PP2<-read.csv("Data_Tomato_Outputs/PP211.csv")
+PP6<-read.csv("Data_Tomato_Outputs/PP311.csv")
+PP60<-read.csv("Data_Tomato_Outputs/PP411.csv")
+
+PP20M<-read.csv("Data_Tomato_Outputs/PP511.csv")
+PP60M<-read.csv("Data_Tomato_Outputs/PP611.csv")
 
 TR20T<-Get_PP_df(PP2= PP2)
 TR20T$Sampling<-"20 Tomatoes"
@@ -326,7 +328,7 @@ geom_col(aes(x = X6, y = total,fill = class),position = position_identity(), alp
 geom_point(aes(x = X6, y =Prot_Rate*10000000), alpha = 0.5, size = 1)+
 geom_smooth(aes(x = X6, y =Prot_Rate*10000000), alpha = 0.1,span = 0.9, size = 0.7, se=F )+
 scale_y_continuous(labels = scales::comma,sec.axis = sec_axis(~./10000000, name = 'Risk Mitigation Power'))+
-  xlab("Day where contamination event happened")+
+  xlab("Day when contamination event happened")+
   ylab("Tota Adulterant Cells (TAC) @ sampling point")+
   facet_grid(Sampling~Pick, scales = "free_x")+
   scale_fill_discrete("Contamination Outcome")
@@ -386,7 +388,7 @@ geom_col(aes(x = X6, y = total,fill = class),position = position_identity(), alp
 geom_point(aes(x = X6, y =Prot_Rate*12000000), alpha = 0.5, size = 1)+
 geom_smooth(aes(x = X6, y =Prot_Rate*12000000), alpha = 0.1,span = 0.9, size = 0.7, se=F )+
 scale_y_continuous(labels = scales::comma,sec.axis = sec_axis(~./12000000, name = 'Risk Mitigation Power'))+
-  xlab("Day where contamination event happened")+
+  xlab("Day when contamination event happened")+
   ylab("Tota Adulterant Cells (TAC) @ sampling point")+
   facet_grid(Sampling~Pick, scales = "free_x")+
   scale_fill_discrete("Contamination Outcome")
@@ -432,7 +434,7 @@ geom_col(aes(x = X6, y = total,fill = class),position = position_identity(), alp
 geom_point(aes(x = X6, y =Prot_Rate*12000000), alpha = 0.5, size = 1)+
 geom_smooth(aes(x = X6, y =Prot_Rate*12000000), alpha = 0.1,span = 0.9, size = 0.7, se=F )+
 scale_y_continuous(labels = scales::comma,sec.axis = sec_axis(~./12000000, name = 'Risk Mitigation Power'))+
-  xlab("Day where contamination event happened")+
+  xlab("Day when contamination event happened")+
   ylab("Tota Adulterant Cells (TAC) @ sampling point")+
   facet_grid(Sampling~Pick, scales = "free_x")+
   scale_fill_discrete("Contamination Outcome")
@@ -479,7 +481,7 @@ geom_col(aes(x = X6, y = total,fill = class),position = position_identity(), alp
 geom_point(aes(x = X6, y =Prot_Rate*12000000), alpha = 0.5, size = 1)+
 geom_smooth(aes(x = X6, y =Prot_Rate*12000000), alpha = 0.1,span = 0.9, size = 0.7, se=F )+
 scale_y_continuous(labels = scales::comma,sec.axis = sec_axis(~./12000000, name = 'Risk Mitigation Power'))+
-  xlab("Day where contamination event happened")+
+  xlab("Day when contamination event happened")+
   ylab("Tota Adulterant Cells (TAC) @ sampling point")+
   facet_grid(Sampling~Pick, scales = "free_x")+
   scale_fill_discrete("Contamination Outcome")
@@ -489,12 +491,186 @@ ggsave(filename="Plot Outputs/PP_001.jpeg",width = 20, height = 20, units = "cm"
 
 ```
 
+#PP Harvest
+
+### 100% contmaination
+```{r}
+PP_100<-read.csv("Data_Tomato_Outputs/pp_hs_1_100.csv")
+PP2_100<-read.csv("Data_Tomato_Outputs/pp_hs_2_100.csv")
+PP6_100<-read.csv("Data_Tomato_Outputs/pp_hs_3_100.csv")
+PP60_100<-read.csv("Data_Tomato_Outputs/pp_hs_4_100.csv")
+PP20M_100<-read.csv("Data_Tomato_Outputs/pp_hs_5_100.csv")
+PP60M_100<-read.csv("Data_Tomato_Outputs/pp_hs_6_100.csv")
+
+
+
+TR20T_100<-Get_PP_df(PP2= PP2_100)
+TR20T_100$Sampling<-"20 Tomatoes"
+TR2T_100<-Get_PP_df(PP2= PP_100)
+TR2T_100$Sampling<-"2 Tomatoes"
+TR6T_100<-Get_PP_df(PP= PP6_100)
+TR6T_100$Sampling<-"6 Tomatoes"
+TR60T_100<-Get_PP_df(PP= PP60_100)
+TR60T_100$Sampling<-"60 Tomatoes"
+
+TR20TM_100<-Get_PP_df(PP= PP20M_100)
+TR20TM_100$Sampling<-"20 Tomato Mash"
+TR60TM_100<-Get_PP_df(PP= PP60M_100)
+TR60TM_100$Sampling<-"60 Tomato Mash"
+TR_All_100<-rbind(TR2T_100,TR6T_100,TR20T_100,TR60T_100,TR20TM_100,TR60TM_100)
+
+TR_All_100$Sampling<-factor(TR_All_100$Sampling, levels=c("2 Tomatoes", "6 Tomatoes", "20 Tomatoes" , "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash"))
+
+TR_All_100$ContSpread<-"10% Cluster"
+
+TR_All_100%>% 
+ggplot()+
+geom_col(aes(x = X6, y = total,fill = class),position = position_identity(), alpha = 0.9)+
+geom_point(aes(x = X6, y =Prot_Rate*10000000), alpha = 0.5, size = 1)+
+geom_smooth(aes(x = X6, y =Prot_Rate*10000000), alpha = 0.1,span = 0.9, size = 0.7, se=F )+
+scale_y_continuous(labels = scales::comma,sec.axis = sec_axis(~./10000000, name = 'Risk Mitigation Power'))+
+  xlab("Day when contamination event happened")+
+  ylab("Tota Adulterant Cells (TAC) @ sampling point")+
+  facet_grid(Sampling~Pick, scales = "free_x")+
+  scale_fill_discrete("Contamination Outcome")
+
+ggsave(filename="Plot Outputs/PP_100_HS.jpeg",width = 20, height = 20, units = "cm", dpi = 600)
+
+```
+```{r}
+PP_010<-read.csv("Data_Tomato_Outputs/pp_hs_1_010.csv")
+PP2_010<-read.csv("Data_Tomato_Outputs/pp_hs_2_010.csv")
+PP6_010<-read.csv("Data_Tomato_Outputs/pp_hs_3_010.csv")
+PP60_010<-read.csv("Data_Tomato_Outputs/pp_hs_4_010.csv")
+PP20M_010<-read.csv("Data_Tomato_Outputs/pp_hs_5_010.csv")
+PP60M_010<-read.csv("Data_Tomato_Outputs/pp_hs_6_010.csv")
+
+
+
+TR20T_010<-Get_PP_df(PP2= PP2_010)
+TR20T_010$Sampling<-"20 Tomatoes"
+TR2T_010<-Get_PP_df(PP2= PP_010)
+TR2T_010$Sampling<-"2 Tomatoes"
+TR6T_010<-Get_PP_df(PP= PP6_010)
+TR6T_010$Sampling<-"6 Tomatoes"
+TR60T_010<-Get_PP_df(PP= PP60_010)
+TR60T_010$Sampling<-"60 Tomatoes"
+
+TR20TM_010<-Get_PP_df(PP= PP20M_010)
+TR20TM_010$Sampling<-"20 Tomato Mash"
+TR60TM_010<-Get_PP_df(PP= PP60M_010)
+TR60TM_010$Sampling<-"60 Tomato Mash"
+TR_All_010<-rbind(TR2T_010,TR6T_010,TR20T_010,TR60T_010,TR20TM_010,TR60TM_010)
+
+TR_All_010$Sampling<-factor(TR_All_010$Sampling, levels=c("2 Tomatoes", "6 Tomatoes", "20 Tomatoes" , "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash"))
+
+TR_All_010$ContSpread<-"10% Cluster"
+
+TR_All_010%>% 
+ggplot()+
+geom_col(aes(x = X6, y = total,fill = class),position = position_identity(), alpha = 0.9)+
+geom_point(aes(x = X6, y =Prot_Rate*10000000), alpha = 0.5, size = 1)+
+geom_smooth(aes(x = X6, y =Prot_Rate*10000000), alpha = 0.1,span = 0.9, size = 0.7, se=F )+
+scale_y_continuous(labels = scales::comma,sec.axis = sec_axis(~./10000000, name = 'Risk Mitigation Power'))+
+  xlab("Day when contamination event happened")+
+  ylab("Tota Adulterant Cells (TAC) @ sampling point")+
+  facet_grid(Sampling~Pick, scales = "free_x")+
+  scale_fill_discrete("Contamination Outcome")
+
+ggsave(filename="Plot Outputs/PP_010_HS.jpeg",width = 20, height = 20, units = "cm", dpi = 600)
+```
+
+```{r}
+PP_001<-read.csv("Data_Tomato_Outputs/pp_hs_1_001.csv")
+PP2_001<-read.csv("Data_Tomato_Outputs/pp_hs_2_001.csv")
+PP6_001<-read.csv("Data_Tomato_Outputs/pp_hs_3_001.csv")
+PP60_001<-read.csv("Data_Tomato_Outputs/pp_hs_4_001.csv")
+PP20M_001<-read.csv("Data_Tomato_Outputs/pp_hs_5_001.csv")
+PP60M_001<-read.csv("Data_Tomato_Outputs/pp_hs_6_001.csv")
+
+
+
+TR20T_001<-Get_PP_df(PP2= PP2_001)
+TR20T_001$Sampling<-"20 Tomatoes"
+TR2T_001<-Get_PP_df(PP2= PP_001)
+TR2T_001$Sampling<-"2 Tomatoes"
+TR6T_001<-Get_PP_df(PP= PP6_001)
+TR6T_001$Sampling<-"6 Tomatoes"
+TR60T_001<-Get_PP_df(PP= PP60_001)
+TR60T_001$Sampling<-"60 Tomatoes"
+
+TR20TM_001<-Get_PP_df(PP= PP20M_001)
+TR20TM_001$Sampling<-"20 Tomato Mash"
+TR60TM_001<-Get_PP_df(PP= PP60M_001)
+TR60TM_001$Sampling<-"60 Tomato Mash"
+TR_All_001<-rbind(TR2T_001,TR6T_001,TR20T_001,TR60T_001,TR20TM_001,TR60TM_001)
+
+TR_All_001$Sampling<-factor(TR_All_001$Sampling, levels=c("2 Tomatoes", "6 Tomatoes", "20 Tomatoes" , "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash"))
+
+TR_All_001$ContSpread<-"10% Cluster"
+
+TR_All_001%>% 
+ggplot()+
+geom_col(aes(x = X6, y = total,fill = class),position = position_identity(), alpha = 0.9)+
+geom_point(aes(x = X6, y =Prot_Rate*10000000), alpha = 0.5, size = 1)+
+geom_smooth(aes(x = X6, y =Prot_Rate*10000000), alpha = 0.1,span = 0.9, size = 0.7, se=F )+
+scale_y_continuous(labels = scales::comma,sec.axis = sec_axis(~./10000000, name = 'Risk Mitigation Power'))+
+  xlab("Day when contamination event happened")+
+  ylab("Tota Adulterant Cells (TAC) @ sampling point")+
+  facet_grid(Sampling~Pick, scales = "free_x")+
+  scale_fill_discrete("Contamination Outcome")
+
+ggsave(filename="Plot Outputs/PP_001_HS.jpeg",width = 20, height = 20, units = "cm", dpi = 600)
+```
+
+```{r}
+PP_0001<-read.csv("Data_Tomato_Outputs/pp_hs_1_0001.csv")
+PP2_0001<-read.csv("Data_Tomato_Outputs/pp_hs_2_0001.csv")
+PP6_0001<-read.csv("Data_Tomato_Outputs/pp_hs_3_0001.csv")
+PP60_0001<-read.csv("Data_Tomato_Outputs/pp_hs_4_0001.csv")
+PP20M_0001<-read.csv("Data_Tomato_Outputs/pp_hs_5_0001.csv")
+PP60M_0001<-read.csv("Data_Tomato_Outputs/pp_hs_6_0001.csv")
+
+
+
+TR20T_0001<-Get_PP_df(PP2= PP2_0001)
+TR20T_0001$Sampling<-"20 Tomatoes"
+TR2T_0001<-Get_PP_df(PP2= PP_0001)
+TR2T_0001$Sampling<-"2 Tomatoes"
+TR6T_0001<-Get_PP_df(PP= PP6_0001)
+TR6T_0001$Sampling<-"6 Tomatoes"
+TR60T_0001<-Get_PP_df(PP= PP60_0001)
+TR60T_0001$Sampling<-"60 Tomatoes"
+
+TR20TM_0001<-Get_PP_df(PP= PP20M_0001)
+TR20TM_0001$Sampling<-"20 Tomato Mash"
+TR60TM_0001<-Get_PP_df(PP= PP60M_0001)
+TR60TM_0001$Sampling<-"60 Tomato Mash"
+TR_All_0001<-rbind(TR2T_0001,TR6T_0001,TR20T_0001,TR60T_0001,TR20TM_0001,TR60TM_0001)
+
+TR_All_0001$Sampling<-factor(TR_All_0001$Sampling, levels=c("2 Tomatoes", "6 Tomatoes", "20 Tomatoes" , "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash"))
+
+TR_All_0001$ContSpread<-"10% Cluster"
+
+TR_All_0001%>% 
+ggplot()+
+geom_col(aes(x = X6, y = total,fill = class),position = position_identity(), alpha = 0.9)+
+geom_point(aes(x = X6, y =Prot_Rate*10000000), alpha = 0.5, size = 1)+
+geom_smooth(aes(x = X6, y =Prot_Rate*10000000), alpha = 0.1,span = 0.9, size = 0.7, se=F )+
+scale_y_continuous(labels = scales::comma,sec.axis = sec_axis(~./10000000, name = 'Risk Mitigation Power'))+
+  xlab("Day when contamination event happened")+
+  ylab("Tota Adulterant Cells (TAC) @ sampling point")+
+  facet_grid(Sampling~Pick, scales = "free_x")+
+  scale_fill_discrete("Contamination Outcome")
+
+ggsave(filename="Plot Outputs/PP_0001_HS.jpeg",width = 20, height = 20, units = "cm", dpi = 600)
+```
 
 
 
 ### Plotting Protective Power
 ```{r}
-PP_ALL_Combined<-rbind(TR_All, TR_All_10,TR_All_01,TR_All_001)
+PP_ALL_Combined<-rbind(TR_All, TR_All_10,TR_All_01,TR_All_0001)
 
 PP_ALL_Combined$ContSpread<-factor(PP_ALL_Combined$ContSpread, levels = c("Unclustered Widespread", "10% Cluster", "1% Cluster", "0.1% Cluster"))
 
