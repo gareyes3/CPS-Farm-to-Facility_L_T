@@ -158,15 +158,14 @@ def Analysis_Loop(HA_Iterations,Loop_Iterations,Hazard_Mean, Hazard_SD, Samp_Pla
         np.random.seed(100+i)
         random.seed(100+i)
         Random_Haz = int(np.random.normal(Hazard_Mean,Hazard_SD))
-        print(Random_Haz)
-        Inputz_T.Iteration_Number = Loop_Iterations
-        Inputz_T.Total_Hazard= Random_Haz
+        Scen_T.Iteration_Number = Loop_Iterations
+        Scen_T.Total_Hazard= Random_Haz
         Scen_T.Tomatoes_per_sample = Tom_Per_Sample
         Scen_T.Samp_Plan = Samp_Plan
         Scen_T.Cont_Scenario = Cont_Scen
         Scen_T.Samp_Method = Samp_Method
         Scen_T.N_Replicates = N_Replicates
-        reload(DepInputz)
+        #reload(DepInputz)
         Outs = MainModel.Main_Loop(random_seed=i*105)
         #powers
         Powers_df.at[i,"Power_Pick_1"]=get_powers_scenarios(Outs[0],Tot_Iter = Loop_Iterations)[0][2]
@@ -481,7 +480,7 @@ Outs_100_4_A= Analysis_Loop(HA_Iterations = 10,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
-              Samp_Plan = 3, 
+              Samp_Plan = 4, 
               Tom_Per_Sample = 2, 
               Cont_Scen =1, 
               Type ="PP", 
@@ -494,7 +493,7 @@ Outs_100_4_B= Analysis_Loop(HA_Iterations = 10,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
-              Samp_Plan = 3, 
+              Samp_Plan = 4, 
               Tom_Per_Sample = 6, 
               Cont_Scen =1, 
               Type ="PP", 
@@ -841,7 +840,7 @@ Outs_010_4_B= Analysis_Loop(HA_Iterations = 10,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
-              Samp_Plan = 1, 
+              Samp_Plan = 4, 
               Tom_Per_Sample = 6, 
               Cont_Scen =2, 
               Type ="PP", 

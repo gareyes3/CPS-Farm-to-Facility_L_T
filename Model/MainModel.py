@@ -37,29 +37,30 @@ import Dictionariez_T
 #%%
 
 def Main_Loop(random_seed =1000):
-    
     #Model
     #Creation of collection Data Frames.
-    DC_Cont_Day = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Inputz_T.Iteration_Number)
-    DC_Prev_Day = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Inputz_T.Iteration_Number)
-    DC_Cont_Processing = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Proc_Steps, Niterations = Inputz_T.Iteration_Number)
-    DC_Cont_Processing_Prev = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Proc_Steps, Niterations = Inputz_T.Iteration_Number)
-    DC_Exp = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Columns_Final_Outs, Niterations = Inputz_T.Iteration_Number)
+    DC_Cont_Day = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Scen_T.Iteration_Number)
+    DC_Prev_Day = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Scen_T.Iteration_Number)
+    DC_Cont_Processing = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Proc_Steps, Niterations = Scen_T.Iteration_Number)
+    DC_Cont_Processing_Prev = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Proc_Steps, Niterations = Scen_T.Iteration_Number)
+    DC_Exp = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Columns_Final_Outs, Niterations = Scen_T.Iteration_Number)
 
-    DC_Cont_Day_Pick1 = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Inputz_T.Iteration_Number)
-    DC_Cont_Day_Pick2 = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Inputz_T.Iteration_Number)
-    DC_Cont_Day_Pick3 = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Inputz_T.Iteration_Number)
+    #DC_Cont_Day_Pick1 = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Scen_T.Iteration_Number)
+    #DC_Cont_Day_Pick2 = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Scen_T.Iteration_Number)
+    #DC_Cont_Day_Pick3 = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, Niterations = Scen_T.Iteration_Number)
 
     Cont_Day_List = []
     #Simulating Days
     #reload(Inputz_T)
     
     #Contaminated Bin
+    print(Scen_T.Total_Iterations)
     for k in DepInputz.Total_Iterations:
         print(k, "Iteration")
         random.seed(random_seed+k)
         np.random.seed(random_seed+k)
         reload(Inputz_T)
+        print(Scen_T.Total_Hazard)
         
         #start_df = time.time()
         Field_df=pd.DataFrame({"Tomato_ID": Inputz_T.Individual_Tomatoes,
@@ -92,85 +93,86 @@ def Main_Loop(random_seed =1000):
             Cont_Day  = [Scen_T.Contamination_Day ]
             print(Cont_Day)
             
-        Cont_Day_List.append(Cont_Day[0])        
-        Days_B_Pick1 = list(range(1,Inputz_T.Days_Between_Picks+1))
-        Days_B_Pick2 = list(range(Inputz_T.Days_Between_Picks+1,2*Inputz_T.Days_Between_Picks+1))
-        Days_B_Pick3 = list(range(2*Inputz_T.Days_Between_Picks+1,3*Inputz_T.Days_Between_Picks+1))
+        Cont_Day_List.append(Cont_Day[0])    
+    
+        #Choosing the harvester that is contaminated
+        Contaminated_Harvesters_Each = random.sample(list(range(1,Inputz_T.Total_Harvesters+1)),3)
+        #Days_B_Pick1 = list(range(1,Inputz_T.Days_Between_Picks+1))
+        #Days_B_Pick2 = list(range(Inputz_T.Days_Between_Picks+1,2*Inputz_T.Days_Between_Picks+1))
+        #Days_B_Pick3 = list(range(2*Inputz_T.Days_Between_Picks+1,3*Inputz_T.Days_Between_Picks+1))
         
-        Cont_Event_1_Days = [random.sample(Days_B_Pick1,1)[0], random.sample(Days_B_Pick2,1)[0], random.sample(Days_B_Pick3,1)[0]]
-        Cont_Event_2_Days = [random.sample(Days_B_Pick1,1)[0], random.sample(Days_B_Pick2,1)[0], random.sample(Days_B_Pick3,1)[0]]
-        Cont_Event_3_Harvesters = random.sample(list(range(1,Inputz_T.Total_Harvesters+1)),3)
+        #Cont_Event_1_Days = [random.sample(Days_B_Pick1,1)[0], random.sample(Days_B_Pick2,1)[0], random.sample(Days_B_Pick3,1)[0]]
+        #Cont_Event_2_Days = [random.sample(Days_B_Pick1,1)[0], random.sample(Days_B_Pick2,1)[0], random.sample(Days_B_Pick3,1)[0]]
+        
         
         
         
         for i in Inputz_T.Days:
             
-            #Contmaination Event Due to Rain'
             
+            #100% widespread contamination
             if (Scen_T.Cont_Scenario == 1 and i in Cont_Day):
                 #This function contaminated the field uniformly. 100% of the field cont. 
                 Field_df = Funz_T.field_cont_percetage2(df = Field_df, 
                                                 percent_cont = 100,
-                                                Hazard_lvl = Inputz_T.Total_Hazard, 
+                                                Hazard_lvl = Scen_T.Total_Hazard, 
                                                 No_Cont_Clusters = 1)
 
             
-            #Contmaination Event Due to Animal Intrusion
+            #10% cluster contamination
             if (Scen_T.Cont_Scenario == 2 and i in Cont_Day): 
                 #Contaminated field with 0.1% contamination, simulated bird droping. 
                 Field_df = Funz_T.field_cont_percetage2(df = Field_df, 
                                                 percent_cont = 10,
-                                                Hazard_lvl = Inputz_T.Total_Hazard, 
+                                                Hazard_lvl =Scen_T.Total_Hazard, 
                                                 No_Cont_Clusters = 1)
-                
+            
+            #1% clustercontamination
             if (Scen_T.Cont_Scenario == 3 and i in Cont_Day): 
                 #print("brid")
                 #Contaminated field with 0.1% contamination, simulated bird droping. 
                 Field_df = Funz_T.field_cont_percetage2(df = Field_df, 
                                                 percent_cont = 1,
-                                                Hazard_lvl = Inputz_T.Total_Hazard, 
+                                                Hazard_lvl = Scen_T.Total_Hazard, 
                                                 No_Cont_Clusters = 1)
-                
+            #0.1% cluster contamination   
             if (Scen_T.Cont_Scenario == 4 and i in Cont_Day): 
                 #Contaminated field with 0.1% contamination, simulated bird droping. 
                 Field_df = Funz_T.field_cont_percetage2(df = Field_df, 
                                                 percent_cont = 0.1,
-                                                Hazard_lvl = Inputz_T.Total_Hazard, 
+                                                Hazard_lvl = Scen_T.Total_Hazard, 
                                                 No_Cont_Clusters = 1)
             
             #Conduncting preharvest sampling.
             
-            if Scen_T.Samp_Plan == 1:
+            if Scen_T.Samp_Plan == 1: #plan 1 is preharvest
                 #Collection of Outputs
-    
                 if i in Inputz_T.PHS_Days:
-                    #print(Current_Samp, "Pick No")
-                    #start_OCS = time.time()
+
+                    #collecting intermediate outputs
                     DC_Exp= Dictionariez_T.Output_Collection_Sampling(df = Field_df, 
                                                       outputDF=DC_Exp,
                                                       i = k, 
                                                       SampType = "PHS", 
                                                       PickNo = Current_Samp,
                                                       Bef_Aft = "Bef")
-                    #print(time.time() - start_OCS, "Output Collectin Sampling")
-                    
-                    #start_OCSWR = time.time()
+
                     DC_Exp = Dictionariez_T.Output_Collection_Sampling_Weight_R(df = Field_df, 
                                                       outputDF=DC_Exp,
                                                       i = k, 
                                                       SampType = "PHS", 
                                                       PickNo = Current_Samp,
                                                       Bef_Aft = "Bef")
-                    #print(time.time() - start_OCSWR, "Output Collectin Sampling WR")
-    
+
+                    #whole tomatoes no mash
                     if Scen_T.Samp_Method == 1:
-                        #start_sampl = time.time()
+
                         Field_df = Funz_T.F_Sampling_T (df= Field_df, 
                                                   Pick_No = Current_Pick, 
                                                   Location = 1, #Location is in field
                                                   NSamp_Unit = 1, 
                                                   NoGrab = Scen_T.Tomatoes_per_sample) 
-                        #print(time.time() - start_sampl, "sampling")
+                    #Method for the tomato Mash.
                     elif  Scen_T.Samp_Method == 2:
                         Field_df =  Funz_T.F_Sampling_T_Mash (df= Field_df, 
                                                               Pick_No= Current_Pick, 
@@ -181,14 +183,14 @@ def Main_Loop(random_seed =1000):
                                                               N_replicates = Scen_T.N_Replicates)
                     
                     #Rejection rules, reject current pick plus any upcoming picks
-                    #start_RR = time.time()
+
                     Field_df=Funz_T.F_Rejection_Rule_T (df = Field_df, 
                                         Pick_No = Current_Samp, 
                                         Av_Picks= list(range(Current_Pick,Inputz_T.N_Pick+1)), 
                                         Test_Unit = "Pick_ID", 
                                         limit = 0)
-                    #print(time.time() - start_RR, "Rejection")
-                    
+
+                    #Collecting sampling outputs
                     DC_Exp= Dictionariez_T.Output_Collection_Sampling(df = Field_df, 
                                       outputDF=DC_Exp,
                                       i = k, 
@@ -196,6 +198,7 @@ def Main_Loop(random_seed =1000):
                                       PickNo = Current_Samp,
                                       Bef_Aft = "Aft")
                     
+                    #Collecting total cells outputs
                     DC_Exp = Dictionariez_T.Output_Collection_Sampling_Weight_R(df = Field_df, 
                                                       outputDF=DC_Exp,
                                                       i = k, 
@@ -207,13 +210,12 @@ def Main_Loop(random_seed =1000):
             
                 
             
-            #This is where process starts, along with simulated harvest. 
+            #This is where processing starts, along with simulated harvest. 
             start_HD = time.time()
-            if i in Inputz_T.Harvest_Days:
+            if i in Inputz_T.Harvest_Days: #Harvest days. Go here.
                 
                 #Harvest Sampling
                 if Scen_T.Samp_Plan == 2:
-                    #print("2 samp plan")
                     
                     #Collection of Outputs
 
@@ -223,18 +225,15 @@ def Main_Loop(random_seed =1000):
                                                       SampType = "PHS", 
                                                       PickNo = Current_Samp,
                                                       Bef_Aft = "Bef")
-                    #print(time.time() - start_OCS, "Output Collectin Sampling")
-                    
-                    #start_OCSWR = time.time()
+
                     DC_Exp = Dictionariez_T.Output_Collection_Sampling_Weight_R(df = Field_df, 
                                                       outputDF=DC_Exp,
                                                       i = k, 
                                                       SampType = "PHS", 
                                                       PickNo = Current_Samp,
                                                       Bef_Aft = "Bef")
-                    #print(time.time() - start_OCSWR, "Output Collectin Sampling WR")
+
     
-                    #start_Samp = time.time()
                     if Scen_T.Samp_Method == 1:
                         Field_df = Funz_T.F_Sampling_T (df= Field_df, 
                                                   Pick_No = Current_Pick, 
@@ -250,16 +249,14 @@ def Main_Loop(random_seed =1000):
                                                               NoGrab= Scen_T.Tomatoes_per_sample, 
                                                               Subsample_Mass=25,
                                                               N_replicates = Scen_T.N_Replicates)
-                    #print(time.time() - start_Samp, "Sampling")
+
                     
                     #Rejection rules, reject current pick plus any upcoming picks
-                    #start_RR = time.time()
                     Field_df=Funz_T.F_Rejection_Rule_T (df = Field_df, 
                                         Pick_No = Current_Samp, 
                                         Av_Picks= list(range(Current_Pick,Inputz_T.N_Pick+1)), 
                                         Test_Unit = "Pick_ID", 
                                         limit = 0)
-                    #print(time.time() - start_RR, "Rejection")
                     
                     DC_Exp= Dictionariez_T.Output_Collection_Sampling(df = Field_df, 
                                       outputDF=DC_Exp,
@@ -280,7 +277,6 @@ def Main_Loop(random_seed =1000):
                 
                 #Location 2
                 #Collection contmaination at processing stages. 
-                #start_Harv = time.time()
                 DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
                                                                           outputDF =DC_Cont_Processing , 
                                                                           Step_Column = "Harvest_"+str(Current_Pick) ,
@@ -290,36 +286,31 @@ def Main_Loop(random_seed =1000):
                                                                           outputDF =DC_Cont_Processing_Prev , 
                                                                           Step_Column = "Harvest_"+str(Current_Pick) ,
                                                                           i = k)
-                #print(time.time() - start_Harv, "Out collection")
                 
-                #start_Harv = time.time()
                 Field_df = Funz_T.Harvesting_Function(df = Field_df, Total_Harvesters = Inputz_T.Total_Harvesters, 
                                               Tomatoes_Per_Bucket = Inputz_T.Tomatoes_Per_Bucket,
                                               Tomato_Sequence = Inputz_T.Tomato_Sequence, 
                                               Pick_No = Current_Pick,
                                               Tomatoes_per_Bin = Inputz_T.Tomatoes_per_Bin)
-                #print(time.time() - start_Harv, "Harvesting Function")
-                #print("The product was harvested")
+
                 
                 #Harvester contmaination
-                #if (np.random.uniform(0,1)<Pr_harvester_cont):
                 if (Scen_T.Cont_Scenario == 5):
                     #Picking the contaminated harvester at random
-                    Contam_Harvester = Cont_Event_3_Harvesters[Inputz_T.N_Pick-1] #random.sample(list(range(1,Total_Harvesters+1)),1)[0]
+                    Contam_Harvester =Contaminated_Harvesters_Each [Inputz_T.N_Pick-1] 
                     #applying the contmainated harvester function to the Data. 
                     Field_df =Funz_T.Harvester_Cont_Function(df = Field_df,
-                                            Hazard_Level = Inputz_T.Total_Hazard, 
+                                            Hazard_Level = int(Scen_T.Total_Hazard/Inputz_T.N_Pick), #splitting contamination in 3 picks
                                             Pick_No =Current_Pick  , 
                                             Cont_Harvester_No =Contam_Harvester )
                     
                 #Bin Contmaination
-                #if (np.random.uniform(0,1)<Pr_Bin_cont):
                 if (Scen_T.Cont_Scenario == 6):
                     #Picking the contaminated harvester at random
                     Contam_Bin = random.sample(list(range(1,Inputz_T.Total_Bins+1)),1)[0]
                     #applying the contmainated harvester function to the Data. 
                     Field_df =Funz_T.Bin_Cont_Function(df = Field_df,
-                                            Hazard_Level = Inputz_T.Total_Hazard, 
+                                            Hazard_Level = int(Scen_T.Total_Hazard/Inputz_T.N_Pick), #splitting contamination in 3 picks
                                             Pick_No =Current_Pick  , 
                                             Cont_Bin_No = Contam_Bin )
                 
@@ -327,17 +318,15 @@ def Main_Loop(random_seed =1000):
                 
                 #Transportation from the field to the shipping center
                 #Here we need to caculate die-off for the tranportation of growth due to transportation. 
-                #start_surv = time.time()
                 Field_df = Funz_T.applying_survival_salmonella_cucum3(df = Field_df , 
                                                               Time = Inputz_T.Time_F_Sc,
                                                               RH = Inputz_T.RH_Florida,
                                                               Temp = Inputz_T.Temp_F_Sc,
                                                               Location = 2)
-                #print(time.time() - start_surv, "Survival")
+
                 
                 #Updates location from Harvest to Shipping Center
                 #Updating Cont
-                #start_surv = time.time()
                 DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
                                                                           outputDF =DC_Cont_Processing , 
                                                                           Step_Column = "Shipping Center_"+str(Current_Pick)
@@ -347,9 +336,8 @@ def Main_Loop(random_seed =1000):
                                                                           outputDF =DC_Cont_Processing_Prev , 
                                                                           Step_Column = "Shipping Center_"+str(Current_Pick) ,
                                                                           i = k)
-                #print(time.time() - start_surv, "output collection 2")
                 
-                
+                #Updating location from 2 to 3
                 Field_df=Funz_T.Update_Location2(df= Field_df, Previous = 2, NewLoc =3)
                 
                 
@@ -383,29 +371,22 @@ def Main_Loop(random_seed =1000):
                 #Receiving--------------------------------------------------------
                 #### Sampling Plan at Receiving ----------------------------------
                 if Scen_T.Samp_Plan == 3:
-                    #print("3 samp plan")
                     
                     #Collection of Outputs
-
                     DC_Exp= Dictionariez_T.Output_Collection_Sampling(df = Field_df, 
                                                       outputDF=DC_Exp,
                                                       i = k, 
                                                       SampType = "PHS", 
                                                       PickNo = Current_Samp,
                                                       Bef_Aft = "Bef")
-                    #print(time.time() - start_OCS, "Output Collectin Sampling")
-                    
-                    #start_OCSWR = time.time()
+
                     DC_Exp = Dictionariez_T.Output_Collection_Sampling_Weight_R(df = Field_df, 
                                                       outputDF=DC_Exp,
                                                       i = k, 
                                                       SampType = "PHS", 
                                                       PickNo = Current_Samp,
                                                       Bef_Aft = "Bef")
-                    #print(time.time() - start_OCSWR, "Output Collectin Sampling WR")
-    
-                    #start_Samp = time.time()
-                    #print(Current_Samp, "Current_Samp")
+
                     if Scen_T.Samp_Method == 1:
                         Field_df = Funz_T.F_Sampling_T (df= Field_df, 
                                                   Pick_No = Current_Pick, 
@@ -421,17 +402,16 @@ def Main_Loop(random_seed =1000):
                                                               NoGrab= Scen_T.Tomatoes_per_sample, 
                                                               Subsample_Mass=25,
                                                               N_replicates = Scen_T.N_Replicates)
-                    #print(Scen_T.Tomatoes_per_sample)
-                    #print(time.time() - start_Samp, "Sampling")
+
                     
                     #Rejection rules, reject current pick plus any upcoming picks
-                    #start_RR = time.time()
+
                     Field_df=Funz_T.F_Rejection_Rule_T (df = Field_df, 
                                         Pick_No = Current_Samp, 
                                         Av_Picks= list(range(Current_Pick,Inputz_T.N_Pick+1)), 
                                         Test_Unit = "Pick_ID", 
                                         limit = 0)
-                    #print(time.time() - start_RR, "Rejection")
+
                     
                     DC_Exp= Dictionariez_T.Output_Collection_Sampling(df = Field_df, 
                                       outputDF=DC_Exp,
@@ -458,9 +438,7 @@ def Main_Loop(random_seed =1000):
                 
                 #Processing
                 #Wasing. 
-                #Updates location from  Packing House to Washing
-                
-                
+                #Updates location from  Packing House to Washing --------------
                 Field_df=Funz_T.Update_Location2(df= Field_df, Previous = 4, NewLoc =5)
                 
 
@@ -475,15 +453,11 @@ def Main_Loop(random_seed =1000):
                                                                           Step_Column = "Washing_"+str(Current_Pick) ,
                                                                           i = k)
                 
-                #start_Wash = time.time()
-                #print(Inputz_T.FC_lvl)
                 Field_df=Funz_T.Tomato_Wash(df = Field_df, Location  = 5, FC_lvl=Inputz_T.FC_lvl, i = random_seed+k)
-                #print(time.time() - start_Wash, "Wash Time")
-                
 
                 
                 #Cross Contamination Conveyor Belt
-                #Updates location from  Washing to Sorting
+                #Updates location from  Washing to Sorting---------------------
                 Field_df=Funz_T.Update_Location2(df= Field_df, Previous = 5, NewLoc =6)
                 
                 DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
@@ -495,16 +469,16 @@ def Main_Loop(random_seed =1000):
                                                                           outputDF =DC_Cont_Processing_Prev , 
                                                                           Step_Column = "CB1_"+str(Current_Pick) ,
                                                                           i = k)
-                #start_CC = time.time()
+
                 Field_df=Funz_T.F_CrossContProLine_tom (df = Field_df, 
                                                  Tr_P_S = Inputz_T.Tr_P_CB, 
                                                  Tr_S_P = Inputz_T.Tr_CB_P,
                                                  Location = 6)
                 
 
-                #print(time.time() - start_CC, "Cross Contamination")
+
                 
-                #Drying Cross Contmination
+                #Drying Cross Contmination -----------------------------------
                 #Updates location from  Conveyor Belt to Drying
                 Field_df=Funz_T.Update_Location2(df= Field_df, Previous = 6, NewLoc =7)
                 
@@ -524,7 +498,7 @@ def Main_Loop(random_seed =1000):
                                                  Tr_S_P = Inputz_T.Tr_Dr_P,
                                                  Location = 7 )
                 
-                #Sorting2 cross contmaination
+                #Sorting2 cross contmaination----------------------------------
                 #Updates location from  Drying to Sorting
                 Field_df=Funz_T.Update_Location2(df= Field_df, Previous = 7, NewLoc =8)
                 
@@ -543,15 +517,12 @@ def Main_Loop(random_seed =1000):
                                                  Tr_S_P = Inputz_T.Tr_SRT_P,
                                                  Location = 8 )
                 
-                #Packing product into the cases at the Packing house. 
+                #Packing product into the cases at the Packing house.----------- 
                 #Updates location from  Sorting to Packing
-                #start_CC = time.time()
                 Field_df=Funz_T.Update_Location2(df= Field_df, Previous = 8, NewLoc = 9)
-                #print(time.time() - start_CC, "update loc")
-                
-                #start_CC = time.time()
+
                 Field_df=Funz_T.Case_Packaging(df = Field_df,Case_Weight = 20,Tomato_Weight = 0.54, Location = 9)
-                #print(time.time() - start_CC, "Case Packing")
+
                 
                 DC_Cont_Processing= Dictionariez_T.Output_Collection_Prog(df = Field_df, 
                                                                           outputDF =DC_Cont_Processing , 
@@ -563,38 +534,32 @@ def Main_Loop(random_seed =1000):
                                                                           Step_Column = "Packing_"+str(Current_Pick) ,
                                                                           i = k)
                 
-                
+                #Packed product sampling---------------------------------------
                 if Scen_T.Samp_Plan == 4:
-                    #print("4 samp plan")
                     
                     #Collection of Outputs
-
                     DC_Exp= Dictionariez_T.Output_Collection_Sampling(df = Field_df, 
                                                       outputDF=DC_Exp,
                                                       i = k, 
                                                       SampType = "PHS", 
                                                       PickNo = Current_Samp,
                                                       Bef_Aft = "Bef")
-                    #print(time.time() - start_OCS, "Output Collectin Sampling")
-                    
-                    #start_OCSWR = time.time()
+
                     DC_Exp = Dictionariez_T.Output_Collection_Sampling_Weight_R(df = Field_df, 
                                                       outputDF=DC_Exp,
                                                       i = k, 
                                                       SampType = "PHS", 
                                                       PickNo = Current_Samp,
                                                       Bef_Aft = "Bef")
-                    #print(time.time() - start_OCSWR, "Output Collectin Sampling WR")
-    
-                    #start_Samp = time.time()
+                    #Whole tomato
                     if Scen_T.Samp_Method == 1:
                         Field_df = Funz_T.F_Sampling_T (df= Field_df, 
                                                   Pick_No = Current_Pick, 
                                                   Location = 9, #Location is in field
                                                   NSamp_Unit = 1, 
                                                   NoGrab = Scen_T.Tomatoes_per_sample) 
+                    #Mashed Tomatoes
                     elif  Scen_T.Samp_Method == 2:
-                        print("Mash Sampling pps")
                         Field_df =  Funz_T.F_Sampling_T_Mash (df= Field_df, 
                                                               Pick_No= Current_Pick, 
                                                               Location =9,
@@ -602,24 +567,23 @@ def Main_Loop(random_seed =1000):
                                                               NoGrab= Scen_T.Tomatoes_per_sample, 
                                                               Subsample_Mass=25,
                                                               N_replicates = Scen_T.N_Replicates)
-                    #print(time.time() - start_Samp, "Sampling")
+
                     
                     #Rejection rules, reject current pick plus any upcoming picks
-                    #start_RR = time.time()
                     Field_df=Funz_T.F_Rejection_Rule_T (df = Field_df, 
                                         Pick_No = Current_Samp, 
                                         Av_Picks= list(range(Current_Pick,Inputz_T.N_Pick+1)), 
                                         Test_Unit = "Pick_ID", 
                                         limit = 0)
-                    #print(time.time() - start_RR, "Rejection")
-                    
+
+                    #updating output df
                     DC_Exp= Dictionariez_T.Output_Collection_Sampling(df = Field_df, 
                                       outputDF=DC_Exp,
                                       i = k, 
                                       SampType = "PHS", 
                                       PickNo = Current_Samp,
                                       Bef_Aft = "Aft")
-                    
+                    #updating cells df
                     DC_Exp = Dictionariez_T.Output_Collection_Sampling_Weight_R(df = Field_df, 
                                                       outputDF=DC_Exp,
                                                       i = k, 
@@ -629,7 +593,7 @@ def Main_Loop(random_seed =1000):
                     Current_Samp=Current_Samp+1
                 
                 
-                #Post Packaging Storage
+                #Post Packaging Storage ---------------------------------------
                 Field_df = Funz_T.applying_survival_salmonella_cucum3(df = Field_df , 
                                                               Time = Inputz_T.Time_Post_Pack,
                                                               RH = Inputz_T.RH_Florida,
@@ -649,30 +613,26 @@ def Main_Loop(random_seed =1000):
                                                                           i = k)
                 #Establishing which pick we are in
                 Current_Pick = Current_Pick+1
-                print(time.time() - start_HD, "HD Total Time")
+                print(time.time() - start_HD, "HD Total Time") #Total time to run processinf
                 
                 
             #Adding Contmination to Every Day
             
-            #start_oed_outs = time.time()
+
             DC_Cont_Day=Dictionariez_T.Output_Collection_Prog(df = Field_df , outputDF =DC_Cont_Day , Step_Column = i,i = k)
             DC_Prev_Day=Dictionariez_T.Output_Collection_Prog_Prev(df = Field_df , outputDF =DC_Prev_Day, Step_Column = i,i = k)
-            #DC_Cont_Day_Pick1= Dictionariez_T.Output_Collection_Prog_Pick(df = Field_df , outputDF = DC_Cont_Day_Pick1 , Step_Column = i,i = k, PickNo = 1)
-            #DC_Cont_Day_Pick2= Dictionariez_T.Output_Collection_Prog_Pick(df = Field_df , outputDF = DC_Cont_Day_Pick2 , Step_Column = i,i = k, PickNo = 2)
-            #DC_Cont_Day_Pick3= Dictionariez_T.Output_Collection_Prog_Pick(df = Field_df , outputDF = DC_Cont_Day_Pick3 , Step_Column = i,i = k, PickNo = 3)
-            #print(time.time() - start_oed_outs, "outs eod")
     
                 
-            #start_surv_eod = time.time()
+
             #Dieoff for Items that stayed in the Field. 
             Field_df = Funz_T.applying_survival_salmonella_cucum3(df = Field_df , 
                                                           Time = 24, #hr
                                                           RH = Inputz_T.RH_Florida,
                                                           Temp = Inputz_T.Temp_In_Field,
                                                           Location = 1)
-            #print(time.time() - start_surv_eod, "Survival eod")
+
             
-            #Total Consumer Exposure
+        #Total Consumer Exposure dataframe updating..
         DC_Exp= Dictionariez_T.Output_Collection_Exp(df = Field_df, outputDF =DC_Exp ,i = k)
     return [DC_Exp,DC_Cont_Day,DC_Cont_Processing,DC_Cont_Processing_Prev,DC_Prev_Day, Cont_Day_List]    
         

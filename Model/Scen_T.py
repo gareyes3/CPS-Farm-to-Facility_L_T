@@ -23,3 +23,12 @@ N_Replicates = 25
 
 Chosen_cont_day = 0
 Contamination_Day = 0
+
+#
+#Total Iterations
+Iteration_Number = 50
+
+Total_Iterations = range(0,Iteration_Number)
+
+#Contamination Scenario
+Total_Hazard = 132_000

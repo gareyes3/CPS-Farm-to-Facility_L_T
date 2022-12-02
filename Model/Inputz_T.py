@@ -54,13 +54,7 @@ Pick_Random = random.sample(Pick_Sequence, len(Pick_Sequence))
 #Harvest information
 Total_Harvesters = 55
 Total_Bins = 44
-#Probabilities
 
-Pr_bird_drop = 0.2 #probability of bird contamination fields
-Pr_of_rain = 0.1 #probability that it will rain in a given day
-Pr_harvester_cont = 0.05 #probability that a harvester is contmainated
-Pr_bucket_cont = 0.05 #probability that a bucket is contaminated
-Pr_Bin_cont = 0.05 #probability that a bin is contaminated
 
 #Trasnfer Rates Conveyor Belt: 
 Tr_CB_P = get_trasn_rate(mean = 0.01,sd = 0.0045)
@@ -76,8 +70,7 @@ Tr_P_SRT = get_trasn_rate(mean = 0.02,sd = 0.0085)
 
 
 #Contamination Scenario
-    #Small Cluster
-Total_Hazard = 132_000
+
 
 
 #Processing Factors
@@ -111,9 +104,5 @@ Temp_In_Field = 25
 FC_lvl = np.random.triangular(25,100,200)
 
 
-
-
-#Total Iterations
-Iteration_Number = 50
 
 
