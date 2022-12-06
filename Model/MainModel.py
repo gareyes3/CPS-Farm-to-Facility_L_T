@@ -27,7 +27,7 @@ import time
 import Funz_T
 import Inputz_T
 import Scen_T
-import DepInputz
+#import DepInputz
 import T_Inputz
 import Dictionariez_T
 
@@ -54,8 +54,7 @@ def Main_Loop(random_seed =1000):
     #reload(Inputz_T)
     
     #Contaminated Bin
-    print(Scen_T.Total_Iterations)
-    for k in DepInputz.Total_Iterations:
+    for k in range(0,Scen_T.Iteration_Number):
         print(k, "Iteration")
         random.seed(random_seed+k)
         np.random.seed(random_seed+k)

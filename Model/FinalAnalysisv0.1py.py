@@ -31,7 +31,7 @@ import Funz_T
 import Inputz_T
 import Scen_T
 import MainModel
-import DepInputz
+#import DepInputz
 
 import T_Inputz
 import Dictionariez_T
@@ -1755,3 +1755,17 @@ Exps_all = pd.concat([ger_exps_fromlist(exps_list =Outputs_100 , Clustering = "1
 
 Exps_all.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Exps11.csv")
 #%%
+#Additional Scenarios. 
+Outs_HB_0_0= Analysis_Loop(HA_Iterations = 10,
+              Loop_Iterations = 2 ,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 0,
+              Samp_Plan = 0, 
+              Tom_Per_Sample = 2, 
+              Cont_Scen =5, 
+              Type ="Baseline", 
+              Mass = "Baseline", 
+              Spread  = "0.1%" ,
+              Samp_Method  = 1,
+              N_Replicates = 0)
+

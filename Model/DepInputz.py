@@ -9,4 +9,4 @@ import Inputz_T
 
 #DepInputz.
 
-Total_Iterations = range(0,Inputz_T.Iteration_Number)
+#Total_Iterations = range(0,Inputz_T.Iteration_Number)

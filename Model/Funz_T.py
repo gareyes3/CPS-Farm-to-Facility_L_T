@@ -118,7 +118,7 @@ def Harvesting_Function(df, Total_Harvesters, Tomatoes_Per_Bucket,Tomato_Sequenc
     return df
 
 def Harvester_Cont_Function(df, Hazard_Level, Pick_No, Cont_Harvester_No):
-    Field_df_1 =df.loc[(df['Pick_ID']==Pick_No) & (df['Harvester'] == Cont_Harvester_No )]
+    Field_df_1 =df.loc[(df['Pick_ID']==Pick_No) & (df['Harvester'] == Cont_Harvester_No )].copy()
     Size_1 = Field_df_1['Harvester'].size
     cont_pattern=rng.multinomial(Hazard_Level,[1/Size_1]*Size_1,1) 
     Field_df_1.loc[:,"CFU"] = cont_pattern[0]
