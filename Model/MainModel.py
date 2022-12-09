@@ -296,11 +296,11 @@ def Main_Loop(random_seed =1000):
                 #Harvester contmaination
                 if (Scen_T.Cont_Scenario == 5):
                     #Picking the contaminated harvester at random
-                    Contam_Harvester =Contaminated_Harvesters_Each [Inputz_T.N_Pick-1] 
+                    Contam_Harvester =Contaminated_Harvesters_Each [Current_Pick-1] 
                     #applying the contmainated harvester function to the Data. 
                     Field_df =Funz_T.Harvester_Cont_Function(df = Field_df,
                                             Hazard_Level = int(Scen_T.Total_Hazard/Inputz_T.N_Pick), #splitting contamination in 3 picks
-                                            Pick_No =Current_Pick  , 
+                                            Pick_No =Current_Pick, 
                                             Cont_Harvester_No =Contam_Harvester )
                     
                 #Bin Contmaination

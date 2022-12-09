@@ -544,7 +544,7 @@ Outs_100_4_E= Analysis_Loop(HA_Iterations = 20,
               N_Replicates = 20 )
 
 # F 60 tomato mash
-Outs_100_4_F= Analysis_Loop(HA_Iterations = 10,
+Outs_100_4_F= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -559,7 +559,7 @@ Outs_100_4_F= Analysis_Loop(HA_Iterations = 10,
 
 #%% 10% Cluster. 
 #Baseline, Uniform Contamination with no sampling
-Outs_010_0_0= Analysis_Loop(HA_Iterations = 10,
+Outs_010_0_0= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100 ,
               Hazard_Mean = 132_000, 
               Hazard_SD = 0,
@@ -574,7 +574,7 @@ Outs_010_0_0= Analysis_Loop(HA_Iterations = 10,
 
 ####Preharvest_Sampling
 # A 2 tomatoes
-Outs_010_1_A= Analysis_Loop(HA_Iterations = 10,
+Outs_010_1_A= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -587,7 +587,7 @@ Outs_010_1_A= Analysis_Loop(HA_Iterations = 10,
               Samp_Method  = 1,
               N_Replicates = 0 )
 # B 6 tomatoes
-Outs_010_1_B= Analysis_Loop(HA_Iterations = 10,
+Outs_010_1_B= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -600,7 +600,7 @@ Outs_010_1_B= Analysis_Loop(HA_Iterations = 10,
               Samp_Method  = 1,
               N_Replicates = 0 )
 # C 20 tomatoes
-Outs_010_1_C= Analysis_Loop(HA_Iterations = 10,
+Outs_010_1_C= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -614,7 +614,7 @@ Outs_010_1_C= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 0 )
 
 # D 60 tomatoes
-Outs_010_1_D= Analysis_Loop(HA_Iterations = 10,
+Outs_010_1_D= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -628,7 +628,7 @@ Outs_010_1_D= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 0 )
 
 # E 20 tomato mash
-Outs_010_1_E= Analysis_Loop(HA_Iterations = 10,
+Outs_010_1_E= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -642,7 +642,7 @@ Outs_010_1_E= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 20 )
 
 # F 60 tomato mash
-Outs_010_1_F= Analysis_Loop(HA_Iterations = 10,
+Outs_010_1_F= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -657,7 +657,7 @@ Outs_010_1_F= Analysis_Loop(HA_Iterations = 10,
 
 ##Harvest Sampling
 # A 2 tomatoes
-Outs_010_2_A= Analysis_Loop(HA_Iterations = 10,
+Outs_010_2_A= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -670,7 +670,7 @@ Outs_010_2_A= Analysis_Loop(HA_Iterations = 10,
               Samp_Method  = 1,
               N_Replicates = 0 )
 # B 6 tomatoes
-Outs_010_2_B= Analysis_Loop(HA_Iterations = 10,
+Outs_010_2_B= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -683,7 +683,7 @@ Outs_010_2_B= Analysis_Loop(HA_Iterations = 10,
               Samp_Method  = 1,
               N_Replicates = 0 )
 # C 20 tomatoes
-Outs_010_2_C= Analysis_Loop(HA_Iterations = 10,
+Outs_010_2_C= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -697,7 +697,7 @@ Outs_010_2_C= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 0 )
 
 # D 60 tomatoes
-Outs_010_2_D= Analysis_Loop(HA_Iterations = 10,
+Outs_010_2_D= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -711,7 +711,7 @@ Outs_010_2_D= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 0 )
 
 # E 20 tomato mash
-Outs_010_2_E= Analysis_Loop(HA_Iterations = 10,
+Outs_010_2_E= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -725,7 +725,7 @@ Outs_010_2_E= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 20 )
 
 # F 60 tomato mash
-Outs_010_2_F= Analysis_Loop(HA_Iterations = 10,
+Outs_010_2_F= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -740,7 +740,7 @@ Outs_010_2_F= Analysis_Loop(HA_Iterations = 10,
 
 ##Receiving Sampling
 # A 2 tomatoes
-Outs_010_3_A= Analysis_Loop(HA_Iterations = 10,
+Outs_010_3_A= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -753,7 +753,7 @@ Outs_010_3_A= Analysis_Loop(HA_Iterations = 10,
               Samp_Method  = 1,
               N_Replicates = 0 )
 # B 6 tomatoes
-Outs_010_3_B= Analysis_Loop(HA_Iterations = 10,
+Outs_010_3_B= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -766,7 +766,7 @@ Outs_010_3_B= Analysis_Loop(HA_Iterations = 10,
               Samp_Method  = 1,
               N_Replicates = 0 )
 # C 20 tomatoes
-Outs_010_3_C= Analysis_Loop(HA_Iterations = 10,
+Outs_010_3_C= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -780,7 +780,7 @@ Outs_010_3_C= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 0 )
 
 # D 60 tomatoes
-Outs_010_3_D= Analysis_Loop(HA_Iterations = 10,
+Outs_010_3_D= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -794,7 +794,7 @@ Outs_010_3_D= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 0 )
 
 # E 20 tomato mash
-Outs_010_3_E= Analysis_Loop(HA_Iterations = 10,
+Outs_010_3_E= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -808,7 +808,7 @@ Outs_010_3_E= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 20 )
 
 # F 60 tomato mash
-Outs_010_3_F= Analysis_Loop(HA_Iterations = 10,
+Outs_010_3_F= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -823,7 +823,7 @@ Outs_010_3_F= Analysis_Loop(HA_Iterations = 10,
 
 ##Packed Product Sampling
 # A 2 tomatoes
-Outs_010_4_A= Analysis_Loop(HA_Iterations = 10,
+Outs_010_4_A= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -836,7 +836,7 @@ Outs_010_4_A= Analysis_Loop(HA_Iterations = 10,
               Samp_Method  = 1,
               N_Replicates = 0 )
 # B 6 tomatoes
-Outs_010_4_B= Analysis_Loop(HA_Iterations = 10,
+Outs_010_4_B= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -849,7 +849,7 @@ Outs_010_4_B= Analysis_Loop(HA_Iterations = 10,
               Samp_Method  = 1,
               N_Replicates = 0 )
 # C 20 tomatoes
-Outs_010_4_C= Analysis_Loop(HA_Iterations = 10,
+Outs_010_4_C= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -863,7 +863,7 @@ Outs_010_4_C= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 0 )
 
 # D 60 tomatoes
-Outs_010_4_D= Analysis_Loop(HA_Iterations = 10,
+Outs_010_4_D= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -877,7 +877,7 @@ Outs_010_4_D= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 0 )
 
 # E 20 tomato mash
-Outs_010_4_E= Analysis_Loop(HA_Iterations = 10,
+Outs_010_4_E= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -891,7 +891,7 @@ Outs_010_4_E= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 20 )
 
 # F 60 tomato mash
-Outs_010_4_F= Analysis_Loop(HA_Iterations = 10,
+Outs_010_4_F= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -906,7 +906,7 @@ Outs_010_4_F= Analysis_Loop(HA_Iterations = 10,
 
 #%% 1% Cluster. 
 #Baseline, Uniform Contamination with no sampling
-Outs_001_0_0= Analysis_Loop(HA_Iterations = 10,
+Outs_001_0_0= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100 ,
               Hazard_Mean = 132_000, 
               Hazard_SD = 0,
@@ -921,7 +921,7 @@ Outs_001_0_0= Analysis_Loop(HA_Iterations = 10,
 
 ####Preharvest_Sampling
 # A 2 tomatoes
-Outs_001_1_A= Analysis_Loop(HA_Iterations = 10,
+Outs_001_1_A= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -934,7 +934,7 @@ Outs_001_1_A= Analysis_Loop(HA_Iterations = 10,
               Samp_Method  = 1,
               N_Replicates = 0 )
 # B 6 tomatoes
-Outs_001_1_B= Analysis_Loop(HA_Iterations = 10,
+Outs_001_1_B= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -947,7 +947,7 @@ Outs_001_1_B= Analysis_Loop(HA_Iterations = 10,
               Samp_Method  = 1,
               N_Replicates = 0 )
 # C 20 tomatoes
-Outs_001_1_C= Analysis_Loop(HA_Iterations = 10,
+Outs_001_1_C= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -961,7 +961,7 @@ Outs_001_1_C= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 0 )
 
 # D 60 tomatoes
-Outs_001_1_D= Analysis_Loop(HA_Iterations = 10,
+Outs_001_1_D= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -975,7 +975,7 @@ Outs_001_1_D= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 0 )
 
 # E 20 tomato mash
-Outs_001_1_E= Analysis_Loop(HA_Iterations = 10,
+Outs_001_1_E= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -989,7 +989,7 @@ Outs_001_1_E= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 20 )
 
 # F 60 tomato mash
-Outs_001_1_F= Analysis_Loop(HA_Iterations = 10,
+Outs_001_1_F= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1004,7 +1004,7 @@ Outs_001_1_F= Analysis_Loop(HA_Iterations = 10,
 
 ##Harvest Sampling
 # A 2 tomatoes
-Outs_001_2_A= Analysis_Loop(HA_Iterations = 10,
+Outs_001_2_A= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1017,7 +1017,7 @@ Outs_001_2_A= Analysis_Loop(HA_Iterations = 10,
               Samp_Method  = 1,
               N_Replicates = 0 )
 # B 6 tomatoes
-Outs_001_2_B= Analysis_Loop(HA_Iterations = 10,
+Outs_001_2_B= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1030,7 +1030,7 @@ Outs_001_2_B= Analysis_Loop(HA_Iterations = 10,
               Samp_Method  = 1,
               N_Replicates = 0 )
 # C 20 tomatoes
-Outs_001_2_C= Analysis_Loop(HA_Iterations = 10,
+Outs_001_2_C= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1044,7 +1044,7 @@ Outs_001_2_C= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 0 )
 
 # D 60 tomatoes
-Outs_001_2_D= Analysis_Loop(HA_Iterations = 10,
+Outs_001_2_D= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1058,7 +1058,7 @@ Outs_001_2_D= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 0 )
 
 # E 20 tomato mash
-Outs_001_2_E= Analysis_Loop(HA_Iterations = 10,
+Outs_001_2_E= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1072,7 +1072,7 @@ Outs_001_2_E= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 20 )
 
 # F 60 tomato mash
-Outs_001_2_F= Analysis_Loop(HA_Iterations = 10,
+Outs_001_2_F= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1087,7 +1087,7 @@ Outs_001_2_F= Analysis_Loop(HA_Iterations = 10,
 
 ##Receiving Sampling
 # A 2 tomatoes
-Outs_001_3_A= Analysis_Loop(HA_Iterations = 10,
+Outs_001_3_A= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1100,7 +1100,7 @@ Outs_001_3_A= Analysis_Loop(HA_Iterations = 10,
               Samp_Method  = 1,
               N_Replicates = 0 )
 # B 6 tomatoes
-Outs_001_3_B= Analysis_Loop(HA_Iterations = 10,
+Outs_001_3_B= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1113,7 +1113,7 @@ Outs_001_3_B= Analysis_Loop(HA_Iterations = 10,
               Samp_Method  = 1,
               N_Replicates = 0 )
 # C 20 tomatoes
-Outs_001_3_C= Analysis_Loop(HA_Iterations = 10,
+Outs_001_3_C= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1127,7 +1127,7 @@ Outs_001_3_C= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 0 )
 
 # D 60 tomatoes
-Outs_001_3_D= Analysis_Loop(HA_Iterations = 10,
+Outs_001_3_D= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1141,7 +1141,7 @@ Outs_001_3_D= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 0 )
 
 # E 20 tomato mash
-Outs_001_3_E= Analysis_Loop(HA_Iterations = 10,
+Outs_001_3_E= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1155,7 +1155,7 @@ Outs_001_3_E= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 20 )
 
 # F 60 tomato mash
-Outs_001_3_F= Analysis_Loop(HA_Iterations = 10,
+Outs_001_3_F= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1170,7 +1170,7 @@ Outs_001_3_F= Analysis_Loop(HA_Iterations = 10,
 
 ##Packed Product Sampling
 # A 2 tomatoes
-Outs_001_4_A= Analysis_Loop(HA_Iterations = 10,
+Outs_001_4_A= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1183,7 +1183,7 @@ Outs_001_4_A= Analysis_Loop(HA_Iterations = 10,
               Samp_Method  = 1,
               N_Replicates = 0 )
 # B 6 tomatoes
-Outs_001_4_B= Analysis_Loop(HA_Iterations = 10,
+Outs_001_4_B= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1196,7 +1196,7 @@ Outs_001_4_B= Analysis_Loop(HA_Iterations = 10,
               Samp_Method  = 1,
               N_Replicates = 0 )
 # C 20 tomatoes
-Outs_001_4_C= Analysis_Loop(HA_Iterations = 10,
+Outs_001_4_C= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1210,7 +1210,7 @@ Outs_001_4_C= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 0 )
 
 # D 60 tomatoes
-Outs_001_4_D= Analysis_Loop(HA_Iterations = 10,
+Outs_001_4_D= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1224,7 +1224,7 @@ Outs_001_4_D= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 0 )
 
 # E 20 tomato mash
-Outs_001_4_E= Analysis_Loop(HA_Iterations = 10,
+Outs_001_4_E= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1238,7 +1238,7 @@ Outs_001_4_E= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 20 )
 
 # F 60 tomato mash
-Outs_001_4_F= Analysis_Loop(HA_Iterations = 10,
+Outs_001_4_F= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1254,7 +1254,7 @@ Outs_001_4_F= Analysis_Loop(HA_Iterations = 10,
 
 #%% 0.1% Cluster. 
 #Baseline, Uniform Contamination with no sampling
-Outs_0001_0_0= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_0_0= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100 ,
               Hazard_Mean = 132_000, 
               Hazard_SD = 0,
@@ -1269,7 +1269,7 @@ Outs_0001_0_0= Analysis_Loop(HA_Iterations = 10,
 
 ####Preharvest_Sampling
 # A 2 tomatoes
-Outs_0001_1_A= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_1_A= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1282,7 +1282,7 @@ Outs_0001_1_A= Analysis_Loop(HA_Iterations = 10,
               Samp_Method  = 1,
               N_Replicates = 0 )
 # B 6 tomatoes
-Outs_0001_1_B= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_1_B= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1295,7 +1295,7 @@ Outs_0001_1_B= Analysis_Loop(HA_Iterations = 10,
               Samp_Method  = 1,
               N_Replicates = 0 )
 # C 20 tomatoes
-Outs_0001_1_C= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_1_C= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1309,7 +1309,7 @@ Outs_0001_1_C= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 0 )
 
 # D 60 tomatoes
-Outs_0001_1_D= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_1_D= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1323,7 +1323,7 @@ Outs_0001_1_D= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 0 )
 
 # E 20 tomato mash
-Outs_0001_1_E= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_1_E= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1337,7 +1337,7 @@ Outs_0001_1_E= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 20 )
 
 # F 60 tomato mash
-Outs_0001_1_F= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_1_F= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1352,7 +1352,7 @@ Outs_0001_1_F= Analysis_Loop(HA_Iterations = 10,
 
 ##Harvest Sampling
 # A 2 tomatoes
-Outs_0001_2_A= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_2_A= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1365,7 +1365,7 @@ Outs_0001_2_A= Analysis_Loop(HA_Iterations = 10,
               Samp_Method  = 1,
               N_Replicates = 0 )
 # B 6 tomatoes
-Outs_0001_2_B= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_2_B= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1378,7 +1378,7 @@ Outs_0001_2_B= Analysis_Loop(HA_Iterations = 10,
               Samp_Method  = 1,
               N_Replicates = 0 )
 # C 20 tomatoes
-Outs_0001_2_C= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_2_C= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1392,7 +1392,7 @@ Outs_0001_2_C= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 0 )
 
 # D 60 tomatoes
-Outs_0001_2_D= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_2_D= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1406,7 +1406,7 @@ Outs_0001_2_D= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 0 )
 
 # E 20 tomato mash
-Outs_0001_2_E= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_2_E= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1420,7 +1420,7 @@ Outs_0001_2_E= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 20 )
 
 # F 60 tomato mash
-Outs_0001_2_F= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_2_F= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1435,7 +1435,7 @@ Outs_0001_2_F= Analysis_Loop(HA_Iterations = 10,
 
 ##Receiving Sampling
 # A 2 tomatoes
-Outs_0001_3_A= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_3_A= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1448,7 +1448,7 @@ Outs_0001_3_A= Analysis_Loop(HA_Iterations = 10,
               Samp_Method  = 1,
               N_Replicates = 0 )
 # B 6 tomatoes
-Outs_0001_3_B= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_3_B= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1461,7 +1461,7 @@ Outs_0001_3_B= Analysis_Loop(HA_Iterations = 10,
               Samp_Method  = 1,
               N_Replicates = 0 )
 # C 20 tomatoes
-Outs_0001_3_C= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_3_C= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1475,7 +1475,7 @@ Outs_0001_3_C= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 0 )
 
 # D 60 tomatoes
-Outs_0001_3_D= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_3_D= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1489,7 +1489,7 @@ Outs_0001_3_D= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 0 )
 
 # E 20 tomato mash
-Outs_0001_3_E= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_3_E= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1503,7 +1503,7 @@ Outs_0001_3_E= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 20 )
 
 # F 60 tomato mash
-Outs_0001_3_F= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_3_F= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1518,7 +1518,7 @@ Outs_0001_3_F= Analysis_Loop(HA_Iterations = 10,
 
 ##Packed Product Sampling
 # A 2 tomatoes
-Outs_0001_4_A= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_4_A= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1531,7 +1531,7 @@ Outs_0001_4_A= Analysis_Loop(HA_Iterations = 10,
               Samp_Method  = 1,
               N_Replicates = 0 )
 # B 6 tomatoes
-Outs_0001_4_B= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_4_B= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1544,7 +1544,7 @@ Outs_0001_4_B= Analysis_Loop(HA_Iterations = 10,
               Samp_Method  = 1,
               N_Replicates = 0 )
 # C 20 tomatoes
-Outs_0001_4_C= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_4_C= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1558,7 +1558,7 @@ Outs_0001_4_C= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 0 )
 
 # D 60 tomatoes
-Outs_0001_4_D= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_4_D= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1572,7 +1572,7 @@ Outs_0001_4_D= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 0 )
 
 # E 20 tomato mash
-Outs_0001_4_E= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_4_E= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1586,7 +1586,7 @@ Outs_0001_4_E= Analysis_Loop(HA_Iterations = 10,
               N_Replicates = 20 )
 
 # F 60 tomato mash
-Outs_0001_4_F= Analysis_Loop(HA_Iterations = 10,
+Outs_0001_4_F= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100,
               Hazard_Mean = 132_000, 
               Hazard_SD =0,
@@ -1756,8 +1756,11 @@ Exps_all = pd.concat([ger_exps_fromlist(exps_list =Outputs_100 , Clustering = "1
 Exps_all.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Exps11.csv")
 #%%
 #Additional Scenarios. 
-Outs_HB_0_0= Analysis_Loop(HA_Iterations = 10,
-              Loop_Iterations = 2 ,
+
+#Harvesting Bucket!
+
+Outs_HB_0_0= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100 ,
               Hazard_Mean = 132_000, 
               Hazard_SD = 0,
               Samp_Plan = 0, 
@@ -1765,7 +1768,356 @@ Outs_HB_0_0= Analysis_Loop(HA_Iterations = 10,
               Cont_Scen =5, 
               Type ="Baseline", 
               Mass = "Baseline", 
-              Spread  = "0.1%" ,
+              Spread  = "HB" ,
               Samp_Method  = 1,
               N_Replicates = 0)
+
+##Receiving Sampling
+# A 2 tomatoes
+Outs_HB_3_A= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 3, 
+              Tom_Per_Sample = 2, 
+              Cont_Scen =5, 
+              Type ="R", 
+              Mass = "2 Tomatoes", 
+              Spread  = "HB",
+              Samp_Method  = 1,
+              N_Replicates = 0 )
+# B 6 tomatoes
+Outs_HB_3_B= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 3, 
+              Tom_Per_Sample = 6, 
+              Cont_Scen =5, 
+              Type ="R", 
+              Mass = "6 Tomatoes", 
+              Spread  = "HB",
+              Samp_Method  = 1,
+              N_Replicates = 0 )
+# C 20 tomatoes
+Outs_HB_3_C= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 3, 
+              Tom_Per_Sample = 20, 
+              Cont_Scen =5, 
+              Type ="R", 
+              Mass = "20 Tomatoes", 
+              Spread  = "HB",
+              Samp_Method  = 1,
+              N_Replicates = 0 )
+
+# D 60 tomatoes
+Outs_HB_3_D= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 3, 
+              Tom_Per_Sample = 60, 
+              Cont_Scen =5, 
+              Type ="R", 
+              Mass = "60 Tomatoes", 
+              Spread  = "HB",
+              Samp_Method  = 1,
+              N_Replicates = 0 )
+
+# E 20 tomato mash
+Outs_HB_3_E= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 3, 
+              Tom_Per_Sample = 20, 
+              Cont_Scen =5, 
+              Type ="R", 
+              Mass = "20 Tomato Mash", 
+              Spread  = "HB",
+              Samp_Method  = 2,
+              N_Replicates = 20 )
+
+# F 60 tomato mash
+Outs_HB_3_F= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 3, 
+              Tom_Per_Sample = 60, 
+              Cont_Scen =5, 
+              Type ="R", 
+              Mass = "60 Tomato Mash", 
+              Spread  = "HB",
+              Samp_Method  = 2,
+              N_Replicates = 60 )
+
+##Packed Product Sampling
+# A 2 tomatoes
+Outs_HB_4_A= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 4, 
+              Tom_Per_Sample = 2, 
+              Cont_Scen =5, 
+              Type ="PP", 
+              Mass = "2 Tomatoes", 
+              Spread  = "HB",
+              Samp_Method  = 1,
+              N_Replicates = 0 )
+# B 6 tomatoes
+Outs_HB_4_B= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 4, 
+              Tom_Per_Sample = 6, 
+              Cont_Scen =5, 
+              Type ="PP", 
+              Mass = "6 Tomatoes", 
+              Spread  = "HB",
+              Samp_Method  = 1,
+              N_Replicates = 0 )
+# C 20 tomatoes
+Outs_HB_4_C= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 4, 
+              Tom_Per_Sample = 20, 
+              Cont_Scen =5, 
+              Type ="PP", 
+              Mass = "20 Tomatoes", 
+              Spread  = "HB",
+              Samp_Method  = 1,
+              N_Replicates = 0 )
+
+# D 60 tomatoes
+Outs_HB_4_D= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 4, 
+              Tom_Per_Sample = 60, 
+              Cont_Scen =5, 
+              Type ="PP", 
+              Mass = "60 Tomatoes", 
+              Spread  = "HB",
+              Samp_Method  = 1,
+              N_Replicates = 0 )
+
+# E 20 tomato mash
+Outs_HB_4_E= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 4, 
+              Tom_Per_Sample = 20, 
+              Cont_Scen =5, 
+              Type ="PP", 
+              Mass = "20 Tomato Mash", 
+              Spread  = "HB",
+              Samp_Method  = 2,
+              N_Replicates = 20 )
+
+# F 60 tomato mash
+Outs_HB_4_F= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 4, 
+              Tom_Per_Sample = 60, 
+              Cont_Scen =5, 
+              Type ="PP", 
+              Mass = "60 Tomato Mash", 
+              Spread  = "HB",
+              Samp_Method  = 2,
+              N_Replicates = 60 )
+
+
+#%% Bin Contamination
+
+Outs_BIN_0_0= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100 ,
+              Hazard_Mean = 132_000, 
+              Hazard_SD = 0,
+              Samp_Plan = 0, 
+              Tom_Per_Sample = 2, 
+              Cont_Scen =6, 
+              Type ="Baseline", 
+              Mass = "Baseline", 
+              Spread  = "HB" ,
+              Samp_Method  = 1,
+              N_Replicates = 0)
+
+##Receiving Sampling
+# A 2 tomatoes
+Outs_BIN_3_A= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 3, 
+              Tom_Per_Sample = 2, 
+              Cont_Scen =6, 
+              Type ="R", 
+              Mass = "2 Tomatoes", 
+              Spread  = "BIN",
+              Samp_Method  = 1,
+              N_Replicates = 0 )
+# B 6 tomatoes
+Outs_BIN_3_B= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 3, 
+              Tom_Per_Sample = 6, 
+              Cont_Scen =6, 
+              Type ="R", 
+              Mass = "6 Tomatoes", 
+              Spread  = "BIN",
+              Samp_Method  = 1,
+              N_Replicates = 0 )
+# C 20 tomatoes
+Outs_BIN_3_C= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 3, 
+              Tom_Per_Sample = 20, 
+              Cont_Scen =6, 
+              Type ="R", 
+              Mass = "20 Tomatoes", 
+              Spread  = "BIN",
+              Samp_Method  = 1,
+              N_Replicates = 0 )
+
+# D 60 tomatoes
+Outs_BIN_3_D= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 3, 
+              Tom_Per_Sample = 60, 
+              Cont_Scen =6, 
+              Type ="R", 
+              Mass = "60 Tomatoes", 
+              Spread  = "BIN",
+              Samp_Method  = 1,
+              N_Replicates = 0 )
+
+# E 20 tomato mash
+Outs_BIN_3_E= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 3, 
+              Tom_Per_Sample = 20, 
+              Cont_Scen =6, 
+              Type ="R", 
+              Mass = "20 Tomato Mash", 
+              Spread  = "BIN",
+              Samp_Method  = 2,
+              N_Replicates = 20 )
+
+# F 60 tomato mash
+Outs_BIN_3_F= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 3, 
+              Tom_Per_Sample = 60, 
+              Cont_Scen =6, 
+              Type ="R", 
+              Mass = "60 Tomato Mash", 
+              Spread  = "BIN",
+              Samp_Method  = 2,
+              N_Replicates = 60 )
+
+##Packed Product Sampling
+# A 2 tomatoes
+Outs_BIN_4_A= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 4, 
+              Tom_Per_Sample = 2, 
+              Cont_Scen =6, 
+              Type ="PP", 
+              Mass = "2 Tomatoes", 
+              Spread  = "BIN",
+              Samp_Method  = 1,
+              N_Replicates = 0 )
+# B 6 tomatoes
+Outs_BIN_4_B= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 4, 
+              Tom_Per_Sample = 6, 
+              Cont_Scen =6, 
+              Type ="PP", 
+              Mass = "6 Tomatoes", 
+              Spread  = "BIN",
+              Samp_Method  = 1,
+              N_Replicates = 0 )
+# C 20 tomatoes
+Outs_BIN_4_C= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 4, 
+              Tom_Per_Sample = 20, 
+              Cont_Scen =6, 
+              Type ="PP", 
+              Mass = "20 Tomatoes", 
+              Spread  = "BIN",
+              Samp_Method  = 1,
+              N_Replicates = 0 )
+
+# D 60 tomatoes
+Outs_BIN_4_D= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 4, 
+              Tom_Per_Sample = 60, 
+              Cont_Scen =6, 
+              Type ="PP", 
+              Mass = "60 Tomatoes", 
+              Spread  = "BIN",
+              Samp_Method  = 1,
+              N_Replicates = 0 )
+
+# E 20 tomato mash
+Outs_BIN_4_E= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 4, 
+              Tom_Per_Sample = 20, 
+              Cont_Scen =6, 
+              Type ="PP", 
+              Mass = "20 Tomato Mash", 
+              Spread  = "BIN",
+              Samp_Method  = 2,
+              N_Replicates = 20 )
+
+# F 60 tomato mash
+Outs_BIN_4_F= Analysis_Loop(HA_Iterations = 20,
+              Loop_Iterations = 100,
+              Hazard_Mean = 132_000, 
+              Hazard_SD =0,
+              Samp_Plan = 4, 
+              Tom_Per_Sample = 60, 
+              Cont_Scen =6, 
+              Type ="PP", 
+              Mass = "60 Tomato Mash", 
+              Spread  = "BIN",
+              Samp_Method  = 2,
+              N_Replicates = 60 )
+
 

@@ -118,21 +118,26 @@ def Harvesting_Function(df, Total_Harvesters, Tomatoes_Per_Bucket,Tomato_Sequenc
     return df
 
 def Harvester_Cont_Function(df, Hazard_Level, Pick_No, Cont_Harvester_No):
-    Field_df_1 =df.loc[(df['Pick_ID']==Pick_No) & (df['Harvester'] == Cont_Harvester_No )].copy()
-    Size_1 = Field_df_1['Harvester'].size
-    cont_pattern=rng.multinomial(Hazard_Level,[1/Size_1]*Size_1,1) 
-    Field_df_1.loc[:,"CFU"] = cont_pattern[0]
-    df.update(Field_df_1)
+    #print( Cont_Harvester_No, "Harvester")
+    #print(Pick_No, "Pick")
+    #print(df[df['Rej_Acc']== "Acc"].size, "rejected")
+    Field_df_1 =df.loc[(df['Pick_ID']==Pick_No) & (df['Harvester'] == Cont_Harvester_No ) & (df["Rej_Acc"]=="Acc")].copy()
+    if len(Field_df_1)>0:
+        Size_1 = Field_df_1['Harvester'].size
+        #print(Size_1, "Size_1")
+        cont_pattern=rng.multinomial(Hazard_Level,[1/Size_1]*Size_1,1) 
+        Field_df_1.loc[:,"CFU"] = cont_pattern[0]
+        df.update(Field_df_1)
     return df
 
 def Bin_Cont_Function(df, Hazard_Level, Pick_No, Cont_Bin_No):
-    Field_df_1 =df.loc[(df['Pick_ID']==Pick_No) & (df['Bin'] == Cont_Bin_No)]
-    Size_1 = Field_df_1['Bin'].size
-    cont_pattern=rng.multinomial(Hazard_Level,[1/Size_1]*Size_1,1) 
-    Field_df_1.loc[:,"CFU"] = cont_pattern[0]
-    df.update(Field_df_1)
+    Field_df_1 =df.loc[(df['Pick_ID']==Pick_No) & (df['Bin'] == Cont_Bin_No)& (df["Rej_Acc"]=="Acc")].copy()
+    if len(Field_df_1)>0:
+        Size_1 = Field_df_1['Bin'].size
+        cont_pattern=rng.multinomial(Hazard_Level,[1/Size_1]*Size_1,1) 
+        Field_df_1.loc[:,"CFU"] = cont_pattern[0]
+        df.update(Field_df_1)
     return df
-
 
 #Tomato Growth Model
 
