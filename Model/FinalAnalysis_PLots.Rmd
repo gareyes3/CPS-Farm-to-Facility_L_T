@@ -13,7 +13,7 @@ library(forcats)
 # Power Analysis
 Reading in the data
 ```{r}
-Powers<-read.csv("Data_Tomato_Outputs/Powers_Out111.csv")
+Powers<-read.csv("Data_Tomato_Outputs/Powers_Out_Rep.csv")
 ```
 
 ```{r}
@@ -23,7 +23,7 @@ Powers$Type<-as.factor(Powers$Type)
 
 Powers$Type<-factor(Powers$Type,levels=c("Preharvest", "Harvest", "Receiving", "Packed Product"))
 Powers$Mass<-factor(Powers$Mass,levels=c("2 Tomatoes", "6 Tomatoes", "20 Tomatoes", "60 Tomatoes","20 Tomato Mash", "60 Tomato Mash"))
-Powers$Cont<-factor(Powers$Cont,levels=c("100%", "10%", "1%", "0.10%"))
+Powers$Cont<-factor(Powers$Cont,levels=c("100%", "10%", "1%", "0.1%"))
 ```
 
 ```{r}
@@ -32,7 +32,7 @@ Powers_Summary = Powers %>%
   #summarise(mean = median(value), CI_95 = mean + margin_calc(value),CI_05 = mean - margin_calc(value))
   summarise(mean = median(value), CI_95 = quantile(value, 0.90),CI_05 = quantile(value, 0.1)) 
 
-Powers_Summary$Cont<-factor(Powers_Summary$Cont,levels=c("100%", "10%", "1%", "0.10%"))
+Powers_Summary$Cont<-factor(Powers_Summary$Cont,levels=c("100%", "10%", "1%", "0.1%"))
 
 Powers_Summary %>% 
 ggplot(aes(x = Type, y = mean, color = Mass,shape = variable ,group = interaction(Mass, variable)))+
@@ -61,14 +61,19 @@ geom_boxplot(alpha = 0.5, outlier.shape=NA,position = position_dodge(0.6))+
   facet_wrap(~Cont, nrow =2)+
   theme_bw()
 
-ggsave(filename="Plot Outputs/Powers1011.tiff",width = 25, height = 15, units = "cm", dpi = 600)
+#ggsave(filename="Plot Outputs/Powers1011.tiff",width = 25, height = 15, units = "cm", dpi = 600)
 ggsave(filename="Plot Outputs/Powers1011.png",width = 25, height = 15, units = "cm", dpi = 600)
 
+
+#Summary
+Powers_summary_qs<-Powers %>% 
+  group_by(Type, Mass,Cont) %>% 
+  summarise(mean = mean(value), q95 = quantile(value, 0.95), q05 = quantile(value, 0.05))
 
 #Summary for Paper
 Powers %>% 
   group_by(Type, Mass,Cont) %>% 
-  summarise(mean = mean(value)) %>% 
+  summarise(mean = mean(value), q95 = quantile(value, 0.95), q05 = quantile(value, 0.05)) %>% 
   filter(Mass == "6 Tomatoes")
 
 ```

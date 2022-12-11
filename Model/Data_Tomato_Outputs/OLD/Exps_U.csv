@@ -1,0 +1,14 @@
+,Exposure,Relative,Cont,Sampling Point,Sampling Mass
+0,413894.0,1.0,Uniform,Baseline,Baseline
+1,320815.0,0.7751139180563139,Uniform,Preharvest,2 Tomatoes
+2,44725.0,0.108059068263855,Uniform,Preharvest,6 Tomatoes
+3,76420.0,0.18463664609779315,Uniform,Preharvest,5 X 20 Tomatoes
+4,112245.0,0.2711926241984663,Uniform,Harvest,2 Tomatoes
+5,44725.0,0.108059068263855,Uniform,Harvest,6 Tomatoes
+6,442.0,0.0010679062755198192,Uniform,Harvest,5 X 20 Tomatoes
+7,108159.0,0.26132053134377403,Uniform,Receiving,2 Tomatoes
+8,163383.0,0.3947459977675443,Uniform,Receiving,6 Tomatoes
+9,1361.0,0.00328828154068433,Uniform,Receiving,5 X 20 Tomatoes
+10,190275.0,0.4597191551460036,Uniform,Packed Product,2 Tomatoes
+11,172475.0,0.4167129748196398,Uniform,Packed Product,6 Tomatoes
+12,54401.0,0.1314370346030626,Uniform,Packed Product,5 X 20 Tomatoes

@@ -1,0 +1,2881 @@
+,variable,value,Type,Mass,Cont
+0,Power_Pick_1,0.08,Preharvest,2 Tomatoes,100%
+1,Power_Pick_1,0.07,Preharvest,2 Tomatoes,100%
+2,Power_Pick_1,0.06,Preharvest,2 Tomatoes,100%
+3,Power_Pick_1,0.06,Preharvest,2 Tomatoes,100%
+4,Power_Pick_1,0.09,Preharvest,2 Tomatoes,100%
+5,Power_Pick_1,0.05,Preharvest,2 Tomatoes,100%
+6,Power_Pick_1,0.03,Preharvest,2 Tomatoes,100%
+7,Power_Pick_1,0.02,Preharvest,2 Tomatoes,100%
+8,Power_Pick_1,0.02,Preharvest,2 Tomatoes,100%
+9,Power_Pick_1,0.07,Preharvest,2 Tomatoes,100%
+10,Power_Pick_2,0.06,Preharvest,2 Tomatoes,100%
+11,Power_Pick_2,0.12,Preharvest,2 Tomatoes,100%
+12,Power_Pick_2,0.04,Preharvest,2 Tomatoes,100%
+13,Power_Pick_2,0.04,Preharvest,2 Tomatoes,100%
+14,Power_Pick_2,0.12,Preharvest,2 Tomatoes,100%
+15,Power_Pick_2,0.09,Preharvest,2 Tomatoes,100%
+16,Power_Pick_2,0.08,Preharvest,2 Tomatoes,100%
+17,Power_Pick_2,0.08,Preharvest,2 Tomatoes,100%
+18,Power_Pick_2,0.06,Preharvest,2 Tomatoes,100%
+19,Power_Pick_2,0.07,Preharvest,2 Tomatoes,100%
+20,Power_Pick_3,0.06,Preharvest,2 Tomatoes,100%
+21,Power_Pick_3,0.07,Preharvest,2 Tomatoes,100%
+22,Power_Pick_3,0.05,Preharvest,2 Tomatoes,100%
+23,Power_Pick_3,0.09,Preharvest,2 Tomatoes,100%
+24,Power_Pick_3,0.06,Preharvest,2 Tomatoes,100%
+25,Power_Pick_3,0.04,Preharvest,2 Tomatoes,100%
+26,Power_Pick_3,0.06,Preharvest,2 Tomatoes,100%
+27,Power_Pick_3,0.05,Preharvest,2 Tomatoes,100%
+28,Power_Pick_3,0.13,Preharvest,2 Tomatoes,100%
+29,Power_Pick_3,0.08,Preharvest,2 Tomatoes,100%
+0,Power_Pick_1,0.16,Preharvest,6 Tomatoes,100%
+1,Power_Pick_1,0.13,Preharvest,6 Tomatoes,100%
+2,Power_Pick_1,0.12,Preharvest,6 Tomatoes,100%
+3,Power_Pick_1,0.13,Preharvest,6 Tomatoes,100%
+4,Power_Pick_1,0.13,Preharvest,6 Tomatoes,100%
+5,Power_Pick_1,0.13,Preharvest,6 Tomatoes,100%
+6,Power_Pick_1,0.13,Preharvest,6 Tomatoes,100%
+7,Power_Pick_1,0.09,Preharvest,6 Tomatoes,100%
+8,Power_Pick_1,0.06,Preharvest,6 Tomatoes,100%
+9,Power_Pick_1,0.13,Preharvest,6 Tomatoes,100%
+10,Power_Pick_2,0.15,Preharvest,6 Tomatoes,100%
+11,Power_Pick_2,0.18,Preharvest,6 Tomatoes,100%
+12,Power_Pick_2,0.12,Preharvest,6 Tomatoes,100%
+13,Power_Pick_2,0.1,Preharvest,6 Tomatoes,100%
+14,Power_Pick_2,0.15,Preharvest,6 Tomatoes,100%
+15,Power_Pick_2,0.13,Preharvest,6 Tomatoes,100%
+16,Power_Pick_2,0.15,Preharvest,6 Tomatoes,100%
+17,Power_Pick_2,0.14,Preharvest,6 Tomatoes,100%
+18,Power_Pick_2,0.15,Preharvest,6 Tomatoes,100%
+19,Power_Pick_2,0.16,Preharvest,6 Tomatoes,100%
+20,Power_Pick_3,0.11,Preharvest,6 Tomatoes,100%
+21,Power_Pick_3,0.13,Preharvest,6 Tomatoes,100%
+22,Power_Pick_3,0.15,Preharvest,6 Tomatoes,100%
+23,Power_Pick_3,0.14,Preharvest,6 Tomatoes,100%
+24,Power_Pick_3,0.1,Preharvest,6 Tomatoes,100%
+25,Power_Pick_3,0.07,Preharvest,6 Tomatoes,100%
+26,Power_Pick_3,0.13,Preharvest,6 Tomatoes,100%
+27,Power_Pick_3,0.11,Preharvest,6 Tomatoes,100%
+28,Power_Pick_3,0.16,Preharvest,6 Tomatoes,100%
+29,Power_Pick_3,0.19,Preharvest,6 Tomatoes,100%
+0,Power_Pick_1,0.23,Preharvest,20 Tomatoes,100%
+1,Power_Pick_1,0.22,Preharvest,20 Tomatoes,100%
+2,Power_Pick_1,0.19,Preharvest,20 Tomatoes,100%
+3,Power_Pick_1,0.22,Preharvest,20 Tomatoes,100%
+4,Power_Pick_1,0.21,Preharvest,20 Tomatoes,100%
+5,Power_Pick_1,0.3,Preharvest,20 Tomatoes,100%
+6,Power_Pick_1,0.19,Preharvest,20 Tomatoes,100%
+7,Power_Pick_1,0.13,Preharvest,20 Tomatoes,100%
+8,Power_Pick_1,0.13,Preharvest,20 Tomatoes,100%
+9,Power_Pick_1,0.24,Preharvest,20 Tomatoes,100%
+10,Power_Pick_2,0.21,Preharvest,20 Tomatoes,100%
+11,Power_Pick_2,0.3,Preharvest,20 Tomatoes,100%
+12,Power_Pick_2,0.26,Preharvest,20 Tomatoes,100%
+13,Power_Pick_2,0.21,Preharvest,20 Tomatoes,100%
+14,Power_Pick_2,0.29,Preharvest,20 Tomatoes,100%
+15,Power_Pick_2,0.25,Preharvest,20 Tomatoes,100%
+16,Power_Pick_2,0.24,Preharvest,20 Tomatoes,100%
+17,Power_Pick_2,0.28,Preharvest,20 Tomatoes,100%
+18,Power_Pick_2,0.32,Preharvest,20 Tomatoes,100%
+19,Power_Pick_2,0.22,Preharvest,20 Tomatoes,100%
+20,Power_Pick_3,0.21,Preharvest,20 Tomatoes,100%
+21,Power_Pick_3,0.23,Preharvest,20 Tomatoes,100%
+22,Power_Pick_3,0.23,Preharvest,20 Tomatoes,100%
+23,Power_Pick_3,0.29,Preharvest,20 Tomatoes,100%
+24,Power_Pick_3,0.15,Preharvest,20 Tomatoes,100%
+25,Power_Pick_3,0.13,Preharvest,20 Tomatoes,100%
+26,Power_Pick_3,0.26,Preharvest,20 Tomatoes,100%
+27,Power_Pick_3,0.23,Preharvest,20 Tomatoes,100%
+28,Power_Pick_3,0.27,Preharvest,20 Tomatoes,100%
+29,Power_Pick_3,0.22,Preharvest,20 Tomatoes,100%
+0,Power_Pick_1,0.33,Preharvest,60 Tomatoes,100%
+1,Power_Pick_1,0.22,Preharvest,60 Tomatoes,100%
+2,Power_Pick_1,0.24,Preharvest,60 Tomatoes,100%
+3,Power_Pick_1,0.24,Preharvest,60 Tomatoes,100%
+4,Power_Pick_1,0.27,Preharvest,60 Tomatoes,100%
+5,Power_Pick_1,0.32,Preharvest,60 Tomatoes,100%
+6,Power_Pick_1,0.21,Preharvest,60 Tomatoes,100%
+7,Power_Pick_1,0.18,Preharvest,60 Tomatoes,100%
+8,Power_Pick_1,0.14,Preharvest,60 Tomatoes,100%
+9,Power_Pick_1,0.28,Preharvest,60 Tomatoes,100%
+10,Power_Pick_2,0.25,Preharvest,60 Tomatoes,100%
+11,Power_Pick_2,0.37,Preharvest,60 Tomatoes,100%
+12,Power_Pick_2,0.3,Preharvest,60 Tomatoes,100%
+13,Power_Pick_2,0.3,Preharvest,60 Tomatoes,100%
+14,Power_Pick_2,0.33,Preharvest,60 Tomatoes,100%
+15,Power_Pick_2,0.35,Preharvest,60 Tomatoes,100%
+16,Power_Pick_2,0.32,Preharvest,60 Tomatoes,100%
+17,Power_Pick_2,0.33,Preharvest,60 Tomatoes,100%
+18,Power_Pick_2,0.36,Preharvest,60 Tomatoes,100%
+19,Power_Pick_2,0.29,Preharvest,60 Tomatoes,100%
+20,Power_Pick_3,0.29,Preharvest,60 Tomatoes,100%
+21,Power_Pick_3,0.26,Preharvest,60 Tomatoes,100%
+22,Power_Pick_3,0.27,Preharvest,60 Tomatoes,100%
+23,Power_Pick_3,0.38,Preharvest,60 Tomatoes,100%
+24,Power_Pick_3,0.22,Preharvest,60 Tomatoes,100%
+25,Power_Pick_3,0.24,Preharvest,60 Tomatoes,100%
+26,Power_Pick_3,0.32,Preharvest,60 Tomatoes,100%
+27,Power_Pick_3,0.37,Preharvest,60 Tomatoes,100%
+28,Power_Pick_3,0.37,Preharvest,60 Tomatoes,100%
+29,Power_Pick_3,0.32,Preharvest,60 Tomatoes,100%
+0,Power_Pick_1,0.08,Preharvest,20 Tomato Mash,100%
+1,Power_Pick_1,0.11,Preharvest,20 Tomato Mash,100%
+2,Power_Pick_1,0.06,Preharvest,20 Tomato Mash,100%
+3,Power_Pick_1,0.07,Preharvest,20 Tomato Mash,100%
+4,Power_Pick_1,0.09,Preharvest,20 Tomato Mash,100%
+5,Power_Pick_1,0.11,Preharvest,20 Tomato Mash,100%
+6,Power_Pick_1,0.07,Preharvest,20 Tomato Mash,100%
+7,Power_Pick_1,0.04,Preharvest,20 Tomato Mash,100%
+8,Power_Pick_1,0.03,Preharvest,20 Tomato Mash,100%
+9,Power_Pick_1,0.08,Preharvest,20 Tomato Mash,100%
+10,Power_Pick_2,0.04,Preharvest,20 Tomato Mash,100%
+11,Power_Pick_2,0.1,Preharvest,20 Tomato Mash,100%
+12,Power_Pick_2,0.1,Preharvest,20 Tomato Mash,100%
+13,Power_Pick_2,0.07,Preharvest,20 Tomato Mash,100%
+14,Power_Pick_2,0.11,Preharvest,20 Tomato Mash,100%
+15,Power_Pick_2,0.13,Preharvest,20 Tomato Mash,100%
+16,Power_Pick_2,0.08,Preharvest,20 Tomato Mash,100%
+17,Power_Pick_2,0.11,Preharvest,20 Tomato Mash,100%
+18,Power_Pick_2,0.12,Preharvest,20 Tomato Mash,100%
+19,Power_Pick_2,0.07,Preharvest,20 Tomato Mash,100%
+20,Power_Pick_3,0.05,Preharvest,20 Tomato Mash,100%
+21,Power_Pick_3,0.08,Preharvest,20 Tomato Mash,100%
+22,Power_Pick_3,0.06,Preharvest,20 Tomato Mash,100%
+23,Power_Pick_3,0.08,Preharvest,20 Tomato Mash,100%
+24,Power_Pick_3,0.06,Preharvest,20 Tomato Mash,100%
+25,Power_Pick_3,0.05,Preharvest,20 Tomato Mash,100%
+26,Power_Pick_3,0.11,Preharvest,20 Tomato Mash,100%
+27,Power_Pick_3,0.04,Preharvest,20 Tomato Mash,100%
+28,Power_Pick_3,0.05,Preharvest,20 Tomato Mash,100%
+29,Power_Pick_3,0.06,Preharvest,20 Tomato Mash,100%
+0,Power_Pick_1,0.16,Preharvest,60 Tomato Mash,100%
+1,Power_Pick_1,0.13,Preharvest,60 Tomato Mash,100%
+2,Power_Pick_1,0.14,Preharvest,60 Tomato Mash,100%
+3,Power_Pick_1,0.14,Preharvest,60 Tomato Mash,100%
+4,Power_Pick_1,0.22,Preharvest,60 Tomato Mash,100%
+5,Power_Pick_1,0.22,Preharvest,60 Tomato Mash,100%
+6,Power_Pick_1,0.14,Preharvest,60 Tomato Mash,100%
+7,Power_Pick_1,0.13,Preharvest,60 Tomato Mash,100%
+8,Power_Pick_1,0.08,Preharvest,60 Tomato Mash,100%
+9,Power_Pick_1,0.18,Preharvest,60 Tomato Mash,100%
+10,Power_Pick_2,0.2,Preharvest,60 Tomato Mash,100%
+11,Power_Pick_2,0.21,Preharvest,60 Tomato Mash,100%
+12,Power_Pick_2,0.2,Preharvest,60 Tomato Mash,100%
+13,Power_Pick_2,0.1,Preharvest,60 Tomato Mash,100%
+14,Power_Pick_2,0.2,Preharvest,60 Tomato Mash,100%
+15,Power_Pick_2,0.19,Preharvest,60 Tomato Mash,100%
+16,Power_Pick_2,0.18,Preharvest,60 Tomato Mash,100%
+17,Power_Pick_2,0.2,Preharvest,60 Tomato Mash,100%
+18,Power_Pick_2,0.25,Preharvest,60 Tomato Mash,100%
+19,Power_Pick_2,0.16,Preharvest,60 Tomato Mash,100%
+20,Power_Pick_3,0.16,Preharvest,60 Tomato Mash,100%
+21,Power_Pick_3,0.18,Preharvest,60 Tomato Mash,100%
+22,Power_Pick_3,0.22,Preharvest,60 Tomato Mash,100%
+23,Power_Pick_3,0.15,Preharvest,60 Tomato Mash,100%
+24,Power_Pick_3,0.13,Preharvest,60 Tomato Mash,100%
+25,Power_Pick_3,0.11,Preharvest,60 Tomato Mash,100%
+26,Power_Pick_3,0.22,Preharvest,60 Tomato Mash,100%
+27,Power_Pick_3,0.15,Preharvest,60 Tomato Mash,100%
+28,Power_Pick_3,0.17,Preharvest,60 Tomato Mash,100%
+29,Power_Pick_3,0.18,Preharvest,60 Tomato Mash,100%
+0,Power_Pick_1,0.1,Harvest,2 Tomatoes,100%
+1,Power_Pick_1,0.04,Harvest,2 Tomatoes,100%
+2,Power_Pick_1,0.04,Harvest,2 Tomatoes,100%
+3,Power_Pick_1,0.1,Harvest,2 Tomatoes,100%
+4,Power_Pick_1,0.1,Harvest,2 Tomatoes,100%
+5,Power_Pick_1,0.04,Harvest,2 Tomatoes,100%
+6,Power_Pick_1,0.09,Harvest,2 Tomatoes,100%
+7,Power_Pick_1,0.04,Harvest,2 Tomatoes,100%
+8,Power_Pick_1,0.04,Harvest,2 Tomatoes,100%
+9,Power_Pick_1,0.09,Harvest,2 Tomatoes,100%
+10,Power_Pick_2,0.09,Harvest,2 Tomatoes,100%
+11,Power_Pick_2,0.09,Harvest,2 Tomatoes,100%
+12,Power_Pick_2,0.06,Harvest,2 Tomatoes,100%
+13,Power_Pick_2,0.05,Harvest,2 Tomatoes,100%
+14,Power_Pick_2,0.09,Harvest,2 Tomatoes,100%
+15,Power_Pick_2,0.09,Harvest,2 Tomatoes,100%
+16,Power_Pick_2,0.07,Harvest,2 Tomatoes,100%
+17,Power_Pick_2,0.06,Harvest,2 Tomatoes,100%
+18,Power_Pick_2,0.06,Harvest,2 Tomatoes,100%
+19,Power_Pick_2,0.09,Harvest,2 Tomatoes,100%
+20,Power_Pick_3,0.07,Harvest,2 Tomatoes,100%
+21,Power_Pick_3,0.08,Harvest,2 Tomatoes,100%
+22,Power_Pick_3,0.06,Harvest,2 Tomatoes,100%
+23,Power_Pick_3,0.08,Harvest,2 Tomatoes,100%
+24,Power_Pick_3,0.07,Harvest,2 Tomatoes,100%
+25,Power_Pick_3,0.05,Harvest,2 Tomatoes,100%
+26,Power_Pick_3,0.06,Harvest,2 Tomatoes,100%
+27,Power_Pick_3,0.06,Harvest,2 Tomatoes,100%
+28,Power_Pick_3,0.08,Harvest,2 Tomatoes,100%
+29,Power_Pick_3,0.08,Harvest,2 Tomatoes,100%
+0,Power_Pick_1,0.18,Harvest,6 Tomatoes,100%
+1,Power_Pick_1,0.14,Harvest,6 Tomatoes,100%
+2,Power_Pick_1,0.14,Harvest,6 Tomatoes,100%
+3,Power_Pick_1,0.16,Harvest,6 Tomatoes,100%
+4,Power_Pick_1,0.19,Harvest,6 Tomatoes,100%
+5,Power_Pick_1,0.17,Harvest,6 Tomatoes,100%
+6,Power_Pick_1,0.1,Harvest,6 Tomatoes,100%
+7,Power_Pick_1,0.07,Harvest,6 Tomatoes,100%
+8,Power_Pick_1,0.07,Harvest,6 Tomatoes,100%
+9,Power_Pick_1,0.15,Harvest,6 Tomatoes,100%
+10,Power_Pick_2,0.07,Harvest,6 Tomatoes,100%
+11,Power_Pick_2,0.2,Harvest,6 Tomatoes,100%
+12,Power_Pick_2,0.11,Harvest,6 Tomatoes,100%
+13,Power_Pick_2,0.11,Harvest,6 Tomatoes,100%
+14,Power_Pick_2,0.18,Harvest,6 Tomatoes,100%
+15,Power_Pick_2,0.17,Harvest,6 Tomatoes,100%
+16,Power_Pick_2,0.17,Harvest,6 Tomatoes,100%
+17,Power_Pick_2,0.17,Harvest,6 Tomatoes,100%
+18,Power_Pick_2,0.2,Harvest,6 Tomatoes,100%
+19,Power_Pick_2,0.1,Harvest,6 Tomatoes,100%
+20,Power_Pick_3,0.14,Harvest,6 Tomatoes,100%
+21,Power_Pick_3,0.09,Harvest,6 Tomatoes,100%
+22,Power_Pick_3,0.14,Harvest,6 Tomatoes,100%
+23,Power_Pick_3,0.16,Harvest,6 Tomatoes,100%
+24,Power_Pick_3,0.1,Harvest,6 Tomatoes,100%
+25,Power_Pick_3,0.08,Harvest,6 Tomatoes,100%
+26,Power_Pick_3,0.15,Harvest,6 Tomatoes,100%
+27,Power_Pick_3,0.16,Harvest,6 Tomatoes,100%
+28,Power_Pick_3,0.19,Harvest,6 Tomatoes,100%
+29,Power_Pick_3,0.16,Harvest,6 Tomatoes,100%
+0,Power_Pick_1,0.31,Harvest,20 Tomatoes,100%
+1,Power_Pick_1,0.19,Harvest,20 Tomatoes,100%
+2,Power_Pick_1,0.18,Harvest,20 Tomatoes,100%
+3,Power_Pick_1,0.2,Harvest,20 Tomatoes,100%
+4,Power_Pick_1,0.22,Harvest,20 Tomatoes,100%
+5,Power_Pick_1,0.29,Harvest,20 Tomatoes,100%
+6,Power_Pick_1,0.18,Harvest,20 Tomatoes,100%
+7,Power_Pick_1,0.13,Harvest,20 Tomatoes,100%
+8,Power_Pick_1,0.12,Harvest,20 Tomatoes,100%
+9,Power_Pick_1,0.2,Harvest,20 Tomatoes,100%
+10,Power_Pick_2,0.21,Harvest,20 Tomatoes,100%
+11,Power_Pick_2,0.28,Harvest,20 Tomatoes,100%
+12,Power_Pick_2,0.24,Harvest,20 Tomatoes,100%
+13,Power_Pick_2,0.22,Harvest,20 Tomatoes,100%
+14,Power_Pick_2,0.26,Harvest,20 Tomatoes,100%
+15,Power_Pick_2,0.25,Harvest,20 Tomatoes,100%
+16,Power_Pick_2,0.25,Harvest,20 Tomatoes,100%
+17,Power_Pick_2,0.25,Harvest,20 Tomatoes,100%
+18,Power_Pick_2,0.3,Harvest,20 Tomatoes,100%
+19,Power_Pick_2,0.21,Harvest,20 Tomatoes,100%
+20,Power_Pick_3,0.23,Harvest,20 Tomatoes,100%
+21,Power_Pick_3,0.2,Harvest,20 Tomatoes,100%
+22,Power_Pick_3,0.25,Harvest,20 Tomatoes,100%
+23,Power_Pick_3,0.31,Harvest,20 Tomatoes,100%
+24,Power_Pick_3,0.17,Harvest,20 Tomatoes,100%
+25,Power_Pick_3,0.18,Harvest,20 Tomatoes,100%
+26,Power_Pick_3,0.25,Harvest,20 Tomatoes,100%
+27,Power_Pick_3,0.24,Harvest,20 Tomatoes,100%
+28,Power_Pick_3,0.29,Harvest,20 Tomatoes,100%
+29,Power_Pick_3,0.27,Harvest,20 Tomatoes,100%
+0,Power_Pick_1,0.32,Harvest,60 Tomatoes,100%
+1,Power_Pick_1,0.24,Harvest,60 Tomatoes,100%
+2,Power_Pick_1,0.23,Harvest,60 Tomatoes,100%
+3,Power_Pick_1,0.25,Harvest,60 Tomatoes,100%
+4,Power_Pick_1,0.28,Harvest,60 Tomatoes,100%
+5,Power_Pick_1,0.31,Harvest,60 Tomatoes,100%
+6,Power_Pick_1,0.22,Harvest,60 Tomatoes,100%
+7,Power_Pick_1,0.17,Harvest,60 Tomatoes,100%
+8,Power_Pick_1,0.14,Harvest,60 Tomatoes,100%
+9,Power_Pick_1,0.27,Harvest,60 Tomatoes,100%
+10,Power_Pick_2,0.25,Harvest,60 Tomatoes,100%
+11,Power_Pick_2,0.33,Harvest,60 Tomatoes,100%
+12,Power_Pick_2,0.32,Harvest,60 Tomatoes,100%
+13,Power_Pick_2,0.28,Harvest,60 Tomatoes,100%
+14,Power_Pick_2,0.34,Harvest,60 Tomatoes,100%
+15,Power_Pick_2,0.35,Harvest,60 Tomatoes,100%
+16,Power_Pick_2,0.28,Harvest,60 Tomatoes,100%
+17,Power_Pick_2,0.32,Harvest,60 Tomatoes,100%
+18,Power_Pick_2,0.4,Harvest,60 Tomatoes,100%
+19,Power_Pick_2,0.29,Harvest,60 Tomatoes,100%
+20,Power_Pick_3,0.3,Harvest,60 Tomatoes,100%
+21,Power_Pick_3,0.27,Harvest,60 Tomatoes,100%
+22,Power_Pick_3,0.25,Harvest,60 Tomatoes,100%
+23,Power_Pick_3,0.37,Harvest,60 Tomatoes,100%
+24,Power_Pick_3,0.23,Harvest,60 Tomatoes,100%
+25,Power_Pick_3,0.23,Harvest,60 Tomatoes,100%
+26,Power_Pick_3,0.35,Harvest,60 Tomatoes,100%
+27,Power_Pick_3,0.37,Harvest,60 Tomatoes,100%
+28,Power_Pick_3,0.38,Harvest,60 Tomatoes,100%
+29,Power_Pick_3,0.33,Harvest,60 Tomatoes,100%
+0,Power_Pick_1,0.09,Harvest,20 Tomato Mash,100%
+1,Power_Pick_1,0.1,Harvest,20 Tomato Mash,100%
+2,Power_Pick_1,0.04,Harvest,20 Tomato Mash,100%
+3,Power_Pick_1,0.09,Harvest,20 Tomato Mash,100%
+4,Power_Pick_1,0.09,Harvest,20 Tomato Mash,100%
+5,Power_Pick_1,0.1,Harvest,20 Tomato Mash,100%
+6,Power_Pick_1,0.07,Harvest,20 Tomato Mash,100%
+7,Power_Pick_1,0.05,Harvest,20 Tomato Mash,100%
+8,Power_Pick_1,0.03,Harvest,20 Tomato Mash,100%
+9,Power_Pick_1,0.08,Harvest,20 Tomato Mash,100%
+10,Power_Pick_2,0.05,Harvest,20 Tomato Mash,100%
+11,Power_Pick_2,0.06,Harvest,20 Tomato Mash,100%
+12,Power_Pick_2,0.1,Harvest,20 Tomato Mash,100%
+13,Power_Pick_2,0.06,Harvest,20 Tomato Mash,100%
+14,Power_Pick_2,0.08,Harvest,20 Tomato Mash,100%
+15,Power_Pick_2,0.12,Harvest,20 Tomato Mash,100%
+16,Power_Pick_2,0.1,Harvest,20 Tomato Mash,100%
+17,Power_Pick_2,0.1,Harvest,20 Tomato Mash,100%
+18,Power_Pick_2,0.12,Harvest,20 Tomato Mash,100%
+19,Power_Pick_2,0.07,Harvest,20 Tomato Mash,100%
+20,Power_Pick_3,0.07,Harvest,20 Tomato Mash,100%
+21,Power_Pick_3,0.08,Harvest,20 Tomato Mash,100%
+22,Power_Pick_3,0.05,Harvest,20 Tomato Mash,100%
+23,Power_Pick_3,0.04,Harvest,20 Tomato Mash,100%
+24,Power_Pick_3,0.07,Harvest,20 Tomato Mash,100%
+25,Power_Pick_3,0.07,Harvest,20 Tomato Mash,100%
+26,Power_Pick_3,0.09,Harvest,20 Tomato Mash,100%
+27,Power_Pick_3,0.05,Harvest,20 Tomato Mash,100%
+28,Power_Pick_3,0.07,Harvest,20 Tomato Mash,100%
+29,Power_Pick_3,0.07,Harvest,20 Tomato Mash,100%
+0,Power_Pick_1,0.18,Harvest,60 Tomato Mash,100%
+1,Power_Pick_1,0.15,Harvest,60 Tomato Mash,100%
+2,Power_Pick_1,0.15,Harvest,60 Tomato Mash,100%
+3,Power_Pick_1,0.15,Harvest,60 Tomato Mash,100%
+4,Power_Pick_1,0.16,Harvest,60 Tomato Mash,100%
+5,Power_Pick_1,0.19,Harvest,60 Tomato Mash,100%
+6,Power_Pick_1,0.16,Harvest,60 Tomato Mash,100%
+7,Power_Pick_1,0.12,Harvest,60 Tomato Mash,100%
+8,Power_Pick_1,0.09,Harvest,60 Tomato Mash,100%
+9,Power_Pick_1,0.19,Harvest,60 Tomato Mash,100%
+10,Power_Pick_2,0.18,Harvest,60 Tomato Mash,100%
+11,Power_Pick_2,0.19,Harvest,60 Tomato Mash,100%
+12,Power_Pick_2,0.21,Harvest,60 Tomato Mash,100%
+13,Power_Pick_2,0.11,Harvest,60 Tomato Mash,100%
+14,Power_Pick_2,0.22,Harvest,60 Tomato Mash,100%
+15,Power_Pick_2,0.18,Harvest,60 Tomato Mash,100%
+16,Power_Pick_2,0.19,Harvest,60 Tomato Mash,100%
+17,Power_Pick_2,0.21,Harvest,60 Tomato Mash,100%
+18,Power_Pick_2,0.28,Harvest,60 Tomato Mash,100%
+19,Power_Pick_2,0.14,Harvest,60 Tomato Mash,100%
+20,Power_Pick_3,0.15,Harvest,60 Tomato Mash,100%
+21,Power_Pick_3,0.17,Harvest,60 Tomato Mash,100%
+22,Power_Pick_3,0.2,Harvest,60 Tomato Mash,100%
+23,Power_Pick_3,0.18,Harvest,60 Tomato Mash,100%
+24,Power_Pick_3,0.15,Harvest,60 Tomato Mash,100%
+25,Power_Pick_3,0.13,Harvest,60 Tomato Mash,100%
+26,Power_Pick_3,0.18,Harvest,60 Tomato Mash,100%
+27,Power_Pick_3,0.14,Harvest,60 Tomato Mash,100%
+28,Power_Pick_3,0.15,Harvest,60 Tomato Mash,100%
+29,Power_Pick_3,0.18,Harvest,60 Tomato Mash,100%
+0,Power_Pick_1,0.07,Harvest,2 Tomatoes,100%
+1,Power_Pick_1,0.06,Harvest,2 Tomatoes,100%
+2,Power_Pick_1,0.06,Harvest,2 Tomatoes,100%
+3,Power_Pick_1,0.06,Harvest,2 Tomatoes,100%
+4,Power_Pick_1,0.09,Harvest,2 Tomatoes,100%
+5,Power_Pick_1,0.09,Harvest,2 Tomatoes,100%
+6,Power_Pick_1,0.08,Harvest,2 Tomatoes,100%
+7,Power_Pick_1,0.04,Harvest,2 Tomatoes,100%
+8,Power_Pick_1,0.05,Harvest,2 Tomatoes,100%
+9,Power_Pick_1,0.05,Harvest,2 Tomatoes,100%
+10,Power_Pick_2,0.09,Harvest,2 Tomatoes,100%
+11,Power_Pick_2,0.04,Harvest,2 Tomatoes,100%
+12,Power_Pick_2,0.05,Harvest,2 Tomatoes,100%
+13,Power_Pick_2,0.07,Harvest,2 Tomatoes,100%
+14,Power_Pick_2,0.06,Harvest,2 Tomatoes,100%
+15,Power_Pick_2,0.1,Harvest,2 Tomatoes,100%
+16,Power_Pick_2,0.03,Harvest,2 Tomatoes,100%
+17,Power_Pick_2,0.07,Harvest,2 Tomatoes,100%
+18,Power_Pick_2,0.08,Harvest,2 Tomatoes,100%
+19,Power_Pick_2,0.05,Harvest,2 Tomatoes,100%
+20,Power_Pick_3,0.06,Harvest,2 Tomatoes,100%
+21,Power_Pick_3,0.08,Harvest,2 Tomatoes,100%
+22,Power_Pick_3,0.05,Harvest,2 Tomatoes,100%
+23,Power_Pick_3,0.05,Harvest,2 Tomatoes,100%
+24,Power_Pick_3,0.06,Harvest,2 Tomatoes,100%
+25,Power_Pick_3,0.09,Harvest,2 Tomatoes,100%
+26,Power_Pick_3,0.09,Harvest,2 Tomatoes,100%
+27,Power_Pick_3,0.04,Harvest,2 Tomatoes,100%
+28,Power_Pick_3,0.08,Harvest,2 Tomatoes,100%
+29,Power_Pick_3,0.06,Harvest,2 Tomatoes,100%
+0,Power_Pick_1,0.17,Receiving,6 Tomatoes,100%
+1,Power_Pick_1,0.12,Receiving,6 Tomatoes,100%
+2,Power_Pick_1,0.1,Receiving,6 Tomatoes,100%
+3,Power_Pick_1,0.12,Receiving,6 Tomatoes,100%
+4,Power_Pick_1,0.16,Receiving,6 Tomatoes,100%
+5,Power_Pick_1,0.17,Receiving,6 Tomatoes,100%
+6,Power_Pick_1,0.14,Receiving,6 Tomatoes,100%
+7,Power_Pick_1,0.11,Receiving,6 Tomatoes,100%
+8,Power_Pick_1,0.07,Receiving,6 Tomatoes,100%
+9,Power_Pick_1,0.13,Receiving,6 Tomatoes,100%
+10,Power_Pick_2,0.15,Receiving,6 Tomatoes,100%
+11,Power_Pick_2,0.17,Receiving,6 Tomatoes,100%
+12,Power_Pick_2,0.16,Receiving,6 Tomatoes,100%
+13,Power_Pick_2,0.08,Receiving,6 Tomatoes,100%
+14,Power_Pick_2,0.18,Receiving,6 Tomatoes,100%
+15,Power_Pick_2,0.22,Receiving,6 Tomatoes,100%
+16,Power_Pick_2,0.11,Receiving,6 Tomatoes,100%
+17,Power_Pick_2,0.16,Receiving,6 Tomatoes,100%
+18,Power_Pick_2,0.16,Receiving,6 Tomatoes,100%
+19,Power_Pick_2,0.1,Receiving,6 Tomatoes,100%
+20,Power_Pick_3,0.13,Receiving,6 Tomatoes,100%
+21,Power_Pick_3,0.12,Receiving,6 Tomatoes,100%
+22,Power_Pick_3,0.17,Receiving,6 Tomatoes,100%
+23,Power_Pick_3,0.11,Receiving,6 Tomatoes,100%
+24,Power_Pick_3,0.06,Receiving,6 Tomatoes,100%
+25,Power_Pick_3,0.09,Receiving,6 Tomatoes,100%
+26,Power_Pick_3,0.15,Receiving,6 Tomatoes,100%
+27,Power_Pick_3,0.18,Receiving,6 Tomatoes,100%
+28,Power_Pick_3,0.19,Receiving,6 Tomatoes,100%
+29,Power_Pick_3,0.14,Receiving,6 Tomatoes,100%
+0,Power_Pick_1,0.29,Receiving,20 Tomatoes,100%
+1,Power_Pick_1,0.19,Receiving,20 Tomatoes,100%
+2,Power_Pick_1,0.22,Receiving,20 Tomatoes,100%
+3,Power_Pick_1,0.21,Receiving,20 Tomatoes,100%
+4,Power_Pick_1,0.22,Receiving,20 Tomatoes,100%
+5,Power_Pick_1,0.3,Receiving,20 Tomatoes,100%
+6,Power_Pick_1,0.2,Receiving,20 Tomatoes,100%
+7,Power_Pick_1,0.15,Receiving,20 Tomatoes,100%
+8,Power_Pick_1,0.13,Receiving,20 Tomatoes,100%
+9,Power_Pick_1,0.21,Receiving,20 Tomatoes,100%
+10,Power_Pick_2,0.22,Receiving,20 Tomatoes,100%
+11,Power_Pick_2,0.27,Receiving,20 Tomatoes,100%
+12,Power_Pick_2,0.21,Receiving,20 Tomatoes,100%
+13,Power_Pick_2,0.2,Receiving,20 Tomatoes,100%
+14,Power_Pick_2,0.25,Receiving,20 Tomatoes,100%
+15,Power_Pick_2,0.27,Receiving,20 Tomatoes,100%
+16,Power_Pick_2,0.22,Receiving,20 Tomatoes,100%
+17,Power_Pick_2,0.24,Receiving,20 Tomatoes,100%
+18,Power_Pick_2,0.31,Receiving,20 Tomatoes,100%
+19,Power_Pick_2,0.23,Receiving,20 Tomatoes,100%
+20,Power_Pick_3,0.24,Receiving,20 Tomatoes,100%
+21,Power_Pick_3,0.22,Receiving,20 Tomatoes,100%
+22,Power_Pick_3,0.23,Receiving,20 Tomatoes,100%
+23,Power_Pick_3,0.26,Receiving,20 Tomatoes,100%
+24,Power_Pick_3,0.2,Receiving,20 Tomatoes,100%
+25,Power_Pick_3,0.17,Receiving,20 Tomatoes,100%
+26,Power_Pick_3,0.28,Receiving,20 Tomatoes,100%
+27,Power_Pick_3,0.23,Receiving,20 Tomatoes,100%
+28,Power_Pick_3,0.25,Receiving,20 Tomatoes,100%
+29,Power_Pick_3,0.22,Receiving,20 Tomatoes,100%
+0,Power_Pick_1,0.33,Receiving,60 Tomatoes,100%
+1,Power_Pick_1,0.25,Receiving,60 Tomatoes,100%
+2,Power_Pick_1,0.24,Receiving,60 Tomatoes,100%
+3,Power_Pick_1,0.23,Receiving,60 Tomatoes,100%
+4,Power_Pick_1,0.28,Receiving,60 Tomatoes,100%
+5,Power_Pick_1,0.32,Receiving,60 Tomatoes,100%
+6,Power_Pick_1,0.21,Receiving,60 Tomatoes,100%
+7,Power_Pick_1,0.17,Receiving,60 Tomatoes,100%
+8,Power_Pick_1,0.13,Receiving,60 Tomatoes,100%
+9,Power_Pick_1,0.28,Receiving,60 Tomatoes,100%
+10,Power_Pick_2,0.25,Receiving,60 Tomatoes,100%
+11,Power_Pick_2,0.34,Receiving,60 Tomatoes,100%
+12,Power_Pick_2,0.31,Receiving,60 Tomatoes,100%
+13,Power_Pick_2,0.25,Receiving,60 Tomatoes,100%
+14,Power_Pick_2,0.34,Receiving,60 Tomatoes,100%
+15,Power_Pick_2,0.35,Receiving,60 Tomatoes,100%
+16,Power_Pick_2,0.31,Receiving,60 Tomatoes,100%
+17,Power_Pick_2,0.33,Receiving,60 Tomatoes,100%
+18,Power_Pick_2,0.39,Receiving,60 Tomatoes,100%
+19,Power_Pick_2,0.27,Receiving,60 Tomatoes,100%
+20,Power_Pick_3,0.3,Receiving,60 Tomatoes,100%
+21,Power_Pick_3,0.27,Receiving,60 Tomatoes,100%
+22,Power_Pick_3,0.3,Receiving,60 Tomatoes,100%
+23,Power_Pick_3,0.37,Receiving,60 Tomatoes,100%
+24,Power_Pick_3,0.23,Receiving,60 Tomatoes,100%
+25,Power_Pick_3,0.23,Receiving,60 Tomatoes,100%
+26,Power_Pick_3,0.36,Receiving,60 Tomatoes,100%
+27,Power_Pick_3,0.34,Receiving,60 Tomatoes,100%
+28,Power_Pick_3,0.33,Receiving,60 Tomatoes,100%
+29,Power_Pick_3,0.31,Receiving,60 Tomatoes,100%
+0,Power_Pick_1,0.09,Receiving,20 Tomato Mash,100%
+1,Power_Pick_1,0.09,Receiving,20 Tomato Mash,100%
+2,Power_Pick_1,0.06,Receiving,20 Tomato Mash,100%
+3,Power_Pick_1,0.09,Receiving,20 Tomato Mash,100%
+4,Power_Pick_1,0.1,Receiving,20 Tomato Mash,100%
+5,Power_Pick_1,0.12,Receiving,20 Tomato Mash,100%
+6,Power_Pick_1,0.09,Receiving,20 Tomato Mash,100%
+7,Power_Pick_1,0.05,Receiving,20 Tomato Mash,100%
+8,Power_Pick_1,0.05,Receiving,20 Tomato Mash,100%
+9,Power_Pick_1,0.08,Receiving,20 Tomato Mash,100%
+10,Power_Pick_2,0.06,Receiving,20 Tomato Mash,100%
+11,Power_Pick_2,0.11,Receiving,20 Tomato Mash,100%
+12,Power_Pick_2,0.09,Receiving,20 Tomato Mash,100%
+13,Power_Pick_2,0.05,Receiving,20 Tomato Mash,100%
+14,Power_Pick_2,0.11,Receiving,20 Tomato Mash,100%
+15,Power_Pick_2,0.12,Receiving,20 Tomato Mash,100%
+16,Power_Pick_2,0.11,Receiving,20 Tomato Mash,100%
+17,Power_Pick_2,0.12,Receiving,20 Tomato Mash,100%
+18,Power_Pick_2,0.11,Receiving,20 Tomato Mash,100%
+19,Power_Pick_2,0.06,Receiving,20 Tomato Mash,100%
+20,Power_Pick_3,0.07,Receiving,20 Tomato Mash,100%
+21,Power_Pick_3,0.09,Receiving,20 Tomato Mash,100%
+22,Power_Pick_3,0.08,Receiving,20 Tomato Mash,100%
+23,Power_Pick_3,0.07,Receiving,20 Tomato Mash,100%
+24,Power_Pick_3,0.07,Receiving,20 Tomato Mash,100%
+25,Power_Pick_3,0.05,Receiving,20 Tomato Mash,100%
+26,Power_Pick_3,0.1,Receiving,20 Tomato Mash,100%
+27,Power_Pick_3,0.06,Receiving,20 Tomato Mash,100%
+28,Power_Pick_3,0.03,Receiving,20 Tomato Mash,100%
+29,Power_Pick_3,0.07,Receiving,20 Tomato Mash,100%
+0,Power_Pick_1,0.15,Receiving,60 Tomato Mash,100%
+1,Power_Pick_1,0.15,Receiving,60 Tomato Mash,100%
+2,Power_Pick_1,0.14,Receiving,60 Tomato Mash,100%
+3,Power_Pick_1,0.15,Receiving,60 Tomato Mash,100%
+4,Power_Pick_1,0.19,Receiving,60 Tomato Mash,100%
+5,Power_Pick_1,0.19,Receiving,60 Tomato Mash,100%
+6,Power_Pick_1,0.14,Receiving,60 Tomato Mash,100%
+7,Power_Pick_1,0.12,Receiving,60 Tomato Mash,100%
+8,Power_Pick_1,0.08,Receiving,60 Tomato Mash,100%
+9,Power_Pick_1,0.2,Receiving,60 Tomato Mash,100%
+10,Power_Pick_2,0.17,Receiving,60 Tomato Mash,100%
+11,Power_Pick_2,0.24,Receiving,60 Tomato Mash,100%
+12,Power_Pick_2,0.23,Receiving,60 Tomato Mash,100%
+13,Power_Pick_2,0.13,Receiving,60 Tomato Mash,100%
+14,Power_Pick_2,0.21,Receiving,60 Tomato Mash,100%
+15,Power_Pick_2,0.17,Receiving,60 Tomato Mash,100%
+16,Power_Pick_2,0.23,Receiving,60 Tomato Mash,100%
+17,Power_Pick_2,0.2,Receiving,60 Tomato Mash,100%
+18,Power_Pick_2,0.22,Receiving,60 Tomato Mash,100%
+19,Power_Pick_2,0.18,Receiving,60 Tomato Mash,100%
+20,Power_Pick_3,0.15,Receiving,60 Tomato Mash,100%
+21,Power_Pick_3,0.17,Receiving,60 Tomato Mash,100%
+22,Power_Pick_3,0.2,Receiving,60 Tomato Mash,100%
+23,Power_Pick_3,0.18,Receiving,60 Tomato Mash,100%
+24,Power_Pick_3,0.16,Receiving,60 Tomato Mash,100%
+25,Power_Pick_3,0.1,Receiving,60 Tomato Mash,100%
+26,Power_Pick_3,0.24,Receiving,60 Tomato Mash,100%
+27,Power_Pick_3,0.16,Receiving,60 Tomato Mash,100%
+28,Power_Pick_3,0.16,Receiving,60 Tomato Mash,100%
+29,Power_Pick_3,0.17,Receiving,60 Tomato Mash,100%
+0,Power_Pick_1,0.09,Receiving,2 Tomatoes,100%
+1,Power_Pick_1,0.04,Receiving,2 Tomatoes,100%
+2,Power_Pick_1,0.06,Receiving,2 Tomatoes,100%
+3,Power_Pick_1,0.09,Receiving,2 Tomatoes,100%
+4,Power_Pick_1,0.05,Receiving,2 Tomatoes,100%
+5,Power_Pick_1,0.08,Receiving,2 Tomatoes,100%
+6,Power_Pick_1,0.05,Receiving,2 Tomatoes,100%
+7,Power_Pick_1,0.04,Receiving,2 Tomatoes,100%
+8,Power_Pick_1,0.05,Receiving,2 Tomatoes,100%
+9,Power_Pick_1,0.04,Receiving,2 Tomatoes,100%
+10,Power_Pick_2,0.08,Receiving,2 Tomatoes,100%
+11,Power_Pick_2,0.06,Receiving,2 Tomatoes,100%
+12,Power_Pick_2,0.06,Receiving,2 Tomatoes,100%
+13,Power_Pick_2,0.08,Receiving,2 Tomatoes,100%
+14,Power_Pick_2,0.09,Receiving,2 Tomatoes,100%
+15,Power_Pick_2,0.05,Receiving,2 Tomatoes,100%
+16,Power_Pick_2,0.06,Receiving,2 Tomatoes,100%
+17,Power_Pick_2,0.04,Receiving,2 Tomatoes,100%
+18,Power_Pick_2,0.1,Receiving,2 Tomatoes,100%
+19,Power_Pick_2,0.07,Receiving,2 Tomatoes,100%
+20,Power_Pick_3,0.06,Receiving,2 Tomatoes,100%
+21,Power_Pick_3,0.06,Receiving,2 Tomatoes,100%
+22,Power_Pick_3,0.05,Receiving,2 Tomatoes,100%
+23,Power_Pick_3,0.04,Receiving,2 Tomatoes,100%
+24,Power_Pick_3,0.06,Receiving,2 Tomatoes,100%
+25,Power_Pick_3,0.07,Receiving,2 Tomatoes,100%
+26,Power_Pick_3,0.09,Receiving,2 Tomatoes,100%
+27,Power_Pick_3,0.05,Receiving,2 Tomatoes,100%
+28,Power_Pick_3,0.05,Receiving,2 Tomatoes,100%
+29,Power_Pick_3,0.09,Receiving,2 Tomatoes,100%
+0,Power_Pick_1,0.12,Packed Product,6 Tomatoes,100%
+1,Power_Pick_1,0.11,Packed Product,6 Tomatoes,100%
+2,Power_Pick_1,0.07,Packed Product,6 Tomatoes,100%
+3,Power_Pick_1,0.15,Packed Product,6 Tomatoes,100%
+4,Power_Pick_1,0.11,Packed Product,6 Tomatoes,100%
+5,Power_Pick_1,0.16,Packed Product,6 Tomatoes,100%
+6,Power_Pick_1,0.12,Packed Product,6 Tomatoes,100%
+7,Power_Pick_1,0.09,Packed Product,6 Tomatoes,100%
+8,Power_Pick_1,0.08,Packed Product,6 Tomatoes,100%
+9,Power_Pick_1,0.09,Packed Product,6 Tomatoes,100%
+10,Power_Pick_2,0.16,Packed Product,6 Tomatoes,100%
+11,Power_Pick_2,0.17,Packed Product,6 Tomatoes,100%
+12,Power_Pick_2,0.11,Packed Product,6 Tomatoes,100%
+13,Power_Pick_2,0.08,Packed Product,6 Tomatoes,100%
+14,Power_Pick_2,0.13,Packed Product,6 Tomatoes,100%
+15,Power_Pick_2,0.17,Packed Product,6 Tomatoes,100%
+16,Power_Pick_2,0.15,Packed Product,6 Tomatoes,100%
+17,Power_Pick_2,0.11,Packed Product,6 Tomatoes,100%
+18,Power_Pick_2,0.15,Packed Product,6 Tomatoes,100%
+19,Power_Pick_2,0.13,Packed Product,6 Tomatoes,100%
+20,Power_Pick_3,0.12,Packed Product,6 Tomatoes,100%
+21,Power_Pick_3,0.11,Packed Product,6 Tomatoes,100%
+22,Power_Pick_3,0.14,Packed Product,6 Tomatoes,100%
+23,Power_Pick_3,0.16,Packed Product,6 Tomatoes,100%
+24,Power_Pick_3,0.12,Packed Product,6 Tomatoes,100%
+25,Power_Pick_3,0.09,Packed Product,6 Tomatoes,100%
+26,Power_Pick_3,0.16,Packed Product,6 Tomatoes,100%
+27,Power_Pick_3,0.15,Packed Product,6 Tomatoes,100%
+28,Power_Pick_3,0.15,Packed Product,6 Tomatoes,100%
+29,Power_Pick_3,0.12,Packed Product,6 Tomatoes,100%
+0,Power_Pick_1,0.24,Packed Product,20 Tomatoes,100%
+1,Power_Pick_1,0.22,Packed Product,20 Tomatoes,100%
+2,Power_Pick_1,0.21,Packed Product,20 Tomatoes,100%
+3,Power_Pick_1,0.21,Packed Product,20 Tomatoes,100%
+4,Power_Pick_1,0.23,Packed Product,20 Tomatoes,100%
+5,Power_Pick_1,0.27,Packed Product,20 Tomatoes,100%
+6,Power_Pick_1,0.17,Packed Product,20 Tomatoes,100%
+7,Power_Pick_1,0.16,Packed Product,20 Tomatoes,100%
+8,Power_Pick_1,0.11,Packed Product,20 Tomatoes,100%
+9,Power_Pick_1,0.25,Packed Product,20 Tomatoes,100%
+10,Power_Pick_2,0.2,Packed Product,20 Tomatoes,100%
+11,Power_Pick_2,0.25,Packed Product,20 Tomatoes,100%
+12,Power_Pick_2,0.24,Packed Product,20 Tomatoes,100%
+13,Power_Pick_2,0.2,Packed Product,20 Tomatoes,100%
+14,Power_Pick_2,0.27,Packed Product,20 Tomatoes,100%
+15,Power_Pick_2,0.25,Packed Product,20 Tomatoes,100%
+16,Power_Pick_2,0.23,Packed Product,20 Tomatoes,100%
+17,Power_Pick_2,0.25,Packed Product,20 Tomatoes,100%
+18,Power_Pick_2,0.29,Packed Product,20 Tomatoes,100%
+19,Power_Pick_2,0.2,Packed Product,20 Tomatoes,100%
+20,Power_Pick_3,0.22,Packed Product,20 Tomatoes,100%
+21,Power_Pick_3,0.18,Packed Product,20 Tomatoes,100%
+22,Power_Pick_3,0.25,Packed Product,20 Tomatoes,100%
+23,Power_Pick_3,0.21,Packed Product,20 Tomatoes,100%
+24,Power_Pick_3,0.13,Packed Product,20 Tomatoes,100%
+25,Power_Pick_3,0.2,Packed Product,20 Tomatoes,100%
+26,Power_Pick_3,0.26,Packed Product,20 Tomatoes,100%
+27,Power_Pick_3,0.25,Packed Product,20 Tomatoes,100%
+28,Power_Pick_3,0.26,Packed Product,20 Tomatoes,100%
+29,Power_Pick_3,0.24,Packed Product,20 Tomatoes,100%
+0,Power_Pick_1,0.33,Packed Product,60 Tomatoes,100%
+1,Power_Pick_1,0.25,Packed Product,60 Tomatoes,100%
+2,Power_Pick_1,0.24,Packed Product,60 Tomatoes,100%
+3,Power_Pick_1,0.23,Packed Product,60 Tomatoes,100%
+4,Power_Pick_1,0.27,Packed Product,60 Tomatoes,100%
+5,Power_Pick_1,0.32,Packed Product,60 Tomatoes,100%
+6,Power_Pick_1,0.22,Packed Product,60 Tomatoes,100%
+7,Power_Pick_1,0.18,Packed Product,60 Tomatoes,100%
+8,Power_Pick_1,0.14,Packed Product,60 Tomatoes,100%
+9,Power_Pick_1,0.26,Packed Product,60 Tomatoes,100%
+10,Power_Pick_2,0.27,Packed Product,60 Tomatoes,100%
+11,Power_Pick_2,0.32,Packed Product,60 Tomatoes,100%
+12,Power_Pick_2,0.34,Packed Product,60 Tomatoes,100%
+13,Power_Pick_2,0.25,Packed Product,60 Tomatoes,100%
+14,Power_Pick_2,0.32,Packed Product,60 Tomatoes,100%
+15,Power_Pick_2,0.35,Packed Product,60 Tomatoes,100%
+16,Power_Pick_2,0.29,Packed Product,60 Tomatoes,100%
+17,Power_Pick_2,0.35,Packed Product,60 Tomatoes,100%
+18,Power_Pick_2,0.36,Packed Product,60 Tomatoes,100%
+19,Power_Pick_2,0.31,Packed Product,60 Tomatoes,100%
+20,Power_Pick_3,0.29,Packed Product,60 Tomatoes,100%
+21,Power_Pick_3,0.29,Packed Product,60 Tomatoes,100%
+22,Power_Pick_3,0.29,Packed Product,60 Tomatoes,100%
+23,Power_Pick_3,0.39,Packed Product,60 Tomatoes,100%
+24,Power_Pick_3,0.25,Packed Product,60 Tomatoes,100%
+25,Power_Pick_3,0.2,Packed Product,60 Tomatoes,100%
+26,Power_Pick_3,0.3,Packed Product,60 Tomatoes,100%
+27,Power_Pick_3,0.34,Packed Product,60 Tomatoes,100%
+28,Power_Pick_3,0.35,Packed Product,60 Tomatoes,100%
+29,Power_Pick_3,0.25,Packed Product,60 Tomatoes,100%
+0,Power_Pick_1,0.07,Packed Product,20 Tomato Mash,100%
+1,Power_Pick_1,0.1,Packed Product,20 Tomato Mash,100%
+2,Power_Pick_1,0.05,Packed Product,20 Tomato Mash,100%
+3,Power_Pick_1,0.06,Packed Product,20 Tomato Mash,100%
+4,Power_Pick_1,0.1,Packed Product,20 Tomato Mash,100%
+5,Power_Pick_1,0.12,Packed Product,20 Tomato Mash,100%
+6,Power_Pick_1,0.07,Packed Product,20 Tomato Mash,100%
+7,Power_Pick_1,0.04,Packed Product,20 Tomato Mash,100%
+8,Power_Pick_1,0.03,Packed Product,20 Tomato Mash,100%
+9,Power_Pick_1,0.08,Packed Product,20 Tomato Mash,100%
+10,Power_Pick_2,0.06,Packed Product,20 Tomato Mash,100%
+11,Power_Pick_2,0.09,Packed Product,20 Tomato Mash,100%
+12,Power_Pick_2,0.11,Packed Product,20 Tomato Mash,100%
+13,Power_Pick_2,0.06,Packed Product,20 Tomato Mash,100%
+14,Power_Pick_2,0.09,Packed Product,20 Tomato Mash,100%
+15,Power_Pick_2,0.1,Packed Product,20 Tomato Mash,100%
+16,Power_Pick_2,0.09,Packed Product,20 Tomato Mash,100%
+17,Power_Pick_2,0.12,Packed Product,20 Tomato Mash,100%
+18,Power_Pick_2,0.11,Packed Product,20 Tomato Mash,100%
+19,Power_Pick_2,0.07,Packed Product,20 Tomato Mash,100%
+20,Power_Pick_3,0.08,Packed Product,20 Tomato Mash,100%
+21,Power_Pick_3,0.09,Packed Product,20 Tomato Mash,100%
+22,Power_Pick_3,0.08,Packed Product,20 Tomato Mash,100%
+23,Power_Pick_3,0.06,Packed Product,20 Tomato Mash,100%
+24,Power_Pick_3,0.08,Packed Product,20 Tomato Mash,100%
+25,Power_Pick_3,0.09,Packed Product,20 Tomato Mash,100%
+26,Power_Pick_3,0.08,Packed Product,20 Tomato Mash,100%
+27,Power_Pick_3,0.06,Packed Product,20 Tomato Mash,100%
+28,Power_Pick_3,0.08,Packed Product,20 Tomato Mash,100%
+29,Power_Pick_3,0.06,Packed Product,20 Tomato Mash,100%
+0,Power_Pick_1,0.15,Packed Product,60 Tomato Mash,100%
+1,Power_Pick_1,0.15,Packed Product,60 Tomato Mash,100%
+2,Power_Pick_1,0.13,Packed Product,60 Tomato Mash,100%
+3,Power_Pick_1,0.11,Packed Product,60 Tomato Mash,100%
+4,Power_Pick_1,0.21,Packed Product,60 Tomato Mash,100%
+5,Power_Pick_1,0.19,Packed Product,60 Tomato Mash,100%
+6,Power_Pick_1,0.17,Packed Product,60 Tomato Mash,100%
+7,Power_Pick_1,0.13,Packed Product,60 Tomato Mash,100%
+8,Power_Pick_1,0.1,Packed Product,60 Tomato Mash,100%
+9,Power_Pick_1,0.19,Packed Product,60 Tomato Mash,100%
+10,Power_Pick_2,0.17,Packed Product,60 Tomato Mash,100%
+11,Power_Pick_2,0.24,Packed Product,60 Tomato Mash,100%
+12,Power_Pick_2,0.19,Packed Product,60 Tomato Mash,100%
+13,Power_Pick_2,0.12,Packed Product,60 Tomato Mash,100%
+14,Power_Pick_2,0.21,Packed Product,60 Tomato Mash,100%
+15,Power_Pick_2,0.19,Packed Product,60 Tomato Mash,100%
+16,Power_Pick_2,0.21,Packed Product,60 Tomato Mash,100%
+17,Power_Pick_2,0.18,Packed Product,60 Tomato Mash,100%
+18,Power_Pick_2,0.23,Packed Product,60 Tomato Mash,100%
+19,Power_Pick_2,0.15,Packed Product,60 Tomato Mash,100%
+20,Power_Pick_3,0.12,Packed Product,60 Tomato Mash,100%
+21,Power_Pick_3,0.16,Packed Product,60 Tomato Mash,100%
+22,Power_Pick_3,0.21,Packed Product,60 Tomato Mash,100%
+23,Power_Pick_3,0.15,Packed Product,60 Tomato Mash,100%
+24,Power_Pick_3,0.13,Packed Product,60 Tomato Mash,100%
+25,Power_Pick_3,0.11,Packed Product,60 Tomato Mash,100%
+26,Power_Pick_3,0.22,Packed Product,60 Tomato Mash,100%
+27,Power_Pick_3,0.17,Packed Product,60 Tomato Mash,100%
+28,Power_Pick_3,0.16,Packed Product,60 Tomato Mash,100%
+29,Power_Pick_3,0.2,Packed Product,60 Tomato Mash,100%
+0,Power_Pick_1,0.04,Preharvest,2 Tomatoes,10%
+1,Power_Pick_1,0.04,Preharvest,2 Tomatoes,10%
+2,Power_Pick_1,0.04,Preharvest,2 Tomatoes,10%
+3,Power_Pick_1,0.02,Preharvest,2 Tomatoes,10%
+4,Power_Pick_1,0.04,Preharvest,2 Tomatoes,10%
+5,Power_Pick_1,0.03,Preharvest,2 Tomatoes,10%
+6,Power_Pick_1,0.05,Preharvest,2 Tomatoes,10%
+7,Power_Pick_1,0.05,Preharvest,2 Tomatoes,10%
+8,Power_Pick_1,0.01,Preharvest,2 Tomatoes,10%
+9,Power_Pick_1,0.02,Preharvest,2 Tomatoes,10%
+10,Power_Pick_2,0.02,Preharvest,2 Tomatoes,10%
+11,Power_Pick_2,0.09,Preharvest,2 Tomatoes,10%
+12,Power_Pick_2,0.02,Preharvest,2 Tomatoes,10%
+13,Power_Pick_2,0.04,Preharvest,2 Tomatoes,10%
+14,Power_Pick_2,0.06,Preharvest,2 Tomatoes,10%
+15,Power_Pick_2,0.03,Preharvest,2 Tomatoes,10%
+16,Power_Pick_2,0.03,Preharvest,2 Tomatoes,10%
+17,Power_Pick_2,0.06,Preharvest,2 Tomatoes,10%
+18,Power_Pick_2,0.05,Preharvest,2 Tomatoes,10%
+19,Power_Pick_2,0.03,Preharvest,2 Tomatoes,10%
+20,Power_Pick_3,0.05,Preharvest,2 Tomatoes,10%
+21,Power_Pick_3,0.05,Preharvest,2 Tomatoes,10%
+22,Power_Pick_3,0.02,Preharvest,2 Tomatoes,10%
+23,Power_Pick_3,0.04,Preharvest,2 Tomatoes,10%
+24,Power_Pick_3,0.01,Preharvest,2 Tomatoes,10%
+25,Power_Pick_3,0.04,Preharvest,2 Tomatoes,10%
+26,Power_Pick_3,0.03,Preharvest,2 Tomatoes,10%
+27,Power_Pick_3,0.02,Preharvest,2 Tomatoes,10%
+28,Power_Pick_3,0.06,Preharvest,2 Tomatoes,10%
+29,Power_Pick_3,0.05,Preharvest,2 Tomatoes,10%
+0,Power_Pick_1,0.05,Preharvest,6 Tomatoes,10%
+1,Power_Pick_1,0.06,Preharvest,6 Tomatoes,10%
+2,Power_Pick_1,0.07,Preharvest,6 Tomatoes,10%
+3,Power_Pick_1,0.12,Preharvest,6 Tomatoes,10%
+4,Power_Pick_1,0.06,Preharvest,6 Tomatoes,10%
+5,Power_Pick_1,0.09,Preharvest,6 Tomatoes,10%
+6,Power_Pick_1,0.09,Preharvest,6 Tomatoes,10%
+7,Power_Pick_1,0.06,Preharvest,6 Tomatoes,10%
+8,Power_Pick_1,0.02,Preharvest,6 Tomatoes,10%
+9,Power_Pick_1,0.07,Preharvest,6 Tomatoes,10%
+10,Power_Pick_2,0.04,Preharvest,6 Tomatoes,10%
+11,Power_Pick_2,0.11,Preharvest,6 Tomatoes,10%
+12,Power_Pick_2,0.1,Preharvest,6 Tomatoes,10%
+13,Power_Pick_2,0.09,Preharvest,6 Tomatoes,10%
+14,Power_Pick_2,0.08,Preharvest,6 Tomatoes,10%
+15,Power_Pick_2,0.08,Preharvest,6 Tomatoes,10%
+16,Power_Pick_2,0.08,Preharvest,6 Tomatoes,10%
+17,Power_Pick_2,0.07,Preharvest,6 Tomatoes,10%
+18,Power_Pick_2,0.12,Preharvest,6 Tomatoes,10%
+19,Power_Pick_2,0.12,Preharvest,6 Tomatoes,10%
+20,Power_Pick_3,0.09,Preharvest,6 Tomatoes,10%
+21,Power_Pick_3,0.06,Preharvest,6 Tomatoes,10%
+22,Power_Pick_3,0.04,Preharvest,6 Tomatoes,10%
+23,Power_Pick_3,0.09,Preharvest,6 Tomatoes,10%
+24,Power_Pick_3,0.06,Preharvest,6 Tomatoes,10%
+25,Power_Pick_3,0.1,Preharvest,6 Tomatoes,10%
+26,Power_Pick_3,0.1,Preharvest,6 Tomatoes,10%
+27,Power_Pick_3,0.13,Preharvest,6 Tomatoes,10%
+28,Power_Pick_3,0.1,Preharvest,6 Tomatoes,10%
+29,Power_Pick_3,0.08,Preharvest,6 Tomatoes,10%
+0,Power_Pick_1,0.14,Preharvest,20 Tomatoes,10%
+1,Power_Pick_1,0.18,Preharvest,20 Tomatoes,10%
+2,Power_Pick_1,0.14,Preharvest,20 Tomatoes,10%
+3,Power_Pick_1,0.16,Preharvest,20 Tomatoes,10%
+4,Power_Pick_1,0.16,Preharvest,20 Tomatoes,10%
+5,Power_Pick_1,0.2,Preharvest,20 Tomatoes,10%
+6,Power_Pick_1,0.16,Preharvest,20 Tomatoes,10%
+7,Power_Pick_1,0.13,Preharvest,20 Tomatoes,10%
+8,Power_Pick_1,0.08,Preharvest,20 Tomatoes,10%
+9,Power_Pick_1,0.14,Preharvest,20 Tomatoes,10%
+10,Power_Pick_2,0.22,Preharvest,20 Tomatoes,10%
+11,Power_Pick_2,0.23,Preharvest,20 Tomatoes,10%
+12,Power_Pick_2,0.13,Preharvest,20 Tomatoes,10%
+13,Power_Pick_2,0.15,Preharvest,20 Tomatoes,10%
+14,Power_Pick_2,0.18,Preharvest,20 Tomatoes,10%
+15,Power_Pick_2,0.15,Preharvest,20 Tomatoes,10%
+16,Power_Pick_2,0.18,Preharvest,20 Tomatoes,10%
+17,Power_Pick_2,0.23,Preharvest,20 Tomatoes,10%
+18,Power_Pick_2,0.27,Preharvest,20 Tomatoes,10%
+19,Power_Pick_2,0.17,Preharvest,20 Tomatoes,10%
+20,Power_Pick_3,0.21,Preharvest,20 Tomatoes,10%
+21,Power_Pick_3,0.18,Preharvest,20 Tomatoes,10%
+22,Power_Pick_3,0.21,Preharvest,20 Tomatoes,10%
+23,Power_Pick_3,0.26,Preharvest,20 Tomatoes,10%
+24,Power_Pick_3,0.19,Preharvest,20 Tomatoes,10%
+25,Power_Pick_3,0.15,Preharvest,20 Tomatoes,10%
+26,Power_Pick_3,0.19,Preharvest,20 Tomatoes,10%
+27,Power_Pick_3,0.18,Preharvest,20 Tomatoes,10%
+28,Power_Pick_3,0.26,Preharvest,20 Tomatoes,10%
+29,Power_Pick_3,0.18,Preharvest,20 Tomatoes,10%
+0,Power_Pick_1,0.28,Preharvest,60 Tomatoes,10%
+1,Power_Pick_1,0.21,Preharvest,60 Tomatoes,10%
+2,Power_Pick_1,0.21,Preharvest,60 Tomatoes,10%
+3,Power_Pick_1,0.22,Preharvest,60 Tomatoes,10%
+4,Power_Pick_1,0.23,Preharvest,60 Tomatoes,10%
+5,Power_Pick_1,0.27,Preharvest,60 Tomatoes,10%
+6,Power_Pick_1,0.2,Preharvest,60 Tomatoes,10%
+7,Power_Pick_1,0.17,Preharvest,60 Tomatoes,10%
+8,Power_Pick_1,0.11,Preharvest,60 Tomatoes,10%
+9,Power_Pick_1,0.21,Preharvest,60 Tomatoes,10%
+10,Power_Pick_2,0.24,Preharvest,60 Tomatoes,10%
+11,Power_Pick_2,0.36,Preharvest,60 Tomatoes,10%
+12,Power_Pick_2,0.3,Preharvest,60 Tomatoes,10%
+13,Power_Pick_2,0.23,Preharvest,60 Tomatoes,10%
+14,Power_Pick_2,0.31,Preharvest,60 Tomatoes,10%
+15,Power_Pick_2,0.29,Preharvest,60 Tomatoes,10%
+16,Power_Pick_2,0.26,Preharvest,60 Tomatoes,10%
+17,Power_Pick_2,0.28,Preharvest,60 Tomatoes,10%
+18,Power_Pick_2,0.32,Preharvest,60 Tomatoes,10%
+19,Power_Pick_2,0.26,Preharvest,60 Tomatoes,10%
+20,Power_Pick_3,0.27,Preharvest,60 Tomatoes,10%
+21,Power_Pick_3,0.23,Preharvest,60 Tomatoes,10%
+22,Power_Pick_3,0.24,Preharvest,60 Tomatoes,10%
+23,Power_Pick_3,0.33,Preharvest,60 Tomatoes,10%
+24,Power_Pick_3,0.2,Preharvest,60 Tomatoes,10%
+25,Power_Pick_3,0.22,Preharvest,60 Tomatoes,10%
+26,Power_Pick_3,0.25,Preharvest,60 Tomatoes,10%
+27,Power_Pick_3,0.28,Preharvest,60 Tomatoes,10%
+28,Power_Pick_3,0.28,Preharvest,60 Tomatoes,10%
+29,Power_Pick_3,0.28,Preharvest,60 Tomatoes,10%
+0,Power_Pick_1,0.1,Preharvest,20 Tomato Mash,10%
+1,Power_Pick_1,0.06,Preharvest,20 Tomato Mash,10%
+2,Power_Pick_1,0.03,Preharvest,20 Tomato Mash,10%
+3,Power_Pick_1,0.06,Preharvest,20 Tomato Mash,10%
+4,Power_Pick_1,0.08,Preharvest,20 Tomato Mash,10%
+5,Power_Pick_1,0.1,Preharvest,20 Tomato Mash,10%
+6,Power_Pick_1,0.06,Preharvest,20 Tomato Mash,10%
+7,Power_Pick_1,0.05,Preharvest,20 Tomato Mash,10%
+8,Power_Pick_1,0.03,Preharvest,20 Tomato Mash,10%
+9,Power_Pick_1,0.08,Preharvest,20 Tomato Mash,10%
+10,Power_Pick_2,0.04,Preharvest,20 Tomato Mash,10%
+11,Power_Pick_2,0.09,Preharvest,20 Tomato Mash,10%
+12,Power_Pick_2,0.07,Preharvest,20 Tomato Mash,10%
+13,Power_Pick_2,0.06,Preharvest,20 Tomato Mash,10%
+14,Power_Pick_2,0.1,Preharvest,20 Tomato Mash,10%
+15,Power_Pick_2,0.03,Preharvest,20 Tomato Mash,10%
+16,Power_Pick_2,0.08,Preharvest,20 Tomato Mash,10%
+17,Power_Pick_2,0.09,Preharvest,20 Tomato Mash,10%
+18,Power_Pick_2,0.12,Preharvest,20 Tomato Mash,10%
+19,Power_Pick_2,0.04,Preharvest,20 Tomato Mash,10%
+20,Power_Pick_3,0.12,Preharvest,20 Tomato Mash,10%
+21,Power_Pick_3,0.09,Preharvest,20 Tomato Mash,10%
+22,Power_Pick_3,0.1,Preharvest,20 Tomato Mash,10%
+23,Power_Pick_3,0.08,Preharvest,20 Tomato Mash,10%
+24,Power_Pick_3,0.08,Preharvest,20 Tomato Mash,10%
+25,Power_Pick_3,0.03,Preharvest,20 Tomato Mash,10%
+26,Power_Pick_3,0.12,Preharvest,20 Tomato Mash,10%
+27,Power_Pick_3,0.05,Preharvest,20 Tomato Mash,10%
+28,Power_Pick_3,0.08,Preharvest,20 Tomato Mash,10%
+29,Power_Pick_3,0.03,Preharvest,20 Tomato Mash,10%
+0,Power_Pick_1,0.18,Preharvest,60 Tomato Mash,10%
+1,Power_Pick_1,0.12,Preharvest,60 Tomato Mash,10%
+2,Power_Pick_1,0.12,Preharvest,60 Tomato Mash,10%
+3,Power_Pick_1,0.11,Preharvest,60 Tomato Mash,10%
+4,Power_Pick_1,0.21,Preharvest,60 Tomato Mash,10%
+5,Power_Pick_1,0.18,Preharvest,60 Tomato Mash,10%
+6,Power_Pick_1,0.13,Preharvest,60 Tomato Mash,10%
+7,Power_Pick_1,0.09,Preharvest,60 Tomato Mash,10%
+8,Power_Pick_1,0.07,Preharvest,60 Tomato Mash,10%
+9,Power_Pick_1,0.17,Preharvest,60 Tomato Mash,10%
+10,Power_Pick_2,0.13,Preharvest,60 Tomato Mash,10%
+11,Power_Pick_2,0.2,Preharvest,60 Tomato Mash,10%
+12,Power_Pick_2,0.12,Preharvest,60 Tomato Mash,10%
+13,Power_Pick_2,0.13,Preharvest,60 Tomato Mash,10%
+14,Power_Pick_2,0.19,Preharvest,60 Tomato Mash,10%
+15,Power_Pick_2,0.16,Preharvest,60 Tomato Mash,10%
+16,Power_Pick_2,0.12,Preharvest,60 Tomato Mash,10%
+17,Power_Pick_2,0.19,Preharvest,60 Tomato Mash,10%
+18,Power_Pick_2,0.23,Preharvest,60 Tomato Mash,10%
+19,Power_Pick_2,0.09,Preharvest,60 Tomato Mash,10%
+20,Power_Pick_3,0.13,Preharvest,60 Tomato Mash,10%
+21,Power_Pick_3,0.14,Preharvest,60 Tomato Mash,10%
+22,Power_Pick_3,0.19,Preharvest,60 Tomato Mash,10%
+23,Power_Pick_3,0.12,Preharvest,60 Tomato Mash,10%
+24,Power_Pick_3,0.13,Preharvest,60 Tomato Mash,10%
+25,Power_Pick_3,0.07,Preharvest,60 Tomato Mash,10%
+26,Power_Pick_3,0.16,Preharvest,60 Tomato Mash,10%
+27,Power_Pick_3,0.11,Preharvest,60 Tomato Mash,10%
+28,Power_Pick_3,0.15,Preharvest,60 Tomato Mash,10%
+29,Power_Pick_3,0.2,Preharvest,60 Tomato Mash,10%
+0,Power_Pick_1,0.03,Harvest,2 Tomatoes,10%
+1,Power_Pick_1,0.04,Harvest,2 Tomatoes,10%
+2,Power_Pick_1,0.05,Harvest,2 Tomatoes,10%
+3,Power_Pick_1,0.04,Harvest,2 Tomatoes,10%
+4,Power_Pick_1,0.02,Harvest,2 Tomatoes,10%
+5,Power_Pick_1,0.02,Harvest,2 Tomatoes,10%
+6,Power_Pick_1,0.04,Harvest,2 Tomatoes,10%
+7,Power_Pick_1,0.03,Harvest,2 Tomatoes,10%
+8,Power_Pick_1,0.01,Harvest,2 Tomatoes,10%
+9,Power_Pick_1,0.02,Harvest,2 Tomatoes,10%
+10,Power_Pick_2,0.02,Harvest,2 Tomatoes,10%
+11,Power_Pick_2,0.07,Harvest,2 Tomatoes,10%
+12,Power_Pick_2,0.02,Harvest,2 Tomatoes,10%
+13,Power_Pick_2,0.03,Harvest,2 Tomatoes,10%
+14,Power_Pick_2,0.08,Harvest,2 Tomatoes,10%
+15,Power_Pick_2,0.04,Harvest,2 Tomatoes,10%
+16,Power_Pick_2,0.02,Harvest,2 Tomatoes,10%
+17,Power_Pick_2,0.04,Harvest,2 Tomatoes,10%
+18,Power_Pick_2,0.04,Harvest,2 Tomatoes,10%
+19,Power_Pick_2,0.04,Harvest,2 Tomatoes,10%
+20,Power_Pick_3,0.04,Harvest,2 Tomatoes,10%
+21,Power_Pick_3,0.02,Harvest,2 Tomatoes,10%
+22,Power_Pick_3,0.02,Harvest,2 Tomatoes,10%
+23,Power_Pick_3,0.03,Harvest,2 Tomatoes,10%
+24,Power_Pick_3,0.02,Harvest,2 Tomatoes,10%
+25,Power_Pick_3,0.02,Harvest,2 Tomatoes,10%
+26,Power_Pick_3,0.01,Harvest,2 Tomatoes,10%
+27,Power_Pick_3,0.03,Harvest,2 Tomatoes,10%
+28,Power_Pick_3,0.05,Harvest,2 Tomatoes,10%
+29,Power_Pick_3,0.04,Harvest,2 Tomatoes,10%
+0,Power_Pick_1,0.09,Harvest,6 Tomatoes,10%
+1,Power_Pick_1,0.08,Harvest,6 Tomatoes,10%
+2,Power_Pick_1,0.05,Harvest,6 Tomatoes,10%
+3,Power_Pick_1,0.12,Harvest,6 Tomatoes,10%
+4,Power_Pick_1,0.07,Harvest,6 Tomatoes,10%
+5,Power_Pick_1,0.12,Harvest,6 Tomatoes,10%
+6,Power_Pick_1,0.08,Harvest,6 Tomatoes,10%
+7,Power_Pick_1,0.07,Harvest,6 Tomatoes,10%
+8,Power_Pick_1,0.02,Harvest,6 Tomatoes,10%
+9,Power_Pick_1,0.08,Harvest,6 Tomatoes,10%
+10,Power_Pick_2,0.06,Harvest,6 Tomatoes,10%
+11,Power_Pick_2,0.14,Harvest,6 Tomatoes,10%
+12,Power_Pick_2,0.14,Harvest,6 Tomatoes,10%
+13,Power_Pick_2,0.06,Harvest,6 Tomatoes,10%
+14,Power_Pick_2,0.1,Harvest,6 Tomatoes,10%
+15,Power_Pick_2,0.1,Harvest,6 Tomatoes,10%
+16,Power_Pick_2,0.11,Harvest,6 Tomatoes,10%
+17,Power_Pick_2,0.07,Harvest,6 Tomatoes,10%
+18,Power_Pick_2,0.11,Harvest,6 Tomatoes,10%
+19,Power_Pick_2,0.15,Harvest,6 Tomatoes,10%
+20,Power_Pick_3,0.06,Harvest,6 Tomatoes,10%
+21,Power_Pick_3,0.05,Harvest,6 Tomatoes,10%
+22,Power_Pick_3,0.04,Harvest,6 Tomatoes,10%
+23,Power_Pick_3,0.07,Harvest,6 Tomatoes,10%
+24,Power_Pick_3,0.04,Harvest,6 Tomatoes,10%
+25,Power_Pick_3,0.12,Harvest,6 Tomatoes,10%
+26,Power_Pick_3,0.11,Harvest,6 Tomatoes,10%
+27,Power_Pick_3,0.12,Harvest,6 Tomatoes,10%
+28,Power_Pick_3,0.09,Harvest,6 Tomatoes,10%
+29,Power_Pick_3,0.08,Harvest,6 Tomatoes,10%
+0,Power_Pick_1,0.15,Harvest,20 Tomatoes,10%
+1,Power_Pick_1,0.15,Harvest,20 Tomatoes,10%
+2,Power_Pick_1,0.11,Harvest,20 Tomatoes,10%
+3,Power_Pick_1,0.16,Harvest,20 Tomatoes,10%
+4,Power_Pick_1,0.16,Harvest,20 Tomatoes,10%
+5,Power_Pick_1,0.19,Harvest,20 Tomatoes,10%
+6,Power_Pick_1,0.17,Harvest,20 Tomatoes,10%
+7,Power_Pick_1,0.14,Harvest,20 Tomatoes,10%
+8,Power_Pick_1,0.08,Harvest,20 Tomatoes,10%
+9,Power_Pick_1,0.15,Harvest,20 Tomatoes,10%
+10,Power_Pick_2,0.21,Harvest,20 Tomatoes,10%
+11,Power_Pick_2,0.22,Harvest,20 Tomatoes,10%
+12,Power_Pick_2,0.13,Harvest,20 Tomatoes,10%
+13,Power_Pick_2,0.13,Harvest,20 Tomatoes,10%
+14,Power_Pick_2,0.18,Harvest,20 Tomatoes,10%
+15,Power_Pick_2,0.21,Harvest,20 Tomatoes,10%
+16,Power_Pick_2,0.2,Harvest,20 Tomatoes,10%
+17,Power_Pick_2,0.21,Harvest,20 Tomatoes,10%
+18,Power_Pick_2,0.24,Harvest,20 Tomatoes,10%
+19,Power_Pick_2,0.21,Harvest,20 Tomatoes,10%
+20,Power_Pick_3,0.21,Harvest,20 Tomatoes,10%
+21,Power_Pick_3,0.18,Harvest,20 Tomatoes,10%
+22,Power_Pick_3,0.22,Harvest,20 Tomatoes,10%
+23,Power_Pick_3,0.23,Harvest,20 Tomatoes,10%
+24,Power_Pick_3,0.17,Harvest,20 Tomatoes,10%
+25,Power_Pick_3,0.13,Harvest,20 Tomatoes,10%
+26,Power_Pick_3,0.17,Harvest,20 Tomatoes,10%
+27,Power_Pick_3,0.19,Harvest,20 Tomatoes,10%
+28,Power_Pick_3,0.25,Harvest,20 Tomatoes,10%
+29,Power_Pick_3,0.16,Harvest,20 Tomatoes,10%
+0,Power_Pick_1,0.28,Harvest,60 Tomatoes,10%
+1,Power_Pick_1,0.22,Harvest,60 Tomatoes,10%
+2,Power_Pick_1,0.21,Harvest,60 Tomatoes,10%
+3,Power_Pick_1,0.2,Harvest,60 Tomatoes,10%
+4,Power_Pick_1,0.25,Harvest,60 Tomatoes,10%
+5,Power_Pick_1,0.28,Harvest,60 Tomatoes,10%
+6,Power_Pick_1,0.19,Harvest,60 Tomatoes,10%
+7,Power_Pick_1,0.15,Harvest,60 Tomatoes,10%
+8,Power_Pick_1,0.11,Harvest,60 Tomatoes,10%
+9,Power_Pick_1,0.23,Harvest,60 Tomatoes,10%
+10,Power_Pick_2,0.24,Harvest,60 Tomatoes,10%
+11,Power_Pick_2,0.35,Harvest,60 Tomatoes,10%
+12,Power_Pick_2,0.29,Harvest,60 Tomatoes,10%
+13,Power_Pick_2,0.21,Harvest,60 Tomatoes,10%
+14,Power_Pick_2,0.28,Harvest,60 Tomatoes,10%
+15,Power_Pick_2,0.29,Harvest,60 Tomatoes,10%
+16,Power_Pick_2,0.25,Harvest,60 Tomatoes,10%
+17,Power_Pick_2,0.27,Harvest,60 Tomatoes,10%
+18,Power_Pick_2,0.31,Harvest,60 Tomatoes,10%
+19,Power_Pick_2,0.26,Harvest,60 Tomatoes,10%
+20,Power_Pick_3,0.27,Harvest,60 Tomatoes,10%
+21,Power_Pick_3,0.23,Harvest,60 Tomatoes,10%
+22,Power_Pick_3,0.22,Harvest,60 Tomatoes,10%
+23,Power_Pick_3,0.32,Harvest,60 Tomatoes,10%
+24,Power_Pick_3,0.19,Harvest,60 Tomatoes,10%
+25,Power_Pick_3,0.22,Harvest,60 Tomatoes,10%
+26,Power_Pick_3,0.28,Harvest,60 Tomatoes,10%
+27,Power_Pick_3,0.28,Harvest,60 Tomatoes,10%
+28,Power_Pick_3,0.25,Harvest,60 Tomatoes,10%
+29,Power_Pick_3,0.26,Harvest,60 Tomatoes,10%
+0,Power_Pick_1,0.08,Harvest,20 Tomato Mash,10%
+1,Power_Pick_1,0.07,Harvest,20 Tomato Mash,10%
+2,Power_Pick_1,0.04,Harvest,20 Tomato Mash,10%
+3,Power_Pick_1,0.07,Harvest,20 Tomato Mash,10%
+4,Power_Pick_1,0.08,Harvest,20 Tomato Mash,10%
+5,Power_Pick_1,0.11,Harvest,20 Tomato Mash,10%
+6,Power_Pick_1,0.04,Harvest,20 Tomato Mash,10%
+7,Power_Pick_1,0.04,Harvest,20 Tomato Mash,10%
+8,Power_Pick_1,0.03,Harvest,20 Tomato Mash,10%
+9,Power_Pick_1,0.07,Harvest,20 Tomato Mash,10%
+10,Power_Pick_2,0.07,Harvest,20 Tomato Mash,10%
+11,Power_Pick_2,0.09,Harvest,20 Tomato Mash,10%
+12,Power_Pick_2,0.05,Harvest,20 Tomato Mash,10%
+13,Power_Pick_2,0.07,Harvest,20 Tomato Mash,10%
+14,Power_Pick_2,0.09,Harvest,20 Tomato Mash,10%
+15,Power_Pick_2,0.04,Harvest,20 Tomato Mash,10%
+16,Power_Pick_2,0.05,Harvest,20 Tomato Mash,10%
+17,Power_Pick_2,0.09,Harvest,20 Tomato Mash,10%
+18,Power_Pick_2,0.11,Harvest,20 Tomato Mash,10%
+19,Power_Pick_2,0.05,Harvest,20 Tomato Mash,10%
+20,Power_Pick_3,0.13,Harvest,20 Tomato Mash,10%
+21,Power_Pick_3,0.09,Harvest,20 Tomato Mash,10%
+22,Power_Pick_3,0.1,Harvest,20 Tomato Mash,10%
+23,Power_Pick_3,0.05,Harvest,20 Tomato Mash,10%
+24,Power_Pick_3,0.08,Harvest,20 Tomato Mash,10%
+25,Power_Pick_3,0.05,Harvest,20 Tomato Mash,10%
+26,Power_Pick_3,0.1,Harvest,20 Tomato Mash,10%
+27,Power_Pick_3,0.04,Harvest,20 Tomato Mash,10%
+28,Power_Pick_3,0.08,Harvest,20 Tomato Mash,10%
+29,Power_Pick_3,0.04,Harvest,20 Tomato Mash,10%
+0,Power_Pick_1,0.14,Harvest,60 Tomato Mash,10%
+1,Power_Pick_1,0.13,Harvest,60 Tomato Mash,10%
+2,Power_Pick_1,0.12,Harvest,60 Tomato Mash,10%
+3,Power_Pick_1,0.11,Harvest,60 Tomato Mash,10%
+4,Power_Pick_1,0.18,Harvest,60 Tomato Mash,10%
+5,Power_Pick_1,0.13,Harvest,60 Tomato Mash,10%
+6,Power_Pick_1,0.14,Harvest,60 Tomato Mash,10%
+7,Power_Pick_1,0.11,Harvest,60 Tomato Mash,10%
+8,Power_Pick_1,0.06,Harvest,60 Tomato Mash,10%
+9,Power_Pick_1,0.14,Harvest,60 Tomato Mash,10%
+10,Power_Pick_2,0.13,Harvest,60 Tomato Mash,10%
+11,Power_Pick_2,0.21,Harvest,60 Tomato Mash,10%
+12,Power_Pick_2,0.15,Harvest,60 Tomato Mash,10%
+13,Power_Pick_2,0.13,Harvest,60 Tomato Mash,10%
+14,Power_Pick_2,0.19,Harvest,60 Tomato Mash,10%
+15,Power_Pick_2,0.13,Harvest,60 Tomato Mash,10%
+16,Power_Pick_2,0.14,Harvest,60 Tomato Mash,10%
+17,Power_Pick_2,0.14,Harvest,60 Tomato Mash,10%
+18,Power_Pick_2,0.19,Harvest,60 Tomato Mash,10%
+19,Power_Pick_2,0.1,Harvest,60 Tomato Mash,10%
+20,Power_Pick_3,0.13,Harvest,60 Tomato Mash,10%
+21,Power_Pick_3,0.13,Harvest,60 Tomato Mash,10%
+22,Power_Pick_3,0.19,Harvest,60 Tomato Mash,10%
+23,Power_Pick_3,0.12,Harvest,60 Tomato Mash,10%
+24,Power_Pick_3,0.14,Harvest,60 Tomato Mash,10%
+25,Power_Pick_3,0.09,Harvest,60 Tomato Mash,10%
+26,Power_Pick_3,0.15,Harvest,60 Tomato Mash,10%
+27,Power_Pick_3,0.14,Harvest,60 Tomato Mash,10%
+28,Power_Pick_3,0.13,Harvest,60 Tomato Mash,10%
+29,Power_Pick_3,0.18,Harvest,60 Tomato Mash,10%
+0,Power_Pick_1,0.06,Harvest,2 Tomatoes,10%
+1,Power_Pick_1,0.03,Harvest,2 Tomatoes,10%
+2,Power_Pick_1,0.03,Harvest,2 Tomatoes,10%
+3,Power_Pick_1,0.02,Harvest,2 Tomatoes,10%
+4,Power_Pick_1,0.04,Harvest,2 Tomatoes,10%
+5,Power_Pick_1,0.04,Harvest,2 Tomatoes,10%
+6,Power_Pick_1,0.03,Harvest,2 Tomatoes,10%
+7,Power_Pick_1,0.04,Harvest,2 Tomatoes,10%
+8,Power_Pick_1,0.01,Harvest,2 Tomatoes,10%
+9,Power_Pick_1,0.02,Harvest,2 Tomatoes,10%
+10,Power_Pick_2,0.03,Harvest,2 Tomatoes,10%
+11,Power_Pick_2,0.06,Harvest,2 Tomatoes,10%
+12,Power_Pick_2,0.02,Harvest,2 Tomatoes,10%
+13,Power_Pick_2,0.06,Harvest,2 Tomatoes,10%
+14,Power_Pick_2,0.09,Harvest,2 Tomatoes,10%
+15,Power_Pick_2,0.05,Harvest,2 Tomatoes,10%
+16,Power_Pick_2,0.02,Harvest,2 Tomatoes,10%
+17,Power_Pick_2,0.05,Harvest,2 Tomatoes,10%
+18,Power_Pick_2,0.05,Harvest,2 Tomatoes,10%
+19,Power_Pick_2,0.04,Harvest,2 Tomatoes,10%
+20,Power_Pick_3,0.05,Harvest,2 Tomatoes,10%
+21,Power_Pick_3,0.04,Harvest,2 Tomatoes,10%
+22,Power_Pick_3,0.02,Harvest,2 Tomatoes,10%
+23,Power_Pick_3,0.04,Harvest,2 Tomatoes,10%
+24,Power_Pick_3,0.0,Harvest,2 Tomatoes,10%
+25,Power_Pick_3,0.03,Harvest,2 Tomatoes,10%
+26,Power_Pick_3,0.02,Harvest,2 Tomatoes,10%
+27,Power_Pick_3,0.04,Harvest,2 Tomatoes,10%
+28,Power_Pick_3,0.07,Harvest,2 Tomatoes,10%
+29,Power_Pick_3,0.03,Harvest,2 Tomatoes,10%
+0,Power_Pick_1,0.07,Receiving,6 Tomatoes,10%
+1,Power_Pick_1,0.07,Receiving,6 Tomatoes,10%
+2,Power_Pick_1,0.04,Receiving,6 Tomatoes,10%
+3,Power_Pick_1,0.1,Receiving,6 Tomatoes,10%
+4,Power_Pick_1,0.07,Receiving,6 Tomatoes,10%
+5,Power_Pick_1,0.11,Receiving,6 Tomatoes,10%
+6,Power_Pick_1,0.09,Receiving,6 Tomatoes,10%
+7,Power_Pick_1,0.07,Receiving,6 Tomatoes,10%
+8,Power_Pick_1,0.03,Receiving,6 Tomatoes,10%
+9,Power_Pick_1,0.06,Receiving,6 Tomatoes,10%
+10,Power_Pick_2,0.05,Receiving,6 Tomatoes,10%
+11,Power_Pick_2,0.11,Receiving,6 Tomatoes,10%
+12,Power_Pick_2,0.07,Receiving,6 Tomatoes,10%
+13,Power_Pick_2,0.05,Receiving,6 Tomatoes,10%
+14,Power_Pick_2,0.14,Receiving,6 Tomatoes,10%
+15,Power_Pick_2,0.09,Receiving,6 Tomatoes,10%
+16,Power_Pick_2,0.08,Receiving,6 Tomatoes,10%
+17,Power_Pick_2,0.05,Receiving,6 Tomatoes,10%
+18,Power_Pick_2,0.09,Receiving,6 Tomatoes,10%
+19,Power_Pick_2,0.09,Receiving,6 Tomatoes,10%
+20,Power_Pick_3,0.06,Receiving,6 Tomatoes,10%
+21,Power_Pick_3,0.07,Receiving,6 Tomatoes,10%
+22,Power_Pick_3,0.07,Receiving,6 Tomatoes,10%
+23,Power_Pick_3,0.1,Receiving,6 Tomatoes,10%
+24,Power_Pick_3,0.08,Receiving,6 Tomatoes,10%
+25,Power_Pick_3,0.12,Receiving,6 Tomatoes,10%
+26,Power_Pick_3,0.13,Receiving,6 Tomatoes,10%
+27,Power_Pick_3,0.11,Receiving,6 Tomatoes,10%
+28,Power_Pick_3,0.11,Receiving,6 Tomatoes,10%
+29,Power_Pick_3,0.08,Receiving,6 Tomatoes,10%
+0,Power_Pick_1,0.16,Receiving,20 Tomatoes,10%
+1,Power_Pick_1,0.13,Receiving,20 Tomatoes,10%
+2,Power_Pick_1,0.15,Receiving,20 Tomatoes,10%
+3,Power_Pick_1,0.17,Receiving,20 Tomatoes,10%
+4,Power_Pick_1,0.15,Receiving,20 Tomatoes,10%
+5,Power_Pick_1,0.18,Receiving,20 Tomatoes,10%
+6,Power_Pick_1,0.18,Receiving,20 Tomatoes,10%
+7,Power_Pick_1,0.12,Receiving,20 Tomatoes,10%
+8,Power_Pick_1,0.09,Receiving,20 Tomatoes,10%
+9,Power_Pick_1,0.14,Receiving,20 Tomatoes,10%
+10,Power_Pick_2,0.21,Receiving,20 Tomatoes,10%
+11,Power_Pick_2,0.25,Receiving,20 Tomatoes,10%
+12,Power_Pick_2,0.14,Receiving,20 Tomatoes,10%
+13,Power_Pick_2,0.15,Receiving,20 Tomatoes,10%
+14,Power_Pick_2,0.17,Receiving,20 Tomatoes,10%
+15,Power_Pick_2,0.21,Receiving,20 Tomatoes,10%
+16,Power_Pick_2,0.17,Receiving,20 Tomatoes,10%
+17,Power_Pick_2,0.22,Receiving,20 Tomatoes,10%
+18,Power_Pick_2,0.24,Receiving,20 Tomatoes,10%
+19,Power_Pick_2,0.16,Receiving,20 Tomatoes,10%
+20,Power_Pick_3,0.19,Receiving,20 Tomatoes,10%
+21,Power_Pick_3,0.14,Receiving,20 Tomatoes,10%
+22,Power_Pick_3,0.21,Receiving,20 Tomatoes,10%
+23,Power_Pick_3,0.23,Receiving,20 Tomatoes,10%
+24,Power_Pick_3,0.17,Receiving,20 Tomatoes,10%
+25,Power_Pick_3,0.14,Receiving,20 Tomatoes,10%
+26,Power_Pick_3,0.2,Receiving,20 Tomatoes,10%
+27,Power_Pick_3,0.19,Receiving,20 Tomatoes,10%
+28,Power_Pick_3,0.29,Receiving,20 Tomatoes,10%
+29,Power_Pick_3,0.18,Receiving,20 Tomatoes,10%
+0,Power_Pick_1,0.28,Receiving,60 Tomatoes,10%
+1,Power_Pick_1,0.22,Receiving,60 Tomatoes,10%
+2,Power_Pick_1,0.21,Receiving,60 Tomatoes,10%
+3,Power_Pick_1,0.21,Receiving,60 Tomatoes,10%
+4,Power_Pick_1,0.24,Receiving,60 Tomatoes,10%
+5,Power_Pick_1,0.27,Receiving,60 Tomatoes,10%
+6,Power_Pick_1,0.2,Receiving,60 Tomatoes,10%
+7,Power_Pick_1,0.17,Receiving,60 Tomatoes,10%
+8,Power_Pick_1,0.11,Receiving,60 Tomatoes,10%
+9,Power_Pick_1,0.23,Receiving,60 Tomatoes,10%
+10,Power_Pick_2,0.25,Receiving,60 Tomatoes,10%
+11,Power_Pick_2,0.34,Receiving,60 Tomatoes,10%
+12,Power_Pick_2,0.3,Receiving,60 Tomatoes,10%
+13,Power_Pick_2,0.24,Receiving,60 Tomatoes,10%
+14,Power_Pick_2,0.33,Receiving,60 Tomatoes,10%
+15,Power_Pick_2,0.29,Receiving,60 Tomatoes,10%
+16,Power_Pick_2,0.23,Receiving,60 Tomatoes,10%
+17,Power_Pick_2,0.26,Receiving,60 Tomatoes,10%
+18,Power_Pick_2,0.35,Receiving,60 Tomatoes,10%
+19,Power_Pick_2,0.24,Receiving,60 Tomatoes,10%
+20,Power_Pick_3,0.26,Receiving,60 Tomatoes,10%
+21,Power_Pick_3,0.25,Receiving,60 Tomatoes,10%
+22,Power_Pick_3,0.23,Receiving,60 Tomatoes,10%
+23,Power_Pick_3,0.32,Receiving,60 Tomatoes,10%
+24,Power_Pick_3,0.19,Receiving,60 Tomatoes,10%
+25,Power_Pick_3,0.22,Receiving,60 Tomatoes,10%
+26,Power_Pick_3,0.28,Receiving,60 Tomatoes,10%
+27,Power_Pick_3,0.29,Receiving,60 Tomatoes,10%
+28,Power_Pick_3,0.28,Receiving,60 Tomatoes,10%
+29,Power_Pick_3,0.27,Receiving,60 Tomatoes,10%
+0,Power_Pick_1,0.05,Receiving,20 Tomato Mash,10%
+1,Power_Pick_1,0.08,Receiving,20 Tomato Mash,10%
+2,Power_Pick_1,0.05,Receiving,20 Tomato Mash,10%
+3,Power_Pick_1,0.06,Receiving,20 Tomato Mash,10%
+4,Power_Pick_1,0.08,Receiving,20 Tomato Mash,10%
+5,Power_Pick_1,0.1,Receiving,20 Tomato Mash,10%
+6,Power_Pick_1,0.03,Receiving,20 Tomato Mash,10%
+7,Power_Pick_1,0.04,Receiving,20 Tomato Mash,10%
+8,Power_Pick_1,0.03,Receiving,20 Tomato Mash,10%
+9,Power_Pick_1,0.08,Receiving,20 Tomato Mash,10%
+10,Power_Pick_2,0.08,Receiving,20 Tomato Mash,10%
+11,Power_Pick_2,0.08,Receiving,20 Tomato Mash,10%
+12,Power_Pick_2,0.05,Receiving,20 Tomato Mash,10%
+13,Power_Pick_2,0.06,Receiving,20 Tomato Mash,10%
+14,Power_Pick_2,0.1,Receiving,20 Tomato Mash,10%
+15,Power_Pick_2,0.06,Receiving,20 Tomato Mash,10%
+16,Power_Pick_2,0.07,Receiving,20 Tomato Mash,10%
+17,Power_Pick_2,0.07,Receiving,20 Tomato Mash,10%
+18,Power_Pick_2,0.11,Receiving,20 Tomato Mash,10%
+19,Power_Pick_2,0.05,Receiving,20 Tomato Mash,10%
+20,Power_Pick_3,0.12,Receiving,20 Tomato Mash,10%
+21,Power_Pick_3,0.06,Receiving,20 Tomato Mash,10%
+22,Power_Pick_3,0.08,Receiving,20 Tomato Mash,10%
+23,Power_Pick_3,0.06,Receiving,20 Tomato Mash,10%
+24,Power_Pick_3,0.08,Receiving,20 Tomato Mash,10%
+25,Power_Pick_3,0.05,Receiving,20 Tomato Mash,10%
+26,Power_Pick_3,0.11,Receiving,20 Tomato Mash,10%
+27,Power_Pick_3,0.04,Receiving,20 Tomato Mash,10%
+28,Power_Pick_3,0.07,Receiving,20 Tomato Mash,10%
+29,Power_Pick_3,0.02,Receiving,20 Tomato Mash,10%
+0,Power_Pick_1,0.15,Receiving,60 Tomato Mash,10%
+1,Power_Pick_1,0.12,Receiving,60 Tomato Mash,10%
+2,Power_Pick_1,0.11,Receiving,60 Tomato Mash,10%
+3,Power_Pick_1,0.11,Receiving,60 Tomato Mash,10%
+4,Power_Pick_1,0.16,Receiving,60 Tomato Mash,10%
+5,Power_Pick_1,0.18,Receiving,60 Tomato Mash,10%
+6,Power_Pick_1,0.11,Receiving,60 Tomato Mash,10%
+7,Power_Pick_1,0.12,Receiving,60 Tomato Mash,10%
+8,Power_Pick_1,0.06,Receiving,60 Tomato Mash,10%
+9,Power_Pick_1,0.15,Receiving,60 Tomato Mash,10%
+10,Power_Pick_2,0.13,Receiving,60 Tomato Mash,10%
+11,Power_Pick_2,0.19,Receiving,60 Tomato Mash,10%
+12,Power_Pick_2,0.15,Receiving,60 Tomato Mash,10%
+13,Power_Pick_2,0.13,Receiving,60 Tomato Mash,10%
+14,Power_Pick_2,0.19,Receiving,60 Tomato Mash,10%
+15,Power_Pick_2,0.15,Receiving,60 Tomato Mash,10%
+16,Power_Pick_2,0.11,Receiving,60 Tomato Mash,10%
+17,Power_Pick_2,0.17,Receiving,60 Tomato Mash,10%
+18,Power_Pick_2,0.21,Receiving,60 Tomato Mash,10%
+19,Power_Pick_2,0.09,Receiving,60 Tomato Mash,10%
+20,Power_Pick_3,0.15,Receiving,60 Tomato Mash,10%
+21,Power_Pick_3,0.14,Receiving,60 Tomato Mash,10%
+22,Power_Pick_3,0.17,Receiving,60 Tomato Mash,10%
+23,Power_Pick_3,0.11,Receiving,60 Tomato Mash,10%
+24,Power_Pick_3,0.13,Receiving,60 Tomato Mash,10%
+25,Power_Pick_3,0.11,Receiving,60 Tomato Mash,10%
+26,Power_Pick_3,0.15,Receiving,60 Tomato Mash,10%
+27,Power_Pick_3,0.12,Receiving,60 Tomato Mash,10%
+28,Power_Pick_3,0.14,Receiving,60 Tomato Mash,10%
+29,Power_Pick_3,0.19,Receiving,60 Tomato Mash,10%
+0,Power_Pick_1,0.02,Receiving,2 Tomatoes,10%
+1,Power_Pick_1,0.04,Receiving,2 Tomatoes,10%
+2,Power_Pick_1,0.02,Receiving,2 Tomatoes,10%
+3,Power_Pick_1,0.01,Receiving,2 Tomatoes,10%
+4,Power_Pick_1,0.03,Receiving,2 Tomatoes,10%
+5,Power_Pick_1,0.01,Receiving,2 Tomatoes,10%
+6,Power_Pick_1,0.05,Receiving,2 Tomatoes,10%
+7,Power_Pick_1,0.04,Receiving,2 Tomatoes,10%
+8,Power_Pick_1,0.01,Receiving,2 Tomatoes,10%
+9,Power_Pick_1,0.01,Receiving,2 Tomatoes,10%
+10,Power_Pick_2,0.04,Receiving,2 Tomatoes,10%
+11,Power_Pick_2,0.07,Receiving,2 Tomatoes,10%
+12,Power_Pick_2,0.02,Receiving,2 Tomatoes,10%
+13,Power_Pick_2,0.03,Receiving,2 Tomatoes,10%
+14,Power_Pick_2,0.07,Receiving,2 Tomatoes,10%
+15,Power_Pick_2,0.03,Receiving,2 Tomatoes,10%
+16,Power_Pick_2,0.02,Receiving,2 Tomatoes,10%
+17,Power_Pick_2,0.04,Receiving,2 Tomatoes,10%
+18,Power_Pick_2,0.04,Receiving,2 Tomatoes,10%
+19,Power_Pick_2,0.06,Receiving,2 Tomatoes,10%
+20,Power_Pick_3,0.04,Receiving,2 Tomatoes,10%
+21,Power_Pick_3,0.04,Receiving,2 Tomatoes,10%
+22,Power_Pick_3,0.01,Receiving,2 Tomatoes,10%
+23,Power_Pick_3,0.04,Receiving,2 Tomatoes,10%
+24,Power_Pick_3,0.01,Receiving,2 Tomatoes,10%
+25,Power_Pick_3,0.03,Receiving,2 Tomatoes,10%
+26,Power_Pick_3,0.02,Receiving,2 Tomatoes,10%
+27,Power_Pick_3,0.03,Receiving,2 Tomatoes,10%
+28,Power_Pick_3,0.08,Receiving,2 Tomatoes,10%
+29,Power_Pick_3,0.05,Receiving,2 Tomatoes,10%
+0,Power_Pick_1,0.06,Packed Product,6 Tomatoes,10%
+1,Power_Pick_1,0.07,Packed Product,6 Tomatoes,10%
+2,Power_Pick_1,0.05,Packed Product,6 Tomatoes,10%
+3,Power_Pick_1,0.08,Packed Product,6 Tomatoes,10%
+4,Power_Pick_1,0.06,Packed Product,6 Tomatoes,10%
+5,Power_Pick_1,0.08,Packed Product,6 Tomatoes,10%
+6,Power_Pick_1,0.09,Packed Product,6 Tomatoes,10%
+7,Power_Pick_1,0.06,Packed Product,6 Tomatoes,10%
+8,Power_Pick_1,0.03,Packed Product,6 Tomatoes,10%
+9,Power_Pick_1,0.05,Packed Product,6 Tomatoes,10%
+10,Power_Pick_2,0.06,Packed Product,6 Tomatoes,10%
+11,Power_Pick_2,0.12,Packed Product,6 Tomatoes,10%
+12,Power_Pick_2,0.09,Packed Product,6 Tomatoes,10%
+13,Power_Pick_2,0.05,Packed Product,6 Tomatoes,10%
+14,Power_Pick_2,0.08,Packed Product,6 Tomatoes,10%
+15,Power_Pick_2,0.08,Packed Product,6 Tomatoes,10%
+16,Power_Pick_2,0.07,Packed Product,6 Tomatoes,10%
+17,Power_Pick_2,0.07,Packed Product,6 Tomatoes,10%
+18,Power_Pick_2,0.13,Packed Product,6 Tomatoes,10%
+19,Power_Pick_2,0.13,Packed Product,6 Tomatoes,10%
+20,Power_Pick_3,0.06,Packed Product,6 Tomatoes,10%
+21,Power_Pick_3,0.05,Packed Product,6 Tomatoes,10%
+22,Power_Pick_3,0.07,Packed Product,6 Tomatoes,10%
+23,Power_Pick_3,0.08,Packed Product,6 Tomatoes,10%
+24,Power_Pick_3,0.06,Packed Product,6 Tomatoes,10%
+25,Power_Pick_3,0.13,Packed Product,6 Tomatoes,10%
+26,Power_Pick_3,0.11,Packed Product,6 Tomatoes,10%
+27,Power_Pick_3,0.13,Packed Product,6 Tomatoes,10%
+28,Power_Pick_3,0.1,Packed Product,6 Tomatoes,10%
+29,Power_Pick_3,0.08,Packed Product,6 Tomatoes,10%
+0,Power_Pick_1,0.15,Packed Product,20 Tomatoes,10%
+1,Power_Pick_1,0.15,Packed Product,20 Tomatoes,10%
+2,Power_Pick_1,0.15,Packed Product,20 Tomatoes,10%
+3,Power_Pick_1,0.16,Packed Product,20 Tomatoes,10%
+4,Power_Pick_1,0.14,Packed Product,20 Tomatoes,10%
+5,Power_Pick_1,0.2,Packed Product,20 Tomatoes,10%
+6,Power_Pick_1,0.18,Packed Product,20 Tomatoes,10%
+7,Power_Pick_1,0.12,Packed Product,20 Tomatoes,10%
+8,Power_Pick_1,0.07,Packed Product,20 Tomatoes,10%
+9,Power_Pick_1,0.14,Packed Product,20 Tomatoes,10%
+10,Power_Pick_2,0.21,Packed Product,20 Tomatoes,10%
+11,Power_Pick_2,0.23,Packed Product,20 Tomatoes,10%
+12,Power_Pick_2,0.11,Packed Product,20 Tomatoes,10%
+13,Power_Pick_2,0.14,Packed Product,20 Tomatoes,10%
+14,Power_Pick_2,0.2,Packed Product,20 Tomatoes,10%
+15,Power_Pick_2,0.21,Packed Product,20 Tomatoes,10%
+16,Power_Pick_2,0.17,Packed Product,20 Tomatoes,10%
+17,Power_Pick_2,0.22,Packed Product,20 Tomatoes,10%
+18,Power_Pick_2,0.27,Packed Product,20 Tomatoes,10%
+19,Power_Pick_2,0.18,Packed Product,20 Tomatoes,10%
+20,Power_Pick_3,0.18,Packed Product,20 Tomatoes,10%
+21,Power_Pick_3,0.14,Packed Product,20 Tomatoes,10%
+22,Power_Pick_3,0.2,Packed Product,20 Tomatoes,10%
+23,Power_Pick_3,0.18,Packed Product,20 Tomatoes,10%
+24,Power_Pick_3,0.18,Packed Product,20 Tomatoes,10%
+25,Power_Pick_3,0.12,Packed Product,20 Tomatoes,10%
+26,Power_Pick_3,0.2,Packed Product,20 Tomatoes,10%
+27,Power_Pick_3,0.16,Packed Product,20 Tomatoes,10%
+28,Power_Pick_3,0.25,Packed Product,20 Tomatoes,10%
+29,Power_Pick_3,0.19,Packed Product,20 Tomatoes,10%
+0,Power_Pick_1,0.26,Packed Product,60 Tomatoes,10%
+1,Power_Pick_1,0.21,Packed Product,60 Tomatoes,10%
+2,Power_Pick_1,0.22,Packed Product,60 Tomatoes,10%
+3,Power_Pick_1,0.22,Packed Product,60 Tomatoes,10%
+4,Power_Pick_1,0.23,Packed Product,60 Tomatoes,10%
+5,Power_Pick_1,0.28,Packed Product,60 Tomatoes,10%
+6,Power_Pick_1,0.2,Packed Product,60 Tomatoes,10%
+7,Power_Pick_1,0.17,Packed Product,60 Tomatoes,10%
+8,Power_Pick_1,0.11,Packed Product,60 Tomatoes,10%
+9,Power_Pick_1,0.23,Packed Product,60 Tomatoes,10%
+10,Power_Pick_2,0.24,Packed Product,60 Tomatoes,10%
+11,Power_Pick_2,0.34,Packed Product,60 Tomatoes,10%
+12,Power_Pick_2,0.26,Packed Product,60 Tomatoes,10%
+13,Power_Pick_2,0.22,Packed Product,60 Tomatoes,10%
+14,Power_Pick_2,0.28,Packed Product,60 Tomatoes,10%
+15,Power_Pick_2,0.29,Packed Product,60 Tomatoes,10%
+16,Power_Pick_2,0.25,Packed Product,60 Tomatoes,10%
+17,Power_Pick_2,0.28,Packed Product,60 Tomatoes,10%
+18,Power_Pick_2,0.31,Packed Product,60 Tomatoes,10%
+19,Power_Pick_2,0.24,Packed Product,60 Tomatoes,10%
+20,Power_Pick_3,0.26,Packed Product,60 Tomatoes,10%
+21,Power_Pick_3,0.25,Packed Product,60 Tomatoes,10%
+22,Power_Pick_3,0.27,Packed Product,60 Tomatoes,10%
+23,Power_Pick_3,0.32,Packed Product,60 Tomatoes,10%
+24,Power_Pick_3,0.23,Packed Product,60 Tomatoes,10%
+25,Power_Pick_3,0.17,Packed Product,60 Tomatoes,10%
+26,Power_Pick_3,0.26,Packed Product,60 Tomatoes,10%
+27,Power_Pick_3,0.27,Packed Product,60 Tomatoes,10%
+28,Power_Pick_3,0.26,Packed Product,60 Tomatoes,10%
+29,Power_Pick_3,0.27,Packed Product,60 Tomatoes,10%
+0,Power_Pick_1,0.08,Packed Product,20 Tomato Mash,10%
+1,Power_Pick_1,0.06,Packed Product,20 Tomato Mash,10%
+2,Power_Pick_1,0.03,Packed Product,20 Tomato Mash,10%
+3,Power_Pick_1,0.06,Packed Product,20 Tomato Mash,10%
+4,Power_Pick_1,0.1,Packed Product,20 Tomato Mash,10%
+5,Power_Pick_1,0.08,Packed Product,20 Tomato Mash,10%
+6,Power_Pick_1,0.06,Packed Product,20 Tomato Mash,10%
+7,Power_Pick_1,0.04,Packed Product,20 Tomato Mash,10%
+8,Power_Pick_1,0.02,Packed Product,20 Tomato Mash,10%
+9,Power_Pick_1,0.05,Packed Product,20 Tomato Mash,10%
+10,Power_Pick_2,0.05,Packed Product,20 Tomato Mash,10%
+11,Power_Pick_2,0.09,Packed Product,20 Tomato Mash,10%
+12,Power_Pick_2,0.06,Packed Product,20 Tomato Mash,10%
+13,Power_Pick_2,0.05,Packed Product,20 Tomato Mash,10%
+14,Power_Pick_2,0.1,Packed Product,20 Tomato Mash,10%
+15,Power_Pick_2,0.04,Packed Product,20 Tomato Mash,10%
+16,Power_Pick_2,0.08,Packed Product,20 Tomato Mash,10%
+17,Power_Pick_2,0.09,Packed Product,20 Tomato Mash,10%
+18,Power_Pick_2,0.12,Packed Product,20 Tomato Mash,10%
+19,Power_Pick_2,0.06,Packed Product,20 Tomato Mash,10%
+20,Power_Pick_3,0.11,Packed Product,20 Tomato Mash,10%
+21,Power_Pick_3,0.05,Packed Product,20 Tomato Mash,10%
+22,Power_Pick_3,0.06,Packed Product,20 Tomato Mash,10%
+23,Power_Pick_3,0.07,Packed Product,20 Tomato Mash,10%
+24,Power_Pick_3,0.07,Packed Product,20 Tomato Mash,10%
+25,Power_Pick_3,0.03,Packed Product,20 Tomato Mash,10%
+26,Power_Pick_3,0.08,Packed Product,20 Tomato Mash,10%
+27,Power_Pick_3,0.04,Packed Product,20 Tomato Mash,10%
+28,Power_Pick_3,0.09,Packed Product,20 Tomato Mash,10%
+29,Power_Pick_3,0.04,Packed Product,20 Tomato Mash,10%
+0,Power_Pick_1,0.16,Packed Product,60 Tomato Mash,10%
+1,Power_Pick_1,0.11,Packed Product,60 Tomato Mash,10%
+2,Power_Pick_1,0.12,Packed Product,60 Tomato Mash,10%
+3,Power_Pick_1,0.1,Packed Product,60 Tomato Mash,10%
+4,Power_Pick_1,0.17,Packed Product,60 Tomato Mash,10%
+5,Power_Pick_1,0.15,Packed Product,60 Tomato Mash,10%
+6,Power_Pick_1,0.12,Packed Product,60 Tomato Mash,10%
+7,Power_Pick_1,0.09,Packed Product,60 Tomato Mash,10%
+8,Power_Pick_1,0.05,Packed Product,60 Tomato Mash,10%
+9,Power_Pick_1,0.17,Packed Product,60 Tomato Mash,10%
+10,Power_Pick_2,0.14,Packed Product,60 Tomato Mash,10%
+11,Power_Pick_2,0.19,Packed Product,60 Tomato Mash,10%
+12,Power_Pick_2,0.15,Packed Product,60 Tomato Mash,10%
+13,Power_Pick_2,0.14,Packed Product,60 Tomato Mash,10%
+14,Power_Pick_2,0.18,Packed Product,60 Tomato Mash,10%
+15,Power_Pick_2,0.15,Packed Product,60 Tomato Mash,10%
+16,Power_Pick_2,0.12,Packed Product,60 Tomato Mash,10%
+17,Power_Pick_2,0.16,Packed Product,60 Tomato Mash,10%
+18,Power_Pick_2,0.22,Packed Product,60 Tomato Mash,10%
+19,Power_Pick_2,0.11,Packed Product,60 Tomato Mash,10%
+20,Power_Pick_3,0.14,Packed Product,60 Tomato Mash,10%
+21,Power_Pick_3,0.15,Packed Product,60 Tomato Mash,10%
+22,Power_Pick_3,0.19,Packed Product,60 Tomato Mash,10%
+23,Power_Pick_3,0.14,Packed Product,60 Tomato Mash,10%
+24,Power_Pick_3,0.1,Packed Product,60 Tomato Mash,10%
+25,Power_Pick_3,0.07,Packed Product,60 Tomato Mash,10%
+26,Power_Pick_3,0.16,Packed Product,60 Tomato Mash,10%
+27,Power_Pick_3,0.09,Packed Product,60 Tomato Mash,10%
+28,Power_Pick_3,0.14,Packed Product,60 Tomato Mash,10%
+29,Power_Pick_3,0.18,Packed Product,60 Tomato Mash,10%
+0,Power_Pick_1,0.0,Preharvest,2 Tomatoes,1%
+1,Power_Pick_1,0.01,Preharvest,2 Tomatoes,1%
+2,Power_Pick_1,0.0,Preharvest,2 Tomatoes,1%
+3,Power_Pick_1,0.02,Preharvest,2 Tomatoes,1%
+4,Power_Pick_1,0.0,Preharvest,2 Tomatoes,1%
+5,Power_Pick_1,0.01,Preharvest,2 Tomatoes,1%
+6,Power_Pick_1,0.0,Preharvest,2 Tomatoes,1%
+7,Power_Pick_1,0.01,Preharvest,2 Tomatoes,1%
+8,Power_Pick_1,0.0,Preharvest,2 Tomatoes,1%
+9,Power_Pick_1,0.0,Preharvest,2 Tomatoes,1%
+10,Power_Pick_2,0.01,Preharvest,2 Tomatoes,1%
+11,Power_Pick_2,0.01,Preharvest,2 Tomatoes,1%
+12,Power_Pick_2,0.01,Preharvest,2 Tomatoes,1%
+13,Power_Pick_2,0.01,Preharvest,2 Tomatoes,1%
+14,Power_Pick_2,0.02,Preharvest,2 Tomatoes,1%
+15,Power_Pick_2,0.0,Preharvest,2 Tomatoes,1%
+16,Power_Pick_2,0.01,Preharvest,2 Tomatoes,1%
+17,Power_Pick_2,0.01,Preharvest,2 Tomatoes,1%
+18,Power_Pick_2,0.02,Preharvest,2 Tomatoes,1%
+19,Power_Pick_2,0.0,Preharvest,2 Tomatoes,1%
+20,Power_Pick_3,0.01,Preharvest,2 Tomatoes,1%
+21,Power_Pick_3,0.02,Preharvest,2 Tomatoes,1%
+22,Power_Pick_3,0.0,Preharvest,2 Tomatoes,1%
+23,Power_Pick_3,0.0,Preharvest,2 Tomatoes,1%
+24,Power_Pick_3,0.01,Preharvest,2 Tomatoes,1%
+25,Power_Pick_3,0.0,Preharvest,2 Tomatoes,1%
+26,Power_Pick_3,0.03,Preharvest,2 Tomatoes,1%
+27,Power_Pick_3,0.03,Preharvest,2 Tomatoes,1%
+28,Power_Pick_3,0.01,Preharvest,2 Tomatoes,1%
+29,Power_Pick_3,0.01,Preharvest,2 Tomatoes,1%
+0,Power_Pick_1,0.01,Preharvest,6 Tomatoes,1%
+1,Power_Pick_1,0.02,Preharvest,6 Tomatoes,1%
+2,Power_Pick_1,0.01,Preharvest,6 Tomatoes,1%
+3,Power_Pick_1,0.04,Preharvest,6 Tomatoes,1%
+4,Power_Pick_1,0.0,Preharvest,6 Tomatoes,1%
+5,Power_Pick_1,0.03,Preharvest,6 Tomatoes,1%
+6,Power_Pick_1,0.0,Preharvest,6 Tomatoes,1%
+7,Power_Pick_1,0.02,Preharvest,6 Tomatoes,1%
+8,Power_Pick_1,0.0,Preharvest,6 Tomatoes,1%
+9,Power_Pick_1,0.01,Preharvest,6 Tomatoes,1%
+10,Power_Pick_2,0.03,Preharvest,6 Tomatoes,1%
+11,Power_Pick_2,0.02,Preharvest,6 Tomatoes,1%
+12,Power_Pick_2,0.04,Preharvest,6 Tomatoes,1%
+13,Power_Pick_2,0.02,Preharvest,6 Tomatoes,1%
+14,Power_Pick_2,0.01,Preharvest,6 Tomatoes,1%
+15,Power_Pick_2,0.0,Preharvest,6 Tomatoes,1%
+16,Power_Pick_2,0.02,Preharvest,6 Tomatoes,1%
+17,Power_Pick_2,0.02,Preharvest,6 Tomatoes,1%
+18,Power_Pick_2,0.01,Preharvest,6 Tomatoes,1%
+19,Power_Pick_2,0.01,Preharvest,6 Tomatoes,1%
+20,Power_Pick_3,0.03,Preharvest,6 Tomatoes,1%
+21,Power_Pick_3,0.01,Preharvest,6 Tomatoes,1%
+22,Power_Pick_3,0.04,Preharvest,6 Tomatoes,1%
+23,Power_Pick_3,0.04,Preharvest,6 Tomatoes,1%
+24,Power_Pick_3,0.01,Preharvest,6 Tomatoes,1%
+25,Power_Pick_3,0.02,Preharvest,6 Tomatoes,1%
+26,Power_Pick_3,0.03,Preharvest,6 Tomatoes,1%
+27,Power_Pick_3,0.02,Preharvest,6 Tomatoes,1%
+28,Power_Pick_3,0.03,Preharvest,6 Tomatoes,1%
+29,Power_Pick_3,0.02,Preharvest,6 Tomatoes,1%
+0,Power_Pick_1,0.04,Preharvest,20 Tomatoes,1%
+1,Power_Pick_1,0.04,Preharvest,20 Tomatoes,1%
+2,Power_Pick_1,0.05,Preharvest,20 Tomatoes,1%
+3,Power_Pick_1,0.07,Preharvest,20 Tomatoes,1%
+4,Power_Pick_1,0.01,Preharvest,20 Tomatoes,1%
+5,Power_Pick_1,0.07,Preharvest,20 Tomatoes,1%
+6,Power_Pick_1,0.02,Preharvest,20 Tomatoes,1%
+7,Power_Pick_1,0.03,Preharvest,20 Tomatoes,1%
+8,Power_Pick_1,0.01,Preharvest,20 Tomatoes,1%
+9,Power_Pick_1,0.03,Preharvest,20 Tomatoes,1%
+10,Power_Pick_2,0.12,Preharvest,20 Tomatoes,1%
+11,Power_Pick_2,0.04,Preharvest,20 Tomatoes,1%
+12,Power_Pick_2,0.08,Preharvest,20 Tomatoes,1%
+13,Power_Pick_2,0.04,Preharvest,20 Tomatoes,1%
+14,Power_Pick_2,0.09,Preharvest,20 Tomatoes,1%
+15,Power_Pick_2,0.04,Preharvest,20 Tomatoes,1%
+16,Power_Pick_2,0.07,Preharvest,20 Tomatoes,1%
+17,Power_Pick_2,0.08,Preharvest,20 Tomatoes,1%
+18,Power_Pick_2,0.06,Preharvest,20 Tomatoes,1%
+19,Power_Pick_2,0.05,Preharvest,20 Tomatoes,1%
+20,Power_Pick_3,0.08,Preharvest,20 Tomatoes,1%
+21,Power_Pick_3,0.03,Preharvest,20 Tomatoes,1%
+22,Power_Pick_3,0.05,Preharvest,20 Tomatoes,1%
+23,Power_Pick_3,0.09,Preharvest,20 Tomatoes,1%
+24,Power_Pick_3,0.04,Preharvest,20 Tomatoes,1%
+25,Power_Pick_3,0.05,Preharvest,20 Tomatoes,1%
+26,Power_Pick_3,0.02,Preharvest,20 Tomatoes,1%
+27,Power_Pick_3,0.06,Preharvest,20 Tomatoes,1%
+28,Power_Pick_3,0.07,Preharvest,20 Tomatoes,1%
+29,Power_Pick_3,0.04,Preharvest,20 Tomatoes,1%
+0,Power_Pick_1,0.12,Preharvest,60 Tomatoes,1%
+1,Power_Pick_1,0.11,Preharvest,60 Tomatoes,1%
+2,Power_Pick_1,0.11,Preharvest,60 Tomatoes,1%
+3,Power_Pick_1,0.12,Preharvest,60 Tomatoes,1%
+4,Power_Pick_1,0.11,Preharvest,60 Tomatoes,1%
+5,Power_Pick_1,0.12,Preharvest,60 Tomatoes,1%
+6,Power_Pick_1,0.1,Preharvest,60 Tomatoes,1%
+7,Power_Pick_1,0.05,Preharvest,60 Tomatoes,1%
+8,Power_Pick_1,0.05,Preharvest,60 Tomatoes,1%
+9,Power_Pick_1,0.13,Preharvest,60 Tomatoes,1%
+10,Power_Pick_2,0.17,Preharvest,60 Tomatoes,1%
+11,Power_Pick_2,0.24,Preharvest,60 Tomatoes,1%
+12,Power_Pick_2,0.24,Preharvest,60 Tomatoes,1%
+13,Power_Pick_2,0.12,Preharvest,60 Tomatoes,1%
+14,Power_Pick_2,0.17,Preharvest,60 Tomatoes,1%
+15,Power_Pick_2,0.15,Preharvest,60 Tomatoes,1%
+16,Power_Pick_2,0.16,Preharvest,60 Tomatoes,1%
+17,Power_Pick_2,0.19,Preharvest,60 Tomatoes,1%
+18,Power_Pick_2,0.22,Preharvest,60 Tomatoes,1%
+19,Power_Pick_2,0.16,Preharvest,60 Tomatoes,1%
+20,Power_Pick_3,0.13,Preharvest,60 Tomatoes,1%
+21,Power_Pick_3,0.11,Preharvest,60 Tomatoes,1%
+22,Power_Pick_3,0.12,Preharvest,60 Tomatoes,1%
+23,Power_Pick_3,0.2,Preharvest,60 Tomatoes,1%
+24,Power_Pick_3,0.14,Preharvest,60 Tomatoes,1%
+25,Power_Pick_3,0.16,Preharvest,60 Tomatoes,1%
+26,Power_Pick_3,0.18,Preharvest,60 Tomatoes,1%
+27,Power_Pick_3,0.17,Preharvest,60 Tomatoes,1%
+28,Power_Pick_3,0.15,Preharvest,60 Tomatoes,1%
+29,Power_Pick_3,0.15,Preharvest,60 Tomatoes,1%
+0,Power_Pick_1,0.05,Preharvest,20 Tomato Mash,1%
+1,Power_Pick_1,0.05,Preharvest,20 Tomato Mash,1%
+2,Power_Pick_1,0.03,Preharvest,20 Tomato Mash,1%
+3,Power_Pick_1,0.02,Preharvest,20 Tomato Mash,1%
+4,Power_Pick_1,0.04,Preharvest,20 Tomato Mash,1%
+5,Power_Pick_1,0.02,Preharvest,20 Tomato Mash,1%
+6,Power_Pick_1,0.04,Preharvest,20 Tomato Mash,1%
+7,Power_Pick_1,0.03,Preharvest,20 Tomato Mash,1%
+8,Power_Pick_1,0.05,Preharvest,20 Tomato Mash,1%
+9,Power_Pick_1,0.03,Preharvest,20 Tomato Mash,1%
+10,Power_Pick_2,0.0,Preharvest,20 Tomato Mash,1%
+11,Power_Pick_2,0.05,Preharvest,20 Tomato Mash,1%
+12,Power_Pick_2,0.05,Preharvest,20 Tomato Mash,1%
+13,Power_Pick_2,0.03,Preharvest,20 Tomato Mash,1%
+14,Power_Pick_2,0.05,Preharvest,20 Tomato Mash,1%
+15,Power_Pick_2,0.05,Preharvest,20 Tomato Mash,1%
+16,Power_Pick_2,0.04,Preharvest,20 Tomato Mash,1%
+17,Power_Pick_2,0.06,Preharvest,20 Tomato Mash,1%
+18,Power_Pick_2,0.05,Preharvest,20 Tomato Mash,1%
+19,Power_Pick_2,0.04,Preharvest,20 Tomato Mash,1%
+20,Power_Pick_3,0.06,Preharvest,20 Tomato Mash,1%
+21,Power_Pick_3,0.01,Preharvest,20 Tomato Mash,1%
+22,Power_Pick_3,0.05,Preharvest,20 Tomato Mash,1%
+23,Power_Pick_3,0.05,Preharvest,20 Tomato Mash,1%
+24,Power_Pick_3,0.06,Preharvest,20 Tomato Mash,1%
+25,Power_Pick_3,0.01,Preharvest,20 Tomato Mash,1%
+26,Power_Pick_3,0.05,Preharvest,20 Tomato Mash,1%
+27,Power_Pick_3,0.04,Preharvest,20 Tomato Mash,1%
+28,Power_Pick_3,0.04,Preharvest,20 Tomato Mash,1%
+29,Power_Pick_3,0.05,Preharvest,20 Tomato Mash,1%
+0,Power_Pick_1,0.07,Preharvest,60 Tomato Mash,1%
+1,Power_Pick_1,0.08,Preharvest,60 Tomato Mash,1%
+2,Power_Pick_1,0.07,Preharvest,60 Tomato Mash,1%
+3,Power_Pick_1,0.06,Preharvest,60 Tomato Mash,1%
+4,Power_Pick_1,0.11,Preharvest,60 Tomato Mash,1%
+5,Power_Pick_1,0.12,Preharvest,60 Tomato Mash,1%
+6,Power_Pick_1,0.09,Preharvest,60 Tomato Mash,1%
+7,Power_Pick_1,0.06,Preharvest,60 Tomato Mash,1%
+8,Power_Pick_1,0.08,Preharvest,60 Tomato Mash,1%
+9,Power_Pick_1,0.13,Preharvest,60 Tomato Mash,1%
+10,Power_Pick_2,0.11,Preharvest,60 Tomato Mash,1%
+11,Power_Pick_2,0.12,Preharvest,60 Tomato Mash,1%
+12,Power_Pick_2,0.13,Preharvest,60 Tomato Mash,1%
+13,Power_Pick_2,0.08,Preharvest,60 Tomato Mash,1%
+14,Power_Pick_2,0.08,Preharvest,60 Tomato Mash,1%
+15,Power_Pick_2,0.09,Preharvest,60 Tomato Mash,1%
+16,Power_Pick_2,0.11,Preharvest,60 Tomato Mash,1%
+17,Power_Pick_2,0.09,Preharvest,60 Tomato Mash,1%
+18,Power_Pick_2,0.1,Preharvest,60 Tomato Mash,1%
+19,Power_Pick_2,0.13,Preharvest,60 Tomato Mash,1%
+20,Power_Pick_3,0.07,Preharvest,60 Tomato Mash,1%
+21,Power_Pick_3,0.12,Preharvest,60 Tomato Mash,1%
+22,Power_Pick_3,0.13,Preharvest,60 Tomato Mash,1%
+23,Power_Pick_3,0.07,Preharvest,60 Tomato Mash,1%
+24,Power_Pick_3,0.09,Preharvest,60 Tomato Mash,1%
+25,Power_Pick_3,0.09,Preharvest,60 Tomato Mash,1%
+26,Power_Pick_3,0.12,Preharvest,60 Tomato Mash,1%
+27,Power_Pick_3,0.14,Preharvest,60 Tomato Mash,1%
+28,Power_Pick_3,0.12,Preharvest,60 Tomato Mash,1%
+29,Power_Pick_3,0.11,Preharvest,60 Tomato Mash,1%
+0,Power_Pick_1,0.0,Harvest,2 Tomatoes,1%
+1,Power_Pick_1,0.01,Harvest,2 Tomatoes,1%
+2,Power_Pick_1,0.0,Harvest,2 Tomatoes,1%
+3,Power_Pick_1,0.02,Harvest,2 Tomatoes,1%
+4,Power_Pick_1,0.0,Harvest,2 Tomatoes,1%
+5,Power_Pick_1,0.01,Harvest,2 Tomatoes,1%
+6,Power_Pick_1,0.0,Harvest,2 Tomatoes,1%
+7,Power_Pick_1,0.01,Harvest,2 Tomatoes,1%
+8,Power_Pick_1,0.0,Harvest,2 Tomatoes,1%
+9,Power_Pick_1,0.0,Harvest,2 Tomatoes,1%
+10,Power_Pick_2,0.01,Harvest,2 Tomatoes,1%
+11,Power_Pick_2,0.02,Harvest,2 Tomatoes,1%
+12,Power_Pick_2,0.01,Harvest,2 Tomatoes,1%
+13,Power_Pick_2,0.01,Harvest,2 Tomatoes,1%
+14,Power_Pick_2,0.01,Harvest,2 Tomatoes,1%
+15,Power_Pick_2,0.01,Harvest,2 Tomatoes,1%
+16,Power_Pick_2,0.0,Harvest,2 Tomatoes,1%
+17,Power_Pick_2,0.01,Harvest,2 Tomatoes,1%
+18,Power_Pick_2,0.02,Harvest,2 Tomatoes,1%
+19,Power_Pick_2,0.01,Harvest,2 Tomatoes,1%
+20,Power_Pick_3,0.01,Harvest,2 Tomatoes,1%
+21,Power_Pick_3,0.01,Harvest,2 Tomatoes,1%
+22,Power_Pick_3,0.0,Harvest,2 Tomatoes,1%
+23,Power_Pick_3,0.0,Harvest,2 Tomatoes,1%
+24,Power_Pick_3,0.01,Harvest,2 Tomatoes,1%
+25,Power_Pick_3,0.0,Harvest,2 Tomatoes,1%
+26,Power_Pick_3,0.03,Harvest,2 Tomatoes,1%
+27,Power_Pick_3,0.03,Harvest,2 Tomatoes,1%
+28,Power_Pick_3,0.01,Harvest,2 Tomatoes,1%
+29,Power_Pick_3,0.01,Harvest,2 Tomatoes,1%
+0,Power_Pick_1,0.01,Harvest,6 Tomatoes,1%
+1,Power_Pick_1,0.02,Harvest,6 Tomatoes,1%
+2,Power_Pick_1,0.01,Harvest,6 Tomatoes,1%
+3,Power_Pick_1,0.04,Harvest,6 Tomatoes,1%
+4,Power_Pick_1,0.0,Harvest,6 Tomatoes,1%
+5,Power_Pick_1,0.03,Harvest,6 Tomatoes,1%
+6,Power_Pick_1,0.0,Harvest,6 Tomatoes,1%
+7,Power_Pick_1,0.02,Harvest,6 Tomatoes,1%
+8,Power_Pick_1,0.0,Harvest,6 Tomatoes,1%
+9,Power_Pick_1,0.01,Harvest,6 Tomatoes,1%
+10,Power_Pick_2,0.03,Harvest,6 Tomatoes,1%
+11,Power_Pick_2,0.02,Harvest,6 Tomatoes,1%
+12,Power_Pick_2,0.04,Harvest,6 Tomatoes,1%
+13,Power_Pick_2,0.03,Harvest,6 Tomatoes,1%
+14,Power_Pick_2,0.01,Harvest,6 Tomatoes,1%
+15,Power_Pick_2,0.0,Harvest,6 Tomatoes,1%
+16,Power_Pick_2,0.01,Harvest,6 Tomatoes,1%
+17,Power_Pick_2,0.01,Harvest,6 Tomatoes,1%
+18,Power_Pick_2,0.01,Harvest,6 Tomatoes,1%
+19,Power_Pick_2,0.01,Harvest,6 Tomatoes,1%
+20,Power_Pick_3,0.02,Harvest,6 Tomatoes,1%
+21,Power_Pick_3,0.01,Harvest,6 Tomatoes,1%
+22,Power_Pick_3,0.04,Harvest,6 Tomatoes,1%
+23,Power_Pick_3,0.04,Harvest,6 Tomatoes,1%
+24,Power_Pick_3,0.01,Harvest,6 Tomatoes,1%
+25,Power_Pick_3,0.03,Harvest,6 Tomatoes,1%
+26,Power_Pick_3,0.03,Harvest,6 Tomatoes,1%
+27,Power_Pick_3,0.02,Harvest,6 Tomatoes,1%
+28,Power_Pick_3,0.03,Harvest,6 Tomatoes,1%
+29,Power_Pick_3,0.03,Harvest,6 Tomatoes,1%
+0,Power_Pick_1,0.04,Harvest,20 Tomatoes,1%
+1,Power_Pick_1,0.04,Harvest,20 Tomatoes,1%
+2,Power_Pick_1,0.05,Harvest,20 Tomatoes,1%
+3,Power_Pick_1,0.07,Harvest,20 Tomatoes,1%
+4,Power_Pick_1,0.02,Harvest,20 Tomatoes,1%
+5,Power_Pick_1,0.07,Harvest,20 Tomatoes,1%
+6,Power_Pick_1,0.02,Harvest,20 Tomatoes,1%
+7,Power_Pick_1,0.03,Harvest,20 Tomatoes,1%
+8,Power_Pick_1,0.01,Harvest,20 Tomatoes,1%
+9,Power_Pick_1,0.03,Harvest,20 Tomatoes,1%
+10,Power_Pick_2,0.12,Harvest,20 Tomatoes,1%
+11,Power_Pick_2,0.03,Harvest,20 Tomatoes,1%
+12,Power_Pick_2,0.08,Harvest,20 Tomatoes,1%
+13,Power_Pick_2,0.04,Harvest,20 Tomatoes,1%
+14,Power_Pick_2,0.09,Harvest,20 Tomatoes,1%
+15,Power_Pick_2,0.05,Harvest,20 Tomatoes,1%
+16,Power_Pick_2,0.08,Harvest,20 Tomatoes,1%
+17,Power_Pick_2,0.08,Harvest,20 Tomatoes,1%
+18,Power_Pick_2,0.05,Harvest,20 Tomatoes,1%
+19,Power_Pick_2,0.05,Harvest,20 Tomatoes,1%
+20,Power_Pick_3,0.09,Harvest,20 Tomatoes,1%
+21,Power_Pick_3,0.03,Harvest,20 Tomatoes,1%
+22,Power_Pick_3,0.05,Harvest,20 Tomatoes,1%
+23,Power_Pick_3,0.08,Harvest,20 Tomatoes,1%
+24,Power_Pick_3,0.03,Harvest,20 Tomatoes,1%
+25,Power_Pick_3,0.05,Harvest,20 Tomatoes,1%
+26,Power_Pick_3,0.03,Harvest,20 Tomatoes,1%
+27,Power_Pick_3,0.06,Harvest,20 Tomatoes,1%
+28,Power_Pick_3,0.08,Harvest,20 Tomatoes,1%
+29,Power_Pick_3,0.04,Harvest,20 Tomatoes,1%
+0,Power_Pick_1,0.12,Harvest,60 Tomatoes,1%
+1,Power_Pick_1,0.12,Harvest,60 Tomatoes,1%
+2,Power_Pick_1,0.11,Harvest,60 Tomatoes,1%
+3,Power_Pick_1,0.12,Harvest,60 Tomatoes,1%
+4,Power_Pick_1,0.11,Harvest,60 Tomatoes,1%
+5,Power_Pick_1,0.12,Harvest,60 Tomatoes,1%
+6,Power_Pick_1,0.1,Harvest,60 Tomatoes,1%
+7,Power_Pick_1,0.05,Harvest,60 Tomatoes,1%
+8,Power_Pick_1,0.05,Harvest,60 Tomatoes,1%
+9,Power_Pick_1,0.13,Harvest,60 Tomatoes,1%
+10,Power_Pick_2,0.16,Harvest,60 Tomatoes,1%
+11,Power_Pick_2,0.26,Harvest,60 Tomatoes,1%
+12,Power_Pick_2,0.22,Harvest,60 Tomatoes,1%
+13,Power_Pick_2,0.11,Harvest,60 Tomatoes,1%
+14,Power_Pick_2,0.18,Harvest,60 Tomatoes,1%
+15,Power_Pick_2,0.15,Harvest,60 Tomatoes,1%
+16,Power_Pick_2,0.16,Harvest,60 Tomatoes,1%
+17,Power_Pick_2,0.18,Harvest,60 Tomatoes,1%
+18,Power_Pick_2,0.2,Harvest,60 Tomatoes,1%
+19,Power_Pick_2,0.17,Harvest,60 Tomatoes,1%
+20,Power_Pick_3,0.13,Harvest,60 Tomatoes,1%
+21,Power_Pick_3,0.11,Harvest,60 Tomatoes,1%
+22,Power_Pick_3,0.12,Harvest,60 Tomatoes,1%
+23,Power_Pick_3,0.2,Harvest,60 Tomatoes,1%
+24,Power_Pick_3,0.14,Harvest,60 Tomatoes,1%
+25,Power_Pick_3,0.16,Harvest,60 Tomatoes,1%
+26,Power_Pick_3,0.17,Harvest,60 Tomatoes,1%
+27,Power_Pick_3,0.16,Harvest,60 Tomatoes,1%
+28,Power_Pick_3,0.17,Harvest,60 Tomatoes,1%
+29,Power_Pick_3,0.15,Harvest,60 Tomatoes,1%
+0,Power_Pick_1,0.05,Harvest,20 Tomato Mash,1%
+1,Power_Pick_1,0.05,Harvest,20 Tomato Mash,1%
+2,Power_Pick_1,0.03,Harvest,20 Tomato Mash,1%
+3,Power_Pick_1,0.02,Harvest,20 Tomato Mash,1%
+4,Power_Pick_1,0.04,Harvest,20 Tomato Mash,1%
+5,Power_Pick_1,0.02,Harvest,20 Tomato Mash,1%
+6,Power_Pick_1,0.04,Harvest,20 Tomato Mash,1%
+7,Power_Pick_1,0.03,Harvest,20 Tomato Mash,1%
+8,Power_Pick_1,0.05,Harvest,20 Tomato Mash,1%
+9,Power_Pick_1,0.03,Harvest,20 Tomato Mash,1%
+10,Power_Pick_2,0.0,Harvest,20 Tomato Mash,1%
+11,Power_Pick_2,0.05,Harvest,20 Tomato Mash,1%
+12,Power_Pick_2,0.05,Harvest,20 Tomato Mash,1%
+13,Power_Pick_2,0.03,Harvest,20 Tomato Mash,1%
+14,Power_Pick_2,0.04,Harvest,20 Tomato Mash,1%
+15,Power_Pick_2,0.05,Harvest,20 Tomato Mash,1%
+16,Power_Pick_2,0.04,Harvest,20 Tomato Mash,1%
+17,Power_Pick_2,0.07,Harvest,20 Tomato Mash,1%
+18,Power_Pick_2,0.05,Harvest,20 Tomato Mash,1%
+19,Power_Pick_2,0.03,Harvest,20 Tomato Mash,1%
+20,Power_Pick_3,0.05,Harvest,20 Tomato Mash,1%
+21,Power_Pick_3,0.01,Harvest,20 Tomato Mash,1%
+22,Power_Pick_3,0.06,Harvest,20 Tomato Mash,1%
+23,Power_Pick_3,0.05,Harvest,20 Tomato Mash,1%
+24,Power_Pick_3,0.04,Harvest,20 Tomato Mash,1%
+25,Power_Pick_3,0.01,Harvest,20 Tomato Mash,1%
+26,Power_Pick_3,0.03,Harvest,20 Tomato Mash,1%
+27,Power_Pick_3,0.04,Harvest,20 Tomato Mash,1%
+28,Power_Pick_3,0.05,Harvest,20 Tomato Mash,1%
+29,Power_Pick_3,0.04,Harvest,20 Tomato Mash,1%
+0,Power_Pick_1,0.07,Harvest,60 Tomato Mash,1%
+1,Power_Pick_1,0.08,Harvest,60 Tomato Mash,1%
+2,Power_Pick_1,0.08,Harvest,60 Tomato Mash,1%
+3,Power_Pick_1,0.06,Harvest,60 Tomato Mash,1%
+4,Power_Pick_1,0.11,Harvest,60 Tomato Mash,1%
+5,Power_Pick_1,0.13,Harvest,60 Tomato Mash,1%
+6,Power_Pick_1,0.09,Harvest,60 Tomato Mash,1%
+7,Power_Pick_1,0.06,Harvest,60 Tomato Mash,1%
+8,Power_Pick_1,0.08,Harvest,60 Tomato Mash,1%
+9,Power_Pick_1,0.13,Harvest,60 Tomato Mash,1%
+10,Power_Pick_2,0.12,Harvest,60 Tomato Mash,1%
+11,Power_Pick_2,0.12,Harvest,60 Tomato Mash,1%
+12,Power_Pick_2,0.11,Harvest,60 Tomato Mash,1%
+13,Power_Pick_2,0.1,Harvest,60 Tomato Mash,1%
+14,Power_Pick_2,0.08,Harvest,60 Tomato Mash,1%
+15,Power_Pick_2,0.1,Harvest,60 Tomato Mash,1%
+16,Power_Pick_2,0.11,Harvest,60 Tomato Mash,1%
+17,Power_Pick_2,0.08,Harvest,60 Tomato Mash,1%
+18,Power_Pick_2,0.1,Harvest,60 Tomato Mash,1%
+19,Power_Pick_2,0.12,Harvest,60 Tomato Mash,1%
+20,Power_Pick_3,0.07,Harvest,60 Tomato Mash,1%
+21,Power_Pick_3,0.12,Harvest,60 Tomato Mash,1%
+22,Power_Pick_3,0.12,Harvest,60 Tomato Mash,1%
+23,Power_Pick_3,0.06,Harvest,60 Tomato Mash,1%
+24,Power_Pick_3,0.09,Harvest,60 Tomato Mash,1%
+25,Power_Pick_3,0.09,Harvest,60 Tomato Mash,1%
+26,Power_Pick_3,0.12,Harvest,60 Tomato Mash,1%
+27,Power_Pick_3,0.12,Harvest,60 Tomato Mash,1%
+28,Power_Pick_3,0.11,Harvest,60 Tomato Mash,1%
+29,Power_Pick_3,0.11,Harvest,60 Tomato Mash,1%
+0,Power_Pick_1,0.0,Harvest,2 Tomatoes,1%
+1,Power_Pick_1,0.01,Harvest,2 Tomatoes,1%
+2,Power_Pick_1,0.0,Harvest,2 Tomatoes,1%
+3,Power_Pick_1,0.02,Harvest,2 Tomatoes,1%
+4,Power_Pick_1,0.0,Harvest,2 Tomatoes,1%
+5,Power_Pick_1,0.01,Harvest,2 Tomatoes,1%
+6,Power_Pick_1,0.0,Harvest,2 Tomatoes,1%
+7,Power_Pick_1,0.01,Harvest,2 Tomatoes,1%
+8,Power_Pick_1,0.0,Harvest,2 Tomatoes,1%
+9,Power_Pick_1,0.0,Harvest,2 Tomatoes,1%
+10,Power_Pick_2,0.01,Harvest,2 Tomatoes,1%
+11,Power_Pick_2,0.01,Harvest,2 Tomatoes,1%
+12,Power_Pick_2,0.01,Harvest,2 Tomatoes,1%
+13,Power_Pick_2,0.0,Harvest,2 Tomatoes,1%
+14,Power_Pick_2,0.01,Harvest,2 Tomatoes,1%
+15,Power_Pick_2,0.0,Harvest,2 Tomatoes,1%
+16,Power_Pick_2,0.01,Harvest,2 Tomatoes,1%
+17,Power_Pick_2,0.01,Harvest,2 Tomatoes,1%
+18,Power_Pick_2,0.02,Harvest,2 Tomatoes,1%
+19,Power_Pick_2,0.01,Harvest,2 Tomatoes,1%
+20,Power_Pick_3,0.01,Harvest,2 Tomatoes,1%
+21,Power_Pick_3,0.02,Harvest,2 Tomatoes,1%
+22,Power_Pick_3,0.0,Harvest,2 Tomatoes,1%
+23,Power_Pick_3,0.0,Harvest,2 Tomatoes,1%
+24,Power_Pick_3,0.01,Harvest,2 Tomatoes,1%
+25,Power_Pick_3,0.0,Harvest,2 Tomatoes,1%
+26,Power_Pick_3,0.03,Harvest,2 Tomatoes,1%
+27,Power_Pick_3,0.03,Harvest,2 Tomatoes,1%
+28,Power_Pick_3,0.01,Harvest,2 Tomatoes,1%
+29,Power_Pick_3,0.01,Harvest,2 Tomatoes,1%
+0,Power_Pick_1,0.01,Receiving,6 Tomatoes,1%
+1,Power_Pick_1,0.02,Receiving,6 Tomatoes,1%
+2,Power_Pick_1,0.01,Receiving,6 Tomatoes,1%
+3,Power_Pick_1,0.04,Receiving,6 Tomatoes,1%
+4,Power_Pick_1,0.0,Receiving,6 Tomatoes,1%
+5,Power_Pick_1,0.03,Receiving,6 Tomatoes,1%
+6,Power_Pick_1,0.0,Receiving,6 Tomatoes,1%
+7,Power_Pick_1,0.02,Receiving,6 Tomatoes,1%
+8,Power_Pick_1,0.0,Receiving,6 Tomatoes,1%
+9,Power_Pick_1,0.01,Receiving,6 Tomatoes,1%
+10,Power_Pick_2,0.03,Receiving,6 Tomatoes,1%
+11,Power_Pick_2,0.02,Receiving,6 Tomatoes,1%
+12,Power_Pick_2,0.03,Receiving,6 Tomatoes,1%
+13,Power_Pick_2,0.02,Receiving,6 Tomatoes,1%
+14,Power_Pick_2,0.01,Receiving,6 Tomatoes,1%
+15,Power_Pick_2,0.0,Receiving,6 Tomatoes,1%
+16,Power_Pick_2,0.03,Receiving,6 Tomatoes,1%
+17,Power_Pick_2,0.03,Receiving,6 Tomatoes,1%
+18,Power_Pick_2,0.01,Receiving,6 Tomatoes,1%
+19,Power_Pick_2,0.01,Receiving,6 Tomatoes,1%
+20,Power_Pick_3,0.03,Receiving,6 Tomatoes,1%
+21,Power_Pick_3,0.01,Receiving,6 Tomatoes,1%
+22,Power_Pick_3,0.04,Receiving,6 Tomatoes,1%
+23,Power_Pick_3,0.05,Receiving,6 Tomatoes,1%
+24,Power_Pick_3,0.01,Receiving,6 Tomatoes,1%
+25,Power_Pick_3,0.03,Receiving,6 Tomatoes,1%
+26,Power_Pick_3,0.02,Receiving,6 Tomatoes,1%
+27,Power_Pick_3,0.02,Receiving,6 Tomatoes,1%
+28,Power_Pick_3,0.03,Receiving,6 Tomatoes,1%
+29,Power_Pick_3,0.02,Receiving,6 Tomatoes,1%
+0,Power_Pick_1,0.04,Receiving,20 Tomatoes,1%
+1,Power_Pick_1,0.05,Receiving,20 Tomatoes,1%
+2,Power_Pick_1,0.05,Receiving,20 Tomatoes,1%
+3,Power_Pick_1,0.07,Receiving,20 Tomatoes,1%
+4,Power_Pick_1,0.02,Receiving,20 Tomatoes,1%
+5,Power_Pick_1,0.07,Receiving,20 Tomatoes,1%
+6,Power_Pick_1,0.02,Receiving,20 Tomatoes,1%
+7,Power_Pick_1,0.03,Receiving,20 Tomatoes,1%
+8,Power_Pick_1,0.01,Receiving,20 Tomatoes,1%
+9,Power_Pick_1,0.03,Receiving,20 Tomatoes,1%
+10,Power_Pick_2,0.13,Receiving,20 Tomatoes,1%
+11,Power_Pick_2,0.05,Receiving,20 Tomatoes,1%
+12,Power_Pick_2,0.08,Receiving,20 Tomatoes,1%
+13,Power_Pick_2,0.05,Receiving,20 Tomatoes,1%
+14,Power_Pick_2,0.09,Receiving,20 Tomatoes,1%
+15,Power_Pick_2,0.04,Receiving,20 Tomatoes,1%
+16,Power_Pick_2,0.08,Receiving,20 Tomatoes,1%
+17,Power_Pick_2,0.09,Receiving,20 Tomatoes,1%
+18,Power_Pick_2,0.06,Receiving,20 Tomatoes,1%
+19,Power_Pick_2,0.04,Receiving,20 Tomatoes,1%
+20,Power_Pick_3,0.07,Receiving,20 Tomatoes,1%
+21,Power_Pick_3,0.04,Receiving,20 Tomatoes,1%
+22,Power_Pick_3,0.05,Receiving,20 Tomatoes,1%
+23,Power_Pick_3,0.07,Receiving,20 Tomatoes,1%
+24,Power_Pick_3,0.04,Receiving,20 Tomatoes,1%
+25,Power_Pick_3,0.05,Receiving,20 Tomatoes,1%
+26,Power_Pick_3,0.05,Receiving,20 Tomatoes,1%
+27,Power_Pick_3,0.08,Receiving,20 Tomatoes,1%
+28,Power_Pick_3,0.09,Receiving,20 Tomatoes,1%
+29,Power_Pick_3,0.04,Receiving,20 Tomatoes,1%
+0,Power_Pick_1,0.12,Receiving,60 Tomatoes,1%
+1,Power_Pick_1,0.12,Receiving,60 Tomatoes,1%
+2,Power_Pick_1,0.11,Receiving,60 Tomatoes,1%
+3,Power_Pick_1,0.12,Receiving,60 Tomatoes,1%
+4,Power_Pick_1,0.11,Receiving,60 Tomatoes,1%
+5,Power_Pick_1,0.12,Receiving,60 Tomatoes,1%
+6,Power_Pick_1,0.1,Receiving,60 Tomatoes,1%
+7,Power_Pick_1,0.05,Receiving,60 Tomatoes,1%
+8,Power_Pick_1,0.05,Receiving,60 Tomatoes,1%
+9,Power_Pick_1,0.13,Receiving,60 Tomatoes,1%
+10,Power_Pick_2,0.16,Receiving,60 Tomatoes,1%
+11,Power_Pick_2,0.24,Receiving,60 Tomatoes,1%
+12,Power_Pick_2,0.22,Receiving,60 Tomatoes,1%
+13,Power_Pick_2,0.13,Receiving,60 Tomatoes,1%
+14,Power_Pick_2,0.17,Receiving,60 Tomatoes,1%
+15,Power_Pick_2,0.15,Receiving,60 Tomatoes,1%
+16,Power_Pick_2,0.15,Receiving,60 Tomatoes,1%
+17,Power_Pick_2,0.19,Receiving,60 Tomatoes,1%
+18,Power_Pick_2,0.2,Receiving,60 Tomatoes,1%
+19,Power_Pick_2,0.16,Receiving,60 Tomatoes,1%
+20,Power_Pick_3,0.13,Receiving,60 Tomatoes,1%
+21,Power_Pick_3,0.13,Receiving,60 Tomatoes,1%
+22,Power_Pick_3,0.12,Receiving,60 Tomatoes,1%
+23,Power_Pick_3,0.2,Receiving,60 Tomatoes,1%
+24,Power_Pick_3,0.13,Receiving,60 Tomatoes,1%
+25,Power_Pick_3,0.18,Receiving,60 Tomatoes,1%
+26,Power_Pick_3,0.21,Receiving,60 Tomatoes,1%
+27,Power_Pick_3,0.18,Receiving,60 Tomatoes,1%
+28,Power_Pick_3,0.14,Receiving,60 Tomatoes,1%
+29,Power_Pick_3,0.17,Receiving,60 Tomatoes,1%
+0,Power_Pick_1,0.04,Receiving,20 Tomato Mash,1%
+1,Power_Pick_1,0.04,Receiving,20 Tomato Mash,1%
+2,Power_Pick_1,0.03,Receiving,20 Tomato Mash,1%
+3,Power_Pick_1,0.02,Receiving,20 Tomato Mash,1%
+4,Power_Pick_1,0.03,Receiving,20 Tomato Mash,1%
+5,Power_Pick_1,0.02,Receiving,20 Tomato Mash,1%
+6,Power_Pick_1,0.03,Receiving,20 Tomato Mash,1%
+7,Power_Pick_1,0.03,Receiving,20 Tomato Mash,1%
+8,Power_Pick_1,0.04,Receiving,20 Tomato Mash,1%
+9,Power_Pick_1,0.03,Receiving,20 Tomato Mash,1%
+10,Power_Pick_2,0.0,Receiving,20 Tomato Mash,1%
+11,Power_Pick_2,0.05,Receiving,20 Tomato Mash,1%
+12,Power_Pick_2,0.05,Receiving,20 Tomato Mash,1%
+13,Power_Pick_2,0.02,Receiving,20 Tomato Mash,1%
+14,Power_Pick_2,0.05,Receiving,20 Tomato Mash,1%
+15,Power_Pick_2,0.05,Receiving,20 Tomato Mash,1%
+16,Power_Pick_2,0.04,Receiving,20 Tomato Mash,1%
+17,Power_Pick_2,0.06,Receiving,20 Tomato Mash,1%
+18,Power_Pick_2,0.05,Receiving,20 Tomato Mash,1%
+19,Power_Pick_2,0.03,Receiving,20 Tomato Mash,1%
+20,Power_Pick_3,0.07,Receiving,20 Tomato Mash,1%
+21,Power_Pick_3,0.01,Receiving,20 Tomato Mash,1%
+22,Power_Pick_3,0.06,Receiving,20 Tomato Mash,1%
+23,Power_Pick_3,0.05,Receiving,20 Tomato Mash,1%
+24,Power_Pick_3,0.07,Receiving,20 Tomato Mash,1%
+25,Power_Pick_3,0.01,Receiving,20 Tomato Mash,1%
+26,Power_Pick_3,0.04,Receiving,20 Tomato Mash,1%
+27,Power_Pick_3,0.05,Receiving,20 Tomato Mash,1%
+28,Power_Pick_3,0.03,Receiving,20 Tomato Mash,1%
+29,Power_Pick_3,0.05,Receiving,20 Tomato Mash,1%
+0,Power_Pick_1,0.06,Receiving,60 Tomato Mash,1%
+1,Power_Pick_1,0.09,Receiving,60 Tomato Mash,1%
+2,Power_Pick_1,0.07,Receiving,60 Tomato Mash,1%
+3,Power_Pick_1,0.06,Receiving,60 Tomato Mash,1%
+4,Power_Pick_1,0.12,Receiving,60 Tomato Mash,1%
+5,Power_Pick_1,0.13,Receiving,60 Tomato Mash,1%
+6,Power_Pick_1,0.1,Receiving,60 Tomato Mash,1%
+7,Power_Pick_1,0.06,Receiving,60 Tomato Mash,1%
+8,Power_Pick_1,0.08,Receiving,60 Tomato Mash,1%
+9,Power_Pick_1,0.13,Receiving,60 Tomato Mash,1%
+10,Power_Pick_2,0.12,Receiving,60 Tomato Mash,1%
+11,Power_Pick_2,0.13,Receiving,60 Tomato Mash,1%
+12,Power_Pick_2,0.13,Receiving,60 Tomato Mash,1%
+13,Power_Pick_2,0.09,Receiving,60 Tomato Mash,1%
+14,Power_Pick_2,0.07,Receiving,60 Tomato Mash,1%
+15,Power_Pick_2,0.1,Receiving,60 Tomato Mash,1%
+16,Power_Pick_2,0.12,Receiving,60 Tomato Mash,1%
+17,Power_Pick_2,0.09,Receiving,60 Tomato Mash,1%
+18,Power_Pick_2,0.11,Receiving,60 Tomato Mash,1%
+19,Power_Pick_2,0.14,Receiving,60 Tomato Mash,1%
+20,Power_Pick_3,0.07,Receiving,60 Tomato Mash,1%
+21,Power_Pick_3,0.13,Receiving,60 Tomato Mash,1%
+22,Power_Pick_3,0.12,Receiving,60 Tomato Mash,1%
+23,Power_Pick_3,0.07,Receiving,60 Tomato Mash,1%
+24,Power_Pick_3,0.08,Receiving,60 Tomato Mash,1%
+25,Power_Pick_3,0.09,Receiving,60 Tomato Mash,1%
+26,Power_Pick_3,0.13,Receiving,60 Tomato Mash,1%
+27,Power_Pick_3,0.14,Receiving,60 Tomato Mash,1%
+28,Power_Pick_3,0.13,Receiving,60 Tomato Mash,1%
+29,Power_Pick_3,0.11,Receiving,60 Tomato Mash,1%
+0,Power_Pick_1,0.0,Receiving,2 Tomatoes,1%
+1,Power_Pick_1,0.01,Receiving,2 Tomatoes,1%
+2,Power_Pick_1,0.0,Receiving,2 Tomatoes,1%
+3,Power_Pick_1,0.02,Receiving,2 Tomatoes,1%
+4,Power_Pick_1,0.0,Receiving,2 Tomatoes,1%
+5,Power_Pick_1,0.01,Receiving,2 Tomatoes,1%
+6,Power_Pick_1,0.0,Receiving,2 Tomatoes,1%
+7,Power_Pick_1,0.01,Receiving,2 Tomatoes,1%
+8,Power_Pick_1,0.0,Receiving,2 Tomatoes,1%
+9,Power_Pick_1,0.0,Receiving,2 Tomatoes,1%
+10,Power_Pick_2,0.01,Receiving,2 Tomatoes,1%
+11,Power_Pick_2,0.02,Receiving,2 Tomatoes,1%
+12,Power_Pick_2,0.01,Receiving,2 Tomatoes,1%
+13,Power_Pick_2,0.0,Receiving,2 Tomatoes,1%
+14,Power_Pick_2,0.01,Receiving,2 Tomatoes,1%
+15,Power_Pick_2,0.0,Receiving,2 Tomatoes,1%
+16,Power_Pick_2,0.01,Receiving,2 Tomatoes,1%
+17,Power_Pick_2,0.01,Receiving,2 Tomatoes,1%
+18,Power_Pick_2,0.02,Receiving,2 Tomatoes,1%
+19,Power_Pick_2,0.0,Receiving,2 Tomatoes,1%
+20,Power_Pick_3,0.01,Receiving,2 Tomatoes,1%
+21,Power_Pick_3,0.02,Receiving,2 Tomatoes,1%
+22,Power_Pick_3,0.0,Receiving,2 Tomatoes,1%
+23,Power_Pick_3,0.0,Receiving,2 Tomatoes,1%
+24,Power_Pick_3,0.01,Receiving,2 Tomatoes,1%
+25,Power_Pick_3,0.0,Receiving,2 Tomatoes,1%
+26,Power_Pick_3,0.03,Receiving,2 Tomatoes,1%
+27,Power_Pick_3,0.03,Receiving,2 Tomatoes,1%
+28,Power_Pick_3,0.01,Receiving,2 Tomatoes,1%
+29,Power_Pick_3,0.01,Receiving,2 Tomatoes,1%
+0,Power_Pick_1,0.01,Packed Product,6 Tomatoes,1%
+1,Power_Pick_1,0.02,Packed Product,6 Tomatoes,1%
+2,Power_Pick_1,0.01,Packed Product,6 Tomatoes,1%
+3,Power_Pick_1,0.04,Packed Product,6 Tomatoes,1%
+4,Power_Pick_1,0.0,Packed Product,6 Tomatoes,1%
+5,Power_Pick_1,0.03,Packed Product,6 Tomatoes,1%
+6,Power_Pick_1,0.0,Packed Product,6 Tomatoes,1%
+7,Power_Pick_1,0.02,Packed Product,6 Tomatoes,1%
+8,Power_Pick_1,0.0,Packed Product,6 Tomatoes,1%
+9,Power_Pick_1,0.01,Packed Product,6 Tomatoes,1%
+10,Power_Pick_2,0.02,Packed Product,6 Tomatoes,1%
+11,Power_Pick_2,0.02,Packed Product,6 Tomatoes,1%
+12,Power_Pick_2,0.04,Packed Product,6 Tomatoes,1%
+13,Power_Pick_2,0.02,Packed Product,6 Tomatoes,1%
+14,Power_Pick_2,0.01,Packed Product,6 Tomatoes,1%
+15,Power_Pick_2,0.0,Packed Product,6 Tomatoes,1%
+16,Power_Pick_2,0.01,Packed Product,6 Tomatoes,1%
+17,Power_Pick_2,0.03,Packed Product,6 Tomatoes,1%
+18,Power_Pick_2,0.01,Packed Product,6 Tomatoes,1%
+19,Power_Pick_2,0.02,Packed Product,6 Tomatoes,1%
+20,Power_Pick_3,0.03,Packed Product,6 Tomatoes,1%
+21,Power_Pick_3,0.01,Packed Product,6 Tomatoes,1%
+22,Power_Pick_3,0.04,Packed Product,6 Tomatoes,1%
+23,Power_Pick_3,0.04,Packed Product,6 Tomatoes,1%
+24,Power_Pick_3,0.01,Packed Product,6 Tomatoes,1%
+25,Power_Pick_3,0.03,Packed Product,6 Tomatoes,1%
+26,Power_Pick_3,0.03,Packed Product,6 Tomatoes,1%
+27,Power_Pick_3,0.02,Packed Product,6 Tomatoes,1%
+28,Power_Pick_3,0.04,Packed Product,6 Tomatoes,1%
+29,Power_Pick_3,0.02,Packed Product,6 Tomatoes,1%
+0,Power_Pick_1,0.03,Packed Product,20 Tomatoes,1%
+1,Power_Pick_1,0.05,Packed Product,20 Tomatoes,1%
+2,Power_Pick_1,0.05,Packed Product,20 Tomatoes,1%
+3,Power_Pick_1,0.07,Packed Product,20 Tomatoes,1%
+4,Power_Pick_1,0.02,Packed Product,20 Tomatoes,1%
+5,Power_Pick_1,0.07,Packed Product,20 Tomatoes,1%
+6,Power_Pick_1,0.02,Packed Product,20 Tomatoes,1%
+7,Power_Pick_1,0.03,Packed Product,20 Tomatoes,1%
+8,Power_Pick_1,0.01,Packed Product,20 Tomatoes,1%
+9,Power_Pick_1,0.03,Packed Product,20 Tomatoes,1%
+10,Power_Pick_2,0.14,Packed Product,20 Tomatoes,1%
+11,Power_Pick_2,0.05,Packed Product,20 Tomatoes,1%
+12,Power_Pick_2,0.07,Packed Product,20 Tomatoes,1%
+13,Power_Pick_2,0.05,Packed Product,20 Tomatoes,1%
+14,Power_Pick_2,0.09,Packed Product,20 Tomatoes,1%
+15,Power_Pick_2,0.04,Packed Product,20 Tomatoes,1%
+16,Power_Pick_2,0.06,Packed Product,20 Tomatoes,1%
+17,Power_Pick_2,0.1,Packed Product,20 Tomatoes,1%
+18,Power_Pick_2,0.05,Packed Product,20 Tomatoes,1%
+19,Power_Pick_2,0.04,Packed Product,20 Tomatoes,1%
+20,Power_Pick_3,0.04,Packed Product,20 Tomatoes,1%
+21,Power_Pick_3,0.04,Packed Product,20 Tomatoes,1%
+22,Power_Pick_3,0.05,Packed Product,20 Tomatoes,1%
+23,Power_Pick_3,0.08,Packed Product,20 Tomatoes,1%
+24,Power_Pick_3,0.03,Packed Product,20 Tomatoes,1%
+25,Power_Pick_3,0.05,Packed Product,20 Tomatoes,1%
+26,Power_Pick_3,0.04,Packed Product,20 Tomatoes,1%
+27,Power_Pick_3,0.06,Packed Product,20 Tomatoes,1%
+28,Power_Pick_3,0.08,Packed Product,20 Tomatoes,1%
+29,Power_Pick_3,0.04,Packed Product,20 Tomatoes,1%
+0,Power_Pick_1,0.12,Packed Product,60 Tomatoes,1%
+1,Power_Pick_1,0.11,Packed Product,60 Tomatoes,1%
+2,Power_Pick_1,0.11,Packed Product,60 Tomatoes,1%
+3,Power_Pick_1,0.12,Packed Product,60 Tomatoes,1%
+4,Power_Pick_1,0.11,Packed Product,60 Tomatoes,1%
+5,Power_Pick_1,0.12,Packed Product,60 Tomatoes,1%
+6,Power_Pick_1,0.1,Packed Product,60 Tomatoes,1%
+7,Power_Pick_1,0.05,Packed Product,60 Tomatoes,1%
+8,Power_Pick_1,0.05,Packed Product,60 Tomatoes,1%
+9,Power_Pick_1,0.13,Packed Product,60 Tomatoes,1%
+10,Power_Pick_2,0.16,Packed Product,60 Tomatoes,1%
+11,Power_Pick_2,0.24,Packed Product,60 Tomatoes,1%
+12,Power_Pick_2,0.21,Packed Product,60 Tomatoes,1%
+13,Power_Pick_2,0.15,Packed Product,60 Tomatoes,1%
+14,Power_Pick_2,0.16,Packed Product,60 Tomatoes,1%
+15,Power_Pick_2,0.14,Packed Product,60 Tomatoes,1%
+16,Power_Pick_2,0.16,Packed Product,60 Tomatoes,1%
+17,Power_Pick_2,0.18,Packed Product,60 Tomatoes,1%
+18,Power_Pick_2,0.21,Packed Product,60 Tomatoes,1%
+19,Power_Pick_2,0.17,Packed Product,60 Tomatoes,1%
+20,Power_Pick_3,0.13,Packed Product,60 Tomatoes,1%
+21,Power_Pick_3,0.09,Packed Product,60 Tomatoes,1%
+22,Power_Pick_3,0.13,Packed Product,60 Tomatoes,1%
+23,Power_Pick_3,0.22,Packed Product,60 Tomatoes,1%
+24,Power_Pick_3,0.15,Packed Product,60 Tomatoes,1%
+25,Power_Pick_3,0.16,Packed Product,60 Tomatoes,1%
+26,Power_Pick_3,0.19,Packed Product,60 Tomatoes,1%
+27,Power_Pick_3,0.17,Packed Product,60 Tomatoes,1%
+28,Power_Pick_3,0.15,Packed Product,60 Tomatoes,1%
+29,Power_Pick_3,0.16,Packed Product,60 Tomatoes,1%
+0,Power_Pick_1,0.04,Packed Product,20 Tomato Mash,1%
+1,Power_Pick_1,0.06,Packed Product,20 Tomato Mash,1%
+2,Power_Pick_1,0.03,Packed Product,20 Tomato Mash,1%
+3,Power_Pick_1,0.02,Packed Product,20 Tomato Mash,1%
+4,Power_Pick_1,0.03,Packed Product,20 Tomato Mash,1%
+5,Power_Pick_1,0.02,Packed Product,20 Tomato Mash,1%
+6,Power_Pick_1,0.04,Packed Product,20 Tomato Mash,1%
+7,Power_Pick_1,0.03,Packed Product,20 Tomato Mash,1%
+8,Power_Pick_1,0.05,Packed Product,20 Tomato Mash,1%
+9,Power_Pick_1,0.04,Packed Product,20 Tomato Mash,1%
+10,Power_Pick_2,0.0,Packed Product,20 Tomato Mash,1%
+11,Power_Pick_2,0.04,Packed Product,20 Tomato Mash,1%
+12,Power_Pick_2,0.05,Packed Product,20 Tomato Mash,1%
+13,Power_Pick_2,0.03,Packed Product,20 Tomato Mash,1%
+14,Power_Pick_2,0.04,Packed Product,20 Tomato Mash,1%
+15,Power_Pick_2,0.04,Packed Product,20 Tomato Mash,1%
+16,Power_Pick_2,0.04,Packed Product,20 Tomato Mash,1%
+17,Power_Pick_2,0.06,Packed Product,20 Tomato Mash,1%
+18,Power_Pick_2,0.05,Packed Product,20 Tomato Mash,1%
+19,Power_Pick_2,0.04,Packed Product,20 Tomato Mash,1%
+20,Power_Pick_3,0.05,Packed Product,20 Tomato Mash,1%
+21,Power_Pick_3,0.01,Packed Product,20 Tomato Mash,1%
+22,Power_Pick_3,0.06,Packed Product,20 Tomato Mash,1%
+23,Power_Pick_3,0.05,Packed Product,20 Tomato Mash,1%
+24,Power_Pick_3,0.06,Packed Product,20 Tomato Mash,1%
+25,Power_Pick_3,0.01,Packed Product,20 Tomato Mash,1%
+26,Power_Pick_3,0.04,Packed Product,20 Tomato Mash,1%
+27,Power_Pick_3,0.04,Packed Product,20 Tomato Mash,1%
+28,Power_Pick_3,0.06,Packed Product,20 Tomato Mash,1%
+29,Power_Pick_3,0.05,Packed Product,20 Tomato Mash,1%
+0,Power_Pick_1,0.08,Packed Product,60 Tomato Mash,1%
+1,Power_Pick_1,0.08,Packed Product,60 Tomato Mash,1%
+2,Power_Pick_1,0.07,Packed Product,60 Tomato Mash,1%
+3,Power_Pick_1,0.05,Packed Product,60 Tomato Mash,1%
+4,Power_Pick_1,0.12,Packed Product,60 Tomato Mash,1%
+5,Power_Pick_1,0.13,Packed Product,60 Tomato Mash,1%
+6,Power_Pick_1,0.1,Packed Product,60 Tomato Mash,1%
+7,Power_Pick_1,0.06,Packed Product,60 Tomato Mash,1%
+8,Power_Pick_1,0.08,Packed Product,60 Tomato Mash,1%
+9,Power_Pick_1,0.13,Packed Product,60 Tomato Mash,1%
+10,Power_Pick_2,0.11,Packed Product,60 Tomato Mash,1%
+11,Power_Pick_2,0.12,Packed Product,60 Tomato Mash,1%
+12,Power_Pick_2,0.13,Packed Product,60 Tomato Mash,1%
+13,Power_Pick_2,0.09,Packed Product,60 Tomato Mash,1%
+14,Power_Pick_2,0.06,Packed Product,60 Tomato Mash,1%
+15,Power_Pick_2,0.1,Packed Product,60 Tomato Mash,1%
+16,Power_Pick_2,0.11,Packed Product,60 Tomato Mash,1%
+17,Power_Pick_2,0.09,Packed Product,60 Tomato Mash,1%
+18,Power_Pick_2,0.1,Packed Product,60 Tomato Mash,1%
+19,Power_Pick_2,0.13,Packed Product,60 Tomato Mash,1%
+20,Power_Pick_3,0.07,Packed Product,60 Tomato Mash,1%
+21,Power_Pick_3,0.11,Packed Product,60 Tomato Mash,1%
+22,Power_Pick_3,0.12,Packed Product,60 Tomato Mash,1%
+23,Power_Pick_3,0.06,Packed Product,60 Tomato Mash,1%
+24,Power_Pick_3,0.09,Packed Product,60 Tomato Mash,1%
+25,Power_Pick_3,0.09,Packed Product,60 Tomato Mash,1%
+26,Power_Pick_3,0.13,Packed Product,60 Tomato Mash,1%
+27,Power_Pick_3,0.12,Packed Product,60 Tomato Mash,1%
+28,Power_Pick_3,0.12,Packed Product,60 Tomato Mash,1%
+29,Power_Pick_3,0.1,Packed Product,60 Tomato Mash,1%
+0,Power_Pick_1,0.0,Preharvest,2 Tomatoes,0.1%
+1,Power_Pick_1,0.01,Preharvest,2 Tomatoes,0.1%
+2,Power_Pick_1,0.0,Preharvest,2 Tomatoes,0.1%
+3,Power_Pick_1,0.0,Preharvest,2 Tomatoes,0.1%
+4,Power_Pick_1,0.0,Preharvest,2 Tomatoes,0.1%
+5,Power_Pick_1,0.0,Preharvest,2 Tomatoes,0.1%
+6,Power_Pick_1,0.01,Preharvest,2 Tomatoes,0.1%
+7,Power_Pick_1,0.0,Preharvest,2 Tomatoes,0.1%
+8,Power_Pick_1,0.0,Preharvest,2 Tomatoes,0.1%
+9,Power_Pick_1,0.0,Preharvest,2 Tomatoes,0.1%
+10,Power_Pick_2,0.0,Preharvest,2 Tomatoes,0.1%
+11,Power_Pick_2,0.0,Preharvest,2 Tomatoes,0.1%
+12,Power_Pick_2,0.0,Preharvest,2 Tomatoes,0.1%
+13,Power_Pick_2,0.0,Preharvest,2 Tomatoes,0.1%
+14,Power_Pick_2,0.01,Preharvest,2 Tomatoes,0.1%
+15,Power_Pick_2,0.01,Preharvest,2 Tomatoes,0.1%
+16,Power_Pick_2,0.0,Preharvest,2 Tomatoes,0.1%
+17,Power_Pick_2,0.0,Preharvest,2 Tomatoes,0.1%
+18,Power_Pick_2,0.0,Preharvest,2 Tomatoes,0.1%
+19,Power_Pick_2,0.0,Preharvest,2 Tomatoes,0.1%
+20,Power_Pick_3,0.0,Preharvest,2 Tomatoes,0.1%
+21,Power_Pick_3,0.0,Preharvest,2 Tomatoes,0.1%
+22,Power_Pick_3,0.0,Preharvest,2 Tomatoes,0.1%
+23,Power_Pick_3,0.0,Preharvest,2 Tomatoes,0.1%
+24,Power_Pick_3,0.0,Preharvest,2 Tomatoes,0.1%
+25,Power_Pick_3,0.0,Preharvest,2 Tomatoes,0.1%
+26,Power_Pick_3,0.0,Preharvest,2 Tomatoes,0.1%
+27,Power_Pick_3,0.0,Preharvest,2 Tomatoes,0.1%
+28,Power_Pick_3,0.0,Preharvest,2 Tomatoes,0.1%
+29,Power_Pick_3,0.0,Preharvest,2 Tomatoes,0.1%
+0,Power_Pick_1,0.0,Preharvest,6 Tomatoes,0.1%
+1,Power_Pick_1,0.01,Preharvest,6 Tomatoes,0.1%
+2,Power_Pick_1,0.01,Preharvest,6 Tomatoes,0.1%
+3,Power_Pick_1,0.0,Preharvest,6 Tomatoes,0.1%
+4,Power_Pick_1,0.0,Preharvest,6 Tomatoes,0.1%
+5,Power_Pick_1,0.0,Preharvest,6 Tomatoes,0.1%
+6,Power_Pick_1,0.01,Preharvest,6 Tomatoes,0.1%
+7,Power_Pick_1,0.0,Preharvest,6 Tomatoes,0.1%
+8,Power_Pick_1,0.0,Preharvest,6 Tomatoes,0.1%
+9,Power_Pick_1,0.0,Preharvest,6 Tomatoes,0.1%
+10,Power_Pick_2,0.0,Preharvest,6 Tomatoes,0.1%
+11,Power_Pick_2,0.0,Preharvest,6 Tomatoes,0.1%
+12,Power_Pick_2,0.0,Preharvest,6 Tomatoes,0.1%
+13,Power_Pick_2,0.0,Preharvest,6 Tomatoes,0.1%
+14,Power_Pick_2,0.0,Preharvest,6 Tomatoes,0.1%
+15,Power_Pick_2,0.02,Preharvest,6 Tomatoes,0.1%
+16,Power_Pick_2,0.0,Preharvest,6 Tomatoes,0.1%
+17,Power_Pick_2,0.01,Preharvest,6 Tomatoes,0.1%
+18,Power_Pick_2,0.01,Preharvest,6 Tomatoes,0.1%
+19,Power_Pick_2,0.0,Preharvest,6 Tomatoes,0.1%
+20,Power_Pick_3,0.0,Preharvest,6 Tomatoes,0.1%
+21,Power_Pick_3,0.01,Preharvest,6 Tomatoes,0.1%
+22,Power_Pick_3,0.0,Preharvest,6 Tomatoes,0.1%
+23,Power_Pick_3,0.0,Preharvest,6 Tomatoes,0.1%
+24,Power_Pick_3,0.02,Preharvest,6 Tomatoes,0.1%
+25,Power_Pick_3,0.0,Preharvest,6 Tomatoes,0.1%
+26,Power_Pick_3,0.01,Preharvest,6 Tomatoes,0.1%
+27,Power_Pick_3,0.0,Preharvest,6 Tomatoes,0.1%
+28,Power_Pick_3,0.0,Preharvest,6 Tomatoes,0.1%
+29,Power_Pick_3,0.0,Preharvest,6 Tomatoes,0.1%
+0,Power_Pick_1,0.0,Preharvest,20 Tomatoes,0.1%
+1,Power_Pick_1,0.02,Preharvest,20 Tomatoes,0.1%
+2,Power_Pick_1,0.01,Preharvest,20 Tomatoes,0.1%
+3,Power_Pick_1,0.01,Preharvest,20 Tomatoes,0.1%
+4,Power_Pick_1,0.0,Preharvest,20 Tomatoes,0.1%
+5,Power_Pick_1,0.01,Preharvest,20 Tomatoes,0.1%
+6,Power_Pick_1,0.02,Preharvest,20 Tomatoes,0.1%
+7,Power_Pick_1,0.0,Preharvest,20 Tomatoes,0.1%
+8,Power_Pick_1,0.0,Preharvest,20 Tomatoes,0.1%
+9,Power_Pick_1,0.0,Preharvest,20 Tomatoes,0.1%
+10,Power_Pick_2,0.0,Preharvest,20 Tomatoes,0.1%
+11,Power_Pick_2,0.02,Preharvest,20 Tomatoes,0.1%
+12,Power_Pick_2,0.01,Preharvest,20 Tomatoes,0.1%
+13,Power_Pick_2,0.0,Preharvest,20 Tomatoes,0.1%
+14,Power_Pick_2,0.01,Preharvest,20 Tomatoes,0.1%
+15,Power_Pick_2,0.04,Preharvest,20 Tomatoes,0.1%
+16,Power_Pick_2,0.0,Preharvest,20 Tomatoes,0.1%
+17,Power_Pick_2,0.02,Preharvest,20 Tomatoes,0.1%
+18,Power_Pick_2,0.0,Preharvest,20 Tomatoes,0.1%
+19,Power_Pick_2,0.0,Preharvest,20 Tomatoes,0.1%
+20,Power_Pick_3,0.03,Preharvest,20 Tomatoes,0.1%
+21,Power_Pick_3,0.0,Preharvest,20 Tomatoes,0.1%
+22,Power_Pick_3,0.01,Preharvest,20 Tomatoes,0.1%
+23,Power_Pick_3,0.0,Preharvest,20 Tomatoes,0.1%
+24,Power_Pick_3,0.01,Preharvest,20 Tomatoes,0.1%
+25,Power_Pick_3,0.02,Preharvest,20 Tomatoes,0.1%
+26,Power_Pick_3,0.03,Preharvest,20 Tomatoes,0.1%
+27,Power_Pick_3,0.02,Preharvest,20 Tomatoes,0.1%
+28,Power_Pick_3,0.01,Preharvest,20 Tomatoes,0.1%
+29,Power_Pick_3,0.0,Preharvest,20 Tomatoes,0.1%
+0,Power_Pick_1,0.0,Preharvest,60 Tomatoes,0.1%
+1,Power_Pick_1,0.03,Preharvest,60 Tomatoes,0.1%
+2,Power_Pick_1,0.01,Preharvest,60 Tomatoes,0.1%
+3,Power_Pick_1,0.01,Preharvest,60 Tomatoes,0.1%
+4,Power_Pick_1,0.01,Preharvest,60 Tomatoes,0.1%
+5,Power_Pick_1,0.02,Preharvest,60 Tomatoes,0.1%
+6,Power_Pick_1,0.03,Preharvest,60 Tomatoes,0.1%
+7,Power_Pick_1,0.01,Preharvest,60 Tomatoes,0.1%
+8,Power_Pick_1,0.0,Preharvest,60 Tomatoes,0.1%
+9,Power_Pick_1,0.01,Preharvest,60 Tomatoes,0.1%
+10,Power_Pick_2,0.05,Preharvest,60 Tomatoes,0.1%
+11,Power_Pick_2,0.03,Preharvest,60 Tomatoes,0.1%
+12,Power_Pick_2,0.02,Preharvest,60 Tomatoes,0.1%
+13,Power_Pick_2,0.0,Preharvest,60 Tomatoes,0.1%
+14,Power_Pick_2,0.03,Preharvest,60 Tomatoes,0.1%
+15,Power_Pick_2,0.05,Preharvest,60 Tomatoes,0.1%
+16,Power_Pick_2,0.04,Preharvest,60 Tomatoes,0.1%
+17,Power_Pick_2,0.04,Preharvest,60 Tomatoes,0.1%
+18,Power_Pick_2,0.03,Preharvest,60 Tomatoes,0.1%
+19,Power_Pick_2,0.04,Preharvest,60 Tomatoes,0.1%
+20,Power_Pick_3,0.05,Preharvest,60 Tomatoes,0.1%
+21,Power_Pick_3,0.06,Preharvest,60 Tomatoes,0.1%
+22,Power_Pick_3,0.03,Preharvest,60 Tomatoes,0.1%
+23,Power_Pick_3,0.02,Preharvest,60 Tomatoes,0.1%
+24,Power_Pick_3,0.02,Preharvest,60 Tomatoes,0.1%
+25,Power_Pick_3,0.04,Preharvest,60 Tomatoes,0.1%
+26,Power_Pick_3,0.05,Preharvest,60 Tomatoes,0.1%
+27,Power_Pick_3,0.04,Preharvest,60 Tomatoes,0.1%
+28,Power_Pick_3,0.03,Preharvest,60 Tomatoes,0.1%
+29,Power_Pick_3,0.03,Preharvest,60 Tomatoes,0.1%
+0,Power_Pick_1,0.01,Preharvest,20 Tomato Mash,0.1%
+1,Power_Pick_1,0.01,Preharvest,20 Tomato Mash,0.1%
+2,Power_Pick_1,0.0,Preharvest,20 Tomato Mash,0.1%
+3,Power_Pick_1,0.0,Preharvest,20 Tomato Mash,0.1%
+4,Power_Pick_1,0.0,Preharvest,20 Tomato Mash,0.1%
+5,Power_Pick_1,0.0,Preharvest,20 Tomato Mash,0.1%
+6,Power_Pick_1,0.02,Preharvest,20 Tomato Mash,0.1%
+7,Power_Pick_1,0.0,Preharvest,20 Tomato Mash,0.1%
+8,Power_Pick_1,0.0,Preharvest,20 Tomato Mash,0.1%
+9,Power_Pick_1,0.01,Preharvest,20 Tomato Mash,0.1%
+10,Power_Pick_2,0.01,Preharvest,20 Tomato Mash,0.1%
+11,Power_Pick_2,0.0,Preharvest,20 Tomato Mash,0.1%
+12,Power_Pick_2,0.02,Preharvest,20 Tomato Mash,0.1%
+13,Power_Pick_2,0.01,Preharvest,20 Tomato Mash,0.1%
+14,Power_Pick_2,0.01,Preharvest,20 Tomato Mash,0.1%
+15,Power_Pick_2,0.01,Preharvest,20 Tomato Mash,0.1%
+16,Power_Pick_2,0.0,Preharvest,20 Tomato Mash,0.1%
+17,Power_Pick_2,0.0,Preharvest,20 Tomato Mash,0.1%
+18,Power_Pick_2,0.01,Preharvest,20 Tomato Mash,0.1%
+19,Power_Pick_2,0.01,Preharvest,20 Tomato Mash,0.1%
+20,Power_Pick_3,0.0,Preharvest,20 Tomato Mash,0.1%
+21,Power_Pick_3,0.0,Preharvest,20 Tomato Mash,0.1%
+22,Power_Pick_3,0.0,Preharvest,20 Tomato Mash,0.1%
+23,Power_Pick_3,0.0,Preharvest,20 Tomato Mash,0.1%
+24,Power_Pick_3,0.01,Preharvest,20 Tomato Mash,0.1%
+25,Power_Pick_3,0.02,Preharvest,20 Tomato Mash,0.1%
+26,Power_Pick_3,0.02,Preharvest,20 Tomato Mash,0.1%
+27,Power_Pick_3,0.02,Preharvest,20 Tomato Mash,0.1%
+28,Power_Pick_3,0.0,Preharvest,20 Tomato Mash,0.1%
+29,Power_Pick_3,0.03,Preharvest,20 Tomato Mash,0.1%
+0,Power_Pick_1,0.01,Preharvest,60 Tomato Mash,0.1%
+1,Power_Pick_1,0.02,Preharvest,60 Tomato Mash,0.1%
+2,Power_Pick_1,0.02,Preharvest,60 Tomato Mash,0.1%
+3,Power_Pick_1,0.01,Preharvest,60 Tomato Mash,0.1%
+4,Power_Pick_1,0.0,Preharvest,60 Tomato Mash,0.1%
+5,Power_Pick_1,0.01,Preharvest,60 Tomato Mash,0.1%
+6,Power_Pick_1,0.02,Preharvest,60 Tomato Mash,0.1%
+7,Power_Pick_1,0.0,Preharvest,60 Tomato Mash,0.1%
+8,Power_Pick_1,0.02,Preharvest,60 Tomato Mash,0.1%
+9,Power_Pick_1,0.04,Preharvest,60 Tomato Mash,0.1%
+10,Power_Pick_2,0.03,Preharvest,60 Tomato Mash,0.1%
+11,Power_Pick_2,0.01,Preharvest,60 Tomato Mash,0.1%
+12,Power_Pick_2,0.01,Preharvest,60 Tomato Mash,0.1%
+13,Power_Pick_2,0.0,Preharvest,60 Tomato Mash,0.1%
+14,Power_Pick_2,0.04,Preharvest,60 Tomato Mash,0.1%
+15,Power_Pick_2,0.04,Preharvest,60 Tomato Mash,0.1%
+16,Power_Pick_2,0.01,Preharvest,60 Tomato Mash,0.1%
+17,Power_Pick_2,0.0,Preharvest,60 Tomato Mash,0.1%
+18,Power_Pick_2,0.03,Preharvest,60 Tomato Mash,0.1%
+19,Power_Pick_2,0.03,Preharvest,60 Tomato Mash,0.1%
+20,Power_Pick_3,0.05,Preharvest,60 Tomato Mash,0.1%
+21,Power_Pick_3,0.0,Preharvest,60 Tomato Mash,0.1%
+22,Power_Pick_3,0.05,Preharvest,60 Tomato Mash,0.1%
+23,Power_Pick_3,0.02,Preharvest,60 Tomato Mash,0.1%
+24,Power_Pick_3,0.04,Preharvest,60 Tomato Mash,0.1%
+25,Power_Pick_3,0.03,Preharvest,60 Tomato Mash,0.1%
+26,Power_Pick_3,0.02,Preharvest,60 Tomato Mash,0.1%
+27,Power_Pick_3,0.01,Preharvest,60 Tomato Mash,0.1%
+28,Power_Pick_3,0.02,Preharvest,60 Tomato Mash,0.1%
+29,Power_Pick_3,0.01,Preharvest,60 Tomato Mash,0.1%
+0,Power_Pick_1,0.0,Harvest,2 Tomatoes,0.1%
+1,Power_Pick_1,0.01,Harvest,2 Tomatoes,0.1%
+2,Power_Pick_1,0.0,Harvest,2 Tomatoes,0.1%
+3,Power_Pick_1,0.0,Harvest,2 Tomatoes,0.1%
+4,Power_Pick_1,0.0,Harvest,2 Tomatoes,0.1%
+5,Power_Pick_1,0.0,Harvest,2 Tomatoes,0.1%
+6,Power_Pick_1,0.01,Harvest,2 Tomatoes,0.1%
+7,Power_Pick_1,0.0,Harvest,2 Tomatoes,0.1%
+8,Power_Pick_1,0.0,Harvest,2 Tomatoes,0.1%
+9,Power_Pick_1,0.0,Harvest,2 Tomatoes,0.1%
+10,Power_Pick_2,0.0,Harvest,2 Tomatoes,0.1%
+11,Power_Pick_2,0.0,Harvest,2 Tomatoes,0.1%
+12,Power_Pick_2,0.0,Harvest,2 Tomatoes,0.1%
+13,Power_Pick_2,0.0,Harvest,2 Tomatoes,0.1%
+14,Power_Pick_2,0.01,Harvest,2 Tomatoes,0.1%
+15,Power_Pick_2,0.01,Harvest,2 Tomatoes,0.1%
+16,Power_Pick_2,0.0,Harvest,2 Tomatoes,0.1%
+17,Power_Pick_2,0.0,Harvest,2 Tomatoes,0.1%
+18,Power_Pick_2,0.0,Harvest,2 Tomatoes,0.1%
+19,Power_Pick_2,0.0,Harvest,2 Tomatoes,0.1%
+20,Power_Pick_3,0.0,Harvest,2 Tomatoes,0.1%
+21,Power_Pick_3,0.0,Harvest,2 Tomatoes,0.1%
+22,Power_Pick_3,0.0,Harvest,2 Tomatoes,0.1%
+23,Power_Pick_3,0.0,Harvest,2 Tomatoes,0.1%
+24,Power_Pick_3,0.0,Harvest,2 Tomatoes,0.1%
+25,Power_Pick_3,0.0,Harvest,2 Tomatoes,0.1%
+26,Power_Pick_3,0.0,Harvest,2 Tomatoes,0.1%
+27,Power_Pick_3,0.0,Harvest,2 Tomatoes,0.1%
+28,Power_Pick_3,0.0,Harvest,2 Tomatoes,0.1%
+29,Power_Pick_3,0.0,Harvest,2 Tomatoes,0.1%
+0,Power_Pick_1,0.0,Harvest,6 Tomatoes,0.1%
+1,Power_Pick_1,0.01,Harvest,6 Tomatoes,0.1%
+2,Power_Pick_1,0.01,Harvest,6 Tomatoes,0.1%
+3,Power_Pick_1,0.0,Harvest,6 Tomatoes,0.1%
+4,Power_Pick_1,0.0,Harvest,6 Tomatoes,0.1%
+5,Power_Pick_1,0.0,Harvest,6 Tomatoes,0.1%
+6,Power_Pick_1,0.01,Harvest,6 Tomatoes,0.1%
+7,Power_Pick_1,0.0,Harvest,6 Tomatoes,0.1%
+8,Power_Pick_1,0.0,Harvest,6 Tomatoes,0.1%
+9,Power_Pick_1,0.0,Harvest,6 Tomatoes,0.1%
+10,Power_Pick_2,0.0,Harvest,6 Tomatoes,0.1%
+11,Power_Pick_2,0.0,Harvest,6 Tomatoes,0.1%
+12,Power_Pick_2,0.0,Harvest,6 Tomatoes,0.1%
+13,Power_Pick_2,0.0,Harvest,6 Tomatoes,0.1%
+14,Power_Pick_2,0.0,Harvest,6 Tomatoes,0.1%
+15,Power_Pick_2,0.02,Harvest,6 Tomatoes,0.1%
+16,Power_Pick_2,0.0,Harvest,6 Tomatoes,0.1%
+17,Power_Pick_2,0.01,Harvest,6 Tomatoes,0.1%
+18,Power_Pick_2,0.01,Harvest,6 Tomatoes,0.1%
+19,Power_Pick_2,0.0,Harvest,6 Tomatoes,0.1%
+20,Power_Pick_3,0.0,Harvest,6 Tomatoes,0.1%
+21,Power_Pick_3,0.01,Harvest,6 Tomatoes,0.1%
+22,Power_Pick_3,0.0,Harvest,6 Tomatoes,0.1%
+23,Power_Pick_3,0.0,Harvest,6 Tomatoes,0.1%
+24,Power_Pick_3,0.02,Harvest,6 Tomatoes,0.1%
+25,Power_Pick_3,0.0,Harvest,6 Tomatoes,0.1%
+26,Power_Pick_3,0.01,Harvest,6 Tomatoes,0.1%
+27,Power_Pick_3,0.0,Harvest,6 Tomatoes,0.1%
+28,Power_Pick_3,0.0,Harvest,6 Tomatoes,0.1%
+29,Power_Pick_3,0.0,Harvest,6 Tomatoes,0.1%
+0,Power_Pick_1,0.0,Harvest,20 Tomatoes,0.1%
+1,Power_Pick_1,0.02,Harvest,20 Tomatoes,0.1%
+2,Power_Pick_1,0.01,Harvest,20 Tomatoes,0.1%
+3,Power_Pick_1,0.01,Harvest,20 Tomatoes,0.1%
+4,Power_Pick_1,0.0,Harvest,20 Tomatoes,0.1%
+5,Power_Pick_1,0.01,Harvest,20 Tomatoes,0.1%
+6,Power_Pick_1,0.02,Harvest,20 Tomatoes,0.1%
+7,Power_Pick_1,0.0,Harvest,20 Tomatoes,0.1%
+8,Power_Pick_1,0.0,Harvest,20 Tomatoes,0.1%
+9,Power_Pick_1,0.0,Harvest,20 Tomatoes,0.1%
+10,Power_Pick_2,0.0,Harvest,20 Tomatoes,0.1%
+11,Power_Pick_2,0.02,Harvest,20 Tomatoes,0.1%
+12,Power_Pick_2,0.01,Harvest,20 Tomatoes,0.1%
+13,Power_Pick_2,0.0,Harvest,20 Tomatoes,0.1%
+14,Power_Pick_2,0.01,Harvest,20 Tomatoes,0.1%
+15,Power_Pick_2,0.04,Harvest,20 Tomatoes,0.1%
+16,Power_Pick_2,0.0,Harvest,20 Tomatoes,0.1%
+17,Power_Pick_2,0.02,Harvest,20 Tomatoes,0.1%
+18,Power_Pick_2,0.0,Harvest,20 Tomatoes,0.1%
+19,Power_Pick_2,0.0,Harvest,20 Tomatoes,0.1%
+20,Power_Pick_3,0.03,Harvest,20 Tomatoes,0.1%
+21,Power_Pick_3,0.0,Harvest,20 Tomatoes,0.1%
+22,Power_Pick_3,0.01,Harvest,20 Tomatoes,0.1%
+23,Power_Pick_3,0.0,Harvest,20 Tomatoes,0.1%
+24,Power_Pick_3,0.01,Harvest,20 Tomatoes,0.1%
+25,Power_Pick_3,0.02,Harvest,20 Tomatoes,0.1%
+26,Power_Pick_3,0.04,Harvest,20 Tomatoes,0.1%
+27,Power_Pick_3,0.02,Harvest,20 Tomatoes,0.1%
+28,Power_Pick_3,0.01,Harvest,20 Tomatoes,0.1%
+29,Power_Pick_3,0.0,Harvest,20 Tomatoes,0.1%
+0,Power_Pick_1,0.0,Harvest,60 Tomatoes,0.1%
+1,Power_Pick_1,0.03,Harvest,60 Tomatoes,0.1%
+2,Power_Pick_1,0.01,Harvest,60 Tomatoes,0.1%
+3,Power_Pick_1,0.01,Harvest,60 Tomatoes,0.1%
+4,Power_Pick_1,0.01,Harvest,60 Tomatoes,0.1%
+5,Power_Pick_1,0.02,Harvest,60 Tomatoes,0.1%
+6,Power_Pick_1,0.03,Harvest,60 Tomatoes,0.1%
+7,Power_Pick_1,0.01,Harvest,60 Tomatoes,0.1%
+8,Power_Pick_1,0.0,Harvest,60 Tomatoes,0.1%
+9,Power_Pick_1,0.01,Harvest,60 Tomatoes,0.1%
+10,Power_Pick_2,0.05,Harvest,60 Tomatoes,0.1%
+11,Power_Pick_2,0.03,Harvest,60 Tomatoes,0.1%
+12,Power_Pick_2,0.02,Harvest,60 Tomatoes,0.1%
+13,Power_Pick_2,0.0,Harvest,60 Tomatoes,0.1%
+14,Power_Pick_2,0.03,Harvest,60 Tomatoes,0.1%
+15,Power_Pick_2,0.05,Harvest,60 Tomatoes,0.1%
+16,Power_Pick_2,0.05,Harvest,60 Tomatoes,0.1%
+17,Power_Pick_2,0.03,Harvest,60 Tomatoes,0.1%
+18,Power_Pick_2,0.03,Harvest,60 Tomatoes,0.1%
+19,Power_Pick_2,0.04,Harvest,60 Tomatoes,0.1%
+20,Power_Pick_3,0.05,Harvest,60 Tomatoes,0.1%
+21,Power_Pick_3,0.05,Harvest,60 Tomatoes,0.1%
+22,Power_Pick_3,0.03,Harvest,60 Tomatoes,0.1%
+23,Power_Pick_3,0.02,Harvest,60 Tomatoes,0.1%
+24,Power_Pick_3,0.02,Harvest,60 Tomatoes,0.1%
+25,Power_Pick_3,0.04,Harvest,60 Tomatoes,0.1%
+26,Power_Pick_3,0.05,Harvest,60 Tomatoes,0.1%
+27,Power_Pick_3,0.05,Harvest,60 Tomatoes,0.1%
+28,Power_Pick_3,0.03,Harvest,60 Tomatoes,0.1%
+29,Power_Pick_3,0.03,Harvest,60 Tomatoes,0.1%
+0,Power_Pick_1,0.01,Harvest,20 Tomato Mash,0.1%
+1,Power_Pick_1,0.01,Harvest,20 Tomato Mash,0.1%
+2,Power_Pick_1,0.0,Harvest,20 Tomato Mash,0.1%
+3,Power_Pick_1,0.0,Harvest,20 Tomato Mash,0.1%
+4,Power_Pick_1,0.0,Harvest,20 Tomato Mash,0.1%
+5,Power_Pick_1,0.0,Harvest,20 Tomato Mash,0.1%
+6,Power_Pick_1,0.02,Harvest,20 Tomato Mash,0.1%
+7,Power_Pick_1,0.0,Harvest,20 Tomato Mash,0.1%
+8,Power_Pick_1,0.0,Harvest,20 Tomato Mash,0.1%
+9,Power_Pick_1,0.01,Harvest,20 Tomato Mash,0.1%
+10,Power_Pick_2,0.01,Harvest,20 Tomato Mash,0.1%
+11,Power_Pick_2,0.01,Harvest,20 Tomato Mash,0.1%
+12,Power_Pick_2,0.02,Harvest,20 Tomato Mash,0.1%
+13,Power_Pick_2,0.01,Harvest,20 Tomato Mash,0.1%
+14,Power_Pick_2,0.01,Harvest,20 Tomato Mash,0.1%
+15,Power_Pick_2,0.01,Harvest,20 Tomato Mash,0.1%
+16,Power_Pick_2,0.0,Harvest,20 Tomato Mash,0.1%
+17,Power_Pick_2,0.0,Harvest,20 Tomato Mash,0.1%
+18,Power_Pick_2,0.01,Harvest,20 Tomato Mash,0.1%
+19,Power_Pick_2,0.01,Harvest,20 Tomato Mash,0.1%
+20,Power_Pick_3,0.0,Harvest,20 Tomato Mash,0.1%
+21,Power_Pick_3,0.0,Harvest,20 Tomato Mash,0.1%
+22,Power_Pick_3,0.0,Harvest,20 Tomato Mash,0.1%
+23,Power_Pick_3,0.0,Harvest,20 Tomato Mash,0.1%
+24,Power_Pick_3,0.01,Harvest,20 Tomato Mash,0.1%
+25,Power_Pick_3,0.02,Harvest,20 Tomato Mash,0.1%
+26,Power_Pick_3,0.02,Harvest,20 Tomato Mash,0.1%
+27,Power_Pick_3,0.02,Harvest,20 Tomato Mash,0.1%
+28,Power_Pick_3,0.0,Harvest,20 Tomato Mash,0.1%
+29,Power_Pick_3,0.03,Harvest,20 Tomato Mash,0.1%
+0,Power_Pick_1,0.01,Harvest,60 Tomato Mash,0.1%
+1,Power_Pick_1,0.02,Harvest,60 Tomato Mash,0.1%
+2,Power_Pick_1,0.02,Harvest,60 Tomato Mash,0.1%
+3,Power_Pick_1,0.01,Harvest,60 Tomato Mash,0.1%
+4,Power_Pick_1,0.0,Harvest,60 Tomato Mash,0.1%
+5,Power_Pick_1,0.01,Harvest,60 Tomato Mash,0.1%
+6,Power_Pick_1,0.02,Harvest,60 Tomato Mash,0.1%
+7,Power_Pick_1,0.0,Harvest,60 Tomato Mash,0.1%
+8,Power_Pick_1,0.02,Harvest,60 Tomato Mash,0.1%
+9,Power_Pick_1,0.04,Harvest,60 Tomato Mash,0.1%
+10,Power_Pick_2,0.03,Harvest,60 Tomato Mash,0.1%
+11,Power_Pick_2,0.01,Harvest,60 Tomato Mash,0.1%
+12,Power_Pick_2,0.01,Harvest,60 Tomato Mash,0.1%
+13,Power_Pick_2,0.0,Harvest,60 Tomato Mash,0.1%
+14,Power_Pick_2,0.05,Harvest,60 Tomato Mash,0.1%
+15,Power_Pick_2,0.04,Harvest,60 Tomato Mash,0.1%
+16,Power_Pick_2,0.01,Harvest,60 Tomato Mash,0.1%
+17,Power_Pick_2,0.0,Harvest,60 Tomato Mash,0.1%
+18,Power_Pick_2,0.03,Harvest,60 Tomato Mash,0.1%
+19,Power_Pick_2,0.03,Harvest,60 Tomato Mash,0.1%
+20,Power_Pick_3,0.05,Harvest,60 Tomato Mash,0.1%
+21,Power_Pick_3,0.0,Harvest,60 Tomato Mash,0.1%
+22,Power_Pick_3,0.04,Harvest,60 Tomato Mash,0.1%
+23,Power_Pick_3,0.02,Harvest,60 Tomato Mash,0.1%
+24,Power_Pick_3,0.04,Harvest,60 Tomato Mash,0.1%
+25,Power_Pick_3,0.03,Harvest,60 Tomato Mash,0.1%
+26,Power_Pick_3,0.02,Harvest,60 Tomato Mash,0.1%
+27,Power_Pick_3,0.02,Harvest,60 Tomato Mash,0.1%
+28,Power_Pick_3,0.02,Harvest,60 Tomato Mash,0.1%
+29,Power_Pick_3,0.01,Harvest,60 Tomato Mash,0.1%
+0,Power_Pick_1,0.0,Harvest,2 Tomatoes,0.1%
+1,Power_Pick_1,0.01,Harvest,2 Tomatoes,0.1%
+2,Power_Pick_1,0.0,Harvest,2 Tomatoes,0.1%
+3,Power_Pick_1,0.0,Harvest,2 Tomatoes,0.1%
+4,Power_Pick_1,0.0,Harvest,2 Tomatoes,0.1%
+5,Power_Pick_1,0.0,Harvest,2 Tomatoes,0.1%
+6,Power_Pick_1,0.01,Harvest,2 Tomatoes,0.1%
+7,Power_Pick_1,0.0,Harvest,2 Tomatoes,0.1%
+8,Power_Pick_1,0.0,Harvest,2 Tomatoes,0.1%
+9,Power_Pick_1,0.0,Harvest,2 Tomatoes,0.1%
+10,Power_Pick_2,0.0,Harvest,2 Tomatoes,0.1%
+11,Power_Pick_2,0.0,Harvest,2 Tomatoes,0.1%
+12,Power_Pick_2,0.0,Harvest,2 Tomatoes,0.1%
+13,Power_Pick_2,0.0,Harvest,2 Tomatoes,0.1%
+14,Power_Pick_2,0.01,Harvest,2 Tomatoes,0.1%
+15,Power_Pick_2,0.01,Harvest,2 Tomatoes,0.1%
+16,Power_Pick_2,0.0,Harvest,2 Tomatoes,0.1%
+17,Power_Pick_2,0.0,Harvest,2 Tomatoes,0.1%
+18,Power_Pick_2,0.0,Harvest,2 Tomatoes,0.1%
+19,Power_Pick_2,0.0,Harvest,2 Tomatoes,0.1%
+20,Power_Pick_3,0.0,Harvest,2 Tomatoes,0.1%
+21,Power_Pick_3,0.0,Harvest,2 Tomatoes,0.1%
+22,Power_Pick_3,0.0,Harvest,2 Tomatoes,0.1%
+23,Power_Pick_3,0.0,Harvest,2 Tomatoes,0.1%
+24,Power_Pick_3,0.0,Harvest,2 Tomatoes,0.1%
+25,Power_Pick_3,0.0,Harvest,2 Tomatoes,0.1%
+26,Power_Pick_3,0.0,Harvest,2 Tomatoes,0.1%
+27,Power_Pick_3,0.0,Harvest,2 Tomatoes,0.1%
+28,Power_Pick_3,0.0,Harvest,2 Tomatoes,0.1%
+29,Power_Pick_3,0.0,Harvest,2 Tomatoes,0.1%
+0,Power_Pick_1,0.0,Receiving,6 Tomatoes,0.1%
+1,Power_Pick_1,0.01,Receiving,6 Tomatoes,0.1%
+2,Power_Pick_1,0.01,Receiving,6 Tomatoes,0.1%
+3,Power_Pick_1,0.0,Receiving,6 Tomatoes,0.1%
+4,Power_Pick_1,0.0,Receiving,6 Tomatoes,0.1%
+5,Power_Pick_1,0.0,Receiving,6 Tomatoes,0.1%
+6,Power_Pick_1,0.01,Receiving,6 Tomatoes,0.1%
+7,Power_Pick_1,0.0,Receiving,6 Tomatoes,0.1%
+8,Power_Pick_1,0.0,Receiving,6 Tomatoes,0.1%
+9,Power_Pick_1,0.0,Receiving,6 Tomatoes,0.1%
+10,Power_Pick_2,0.0,Receiving,6 Tomatoes,0.1%
+11,Power_Pick_2,0.0,Receiving,6 Tomatoes,0.1%
+12,Power_Pick_2,0.0,Receiving,6 Tomatoes,0.1%
+13,Power_Pick_2,0.0,Receiving,6 Tomatoes,0.1%
+14,Power_Pick_2,0.0,Receiving,6 Tomatoes,0.1%
+15,Power_Pick_2,0.02,Receiving,6 Tomatoes,0.1%
+16,Power_Pick_2,0.0,Receiving,6 Tomatoes,0.1%
+17,Power_Pick_2,0.01,Receiving,6 Tomatoes,0.1%
+18,Power_Pick_2,0.01,Receiving,6 Tomatoes,0.1%
+19,Power_Pick_2,0.0,Receiving,6 Tomatoes,0.1%
+20,Power_Pick_3,0.0,Receiving,6 Tomatoes,0.1%
+21,Power_Pick_3,0.01,Receiving,6 Tomatoes,0.1%
+22,Power_Pick_3,0.0,Receiving,6 Tomatoes,0.1%
+23,Power_Pick_3,0.0,Receiving,6 Tomatoes,0.1%
+24,Power_Pick_3,0.02,Receiving,6 Tomatoes,0.1%
+25,Power_Pick_3,0.0,Receiving,6 Tomatoes,0.1%
+26,Power_Pick_3,0.0,Receiving,6 Tomatoes,0.1%
+27,Power_Pick_3,0.0,Receiving,6 Tomatoes,0.1%
+28,Power_Pick_3,0.0,Receiving,6 Tomatoes,0.1%
+29,Power_Pick_3,0.0,Receiving,6 Tomatoes,0.1%
+0,Power_Pick_1,0.0,Receiving,20 Tomatoes,0.1%
+1,Power_Pick_1,0.02,Receiving,20 Tomatoes,0.1%
+2,Power_Pick_1,0.01,Receiving,20 Tomatoes,0.1%
+3,Power_Pick_1,0.01,Receiving,20 Tomatoes,0.1%
+4,Power_Pick_1,0.0,Receiving,20 Tomatoes,0.1%
+5,Power_Pick_1,0.01,Receiving,20 Tomatoes,0.1%
+6,Power_Pick_1,0.02,Receiving,20 Tomatoes,0.1%
+7,Power_Pick_1,0.0,Receiving,20 Tomatoes,0.1%
+8,Power_Pick_1,0.0,Receiving,20 Tomatoes,0.1%
+9,Power_Pick_1,0.0,Receiving,20 Tomatoes,0.1%
+10,Power_Pick_2,0.0,Receiving,20 Tomatoes,0.1%
+11,Power_Pick_2,0.02,Receiving,20 Tomatoes,0.1%
+12,Power_Pick_2,0.01,Receiving,20 Tomatoes,0.1%
+13,Power_Pick_2,0.0,Receiving,20 Tomatoes,0.1%
+14,Power_Pick_2,0.01,Receiving,20 Tomatoes,0.1%
+15,Power_Pick_2,0.04,Receiving,20 Tomatoes,0.1%
+16,Power_Pick_2,0.0,Receiving,20 Tomatoes,0.1%
+17,Power_Pick_2,0.02,Receiving,20 Tomatoes,0.1%
+18,Power_Pick_2,0.01,Receiving,20 Tomatoes,0.1%
+19,Power_Pick_2,0.0,Receiving,20 Tomatoes,0.1%
+20,Power_Pick_3,0.02,Receiving,20 Tomatoes,0.1%
+21,Power_Pick_3,0.0,Receiving,20 Tomatoes,0.1%
+22,Power_Pick_3,0.01,Receiving,20 Tomatoes,0.1%
+23,Power_Pick_3,0.0,Receiving,20 Tomatoes,0.1%
+24,Power_Pick_3,0.01,Receiving,20 Tomatoes,0.1%
+25,Power_Pick_3,0.02,Receiving,20 Tomatoes,0.1%
+26,Power_Pick_3,0.03,Receiving,20 Tomatoes,0.1%
+27,Power_Pick_3,0.02,Receiving,20 Tomatoes,0.1%
+28,Power_Pick_3,0.01,Receiving,20 Tomatoes,0.1%
+29,Power_Pick_3,0.0,Receiving,20 Tomatoes,0.1%
+0,Power_Pick_1,0.0,Receiving,60 Tomatoes,0.1%
+1,Power_Pick_1,0.03,Receiving,60 Tomatoes,0.1%
+2,Power_Pick_1,0.01,Receiving,60 Tomatoes,0.1%
+3,Power_Pick_1,0.01,Receiving,60 Tomatoes,0.1%
+4,Power_Pick_1,0.01,Receiving,60 Tomatoes,0.1%
+5,Power_Pick_1,0.02,Receiving,60 Tomatoes,0.1%
+6,Power_Pick_1,0.03,Receiving,60 Tomatoes,0.1%
+7,Power_Pick_1,0.01,Receiving,60 Tomatoes,0.1%
+8,Power_Pick_1,0.0,Receiving,60 Tomatoes,0.1%
+9,Power_Pick_1,0.01,Receiving,60 Tomatoes,0.1%
+10,Power_Pick_2,0.05,Receiving,60 Tomatoes,0.1%
+11,Power_Pick_2,0.04,Receiving,60 Tomatoes,0.1%
+12,Power_Pick_2,0.02,Receiving,60 Tomatoes,0.1%
+13,Power_Pick_2,0.0,Receiving,60 Tomatoes,0.1%
+14,Power_Pick_2,0.03,Receiving,60 Tomatoes,0.1%
+15,Power_Pick_2,0.05,Receiving,60 Tomatoes,0.1%
+16,Power_Pick_2,0.05,Receiving,60 Tomatoes,0.1%
+17,Power_Pick_2,0.04,Receiving,60 Tomatoes,0.1%
+18,Power_Pick_2,0.03,Receiving,60 Tomatoes,0.1%
+19,Power_Pick_2,0.04,Receiving,60 Tomatoes,0.1%
+20,Power_Pick_3,0.05,Receiving,60 Tomatoes,0.1%
+21,Power_Pick_3,0.04,Receiving,60 Tomatoes,0.1%
+22,Power_Pick_3,0.03,Receiving,60 Tomatoes,0.1%
+23,Power_Pick_3,0.03,Receiving,60 Tomatoes,0.1%
+24,Power_Pick_3,0.03,Receiving,60 Tomatoes,0.1%
+25,Power_Pick_3,0.04,Receiving,60 Tomatoes,0.1%
+26,Power_Pick_3,0.03,Receiving,60 Tomatoes,0.1%
+27,Power_Pick_3,0.04,Receiving,60 Tomatoes,0.1%
+28,Power_Pick_3,0.03,Receiving,60 Tomatoes,0.1%
+29,Power_Pick_3,0.03,Receiving,60 Tomatoes,0.1%
+0,Power_Pick_1,0.01,Receiving,20 Tomato Mash,0.1%
+1,Power_Pick_1,0.01,Receiving,20 Tomato Mash,0.1%
+2,Power_Pick_1,0.0,Receiving,20 Tomato Mash,0.1%
+3,Power_Pick_1,0.0,Receiving,20 Tomato Mash,0.1%
+4,Power_Pick_1,0.0,Receiving,20 Tomato Mash,0.1%
+5,Power_Pick_1,0.0,Receiving,20 Tomato Mash,0.1%
+6,Power_Pick_1,0.02,Receiving,20 Tomato Mash,0.1%
+7,Power_Pick_1,0.0,Receiving,20 Tomato Mash,0.1%
+8,Power_Pick_1,0.0,Receiving,20 Tomato Mash,0.1%
+9,Power_Pick_1,0.01,Receiving,20 Tomato Mash,0.1%
+10,Power_Pick_2,0.01,Receiving,20 Tomato Mash,0.1%
+11,Power_Pick_2,0.0,Receiving,20 Tomato Mash,0.1%
+12,Power_Pick_2,0.02,Receiving,20 Tomato Mash,0.1%
+13,Power_Pick_2,0.01,Receiving,20 Tomato Mash,0.1%
+14,Power_Pick_2,0.0,Receiving,20 Tomato Mash,0.1%
+15,Power_Pick_2,0.01,Receiving,20 Tomato Mash,0.1%
+16,Power_Pick_2,0.0,Receiving,20 Tomato Mash,0.1%
+17,Power_Pick_2,0.0,Receiving,20 Tomato Mash,0.1%
+18,Power_Pick_2,0.01,Receiving,20 Tomato Mash,0.1%
+19,Power_Pick_2,0.01,Receiving,20 Tomato Mash,0.1%
+20,Power_Pick_3,0.0,Receiving,20 Tomato Mash,0.1%
+21,Power_Pick_3,0.0,Receiving,20 Tomato Mash,0.1%
+22,Power_Pick_3,0.0,Receiving,20 Tomato Mash,0.1%
+23,Power_Pick_3,0.0,Receiving,20 Tomato Mash,0.1%
+24,Power_Pick_3,0.01,Receiving,20 Tomato Mash,0.1%
+25,Power_Pick_3,0.02,Receiving,20 Tomato Mash,0.1%
+26,Power_Pick_3,0.03,Receiving,20 Tomato Mash,0.1%
+27,Power_Pick_3,0.02,Receiving,20 Tomato Mash,0.1%
+28,Power_Pick_3,0.0,Receiving,20 Tomato Mash,0.1%
+29,Power_Pick_3,0.03,Receiving,20 Tomato Mash,0.1%
+0,Power_Pick_1,0.01,Receiving,60 Tomato Mash,0.1%
+1,Power_Pick_1,0.02,Receiving,60 Tomato Mash,0.1%
+2,Power_Pick_1,0.02,Receiving,60 Tomato Mash,0.1%
+3,Power_Pick_1,0.01,Receiving,60 Tomato Mash,0.1%
+4,Power_Pick_1,0.0,Receiving,60 Tomato Mash,0.1%
+5,Power_Pick_1,0.01,Receiving,60 Tomato Mash,0.1%
+6,Power_Pick_1,0.02,Receiving,60 Tomato Mash,0.1%
+7,Power_Pick_1,0.0,Receiving,60 Tomato Mash,0.1%
+8,Power_Pick_1,0.02,Receiving,60 Tomato Mash,0.1%
+9,Power_Pick_1,0.04,Receiving,60 Tomato Mash,0.1%
+10,Power_Pick_2,0.03,Receiving,60 Tomato Mash,0.1%
+11,Power_Pick_2,0.01,Receiving,60 Tomato Mash,0.1%
+12,Power_Pick_2,0.01,Receiving,60 Tomato Mash,0.1%
+13,Power_Pick_2,0.0,Receiving,60 Tomato Mash,0.1%
+14,Power_Pick_2,0.05,Receiving,60 Tomato Mash,0.1%
+15,Power_Pick_2,0.04,Receiving,60 Tomato Mash,0.1%
+16,Power_Pick_2,0.01,Receiving,60 Tomato Mash,0.1%
+17,Power_Pick_2,0.0,Receiving,60 Tomato Mash,0.1%
+18,Power_Pick_2,0.03,Receiving,60 Tomato Mash,0.1%
+19,Power_Pick_2,0.03,Receiving,60 Tomato Mash,0.1%
+20,Power_Pick_3,0.03,Receiving,60 Tomato Mash,0.1%
+21,Power_Pick_3,0.0,Receiving,60 Tomato Mash,0.1%
+22,Power_Pick_3,0.05,Receiving,60 Tomato Mash,0.1%
+23,Power_Pick_3,0.02,Receiving,60 Tomato Mash,0.1%
+24,Power_Pick_3,0.04,Receiving,60 Tomato Mash,0.1%
+25,Power_Pick_3,0.03,Receiving,60 Tomato Mash,0.1%
+26,Power_Pick_3,0.02,Receiving,60 Tomato Mash,0.1%
+27,Power_Pick_3,0.01,Receiving,60 Tomato Mash,0.1%
+28,Power_Pick_3,0.02,Receiving,60 Tomato Mash,0.1%
+29,Power_Pick_3,0.01,Receiving,60 Tomato Mash,0.1%
+0,Power_Pick_1,0.0,Receiving,2 Tomatoes,0.1%
+1,Power_Pick_1,0.01,Receiving,2 Tomatoes,0.1%
+2,Power_Pick_1,0.0,Receiving,2 Tomatoes,0.1%
+3,Power_Pick_1,0.0,Receiving,2 Tomatoes,0.1%
+4,Power_Pick_1,0.0,Receiving,2 Tomatoes,0.1%
+5,Power_Pick_1,0.0,Receiving,2 Tomatoes,0.1%
+6,Power_Pick_1,0.01,Receiving,2 Tomatoes,0.1%
+7,Power_Pick_1,0.0,Receiving,2 Tomatoes,0.1%
+8,Power_Pick_1,0.0,Receiving,2 Tomatoes,0.1%
+9,Power_Pick_1,0.0,Receiving,2 Tomatoes,0.1%
+10,Power_Pick_2,0.0,Receiving,2 Tomatoes,0.1%
+11,Power_Pick_2,0.0,Receiving,2 Tomatoes,0.1%
+12,Power_Pick_2,0.0,Receiving,2 Tomatoes,0.1%
+13,Power_Pick_2,0.0,Receiving,2 Tomatoes,0.1%
+14,Power_Pick_2,0.01,Receiving,2 Tomatoes,0.1%
+15,Power_Pick_2,0.01,Receiving,2 Tomatoes,0.1%
+16,Power_Pick_2,0.0,Receiving,2 Tomatoes,0.1%
+17,Power_Pick_2,0.0,Receiving,2 Tomatoes,0.1%
+18,Power_Pick_2,0.0,Receiving,2 Tomatoes,0.1%
+19,Power_Pick_2,0.0,Receiving,2 Tomatoes,0.1%
+20,Power_Pick_3,0.0,Receiving,2 Tomatoes,0.1%
+21,Power_Pick_3,0.0,Receiving,2 Tomatoes,0.1%
+22,Power_Pick_3,0.0,Receiving,2 Tomatoes,0.1%
+23,Power_Pick_3,0.0,Receiving,2 Tomatoes,0.1%
+24,Power_Pick_3,0.0,Receiving,2 Tomatoes,0.1%
+25,Power_Pick_3,0.0,Receiving,2 Tomatoes,0.1%
+26,Power_Pick_3,0.0,Receiving,2 Tomatoes,0.1%
+27,Power_Pick_3,0.0,Receiving,2 Tomatoes,0.1%
+28,Power_Pick_3,0.0,Receiving,2 Tomatoes,0.1%
+29,Power_Pick_3,0.0,Receiving,2 Tomatoes,0.1%
+0,Power_Pick_1,0.0,Packed Product,6 Tomatoes,0.1%
+1,Power_Pick_1,0.01,Packed Product,6 Tomatoes,0.1%
+2,Power_Pick_1,0.01,Packed Product,6 Tomatoes,0.1%
+3,Power_Pick_1,0.0,Packed Product,6 Tomatoes,0.1%
+4,Power_Pick_1,0.0,Packed Product,6 Tomatoes,0.1%
+5,Power_Pick_1,0.0,Packed Product,6 Tomatoes,0.1%
+6,Power_Pick_1,0.01,Packed Product,6 Tomatoes,0.1%
+7,Power_Pick_1,0.0,Packed Product,6 Tomatoes,0.1%
+8,Power_Pick_1,0.0,Packed Product,6 Tomatoes,0.1%
+9,Power_Pick_1,0.0,Packed Product,6 Tomatoes,0.1%
+10,Power_Pick_2,0.0,Packed Product,6 Tomatoes,0.1%
+11,Power_Pick_2,0.0,Packed Product,6 Tomatoes,0.1%
+12,Power_Pick_2,0.0,Packed Product,6 Tomatoes,0.1%
+13,Power_Pick_2,0.0,Packed Product,6 Tomatoes,0.1%
+14,Power_Pick_2,0.0,Packed Product,6 Tomatoes,0.1%
+15,Power_Pick_2,0.02,Packed Product,6 Tomatoes,0.1%
+16,Power_Pick_2,0.0,Packed Product,6 Tomatoes,0.1%
+17,Power_Pick_2,0.01,Packed Product,6 Tomatoes,0.1%
+18,Power_Pick_2,0.01,Packed Product,6 Tomatoes,0.1%
+19,Power_Pick_2,0.0,Packed Product,6 Tomatoes,0.1%
+20,Power_Pick_3,0.0,Packed Product,6 Tomatoes,0.1%
+21,Power_Pick_3,0.01,Packed Product,6 Tomatoes,0.1%
+22,Power_Pick_3,0.0,Packed Product,6 Tomatoes,0.1%
+23,Power_Pick_3,0.0,Packed Product,6 Tomatoes,0.1%
+24,Power_Pick_3,0.02,Packed Product,6 Tomatoes,0.1%
+25,Power_Pick_3,0.0,Packed Product,6 Tomatoes,0.1%
+26,Power_Pick_3,0.0,Packed Product,6 Tomatoes,0.1%
+27,Power_Pick_3,0.0,Packed Product,6 Tomatoes,0.1%
+28,Power_Pick_3,0.0,Packed Product,6 Tomatoes,0.1%
+29,Power_Pick_3,0.0,Packed Product,6 Tomatoes,0.1%
+0,Power_Pick_1,0.0,Packed Product,20 Tomatoes,0.1%
+1,Power_Pick_1,0.02,Packed Product,20 Tomatoes,0.1%
+2,Power_Pick_1,0.01,Packed Product,20 Tomatoes,0.1%
+3,Power_Pick_1,0.01,Packed Product,20 Tomatoes,0.1%
+4,Power_Pick_1,0.0,Packed Product,20 Tomatoes,0.1%
+5,Power_Pick_1,0.01,Packed Product,20 Tomatoes,0.1%
+6,Power_Pick_1,0.02,Packed Product,20 Tomatoes,0.1%
+7,Power_Pick_1,0.0,Packed Product,20 Tomatoes,0.1%
+8,Power_Pick_1,0.0,Packed Product,20 Tomatoes,0.1%
+9,Power_Pick_1,0.0,Packed Product,20 Tomatoes,0.1%
+10,Power_Pick_2,0.0,Packed Product,20 Tomatoes,0.1%
+11,Power_Pick_2,0.02,Packed Product,20 Tomatoes,0.1%
+12,Power_Pick_2,0.01,Packed Product,20 Tomatoes,0.1%
+13,Power_Pick_2,0.0,Packed Product,20 Tomatoes,0.1%
+14,Power_Pick_2,0.01,Packed Product,20 Tomatoes,0.1%
+15,Power_Pick_2,0.04,Packed Product,20 Tomatoes,0.1%
+16,Power_Pick_2,0.0,Packed Product,20 Tomatoes,0.1%
+17,Power_Pick_2,0.01,Packed Product,20 Tomatoes,0.1%
+18,Power_Pick_2,0.01,Packed Product,20 Tomatoes,0.1%
+19,Power_Pick_2,0.0,Packed Product,20 Tomatoes,0.1%
+20,Power_Pick_3,0.03,Packed Product,20 Tomatoes,0.1%
+21,Power_Pick_3,0.0,Packed Product,20 Tomatoes,0.1%
+22,Power_Pick_3,0.01,Packed Product,20 Tomatoes,0.1%
+23,Power_Pick_3,0.0,Packed Product,20 Tomatoes,0.1%
+24,Power_Pick_3,0.01,Packed Product,20 Tomatoes,0.1%
+25,Power_Pick_3,0.02,Packed Product,20 Tomatoes,0.1%
+26,Power_Pick_3,0.02,Packed Product,20 Tomatoes,0.1%
+27,Power_Pick_3,0.02,Packed Product,20 Tomatoes,0.1%
+28,Power_Pick_3,0.01,Packed Product,20 Tomatoes,0.1%
+29,Power_Pick_3,0.0,Packed Product,20 Tomatoes,0.1%
+0,Power_Pick_1,0.0,Packed Product,60 Tomatoes,0.1%
+1,Power_Pick_1,0.03,Packed Product,60 Tomatoes,0.1%
+2,Power_Pick_1,0.01,Packed Product,60 Tomatoes,0.1%
+3,Power_Pick_1,0.01,Packed Product,60 Tomatoes,0.1%
+4,Power_Pick_1,0.01,Packed Product,60 Tomatoes,0.1%
+5,Power_Pick_1,0.02,Packed Product,60 Tomatoes,0.1%
+6,Power_Pick_1,0.03,Packed Product,60 Tomatoes,0.1%
+7,Power_Pick_1,0.01,Packed Product,60 Tomatoes,0.1%
+8,Power_Pick_1,0.0,Packed Product,60 Tomatoes,0.1%
+9,Power_Pick_1,0.01,Packed Product,60 Tomatoes,0.1%
+10,Power_Pick_2,0.05,Packed Product,60 Tomatoes,0.1%
+11,Power_Pick_2,0.04,Packed Product,60 Tomatoes,0.1%
+12,Power_Pick_2,0.02,Packed Product,60 Tomatoes,0.1%
+13,Power_Pick_2,0.0,Packed Product,60 Tomatoes,0.1%
+14,Power_Pick_2,0.03,Packed Product,60 Tomatoes,0.1%
+15,Power_Pick_2,0.05,Packed Product,60 Tomatoes,0.1%
+16,Power_Pick_2,0.05,Packed Product,60 Tomatoes,0.1%
+17,Power_Pick_2,0.04,Packed Product,60 Tomatoes,0.1%
+18,Power_Pick_2,0.03,Packed Product,60 Tomatoes,0.1%
+19,Power_Pick_2,0.04,Packed Product,60 Tomatoes,0.1%
+20,Power_Pick_3,0.05,Packed Product,60 Tomatoes,0.1%
+21,Power_Pick_3,0.02,Packed Product,60 Tomatoes,0.1%
+22,Power_Pick_3,0.03,Packed Product,60 Tomatoes,0.1%
+23,Power_Pick_3,0.02,Packed Product,60 Tomatoes,0.1%
+24,Power_Pick_3,0.02,Packed Product,60 Tomatoes,0.1%
+25,Power_Pick_3,0.04,Packed Product,60 Tomatoes,0.1%
+26,Power_Pick_3,0.03,Packed Product,60 Tomatoes,0.1%
+27,Power_Pick_3,0.03,Packed Product,60 Tomatoes,0.1%
+28,Power_Pick_3,0.03,Packed Product,60 Tomatoes,0.1%
+29,Power_Pick_3,0.02,Packed Product,60 Tomatoes,0.1%
+0,Power_Pick_1,0.01,Packed Product,20 Tomato Mash,0.1%
+1,Power_Pick_1,0.01,Packed Product,20 Tomato Mash,0.1%
+2,Power_Pick_1,0.0,Packed Product,20 Tomato Mash,0.1%
+3,Power_Pick_1,0.0,Packed Product,20 Tomato Mash,0.1%
+4,Power_Pick_1,0.0,Packed Product,20 Tomato Mash,0.1%
+5,Power_Pick_1,0.0,Packed Product,20 Tomato Mash,0.1%
+6,Power_Pick_1,0.02,Packed Product,20 Tomato Mash,0.1%
+7,Power_Pick_1,0.0,Packed Product,20 Tomato Mash,0.1%
+8,Power_Pick_1,0.0,Packed Product,20 Tomato Mash,0.1%
+9,Power_Pick_1,0.01,Packed Product,20 Tomato Mash,0.1%
+10,Power_Pick_2,0.01,Packed Product,20 Tomato Mash,0.1%
+11,Power_Pick_2,0.0,Packed Product,20 Tomato Mash,0.1%
+12,Power_Pick_2,0.02,Packed Product,20 Tomato Mash,0.1%
+13,Power_Pick_2,0.01,Packed Product,20 Tomato Mash,0.1%
+14,Power_Pick_2,0.0,Packed Product,20 Tomato Mash,0.1%
+15,Power_Pick_2,0.01,Packed Product,20 Tomato Mash,0.1%
+16,Power_Pick_2,0.01,Packed Product,20 Tomato Mash,0.1%
+17,Power_Pick_2,0.0,Packed Product,20 Tomato Mash,0.1%
+18,Power_Pick_2,0.01,Packed Product,20 Tomato Mash,0.1%
+19,Power_Pick_2,0.01,Packed Product,20 Tomato Mash,0.1%
+20,Power_Pick_3,0.0,Packed Product,20 Tomato Mash,0.1%
+21,Power_Pick_3,0.0,Packed Product,20 Tomato Mash,0.1%
+22,Power_Pick_3,0.0,Packed Product,20 Tomato Mash,0.1%
+23,Power_Pick_3,0.0,Packed Product,20 Tomato Mash,0.1%
+24,Power_Pick_3,0.01,Packed Product,20 Tomato Mash,0.1%
+25,Power_Pick_3,0.02,Packed Product,20 Tomato Mash,0.1%
+26,Power_Pick_3,0.02,Packed Product,20 Tomato Mash,0.1%
+27,Power_Pick_3,0.02,Packed Product,20 Tomato Mash,0.1%
+28,Power_Pick_3,0.0,Packed Product,20 Tomato Mash,0.1%
+29,Power_Pick_3,0.03,Packed Product,20 Tomato Mash,0.1%
+0,Power_Pick_1,0.01,Packed Product,60 Tomato Mash,0.1%
+1,Power_Pick_1,0.02,Packed Product,60 Tomato Mash,0.1%
+2,Power_Pick_1,0.02,Packed Product,60 Tomato Mash,0.1%
+3,Power_Pick_1,0.01,Packed Product,60 Tomato Mash,0.1%
+4,Power_Pick_1,0.0,Packed Product,60 Tomato Mash,0.1%
+5,Power_Pick_1,0.01,Packed Product,60 Tomato Mash,0.1%
+6,Power_Pick_1,0.02,Packed Product,60 Tomato Mash,0.1%
+7,Power_Pick_1,0.0,Packed Product,60 Tomato Mash,0.1%
+8,Power_Pick_1,0.02,Packed Product,60 Tomato Mash,0.1%
+9,Power_Pick_1,0.04,Packed Product,60 Tomato Mash,0.1%
+10,Power_Pick_2,0.02,Packed Product,60 Tomato Mash,0.1%
+11,Power_Pick_2,0.01,Packed Product,60 Tomato Mash,0.1%
+12,Power_Pick_2,0.01,Packed Product,60 Tomato Mash,0.1%
+13,Power_Pick_2,0.0,Packed Product,60 Tomato Mash,0.1%
+14,Power_Pick_2,0.04,Packed Product,60 Tomato Mash,0.1%
+15,Power_Pick_2,0.04,Packed Product,60 Tomato Mash,0.1%
+16,Power_Pick_2,0.01,Packed Product,60 Tomato Mash,0.1%
+17,Power_Pick_2,0.0,Packed Product,60 Tomato Mash,0.1%
+18,Power_Pick_2,0.03,Packed Product,60 Tomato Mash,0.1%
+19,Power_Pick_2,0.03,Packed Product,60 Tomato Mash,0.1%
+20,Power_Pick_3,0.05,Packed Product,60 Tomato Mash,0.1%
+21,Power_Pick_3,0.0,Packed Product,60 Tomato Mash,0.1%
+22,Power_Pick_3,0.05,Packed Product,60 Tomato Mash,0.1%
+23,Power_Pick_3,0.02,Packed Product,60 Tomato Mash,0.1%
+24,Power_Pick_3,0.04,Packed Product,60 Tomato Mash,0.1%
+25,Power_Pick_3,0.03,Packed Product,60 Tomato Mash,0.1%
+26,Power_Pick_3,0.02,Packed Product,60 Tomato Mash,0.1%
+27,Power_Pick_3,0.02,Packed Product,60 Tomato Mash,0.1%
+28,Power_Pick_3,0.02,Packed Product,60 Tomato Mash,0.1%
+29,Power_Pick_3,0.01,Packed Product,60 Tomato Mash,0.1%
