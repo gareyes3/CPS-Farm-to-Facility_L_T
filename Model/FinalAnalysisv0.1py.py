@@ -2119,5 +2119,77 @@ Outs_BIN_4_F= Analysis_Loop(HA_Iterations = 20,
               Spread  = "BIN",
               Samp_Method  = 2,
               N_Replicates = 60 )
+#%% Powers Additional Plans
+Outputs_HB = [ Outs_HB_3_A,Outs_HB_3_B, Outs_HB_3_C, Outs_HB_3_D, Outs_HB_3_E, Outs_HB_3_F,
+               Outs_HB_4_A,Outs_HB_4_B, Outs_HB_4_C, Outs_HB_4_D, Outs_HB_4_E, Outs_HB_4_F]
+
+Outputs_BIN = [ Outs_BIN_3_A,Outs_BIN_3_B, Outs_BIN_3_C, Outs_BIN_3_D, Outs_BIN_3_E, Outs_BIN_3_F,
+               Outs_BIN_4_A,Outs_BIN_4_B, Outs_BIN_4_C, Outs_BIN_4_D, Outs_BIN_4_E, Outs_BIN_4_F]
+
+Types_L = ["Receiving","Receiving","Receiving","Receiving","Receiving","Receiving",
+           "Packed Product", "Packed Product","Packed Product","Packed Product","Packed Product","Packed Product"]
+Mass_L = [
+          "2 Tomatoes", "6 Tomatoes", "20 Tomatoes", "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash",
+          "2 Tomatoes", "6 Tomatoes", "20 Tomatoes", "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash"]
 
 
+Powers_all_ADD = pd.concat([ger_powers_fromlist(powers_list =Outputs_HB , Clustering = "Harvesting Bucket"),
+                        ger_powers_fromlist(powers_list =Outputs_BIN , Clustering = "Harvesting Bin")])
+
+Powers_all_ADD.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Powers_Out_Additional.csv")
+
+#%%
+
+
+
+#%% Total Adulterant Cells System Endpoint
+Outputs_HB = [Outs_HB_0_0,
+               Outs_HB_3_A,Outs_HB_3_B, Outs_HB_3_C, Outs_HB_3_D, Outs_HB_3_E, Outs_HB_3_F,
+               Outs_HB_4_A,Outs_HB_4_B, Outs_HB_4_C, Outs_HB_4_D, Outs_HB_4_E, Outs_HB_4_F]
+
+Outputs_BIN = [Outs_BIN_0_0,
+               Outs_BIN_3_A,Outs_BIN_3_B, Outs_BIN_3_C, Outs_BIN_3_D, Outs_BIN_3_E, Outs_BIN_3_F,
+               Outs_BIN_4_A,Outs_BIN_4_B, Outs_BIN_4_C, Outs_BIN_4_D, Outs_BIN_4_E, Outs_BIN_4_F]
+
+
+Types_L2 = ["Baseline",
+           "Receiving","Receiving","Receiving","Receiving","Receiving","Receiving",
+           "Packed Product", "Packed Product","Packed Product","Packed Product","Packed Product","Packed Product"]
+Mass_L2 = ["Baseline",
+          "2 Tomatoes", "6 Tomatoes", "20 Tomatoes", "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash",
+          "2 Tomatoes", "6 Tomatoes", "20 Tomatoes", "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash"]
+
+
+
+Exps_all_ADD = pd.concat([ger_exps_fromlist(exps_list =Outputs_HB , Clustering = "Harvesting Bucket"),
+                        ger_exps_fromlist(exps_list =Outputs_BIN , Clustering = "Harvesting Bin")])
+
+Exps_all_ADD.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\TAC_Additional.csv")
+
+#%%
+def get_cont_samp(Outs):
+    emptylist =[]
+    for i in Outs:
+       emptylist.append(i[2])
+    return pd.concat(emptylist)
+   
+Samp_Point_ADD = pd.concat([
+     get_cont_samp(Outs = Outputs_HB),
+     get_cont_samp(Outs = Outputs_BIN),
+    ])
+
+Samp_Point_ADD.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\SampPoint_Additional.csv")
+
+#%%
+def get_Prev_samp(Outs):
+    emptylist =[]
+    for i in Outs:
+       emptylist.append(i[5])
+    return pd.concat(emptylist)
+   
+Samp_Point_Prev_ADD = pd.concat([
+     get_Prev_samp(Outs = Outputs_HB),
+     get_Prev_samp(Outs = Outputs_BIN)
+    ])
+
+Samp_Point_Prev_ADD.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PrevSampPoint_Additional.csv")
