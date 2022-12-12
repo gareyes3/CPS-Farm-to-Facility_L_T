@@ -1659,7 +1659,8 @@ Powers_all = pd.concat([ger_powers_fromlist(powers_list =Outputs_100 , Clusterin
                         ger_powers_fromlist(powers_list =Outputs_001 , Clustering = "1%"),
                         ger_powers_fromlist(powers_list =Outputs_0001 , Clustering = "0.1%")])
 
-Powers_all.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Powers_Out11.csv")
+#Powers_all.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Powers_Out11.csv")
+Powers_all.to_csv(path_or_buf = "C:\\Users\\Gustavo Reyes\\Documents\\GitHubFiles\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Powers_Out_Rep.csv")
 
 #%%
 def get_cont_samp(Outs):
@@ -1675,7 +1676,8 @@ Samp_Point = pd.concat([
      get_cont_samp(Outs = Outputs_0001)
     ])
 
-Samp_Point.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\SampPoint11.csv")
+#Samp_Point.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\SampPoint11.csv")
+Samp_Point.to_csv(path_or_buf = "C:\\Users\\Gustavo Reyes\\Documents\\GitHubFiles\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\SampPoint_Rep.csv")
 
 #%%
 def get_Prev_samp(Outs):
@@ -1691,7 +1693,9 @@ Samp_Point_Prev = pd.concat([
      get_Prev_samp(Outs = Outputs_0001)
     ])
 
-Samp_Point_Prev.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PrevSampPoint11.csv")
+#Samp_Point_Prev.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PrevSampPoint11.csv")
+Samp_Point_Prev.to_csv(path_or_buf = "C:\\Users\\Gustavo Reyes\\Documents\\GitHubFiles\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PrevSampPoint_Rep.csv")
+
 
 #%% Consumer Exposure
 Outputs_100 = [Outs_100_0_0,
@@ -1753,7 +1757,9 @@ Exps_all = pd.concat([ger_exps_fromlist(exps_list =Outputs_100 , Clustering = "1
                         ger_exps_fromlist(exps_list =Outputs_001 , Clustering = "1%"),
                         ger_exps_fromlist(exps_list =Outputs_0001 , Clustering = "0.1%")])
 
-Exps_all.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Exps11.csv")
+#Exps_all.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Exps11.csv")
+Exps_all.to_csv(path_or_buf = "C:\\Users\\Gustavo Reyes\\Documents\\GitHubFiles\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Exps_Rep.csv")
+
 #%%
 #Additional Scenarios. 
 
