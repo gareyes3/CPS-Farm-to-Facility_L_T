@@ -91,7 +91,7 @@ Powers %>%
 #Contamination at sampling point
 
 ```{r}
-Cont_Prog<-read.csv("Data_Tomato_Outputs/SampPoint11.csv")
+Cont_Prog<-read.csv("Data_Tomato_Outputs/SampPoint_Rep.csv")
 
 Cont_Prog$Type[Cont_Prog$Type == "PH"] <- "Preharvest"
 Cont_Prog$Type[Cont_Prog$Type == "H"] <- "Harvest"
@@ -105,6 +105,8 @@ Cont_Prog$Type<-factor(Cont_Prog$Type,levels=c("Preharvest", "Harvest", "Receivi
 
 Cont_Prog$`Cont.Type`<-factor(Cont_Prog$`Cont.Type`,levels=c("100%", "10%", "1%", "0.1%"))
 
+
+
 Cont_Prog %>% 
 ggplot(aes(x = Type, y = Cont,color = Pick))+
 #geom_point(position=position_jitterdodge(), alpha = 0.3, size = 1)+
@@ -113,6 +115,11 @@ xlab("Sampling Plan")+ ylab ("Total Adulteran Cells (TAC) at sampling point")+
 facet_wrap(~`Cont.Type`)+
 scale_y_continuous(labels = scales::comma)+
   theme_bw()
+
+
+Cont_Prog %>% 
+  group_by(Type, Mass, Cont.Type) %>% 
+  summarise(mean = mean(Cont), q95 = quantile(Cont, 0.95), q05 = quantile(Cont, 0.05))
 
 ```
 
@@ -147,7 +154,7 @@ scale_y_continuous(labels = scales::comma)+
 
 #Consumer Exposure
 ```{r}
-Exps_all<-read.csv("Data_Tomato_Outputs/Exps11.csv")
+Exps_all<-read.csv("Data_Tomato_Outputs/Exps_Rep.csv")
 
 Exps_all$Mass<-factor(Exps_all$Mass,levels=c("Baseline","2 Tomatoes", "6 Tomatoes", "20 Tomatoes", "60 Tomatoes","20 Tomato Mash", "60 Tomato Mash"))
 
@@ -188,19 +195,30 @@ Exps_RE$Type<-factor(Exps_RE$Type,levels=c("Baseline","Preharvest", "Harvest", "
 Exps_RE$RE<-1-Exps_RE$RE
 
 
+Spread_names <-c(
+"100%"= "Widespread Unclustered", 
+"10%" = "10% Cluster", 
+"1%"="1% Cluster", 
+"0.1%" = "0.1% Cluster"
+)
+
+
 Exps_RE %>% 
   ggplot(aes(x = Type, y = RE, shape = Mass, color = Mass))+
   #geom_col(position = position_dodge())+
   geom_point(position = position_dodge(width = 0.6), size =3)+
   #coord_flip()+
-  facet_wrap(~Cont)+
-  xlab("Sampling Location")+
+  facet_wrap(~Cont, labeller = as_labeller(Spread_names))+
+  xlab("Sampling at Process Stage")+
   ylab("Relative Efficacy Endpoint TAC")+
   theme_bw()+
   scale_shape_manual(values = c(4,8,15,16,17,18,21)) 
 
 ggsave(filename="Plot Outputs/Relative Efficacy.tiff",width = 25, height = 15, units = "cm", dpi = 600)
 ggsave(filename="Plot Outputs/Relative Efficacy.jpeg",width = 25, height = 15, units = "cm", dpi = 600)
+
+write.csv(Exps_RE, file = "Exps_RE.csv")
+
 
 ```
 
@@ -221,6 +239,7 @@ Exps_Other<-Exps_all %>%
   bind_cols(Exps_FS)
 
 Exps_Other$Type<-factor(Exps_Other$Type,levels=c("Baseline","Preharvest", "Harvest", "Receiving", "Packed Product"))
+
 
 Exps_Other %>% 
   ggplot(aes(x = Type, y = FS, fill = Mass))+
