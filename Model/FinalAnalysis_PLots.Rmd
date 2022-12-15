@@ -126,7 +126,7 @@ Cont_Prog %>%
 #Prevalence at sampling point
 
 ```{r}
-Cont_Prog<-read.csv("Data_Tomato_Outputs/PrevSampPoint11.csv")
+Cont_Prog<-read.csv("Data_Tomato_Outputs/PrevSampPoint_Rep.csv")
 
 Cont_Prog$Type[Cont_Prog$Type == "PH"] <- "Preharvest"
 Cont_Prog$Type[Cont_Prog$Type == "H"] <- "Harvest"
@@ -149,6 +149,10 @@ xlab("Sampling Plan")+ ylab ("Total Adulteran Cells (TAC) at sampling point")+
 facet_wrap(~`Cont.Type`, scales = "free_y")+
 scale_y_continuous(labels = scales::comma)+
   theme_bw()
+
+Cont_Prog %>% 
+  group_by(Type, `Cont.Type`) %>% 
+  summarise(mean = mean(Cont), q95 = quantile(Cont, 0.95), q05 = quantile(Cont, 0.05))
 
 ```
 
