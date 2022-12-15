@@ -48,6 +48,12 @@ def Get_Power(df, Weight_After, Weight_Before, CFU_avail, Tot_Iter):
     Power =  sum((df[Weight_After]-df[Weight_Before])>0 )/ Tot_Iter
     return [Total_Rej,Total_Avail,Power]
 
+def Get_Power_Bins(df, Weight_After, Weight_Before, CFU_avail, Tot_Iter): 
+    Total_Rej = sum((df[Weight_After]-df[Weight_Before])>0 )
+    Total_Avail = (sum(df[ CFU_avail]>0))
+    Power =  Total_Rej/Total_Avail
+    return [Total_Rej,Total_Avail,Power]
+
 #This is another function that extract the powers observed every pick
 def get_powers_scenarios (df, Tot_Iter):
     A=Get_Power(df = df, 
@@ -65,6 +71,29 @@ def get_powers_scenarios (df, Tot_Iter):
               )
 
     C= Get_Power(df = df, 
+              Weight_After = "PHS 3 Weight Rejected Aft", 
+              Weight_Before = "PHS 3 Weight Rejected Bef", 
+              CFU_avail = "CFU_Avail Pick 3",
+              Tot_Iter = Tot_Iter
+              )
+    return [A,B,C]
+
+def get_powers_scenarios_Bins (df, Tot_Iter):
+    A=Get_Power_Bins(df = df, 
+              Weight_After = "PHS 1 Weight Rejected Aft", 
+              Weight_Before = "PHS 1 Weight Rejected Bef", 
+              CFU_avail = "CFU_Avail Pick 1",
+              Tot_Iter = Tot_Iter
+              )
+
+    B=Get_Power_Bins(df = df, 
+              Weight_After = "PHS 2 Weight Rejected Aft", 
+              Weight_Before = "PHS 2 Weight Rejected Bef", 
+              CFU_avail = "CFU_Avail Pick 2",
+              Tot_Iter = Tot_Iter
+              )
+
+    C= Get_Power_Bins(df = df, 
               Weight_After = "PHS 3 Weight Rejected Aft", 
               Weight_Before = "PHS 3 Weight Rejected Bef", 
               CFU_avail = "CFU_Avail Pick 3",
@@ -131,6 +160,11 @@ def Analysis_Loop(HA_Iterations,Loop_Iterations,Hazard_Mean, Hazard_SD, Samp_Pla
 
     Powers_df = Power_DF_Creation(Column_Names = ["Power_Pick_1", "Power_Pick_2", "Power_Pick_3"],
                                   Niterations = Hazard_Iterations )
+    
+    Powers_df_alt = Power_DF_Creation(Column_Names = ["Power_Pick_1", "Power_Pick_2", "Power_Pick_3"],
+                                  Niterations = Hazard_Iterations )
+    
+    
     Progression_df = Dictionariez_T.Output_DF_Creation(Column_Names =Dictionariez_T.Col_Days, 
                                                        Niterations = 0)
     Progression_df["HI"] = np.nan
@@ -172,6 +206,10 @@ def Analysis_Loop(HA_Iterations,Loop_Iterations,Hazard_Mean, Hazard_SD, Samp_Pla
         Powers_df.at[i,"Power_Pick_2"]=get_powers_scenarios(Outs[0],Tot_Iter = Loop_Iterations)[1][2]
         Powers_df.at[i,"Power_Pick_3"]=get_powers_scenarios(Outs[0],Tot_Iter = Loop_Iterations)[2][2]
         
+        Powers_df_alt.at[i,"Power_Pick_1"]=get_powers_scenarios_Bins(Outs[0],Tot_Iter = Loop_Iterations)[0][2]
+        Powers_df_alt.at[i,"Power_Pick_2"]=get_powers_scenarios_Bins(Outs[0],Tot_Iter = Loop_Iterations)[1][2]
+        Powers_df_alt.at[i,"Power_Pick_3"]=get_powers_scenarios_Bins(Outs[0],Tot_Iter = Loop_Iterations)[2][2]
+        
         #progression
         Progression_Temp = Outs[1]
         Progression_Temp["HI"] =i
@@ -205,7 +243,7 @@ def Analysis_Loop(HA_Iterations,Loop_Iterations,Hazard_Mean, Hazard_SD, Samp_Pla
         Exposure_df=pd.concat([Exposure_df,Expa])
         
         
-    return [Powers_df,Progression_df,Samp_Point_df,Progression_df_Prev,Progression_df_Prev_Proc,Prev_Point_df,Exposure_df]
+    return [Powers_df,Progression_df,Samp_Point_df,Progression_df_Prev,Progression_df_Prev_Proc,Prev_Point_df,Exposure_df,Powers_df_alt]
 
 #%% Uniform Contamination Scenarios: 
 #Baseline, Uniform Contamination with no sampling

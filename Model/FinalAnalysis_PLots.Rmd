@@ -1,3 +1,4 @@
+
 ---
 title: "Untitled"
 author: "Gustavo Reyes"
@@ -257,13 +258,13 @@ geom_boxplot(alpha = 0.5, outlier.shape=NA,position = position_dodge(0.6))+
   scale_fill_discrete(name="Sampling Plan")+
   ylab("Sampling Plan Power")+
   xlab("Sampling at Process Step")+
-  facet_wrap(~Cont, nrow =2)+
+  facet_wrap(Cont~variable, nrow =2)+
   theme_bw()
 
 
 Powers_ADD %>% 
-  group_by(Type, Mass) %>% 
-  summarise(mean= mean(value))
+  group_by(Type, Mass,Cont) %>% 
+  summarise(mean= mean(value),q95 = quantile(value, 0.95), q05 = quantile(value, 0.05))
 
 ```
 
