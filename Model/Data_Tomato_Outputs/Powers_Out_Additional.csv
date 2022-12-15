@@ -1,0 +1,1171 @@
+,variable,value,Type,Mass,Cont
+0,Power_Pick_1,0.01,Receiving,2 Tomatoes,Harvesting Bucket
+1,Power_Pick_1,0.04,Receiving,2 Tomatoes,Harvesting Bucket
+2,Power_Pick_1,0.04,Receiving,2 Tomatoes,Harvesting Bucket
+3,Power_Pick_1,0.05,Receiving,2 Tomatoes,Harvesting Bucket
+4,Power_Pick_1,0.05,Receiving,2 Tomatoes,Harvesting Bucket
+5,Power_Pick_1,0.02,Receiving,2 Tomatoes,Harvesting Bucket
+6,Power_Pick_1,0.02,Receiving,2 Tomatoes,Harvesting Bucket
+7,Power_Pick_1,0.07,Receiving,2 Tomatoes,Harvesting Bucket
+8,Power_Pick_1,0.04,Receiving,2 Tomatoes,Harvesting Bucket
+9,Power_Pick_1,0.01,Receiving,2 Tomatoes,Harvesting Bucket
+10,Power_Pick_2,0.06,Receiving,2 Tomatoes,Harvesting Bucket
+11,Power_Pick_2,0.06,Receiving,2 Tomatoes,Harvesting Bucket
+12,Power_Pick_2,0.05,Receiving,2 Tomatoes,Harvesting Bucket
+13,Power_Pick_2,0.04,Receiving,2 Tomatoes,Harvesting Bucket
+14,Power_Pick_2,0.04,Receiving,2 Tomatoes,Harvesting Bucket
+15,Power_Pick_2,0.04,Receiving,2 Tomatoes,Harvesting Bucket
+16,Power_Pick_2,0.1,Receiving,2 Tomatoes,Harvesting Bucket
+17,Power_Pick_2,0.01,Receiving,2 Tomatoes,Harvesting Bucket
+18,Power_Pick_2,0.03,Receiving,2 Tomatoes,Harvesting Bucket
+19,Power_Pick_2,0.01,Receiving,2 Tomatoes,Harvesting Bucket
+20,Power_Pick_3,0.01,Receiving,2 Tomatoes,Harvesting Bucket
+21,Power_Pick_3,0.03,Receiving,2 Tomatoes,Harvesting Bucket
+22,Power_Pick_3,0.03,Receiving,2 Tomatoes,Harvesting Bucket
+23,Power_Pick_3,0.03,Receiving,2 Tomatoes,Harvesting Bucket
+24,Power_Pick_3,0.01,Receiving,2 Tomatoes,Harvesting Bucket
+25,Power_Pick_3,0.05,Receiving,2 Tomatoes,Harvesting Bucket
+26,Power_Pick_3,0.05,Receiving,2 Tomatoes,Harvesting Bucket
+27,Power_Pick_3,0.03,Receiving,2 Tomatoes,Harvesting Bucket
+28,Power_Pick_3,0.01,Receiving,2 Tomatoes,Harvesting Bucket
+29,Power_Pick_3,0.05,Receiving,2 Tomatoes,Harvesting Bucket
+0,Power_Pick_1,0.07,Receiving,6 Tomatoes,Harvesting Bucket
+1,Power_Pick_1,0.13,Receiving,6 Tomatoes,Harvesting Bucket
+2,Power_Pick_1,0.09,Receiving,6 Tomatoes,Harvesting Bucket
+3,Power_Pick_1,0.06,Receiving,6 Tomatoes,Harvesting Bucket
+4,Power_Pick_1,0.09,Receiving,6 Tomatoes,Harvesting Bucket
+5,Power_Pick_1,0.06,Receiving,6 Tomatoes,Harvesting Bucket
+6,Power_Pick_1,0.11,Receiving,6 Tomatoes,Harvesting Bucket
+7,Power_Pick_1,0.15,Receiving,6 Tomatoes,Harvesting Bucket
+8,Power_Pick_1,0.07,Receiving,6 Tomatoes,Harvesting Bucket
+9,Power_Pick_1,0.06,Receiving,6 Tomatoes,Harvesting Bucket
+10,Power_Pick_2,0.12,Receiving,6 Tomatoes,Harvesting Bucket
+11,Power_Pick_2,0.11,Receiving,6 Tomatoes,Harvesting Bucket
+12,Power_Pick_2,0.1,Receiving,6 Tomatoes,Harvesting Bucket
+13,Power_Pick_2,0.11,Receiving,6 Tomatoes,Harvesting Bucket
+14,Power_Pick_2,0.12,Receiving,6 Tomatoes,Harvesting Bucket
+15,Power_Pick_2,0.08,Receiving,6 Tomatoes,Harvesting Bucket
+16,Power_Pick_2,0.15,Receiving,6 Tomatoes,Harvesting Bucket
+17,Power_Pick_2,0.1,Receiving,6 Tomatoes,Harvesting Bucket
+18,Power_Pick_2,0.1,Receiving,6 Tomatoes,Harvesting Bucket
+19,Power_Pick_2,0.06,Receiving,6 Tomatoes,Harvesting Bucket
+20,Power_Pick_3,0.04,Receiving,6 Tomatoes,Harvesting Bucket
+21,Power_Pick_3,0.08,Receiving,6 Tomatoes,Harvesting Bucket
+22,Power_Pick_3,0.07,Receiving,6 Tomatoes,Harvesting Bucket
+23,Power_Pick_3,0.09,Receiving,6 Tomatoes,Harvesting Bucket
+24,Power_Pick_3,0.06,Receiving,6 Tomatoes,Harvesting Bucket
+25,Power_Pick_3,0.11,Receiving,6 Tomatoes,Harvesting Bucket
+26,Power_Pick_3,0.09,Receiving,6 Tomatoes,Harvesting Bucket
+27,Power_Pick_3,0.07,Receiving,6 Tomatoes,Harvesting Bucket
+28,Power_Pick_3,0.05,Receiving,6 Tomatoes,Harvesting Bucket
+29,Power_Pick_3,0.08,Receiving,6 Tomatoes,Harvesting Bucket
+0,Power_Pick_1,0.37,Receiving,20 Tomatoes,Harvesting Bucket
+1,Power_Pick_1,0.32,Receiving,20 Tomatoes,Harvesting Bucket
+2,Power_Pick_1,0.31,Receiving,20 Tomatoes,Harvesting Bucket
+3,Power_Pick_1,0.29,Receiving,20 Tomatoes,Harvesting Bucket
+4,Power_Pick_1,0.29,Receiving,20 Tomatoes,Harvesting Bucket
+5,Power_Pick_1,0.22,Receiving,20 Tomatoes,Harvesting Bucket
+6,Power_Pick_1,0.3,Receiving,20 Tomatoes,Harvesting Bucket
+7,Power_Pick_1,0.33,Receiving,20 Tomatoes,Harvesting Bucket
+8,Power_Pick_1,0.31,Receiving,20 Tomatoes,Harvesting Bucket
+9,Power_Pick_1,0.24,Receiving,20 Tomatoes,Harvesting Bucket
+10,Power_Pick_1,0.28,Receiving,20 Tomatoes,Harvesting Bucket
+11,Power_Pick_1,0.26,Receiving,20 Tomatoes,Harvesting Bucket
+12,Power_Pick_1,0.27,Receiving,20 Tomatoes,Harvesting Bucket
+13,Power_Pick_1,0.3,Receiving,20 Tomatoes,Harvesting Bucket
+14,Power_Pick_1,0.35,Receiving,20 Tomatoes,Harvesting Bucket
+15,Power_Pick_1,0.33,Receiving,20 Tomatoes,Harvesting Bucket
+16,Power_Pick_1,0.35,Receiving,20 Tomatoes,Harvesting Bucket
+17,Power_Pick_1,0.35,Receiving,20 Tomatoes,Harvesting Bucket
+18,Power_Pick_1,0.32,Receiving,20 Tomatoes,Harvesting Bucket
+19,Power_Pick_1,0.3,Receiving,20 Tomatoes,Harvesting Bucket
+20,Power_Pick_2,0.19,Receiving,20 Tomatoes,Harvesting Bucket
+21,Power_Pick_2,0.17,Receiving,20 Tomatoes,Harvesting Bucket
+22,Power_Pick_2,0.21,Receiving,20 Tomatoes,Harvesting Bucket
+23,Power_Pick_2,0.2,Receiving,20 Tomatoes,Harvesting Bucket
+24,Power_Pick_2,0.18,Receiving,20 Tomatoes,Harvesting Bucket
+25,Power_Pick_2,0.22,Receiving,20 Tomatoes,Harvesting Bucket
+26,Power_Pick_2,0.26,Receiving,20 Tomatoes,Harvesting Bucket
+27,Power_Pick_2,0.23,Receiving,20 Tomatoes,Harvesting Bucket
+28,Power_Pick_2,0.27,Receiving,20 Tomatoes,Harvesting Bucket
+29,Power_Pick_2,0.17,Receiving,20 Tomatoes,Harvesting Bucket
+30,Power_Pick_2,0.23,Receiving,20 Tomatoes,Harvesting Bucket
+31,Power_Pick_2,0.21,Receiving,20 Tomatoes,Harvesting Bucket
+32,Power_Pick_2,0.22,Receiving,20 Tomatoes,Harvesting Bucket
+33,Power_Pick_2,0.27,Receiving,20 Tomatoes,Harvesting Bucket
+34,Power_Pick_2,0.12,Receiving,20 Tomatoes,Harvesting Bucket
+35,Power_Pick_2,0.18,Receiving,20 Tomatoes,Harvesting Bucket
+36,Power_Pick_2,0.23,Receiving,20 Tomatoes,Harvesting Bucket
+37,Power_Pick_2,0.13,Receiving,20 Tomatoes,Harvesting Bucket
+38,Power_Pick_2,0.24,Receiving,20 Tomatoes,Harvesting Bucket
+39,Power_Pick_2,0.16,Receiving,20 Tomatoes,Harvesting Bucket
+40,Power_Pick_3,0.09,Receiving,20 Tomatoes,Harvesting Bucket
+41,Power_Pick_3,0.17,Receiving,20 Tomatoes,Harvesting Bucket
+42,Power_Pick_3,0.14,Receiving,20 Tomatoes,Harvesting Bucket
+43,Power_Pick_3,0.18,Receiving,20 Tomatoes,Harvesting Bucket
+44,Power_Pick_3,0.21,Receiving,20 Tomatoes,Harvesting Bucket
+45,Power_Pick_3,0.15,Receiving,20 Tomatoes,Harvesting Bucket
+46,Power_Pick_3,0.19,Receiving,20 Tomatoes,Harvesting Bucket
+47,Power_Pick_3,0.12,Receiving,20 Tomatoes,Harvesting Bucket
+48,Power_Pick_3,0.08,Receiving,20 Tomatoes,Harvesting Bucket
+49,Power_Pick_3,0.19,Receiving,20 Tomatoes,Harvesting Bucket
+50,Power_Pick_3,0.08,Receiving,20 Tomatoes,Harvesting Bucket
+51,Power_Pick_3,0.17,Receiving,20 Tomatoes,Harvesting Bucket
+52,Power_Pick_3,0.19,Receiving,20 Tomatoes,Harvesting Bucket
+53,Power_Pick_3,0.15,Receiving,20 Tomatoes,Harvesting Bucket
+54,Power_Pick_3,0.19,Receiving,20 Tomatoes,Harvesting Bucket
+55,Power_Pick_3,0.19,Receiving,20 Tomatoes,Harvesting Bucket
+56,Power_Pick_3,0.15,Receiving,20 Tomatoes,Harvesting Bucket
+57,Power_Pick_3,0.2,Receiving,20 Tomatoes,Harvesting Bucket
+58,Power_Pick_3,0.09,Receiving,20 Tomatoes,Harvesting Bucket
+59,Power_Pick_3,0.1,Receiving,20 Tomatoes,Harvesting Bucket
+0,Power_Pick_1,0.68,Receiving,60 Tomatoes,Harvesting Bucket
+1,Power_Pick_1,0.68,Receiving,60 Tomatoes,Harvesting Bucket
+2,Power_Pick_1,0.65,Receiving,60 Tomatoes,Harvesting Bucket
+3,Power_Pick_1,0.67,Receiving,60 Tomatoes,Harvesting Bucket
+4,Power_Pick_1,0.61,Receiving,60 Tomatoes,Harvesting Bucket
+5,Power_Pick_1,0.64,Receiving,60 Tomatoes,Harvesting Bucket
+6,Power_Pick_1,0.59,Receiving,60 Tomatoes,Harvesting Bucket
+7,Power_Pick_1,0.73,Receiving,60 Tomatoes,Harvesting Bucket
+8,Power_Pick_1,0.68,Receiving,60 Tomatoes,Harvesting Bucket
+9,Power_Pick_1,0.68,Receiving,60 Tomatoes,Harvesting Bucket
+10,Power_Pick_1,0.57,Receiving,60 Tomatoes,Harvesting Bucket
+11,Power_Pick_1,0.6,Receiving,60 Tomatoes,Harvesting Bucket
+12,Power_Pick_1,0.67,Receiving,60 Tomatoes,Harvesting Bucket
+13,Power_Pick_1,0.68,Receiving,60 Tomatoes,Harvesting Bucket
+14,Power_Pick_1,0.71,Receiving,60 Tomatoes,Harvesting Bucket
+15,Power_Pick_1,0.64,Receiving,60 Tomatoes,Harvesting Bucket
+16,Power_Pick_1,0.66,Receiving,60 Tomatoes,Harvesting Bucket
+17,Power_Pick_1,0.71,Receiving,60 Tomatoes,Harvesting Bucket
+18,Power_Pick_1,0.64,Receiving,60 Tomatoes,Harvesting Bucket
+19,Power_Pick_1,0.71,Receiving,60 Tomatoes,Harvesting Bucket
+20,Power_Pick_2,0.22,Receiving,60 Tomatoes,Harvesting Bucket
+21,Power_Pick_2,0.21,Receiving,60 Tomatoes,Harvesting Bucket
+22,Power_Pick_2,0.24,Receiving,60 Tomatoes,Harvesting Bucket
+23,Power_Pick_2,0.24,Receiving,60 Tomatoes,Harvesting Bucket
+24,Power_Pick_2,0.25,Receiving,60 Tomatoes,Harvesting Bucket
+25,Power_Pick_2,0.22,Receiving,60 Tomatoes,Harvesting Bucket
+26,Power_Pick_2,0.31,Receiving,60 Tomatoes,Harvesting Bucket
+27,Power_Pick_2,0.22,Receiving,60 Tomatoes,Harvesting Bucket
+28,Power_Pick_2,0.24,Receiving,60 Tomatoes,Harvesting Bucket
+29,Power_Pick_2,0.19,Receiving,60 Tomatoes,Harvesting Bucket
+30,Power_Pick_2,0.25,Receiving,60 Tomatoes,Harvesting Bucket
+31,Power_Pick_2,0.27,Receiving,60 Tomatoes,Harvesting Bucket
+32,Power_Pick_2,0.22,Receiving,60 Tomatoes,Harvesting Bucket
+33,Power_Pick_2,0.18,Receiving,60 Tomatoes,Harvesting Bucket
+34,Power_Pick_2,0.22,Receiving,60 Tomatoes,Harvesting Bucket
+35,Power_Pick_2,0.28,Receiving,60 Tomatoes,Harvesting Bucket
+36,Power_Pick_2,0.25,Receiving,60 Tomatoes,Harvesting Bucket
+37,Power_Pick_2,0.15,Receiving,60 Tomatoes,Harvesting Bucket
+38,Power_Pick_2,0.29,Receiving,60 Tomatoes,Harvesting Bucket
+39,Power_Pick_2,0.17,Receiving,60 Tomatoes,Harvesting Bucket
+40,Power_Pick_3,0.07,Receiving,60 Tomatoes,Harvesting Bucket
+41,Power_Pick_3,0.08,Receiving,60 Tomatoes,Harvesting Bucket
+42,Power_Pick_3,0.08,Receiving,60 Tomatoes,Harvesting Bucket
+43,Power_Pick_3,0.07,Receiving,60 Tomatoes,Harvesting Bucket
+44,Power_Pick_3,0.11,Receiving,60 Tomatoes,Harvesting Bucket
+45,Power_Pick_3,0.08,Receiving,60 Tomatoes,Harvesting Bucket
+46,Power_Pick_3,0.06,Receiving,60 Tomatoes,Harvesting Bucket
+47,Power_Pick_3,0.02,Receiving,60 Tomatoes,Harvesting Bucket
+48,Power_Pick_3,0.06,Receiving,60 Tomatoes,Harvesting Bucket
+49,Power_Pick_3,0.07,Receiving,60 Tomatoes,Harvesting Bucket
+50,Power_Pick_3,0.11,Receiving,60 Tomatoes,Harvesting Bucket
+51,Power_Pick_3,0.11,Receiving,60 Tomatoes,Harvesting Bucket
+52,Power_Pick_3,0.07,Receiving,60 Tomatoes,Harvesting Bucket
+53,Power_Pick_3,0.11,Receiving,60 Tomatoes,Harvesting Bucket
+54,Power_Pick_3,0.03,Receiving,60 Tomatoes,Harvesting Bucket
+55,Power_Pick_3,0.05,Receiving,60 Tomatoes,Harvesting Bucket
+56,Power_Pick_3,0.06,Receiving,60 Tomatoes,Harvesting Bucket
+57,Power_Pick_3,0.1,Receiving,60 Tomatoes,Harvesting Bucket
+58,Power_Pick_3,0.02,Receiving,60 Tomatoes,Harvesting Bucket
+59,Power_Pick_3,0.04,Receiving,60 Tomatoes,Harvesting Bucket
+0,Power_Pick_1,0.19,Receiving,20 Tomato Mash,Harvesting Bucket
+1,Power_Pick_1,0.32,Receiving,20 Tomato Mash,Harvesting Bucket
+2,Power_Pick_1,0.35,Receiving,20 Tomato Mash,Harvesting Bucket
+3,Power_Pick_1,0.33,Receiving,20 Tomato Mash,Harvesting Bucket
+4,Power_Pick_1,0.21,Receiving,20 Tomato Mash,Harvesting Bucket
+5,Power_Pick_1,0.25,Receiving,20 Tomato Mash,Harvesting Bucket
+6,Power_Pick_1,0.31,Receiving,20 Tomato Mash,Harvesting Bucket
+7,Power_Pick_1,0.32,Receiving,20 Tomato Mash,Harvesting Bucket
+8,Power_Pick_1,0.31,Receiving,20 Tomato Mash,Harvesting Bucket
+9,Power_Pick_1,0.27,Receiving,20 Tomato Mash,Harvesting Bucket
+10,Power_Pick_2,0.22,Receiving,20 Tomato Mash,Harvesting Bucket
+11,Power_Pick_2,0.25,Receiving,20 Tomato Mash,Harvesting Bucket
+12,Power_Pick_2,0.19,Receiving,20 Tomato Mash,Harvesting Bucket
+13,Power_Pick_2,0.15,Receiving,20 Tomato Mash,Harvesting Bucket
+14,Power_Pick_2,0.28,Receiving,20 Tomato Mash,Harvesting Bucket
+15,Power_Pick_2,0.3,Receiving,20 Tomato Mash,Harvesting Bucket
+16,Power_Pick_2,0.14,Receiving,20 Tomato Mash,Harvesting Bucket
+17,Power_Pick_2,0.19,Receiving,20 Tomato Mash,Harvesting Bucket
+18,Power_Pick_2,0.17,Receiving,20 Tomato Mash,Harvesting Bucket
+19,Power_Pick_2,0.26,Receiving,20 Tomato Mash,Harvesting Bucket
+20,Power_Pick_3,0.16,Receiving,20 Tomato Mash,Harvesting Bucket
+21,Power_Pick_3,0.14,Receiving,20 Tomato Mash,Harvesting Bucket
+22,Power_Pick_3,0.15,Receiving,20 Tomato Mash,Harvesting Bucket
+23,Power_Pick_3,0.13,Receiving,20 Tomato Mash,Harvesting Bucket
+24,Power_Pick_3,0.17,Receiving,20 Tomato Mash,Harvesting Bucket
+25,Power_Pick_3,0.14,Receiving,20 Tomato Mash,Harvesting Bucket
+26,Power_Pick_3,0.16,Receiving,20 Tomato Mash,Harvesting Bucket
+27,Power_Pick_3,0.13,Receiving,20 Tomato Mash,Harvesting Bucket
+28,Power_Pick_3,0.17,Receiving,20 Tomato Mash,Harvesting Bucket
+29,Power_Pick_3,0.14,Receiving,20 Tomato Mash,Harvesting Bucket
+0,Power_Pick_1,0.6,Receiving,60 Tomato Mash,Harvesting Bucket
+1,Power_Pick_1,0.68,Receiving,60 Tomato Mash,Harvesting Bucket
+2,Power_Pick_1,0.68,Receiving,60 Tomato Mash,Harvesting Bucket
+3,Power_Pick_1,0.72,Receiving,60 Tomato Mash,Harvesting Bucket
+4,Power_Pick_1,0.66,Receiving,60 Tomato Mash,Harvesting Bucket
+5,Power_Pick_1,0.62,Receiving,60 Tomato Mash,Harvesting Bucket
+6,Power_Pick_1,0.6,Receiving,60 Tomato Mash,Harvesting Bucket
+7,Power_Pick_1,0.62,Receiving,60 Tomato Mash,Harvesting Bucket
+8,Power_Pick_1,0.63,Receiving,60 Tomato Mash,Harvesting Bucket
+9,Power_Pick_1,0.66,Receiving,60 Tomato Mash,Harvesting Bucket
+10,Power_Pick_1,0.69,Receiving,60 Tomato Mash,Harvesting Bucket
+11,Power_Pick_1,0.64,Receiving,60 Tomato Mash,Harvesting Bucket
+12,Power_Pick_1,0.62,Receiving,60 Tomato Mash,Harvesting Bucket
+13,Power_Pick_1,0.7,Receiving,60 Tomato Mash,Harvesting Bucket
+14,Power_Pick_1,0.69,Receiving,60 Tomato Mash,Harvesting Bucket
+15,Power_Pick_1,0.71,Receiving,60 Tomato Mash,Harvesting Bucket
+16,Power_Pick_1,0.56,Receiving,60 Tomato Mash,Harvesting Bucket
+17,Power_Pick_1,0.59,Receiving,60 Tomato Mash,Harvesting Bucket
+18,Power_Pick_1,0.62,Receiving,60 Tomato Mash,Harvesting Bucket
+19,Power_Pick_1,0.6,Receiving,60 Tomato Mash,Harvesting Bucket
+20,Power_Pick_2,0.25,Receiving,60 Tomato Mash,Harvesting Bucket
+21,Power_Pick_2,0.23,Receiving,60 Tomato Mash,Harvesting Bucket
+22,Power_Pick_2,0.23,Receiving,60 Tomato Mash,Harvesting Bucket
+23,Power_Pick_2,0.13,Receiving,60 Tomato Mash,Harvesting Bucket
+24,Power_Pick_2,0.23,Receiving,60 Tomato Mash,Harvesting Bucket
+25,Power_Pick_2,0.26,Receiving,60 Tomato Mash,Harvesting Bucket
+26,Power_Pick_2,0.26,Receiving,60 Tomato Mash,Harvesting Bucket
+27,Power_Pick_2,0.2,Receiving,60 Tomato Mash,Harvesting Bucket
+28,Power_Pick_2,0.27,Receiving,60 Tomato Mash,Harvesting Bucket
+29,Power_Pick_2,0.23,Receiving,60 Tomato Mash,Harvesting Bucket
+30,Power_Pick_2,0.21,Receiving,60 Tomato Mash,Harvesting Bucket
+31,Power_Pick_2,0.25,Receiving,60 Tomato Mash,Harvesting Bucket
+32,Power_Pick_2,0.28,Receiving,60 Tomato Mash,Harvesting Bucket
+33,Power_Pick_2,0.2,Receiving,60 Tomato Mash,Harvesting Bucket
+34,Power_Pick_2,0.19,Receiving,60 Tomato Mash,Harvesting Bucket
+35,Power_Pick_2,0.17,Receiving,60 Tomato Mash,Harvesting Bucket
+36,Power_Pick_2,0.22,Receiving,60 Tomato Mash,Harvesting Bucket
+37,Power_Pick_2,0.25,Receiving,60 Tomato Mash,Harvesting Bucket
+38,Power_Pick_2,0.22,Receiving,60 Tomato Mash,Harvesting Bucket
+39,Power_Pick_2,0.27,Receiving,60 Tomato Mash,Harvesting Bucket
+40,Power_Pick_3,0.12,Receiving,60 Tomato Mash,Harvesting Bucket
+41,Power_Pick_3,0.06,Receiving,60 Tomato Mash,Harvesting Bucket
+42,Power_Pick_3,0.06,Receiving,60 Tomato Mash,Harvesting Bucket
+43,Power_Pick_3,0.11,Receiving,60 Tomato Mash,Harvesting Bucket
+44,Power_Pick_3,0.06,Receiving,60 Tomato Mash,Harvesting Bucket
+45,Power_Pick_3,0.08,Receiving,60 Tomato Mash,Harvesting Bucket
+46,Power_Pick_3,0.11,Receiving,60 Tomato Mash,Harvesting Bucket
+47,Power_Pick_3,0.1,Receiving,60 Tomato Mash,Harvesting Bucket
+48,Power_Pick_3,0.05,Receiving,60 Tomato Mash,Harvesting Bucket
+49,Power_Pick_3,0.07,Receiving,60 Tomato Mash,Harvesting Bucket
+50,Power_Pick_3,0.07,Receiving,60 Tomato Mash,Harvesting Bucket
+51,Power_Pick_3,0.07,Receiving,60 Tomato Mash,Harvesting Bucket
+52,Power_Pick_3,0.05,Receiving,60 Tomato Mash,Harvesting Bucket
+53,Power_Pick_3,0.07,Receiving,60 Tomato Mash,Harvesting Bucket
+54,Power_Pick_3,0.08,Receiving,60 Tomato Mash,Harvesting Bucket
+55,Power_Pick_3,0.07,Receiving,60 Tomato Mash,Harvesting Bucket
+56,Power_Pick_3,0.12,Receiving,60 Tomato Mash,Harvesting Bucket
+57,Power_Pick_3,0.12,Receiving,60 Tomato Mash,Harvesting Bucket
+58,Power_Pick_3,0.12,Receiving,60 Tomato Mash,Harvesting Bucket
+59,Power_Pick_3,0.12,Receiving,60 Tomato Mash,Harvesting Bucket
+0,Power_Pick_1,0.02,Packed Product,2 Tomatoes,Harvesting Bucket
+1,Power_Pick_1,0.06,Packed Product,2 Tomatoes,Harvesting Bucket
+2,Power_Pick_1,0.04,Packed Product,2 Tomatoes,Harvesting Bucket
+3,Power_Pick_1,0.06,Packed Product,2 Tomatoes,Harvesting Bucket
+4,Power_Pick_1,0.02,Packed Product,2 Tomatoes,Harvesting Bucket
+5,Power_Pick_1,0.0,Packed Product,2 Tomatoes,Harvesting Bucket
+6,Power_Pick_1,0.02,Packed Product,2 Tomatoes,Harvesting Bucket
+7,Power_Pick_1,0.02,Packed Product,2 Tomatoes,Harvesting Bucket
+8,Power_Pick_1,0.02,Packed Product,2 Tomatoes,Harvesting Bucket
+9,Power_Pick_1,0.01,Packed Product,2 Tomatoes,Harvesting Bucket
+10,Power_Pick_2,0.04,Packed Product,2 Tomatoes,Harvesting Bucket
+11,Power_Pick_2,0.05,Packed Product,2 Tomatoes,Harvesting Bucket
+12,Power_Pick_2,0.01,Packed Product,2 Tomatoes,Harvesting Bucket
+13,Power_Pick_2,0.04,Packed Product,2 Tomatoes,Harvesting Bucket
+14,Power_Pick_2,0.03,Packed Product,2 Tomatoes,Harvesting Bucket
+15,Power_Pick_2,0.03,Packed Product,2 Tomatoes,Harvesting Bucket
+16,Power_Pick_2,0.04,Packed Product,2 Tomatoes,Harvesting Bucket
+17,Power_Pick_2,0.01,Packed Product,2 Tomatoes,Harvesting Bucket
+18,Power_Pick_2,0.03,Packed Product,2 Tomatoes,Harvesting Bucket
+19,Power_Pick_2,0.01,Packed Product,2 Tomatoes,Harvesting Bucket
+20,Power_Pick_3,0.01,Packed Product,2 Tomatoes,Harvesting Bucket
+21,Power_Pick_3,0.01,Packed Product,2 Tomatoes,Harvesting Bucket
+22,Power_Pick_3,0.02,Packed Product,2 Tomatoes,Harvesting Bucket
+23,Power_Pick_3,0.02,Packed Product,2 Tomatoes,Harvesting Bucket
+24,Power_Pick_3,0.01,Packed Product,2 Tomatoes,Harvesting Bucket
+25,Power_Pick_3,0.04,Packed Product,2 Tomatoes,Harvesting Bucket
+26,Power_Pick_3,0.05,Packed Product,2 Tomatoes,Harvesting Bucket
+27,Power_Pick_3,0.01,Packed Product,2 Tomatoes,Harvesting Bucket
+28,Power_Pick_3,0.0,Packed Product,2 Tomatoes,Harvesting Bucket
+29,Power_Pick_3,0.03,Packed Product,2 Tomatoes,Harvesting Bucket
+0,Power_Pick_1,0.07,Packed Product,6 Tomatoes,Harvesting Bucket
+1,Power_Pick_1,0.12,Packed Product,6 Tomatoes,Harvesting Bucket
+2,Power_Pick_1,0.08,Packed Product,6 Tomatoes,Harvesting Bucket
+3,Power_Pick_1,0.08,Packed Product,6 Tomatoes,Harvesting Bucket
+4,Power_Pick_1,0.06,Packed Product,6 Tomatoes,Harvesting Bucket
+5,Power_Pick_1,0.04,Packed Product,6 Tomatoes,Harvesting Bucket
+6,Power_Pick_1,0.03,Packed Product,6 Tomatoes,Harvesting Bucket
+7,Power_Pick_1,0.08,Packed Product,6 Tomatoes,Harvesting Bucket
+8,Power_Pick_1,0.07,Packed Product,6 Tomatoes,Harvesting Bucket
+9,Power_Pick_1,0.03,Packed Product,6 Tomatoes,Harvesting Bucket
+10,Power_Pick_2,0.09,Packed Product,6 Tomatoes,Harvesting Bucket
+11,Power_Pick_2,0.07,Packed Product,6 Tomatoes,Harvesting Bucket
+12,Power_Pick_2,0.06,Packed Product,6 Tomatoes,Harvesting Bucket
+13,Power_Pick_2,0.07,Packed Product,6 Tomatoes,Harvesting Bucket
+14,Power_Pick_2,0.13,Packed Product,6 Tomatoes,Harvesting Bucket
+15,Power_Pick_2,0.08,Packed Product,6 Tomatoes,Harvesting Bucket
+16,Power_Pick_2,0.09,Packed Product,6 Tomatoes,Harvesting Bucket
+17,Power_Pick_2,0.1,Packed Product,6 Tomatoes,Harvesting Bucket
+18,Power_Pick_2,0.08,Packed Product,6 Tomatoes,Harvesting Bucket
+19,Power_Pick_2,0.04,Packed Product,6 Tomatoes,Harvesting Bucket
+20,Power_Pick_3,0.03,Packed Product,6 Tomatoes,Harvesting Bucket
+21,Power_Pick_3,0.06,Packed Product,6 Tomatoes,Harvesting Bucket
+22,Power_Pick_3,0.06,Packed Product,6 Tomatoes,Harvesting Bucket
+23,Power_Pick_3,0.07,Packed Product,6 Tomatoes,Harvesting Bucket
+24,Power_Pick_3,0.01,Packed Product,6 Tomatoes,Harvesting Bucket
+25,Power_Pick_3,0.06,Packed Product,6 Tomatoes,Harvesting Bucket
+26,Power_Pick_3,0.02,Packed Product,6 Tomatoes,Harvesting Bucket
+27,Power_Pick_3,0.06,Packed Product,6 Tomatoes,Harvesting Bucket
+28,Power_Pick_3,0.04,Packed Product,6 Tomatoes,Harvesting Bucket
+29,Power_Pick_3,0.08,Packed Product,6 Tomatoes,Harvesting Bucket
+0,Power_Pick_1,0.27,Packed Product,20 Tomatoes,Harvesting Bucket
+1,Power_Pick_1,0.25,Packed Product,20 Tomatoes,Harvesting Bucket
+2,Power_Pick_1,0.25,Packed Product,20 Tomatoes,Harvesting Bucket
+3,Power_Pick_1,0.25,Packed Product,20 Tomatoes,Harvesting Bucket
+4,Power_Pick_1,0.24,Packed Product,20 Tomatoes,Harvesting Bucket
+5,Power_Pick_1,0.2,Packed Product,20 Tomatoes,Harvesting Bucket
+6,Power_Pick_1,0.22,Packed Product,20 Tomatoes,Harvesting Bucket
+7,Power_Pick_1,0.23,Packed Product,20 Tomatoes,Harvesting Bucket
+8,Power_Pick_1,0.21,Packed Product,20 Tomatoes,Harvesting Bucket
+9,Power_Pick_1,0.17,Packed Product,20 Tomatoes,Harvesting Bucket
+10,Power_Pick_2,0.12,Packed Product,20 Tomatoes,Harvesting Bucket
+11,Power_Pick_2,0.18,Packed Product,20 Tomatoes,Harvesting Bucket
+12,Power_Pick_2,0.13,Packed Product,20 Tomatoes,Harvesting Bucket
+13,Power_Pick_2,0.2,Packed Product,20 Tomatoes,Harvesting Bucket
+14,Power_Pick_2,0.15,Packed Product,20 Tomatoes,Harvesting Bucket
+15,Power_Pick_2,0.17,Packed Product,20 Tomatoes,Harvesting Bucket
+16,Power_Pick_2,0.22,Packed Product,20 Tomatoes,Harvesting Bucket
+17,Power_Pick_2,0.18,Packed Product,20 Tomatoes,Harvesting Bucket
+18,Power_Pick_2,0.24,Packed Product,20 Tomatoes,Harvesting Bucket
+19,Power_Pick_2,0.16,Packed Product,20 Tomatoes,Harvesting Bucket
+20,Power_Pick_3,0.13,Packed Product,20 Tomatoes,Harvesting Bucket
+21,Power_Pick_3,0.14,Packed Product,20 Tomatoes,Harvesting Bucket
+22,Power_Pick_3,0.15,Packed Product,20 Tomatoes,Harvesting Bucket
+23,Power_Pick_3,0.15,Packed Product,20 Tomatoes,Harvesting Bucket
+24,Power_Pick_3,0.12,Packed Product,20 Tomatoes,Harvesting Bucket
+25,Power_Pick_3,0.14,Packed Product,20 Tomatoes,Harvesting Bucket
+26,Power_Pick_3,0.11,Packed Product,20 Tomatoes,Harvesting Bucket
+27,Power_Pick_3,0.15,Packed Product,20 Tomatoes,Harvesting Bucket
+28,Power_Pick_3,0.09,Packed Product,20 Tomatoes,Harvesting Bucket
+29,Power_Pick_3,0.15,Packed Product,20 Tomatoes,Harvesting Bucket
+0,Power_Pick_1,0.56,Packed Product,60 Tomatoes,Harvesting Bucket
+1,Power_Pick_1,0.58,Packed Product,60 Tomatoes,Harvesting Bucket
+2,Power_Pick_1,0.5,Packed Product,60 Tomatoes,Harvesting Bucket
+3,Power_Pick_1,0.63,Packed Product,60 Tomatoes,Harvesting Bucket
+4,Power_Pick_1,0.54,Packed Product,60 Tomatoes,Harvesting Bucket
+5,Power_Pick_1,0.48,Packed Product,60 Tomatoes,Harvesting Bucket
+6,Power_Pick_1,0.49,Packed Product,60 Tomatoes,Harvesting Bucket
+7,Power_Pick_1,0.59,Packed Product,60 Tomatoes,Harvesting Bucket
+8,Power_Pick_1,0.57,Packed Product,60 Tomatoes,Harvesting Bucket
+9,Power_Pick_1,0.51,Packed Product,60 Tomatoes,Harvesting Bucket
+10,Power_Pick_2,0.24,Packed Product,60 Tomatoes,Harvesting Bucket
+11,Power_Pick_2,0.2,Packed Product,60 Tomatoes,Harvesting Bucket
+12,Power_Pick_2,0.27,Packed Product,60 Tomatoes,Harvesting Bucket
+13,Power_Pick_2,0.2,Packed Product,60 Tomatoes,Harvesting Bucket
+14,Power_Pick_2,0.22,Packed Product,60 Tomatoes,Harvesting Bucket
+15,Power_Pick_2,0.29,Packed Product,60 Tomatoes,Harvesting Bucket
+16,Power_Pick_2,0.26,Packed Product,60 Tomatoes,Harvesting Bucket
+17,Power_Pick_2,0.28,Packed Product,60 Tomatoes,Harvesting Bucket
+18,Power_Pick_2,0.25,Packed Product,60 Tomatoes,Harvesting Bucket
+19,Power_Pick_2,0.22,Packed Product,60 Tomatoes,Harvesting Bucket
+20,Power_Pick_3,0.13,Packed Product,60 Tomatoes,Harvesting Bucket
+21,Power_Pick_3,0.14,Packed Product,60 Tomatoes,Harvesting Bucket
+22,Power_Pick_3,0.14,Packed Product,60 Tomatoes,Harvesting Bucket
+23,Power_Pick_3,0.11,Packed Product,60 Tomatoes,Harvesting Bucket
+24,Power_Pick_3,0.09,Packed Product,60 Tomatoes,Harvesting Bucket
+25,Power_Pick_3,0.06,Packed Product,60 Tomatoes,Harvesting Bucket
+26,Power_Pick_3,0.12,Packed Product,60 Tomatoes,Harvesting Bucket
+27,Power_Pick_3,0.05,Packed Product,60 Tomatoes,Harvesting Bucket
+28,Power_Pick_3,0.1,Packed Product,60 Tomatoes,Harvesting Bucket
+29,Power_Pick_3,0.16,Packed Product,60 Tomatoes,Harvesting Bucket
+0,Power_Pick_1,0.11,Packed Product,20 Tomato Mash,Harvesting Bucket
+1,Power_Pick_1,0.08,Packed Product,20 Tomato Mash,Harvesting Bucket
+2,Power_Pick_1,0.03,Packed Product,20 Tomato Mash,Harvesting Bucket
+3,Power_Pick_1,0.11,Packed Product,20 Tomato Mash,Harvesting Bucket
+4,Power_Pick_1,0.05,Packed Product,20 Tomato Mash,Harvesting Bucket
+5,Power_Pick_1,0.07,Packed Product,20 Tomato Mash,Harvesting Bucket
+6,Power_Pick_1,0.04,Packed Product,20 Tomato Mash,Harvesting Bucket
+7,Power_Pick_1,0.06,Packed Product,20 Tomato Mash,Harvesting Bucket
+8,Power_Pick_1,0.03,Packed Product,20 Tomato Mash,Harvesting Bucket
+9,Power_Pick_1,0.07,Packed Product,20 Tomato Mash,Harvesting Bucket
+10,Power_Pick_2,0.04,Packed Product,20 Tomato Mash,Harvesting Bucket
+11,Power_Pick_2,0.06,Packed Product,20 Tomato Mash,Harvesting Bucket
+12,Power_Pick_2,0.01,Packed Product,20 Tomato Mash,Harvesting Bucket
+13,Power_Pick_2,0.04,Packed Product,20 Tomato Mash,Harvesting Bucket
+14,Power_Pick_2,0.06,Packed Product,20 Tomato Mash,Harvesting Bucket
+15,Power_Pick_2,0.06,Packed Product,20 Tomato Mash,Harvesting Bucket
+16,Power_Pick_2,0.06,Packed Product,20 Tomato Mash,Harvesting Bucket
+17,Power_Pick_2,0.07,Packed Product,20 Tomato Mash,Harvesting Bucket
+18,Power_Pick_2,0.09,Packed Product,20 Tomato Mash,Harvesting Bucket
+19,Power_Pick_2,0.06,Packed Product,20 Tomato Mash,Harvesting Bucket
+20,Power_Pick_3,0.07,Packed Product,20 Tomato Mash,Harvesting Bucket
+21,Power_Pick_3,0.03,Packed Product,20 Tomato Mash,Harvesting Bucket
+22,Power_Pick_3,0.04,Packed Product,20 Tomato Mash,Harvesting Bucket
+23,Power_Pick_3,0.06,Packed Product,20 Tomato Mash,Harvesting Bucket
+24,Power_Pick_3,0.03,Packed Product,20 Tomato Mash,Harvesting Bucket
+25,Power_Pick_3,0.08,Packed Product,20 Tomato Mash,Harvesting Bucket
+26,Power_Pick_3,0.0,Packed Product,20 Tomato Mash,Harvesting Bucket
+27,Power_Pick_3,0.07,Packed Product,20 Tomato Mash,Harvesting Bucket
+28,Power_Pick_3,0.09,Packed Product,20 Tomato Mash,Harvesting Bucket
+29,Power_Pick_3,0.06,Packed Product,20 Tomato Mash,Harvesting Bucket
+0,Power_Pick_1,0.22,Packed Product,60 Tomato Mash,Harvesting Bucket
+1,Power_Pick_1,0.18,Packed Product,60 Tomato Mash,Harvesting Bucket
+2,Power_Pick_1,0.17,Packed Product,60 Tomato Mash,Harvesting Bucket
+3,Power_Pick_1,0.23,Packed Product,60 Tomato Mash,Harvesting Bucket
+4,Power_Pick_1,0.15,Packed Product,60 Tomato Mash,Harvesting Bucket
+5,Power_Pick_1,0.12,Packed Product,60 Tomato Mash,Harvesting Bucket
+6,Power_Pick_1,0.11,Packed Product,60 Tomato Mash,Harvesting Bucket
+7,Power_Pick_1,0.22,Packed Product,60 Tomato Mash,Harvesting Bucket
+8,Power_Pick_1,0.17,Packed Product,60 Tomato Mash,Harvesting Bucket
+9,Power_Pick_1,0.21,Packed Product,60 Tomato Mash,Harvesting Bucket
+10,Power_Pick_2,0.14,Packed Product,60 Tomato Mash,Harvesting Bucket
+11,Power_Pick_2,0.12,Packed Product,60 Tomato Mash,Harvesting Bucket
+12,Power_Pick_2,0.19,Packed Product,60 Tomato Mash,Harvesting Bucket
+13,Power_Pick_2,0.13,Packed Product,60 Tomato Mash,Harvesting Bucket
+14,Power_Pick_2,0.14,Packed Product,60 Tomato Mash,Harvesting Bucket
+15,Power_Pick_2,0.19,Packed Product,60 Tomato Mash,Harvesting Bucket
+16,Power_Pick_2,0.13,Packed Product,60 Tomato Mash,Harvesting Bucket
+17,Power_Pick_2,0.13,Packed Product,60 Tomato Mash,Harvesting Bucket
+18,Power_Pick_2,0.13,Packed Product,60 Tomato Mash,Harvesting Bucket
+19,Power_Pick_2,0.15,Packed Product,60 Tomato Mash,Harvesting Bucket
+20,Power_Pick_3,0.1,Packed Product,60 Tomato Mash,Harvesting Bucket
+21,Power_Pick_3,0.12,Packed Product,60 Tomato Mash,Harvesting Bucket
+22,Power_Pick_3,0.08,Packed Product,60 Tomato Mash,Harvesting Bucket
+23,Power_Pick_3,0.11,Packed Product,60 Tomato Mash,Harvesting Bucket
+24,Power_Pick_3,0.16,Packed Product,60 Tomato Mash,Harvesting Bucket
+25,Power_Pick_3,0.12,Packed Product,60 Tomato Mash,Harvesting Bucket
+26,Power_Pick_3,0.14,Packed Product,60 Tomato Mash,Harvesting Bucket
+27,Power_Pick_3,0.12,Packed Product,60 Tomato Mash,Harvesting Bucket
+28,Power_Pick_3,0.08,Packed Product,60 Tomato Mash,Harvesting Bucket
+29,Power_Pick_3,0.15,Packed Product,60 Tomato Mash,Harvesting Bucket
+0,Power_Pick_1,0.04,Receiving,2 Tomatoes,Harvesting Bin
+1,Power_Pick_1,0.05,Receiving,2 Tomatoes,Harvesting Bin
+2,Power_Pick_1,0.01,Receiving,2 Tomatoes,Harvesting Bin
+3,Power_Pick_1,0.03,Receiving,2 Tomatoes,Harvesting Bin
+4,Power_Pick_1,0.09,Receiving,2 Tomatoes,Harvesting Bin
+5,Power_Pick_1,0.01,Receiving,2 Tomatoes,Harvesting Bin
+6,Power_Pick_1,0.02,Receiving,2 Tomatoes,Harvesting Bin
+7,Power_Pick_1,0.07,Receiving,2 Tomatoes,Harvesting Bin
+8,Power_Pick_1,0.04,Receiving,2 Tomatoes,Harvesting Bin
+9,Power_Pick_1,0.04,Receiving,2 Tomatoes,Harvesting Bin
+10,Power_Pick_1,0.03,Receiving,2 Tomatoes,Harvesting Bin
+11,Power_Pick_1,0.05,Receiving,2 Tomatoes,Harvesting Bin
+12,Power_Pick_1,0.06,Receiving,2 Tomatoes,Harvesting Bin
+13,Power_Pick_1,0.04,Receiving,2 Tomatoes,Harvesting Bin
+14,Power_Pick_1,0.06,Receiving,2 Tomatoes,Harvesting Bin
+15,Power_Pick_1,0.1,Receiving,2 Tomatoes,Harvesting Bin
+16,Power_Pick_1,0.07,Receiving,2 Tomatoes,Harvesting Bin
+17,Power_Pick_1,0.03,Receiving,2 Tomatoes,Harvesting Bin
+18,Power_Pick_1,0.0,Receiving,2 Tomatoes,Harvesting Bin
+19,Power_Pick_1,0.03,Receiving,2 Tomatoes,Harvesting Bin
+20,Power_Pick_2,0.05,Receiving,2 Tomatoes,Harvesting Bin
+21,Power_Pick_2,0.07,Receiving,2 Tomatoes,Harvesting Bin
+22,Power_Pick_2,0.02,Receiving,2 Tomatoes,Harvesting Bin
+23,Power_Pick_2,0.09,Receiving,2 Tomatoes,Harvesting Bin
+24,Power_Pick_2,0.06,Receiving,2 Tomatoes,Harvesting Bin
+25,Power_Pick_2,0.08,Receiving,2 Tomatoes,Harvesting Bin
+26,Power_Pick_2,0.02,Receiving,2 Tomatoes,Harvesting Bin
+27,Power_Pick_2,0.03,Receiving,2 Tomatoes,Harvesting Bin
+28,Power_Pick_2,0.06,Receiving,2 Tomatoes,Harvesting Bin
+29,Power_Pick_2,0.12,Receiving,2 Tomatoes,Harvesting Bin
+30,Power_Pick_2,0.02,Receiving,2 Tomatoes,Harvesting Bin
+31,Power_Pick_2,0.03,Receiving,2 Tomatoes,Harvesting Bin
+32,Power_Pick_2,0.05,Receiving,2 Tomatoes,Harvesting Bin
+33,Power_Pick_2,0.06,Receiving,2 Tomatoes,Harvesting Bin
+34,Power_Pick_2,0.09,Receiving,2 Tomatoes,Harvesting Bin
+35,Power_Pick_2,0.07,Receiving,2 Tomatoes,Harvesting Bin
+36,Power_Pick_2,0.04,Receiving,2 Tomatoes,Harvesting Bin
+37,Power_Pick_2,0.05,Receiving,2 Tomatoes,Harvesting Bin
+38,Power_Pick_2,0.03,Receiving,2 Tomatoes,Harvesting Bin
+39,Power_Pick_2,0.04,Receiving,2 Tomatoes,Harvesting Bin
+40,Power_Pick_3,0.03,Receiving,2 Tomatoes,Harvesting Bin
+41,Power_Pick_3,0.08,Receiving,2 Tomatoes,Harvesting Bin
+42,Power_Pick_3,0.0,Receiving,2 Tomatoes,Harvesting Bin
+43,Power_Pick_3,0.04,Receiving,2 Tomatoes,Harvesting Bin
+44,Power_Pick_3,0.04,Receiving,2 Tomatoes,Harvesting Bin
+45,Power_Pick_3,0.01,Receiving,2 Tomatoes,Harvesting Bin
+46,Power_Pick_3,0.02,Receiving,2 Tomatoes,Harvesting Bin
+47,Power_Pick_3,0.06,Receiving,2 Tomatoes,Harvesting Bin
+48,Power_Pick_3,0.05,Receiving,2 Tomatoes,Harvesting Bin
+49,Power_Pick_3,0.04,Receiving,2 Tomatoes,Harvesting Bin
+50,Power_Pick_3,0.03,Receiving,2 Tomatoes,Harvesting Bin
+51,Power_Pick_3,0.04,Receiving,2 Tomatoes,Harvesting Bin
+52,Power_Pick_3,0.08,Receiving,2 Tomatoes,Harvesting Bin
+53,Power_Pick_3,0.03,Receiving,2 Tomatoes,Harvesting Bin
+54,Power_Pick_3,0.01,Receiving,2 Tomatoes,Harvesting Bin
+55,Power_Pick_3,0.05,Receiving,2 Tomatoes,Harvesting Bin
+56,Power_Pick_3,0.02,Receiving,2 Tomatoes,Harvesting Bin
+57,Power_Pick_3,0.03,Receiving,2 Tomatoes,Harvesting Bin
+58,Power_Pick_3,0.05,Receiving,2 Tomatoes,Harvesting Bin
+59,Power_Pick_3,0.04,Receiving,2 Tomatoes,Harvesting Bin
+0,Power_Pick_1,0.1,Receiving,6 Tomatoes,Harvesting Bin
+1,Power_Pick_1,0.18,Receiving,6 Tomatoes,Harvesting Bin
+2,Power_Pick_1,0.12,Receiving,6 Tomatoes,Harvesting Bin
+3,Power_Pick_1,0.14,Receiving,6 Tomatoes,Harvesting Bin
+4,Power_Pick_1,0.17,Receiving,6 Tomatoes,Harvesting Bin
+5,Power_Pick_1,0.09,Receiving,6 Tomatoes,Harvesting Bin
+6,Power_Pick_1,0.13,Receiving,6 Tomatoes,Harvesting Bin
+7,Power_Pick_1,0.15,Receiving,6 Tomatoes,Harvesting Bin
+8,Power_Pick_1,0.13,Receiving,6 Tomatoes,Harvesting Bin
+9,Power_Pick_1,0.1,Receiving,6 Tomatoes,Harvesting Bin
+10,Power_Pick_1,0.13,Receiving,6 Tomatoes,Harvesting Bin
+11,Power_Pick_1,0.11,Receiving,6 Tomatoes,Harvesting Bin
+12,Power_Pick_1,0.2,Receiving,6 Tomatoes,Harvesting Bin
+13,Power_Pick_1,0.09,Receiving,6 Tomatoes,Harvesting Bin
+14,Power_Pick_1,0.17,Receiving,6 Tomatoes,Harvesting Bin
+15,Power_Pick_1,0.22,Receiving,6 Tomatoes,Harvesting Bin
+16,Power_Pick_1,0.13,Receiving,6 Tomatoes,Harvesting Bin
+17,Power_Pick_1,0.12,Receiving,6 Tomatoes,Harvesting Bin
+18,Power_Pick_1,0.11,Receiving,6 Tomatoes,Harvesting Bin
+19,Power_Pick_1,0.09,Receiving,6 Tomatoes,Harvesting Bin
+20,Power_Pick_2,0.09,Receiving,6 Tomatoes,Harvesting Bin
+21,Power_Pick_2,0.1,Receiving,6 Tomatoes,Harvesting Bin
+22,Power_Pick_2,0.06,Receiving,6 Tomatoes,Harvesting Bin
+23,Power_Pick_2,0.11,Receiving,6 Tomatoes,Harvesting Bin
+24,Power_Pick_2,0.1,Receiving,6 Tomatoes,Harvesting Bin
+25,Power_Pick_2,0.09,Receiving,6 Tomatoes,Harvesting Bin
+26,Power_Pick_2,0.07,Receiving,6 Tomatoes,Harvesting Bin
+27,Power_Pick_2,0.12,Receiving,6 Tomatoes,Harvesting Bin
+28,Power_Pick_2,0.1,Receiving,6 Tomatoes,Harvesting Bin
+29,Power_Pick_2,0.08,Receiving,6 Tomatoes,Harvesting Bin
+30,Power_Pick_2,0.13,Receiving,6 Tomatoes,Harvesting Bin
+31,Power_Pick_2,0.11,Receiving,6 Tomatoes,Harvesting Bin
+32,Power_Pick_2,0.09,Receiving,6 Tomatoes,Harvesting Bin
+33,Power_Pick_2,0.09,Receiving,6 Tomatoes,Harvesting Bin
+34,Power_Pick_2,0.09,Receiving,6 Tomatoes,Harvesting Bin
+35,Power_Pick_2,0.1,Receiving,6 Tomatoes,Harvesting Bin
+36,Power_Pick_2,0.09,Receiving,6 Tomatoes,Harvesting Bin
+37,Power_Pick_2,0.18,Receiving,6 Tomatoes,Harvesting Bin
+38,Power_Pick_2,0.06,Receiving,6 Tomatoes,Harvesting Bin
+39,Power_Pick_2,0.18,Receiving,6 Tomatoes,Harvesting Bin
+40,Power_Pick_3,0.09,Receiving,6 Tomatoes,Harvesting Bin
+41,Power_Pick_3,0.1,Receiving,6 Tomatoes,Harvesting Bin
+42,Power_Pick_3,0.11,Receiving,6 Tomatoes,Harvesting Bin
+43,Power_Pick_3,0.07,Receiving,6 Tomatoes,Harvesting Bin
+44,Power_Pick_3,0.14,Receiving,6 Tomatoes,Harvesting Bin
+45,Power_Pick_3,0.08,Receiving,6 Tomatoes,Harvesting Bin
+46,Power_Pick_3,0.12,Receiving,6 Tomatoes,Harvesting Bin
+47,Power_Pick_3,0.06,Receiving,6 Tomatoes,Harvesting Bin
+48,Power_Pick_3,0.07,Receiving,6 Tomatoes,Harvesting Bin
+49,Power_Pick_3,0.1,Receiving,6 Tomatoes,Harvesting Bin
+50,Power_Pick_3,0.06,Receiving,6 Tomatoes,Harvesting Bin
+51,Power_Pick_3,0.11,Receiving,6 Tomatoes,Harvesting Bin
+52,Power_Pick_3,0.08,Receiving,6 Tomatoes,Harvesting Bin
+53,Power_Pick_3,0.1,Receiving,6 Tomatoes,Harvesting Bin
+54,Power_Pick_3,0.09,Receiving,6 Tomatoes,Harvesting Bin
+55,Power_Pick_3,0.08,Receiving,6 Tomatoes,Harvesting Bin
+56,Power_Pick_3,0.15,Receiving,6 Tomatoes,Harvesting Bin
+57,Power_Pick_3,0.09,Receiving,6 Tomatoes,Harvesting Bin
+58,Power_Pick_3,0.11,Receiving,6 Tomatoes,Harvesting Bin
+59,Power_Pick_3,0.12,Receiving,6 Tomatoes,Harvesting Bin
+0,Power_Pick_1,0.34,Receiving,20 Tomatoes,Harvesting Bin
+1,Power_Pick_1,0.45,Receiving,20 Tomatoes,Harvesting Bin
+2,Power_Pick_1,0.34,Receiving,20 Tomatoes,Harvesting Bin
+3,Power_Pick_1,0.3,Receiving,20 Tomatoes,Harvesting Bin
+4,Power_Pick_1,0.37,Receiving,20 Tomatoes,Harvesting Bin
+5,Power_Pick_1,0.32,Receiving,20 Tomatoes,Harvesting Bin
+6,Power_Pick_1,0.41,Receiving,20 Tomatoes,Harvesting Bin
+7,Power_Pick_1,0.31,Receiving,20 Tomatoes,Harvesting Bin
+8,Power_Pick_1,0.31,Receiving,20 Tomatoes,Harvesting Bin
+9,Power_Pick_1,0.4,Receiving,20 Tomatoes,Harvesting Bin
+10,Power_Pick_1,0.39,Receiving,20 Tomatoes,Harvesting Bin
+11,Power_Pick_1,0.35,Receiving,20 Tomatoes,Harvesting Bin
+12,Power_Pick_1,0.5,Receiving,20 Tomatoes,Harvesting Bin
+13,Power_Pick_1,0.31,Receiving,20 Tomatoes,Harvesting Bin
+14,Power_Pick_1,0.38,Receiving,20 Tomatoes,Harvesting Bin
+15,Power_Pick_1,0.47,Receiving,20 Tomatoes,Harvesting Bin
+16,Power_Pick_1,0.36,Receiving,20 Tomatoes,Harvesting Bin
+17,Power_Pick_1,0.35,Receiving,20 Tomatoes,Harvesting Bin
+18,Power_Pick_1,0.37,Receiving,20 Tomatoes,Harvesting Bin
+19,Power_Pick_1,0.33,Receiving,20 Tomatoes,Harvesting Bin
+20,Power_Pick_2,0.2,Receiving,20 Tomatoes,Harvesting Bin
+21,Power_Pick_2,0.16,Receiving,20 Tomatoes,Harvesting Bin
+22,Power_Pick_2,0.24,Receiving,20 Tomatoes,Harvesting Bin
+23,Power_Pick_2,0.32,Receiving,20 Tomatoes,Harvesting Bin
+24,Power_Pick_2,0.22,Receiving,20 Tomatoes,Harvesting Bin
+25,Power_Pick_2,0.25,Receiving,20 Tomatoes,Harvesting Bin
+26,Power_Pick_2,0.21,Receiving,20 Tomatoes,Harvesting Bin
+27,Power_Pick_2,0.21,Receiving,20 Tomatoes,Harvesting Bin
+28,Power_Pick_2,0.27,Receiving,20 Tomatoes,Harvesting Bin
+29,Power_Pick_2,0.27,Receiving,20 Tomatoes,Harvesting Bin
+30,Power_Pick_2,0.23,Receiving,20 Tomatoes,Harvesting Bin
+31,Power_Pick_2,0.15,Receiving,20 Tomatoes,Harvesting Bin
+32,Power_Pick_2,0.17,Receiving,20 Tomatoes,Harvesting Bin
+33,Power_Pick_2,0.21,Receiving,20 Tomatoes,Harvesting Bin
+34,Power_Pick_2,0.28,Receiving,20 Tomatoes,Harvesting Bin
+35,Power_Pick_2,0.16,Receiving,20 Tomatoes,Harvesting Bin
+36,Power_Pick_2,0.26,Receiving,20 Tomatoes,Harvesting Bin
+37,Power_Pick_2,0.26,Receiving,20 Tomatoes,Harvesting Bin
+38,Power_Pick_2,0.27,Receiving,20 Tomatoes,Harvesting Bin
+39,Power_Pick_2,0.21,Receiving,20 Tomatoes,Harvesting Bin
+40,Power_Pick_3,0.17,Receiving,20 Tomatoes,Harvesting Bin
+41,Power_Pick_3,0.16,Receiving,20 Tomatoes,Harvesting Bin
+42,Power_Pick_3,0.14,Receiving,20 Tomatoes,Harvesting Bin
+43,Power_Pick_3,0.14,Receiving,20 Tomatoes,Harvesting Bin
+44,Power_Pick_3,0.13,Receiving,20 Tomatoes,Harvesting Bin
+45,Power_Pick_3,0.16,Receiving,20 Tomatoes,Harvesting Bin
+46,Power_Pick_3,0.13,Receiving,20 Tomatoes,Harvesting Bin
+47,Power_Pick_3,0.14,Receiving,20 Tomatoes,Harvesting Bin
+48,Power_Pick_3,0.17,Receiving,20 Tomatoes,Harvesting Bin
+49,Power_Pick_3,0.14,Receiving,20 Tomatoes,Harvesting Bin
+50,Power_Pick_3,0.12,Receiving,20 Tomatoes,Harvesting Bin
+51,Power_Pick_3,0.17,Receiving,20 Tomatoes,Harvesting Bin
+52,Power_Pick_3,0.11,Receiving,20 Tomatoes,Harvesting Bin
+53,Power_Pick_3,0.17,Receiving,20 Tomatoes,Harvesting Bin
+54,Power_Pick_3,0.12,Receiving,20 Tomatoes,Harvesting Bin
+55,Power_Pick_3,0.08,Receiving,20 Tomatoes,Harvesting Bin
+56,Power_Pick_3,0.11,Receiving,20 Tomatoes,Harvesting Bin
+57,Power_Pick_3,0.13,Receiving,20 Tomatoes,Harvesting Bin
+58,Power_Pick_3,0.13,Receiving,20 Tomatoes,Harvesting Bin
+59,Power_Pick_3,0.15,Receiving,20 Tomatoes,Harvesting Bin
+0,Power_Pick_1,0.76,Receiving,60 Tomatoes,Harvesting Bin
+1,Power_Pick_1,0.72,Receiving,60 Tomatoes,Harvesting Bin
+2,Power_Pick_1,0.73,Receiving,60 Tomatoes,Harvesting Bin
+3,Power_Pick_1,0.65,Receiving,60 Tomatoes,Harvesting Bin
+4,Power_Pick_1,0.79,Receiving,60 Tomatoes,Harvesting Bin
+5,Power_Pick_1,0.74,Receiving,60 Tomatoes,Harvesting Bin
+6,Power_Pick_1,0.78,Receiving,60 Tomatoes,Harvesting Bin
+7,Power_Pick_1,0.71,Receiving,60 Tomatoes,Harvesting Bin
+8,Power_Pick_1,0.71,Receiving,60 Tomatoes,Harvesting Bin
+9,Power_Pick_1,0.73,Receiving,60 Tomatoes,Harvesting Bin
+10,Power_Pick_1,0.76,Receiving,60 Tomatoes,Harvesting Bin
+11,Power_Pick_1,0.79,Receiving,60 Tomatoes,Harvesting Bin
+12,Power_Pick_1,0.87,Receiving,60 Tomatoes,Harvesting Bin
+13,Power_Pick_1,0.8,Receiving,60 Tomatoes,Harvesting Bin
+14,Power_Pick_1,0.74,Receiving,60 Tomatoes,Harvesting Bin
+15,Power_Pick_1,0.85,Receiving,60 Tomatoes,Harvesting Bin
+16,Power_Pick_1,0.72,Receiving,60 Tomatoes,Harvesting Bin
+17,Power_Pick_1,0.77,Receiving,60 Tomatoes,Harvesting Bin
+18,Power_Pick_1,0.77,Receiving,60 Tomatoes,Harvesting Bin
+19,Power_Pick_1,0.75,Receiving,60 Tomatoes,Harvesting Bin
+20,Power_Pick_2,0.19,Receiving,60 Tomatoes,Harvesting Bin
+21,Power_Pick_2,0.21,Receiving,60 Tomatoes,Harvesting Bin
+22,Power_Pick_2,0.17,Receiving,60 Tomatoes,Harvesting Bin
+23,Power_Pick_2,0.29,Receiving,60 Tomatoes,Harvesting Bin
+24,Power_Pick_2,0.15,Receiving,60 Tomatoes,Harvesting Bin
+25,Power_Pick_2,0.22,Receiving,60 Tomatoes,Harvesting Bin
+26,Power_Pick_2,0.17,Receiving,60 Tomatoes,Harvesting Bin
+27,Power_Pick_2,0.25,Receiving,60 Tomatoes,Harvesting Bin
+28,Power_Pick_2,0.2,Receiving,60 Tomatoes,Harvesting Bin
+29,Power_Pick_2,0.18,Receiving,60 Tomatoes,Harvesting Bin
+30,Power_Pick_2,0.2,Receiving,60 Tomatoes,Harvesting Bin
+31,Power_Pick_2,0.17,Receiving,60 Tomatoes,Harvesting Bin
+32,Power_Pick_2,0.08,Receiving,60 Tomatoes,Harvesting Bin
+33,Power_Pick_2,0.16,Receiving,60 Tomatoes,Harvesting Bin
+34,Power_Pick_2,0.19,Receiving,60 Tomatoes,Harvesting Bin
+35,Power_Pick_2,0.09,Receiving,60 Tomatoes,Harvesting Bin
+36,Power_Pick_2,0.21,Receiving,60 Tomatoes,Harvesting Bin
+37,Power_Pick_2,0.13,Receiving,60 Tomatoes,Harvesting Bin
+38,Power_Pick_2,0.14,Receiving,60 Tomatoes,Harvesting Bin
+39,Power_Pick_2,0.19,Receiving,60 Tomatoes,Harvesting Bin
+40,Power_Pick_3,0.04,Receiving,60 Tomatoes,Harvesting Bin
+41,Power_Pick_3,0.07,Receiving,60 Tomatoes,Harvesting Bin
+42,Power_Pick_3,0.07,Receiving,60 Tomatoes,Harvesting Bin
+43,Power_Pick_3,0.04,Receiving,60 Tomatoes,Harvesting Bin
+44,Power_Pick_3,0.05,Receiving,60 Tomatoes,Harvesting Bin
+45,Power_Pick_3,0.02,Receiving,60 Tomatoes,Harvesting Bin
+46,Power_Pick_3,0.01,Receiving,60 Tomatoes,Harvesting Bin
+47,Power_Pick_3,0.03,Receiving,60 Tomatoes,Harvesting Bin
+48,Power_Pick_3,0.08,Receiving,60 Tomatoes,Harvesting Bin
+49,Power_Pick_3,0.08,Receiving,60 Tomatoes,Harvesting Bin
+50,Power_Pick_3,0.02,Receiving,60 Tomatoes,Harvesting Bin
+51,Power_Pick_3,0.04,Receiving,60 Tomatoes,Harvesting Bin
+52,Power_Pick_3,0.04,Receiving,60 Tomatoes,Harvesting Bin
+53,Power_Pick_3,0.02,Receiving,60 Tomatoes,Harvesting Bin
+54,Power_Pick_3,0.05,Receiving,60 Tomatoes,Harvesting Bin
+55,Power_Pick_3,0.05,Receiving,60 Tomatoes,Harvesting Bin
+56,Power_Pick_3,0.07,Receiving,60 Tomatoes,Harvesting Bin
+57,Power_Pick_3,0.07,Receiving,60 Tomatoes,Harvesting Bin
+58,Power_Pick_3,0.07,Receiving,60 Tomatoes,Harvesting Bin
+59,Power_Pick_3,0.05,Receiving,60 Tomatoes,Harvesting Bin
+0,Power_Pick_1,0.19,Receiving,20 Tomato Mash,Harvesting Bin
+1,Power_Pick_1,0.33,Receiving,20 Tomato Mash,Harvesting Bin
+2,Power_Pick_1,0.41,Receiving,20 Tomato Mash,Harvesting Bin
+3,Power_Pick_1,0.32,Receiving,20 Tomato Mash,Harvesting Bin
+4,Power_Pick_1,0.26,Receiving,20 Tomato Mash,Harvesting Bin
+5,Power_Pick_1,0.34,Receiving,20 Tomato Mash,Harvesting Bin
+6,Power_Pick_1,0.3,Receiving,20 Tomato Mash,Harvesting Bin
+7,Power_Pick_1,0.33,Receiving,20 Tomato Mash,Harvesting Bin
+8,Power_Pick_1,0.32,Receiving,20 Tomato Mash,Harvesting Bin
+9,Power_Pick_1,0.34,Receiving,20 Tomato Mash,Harvesting Bin
+10,Power_Pick_1,0.29,Receiving,20 Tomato Mash,Harvesting Bin
+11,Power_Pick_1,0.32,Receiving,20 Tomato Mash,Harvesting Bin
+12,Power_Pick_1,0.4,Receiving,20 Tomato Mash,Harvesting Bin
+13,Power_Pick_1,0.3,Receiving,20 Tomato Mash,Harvesting Bin
+14,Power_Pick_1,0.38,Receiving,20 Tomato Mash,Harvesting Bin
+15,Power_Pick_1,0.34,Receiving,20 Tomato Mash,Harvesting Bin
+16,Power_Pick_1,0.31,Receiving,20 Tomato Mash,Harvesting Bin
+17,Power_Pick_1,0.32,Receiving,20 Tomato Mash,Harvesting Bin
+18,Power_Pick_1,0.38,Receiving,20 Tomato Mash,Harvesting Bin
+19,Power_Pick_1,0.32,Receiving,20 Tomato Mash,Harvesting Bin
+20,Power_Pick_2,0.26,Receiving,20 Tomato Mash,Harvesting Bin
+21,Power_Pick_2,0.19,Receiving,20 Tomato Mash,Harvesting Bin
+22,Power_Pick_2,0.23,Receiving,20 Tomato Mash,Harvesting Bin
+23,Power_Pick_2,0.23,Receiving,20 Tomato Mash,Harvesting Bin
+24,Power_Pick_2,0.29,Receiving,20 Tomato Mash,Harvesting Bin
+25,Power_Pick_2,0.2,Receiving,20 Tomato Mash,Harvesting Bin
+26,Power_Pick_2,0.28,Receiving,20 Tomato Mash,Harvesting Bin
+27,Power_Pick_2,0.22,Receiving,20 Tomato Mash,Harvesting Bin
+28,Power_Pick_2,0.26,Receiving,20 Tomato Mash,Harvesting Bin
+29,Power_Pick_2,0.24,Receiving,20 Tomato Mash,Harvesting Bin
+30,Power_Pick_2,0.29,Receiving,20 Tomato Mash,Harvesting Bin
+31,Power_Pick_2,0.24,Receiving,20 Tomato Mash,Harvesting Bin
+32,Power_Pick_2,0.25,Receiving,20 Tomato Mash,Harvesting Bin
+33,Power_Pick_2,0.23,Receiving,20 Tomato Mash,Harvesting Bin
+34,Power_Pick_2,0.23,Receiving,20 Tomato Mash,Harvesting Bin
+35,Power_Pick_2,0.21,Receiving,20 Tomato Mash,Harvesting Bin
+36,Power_Pick_2,0.21,Receiving,20 Tomato Mash,Harvesting Bin
+37,Power_Pick_2,0.17,Receiving,20 Tomato Mash,Harvesting Bin
+38,Power_Pick_2,0.22,Receiving,20 Tomato Mash,Harvesting Bin
+39,Power_Pick_2,0.15,Receiving,20 Tomato Mash,Harvesting Bin
+40,Power_Pick_3,0.22,Receiving,20 Tomato Mash,Harvesting Bin
+41,Power_Pick_3,0.2,Receiving,20 Tomato Mash,Harvesting Bin
+42,Power_Pick_3,0.2,Receiving,20 Tomato Mash,Harvesting Bin
+43,Power_Pick_3,0.13,Receiving,20 Tomato Mash,Harvesting Bin
+44,Power_Pick_3,0.1,Receiving,20 Tomato Mash,Harvesting Bin
+45,Power_Pick_3,0.09,Receiving,20 Tomato Mash,Harvesting Bin
+46,Power_Pick_3,0.11,Receiving,20 Tomato Mash,Harvesting Bin
+47,Power_Pick_3,0.14,Receiving,20 Tomato Mash,Harvesting Bin
+48,Power_Pick_3,0.17,Receiving,20 Tomato Mash,Harvesting Bin
+49,Power_Pick_3,0.13,Receiving,20 Tomato Mash,Harvesting Bin
+50,Power_Pick_3,0.15,Receiving,20 Tomato Mash,Harvesting Bin
+51,Power_Pick_3,0.16,Receiving,20 Tomato Mash,Harvesting Bin
+52,Power_Pick_3,0.13,Receiving,20 Tomato Mash,Harvesting Bin
+53,Power_Pick_3,0.17,Receiving,20 Tomato Mash,Harvesting Bin
+54,Power_Pick_3,0.12,Receiving,20 Tomato Mash,Harvesting Bin
+55,Power_Pick_3,0.12,Receiving,20 Tomato Mash,Harvesting Bin
+56,Power_Pick_3,0.23,Receiving,20 Tomato Mash,Harvesting Bin
+57,Power_Pick_3,0.13,Receiving,20 Tomato Mash,Harvesting Bin
+58,Power_Pick_3,0.16,Receiving,20 Tomato Mash,Harvesting Bin
+59,Power_Pick_3,0.17,Receiving,20 Tomato Mash,Harvesting Bin
+0,Power_Pick_1,0.72,Receiving,60 Tomato Mash,Harvesting Bin
+1,Power_Pick_1,0.71,Receiving,60 Tomato Mash,Harvesting Bin
+2,Power_Pick_1,0.73,Receiving,60 Tomato Mash,Harvesting Bin
+3,Power_Pick_1,0.68,Receiving,60 Tomato Mash,Harvesting Bin
+4,Power_Pick_1,0.68,Receiving,60 Tomato Mash,Harvesting Bin
+5,Power_Pick_1,0.68,Receiving,60 Tomato Mash,Harvesting Bin
+6,Power_Pick_1,0.76,Receiving,60 Tomato Mash,Harvesting Bin
+7,Power_Pick_1,0.69,Receiving,60 Tomato Mash,Harvesting Bin
+8,Power_Pick_1,0.79,Receiving,60 Tomato Mash,Harvesting Bin
+9,Power_Pick_1,0.7,Receiving,60 Tomato Mash,Harvesting Bin
+10,Power_Pick_1,0.74,Receiving,60 Tomato Mash,Harvesting Bin
+11,Power_Pick_1,0.68,Receiving,60 Tomato Mash,Harvesting Bin
+12,Power_Pick_1,0.69,Receiving,60 Tomato Mash,Harvesting Bin
+13,Power_Pick_1,0.69,Receiving,60 Tomato Mash,Harvesting Bin
+14,Power_Pick_1,0.68,Receiving,60 Tomato Mash,Harvesting Bin
+15,Power_Pick_1,0.69,Receiving,60 Tomato Mash,Harvesting Bin
+16,Power_Pick_1,0.61,Receiving,60 Tomato Mash,Harvesting Bin
+17,Power_Pick_1,0.72,Receiving,60 Tomato Mash,Harvesting Bin
+18,Power_Pick_1,0.75,Receiving,60 Tomato Mash,Harvesting Bin
+19,Power_Pick_1,0.67,Receiving,60 Tomato Mash,Harvesting Bin
+20,Power_Pick_2,0.18,Receiving,60 Tomato Mash,Harvesting Bin
+21,Power_Pick_2,0.21,Receiving,60 Tomato Mash,Harvesting Bin
+22,Power_Pick_2,0.18,Receiving,60 Tomato Mash,Harvesting Bin
+23,Power_Pick_2,0.26,Receiving,60 Tomato Mash,Harvesting Bin
+24,Power_Pick_2,0.25,Receiving,60 Tomato Mash,Harvesting Bin
+25,Power_Pick_2,0.23,Receiving,60 Tomato Mash,Harvesting Bin
+26,Power_Pick_2,0.19,Receiving,60 Tomato Mash,Harvesting Bin
+27,Power_Pick_2,0.23,Receiving,60 Tomato Mash,Harvesting Bin
+28,Power_Pick_2,0.14,Receiving,60 Tomato Mash,Harvesting Bin
+29,Power_Pick_2,0.2,Receiving,60 Tomato Mash,Harvesting Bin
+30,Power_Pick_2,0.16,Receiving,60 Tomato Mash,Harvesting Bin
+31,Power_Pick_2,0.21,Receiving,60 Tomato Mash,Harvesting Bin
+32,Power_Pick_2,0.2,Receiving,60 Tomato Mash,Harvesting Bin
+33,Power_Pick_2,0.22,Receiving,60 Tomato Mash,Harvesting Bin
+34,Power_Pick_2,0.2,Receiving,60 Tomato Mash,Harvesting Bin
+35,Power_Pick_2,0.22,Receiving,60 Tomato Mash,Harvesting Bin
+36,Power_Pick_2,0.24,Receiving,60 Tomato Mash,Harvesting Bin
+37,Power_Pick_2,0.19,Receiving,60 Tomato Mash,Harvesting Bin
+38,Power_Pick_2,0.19,Receiving,60 Tomato Mash,Harvesting Bin
+39,Power_Pick_2,0.22,Receiving,60 Tomato Mash,Harvesting Bin
+40,Power_Pick_3,0.08,Receiving,60 Tomato Mash,Harvesting Bin
+41,Power_Pick_3,0.07,Receiving,60 Tomato Mash,Harvesting Bin
+42,Power_Pick_3,0.06,Receiving,60 Tomato Mash,Harvesting Bin
+43,Power_Pick_3,0.04,Receiving,60 Tomato Mash,Harvesting Bin
+44,Power_Pick_3,0.05,Receiving,60 Tomato Mash,Harvesting Bin
+45,Power_Pick_3,0.05,Receiving,60 Tomato Mash,Harvesting Bin
+46,Power_Pick_3,0.05,Receiving,60 Tomato Mash,Harvesting Bin
+47,Power_Pick_3,0.03,Receiving,60 Tomato Mash,Harvesting Bin
+48,Power_Pick_3,0.05,Receiving,60 Tomato Mash,Harvesting Bin
+49,Power_Pick_3,0.07,Receiving,60 Tomato Mash,Harvesting Bin
+50,Power_Pick_3,0.09,Receiving,60 Tomato Mash,Harvesting Bin
+51,Power_Pick_3,0.09,Receiving,60 Tomato Mash,Harvesting Bin
+52,Power_Pick_3,0.07,Receiving,60 Tomato Mash,Harvesting Bin
+53,Power_Pick_3,0.05,Receiving,60 Tomato Mash,Harvesting Bin
+54,Power_Pick_3,0.07,Receiving,60 Tomato Mash,Harvesting Bin
+55,Power_Pick_3,0.06,Receiving,60 Tomato Mash,Harvesting Bin
+56,Power_Pick_3,0.13,Receiving,60 Tomato Mash,Harvesting Bin
+57,Power_Pick_3,0.06,Receiving,60 Tomato Mash,Harvesting Bin
+58,Power_Pick_3,0.04,Receiving,60 Tomato Mash,Harvesting Bin
+59,Power_Pick_3,0.08,Receiving,60 Tomato Mash,Harvesting Bin
+0,Power_Pick_1,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+1,Power_Pick_1,0.0,Packed Product,2 Tomatoes,Harvesting Bin
+2,Power_Pick_1,0.01,Packed Product,2 Tomatoes,Harvesting Bin
+3,Power_Pick_1,0.04,Packed Product,2 Tomatoes,Harvesting Bin
+4,Power_Pick_1,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+5,Power_Pick_1,0.04,Packed Product,2 Tomatoes,Harvesting Bin
+6,Power_Pick_1,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+7,Power_Pick_1,0.07,Packed Product,2 Tomatoes,Harvesting Bin
+8,Power_Pick_1,0.03,Packed Product,2 Tomatoes,Harvesting Bin
+9,Power_Pick_1,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+10,Power_Pick_1,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+11,Power_Pick_1,0.03,Packed Product,2 Tomatoes,Harvesting Bin
+12,Power_Pick_1,0.05,Packed Product,2 Tomatoes,Harvesting Bin
+13,Power_Pick_1,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+14,Power_Pick_1,0.01,Packed Product,2 Tomatoes,Harvesting Bin
+15,Power_Pick_1,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+16,Power_Pick_1,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+17,Power_Pick_1,0.04,Packed Product,2 Tomatoes,Harvesting Bin
+18,Power_Pick_1,0.01,Packed Product,2 Tomatoes,Harvesting Bin
+19,Power_Pick_1,0.01,Packed Product,2 Tomatoes,Harvesting Bin
+20,Power_Pick_2,0.03,Packed Product,2 Tomatoes,Harvesting Bin
+21,Power_Pick_2,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+22,Power_Pick_2,0.0,Packed Product,2 Tomatoes,Harvesting Bin
+23,Power_Pick_2,0.06,Packed Product,2 Tomatoes,Harvesting Bin
+24,Power_Pick_2,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+25,Power_Pick_2,0.04,Packed Product,2 Tomatoes,Harvesting Bin
+26,Power_Pick_2,0.0,Packed Product,2 Tomatoes,Harvesting Bin
+27,Power_Pick_2,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+28,Power_Pick_2,0.03,Packed Product,2 Tomatoes,Harvesting Bin
+29,Power_Pick_2,0.07,Packed Product,2 Tomatoes,Harvesting Bin
+30,Power_Pick_2,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+31,Power_Pick_2,0.01,Packed Product,2 Tomatoes,Harvesting Bin
+32,Power_Pick_2,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+33,Power_Pick_2,0.06,Packed Product,2 Tomatoes,Harvesting Bin
+34,Power_Pick_2,0.07,Packed Product,2 Tomatoes,Harvesting Bin
+35,Power_Pick_2,0.04,Packed Product,2 Tomatoes,Harvesting Bin
+36,Power_Pick_2,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+37,Power_Pick_2,0.04,Packed Product,2 Tomatoes,Harvesting Bin
+38,Power_Pick_2,0.01,Packed Product,2 Tomatoes,Harvesting Bin
+39,Power_Pick_2,0.03,Packed Product,2 Tomatoes,Harvesting Bin
+40,Power_Pick_3,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+41,Power_Pick_3,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+42,Power_Pick_3,0.0,Packed Product,2 Tomatoes,Harvesting Bin
+43,Power_Pick_3,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+44,Power_Pick_3,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+45,Power_Pick_3,0.01,Packed Product,2 Tomatoes,Harvesting Bin
+46,Power_Pick_3,0.01,Packed Product,2 Tomatoes,Harvesting Bin
+47,Power_Pick_3,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+48,Power_Pick_3,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+49,Power_Pick_3,0.04,Packed Product,2 Tomatoes,Harvesting Bin
+50,Power_Pick_3,0.03,Packed Product,2 Tomatoes,Harvesting Bin
+51,Power_Pick_3,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+52,Power_Pick_3,0.05,Packed Product,2 Tomatoes,Harvesting Bin
+53,Power_Pick_3,0.03,Packed Product,2 Tomatoes,Harvesting Bin
+54,Power_Pick_3,0.01,Packed Product,2 Tomatoes,Harvesting Bin
+55,Power_Pick_3,0.01,Packed Product,2 Tomatoes,Harvesting Bin
+56,Power_Pick_3,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+57,Power_Pick_3,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+58,Power_Pick_3,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+59,Power_Pick_3,0.02,Packed Product,2 Tomatoes,Harvesting Bin
+0,Power_Pick_1,0.03,Packed Product,6 Tomatoes,Harvesting Bin
+1,Power_Pick_1,0.07,Packed Product,6 Tomatoes,Harvesting Bin
+2,Power_Pick_1,0.09,Packed Product,6 Tomatoes,Harvesting Bin
+3,Power_Pick_1,0.11,Packed Product,6 Tomatoes,Harvesting Bin
+4,Power_Pick_1,0.13,Packed Product,6 Tomatoes,Harvesting Bin
+5,Power_Pick_1,0.1,Packed Product,6 Tomatoes,Harvesting Bin
+6,Power_Pick_1,0.08,Packed Product,6 Tomatoes,Harvesting Bin
+7,Power_Pick_1,0.07,Packed Product,6 Tomatoes,Harvesting Bin
+8,Power_Pick_1,0.07,Packed Product,6 Tomatoes,Harvesting Bin
+9,Power_Pick_1,0.06,Packed Product,6 Tomatoes,Harvesting Bin
+10,Power_Pick_1,0.07,Packed Product,6 Tomatoes,Harvesting Bin
+11,Power_Pick_1,0.09,Packed Product,6 Tomatoes,Harvesting Bin
+12,Power_Pick_1,0.07,Packed Product,6 Tomatoes,Harvesting Bin
+13,Power_Pick_1,0.07,Packed Product,6 Tomatoes,Harvesting Bin
+14,Power_Pick_1,0.08,Packed Product,6 Tomatoes,Harvesting Bin
+15,Power_Pick_1,0.16,Packed Product,6 Tomatoes,Harvesting Bin
+16,Power_Pick_1,0.1,Packed Product,6 Tomatoes,Harvesting Bin
+17,Power_Pick_1,0.08,Packed Product,6 Tomatoes,Harvesting Bin
+18,Power_Pick_1,0.08,Packed Product,6 Tomatoes,Harvesting Bin
+19,Power_Pick_1,0.05,Packed Product,6 Tomatoes,Harvesting Bin
+20,Power_Pick_2,0.09,Packed Product,6 Tomatoes,Harvesting Bin
+21,Power_Pick_2,0.07,Packed Product,6 Tomatoes,Harvesting Bin
+22,Power_Pick_2,0.03,Packed Product,6 Tomatoes,Harvesting Bin
+23,Power_Pick_2,0.08,Packed Product,6 Tomatoes,Harvesting Bin
+24,Power_Pick_2,0.06,Packed Product,6 Tomatoes,Harvesting Bin
+25,Power_Pick_2,0.03,Packed Product,6 Tomatoes,Harvesting Bin
+26,Power_Pick_2,0.06,Packed Product,6 Tomatoes,Harvesting Bin
+27,Power_Pick_2,0.07,Packed Product,6 Tomatoes,Harvesting Bin
+28,Power_Pick_2,0.06,Packed Product,6 Tomatoes,Harvesting Bin
+29,Power_Pick_2,0.04,Packed Product,6 Tomatoes,Harvesting Bin
+30,Power_Pick_2,0.09,Packed Product,6 Tomatoes,Harvesting Bin
+31,Power_Pick_2,0.03,Packed Product,6 Tomatoes,Harvesting Bin
+32,Power_Pick_2,0.06,Packed Product,6 Tomatoes,Harvesting Bin
+33,Power_Pick_2,0.03,Packed Product,6 Tomatoes,Harvesting Bin
+34,Power_Pick_2,0.07,Packed Product,6 Tomatoes,Harvesting Bin
+35,Power_Pick_2,0.09,Packed Product,6 Tomatoes,Harvesting Bin
+36,Power_Pick_2,0.04,Packed Product,6 Tomatoes,Harvesting Bin
+37,Power_Pick_2,0.1,Packed Product,6 Tomatoes,Harvesting Bin
+38,Power_Pick_2,0.02,Packed Product,6 Tomatoes,Harvesting Bin
+39,Power_Pick_2,0.11,Packed Product,6 Tomatoes,Harvesting Bin
+40,Power_Pick_3,0.06,Packed Product,6 Tomatoes,Harvesting Bin
+41,Power_Pick_3,0.07,Packed Product,6 Tomatoes,Harvesting Bin
+42,Power_Pick_3,0.07,Packed Product,6 Tomatoes,Harvesting Bin
+43,Power_Pick_3,0.05,Packed Product,6 Tomatoes,Harvesting Bin
+44,Power_Pick_3,0.06,Packed Product,6 Tomatoes,Harvesting Bin
+45,Power_Pick_3,0.04,Packed Product,6 Tomatoes,Harvesting Bin
+46,Power_Pick_3,0.08,Packed Product,6 Tomatoes,Harvesting Bin
+47,Power_Pick_3,0.04,Packed Product,6 Tomatoes,Harvesting Bin
+48,Power_Pick_3,0.04,Packed Product,6 Tomatoes,Harvesting Bin
+49,Power_Pick_3,0.05,Packed Product,6 Tomatoes,Harvesting Bin
+50,Power_Pick_3,0.05,Packed Product,6 Tomatoes,Harvesting Bin
+51,Power_Pick_3,0.06,Packed Product,6 Tomatoes,Harvesting Bin
+52,Power_Pick_3,0.06,Packed Product,6 Tomatoes,Harvesting Bin
+53,Power_Pick_3,0.05,Packed Product,6 Tomatoes,Harvesting Bin
+54,Power_Pick_3,0.1,Packed Product,6 Tomatoes,Harvesting Bin
+55,Power_Pick_3,0.05,Packed Product,6 Tomatoes,Harvesting Bin
+56,Power_Pick_3,0.08,Packed Product,6 Tomatoes,Harvesting Bin
+57,Power_Pick_3,0.09,Packed Product,6 Tomatoes,Harvesting Bin
+58,Power_Pick_3,0.11,Packed Product,6 Tomatoes,Harvesting Bin
+59,Power_Pick_3,0.09,Packed Product,6 Tomatoes,Harvesting Bin
+0,Power_Pick_1,0.18,Packed Product,20 Tomatoes,Harvesting Bin
+1,Power_Pick_1,0.33,Packed Product,20 Tomatoes,Harvesting Bin
+2,Power_Pick_1,0.24,Packed Product,20 Tomatoes,Harvesting Bin
+3,Power_Pick_1,0.22,Packed Product,20 Tomatoes,Harvesting Bin
+4,Power_Pick_1,0.25,Packed Product,20 Tomatoes,Harvesting Bin
+5,Power_Pick_1,0.2,Packed Product,20 Tomatoes,Harvesting Bin
+6,Power_Pick_1,0.24,Packed Product,20 Tomatoes,Harvesting Bin
+7,Power_Pick_1,0.23,Packed Product,20 Tomatoes,Harvesting Bin
+8,Power_Pick_1,0.17,Packed Product,20 Tomatoes,Harvesting Bin
+9,Power_Pick_1,0.22,Packed Product,20 Tomatoes,Harvesting Bin
+10,Power_Pick_1,0.22,Packed Product,20 Tomatoes,Harvesting Bin
+11,Power_Pick_1,0.2,Packed Product,20 Tomatoes,Harvesting Bin
+12,Power_Pick_1,0.3,Packed Product,20 Tomatoes,Harvesting Bin
+13,Power_Pick_1,0.21,Packed Product,20 Tomatoes,Harvesting Bin
+14,Power_Pick_1,0.24,Packed Product,20 Tomatoes,Harvesting Bin
+15,Power_Pick_1,0.33,Packed Product,20 Tomatoes,Harvesting Bin
+16,Power_Pick_1,0.22,Packed Product,20 Tomatoes,Harvesting Bin
+17,Power_Pick_1,0.19,Packed Product,20 Tomatoes,Harvesting Bin
+18,Power_Pick_1,0.27,Packed Product,20 Tomatoes,Harvesting Bin
+19,Power_Pick_1,0.23,Packed Product,20 Tomatoes,Harvesting Bin
+20,Power_Pick_2,0.2,Packed Product,20 Tomatoes,Harvesting Bin
+21,Power_Pick_2,0.13,Packed Product,20 Tomatoes,Harvesting Bin
+22,Power_Pick_2,0.16,Packed Product,20 Tomatoes,Harvesting Bin
+23,Power_Pick_2,0.26,Packed Product,20 Tomatoes,Harvesting Bin
+24,Power_Pick_2,0.18,Packed Product,20 Tomatoes,Harvesting Bin
+25,Power_Pick_2,0.15,Packed Product,20 Tomatoes,Harvesting Bin
+26,Power_Pick_2,0.17,Packed Product,20 Tomatoes,Harvesting Bin
+27,Power_Pick_2,0.14,Packed Product,20 Tomatoes,Harvesting Bin
+28,Power_Pick_2,0.21,Packed Product,20 Tomatoes,Harvesting Bin
+29,Power_Pick_2,0.2,Packed Product,20 Tomatoes,Harvesting Bin
+30,Power_Pick_2,0.17,Packed Product,20 Tomatoes,Harvesting Bin
+31,Power_Pick_2,0.15,Packed Product,20 Tomatoes,Harvesting Bin
+32,Power_Pick_2,0.13,Packed Product,20 Tomatoes,Harvesting Bin
+33,Power_Pick_2,0.16,Packed Product,20 Tomatoes,Harvesting Bin
+34,Power_Pick_2,0.22,Packed Product,20 Tomatoes,Harvesting Bin
+35,Power_Pick_2,0.13,Packed Product,20 Tomatoes,Harvesting Bin
+36,Power_Pick_2,0.16,Packed Product,20 Tomatoes,Harvesting Bin
+37,Power_Pick_2,0.2,Packed Product,20 Tomatoes,Harvesting Bin
+38,Power_Pick_2,0.23,Packed Product,20 Tomatoes,Harvesting Bin
+39,Power_Pick_2,0.18,Packed Product,20 Tomatoes,Harvesting Bin
+40,Power_Pick_3,0.19,Packed Product,20 Tomatoes,Harvesting Bin
+41,Power_Pick_3,0.09,Packed Product,20 Tomatoes,Harvesting Bin
+42,Power_Pick_3,0.15,Packed Product,20 Tomatoes,Harvesting Bin
+43,Power_Pick_3,0.12,Packed Product,20 Tomatoes,Harvesting Bin
+44,Power_Pick_3,0.08,Packed Product,20 Tomatoes,Harvesting Bin
+45,Power_Pick_3,0.15,Packed Product,20 Tomatoes,Harvesting Bin
+46,Power_Pick_3,0.11,Packed Product,20 Tomatoes,Harvesting Bin
+47,Power_Pick_3,0.09,Packed Product,20 Tomatoes,Harvesting Bin
+48,Power_Pick_3,0.17,Packed Product,20 Tomatoes,Harvesting Bin
+49,Power_Pick_3,0.16,Packed Product,20 Tomatoes,Harvesting Bin
+50,Power_Pick_3,0.13,Packed Product,20 Tomatoes,Harvesting Bin
+51,Power_Pick_3,0.16,Packed Product,20 Tomatoes,Harvesting Bin
+52,Power_Pick_3,0.1,Packed Product,20 Tomatoes,Harvesting Bin
+53,Power_Pick_3,0.12,Packed Product,20 Tomatoes,Harvesting Bin
+54,Power_Pick_3,0.11,Packed Product,20 Tomatoes,Harvesting Bin
+55,Power_Pick_3,0.09,Packed Product,20 Tomatoes,Harvesting Bin
+56,Power_Pick_3,0.11,Packed Product,20 Tomatoes,Harvesting Bin
+57,Power_Pick_3,0.15,Packed Product,20 Tomatoes,Harvesting Bin
+58,Power_Pick_3,0.14,Packed Product,20 Tomatoes,Harvesting Bin
+59,Power_Pick_3,0.12,Packed Product,20 Tomatoes,Harvesting Bin
+0,Power_Pick_1,0.53,Packed Product,60 Tomatoes,Harvesting Bin
+1,Power_Pick_1,0.5,Packed Product,60 Tomatoes,Harvesting Bin
+2,Power_Pick_1,0.5,Packed Product,60 Tomatoes,Harvesting Bin
+3,Power_Pick_1,0.46,Packed Product,60 Tomatoes,Harvesting Bin
+4,Power_Pick_1,0.6,Packed Product,60 Tomatoes,Harvesting Bin
+5,Power_Pick_1,0.56,Packed Product,60 Tomatoes,Harvesting Bin
+6,Power_Pick_1,0.63,Packed Product,60 Tomatoes,Harvesting Bin
+7,Power_Pick_1,0.47,Packed Product,60 Tomatoes,Harvesting Bin
+8,Power_Pick_1,0.5,Packed Product,60 Tomatoes,Harvesting Bin
+9,Power_Pick_1,0.53,Packed Product,60 Tomatoes,Harvesting Bin
+10,Power_Pick_1,0.55,Packed Product,60 Tomatoes,Harvesting Bin
+11,Power_Pick_1,0.61,Packed Product,60 Tomatoes,Harvesting Bin
+12,Power_Pick_1,0.55,Packed Product,60 Tomatoes,Harvesting Bin
+13,Power_Pick_1,0.6,Packed Product,60 Tomatoes,Harvesting Bin
+14,Power_Pick_1,0.58,Packed Product,60 Tomatoes,Harvesting Bin
+15,Power_Pick_1,0.63,Packed Product,60 Tomatoes,Harvesting Bin
+16,Power_Pick_1,0.52,Packed Product,60 Tomatoes,Harvesting Bin
+17,Power_Pick_1,0.6,Packed Product,60 Tomatoes,Harvesting Bin
+18,Power_Pick_1,0.56,Packed Product,60 Tomatoes,Harvesting Bin
+19,Power_Pick_1,0.46,Packed Product,60 Tomatoes,Harvesting Bin
+20,Power_Pick_2,0.3,Packed Product,60 Tomatoes,Harvesting Bin
+21,Power_Pick_2,0.25,Packed Product,60 Tomatoes,Harvesting Bin
+22,Power_Pick_2,0.28,Packed Product,60 Tomatoes,Harvesting Bin
+23,Power_Pick_2,0.26,Packed Product,60 Tomatoes,Harvesting Bin
+24,Power_Pick_2,0.2,Packed Product,60 Tomatoes,Harvesting Bin
+25,Power_Pick_2,0.28,Packed Product,60 Tomatoes,Harvesting Bin
+26,Power_Pick_2,0.19,Packed Product,60 Tomatoes,Harvesting Bin
+27,Power_Pick_2,0.28,Packed Product,60 Tomatoes,Harvesting Bin
+28,Power_Pick_2,0.24,Packed Product,60 Tomatoes,Harvesting Bin
+29,Power_Pick_2,0.26,Packed Product,60 Tomatoes,Harvesting Bin
+30,Power_Pick_2,0.22,Packed Product,60 Tomatoes,Harvesting Bin
+31,Power_Pick_2,0.18,Packed Product,60 Tomatoes,Harvesting Bin
+32,Power_Pick_2,0.19,Packed Product,60 Tomatoes,Harvesting Bin
+33,Power_Pick_2,0.22,Packed Product,60 Tomatoes,Harvesting Bin
+34,Power_Pick_2,0.24,Packed Product,60 Tomatoes,Harvesting Bin
+35,Power_Pick_2,0.17,Packed Product,60 Tomatoes,Harvesting Bin
+36,Power_Pick_2,0.25,Packed Product,60 Tomatoes,Harvesting Bin
+37,Power_Pick_2,0.23,Packed Product,60 Tomatoes,Harvesting Bin
+38,Power_Pick_2,0.21,Packed Product,60 Tomatoes,Harvesting Bin
+39,Power_Pick_2,0.27,Packed Product,60 Tomatoes,Harvesting Bin
+40,Power_Pick_3,0.09,Packed Product,60 Tomatoes,Harvesting Bin
+41,Power_Pick_3,0.11,Packed Product,60 Tomatoes,Harvesting Bin
+42,Power_Pick_3,0.13,Packed Product,60 Tomatoes,Harvesting Bin
+43,Power_Pick_3,0.1,Packed Product,60 Tomatoes,Harvesting Bin
+44,Power_Pick_3,0.08,Packed Product,60 Tomatoes,Harvesting Bin
+45,Power_Pick_3,0.1,Packed Product,60 Tomatoes,Harvesting Bin
+46,Power_Pick_3,0.08,Packed Product,60 Tomatoes,Harvesting Bin
+47,Power_Pick_3,0.15,Packed Product,60 Tomatoes,Harvesting Bin
+48,Power_Pick_3,0.13,Packed Product,60 Tomatoes,Harvesting Bin
+49,Power_Pick_3,0.14,Packed Product,60 Tomatoes,Harvesting Bin
+50,Power_Pick_3,0.1,Packed Product,60 Tomatoes,Harvesting Bin
+51,Power_Pick_3,0.1,Packed Product,60 Tomatoes,Harvesting Bin
+52,Power_Pick_3,0.11,Packed Product,60 Tomatoes,Harvesting Bin
+53,Power_Pick_3,0.11,Packed Product,60 Tomatoes,Harvesting Bin
+54,Power_Pick_3,0.09,Packed Product,60 Tomatoes,Harvesting Bin
+55,Power_Pick_3,0.1,Packed Product,60 Tomatoes,Harvesting Bin
+56,Power_Pick_3,0.12,Packed Product,60 Tomatoes,Harvesting Bin
+57,Power_Pick_3,0.07,Packed Product,60 Tomatoes,Harvesting Bin
+58,Power_Pick_3,0.09,Packed Product,60 Tomatoes,Harvesting Bin
+59,Power_Pick_3,0.14,Packed Product,60 Tomatoes,Harvesting Bin
+0,Power_Pick_1,0.04,Packed Product,20 Tomato Mash,Harvesting Bin
+1,Power_Pick_1,0.03,Packed Product,20 Tomato Mash,Harvesting Bin
+2,Power_Pick_1,0.05,Packed Product,20 Tomato Mash,Harvesting Bin
+3,Power_Pick_1,0.07,Packed Product,20 Tomato Mash,Harvesting Bin
+4,Power_Pick_1,0.05,Packed Product,20 Tomato Mash,Harvesting Bin
+5,Power_Pick_1,0.08,Packed Product,20 Tomato Mash,Harvesting Bin
+6,Power_Pick_1,0.08,Packed Product,20 Tomato Mash,Harvesting Bin
+7,Power_Pick_1,0.05,Packed Product,20 Tomato Mash,Harvesting Bin
+8,Power_Pick_1,0.08,Packed Product,20 Tomato Mash,Harvesting Bin
+9,Power_Pick_1,0.12,Packed Product,20 Tomato Mash,Harvesting Bin
+10,Power_Pick_1,0.05,Packed Product,20 Tomato Mash,Harvesting Bin
+11,Power_Pick_1,0.07,Packed Product,20 Tomato Mash,Harvesting Bin
+12,Power_Pick_1,0.09,Packed Product,20 Tomato Mash,Harvesting Bin
+13,Power_Pick_1,0.05,Packed Product,20 Tomato Mash,Harvesting Bin
+14,Power_Pick_1,0.07,Packed Product,20 Tomato Mash,Harvesting Bin
+15,Power_Pick_1,0.07,Packed Product,20 Tomato Mash,Harvesting Bin
+16,Power_Pick_1,0.03,Packed Product,20 Tomato Mash,Harvesting Bin
+17,Power_Pick_1,0.07,Packed Product,20 Tomato Mash,Harvesting Bin
+18,Power_Pick_1,0.08,Packed Product,20 Tomato Mash,Harvesting Bin
+19,Power_Pick_1,0.03,Packed Product,20 Tomato Mash,Harvesting Bin
+20,Power_Pick_2,0.04,Packed Product,20 Tomato Mash,Harvesting Bin
+21,Power_Pick_2,0.07,Packed Product,20 Tomato Mash,Harvesting Bin
+22,Power_Pick_2,0.07,Packed Product,20 Tomato Mash,Harvesting Bin
+23,Power_Pick_2,0.06,Packed Product,20 Tomato Mash,Harvesting Bin
+24,Power_Pick_2,0.07,Packed Product,20 Tomato Mash,Harvesting Bin
+25,Power_Pick_2,0.04,Packed Product,20 Tomato Mash,Harvesting Bin
+26,Power_Pick_2,0.05,Packed Product,20 Tomato Mash,Harvesting Bin
+27,Power_Pick_2,0.06,Packed Product,20 Tomato Mash,Harvesting Bin
+28,Power_Pick_2,0.03,Packed Product,20 Tomato Mash,Harvesting Bin
+29,Power_Pick_2,0.03,Packed Product,20 Tomato Mash,Harvesting Bin
+30,Power_Pick_2,0.12,Packed Product,20 Tomato Mash,Harvesting Bin
+31,Power_Pick_2,0.03,Packed Product,20 Tomato Mash,Harvesting Bin
+32,Power_Pick_2,0.08,Packed Product,20 Tomato Mash,Harvesting Bin
+33,Power_Pick_2,0.07,Packed Product,20 Tomato Mash,Harvesting Bin
+34,Power_Pick_2,0.08,Packed Product,20 Tomato Mash,Harvesting Bin
+35,Power_Pick_2,0.04,Packed Product,20 Tomato Mash,Harvesting Bin
+36,Power_Pick_2,0.06,Packed Product,20 Tomato Mash,Harvesting Bin
+37,Power_Pick_2,0.04,Packed Product,20 Tomato Mash,Harvesting Bin
+38,Power_Pick_2,0.04,Packed Product,20 Tomato Mash,Harvesting Bin
+39,Power_Pick_2,0.05,Packed Product,20 Tomato Mash,Harvesting Bin
+40,Power_Pick_3,0.08,Packed Product,20 Tomato Mash,Harvesting Bin
+41,Power_Pick_3,0.05,Packed Product,20 Tomato Mash,Harvesting Bin
+42,Power_Pick_3,0.06,Packed Product,20 Tomato Mash,Harvesting Bin
+43,Power_Pick_3,0.02,Packed Product,20 Tomato Mash,Harvesting Bin
+44,Power_Pick_3,0.08,Packed Product,20 Tomato Mash,Harvesting Bin
+45,Power_Pick_3,0.04,Packed Product,20 Tomato Mash,Harvesting Bin
+46,Power_Pick_3,0.05,Packed Product,20 Tomato Mash,Harvesting Bin
+47,Power_Pick_3,0.09,Packed Product,20 Tomato Mash,Harvesting Bin
+48,Power_Pick_3,0.02,Packed Product,20 Tomato Mash,Harvesting Bin
+49,Power_Pick_3,0.06,Packed Product,20 Tomato Mash,Harvesting Bin
+50,Power_Pick_3,0.05,Packed Product,20 Tomato Mash,Harvesting Bin
+51,Power_Pick_3,0.04,Packed Product,20 Tomato Mash,Harvesting Bin
+52,Power_Pick_3,0.05,Packed Product,20 Tomato Mash,Harvesting Bin
+53,Power_Pick_3,0.11,Packed Product,20 Tomato Mash,Harvesting Bin
+54,Power_Pick_3,0.02,Packed Product,20 Tomato Mash,Harvesting Bin
+55,Power_Pick_3,0.05,Packed Product,20 Tomato Mash,Harvesting Bin
+56,Power_Pick_3,0.06,Packed Product,20 Tomato Mash,Harvesting Bin
+57,Power_Pick_3,0.05,Packed Product,20 Tomato Mash,Harvesting Bin
+58,Power_Pick_3,0.05,Packed Product,20 Tomato Mash,Harvesting Bin
+59,Power_Pick_3,0.07,Packed Product,20 Tomato Mash,Harvesting Bin
+0,Power_Pick_1,0.12,Packed Product,60 Tomato Mash,Harvesting Bin
+1,Power_Pick_1,0.16,Packed Product,60 Tomato Mash,Harvesting Bin
+2,Power_Pick_1,0.17,Packed Product,60 Tomato Mash,Harvesting Bin
+3,Power_Pick_1,0.18,Packed Product,60 Tomato Mash,Harvesting Bin
+4,Power_Pick_1,0.17,Packed Product,60 Tomato Mash,Harvesting Bin
+5,Power_Pick_1,0.17,Packed Product,60 Tomato Mash,Harvesting Bin
+6,Power_Pick_1,0.17,Packed Product,60 Tomato Mash,Harvesting Bin
+7,Power_Pick_1,0.16,Packed Product,60 Tomato Mash,Harvesting Bin
+8,Power_Pick_1,0.15,Packed Product,60 Tomato Mash,Harvesting Bin
+9,Power_Pick_1,0.19,Packed Product,60 Tomato Mash,Harvesting Bin
+10,Power_Pick_1,0.19,Packed Product,60 Tomato Mash,Harvesting Bin
+11,Power_Pick_1,0.19,Packed Product,60 Tomato Mash,Harvesting Bin
+12,Power_Pick_1,0.2,Packed Product,60 Tomato Mash,Harvesting Bin
+13,Power_Pick_1,0.15,Packed Product,60 Tomato Mash,Harvesting Bin
+14,Power_Pick_1,0.17,Packed Product,60 Tomato Mash,Harvesting Bin
+15,Power_Pick_1,0.12,Packed Product,60 Tomato Mash,Harvesting Bin
+16,Power_Pick_1,0.12,Packed Product,60 Tomato Mash,Harvesting Bin
+17,Power_Pick_1,0.25,Packed Product,60 Tomato Mash,Harvesting Bin
+18,Power_Pick_1,0.21,Packed Product,60 Tomato Mash,Harvesting Bin
+19,Power_Pick_1,0.13,Packed Product,60 Tomato Mash,Harvesting Bin
+20,Power_Pick_2,0.17,Packed Product,60 Tomato Mash,Harvesting Bin
+21,Power_Pick_2,0.11,Packed Product,60 Tomato Mash,Harvesting Bin
+22,Power_Pick_2,0.15,Packed Product,60 Tomato Mash,Harvesting Bin
+23,Power_Pick_2,0.13,Packed Product,60 Tomato Mash,Harvesting Bin
+24,Power_Pick_2,0.11,Packed Product,60 Tomato Mash,Harvesting Bin
+25,Power_Pick_2,0.19,Packed Product,60 Tomato Mash,Harvesting Bin
+26,Power_Pick_2,0.14,Packed Product,60 Tomato Mash,Harvesting Bin
+27,Power_Pick_2,0.15,Packed Product,60 Tomato Mash,Harvesting Bin
+28,Power_Pick_2,0.13,Packed Product,60 Tomato Mash,Harvesting Bin
+29,Power_Pick_2,0.15,Packed Product,60 Tomato Mash,Harvesting Bin
+30,Power_Pick_2,0.18,Packed Product,60 Tomato Mash,Harvesting Bin
+31,Power_Pick_2,0.13,Packed Product,60 Tomato Mash,Harvesting Bin
+32,Power_Pick_2,0.13,Packed Product,60 Tomato Mash,Harvesting Bin
+33,Power_Pick_2,0.15,Packed Product,60 Tomato Mash,Harvesting Bin
+34,Power_Pick_2,0.16,Packed Product,60 Tomato Mash,Harvesting Bin
+35,Power_Pick_2,0.19,Packed Product,60 Tomato Mash,Harvesting Bin
+36,Power_Pick_2,0.08,Packed Product,60 Tomato Mash,Harvesting Bin
+37,Power_Pick_2,0.14,Packed Product,60 Tomato Mash,Harvesting Bin
+38,Power_Pick_2,0.17,Packed Product,60 Tomato Mash,Harvesting Bin
+39,Power_Pick_2,0.12,Packed Product,60 Tomato Mash,Harvesting Bin
+40,Power_Pick_3,0.11,Packed Product,60 Tomato Mash,Harvesting Bin
+41,Power_Pick_3,0.15,Packed Product,60 Tomato Mash,Harvesting Bin
+42,Power_Pick_3,0.11,Packed Product,60 Tomato Mash,Harvesting Bin
+43,Power_Pick_3,0.14,Packed Product,60 Tomato Mash,Harvesting Bin
+44,Power_Pick_3,0.17,Packed Product,60 Tomato Mash,Harvesting Bin
+45,Power_Pick_3,0.14,Packed Product,60 Tomato Mash,Harvesting Bin
+46,Power_Pick_3,0.12,Packed Product,60 Tomato Mash,Harvesting Bin
+47,Power_Pick_3,0.14,Packed Product,60 Tomato Mash,Harvesting Bin
+48,Power_Pick_3,0.06,Packed Product,60 Tomato Mash,Harvesting Bin
+49,Power_Pick_3,0.08,Packed Product,60 Tomato Mash,Harvesting Bin
+50,Power_Pick_3,0.1,Packed Product,60 Tomato Mash,Harvesting Bin
+51,Power_Pick_3,0.08,Packed Product,60 Tomato Mash,Harvesting Bin
+52,Power_Pick_3,0.06,Packed Product,60 Tomato Mash,Harvesting Bin
+53,Power_Pick_3,0.07,Packed Product,60 Tomato Mash,Harvesting Bin
+54,Power_Pick_3,0.1,Packed Product,60 Tomato Mash,Harvesting Bin
+55,Power_Pick_3,0.09,Packed Product,60 Tomato Mash,Harvesting Bin
+56,Power_Pick_3,0.18,Packed Product,60 Tomato Mash,Harvesting Bin
+57,Power_Pick_3,0.08,Packed Product,60 Tomato Mash,Harvesting Bin
+58,Power_Pick_3,0.09,Packed Product,60 Tomato Mash,Harvesting Bin
+59,Power_Pick_3,0.12,Packed Product,60 Tomato Mash,Harvesting Bin

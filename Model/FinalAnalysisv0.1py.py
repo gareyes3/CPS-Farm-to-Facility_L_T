@@ -1765,6 +1765,7 @@ Exps_all.to_csv(path_or_buf = "C:\\Users\\Gustavo Reyes\\Documents\\GitHubFiles\
 
 #Harvesting Bucket!
 
+
 Outs_HB_0_0= Analysis_Loop(HA_Iterations = 20,
               Loop_Iterations = 100 ,
               Hazard_Mean = 132_000, 
@@ -2132,7 +2133,7 @@ Outputs_HB = [ Outs_HB_3_A,Outs_HB_3_B, Outs_HB_3_C, Outs_HB_3_D, Outs_HB_3_E, O
 Outputs_BIN = [ Outs_BIN_3_A,Outs_BIN_3_B, Outs_BIN_3_C, Outs_BIN_3_D, Outs_BIN_3_E, Outs_BIN_3_F,
                Outs_BIN_4_A,Outs_BIN_4_B, Outs_BIN_4_C, Outs_BIN_4_D, Outs_BIN_4_E, Outs_BIN_4_F]
 
-Types_L = ["Receiving","Receiving","Receiving","Receiving","Receiving","Receiving",
+Types_L = ["Baseline","Receiving","Receiving","Receiving","Receiving","Receiving","Receiving",
            "Packed Product", "Packed Product","Packed Product","Packed Product","Packed Product","Packed Product"]
 Mass_L = [
           "2 Tomatoes", "6 Tomatoes", "20 Tomatoes", "60 Tomatoes", "20 Tomato Mash", "60 Tomato Mash",
@@ -2142,7 +2143,7 @@ Mass_L = [
 Powers_all_ADD = pd.concat([ger_powers_fromlist(powers_list =Outputs_HB , Clustering = "Harvesting Bucket"),
                         ger_powers_fromlist(powers_list =Outputs_BIN , Clustering = "Harvesting Bin")])
 
-Powers_all_ADD.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Powers_Out_Additional.csv")
+Powers_all_ADD.to_csv(path_or_buf = "C:\\Users\\Gustavo Reyes\\Documents\\GitHubFiles\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Powers_Out_Additional.csv")
 
 #%%
 
@@ -2170,7 +2171,7 @@ Mass_L2 = ["Baseline",
 Exps_all_ADD = pd.concat([ger_exps_fromlist(exps_list =Outputs_HB , Clustering = "Harvesting Bucket"),
                         ger_exps_fromlist(exps_list =Outputs_BIN , Clustering = "Harvesting Bin")])
 
-Exps_all_ADD.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\TAC_Additional.csv")
+Exps_all_ADD.to_csv(path_or_buf = "C:\\Users\\Gustavo Reyes\\Documents\\GitHubFiles\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\TAC_Additional.csv")
 
 #%%
 def get_cont_samp(Outs):
@@ -2184,7 +2185,7 @@ Samp_Point_ADD = pd.concat([
      get_cont_samp(Outs = Outputs_BIN),
     ])
 
-Samp_Point_ADD.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\SampPoint_Additional.csv")
+Samp_Point_ADD.to_csv(path_or_buf = "C:\\Users\\Gustavo Reyes\\Documents\\GitHubFiles\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\SampPoint_Additional.csv")
 
 #%%
 def get_Prev_samp(Outs):
@@ -2198,4 +2199,4 @@ Samp_Point_Prev_ADD = pd.concat([
      get_Prev_samp(Outs = Outputs_BIN)
     ])
 
-Samp_Point_Prev_ADD.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PrevSampPoint_Additional.csv")
+Samp_Point_Prev_ADD.to_csv(path_or_buf = "C:\\Users\\Gustavo Reyes\\Documents\\GitHubFiles\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\PrevSampPoint_Additional.csv")
