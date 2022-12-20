@@ -14,7 +14,7 @@ library(forcats)
 # Power Analysis
 Reading in the data
 ```{r}
-Powers<-read.csv("Data_Tomato_Outputs/Powers_Out_Rep.csv")
+Powers<-read.csv("Data_Tomato_Outputs/Powers_Out_Rep2B.csv")
 ```
 
 ```{r}
@@ -76,7 +76,7 @@ ggsave(filename="Plot Outputs/Powers1011.png",width = 25, height = 15, units = "
 
 #Summary
 Powers_summary_qs<-Powers %>% 
-  group_by(Type, Mass,Cont) %>% 
+  group_by(Type, Mass,Cont, variable) %>% 
   summarise(mean = mean(value), q95 = quantile(value, 0.95), q05 = quantile(value, 0.05))
 
 write.csv(x = Powers_summary_qs, file = "Powers Summary.csv")
@@ -107,15 +107,24 @@ Cont_Prog$Type<-factor(Cont_Prog$Type,levels=c("Preharvest", "Harvest", "Receivi
 Cont_Prog$`Cont.Type`<-factor(Cont_Prog$`Cont.Type`,levels=c("100%", "10%", "1%", "0.1%"))
 
 
+Spread_names <-c(
+"100%"= "Widespread Unclustered", 
+"10%" = "10% Cluster", 
+"1%"="1% Cluster", 
+"0.1%" = "0.1% Cluster"
+)
+
 
 Cont_Prog %>% 
 ggplot(aes(x = Type, y = Cont,color = Pick))+
 #geom_point(position=position_jitterdodge(), alpha = 0.3, size = 1)+
 geom_boxplot()+
 xlab("Sampling Plan")+ ylab ("Total Adulteran Cells (TAC) at sampling point")+
-facet_wrap(~`Cont.Type`)+
+facet_wrap(~`Cont.Type`,labeller=as_labeller(Spread_names))+
 scale_y_continuous(labels = scales::comma)+
   theme_bw()
+
+ggsave(filename="Plot Outputs/Figure-S1-ContSampPoints.png",width = 25, height = 15, units = "cm", dpi = 600)
 
 
 Cont_Prog %>% 
@@ -142,14 +151,25 @@ Cont_Prog$Type<-factor(Cont_Prog$Type,levels=c("Preharvest", "Harvest", "Receivi
 Cont_Prog$`Cont.Type`<-factor(Cont_Prog$`Cont.Type`,levels=c("100%", "10%", "1%", "0.1%"))
 
 
+Spread_names <-c(
+"100%"= "Widespread Unclustered", 
+"10%" = "10% Cluster", 
+"1%"="1% Cluster", 
+"0.1%" = "0.1% Cluster"
+)
+
+
 Cont_Prog %>% 
 ggplot(aes(x = Type, y = Cont,color = Pick))+
 #geom_point(position=position_jitterdodge(), alpha = 0.3, size = 1)+
 geom_boxplot()+
-xlab("Sampling Plan")+ ylab ("Total Adulteran Cells (TAC) at sampling point")+
-facet_wrap(~`Cont.Type`, scales = "free_y")+
+xlab("Sampling Plan")+ ylab ("Prevalence (Tomatoes> 1CFU/Tomato Tomatoes) at sampling point")+
+facet_wrap(~`Cont.Type`, scales = "free_y",labeller=as_labeller(Spread_names))+
 scale_y_continuous(labels = scales::comma)+
   theme_bw()
+
+ggsave(filename="Plot Outputs/Figure-S2-PrevSampPoints.png",width = 25, height = 15, units = "cm", dpi = 600)
+
 
 Cont_Prog %>% 
   group_by(Type, `Cont.Type`) %>% 
@@ -214,10 +234,11 @@ Exps_RE %>%
   geom_point(position = position_dodge(width = 0.6), size =3)+
   #coord_flip()+
   facet_wrap(~Cont, labeller = as_labeller(Spread_names))+
+  scale_color_discrete(name="Sampling Plan")+
   xlab("Sampling at Process Stage")+
   ylab("Relative Efficacy Endpoint TAC")+
   theme_bw()+
-  scale_shape_manual(values = c(4,8,15,16,17,18,21)) 
+  scale_shape_manual(values = c(4,8,15,16,17,18,21),name="Sampling Plan") 
 
 ggsave(filename="Plot Outputs/Relative Efficacy.tiff",width = 25, height = 15, units = "cm", dpi = 600)
 ggsave(filename="Plot Outputs/Relative Efficacy.jpeg",width = 25, height = 15, units = "cm", dpi = 600)
@@ -304,6 +325,10 @@ TAC_ADD_RE %>%
   ylab("Relative Efficacy Endpoint TAC")+
   theme_bw()+
   scale_shape_manual(values = c(4,8,15,16,17,18,21)) 
+
+ggsave(filename="Plot Outputs/Relative Efficacy -Additional Outputs.jpeg",width = 25, height = 15, units = "cm", dpi = 600)
+
+
 ```
 
 

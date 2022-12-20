@@ -51,7 +51,10 @@ def Get_Power(df, Weight_After, Weight_Before, CFU_avail, Tot_Iter):
 def Get_Power_Bins(df, Weight_After, Weight_Before, CFU_avail, Tot_Iter): 
     Total_Rej = sum((df[Weight_After]-df[Weight_Before])>0 )
     Total_Avail = (sum(df[ CFU_avail]>0))
-    Power =  Total_Rej/Total_Avail
+    if Total_Avail>0:
+        Power =  Total_Rej/Total_Avail
+    else: 
+        Power = np.nan
     return [Total_Rej,Total_Avail,Power]
 
 #This is another function that extract the powers observed every pick
@@ -1699,6 +1702,32 @@ Powers_all = pd.concat([ger_powers_fromlist(powers_list =Outputs_100 , Clusterin
 
 #Powers_all.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Powers_Out11.csv")
 Powers_all.to_csv(path_or_buf = "C:\\Users\\Gustavo Reyes\\Documents\\GitHubFiles\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Powers_Out_Rep.csv")
+
+##Alternative Power
+
+def ger_powers_fromlist(powers_list, Clustering):
+    counter_1 = 0
+    list_df_powers= []
+    for i in powers_list:
+        df_out = get_Powers(df =i[7],Mass =Mass_L[counter_1] ,Type = Types_L[counter_1])
+        list_df_powers.append(df_out)
+        counter_1= counter_1+1
+    Powers_df = pd.concat(list_df_powers)
+    Powers_df['Cont'] = Clustering
+    return Powers_df
+    
+
+Powers_all = pd.concat([ger_powers_fromlist(powers_list =Outputs_100 , Clustering = "100%"),
+                        ger_powers_fromlist(powers_list =Outputs_010 , Clustering = "10%"),
+                        ger_powers_fromlist(powers_list =Outputs_001 , Clustering = "1%"),
+                        ger_powers_fromlist(powers_list =Outputs_0001 , Clustering = "0.1%")])
+
+#Powers_all.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Powers_Out11.csv")
+Powers_all.to_csv(path_or_buf = "C:\\Users\\gareyes3\\Documents\\GitHub\\CPS-Farm-to-Facility_L_T\\Model\\Data_Tomato_Outputs\\Powers_Out_Rep2B.csv")
+
+
+
+
 
 #%%
 def get_cont_samp(Outs):
