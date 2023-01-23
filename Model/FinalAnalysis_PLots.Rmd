@@ -52,7 +52,7 @@ ggplot(aes(x = Type, y = mean, color = Mass,shape = variable ,group = interactio
 
 
 Spread_names <-c(
-"100%"= "Widespread Unclustered", 
+"100%"= "Random Uniform (Widespread 100% Cluster)", 
 "10%" = "10% Cluster", 
 "1%"="1% Cluster", 
 "0.1%" = "0.1% Cluster"
@@ -108,7 +108,7 @@ Cont_Prog$`Cont.Type`<-factor(Cont_Prog$`Cont.Type`,levels=c("100%", "10%", "1%"
 
 
 Spread_names <-c(
-"100%"= "Widespread Unclustered", 
+"100%"= "Random Uniform (Widespread 100% Cluster)", 
 "10%" = "10% Cluster", 
 "1%"="1% Cluster", 
 "0.1%" = "0.1% Cluster"
@@ -152,7 +152,7 @@ Cont_Prog$`Cont.Type`<-factor(Cont_Prog$`Cont.Type`,levels=c("100%", "10%", "1%"
 
 
 Spread_names <-c(
-"100%"= "Widespread Unclustered", 
+"100%"= "Random Uniform (Widespread 100% Cluster)", 
 "10%" = "10% Cluster", 
 "1%"="1% Cluster", 
 "0.1%" = "0.1% Cluster"
@@ -187,18 +187,24 @@ Exps_all$Cont<-factor(Exps_all$Cont,levels=c("100%", "10%", "1%", "0.1%"))
 
 Exps_all$Type<-factor(Exps_all$Type,levels=c("Baseline","Preharvest", "Harvest", "Receiving", "Packed Product"))
 
+Spread_names <-c(
+"100%"= "Random Uniform (Widespread 100% Cluster)", 
+"10%" = "10% Cluster", 
+"1%"="1% Cluster", 
+"0.1%" = "0.1% Cluster"
+)
 
 
 Exps_all %>% 
   ggplot(aes(x = Type, y = Total_CFU, fill = Mass))+
   geom_col(position = position_dodge())+
-  facet_wrap(~Cont)+
+  facet_wrap(~Cont,labeller=as_labeller(Spread_names))+
   scale_y_continuous(labels = scales::comma)+
   ylab("Total CFU that reached the consumer")+
   xlab("Sampling Location")+
   theme_bw()
 
-ggsave(filename="Plot Outputs/Exps1011.tiff",width = 25, height = 15, units = "cm", dpi = 600)
+ggsave(filename="Plot Outputs/Exps1011.jpeg",width = 25, height = 15, units = "cm", dpi = 600)
 
 ```
 
@@ -221,7 +227,7 @@ Exps_RE$RE<-1-Exps_RE$RE
 
 
 Spread_names <-c(
-"100%"= "Widespread Unclustered", 
+"100%"= "Random Uniform (Widespread 100% Cluster)", 
 "10%" = "10% Cluster", 
 "1%"="1% Cluster", 
 "0.1%" = "0.1% Cluster"
@@ -240,7 +246,7 @@ Exps_RE %>%
   theme_bw()+
   scale_shape_manual(values = c(4,8,15,16,17,18,21),name="Sampling Plan") 
 
-ggsave(filename="Plot Outputs/Relative Efficacy.tiff",width = 25, height = 15, units = "cm", dpi = 600)
+#ggsave(filename="Plot Outputs/Relative Efficacy.tiff",width = 25, height = 15, units = "cm", dpi = 600)
 ggsave(filename="Plot Outputs/Relative Efficacy.jpeg",width = 25, height = 15, units = "cm", dpi = 600)
 
 write.csv(Exps_RE, file = "Exps_RE.csv")
