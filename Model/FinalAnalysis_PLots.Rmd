@@ -14,7 +14,7 @@ library(forcats)
 # Power Analysis
 Reading in the data
 ```{r}
-Powers<-read.csv("Data_Tomato_Outputs/Powers_Out_Rep2B.csv")
+Powers<-read.csv("Data_Tomato_Outputs/Powers_Out_Rep.csv")
 ```
 
 ```{r}
