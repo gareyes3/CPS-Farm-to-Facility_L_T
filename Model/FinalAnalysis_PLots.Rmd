@@ -672,7 +672,7 @@ TR_All_100$Sampling<-factor(TR_All_100$Sampling, levels=c("2 Tomatoes", "6 Tomat
 TR_All_100$ContSpread<-"10% Cluster"
 
 TR_All_100%>% 
-filter(Sampling == "2 Tomatoes" | Sampling == "20 Tomatoes") %>% 
+#filter(Sampling == "2 Tomatoes" | Sampling == "20 Tomatoes") %>% 
 ggplot()+
 geom_col(aes(x = X6, y = total,fill = class),position = position_identity(), alpha = 0.9)+
 geom_point(aes(x = X6, y =Prot_Rate*10000000), alpha = 0.5, size = 1)+
@@ -686,6 +686,7 @@ scale_y_continuous(labels = scales::comma,sec.axis = sec_axis(~./10000000, name 
 ggsave(filename="Plot Outputs/PP_100_HS_Trimmed.jpeg",width = 20, height = 15, units = "cm", dpi = 600)
 
 ```
+
 ```{r}
 PP_010<-read.csv("Data_Tomato_Outputs/pp_hs_1_010.csv")
 PP2_010<-read.csv("Data_Tomato_Outputs/pp_hs_2_010.csv")
