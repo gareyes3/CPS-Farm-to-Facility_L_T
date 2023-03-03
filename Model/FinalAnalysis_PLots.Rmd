@@ -39,16 +39,20 @@ Powers_Summary %>%
 ggplot(aes(x = Type, y = mean, color = Mass,shape = variable ,group = interaction(Mass, variable)))+
   #geom_point(stroke = 4,position = position_dodge(0.3))+
   #geom_line(aes(linetype= variable),size = 0.3,position = position_dodge(0.3))+
-  geom_pointrange(aes(ymin=CI_05, ymax=CI_95),position = position_dodge(0.5), size = 0.5)+
-  geom_errorbar(aes(ymin=CI_05, ymax=CI_95),width = 0.5, size =0.5,position = position_dodge(0.5))+
+  geom_pointrange(aes(ymin=CI_05, ymax=CI_95),position = position_dodge(0.7), size = 0.5)+
+  geom_errorbar(aes(ymin=CI_05, ymax=CI_95),width = 0.5, size =0.5,position = position_dodge(0.7))+
   ylab("Sampling Plan Power")+
   xlab("Sampling at Process Step")+
   #scale_size_manual(name = "Tomatoes Sampled")+
-  scale_color_discrete(name="Sampling Plan")+
+  scale_color_discrete(name="Sampling-Testing Plan")+
   scale_shape_discrete(name="Pick Number",labels = c("Power_Pick_1" ="Pick 1", "Power_Pick_2" ="Pick 2", "Power_Pick_3" ="Pick 3") )+
   scale_linetype_discrete(name="Pick Number",labels = c("Power_Pick_1" ="Pick 1", "Power_Pick_2" ="Pick 2", "Power_Pick_3" ="Pick 3"))+
   facet_wrap(~Cont,nrow = 2)+
   theme_bw()
+ggsave(filename="Plot Outputs/Powers_Per_Pick.jpeg",width = 25, height = 15, units = "cm", dpi = 600)
+
+
+write.csv(x = Powers_Summary, file = "Powers Summary Picks.csv")
 
 
 Spread_names <-c(
