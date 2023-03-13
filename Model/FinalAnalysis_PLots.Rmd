@@ -11,7 +11,7 @@ library(tidyverse)
 library(scales)
 library(forcats)
 ```
-# Power Analysis
+# Power Analysis, now called detection rate. 
 Reading in the data
 ```{r}
 Powers<-read.csv("Data_Tomato_Outputs/Powers_Out_Rep.csv")
@@ -25,6 +25,9 @@ Powers$Type<-as.factor(Powers$Type)
 Powers$Type<-factor(Powers$Type,levels=c("Preharvest", "Harvest", "Receiving", "Packed Product"))
 Powers$Mass<-factor(Powers$Mass,levels=c("2 Tomatoes", "6 Tomatoes", "20 Tomatoes", "60 Tomatoes","20 Tomato Mash", "60 Tomato Mash"))
 Powers$Cont<-factor(Powers$Cont,levels=c("100%", "10%", "1%", "0.1%"))
+
+anova<-aov(Powers$value~Powers$variable+Powers$Type+Powers$Mass+Powers$Cont)
+summary(anova)
 ```
 
 ```{r}
@@ -33,7 +36,14 @@ Powers_Summary = Powers %>%
   #summarise(mean = median(value), CI_95 = mean + margin_calc(value),CI_05 = mean - margin_calc(value))
   summarise(mean = median(value), CI_95 = quantile(value, 0.90),CI_05 = quantile(value, 0.1)) 
 
-Powers_Summary$Cont<-factor(Powers_Summary$Cont,levels=c("100%", "10%", "1%", "0.1%"))
+
+
+Powers_Summary$Cont<-str_replace("100%", string = Powers_Summary$Cont, replacement = "Widespread-100% Cluster")
+Powers_Summary$Cont<-str_replace("10%", string = Powers_Summary$Cont, replacement = "10% Cluster")
+Powers_Summary$Cont<-str_replace("1%$", string = Powers_Summary$Cont, replacement = "1% Cluster")
+Powers_Summary$Cont<-str_replace("0.1%$", string = Powers_Summary$Cont, replacement = "0.1% Cluster")
+
+Powers_Summary$Cont<-factor(Powers_Summary$Cont,levels=c("Widespread-100% Cluster", "10% Cluster", "1% Cluster", "0.1% Cluster"))
 
 Powers_Summary %>% 
 ggplot(aes(x = Type, y = mean, color = Mass,shape = variable ,group = interaction(Mass, variable)))+
@@ -41,15 +51,15 @@ ggplot(aes(x = Type, y = mean, color = Mass,shape = variable ,group = interactio
   #geom_line(aes(linetype= variable),size = 0.3,position = position_dodge(0.3))+
   geom_pointrange(aes(ymin=CI_05, ymax=CI_95),position = position_dodge(0.7), size = 0.5)+
   geom_errorbar(aes(ymin=CI_05, ymax=CI_95),width = 0.5, size =0.5,position = position_dodge(0.7))+
-  ylab("Sampling Plan Power")+
-  xlab("Sampling at Process Step")+
+  ylab("Detection Rate")+
+  xlab("Process Stage")+
   #scale_size_manual(name = "Tomatoes Sampled")+
   scale_color_discrete(name="Sampling-Testing Plan")+
   scale_shape_discrete(name="Pick Number",labels = c("Power_Pick_1" ="Pick 1", "Power_Pick_2" ="Pick 2", "Power_Pick_3" ="Pick 3") )+
   scale_linetype_discrete(name="Pick Number",labels = c("Power_Pick_1" ="Pick 1", "Power_Pick_2" ="Pick 2", "Power_Pick_3" ="Pick 3"))+
   facet_wrap(~Cont,nrow = 2)+
   theme_bw()
-ggsave(filename="Plot Outputs/Powers_Per_Pick.jpeg",width = 25, height = 15, units = "cm", dpi = 600)
+ggsave(filename="Plot Outputs-Figures/Powers_Per_Pick.jpeg",width = 25, height = 15, units = "cm", dpi = 600)
 
 
 write.csv(x = Powers_Summary, file = "Powers Summary Picks.csv")
@@ -112,7 +122,7 @@ Cont_Prog$`Cont.Type`<-factor(Cont_Prog$`Cont.Type`,levels=c("100%", "10%", "1%"
 
 
 Spread_names <-c(
-"100%"= "Random Uniform (Widespread 100% Cluster)", 
+"100%"= "Widespread 100% Cluster", 
 "10%" = "10% Cluster", 
 "1%"="1% Cluster", 
 "0.1%" = "0.1% Cluster"
@@ -128,7 +138,7 @@ facet_wrap(~`Cont.Type`,labeller=as_labeller(Spread_names))+
 scale_y_continuous(labels = scales::comma)+
   theme_bw()
 
-ggsave(filename="Plot Outputs/Figure-S1-ContSampPoints.png",width = 25, height = 15, units = "cm", dpi = 600)
+ggsave(filename="Plot Outputs-Figures/Figure-S1-ContSampPoints.png",width = 25, height = 15, units = "cm", dpi = 600)
 
 
 Cont_Prog %>% 
@@ -147,6 +157,7 @@ Cont_Prog$Type[Cont_Prog$Type == "H"] <- "Harvest"
 Cont_Prog$Type[Cont_Prog$Type == "R"] <- "Receiving"
 Cont_Prog$Type[Cont_Prog$Type == "PP"] <- "Packed Product"
 
+
 Cont_Prog$Type<-as.factor(Cont_Prog$Type)
 Cont_Prog$Pick<-as.factor(Cont_Prog$Pick)
 
@@ -156,7 +167,7 @@ Cont_Prog$`Cont.Type`<-factor(Cont_Prog$`Cont.Type`,levels=c("100%", "10%", "1%"
 
 
 Spread_names <-c(
-"100%"= "Random Uniform (Widespread 100% Cluster)", 
+"100%"= "Widespread - 100% Cluster", 
 "10%" = "10% Cluster", 
 "1%"="1% Cluster", 
 "0.1%" = "0.1% Cluster"
@@ -172,7 +183,7 @@ facet_wrap(~`Cont.Type`, scales = "free_y",labeller=as_labeller(Spread_names))+
 scale_y_continuous(labels = scales::comma)+
   theme_bw()
 
-ggsave(filename="Plot Outputs/Figure-S2-PrevSampPoints.png",width = 25, height = 15, units = "cm", dpi = 600)
+ggsave(filename="Plot Outputs-Figures/Figure-S2-PrevSampPoints.png",width = 25, height = 15, units = "cm", dpi = 600)
 
 
 Cont_Prog %>% 
@@ -181,7 +192,7 @@ Cont_Prog %>%
 
 ```
 
-#Consumer Exposure
+#Consumer Exposure, Fraction of cell rejected
 ```{r}
 Exps_all<-read.csv("Data_Tomato_Outputs/Exps_Rep.csv")
 
@@ -192,7 +203,7 @@ Exps_all$Cont<-factor(Exps_all$Cont,levels=c("100%", "10%", "1%", "0.1%"))
 Exps_all$Type<-factor(Exps_all$Type,levels=c("Baseline","Preharvest", "Harvest", "Receiving", "Packed Product"))
 
 Spread_names <-c(
-"100%"= "Random Uniform (Widespread 100% Cluster)", 
+"100%"= "Widespread 100% Cluster", 
 "10%" = "10% Cluster", 
 "1%"="1% Cluster", 
 "0.1%" = "0.1% Cluster"
@@ -212,7 +223,7 @@ ggsave(filename="Plot Outputs/Exps1011.jpeg",width = 25, height = 15, units = "c
 
 ```
 
-#Relative Exposure
+#Relative Exposure Fraction of cell rejected
 ```{r}
 Exps_all$Cont<-factor(Exps_all$Cont,levels=c("Baseline", "100%", "10%", "1%", "0.1%"))
 Exps_all$Type<-factor(Exps_all $Type,levels=c("Baseline","Preharvest", "Harvest", "Receiving", "Packed Product"))
@@ -231,7 +242,7 @@ Exps_RE$RE<-1-Exps_RE$RE
 
 
 Spread_names <-c(
-"100%"= "Random Uniform (Widespread 100% Cluster)", 
+"100%"= "Widespread 100% Cluster", 
 "10%" = "10% Cluster", 
 "1%"="1% Cluster", 
 "0.1%" = "0.1% Cluster"
@@ -244,14 +255,14 @@ Exps_RE %>%
   geom_point(position = position_dodge(width = 0.6), size =3)+
   #coord_flip()+
   facet_wrap(~Cont, labeller = as_labeller(Spread_names))+
-  scale_color_discrete(name="Sampling Plan")+
-  xlab("Sampling at Process Stage")+
-  ylab("Relative Efficacy Endpoint TAC")+
+  scale_color_discrete(name="Sampling-Testing Plan")+
+  xlab("Process Stage")+
+  ylab("Fraction of cells rejected")+
   theme_bw()+
-  scale_shape_manual(values = c(4,8,15,16,17,18,21),name="Sampling Plan") 
+  scale_shape_manual(values = c(4,8,15,16,17,18,21),name="Sampling-Testing Plan") 
 
 #ggsave(filename="Plot Outputs/Relative Efficacy.tiff",width = 25, height = 15, units = "cm", dpi = 600)
-ggsave(filename="Plot Outputs/Relative Efficacy.jpeg",width = 25, height = 15, units = "cm", dpi = 600)
+ggsave(filename="Plot Outputs-Figures/Relative Efficacy.jpeg",width = 25, height = 15, units = "cm", dpi = 600)
 
 write.csv(Exps_RE, file = "Exps_RE.csv")
 
@@ -324,19 +335,23 @@ TAC_ADD_RE$Type<-factor(TAC_ADD_RE$Type,levels=c("Baseline","Preharvest", "Harve
 
 TAC_ADD_RE$RE<-1-TAC_ADD_RE$RE
 
+Spread_names <-c(
+"Harvesting Bucket"= "Harvesting Bucket: 25 small cluster - Total 0.6%", 
+"Harvesting Bin" = "Harvesting Bin - 2.27% Cluster"
+)
 
 TAC_ADD_RE %>% 
   ggplot(aes(x = Type, y = RE, shape = Mass, color = Mass))+
   #geom_col(position = position_dodge())+
   geom_point(position = position_dodge(width = 0.6), size =3)+
   #coord_flip()+
-  facet_wrap(~Cont)+
-  xlab("Sampling at Process Stage")+
-  ylab("Relative Efficacy Endpoint TAC")+
+  facet_wrap(~Cont, labeller = as_labeller(Spread_names))+
+  xlab("Process Stage")+
+  ylab("Fraction of cells rejected")+
   theme_bw()+
   scale_shape_manual(values = c(4,8,15,16,17,18,21)) 
 
-ggsave(filename="Plot Outputs/Relative Efficacy -Additional Outputs.jpeg",width = 25, height = 15, units = "cm", dpi = 600)
+ggsave(filename="Plot Outputs-Figures/Relative Efficacy -Additional Outputs.jpeg",width = 20, height = 12, units = "cm", dpi = 600)
 
 
 ```
@@ -389,6 +404,8 @@ Exps_Other %>%
 
 
 ```
+
+
 #PP
 
 Protective Power PH
