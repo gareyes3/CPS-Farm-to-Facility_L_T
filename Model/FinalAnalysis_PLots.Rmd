@@ -38,12 +38,12 @@ Powers_Summary = Powers %>%
 
 
 
-Powers_Summary$Cont<-str_replace("100%", string = Powers_Summary$Cont, replacement = "Widespread-100% Cluster")
-Powers_Summary$Cont<-str_replace("10%", string = Powers_Summary$Cont, replacement = "10% Cluster")
-Powers_Summary$Cont<-str_replace("1%$", string = Powers_Summary$Cont, replacement = "1% Cluster")
-Powers_Summary$Cont<-str_replace("0.1%$", string = Powers_Summary$Cont, replacement = "0.1% Cluster")
+Powers_Summary$Cont<-str_replace("100%", string = Powers_Summary$Cont, replacement = "Widespread-100% Spread")
+Powers_Summary$Cont<-str_replace("10%", string = Powers_Summary$Cont, replacement = "10% Spread")
+Powers_Summary$Cont<-str_replace("1%$", string = Powers_Summary$Cont, replacement = "1% Spread")
+Powers_Summary$Cont<-str_replace("0.1%$", string = Powers_Summary$Cont, replacement = "0.1% Spread")
 
-Powers_Summary$Cont<-factor(Powers_Summary$Cont,levels=c("Widespread-100% Cluster", "10% Cluster", "1% Cluster", "0.1% Cluster"))
+Powers_Summary$Cont<-factor(Powers_Summary$Cont,levels=c("Widespread-100% Spread", "10% Spread", "1% Spread", "0.1% Spread"))
 
 Powers_Summary %>% 
 ggplot(aes(x = Type, y = mean, color = Mass,shape = variable ,group = interaction(Mass, variable)))+
@@ -51,25 +51,28 @@ ggplot(aes(x = Type, y = mean, color = Mass,shape = variable ,group = interactio
   #geom_line(aes(linetype= variable),size = 0.3,position = position_dodge(0.3))+
   geom_pointrange(aes(ymin=CI_05, ymax=CI_95),position = position_dodge(0.7), size = 0.5)+
   geom_errorbar(aes(ymin=CI_05, ymax=CI_95),width = 0.5, size =0.5,position = position_dodge(0.7))+
-  ylab("Detection Rate")+
+  ylab("Probability to detect contamination")+
   xlab("Process Stage")+
   #scale_size_manual(name = "Tomatoes Sampled")+
   scale_color_discrete(name="Sampling-Testing Plan")+
   scale_shape_discrete(name="Pick Number",labels = c("Power_Pick_1" ="Pick 1", "Power_Pick_2" ="Pick 2", "Power_Pick_3" ="Pick 3") )+
   scale_linetype_discrete(name="Pick Number",labels = c("Power_Pick_1" ="Pick 1", "Power_Pick_2" ="Pick 2", "Power_Pick_3" ="Pick 3"))+
   facet_wrap(~Cont,nrow = 2)+
-  theme_bw()
-ggsave(filename="Plot Outputs-Figures/Powers_Per_Pick.jpeg",width = 25, height = 15, units = "cm", dpi = 600)
+  theme_bw()+
+  theme(legend.position = "top")
 
+
+ggsave(filename="Plot Outputs-Figures/Powers_Per_Pick.jpeg",width = 25, height = 15, units = "cm", dpi = 600)
+ggsave(filename="Plot for Posters/Powers_Per_Pick.jpeg",width = 27, height = 14, units = "cm", dpi = 600)
 
 write.csv(x = Powers_Summary, file = "Powers Summary Picks.csv")
 
 
 Spread_names <-c(
-"100%"= "Random Uniform (Widespread 100% Cluster)", 
-"10%" = "10% Cluster", 
-"1%"="1% Cluster", 
-"0.1%" = "0.1% Cluster"
+"100%"= "Random Uniform (Widespread 100% Spread)", 
+"10%" = "10% Spread", 
+"1%"="1% Spread", 
+"0.1%" = "0.1% Spread"
 )
 
 #Boxplot
@@ -122,10 +125,10 @@ Cont_Prog$`Cont.Type`<-factor(Cont_Prog$`Cont.Type`,levels=c("100%", "10%", "1%"
 
 
 Spread_names <-c(
-"100%"= "Widespread 100% Cluster", 
-"10%" = "10% Cluster", 
-"1%"="1% Cluster", 
-"0.1%" = "0.1% Cluster"
+"100%"= "Widespread 100% Spread", 
+"10%" = "10% Spread", 
+"1%"="1% Spread", 
+"0.1%" = "0.1% Spread"
 )
 
 
@@ -138,7 +141,7 @@ facet_wrap(~`Cont.Type`,labeller=as_labeller(Spread_names))+
 scale_y_continuous(labels = scales::comma)+
   theme_bw()
 
-ggsave(filename="Plot Outputs-Figures/Figure-S1-ContSampPoints.png",width = 25, height = 15, units = "cm", dpi = 600)
+ggsave(filename="Plot Outputs-Figures/Figure-3-ContSampPoints.png",width = 25, height = 15, units = "cm", dpi = 600)
 
 
 Cont_Prog %>% 
@@ -167,10 +170,10 @@ Cont_Prog$`Cont.Type`<-factor(Cont_Prog$`Cont.Type`,levels=c("100%", "10%", "1%"
 
 
 Spread_names <-c(
-"100%"= "Widespread - 100% Cluster", 
-"10%" = "10% Cluster", 
-"1%"="1% Cluster", 
-"0.1%" = "0.1% Cluster"
+"100%"= "Widespread 100% Spread", 
+"10%" = "10% Spread", 
+"1%"="1% Spread", 
+"0.1%" = "0.1% Spread"
 )
 
 
@@ -178,12 +181,12 @@ Cont_Prog %>%
 ggplot(aes(x = Type, y = Cont,color = Pick))+
 #geom_point(position=position_jitterdodge(), alpha = 0.3, size = 1)+
 geom_boxplot()+
-xlab("Sampling Plan")+ ylab ("Prevalence (Tomatoes> 1CFU/Tomato Tomatoes) at sampling point")+
-facet_wrap(~`Cont.Type`, scales = "free_y",labeller=as_labeller(Spread_names))+
+xlab("Sampling Plan")+ ylab ("Prevalence (Tomatoes> 1CFU/Tomato) at sampling point")+
+facet_wrap(~`Cont.Type`,labeller=as_labeller(Spread_names))+
 scale_y_continuous(labels = scales::comma)+
   theme_bw()
 
-ggsave(filename="Plot Outputs-Figures/Figure-S2-PrevSampPoints.png",width = 25, height = 15, units = "cm", dpi = 600)
+ggsave(filename="Plot Outputs-Figures/Figure 4-PrevSampPoints.png",width = 25, height = 15, units = "cm", dpi = 600)
 
 
 Cont_Prog %>% 
